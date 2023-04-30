@@ -10,7 +10,7 @@
 *.pptx
 *.txt
 *.xlsm
-DBCreds.php
+classes/DBCreds.php
 tmpls
 upload
 templates
