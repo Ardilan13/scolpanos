@@ -2,13 +2,13 @@
 
 class appconfig
 {
-	private static $runmode = "PRODUCTION";
-	private static $httpmode = "HTTPS";
-	private static $dummymode = false;
-	private static $timer_cijfer_ls=60000; //Set time to execute cijfer_localstorage() function
+	private static $runmode = "DEVELOPMENT";
+	private static $httpmode = "HTTP";
+	private static $dummymode = true;
+	private static $timer_cijfer_ls = 60000; //Set time to execute cijfer_localstorage() function
 
-	private static $production_baseurl = "scolpanos.qwihi.com";
-	private static $development_baseurl = "server-apachecaribedev.rhcloud.com/scolpanos";
+	private static $production_baseurl = "localhost/scolpanos";
+	private static $development_baseurl = "localhost/scolpanos";
 
 	private static $schooljaar = "2017-2018";
 
@@ -36,12 +36,9 @@ class appconfig
 	{
 		$httpmode = strtolower(self::$httpmode);
 
-		if(self::$runmode == "PRODUCTION")
-		{
+		if (self::$runmode == "PRODUCTION") {
 			return $httpmode . "://" . self::$production_baseurl;
-		}
-		else if(self::$runmode == "DEVELOPMENT")
-		{
+		} else if (self::$runmode == "DEVELOPMENT") {
 			return $httpmode . "://" . self::$development_baseurl;
 		}
 	}
@@ -50,7 +47,4 @@ class appconfig
 	{
 		return self::$schooljaar;
 	}
-
 }
-
-?>
