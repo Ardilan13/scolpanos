@@ -1,0 +1,846 @@
+<?php
+require_once ("spn_setting.php");
+
+class spn_rapport_by_student
+{
+
+	public $tablename_students = "students";
+	public $exceptionvalue = "";
+	public $mysqlierror = "";
+	public $mysqlierrornumber = "";
+	public $debug = false;
+
+	public $DBCreds = null;
+	public $mysqli = null;
+
+
+	/* Excel variable */
+	public $rapport_reader = null;
+	public $rapport_modified = null;
+	public $rapport_writer = null;
+
+	public $activesheet_index = 0;
+
+	function __construct()
+	{
+
+	}
+
+	function _openexceltemplate()
+	{
+
+		require_once("../classes/3rdparty/PHPExcel/PHPExcel.php");
+		require_once("../classes/3rdparty/PHPExcel/PHPExcel/IOFactory.php");
+		require_once("../classes/3rdparty/PHPExcel/PHPExcel/Writer/Excel2007.php");
+
+		$this->rapport_reader = PHPExcel_IOFactory::createReader('Excel2007');
+		$this->rapport_modified = $this->rapport_reader->load("../templates/Witte_kaart_SPK_2018.xlsm");
+
+
+	}
+	function _exportexcelfile($exporttobrowser = true)
+	{
+
+		if($exporttobrowser)
+		{
+			/* add headers for output to browser */
+			header('Content-type: application/vnd.ms-excel.sheet.macroEnabled.12');
+			header('Content-Disposition: attachment; filename="Witte_kaart_SPK_2018.xlsx"');
+
+			/* add headers for output to browser */
+		}
+
+		$this->rapport_writer = PHPExcel_IOFactory::createWriter($this->rapport_modified,'Excel2007');
+		$this->rapport_writer->save('php://output');
+
+	}
+
+	function createrapport($schoolid,$schooljaar,$studentid, $generate_all_rapporten)
+	{
+
+		/* open the excel template */
+		if($generate_all_rapporten == true)
+		{
+			$this->_openexceltemplate();
+			$this->write_cijfer_data($schoolid,$schooljaar,$studentid);
+
+			/* export when done */
+			$this->_exportexcelfile();
+		}
+
+	}
+
+	function write_cijfer_data($schoolid,$schooljaar_rapport,$id_student)
+	{
+
+		$_default_scooljaar = "B4";
+		$_default_klas = "B5";
+		$_default_docent = "B6";
+
+		$_default_period_1 = "B";
+		$_default_period_2 = "C";
+		$_default_period_3 = "D";
+		$_colum_rapport = "";
+
+		require_once("DBCreds.php");
+
+		if($schooljaar_rapport == "All"){
+
+			$rapport_query = "SELECT distinct concat(s.firstname, ' ', s.lastname), c.gemiddelde,
+			v.volledigenaamvak, v.y_index, c.rapnummer, c.klas, c.schooljaar
+			FROM
+			le_cijfers c
+			inner join
+			le_vakken v on
+			c.vak = v.id
+			inner join
+			students s on
+			s.id = c.studentid
+			WHERE c.studentid = ? order by c.schooljaar, c.rapnummer, v.y_index asc;";
+
+			try
+			{
+				$DBCreds = new DBCreds();
+				$mysqli=new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
+				$mysqli->set_charset('utf8');
+				if($select=$mysqli->prepare($rapport_query)) {
+					if($select->bind_param("i",$id_student)){
+						if($select->execute())
+						{
+							$select->store_result();
+							$this->error = false;
+							if($select->num_rows > 0)
+							{
+								$result=1;
+								$select->bind_result($studentName ,$gemiddelde, $volledigenaamvak, $y_index,$rapnummer, $klas, $schooljaar);
+
+								$c = 0;
+								$counter_while = 0;
+								$current_schooljaar = "";
+								$last_schooljaar ="";
+
+								while($select->fetch())
+								{
+									if ($counter_while == 0 ){
+
+										$current_schooljaar = $schooljaar;
+
+										$this->rapport_modified->setActiveSheetIndex($this->activesheet_index)->setCellValue($_default_scooljaar,$schooljaar);
+										$this->rapport_modified->setActiveSheetIndex($this->activesheet_index)->setCellValue($_default_klas, $klas );
+										$this->rapport_modified->setActiveSheetIndex($this->activesheet_index)->setCellValue($_default_docent, "DOCENT" );
+										$this->write_verzuim_data($id_student, $schooljaar, "B");
+										$this->write_houding_data($id_student, $schooljaar, "B");
+										$this->write_avi_data($id_student,$schooljaar, "B");
+
+										if ($rapnummer == "1" ){
+											$colum_rapport ="B";
+										}
+										else if ($rapnummer == "2" ){
+											$colum_rapport ="C";
+										}
+										else{
+											$colum_rapport ="D";
+										}
+										$this->rapport_modified->setActiveSheetIndex($this->activesheet_index)->setCellValue($colum_rapport.(string)$y_index, $gemiddelde);
+
+									}
+
+									$last_schooljaar = $schooljaar;
+
+									if($current_schooljaar != $last_schooljaar)
+									{
+										$c++;
+										if ( $c==1 ){
+											$_default_scooljaar = "E4";
+											$_default_klas = "E5";
+											$_default_docent = "E6";
+
+											$this->write_verzuim_data($id_student, $schooljaar, "E");
+											$this->write_houding_data($id_student, $schooljaar, "E");
+											$this->write_avi_data($id_student,$schooljaar,"E");
+
+										}
+										if ( $c==2 ){
+
+											$_default_scooljaar = "H4";
+											$_default_klas = "H5";
+											$_default_docent = "H6";
+
+											$this->write_verzuim_data($id_student, $schooljaar, "H");
+											$this->write_houding_data($id_student, $schooljaar, "H");
+											$this->write_avi_data($id_student, $schooljaar,"H");
+
+										}
+										if ( $c==3 ){
+											$_default_scooljaar = "K4";
+											$_default_klas = "K5";
+											$_default_docent = "K6";
+											$this->write_verzuim_data($id_student, $schooljaar, "K");
+											$this->write_houding_data($id_student, $schooljaar, "H");
+											$this->write_avi_data($id_student, $schooljaar, "K");
+
+										}
+										if ( $c==4 ){
+											$_default_scooljaar = "N4";
+											$_default_klas = "N5";
+											$_default_docent = "N6";
+											$this->write_verzuim_data($id_student, $schooljaar, "N");
+											$this->write_houding_data($id_student, $schooljaar, "H");
+											$this->write_avi_data($id_student, $schooljaar,"N");
+
+
+										}
+										if ( $c==5 ){
+											$_default_scooljaar = "Q4";
+											$_default_klas = "Q5";
+											$_default_docent = "Q6";
+											$this->write_verzuim_data($id_student, $schooljaar, "Q");
+											$this->write_houding_data($id_student, $schooljaar, "H");
+											$this->write_avi_data($id_student, $schooljaar,"Q");
+
+										}
+										if ( $c==6 ){
+											$_default_scooljaar = "T4";
+											$_default_klas = "T5";
+											$_default_docent = "T6";
+											$this->write_verzuim_data($id_student, $schooljaar, "T");
+											$this->write_houding_data($id_student, $schooljaar, "T");
+											$this->write_avi_data($id_student, $schooljaar,"T");
+
+										}
+										if ( $c==7 ){
+											$_default_scooljaar = "W4";
+											$_default_klas = "W5";
+											$_default_docent = "W6";
+											$this->write_verzuim_data($id_student, $schooljaar, "W");
+											$this->write_houding_data($id_student, $schooljaar, "W");
+											$this->write_avi_data($id_student, $schooljaar,"W");
+
+										}
+
+										$current_schooljaar = $schooljaar;
+									}
+
+									// CHECK DE RAPPORT NUMBER AND SCHOOLJAAR NUMBER
+									if ($c==1){
+										if ($rapnummer == "1" ){
+											$colum_rapport ="E";
+										}
+										else if ($rapnummer == "2" ){
+											$colum_rapport ="F";
+										}
+										else{
+											$colum_rapport ="G";
+										}
+									}
+									if ( $c==2 ){
+										if ($rapnummer == "1" ){
+											$colum_rapport = "H";
+										}
+										else if ($rapnummer == "2" ){
+											$colum_rapport ="I";
+										}
+										else{
+											$colum_rapport ="J";
+										}
+
+									}
+									if ( $c==3 ){
+										if ($rapnummer == "1" ){
+											$colum_rapport ="K";
+										}
+										else if ($rapnummer == "2" ){
+											$colum_rapport ="L";
+										}
+										else{
+											$colum_rapport ="M";
+										}
+
+									}
+									if ( $c==4 ){
+										if ($rapnummer == "1" ){
+											$colum_rapport ="N";
+										}
+										else if ($rapnummer == "2" ){
+											$colum_rapport ="O";
+										}
+										else{
+											$colum_rapport ="P";
+										}
+
+									}
+									if ( $c==5 ){
+
+										if ($rapnummer == "1" ){
+											$colum_rapport ="Q";
+										}
+										else if ($rapnummer == "2" ){
+											$colum_rapport ="R";
+										}
+										else{
+											$colum_rapport ="S";
+										}
+
+									}
+									if ( $c==6 ){
+
+										if ($rapnummer == "1" ){
+											$colum_rapport ="T";
+										}
+										else if ($rapnummer == "2" ){
+											$colum_rapport ="U";
+										}
+										else{
+											$colum_rapport ="V";
+										}
+
+									}
+									if ( $c==7 ){
+
+										if ($rapnummer == "1" ){
+											$colum_rapport ="W";
+										}
+										else if ($rapnummer == "2" ){
+											$colum_rapport ="X";
+										}
+										else{
+											$colum_rapport ="Y";
+										}
+
+									}
+
+									$this->rapport_modified->setActiveSheetIndex($this->activesheet_index)->setCellValue($_default_scooljaar,$schooljaar);
+									$this->rapport_modified->setActiveSheetIndex($this->activesheet_index)->setCellValue($_default_klas, $klas );
+									$this->rapport_modified->setActiveSheetIndex($this->activesheet_index)->setCellValue($_default_docent, "DOCENT" );
+									if ($y_index != null){
+										$this->rapport_modified->setActiveSheetIndex($this->activesheet_index)->setCellValue($colum_rapport.(string)$y_index, $gemiddelde);
+									}
+									$this->rapport_modified->setActiveSheetIndex($this->activesheet_index)->setCellValue("B3", $studentName);
+
+
+									$counter_while++;
+
+								}
+
+							}
+						}
+					}
+				}
+			}
+			catch (Exception $e){
+				$error = $e->getMessage();
+				echo $error;
+			}
+		}
+		else{
+
+			$rapport_query = "SELECT distinct concat(s.firstname, ' ',  s.lastname) as studentname, c.gemiddelde,
+			v.volledigenaamvak, v.y_index, c.rapnummer, c.klas, c.schooljaar
+			FROM
+			le_cijfers c
+			inner join
+			le_vakken v on
+			c.vak = v.id
+			inner join
+			students s on
+			s.id = c.studentid
+			WHERE c.studentid = $id_student and schooljaar = '$schooljaar_rapport' order by c.schooljaar, c.rapnummer, v.y_index asc;";
+
+
+
+			try{
+				$DBCreds = new DBCreds();
+				$mysqli=new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
+				// $mysqli->set_charset('utf8');
+				if($select=$mysqli->prepare($rapport_query)) {
+					if($select->execute())
+					{
+						$select->store_result();
+						$this->error = false;
+						if($select->num_rows > 0)
+						{
+							$result=1;
+							$select->bind_result($studentName, $gemiddelde, $volledigenaamvak, $y_index,$rapnummer, $klas, $schooljaar);
+
+							$this->rapport_modified->setActiveSheetIndex($this->activesheet_index)->setCellValue($_default_scooljaar,$schooljaar_rapport);
+							$this->rapport_modified->setActiveSheetIndex($this->activesheet_index)->setCellValue($_default_docent, "DOCENT" );
+
+
+							$c = 0;
+
+							while($select->fetch())
+							{
+								if ($c==0){
+
+									$this->rapport_modified->setActiveSheetIndex($this->activesheet_index)->setCellValue($_default_klas, $klas );
+									$this->rapport_modified->setActiveSheetIndex($this->activesheet_index)->setCellValue('B3', $studentName);
+
+								}
+
+								if ($rapnummer == "1" ){
+									$colum_rapport ="B";
+								}
+								else if ($rapnummer == "2" ){
+									$colum_rapport ="C";
+								}
+								else{
+									$colum_rapport ="D";
+								}
+
+								if ($y_index != null){
+									$this->rapport_modified->setActiveSheetIndex($this->activesheet_index)->setCellValue($colum_rapport.(string)$y_index, $gemiddelde);
+								}
+
+
+								$c++;
+							}
+
+							$this->write_verzuim_data($id_student, $schooljaar_rapport, "B");
+							$this->write_houding_data($id_student, $schooljaar_rapport, "");
+							$this->write_avi_data($id_student,$schooljaar_rapport, "");
+						}
+					}
+				}
+			}
+			catch (Exception $e){
+				$error = $e->getMessage();
+				echo $error;
+			}
+		}
+	}
+
+	function write_verzuim_data($id_student, $schooljaar, $colum_schooljaar){
+
+		$activesheet_index = 0;
+		require_once("DBCreds.php");
+
+
+		$verzuim_query = "SELECT SUM(telaat) AS telaat, SUM(absentie) AS absentie, SUM(LP) as lp, SUM(toetsinhalen) as toetsinhalen,
+		SUM(uitsturen) AS uitsturen, SUM(huiswerk) AS huiswerk
+		FROM le_verzuim where studentid = $id_student and schooljaar = '$schooljaar';";
+
+		// print($verzuim_query);
+
+		try
+		{
+			$DBCreds = new DBCreds();
+			$mysqli=new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
+			$mysqli->set_charset('utf8');
+			if($select=$mysqli->prepare($verzuim_query)) {
+				if($select->execute())
+				{
+					$select->store_result();
+					$this->error = false;
+					if($select->num_rows > 0)
+					{
+						$result=1;
+						$select->bind_result($telaat, $absentie, $lp,$toetsinhalen, $uitsturen, $huiswerk);
+
+						while($select->fetch())
+						{
+							$this->rapport_modified->setActiveSheetIndex($this->activesheet_index)->setCellValue($colum_schooljaar."51",$huiswerk);
+							$this->rapport_modified->setActiveSheetIndex($this->activesheet_index)->setCellValue($colum_schooljaar."52", $telaat );
+							$this->rapport_modified->setActiveSheetIndex($this->activesheet_index)->setCellValue($colum_schooljaar."53", $absentie );
+						}
+					}
+				}
+			}
+		}
+		catch (Exception $e){
+			$error = $e->getMessage();
+			echo $error;
+		}
+
+
+	}
+	function write_houding_data($id_student, $schooljaar, $colum_schooljaar){
+
+		$activesheet_index = 0;
+		require_once("DBCreds.php");
+
+
+		$houding_query = "SELECT id,
+		schooljaar,	rapnummer,klas, h1, h2, h3, h4,	h5, h6, h7,	h8,	h9, h10, h11, h12, h13, h14,
+		h15, h16, h17, h18, h19, h20, h21, h22,	h23, h24, h25 FROM le_houding WHERE studentid = ? and schooljaar = ? order by schooljaar, rapnummer asc ;";
+
+		try
+		{
+			$DBCreds = new DBCreds();
+			$mysqli=new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
+			$mysqli->set_charset('utf8');
+			if($select=$mysqli->prepare($houding_query)) {
+				if($select->bind_param("is",$id_student, $schooljaar)){
+					if($select->execute())
+					{
+						$select->store_result();
+						$this->error = false;
+						if($select->num_rows > 0)
+						{
+							$result=1;
+							$select->bind_result($studentid, $schooljaar, $rapnummer, $klas, $h1, $h2, $h3, $h4, $h5, $h6, $h7, $h8,
+							$h9, $h10, $h11, $h12, $h13, $h14,$h15, $h16, $h17, $h18, $h19, $h20, $h21, $h22, $h23, $h24, $h25);
+							$c = 0;
+
+
+							$counter_while = 0;
+							$current_schooljaar = "";
+							$last_schooljaar ="";
+
+							$Leerk = "41";
+							$Leerl = "42";
+							$Zelfvert = "43";
+
+							$Nauwkeurigheid = "45";
+							$Doorzettingsvermogen = "46";
+							$Zelfstandigheid = "47";
+							$Werktempo = "48";
+							$Werkverzorging = "49";
+							$Concentratie = "50";
+
+							while($select->fetch())
+							{
+
+								if ($h1==1 || !isset($h1)){$_h1="A";}if ($h1==2){$_h1="B";}if ($h1==3){$_h1="C";}if ($h1==4){$_h1="D";}if ($h1==5){$_h1="E";}if ($h1==6){$_h1="F";}
+								if ($h2==1 || !isset($h2)){$_h2="A";}if ($h2==2){$_h2="B";}if ($h2==3){$_h2="C";}if ($h2==4){$_h2="D";}if ($h2==5){$_h2="E";}if ($h2==6){$_h2="F";}
+								if ($h3==1 || !isset($h3)){$_h3="A";}if ($h3==2){$_h3="B";}if ($h3==3){$_h3="C";}if ($h3==4){$_h3="D";}if ($h3==5){$_h3="E";}if ($h3==6){$_h3="F";}
+								if ($h4==1 || !isset($h4)){$_h4="A";}if ($h4==2){$_h4="B";}if ($h4==3){$_h4="C";}if ($h4==4){$_h4="D";}if ($h4==5){$_h4="E";}if ($h4==6){$_h4="F";}
+								if ($h5==1 || !isset($h5)){$_h5="A";}if ($h5==2){$_h5="B";}if ($h5==3){$_h5="C";}if ($h5==4){$_h5="D";}if ($h5==5){$_h5="E";}if ($h5==6){$_h5="F";}
+								if ($h6==1 || !isset($h6)){$_h6="A";}if ($h6==2){$_h6="B";}if ($h6==3){$_h6="C";}if ($h6==4){$_h6="D";}if ($h6==5){$_h6="E";}if ($h6==6){$_h6="F";}
+								if ($h7==1 || !isset($h7)){$_h7="A";}if ($h7==2){$_h7="B";}if ($h7==3){$_h7="C";}if ($h7==4){$_h7="D";}if ($h7==5){$_h7="E";}if ($h7==6){$_h7="F";}
+								if ($h8==1 || !isset($h8)){$_h8="A";}if ($h8==2){$_h8="B";}if ($h8==3){$_h8="C";}if ($h8==4){$_h8="D";}if ($h8==5){$_h8="E";}if ($h8==6){$_h8="F";}
+								if ($h9==1 || !isset($h9)){$_h9="A";}if ($h9==2){$_h9="B";}if ($h9==3){$_h9="C";}if ($h9==4){$_h9="D";}if ($h9==5){$_h9="E";}if ($h9==6){$_h9="F";}
+								if ($h10==1 || !isset($h10)){$_h10="A";}if ($h10==2){$_h10="B";}if ($h10==3){$_h10="C";}if ($h10==4){$_h10="D";}if ($h10==5){$_h10="E";}if ($h10==6){$_h10="F";}
+								if ($h11==1 || !isset($h11)){$_h11="A";}if ($h11==2){$_h11="B";}if ($h11==3){$_h11="C";}if ($h11==4){$_h11="D";}if ($h11==5){$_h11="E";}if ($h11==6){$_h11="F";}
+								if ($h12==1 || !isset($h12)){$_h12="A";}if ($h12==2){$_h12="B";}if ($h12==3){$_h12="C";}if ($h12==4){$_h12="D";}if ($h12==5){$_h12="E";}if ($h12==6){$_h12="F";}
+								if ($h13==1 || !isset($h13)){$_h13="A";}if ($h13==2){$_h13="B";}if ($h13==3){$_h13="C";}if ($h13==4){$_h13="D";}if ($h13==5){$_h13="E";}if ($h13==6){$_h13="F";}
+								if ($h14==1 || !isset($h14)){$_h14="A";}if ($h14==2){$_h14="B";}if ($h14==3){$_h14="C";}if ($h14==4){$_h14="D";}if ($h14==5){$_h14="E";}if ($h14==6){$_h14="F";}
+								if ($h15==1 || !isset($h15)){$_h15="A";}if ($h15==2){$_h15="B";}if ($h15==3){$_h15="C";}if ($h15==4){$_h15="D";}if ($h15==5){$_h15="E";}if ($h15==6){$_h15="F";}
+								if ($h16==1 || !isset($h16)){$_h16="A";}if ($h16==2){$_h16="B";}if ($h16==3){$_h16="C";}if ($h16==4){$_h16="D";}if ($h16==5){$_h16="E";}if ($h16==6){$_h16="F";}
+								if ($h17==1 || !isset($h17)){$_h17="A";}if ($h17==2){$_h17="B";}if ($h17==3){$_h17="C";}if ($h17==4){$_h17="D";}if ($h17==5){$_h17="E";}if ($h17==6){$_h17="F";}
+								if ($h18==1 || !isset($h18)){$_h18="A";}if ($h18==2){$_h18="B";}if ($h18==3){$_h18="C";}if ($h18==4){$_h18="D";}if ($h18==5){$_h18="E";}if ($h18==6){$_h18="F";}
+								if ($h19==1 || !isset($h19)){$_h19="A";}if ($h19==2){$_h19="B";}if ($h19==3){$_h19="C";}if ($h19==4){$_h19="D";}if ($h19==5){$_h19="E";}if ($h19==6){$_h19="F";}
+								if ($h20==1 || !isset($h20)){$_h20="A";}if ($h20==2){$_h20="B";}if ($h20==3){$_h20="C";}if ($h20==4){$_h20="D";}if ($h20==5){$_h20="E";}if ($h20==6){$_h20="F";}
+								if ($h21==1 || !isset($h21)){$_h21="A";}if ($h21==2){$_h21="B";}if ($h21==3){$_h21="C";}if ($h21==4){$_h21="D";}if ($h21==5){$_h21="E";}if ($h21==6){$_h21="F";}
+								if ($h22==1 || !isset($h22)){$_h22="A";}if ($h22==2){$_h22="B";}if ($h22==3){$_h22="C";}if ($h22==4){$_h22="D";}if ($h22==5){$_h22="E";}if ($h22==6){$_h22="F";}
+								if ($h23==1 || !isset($h23)){$_h23="A";}if ($h23==2){$_h23="B";}if ($h23==3){$_h23="C";}if ($h23==4){$_h23="D";}if ($h23==5){$_h23="E";}if ($h23==6){$_h23="F";}
+								if ($h24==1 || !isset($h24)){$_h24="A";}if ($h24==2){$_h24="B";}if ($h24==3){$_h24="C";}if ($h24==4){$_h24="D";}if ($h24==5){$_h24="E";}if ($h24==6){$_h24="F";}
+								if ($h25==1 || !isset($h25)){$_h25="A";}if ($h25==2){$_h25="B";}if ($h25==3){$_h25="C";}if ($h25==4){$_h25="D";}if ($h25==5){$_h25="E";}if ($h25==6){$_h25="F";}
+
+
+								if ($colum_schooljaar != "" ){
+
+									if ($colum_schooljaar=="B"){
+										$current_schooljaar = $schooljaar;
+
+										if ($rapnummer == "1" ){
+											$colum_rapport ="B";
+										}
+										else if ($rapnummer == "2" ){
+											$colum_rapport ="C";
+										}
+										else{
+											$colum_rapport ="D";
+										}
+									}
+									if ($colum_schooljaar=="E"){
+										$current_schooljaar = $schooljaar;
+
+										if ($rapnummer == "1" ){
+											$colum_rapport ="E";
+										}
+										else if ($rapnummer == "2" ){
+											$colum_rapport ="F";
+										}
+										else{
+											$colum_rapport ="G";
+										}
+									}
+									if ($colum_schooljaar=="H"){
+										$current_schooljaar = $schooljaar;
+
+										if ($rapnummer == "1" ){
+											$colum_rapport ="H";
+										}
+										else if ($rapnummer == "2" ){
+											$colum_rapport ="I";
+										}
+										else{
+											$colum_rapport ="J";
+										}
+									}
+									if ($colum_schooljaar=="K"){
+										$current_schooljaar = $schooljaar;
+
+										if ($rapnummer == "1" ){
+											$colum_rapport ="K";
+										}
+										else if ($rapnummer == "2" ){
+											$colum_rapport ="L";
+										}
+										else{
+											$colum_rapport ="M";
+										}
+									}
+									if ($colum_schooljaar=="N"){
+										$current_schooljaar = $schooljaar;
+
+										if ($rapnummer == "1" ){
+											$colum_rapport ="N";
+										}
+										else if ($rapnummer == "2" ){
+											$colum_rapport ="O";
+										}
+										else{
+											$colum_rapport ="P";
+										}
+									}
+									if ($colum_schooljaar=="Q"){
+										$current_schooljaar = $schooljaar;
+
+										if ($rapnummer == "1" ){
+											$colum_rapport ="Q";
+										}
+										else if ($rapnummer == "2" ){
+											$colum_rapport ="R";
+										}
+										else{
+											$colum_rapport ="S";
+										}
+									}
+									if ($colum_schooljaar=="T"){
+										$current_schooljaar = $schooljaar;
+
+										if ($rapnummer == "1" ){
+											$colum_rapport ="T";
+										}
+										else if ($rapnummer == "2" ){
+											$colum_rapport ="U";
+										}
+										else{
+											$colum_rapport ="V";
+										}
+									}
+									if ($colum_schooljaar=="W"){
+										$current_schooljaar = $schooljaar;
+
+										if ($rapnummer == "1" ){
+											$colum_rapport ="W";
+										}
+										else if ($rapnummer == "2" ){
+											$colum_rapport ="X";
+										}
+										else{
+											$colum_rapport ="Y";
+										}
+									}
+								}
+								else{
+
+									if ($rapnummer == "1" ){
+										$colum_rapport ="B";
+									}
+									else if ($rapnummer == "2" ){
+										$colum_rapport ="C";
+									}
+									else{
+										$colum_rapport ="D";
+									}
+
+								}
+
+								$this->rapport_modified->setActiveSheetIndex($this->activesheet_index)->setCellValue($colum_rapport.$Leerk,$_h1);
+								$this->rapport_modified->setActiveSheetIndex($this->activesheet_index)->setCellValue($colum_rapport.$Leerl,$_h2);
+								$this->rapport_modified->setActiveSheetIndex($this->activesheet_index)->setCellValue($colum_rapport.$Zelfvert,$_h3);
+
+								$this->rapport_modified->setActiveSheetIndex($this->activesheet_index)->setCellValue($colum_rapport.$Nauwkeurigheid,$_h4);
+								$this->rapport_modified->setActiveSheetIndex($this->activesheet_index)->setCellValue($colum_rapport.$Doorzettingsvermogen,$_h5);
+								$this->rapport_modified->setActiveSheetIndex($this->activesheet_index)->setCellValue($colum_rapport.$Zelfstandigheid,$_h6);
+								$this->rapport_modified->setActiveSheetIndex($this->activesheet_index)->setCellValue($colum_rapport.$Werktempo,$_h7);
+								$this->rapport_modified->setActiveSheetIndex($this->activesheet_index)->setCellValue($colum_rapport.$Werkverzorging,$_h8);
+								$this->rapport_modified->setActiveSheetIndex($this->activesheet_index)->setCellValue($colum_rapport.$Concentratie,$_h9);
+
+							}
+						}
+					}
+				}
+			}
+		}
+		catch (Exception $e){
+			$error = $e->getMessage();
+			echo $error;
+		}
+
+
+	}
+	function write_avi_data($id_student,$schooljaar_rapport, $colum_schooljaar)	{
+
+		$_default_avi = "B";
+
+		$_default_period_1 = "B";
+		$_default_period_2 = "C";
+		$_default_period_3 = "D";
+		$_colum_rapport = "";
+
+		$activesheet_index = 0;
+		require_once("DBCreds.php");
+
+
+		$avi_query = "SELECT distinct level, period,schooljaar from avi where id_student = ? and schooljaar = ? order by schooljaar asc;";
+
+		try
+		{
+
+			$DBCreds = new DBCreds();
+			$mysqli=new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
+			$mysqli->set_charset('utf8');
+			if($select=$mysqli->prepare($avi_query)) {
+				if($select->bind_param("is",$id_student, $schooljaar_rapport)){
+					if($select->execute())
+					{
+						$select->store_result();
+						$this->error = false;
+						if($select->num_rows > 0)
+						{
+							$result=1;
+							$select->bind_result($level,$rapnummer, $schooljaar);
+
+							$c = 0;
+							$counter_while = 0;
+							$current_schooljaar = "";
+							$last_schooljaar ="";
+
+							while($select->fetch())
+							{
+								if ($colum_schooljaar != "" ){
+
+									if ($colum_schooljaar=="B"){
+
+										if ($rapnummer == "1" ){
+											$colum_rapport ="B";
+										}
+										else if ($rapnummer == "2" ){
+											$colum_rapport ="C";
+										}
+										else{
+											$colum_rapport ="D";
+										}
+									}
+									if ($colum_schooljaar=="E"){
+
+										if ($rapnummer == "1" ){
+											$colum_rapport ="E";
+										}
+										else if ($rapnummer == "2" ){
+											$colum_rapport ="F";
+										}
+										else{
+											$colum_rapport ="G";
+										}
+									}
+									if ($colum_schooljaar=="H"){
+
+										if ($rapnummer == "1" ){
+											$colum_rapport ="H";
+										}
+										else if ($rapnummer == "2" ){
+											$colum_rapport ="I";
+										}
+										else{
+											$colum_rapport ="J";
+										}
+									}
+									if ($colum_schooljaar=="K"){
+
+										if ($rapnummer == "1" ){
+											$colum_rapport ="K";
+										}
+										else if ($rapnummer == "2" ){
+											$colum_rapport ="L";
+										}
+										else{
+											$colum_rapport ="M";
+										}
+									}
+									if ($colum_schooljaar=="N"){
+
+										if ($rapnummer == "1" ){
+											$colum_rapport ="N";
+										}
+										else if ($rapnummer == "2" ){
+											$colum_rapport ="O";
+										}
+										else{
+											$colum_rapport ="P";
+										}
+									}
+									if ($colum_schooljaar=="Q"){
+
+										if ($rapnummer == "1" ){
+											$colum_rapport ="Q";
+										}
+										else if ($rapnummer == "2" ){
+											$colum_rapport ="R";
+										}
+										else{
+											$colum_rapport ="S";
+										}
+									}
+									if ($colum_schooljaar=="T"){
+
+										if ($rapnummer == "1" ){
+											$colum_rapport ="T";
+										}
+										else if ($rapnummer == "2" ){
+											$colum_rapport ="U";
+										}
+										else{
+											$colum_rapport ="V";
+										}
+									}
+									if ($colum_schooljaar=="W"){
+
+										if ($rapnummer == "1" ){
+											$colum_rapport ="W";
+										}
+										else if ($rapnummer == "2" ){
+											$colum_rapport ="X";
+										}
+										else{
+											$colum_rapport ="Y";
+										}
+									}
+								}
+								else{
+
+									if ($rapnummer == "1" ){
+										$colum_rapport ="B";
+									}
+									else if ($rapnummer == "2" ){
+										$colum_rapport ="C";
+									}
+									else{
+										$colum_rapport ="D";
+									}
+
+								}
+
+
+								$this->rapport_modified->setActiveSheetIndex($this->activesheet_index)->setCellValue($colum_rapport."12", $level);
+								$counter_while++;
+							}
+
+						}
+					}
+				}
+			}
+		}
+		catch (Exception $e){
+			$error = $e->getMessage();
+			echo $error;
+		}
+
+	}
+
+
+}
+?>
