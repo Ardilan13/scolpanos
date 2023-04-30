@@ -4,7 +4,7 @@ class appconfig
 {
 	private static $runmode = "DEVELOPMENT";
 	private static $httpmode = "HTTP";
-	private static $dummymode = true;
+	private static $dummymode = false;
 	private static $timer_cijfer_ls = 60000; //Set time to execute cijfer_localstorage() function
 
 	private static $production_baseurl = "localhost/scolpanos";

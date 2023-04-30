@@ -17,8 +17,6 @@ if(session_status() == PHP_SESSION_NONE)
 //}
 
 $auth = new spn_authentication();
-$auth->CheckSessionValidity();
-
 ob_flush();
 
 ?>

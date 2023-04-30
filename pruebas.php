@@ -10,11 +10,17 @@ $s = new spn_setting();
 $s->getsetting_info($_SESSION["SchoolID"], false);
 $DBCreds = new DBCreds();
 $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort, $dummy);
+$select = "SELECT * FROM app_useraccounts";
+$y = 10742;
+$resultado1 = mysqli_query($mysqli, $select);
+while ($row = mysqli_fetch_assoc($resultado1)) {
+    echo $row["UserGUID"];
+}
 
 /* $auth->ChangePassword("dilancorr@gmail.com", "prueba123", false); */
-$bytes = random_bytes(20);
-var_dump(bin2hex($bytes));
-print($bytes);
+// $bytes = random_bytes(20);
+// var_dump(bin2hex($bytes));
+// print($bytes);
 
 
 /* $plaintexttoken = "123";
