@@ -10,7 +10,7 @@ if(session_status() == PHP_SESSION_NONE)
 
 	if(isset($_SESSION["UserRights"]) && isset($_SESSION["SchoolID"]))
 	{
-		if($_SESSION["UserRights"] ==  || $_SESSION["UserRights"] == "ASSISTENT")
+		if($_SESSION["UserRights"] == "ASSISTENT")
 		{
 			if(isset($_SESSION["Class"]))
 			{
@@ -26,8 +26,3 @@ if(session_status() == PHP_SESSION_NONE)
 
 		}
 	}
-
-
-
-
-?>
