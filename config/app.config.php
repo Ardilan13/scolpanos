@@ -47,4 +47,5 @@ class appconfig
 	{
 		return self::$schooljaar;
 	}
+
 }

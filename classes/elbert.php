@@ -83,7 +83,7 @@ class leerlingen
 							{
 								$fullusername = $firstname . " " . $lastname;
 
-								$htmlcontrol .="<td>". htmlentities($studentnumber) ."</td><td>". htmlentities($Voo) ."</td><td>""</td><td>""</td><td>""</td><td>""</td><td><a href="/leerling_details.php" class="link quaternary-color">show more <i class="fa fa-angle-double-right quaternary-color"></i></a></td>	" 
+								$htmlcontrol .="<td>". htmlentities($studentnumber) ."</td><td>". htmlentities($Voo) ."</td><td></td><td></td><td></td><td></td><td><a href='/leerling_details.php' class='link quaternary-color'>show more <i class='fa fa-angle-double-right quaternary-color'></i></a></td>	";
 
 								
 							}
@@ -191,5 +191,3 @@ class leerlingen
 
 
 }
-
-?>
