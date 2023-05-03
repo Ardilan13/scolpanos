@@ -1,6 +1,6 @@
 <!-- Ardilan: formulario cerrado -->
 
-<!-- <head>
+<head>
 	<title>AANMELDINGSFORMULIER</title>
 </head>
 
@@ -10,12 +10,12 @@
 		<img class="img-responsive" src="img/monplaisir123.png" alt="Scol Pa Nos" width="15%"><br>
 		<h2 style="color: red;">Aplicacion pa aña escolar 2022-2023 a sera !</h2>
 	</div>
-</body> -->
+</body>
 
 <!-- Ardilan: formulario abierto -->
-<?php require_once "config/app.config.php";
-ob_start();
-ob_flush() ?>
+<!-- <?php require_once "config/app.config.php";
+		ob_start();
+		ob_flush() ?>
 
 <head>
 	<title>AANMELDINGSFORMULIER</title>
@@ -1213,7 +1213,7 @@ ob_flush() ?>
 					<input name="geboortedatum_g4" type="date" class="input-text" placeholder=" " ><label class="form_label">Geboortedatum: / Fecha di Nacemento:</label>
 				</div>
 			</div>
-			<!-- <div class="info info-top">
+			-- <div class="info info-top">
 				<div class="form_group">
 					<input name="naam_g5" type="text" class="input-text" placeholder=" " ><label class="form_label">Naam: / Fam:</label>
 				</div>
@@ -1242,7 +1242,7 @@ ob_flush() ?>
 				<div class="form_group">
 					<input name="geboortedatum_g6" type="date" class="input-text" placeholder=" " ><label class="form_label">Geboortedatum: / Fecha di Nacemento:</label>
 				</div>
-			</div> -->
+			</div> --
 <div class="info info-top">
 	<div class="form_group" id="bishita">
 		<input name="gesproken" type="text" class="input-text" placeholder=" "><label class="form_label">Welke taal wordt thuis gesproken?</label>
@@ -1341,7 +1341,7 @@ ob_flush() ?>
 		<input name="klas_b4" type="text" class="input-text" placeholder=" "><label class="form_label">Klas:</label>
 	</div>
 </div>
-<!-- <div class="info info-top">
+-- <div class="info info-top">
 	<div class="form_group">
 		<input name="naam_b5" type="text" class="input-text" placeholder=" "><label class="form_label">Naam:</label>
 	</div>
@@ -1389,7 +1389,7 @@ ob_flush() ?>
 	<div class="form_group" id="bishita">
 		<input name="relevant" type="text" class="input-text" placeholder=" "><label class="form_label">Informatie die relevant is voor een goede start op school:</label>
 	</div>
-</div> -->
+</div> --
 
 <h2>Medishe Gegevens</h2>
 <div class="info">
@@ -1455,12 +1455,12 @@ ob_flush() ?>
 	<!-- <div class="form_group">
 		<label>Verklaring van censo:</label><input name="verklaring" type="file" accept="image/jpeg,image/jpg,image/png,.pdf,.docx">
 	</div> -->
-	<div class="form_group">
-		<label>Rapport klas 5:</label><input name="klas5" type="file" accept="image/jpeg,image/jpg,image/png,.pdf,.docx">
-	</div>
-	<div class="form_group">
-		<label>Rapport klas 6 P 1 en 2:</label><input name="klas6" type="file" accept="image/jpeg,image/jpg,image/png,.pdf,.docx">
-	</div>
+<div class="form_group">
+	<label>Rapport klas 5:</label><input name="klas5" type="file" accept="image/jpeg,image/jpg,image/png,.pdf,.docx">
+</div>
+<div class="form_group">
+	<label>Rapport klas 6 P 1 en 2:</label><input name="klas6" type="file" accept="image/jpeg,image/jpg,image/png,.pdf,.docx">
+</div>
 </div>
 
 <h2>Ouder/Verzorger 1:</h2>
@@ -1515,4 +1515,4 @@ ob_flush() ?>
 <div class="qwihi">
 	<a href="https://qwihi.com"><img id="logo" src="img/QwihiLogo.png" alt="qwihi" width="150px"></a>
 	<label id="qwihi">Your Imagination is our Creation.</label>
-</div>
+</div> -->
