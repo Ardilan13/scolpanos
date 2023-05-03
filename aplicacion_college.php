@@ -1452,9 +1452,9 @@
 	<div class="form_group">
 		<label>Doorstroomtoets in juni inleveren voor het afronden van de aanmelding.</label>
 	</div>
-	<!-- <div class="form_group">
+	-- <div class="form_group">
 		<label>Verklaring van censo:</label><input name="verklaring" type="file" accept="image/jpeg,image/jpg,image/png,.pdf,.docx">
-	</div> -->
+	</div> --
 <div class="form_group">
 	<label>Rapport klas 5:</label><input name="klas5" type="file" accept="image/jpeg,image/jpg,image/png,.pdf,.docx">
 </div>
