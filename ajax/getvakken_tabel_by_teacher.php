@@ -25,7 +25,7 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 	$result = $s->create_le_cijfer_student($_SESSION["SchoolJaar"], $_GET["cijfers_rapporten_lijst"], $_GET["list_class_teacher"], $_SESSION["SchoolID"], $_GET["cijfers_vakken_list_teacher"]);
 }
 
-if ($_SESSION['SchoolType'] == 2 || $_SESSION['SchoolID'] == 8 || $_SESSION['SchoolID'] == 11 || $_SESSION['SchoolID'] == 18) {
+if ($_SESSION['SchoolType'] == 2 || $_SESSION['SchoolID'] == 8 || $_SESSION['SchoolID'] == 18) {
 	print $s->listcijfers_hs($_SESSION["SchoolID"], $_GET["list_class_teacher"], $_GET["cijfers_vakken_list_teacher"], $_GET["cijfers_rapporten_lijst"], "", $_SESSION["SchoolJaar"]);
 } else {
 	print $s->listcijfers($_SESSION["SchoolID"], $_GET["list_class_teacher"], $_GET["cijfers_vakken_list_teacher"], $_GET["cijfers_rapporten_lijst"], "", $_SESSION["SchoolJaar"]);
