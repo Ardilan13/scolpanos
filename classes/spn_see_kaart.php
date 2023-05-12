@@ -896,21 +896,21 @@ class spn_see_kaart
                     } else {
 
                       $table .= "<td width='65%'>$complete_name ($vak_code)</td>";
-                      if ((float)$gemmindele1 >= 0 && $gemmindele1 != '' && $gemmindele1 != null) {
+                      if ((float)$gemmindele1 > 0.0 && $gemmindele1 != '' && $gemmindele1 != null) {
                         $average_divisor++;
                         $average = ($gemmindele1) / 1;
                       }
                       if ($rapnummer == 2) {
-                        if ((float)$gemmindele2 >= 0 && $gemmindele2 != '' && $gemmindele2 != null) {
+                        if ((float)$gemmindele2 > 0.0 && $gemmindele2 != '' && $gemmindele2 != null) {
                           $average_divisor++;
                           $average = ($gemmindele1 + $gemmindele2) / 2;
                         }
                       }
                       if ($rapnummer == 3) {
-                        if ((float)$gemmindele3 >= 0 && $gemmindele3 != '' && $gemmindele3 != null) {
+                        if ((float)$gemmindele3 > 0.0 && $gemmindele3 != null  && $gemmindele3 != "") {
                           $average_divisor++;
                           $average = ($gemmindele1 + $gemmindele2 + $gemmindele3) / 3;
-                        } else if ((float)$gemmindele2 >= 0 && $gemmindele2 != '' && $gemmindele2 != null) {
+                        } else if ((float)$gemmindele2 > 0.0 && $gemmindele2 != '' && $gemmindele2 != null) {
                           $average_divisor++;
                           $average = ($gemmindele1 + $gemmindele2) / 2;
                         }
