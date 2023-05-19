@@ -4755,29 +4755,36 @@ vak.append($("<option />").val(this.id).text(this.vak));
   $multilevelNav.find(".nav-item").on("click", function () {
     var $this = $(this);
 
-    $this.addClass("open active");
-    $this.parent(".multilevel").addClass("open active");
+    if ($this.parent(".multilevel").hasClass("active")) {
+      $this.removeClass("open");
+      $this.parent("li").removeClass("open");
+      $this.parent(".multilevel").removeClass("active");
+      $this.find("i").removeClass("fa-angle-down").addClass("fa-angle-left");
+    } else {
+      $this.addClass("open active");
+      $this.parent(".multilevel").addClass("open active");
 
-    $this.parent(".multilevel").siblings().removeClass("open active");
+      $this.parent(".multilevel").siblings().removeClass("open active");
 
-    $this.find("i").removeClass("fa-angle-down").addClass("fa-angle-left");
+      $this.find("i").removeClass("fa-angle-down").addClass("fa-angle-left");
 
-    $this.siblings().find(".nav-second-level").css({
-      display: "none",
-    });
+      $this.siblings().find(".nav-second-level").css({
+        display: "none",
+      });
 
-    $this.find("i").removeClass("fa-angle-left").addClass("fa-angle-down");
-    $this.parent("li").removeClass("open");
-    $this
-      .parent("li")
-      .siblings("li")
-      .find(".nav-item i")
-      .removeClass("fa-angle-down")
-      .addClass("fa-angle-left");
+      $this.find("i").removeClass("fa-angle-left").addClass("fa-angle-down");
+      $this.parent("li").removeClass("open");
+      $this
+        .parent("li")
+        .siblings("li")
+        .find(".nav-item i")
+        .removeClass("fa-angle-down")
+        .addClass("fa-angle-left");
 
-    $this.find(".nav-second-level").css({
-      display: "block",
-    });
+      $this.find(".nav-second-level").css({
+        display: "block",
+      });
+    }
 
     return false;
   });
