@@ -1147,7 +1147,6 @@ class spn_verzuim
 
         if ($select->bind_param("siss", $klas, $schoolid, $_SESSION['SchoolJaar'], $datum)) {
           if ($select->execute()) {
-            $this->error = false;
             $result = 1;
 
             $select->bind_result($studentid, $verzuimid, $_klas, $lastname, $firstname, $sex, $telaat, $absent, $toetsinhalen, $uitsturen, $huiswerk, $lp, $opmerking, $p1, $p2, $p3, $p4, $p5, $p6, $p7, $p8, $p9, $p10);
@@ -1167,7 +1166,17 @@ class spn_verzuim
 
               $htmlcontrol .= "<table id=\"dataRequest-verzuim\" class=\"table table-bordered table-colored table-houding\" data-table=\"no\">";
               $htmlcontrol .= "<thead>";
-              $htmlcontrol .= "<tr class=\"text-align-center\"> <th>ID</th><th class=\"btn-m-w\">Naam</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>Dag</th><th>Event</th></tr>";
+              $htmlcontrol .= "<tr class=\"text-align-center\"> <th>ID</th><th class=\"btn-m-w\">Naam</th>";
+              require_once("spn_utils.php");
+              $u = new spn_utils();
+              $date = $u->convertfrommysqldate_new($datum);
+              $select1 = $this->klasenboek_vak($schoolid, $klas, $date);
+              if ($select1 != null && $select1 != "") {
+                $htmlcontrol .= $select1;
+              } else {
+                $htmlcontrol .= "<th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>Dag</th>";
+              }
+              $htmlcontrol .= "<th>Event</th></tr>";
               $htmlcontrol .= "</thead>";
               $htmlcontrol .= "<tbody>";
               $x = 1;
@@ -1220,8 +1229,6 @@ class spn_verzuim
           }
         } else {
           /* error binding parameters */
-          $this->error = true;
-          $this->errormessage = $mysqli->error;
           $result = 0;
 
           if ($this->debug) {
@@ -1230,7 +1237,6 @@ class spn_verzuim
         }
       } else {
         /* error preparing query */
-        $this->error = true;
         $this->errormessage = $mysqli->error;
         $result = 0;
 
@@ -1242,7 +1248,6 @@ class spn_verzuim
       $returnvalue = $htmlcontrol;
       return $returnvalue;
     } catch (Exception $e) {
-      $this->error = true;
       $this->errormessage = $e->getMessage();
       $result = 0;
 
@@ -1252,6 +1257,84 @@ class spn_verzuim
     }
 
     return $returnvalue;
+  }
+
+  function klasenboek_vak($schoolID, $klas, $datum)
+  {
+    $html1 = "";
+    $html2 = "";
+    $html3 = "";
+    $html4 = "";
+    $html5 = "";
+    $html6 = "";
+    $html7 = "";
+    $html8 = "";
+    $html9 = "";
+    $html10 = "";
+    $p1 = 0;
+    $p2 = 0;
+    $p3 = 0;
+    $p4 = 0;
+    $p5 = 0;
+    $p6 = 0;
+    $p7 = 0;
+    $p8 = 0;
+    $p9 = 0;
+    $p10 = 0;
+    require_once("DBCreds.php");
+    $DBCreds = new DBCreds();
+    date_default_timezone_set("America/Aruba");
+    $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
+    $get_vak = "SELECT distinct v.ID, v.volledigenaamvak from le_vakken v where v.SchoolID = $schoolID and v.Klas = '$klas' and volgorde <> 99 order by v.volledigenaamvak asc;";
+    $result = mysqli_query($mysqli, $get_vak);
+    while ($row1 = mysqli_fetch_assoc($result)) {
+      $vaks[] = array("id" => $row1['ID'], "vak" => $row1['volledigenaamvak']);
+    }
+
+
+    $select_klas = "SELECT id,p1,p2,p3,p4,p5,p6,p7,p8,p9,p10 FROM klassenboek_vak where schoolid = $schoolID and klas = '$klas' and datum = '$datum'";
+    $resultado = mysqli_query($mysqli, $select_klas);
+    if ($resultado->num_rows > 0) {
+      while ($row = mysqli_fetch_assoc($resultado)) {
+        $id = $row['id'];
+        $p1 = $row['p1'];
+        $p2 = $row['p2'];
+        $p3 = $row['p3'];
+        $p4 = $row['p4'];
+        $p5 = $row['p5'];
+        $p6 = $row['p6'];
+        $p7 = $row['p7'];
+        $p8 = $row['p8'];
+        $p9 = $row['p9'];
+        $p10 = $row['p10'];
+      }
+    } else {
+      $insert = "INSERT INTO klassenboek_vak (schoolid,klas,datum) VALUES ($schoolID,'$klas','$datum')";
+      $mysqli->query($insert);
+    }
+
+    $final = "";
+
+    for ($i = 1; $i <= 10; $i++) {
+      $html = "html" . $i;
+      $$html .= '<th class="th_vaks">';
+      $$html .= '<select class="select_vaks" klas="' . $klas . '" datum="' . $datum . '" name="vak_' . $i . '" id="' . $i . '">';
+      $$html .= '<option value="0">' . $i . '</option>';
+      $x = 'p' . $i;
+      foreach ($vaks as $vak) {
+        if ($vak["id"] == $$x) {
+          $conf = " selected";
+        } else {
+          $conf = "";
+        }
+        $$html .= '<option ' . $conf . ' value="' . $vak["id"] . '">' . $vak["vak"] . '</option>';
+      }
+      $$html .= '</select>';
+      $$html .= '</th>';
+      $final .= $$html;
+    }
+
+    return $final;
   }
 
 

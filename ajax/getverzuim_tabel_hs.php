@@ -263,5 +263,26 @@ if (
                 $(this).val('')
             }
         })
+
+        $('.select_vaks').change(function(e) {
+            e.preventDefault();
+            p = $(this).attr('id');
+            vak = $(this).val();
+            klas = $(this).attr('klas');
+            datum = $(this).attr('datum');
+            $.ajax({
+                url: "ajax/update_klasenboek_vak.php",
+                type: 'POST',
+                data: {
+                    klas: klas,
+                    datum: datum,
+                    vak: vak,
+                    p: p,
+                },
+                success: function(response) {
+                    console.log(response);
+                }
+            });
+        })
     })
 </script>

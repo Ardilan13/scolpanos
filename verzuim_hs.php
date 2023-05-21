@@ -21,6 +21,16 @@
     } else { ?>
 
         <style>
+            .select_vaks {
+                font-size: 12px !important;
+                font-weight: 500 !important;
+            }
+
+            .th_vaks {
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+            }
+
             .scroll {
                 overflow: auto;
             }

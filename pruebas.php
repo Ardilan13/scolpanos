@@ -11,10 +11,83 @@ $s->getsetting_info($_SESSION["SchoolID"], false);
 $DBCreds = new DBCreds();
 $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort, $dummy);
 
+/* $datum = $u->convertfrommysqldate_new("21-05-2023");
+$klas = "1A";
+$schoolID = 13;
+
+$get_vak = "SELECT distinct v.ID, v.volledigenaamvak from le_vakken v where v.SchoolID = $schoolID and v.Klas = '$klas' and volgorde <> 99 order by v.volledigenaamvak asc;";
+$result = mysqli_query($mysqli, $get_vak);
+while ($row1 = mysqli_fetch_assoc($result)) {
+    $vaks[] = array("id" => $row1['ID'], "vak" => $row1['volledigenaamvak']);
+}
+
+
+$select_klas = "SELECT id,p1,p2,p3,p4,p5,p6,p7,p8,p9,p10 FROM klassenboek_vak where schoolid = $schoolID and klas = '$klas' and datum = '$datum'";
+$resultado = mysqli_query($mysqli, $select_klas);
+if ($resultado->num_rows > 0) {
+    while ($row = mysqli_fetch_assoc($resultado)) {
+        $id = $row['id'];
+        $p1 = $row['p1'];
+        $p2 = $row['p2'];
+        $p3 = $row['p3'];
+        $p4 = $row['p4'];
+        $p5 = $row['p5'];
+        $p6 = $row['p6'];
+        $p7 = $row['p7'];
+        $p8 = $row['p8'];
+        $p9 = $row['p9'];
+        $p10 = $row['p10'];
+    }
+} else {
+    $insert = "INSERT INTO klassenboek_vak (schoolid,klas,datum) VALUES ($schoolID,'$klas','$datum')";
+    $mysqli->query($insert);
+}
+
+$final = "";
+
+for ($i = 1; $i <= 10; $i++) {
+    $select = "select" . $i;
+    $$select .= '<th>';
+    $$select .= '<select name="vak_' . $i . '" id="vak_' . $i . '">';
+    $$select .= '<option value="0">' . $i . '</option>';
+    $x = 'p' . $i;
+    foreach ($vaks as $vak) {
+        if ($vak["id"] == $$x) {
+            $conf = " selected";
+        } else {
+            $conf = "";
+        }
+        $$select .= '<option ' . $conf . ' value="' . $vak["id"] . '">' . $vak["vak"] . '</option>';
+    }
+    $$select .= '</select>';
+    $$select .= '</th>';
+    $final .= $$select;
+}
+
+echo "<script>console.log('" . $final . "');</script>";
+echo $final; */
+
+
+/* $get_vak = "SELECT distinct v.ID, v.volledigenaamvak from le_vakken v where v.SchoolID = 13 and v.Klas = '1A' and volgorde <> 99 order by v.volledigenaamvak asc;";
+$result = mysqli_query($mysqli, $get_vak);
+while ($row1 = mysqli_fetch_assoc($result)) {
+    $vaks[] = array("id" => $row1['ID'], "vak" => $row1['volledigenaamvak']);
+}
+
+for ($i = 1; $i <= 10; $i++) {
+    $select = "select" . $i;
+    $$select = '<select name="vak_' . $i . '" id="vak_' . $i . '">';
+    $$select .= '<option value="0">' . $i . '</option>';
+    foreach ($vaks as $vak) {
+        $$select .= '<option value="' . $vak["id"] . '">' . $vak["vak"] . '</option>';
+    }
+    $$select .= '</select>';
+    echo $$select;
+} */
 /* $auth->ChangePassword("dilancorr@gmail.com", "prueba123", false); */
-$bytes = random_bytes(20);
+/* $bytes = random_bytes(20);
 var_dump(bin2hex($bytes));
-print($bytes);
+print($bytes); */
 
 
 /* $plaintexttoken = "123";
