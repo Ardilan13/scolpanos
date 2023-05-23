@@ -13,7 +13,7 @@ $mysqli->set_charset('utf8');
 $scol = $_POST["scol"];
 $tipo = $_POST["tipo"];
 if ($scol == 11) {
-    $query = "SELECT ID,type,status,naam,voornamen,roepnaam,sexo,geboorteland,f_nacemento,adres,districto,identiteitsbewijs,verklaring,klas5,klas6,profielh3,profielh4,mavo4,profielm4,email,email_p,email_m FROM aplicacion_college WHERE type = '$tipo' ORDER BY ID ASC";
+    $query = "SELECT ID,type,status,naam,voornamen,roepnaam,sexo,afleverende,geboorteland,f_nacemento,adres,districto,identiteitsbewijs,verklaring,klas5,klas6,profielh3,profielh4,mavo4,profielm4,email,email_p,email_m FROM aplicacion_college WHERE type = '$tipo' ORDER BY ID ASC";
 } else if ($scol == 10) {
     $query = "SELECT ID,status,fam,nomber,sexo,f_nacemento,districto,ruman,collega,number_mayor1,number_mayor2,prome_preferencia,segundo_preferencia,email_mayor1,email_mayor2 FROM aplicacion_forms ORDER BY ID ASC";
 } else if ($scol == 3) {
@@ -75,6 +75,7 @@ if ($scol != null) {
                         <th class="datum">Voornamen</th>
                         <th class="datum">Roepnaam</th>
                         <th class="sex">Sexo</th>
+                        <th>Scol</th>
                         <th>Email</th>
                         <th>Email Padre</th>
                         <th>Email Madre</th>
@@ -117,6 +118,7 @@ if ($scol != null) {
                                         } else {
                                             echo 'F';
                                         } ?></th>
+                        <th><?php echo $row["afleverende"] ?></th>
                         <th><?php echo $row["email"] ?></th>
                         <th><?php echo $row["email_p"] ?></th>
                         <th><?php echo $row["email_m"] ?></th>
