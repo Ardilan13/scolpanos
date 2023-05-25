@@ -11,6 +11,14 @@ $s->getsetting_info($_SESSION["SchoolID"], false);
 $DBCreds = new DBCreds();
 $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort, $dummy);
 
+/* $email = "dilancorr@gmail.com";
+$headers = 'From: no-reply@qwihi.com' . "\r\n" . 'Reply-To: havompc.aanmelding@gmail.com'  . "\r\n" . 'MIME-Version: 1.0' . "\r\n" . 'Content-type: multipart/mixed;';
+$subject = "Aanmelding MPCH";
+$correo1 = "Hierbij ontvangt u een belangrijk bericht van de Mon Plaisir College havo.
+Zie brief in de bijlage.";
+
+mail($email, $subject, $correo1, $headers); */
+
 /* $datum = $u->convertfrommysqldate_new("21-05-2023");
 $klas = "1A";
 $schoolID = 13;
