@@ -25,11 +25,11 @@ $period = "";
 
 $u = new spn_user_hs_account();
 
-$IsTutor = $u->check_mentor_in_klas($_GET["klas"], $_SESSION["UserGUID"],"Klas", appconfig::GetDummy());
+$IsTutor = $u->check_mentor_in_klas($_GET["klas"], $_SESSION["UserGUID"], "Klas", appconfig::GetDummy());
 
 $IsTutorinVak = $u->check_mentor_in_klas_and_vak($_GET["klas"], $_SESSION["UserGUID"], $vak_selected, appconfig::GetDummy());
 
-$IsMyVak = $u->check_is_docent_vak($_GET["klas"],$_SESSION["UserGUID"],$vak_selected,appconfig::GetDummy());
+$IsMyVak = $u->check_is_docent_vak($_GET["klas"], $_SESSION["UserGUID"], $vak_selected, appconfig::GetDummy());
 
 if (
     isset($_SESSION["UserRights"]) &&
@@ -62,7 +62,7 @@ if (
     //     $period = $_GET["period_hs"];
     // }
 
-    
+
 
     $create_verzuim = $s->create_le_verzuim_student(
         $_SESSION["SchoolID"],
@@ -70,7 +70,8 @@ if (
         $_GET["klas"],
         0,
         $_GET["datum"],
-        $vak_selected );
+        $vak_selected
+    );
 
     if ($_SESSION["UserRights"] == "DOCENT") {
         if ($IsTutor == 1) {
@@ -79,25 +80,25 @@ if (
                     $_SESSION["SchoolID"],
                     $_GET["klas"],
                     $_GET["datum"],
-                    $period,
-                    $vak_selected
+                    $vak_selected,
+                    1
                 );
             } else {
                 print $s->listverzuim_hs(
                     $_SESSION["SchoolID"],
                     $_GET["klas"],
                     $_GET["datum"],
-                    $period,
-                    $vak_selected
+                    $vak_selected,
+                    1
                 );
             }
-        } else {
+        } else if ($IsMyVak == 1) {
             print $s->listverzuim_hs(
                 $_SESSION["SchoolID"],
                 $_GET["klas"],
                 $_GET["datum"],
-                $period,
-                $vak_selected
+                $vak_selected,
+                1
             );
         }
     } elseif (
@@ -109,8 +110,8 @@ if (
             $_SESSION["SchoolID"],
             $_GET["klas"],
             $_GET["datum"],
-            $period,
-            $vak_selected
+            $vak_selected,
+            1
         );
     }
 }
@@ -118,11 +119,9 @@ if (
 ?>
 
 <script>
+    $("#loader_spn").toggleClass('hidden');
 
-	$("#loader_spn").toggleClass('hidden');
-
-    function saveverzuimdata(SchoolJaar,schoolid,studentid,_klas,datum,verzuimid,controlid,controlp)
-    {
+    function saveverzuimdata(SchoolJaar, schoolid, studentid, _klas, datum, verzuimid, controlid, controlp) {
         var vakid = $("#verzuim_vakken_lijst").val()
 
         var p1 = "";
@@ -136,73 +135,87 @@ if (
         var p9 = "";
         var p10 = "";
 
-        if(controlp == "p1")
-            p1 = $("#"+controlid).val();
+        if (controlp == "p1")
+            p1 = $("#" + controlid).val();
 
-        if(controlp == "p2")
-            p2 = $("#"+controlid).val();
-        
-        if(controlp == "p3")
-            p3 = $("#"+controlid).val();
-        
-        if(controlp == "p4")
-            p4 = $("#"+controlid).val();   
+        if (controlp == "p2")
+            p2 = $("#" + controlid).val();
 
-        if(controlp == "p5")
-            p5 = $("#"+controlid).val();
-    
-        if(controlp == "p6")
-            p6 = $("#"+controlid).val();
+        if (controlp == "p3")
+            p3 = $("#" + controlid).val();
 
-        if(controlp == "p7")
-            p7 = $("#"+controlid).val();
+        if (controlp == "p4")
+            p4 = $("#" + controlid).val();
 
-        if(controlp == "p8")
-            p8 = $("#"+controlid).val();
-        
-        if(controlp == "p9")
-            p9 = $("#"+controlid).val();
-        
-        if(controlp == "p10")
-            p10 = $("#"+controlid).val();
-            
+        if (controlp == "p5")
+            p5 = $("#" + controlid).val();
+
+        if (controlp == "p6")
+            p6 = $("#" + controlid).val();
+
+        if (controlp == "p7")
+            p7 = $("#" + controlid).val();
+
+        if (controlp == "p8")
+            p8 = $("#" + controlid).val();
+
+        if (controlp == "p9")
+            p9 = $("#" + controlid).val();
+
+        if (controlp == "p10")
+            p10 = $("#" + controlid).val();
+
         $.ajax({
-                url: "ajax/create_le_verzuim_student.php",
-                type  : 'POST',
-                //dataType: "Json",
-                //data: "school_id="+schoolid,
-                data: { school_id: schoolid, schooljaar: SchoolJaar, klas: _klas, datum: datum, vak: vakid, studentid: studentid, p1: p1, p2: p2, p3: p3, p4: p4, p5: p5, p6: p6, p7: p7, p8: p8, p9: p9, p10: p10  },
-                success: function(response)
-                 {
-                    console.log(response);                    
-                 }
-		});
+            url: "ajax/create_le_verzuim_student.php",
+            type: 'POST',
+            //dataType: "Json",
+            //data: "school_id="+schoolid,
+            data: {
+                school_id: schoolid,
+                schooljaar: SchoolJaar,
+                klas: _klas,
+                datum: datum,
+                vak: vakid,
+                studentid: studentid,
+                p1: p1,
+                p2: p2,
+                p3: p3,
+                p4: p4,
+                p5: p5,
+                p6: p6,
+                p7: p7,
+                p8: p8,
+                p9: p9,
+                p10: p10
+            },
+            success: function(response) {
+                console.log(response);
+            }
+        });
 
     }
 
-    $('.add_event').click(function(e){
+    $('.add_event').click(function(e) {
         e.preventDefault()
         var event = $(this).attr('event')
         $.ajax({
             url: 'ajax/get_studentid_event_hs.php',
             type: 'POST',
             async: true,
-            data: {event:event},
+            data: {
+                event: event
+            },
 
-        success:function(response){
-            console.log(response);
-            $('#id_student').val(response);
-            $('#studentid').val(response);
-        },
-        error:function(error){
-            console.log(error);
-        }
-    })
+            success: function(response) {
+                console.log(response);
+                $('#id_student').val(response);
+                $('#studentid').val(response);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        })
         $(".modal").fadeIn()
-    
-})
 
-
-
+    })
 </script>
-

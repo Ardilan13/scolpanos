@@ -92,7 +92,17 @@ ob_flush();
 						<li>
 							<a class="nav-item disabled" disabled="disabled" href="facturen_overzicht.php" role="button">Financieel</a>
 						</li>
-						<li><a id="sub_nav_setting" class="nav-item" href="setting.php" role="button">Settings</a></li>
+						<?php if ($_SESSION["SchoolType"] == 2) { ?>
+							<li class="multilevel">
+								<a class="nav-item" href="#" role="button">Settings<i class="fa fa-angle-left pull-right"></i></a>
+								<ul class="nav nav-second-level">
+									<li> <a href="setting.php">Trimester wijzigingen</a></li>
+									<li> <a href="rooster.php">Rooster</a></li>
+								</ul>
+							</li>
+						<?php } else { ?>
+							<li><a id="sub_nav_setting" class="nav-item" href="setting.php" role="button">Settings</a></li>
+						<?php } ?>
 						<li>
 							<a class="nav-item disabled" href="#" role="button">Groepsplan</a>
 						</li>

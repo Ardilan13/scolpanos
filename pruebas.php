@@ -11,6 +11,8 @@ $s->getsetting_info($_SESSION["SchoolID"], false);
 $DBCreds = new DBCreds();
 $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort, $dummy);
 
+echo date('l', strtotime("2021-05-20"));
+
 /* $email = "dilancorr@gmail.com";
 $headers = 'From: no-reply@qwihi.com' . "\r\n" . 'Reply-To: havompc.aanmelding@gmail.com'  . "\r\n" . 'MIME-Version: 1.0' . "\r\n" . 'Content-type: multipart/mixed;';
 $subject = "Aanmelding MPCH";

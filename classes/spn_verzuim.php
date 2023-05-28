@@ -1291,8 +1291,8 @@ class spn_verzuim
       $vaks[] = array("id" => $row1['ID'], "vak" => $row1['volledigenaamvak']);
     }
 
-
-    $select_klas = "SELECT id,p1,p2,p3,p4,p5,p6,p7,p8,p9,p10 FROM klassenboek_vak where schoolid = $schoolID and klas = '$klas' and datum = '$datum'";
+    $day = date('l', strtotime($datum));
+    $select_klas = "SELECT id,p1,p2,p3,p4,p5,p6,p7,p8,p9,p10 FROM klassenboek_vak where schoolid = $schoolID and klas = '$klas' and day = '$day' and schooljaar = '" . $_SESSION['SchoolJaar'] . "'";
     $resultado = mysqli_query($mysqli, $select_klas);
     if ($resultado->num_rows > 0) {
       while ($row = mysqli_fetch_assoc($resultado)) {
@@ -1308,28 +1308,21 @@ class spn_verzuim
         $p9 = $row['p9'];
         $p10 = $row['p10'];
       }
-    } else {
-      $insert = "INSERT INTO klassenboek_vak (schoolid,klas,datum) VALUES ($schoolID,'$klas','$datum')";
-      $mysqli->query($insert);
     }
 
     $final = "";
 
     for ($i = 1; $i <= 10; $i++) {
       $html = "html" . $i;
-      $$html .= '<th class="th_vaks">';
-      $$html .= '<select class="select_vaks" klas="' . $klas . '" datum="' . $datum . '" name="vak_' . $i . '" id="' . $i . '">';
-      $$html .= '<option value="0">' . $i . '</option>';
+      $$html .= '<th>';
       $x = 'p' . $i;
+      $conf = "";
       foreach ($vaks as $vak) {
         if ($vak["id"] == $$x) {
-          $conf = " selected";
-        } else {
-          $conf = "";
+          $conf = $vak["vak"];
         }
-        $$html .= '<option ' . $conf . ' value="' . $vak["id"] . '">' . $vak["vak"] . '</option>';
       }
-      $$html .= '</select>';
+      $$html .= ($conf == "") ? ($i == 10 ? 'Dag' : $i) : $conf;
       $$html .= '</th>';
       $final .= $$html;
     }

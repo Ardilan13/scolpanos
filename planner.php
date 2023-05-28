@@ -113,7 +113,7 @@
 		e.preventDefault()
 
 		$.ajax({
-			url: "ajax/get_planner.php",
+			url: "ajax/get_rooster.php",
 			data: $('#form-week').serialize(),
 			type: "POST",
 			dataType: "text",
