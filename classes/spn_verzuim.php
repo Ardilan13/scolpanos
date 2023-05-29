@@ -1094,6 +1094,7 @@ class spn_verzuim
     $sql_query = "";
     $htmlcontrol = "";
     $returdata = "";
+    ($_SESSION['UserRights'] == 'BEHEER') ? $user = '' : $user = 'disabled';
     $l1 = array();
     $l2 =  array();
     $l3 =  array();
@@ -1202,8 +1203,16 @@ class spn_verzuim
 
                 $htmlcontrol .= "<td><input class='klasen_p' maxlength='1' style='max-width: 30px;' type='text' onchange='saveverzuimdata(" . "&#39;" . $_SESSION['SchoolJaar'] . "&#39;" . "," . "&#39;" . $schoolid . "&#39;" . "," . "&#39;" . $studentid . "&#39;" . "," . "&#39;" . $_klas . "&#39;" . "," . "&#39;" . $datum . "&#39;" . "," . "&#39;" . $verzuimid . "&#39;" . "," . "&#39;" . "lp9" . $x . "&#39;" .  "," . "&#39;" . "p9" . "&#39;" . ")' verzuim=\"$verzuimid\" id =\"lp9$x\" value=" . $p9 . "></td>";
 
-                $htmlcontrol .= "<td><input class='klasen_p' maxlength='1' style='max-width: 30px;' type='text' onchange='saveverzuimdata(" . "&#39;" . $_SESSION['SchoolJaar'] . "&#39;" . "," . "&#39;" . $schoolid . "&#39;" . "," . "&#39;" . $studentid . "&#39;" . "," . "&#39;" . $_klas . "&#39;" . "," . "&#39;" . $datum . "&#39;" . "," . "&#39;" . $verzuimid . "&#39;" . "," . "&#39;" . "lp10" . $x . "&#39;" .  "," . "&#39;" . "p10" . "&#39;" . ")' verzuim=\"$verzuimid\" id =\"lp10$x\" value=" . $p10 . "></td>";
-
+                $htmlcontrol .= "<td><select fila='" . $x . "' class='select_dag' " . $user  . " onchange='saveverzuimdata(" . "&#39;" . $_SESSION['SchoolJaar'] . "&#39;" . "," . "&#39;" . $schoolid . "&#39;" . ","  . "&#39;" . $studentid . "&#39;" . "," . "&#39;" . $_klas . "&#39;" . "," . "&#39;" . $datum . "&#39;" . "," . "&#39;" . $verzuimid . "&#39;" . "," . "&#39;" . "lp10" . $x . "&#39;" . "," . "&#39;" . "p10" . "&#39;" . ")' verzuim=\"$verzuimid\" id =\"lp10$x\">
+                <option value=\"0\"></option>
+                <option value=\"L\"" . ($p10 == 'L' ? "selected" : "") . ">L</option>
+                <option value=\"A\"" . ($p10 == 'A' ? "selected" : "") . ">A</option>
+                <option value=\"X\"" . ($p10 == 'X' ? "selected" : "") . ">X</option>
+                <option value=\"M\"" . ($p10 == 'M' ? "selected" : "") . ">M</option>
+               <option value=\"S\"" . ($p10 == 'S' ? "selected" : "") . ">S</option>
+               <option value=\"U\"" . ($p10 == 'U' ? "selected" : "") . ">U</option>
+               <option value=\"T\"" . ($p10 == 'T' ? "selected" : "") . ">T</option>
+                </select></td>";
                 $htmlcontrol .= "<td><button class='add_event' event='$studentid' style='background-color: #FFDC66; border: 2px solid black; border-radius: 5px;'>+</button></td>";
                 $x++;
                 $xx++;
@@ -1555,6 +1564,7 @@ class spn_verzuim
             $mysqli->close();
             $result = 100;
             echo " creando complerte";
+            echo $p1 . " " . $p2 . " " . $p3 . " " . $p4 . " " . $p5 . " " . $p6 . " " . $p7 . " " . $p8 . " " . $p9 . " " . $p10;
           } else {
             $result = 0;
             echo $this->mysqlierror = $mysqli->error;

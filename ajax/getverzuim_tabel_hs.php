@@ -123,6 +123,7 @@ if (
     function saveverzuimdata(SchoolJaar, schoolid, studentid, _klas, datum, verzuimid, controlid, controlp) {
         var vakid = $("#verzuim_vakken_lijst").val()
 
+        var x = []
         var p1 = "";
         var p2 = "";
         var p3 = "";
@@ -200,10 +201,49 @@ if (
         if (controlp == "p10")
             if ($("#" + controlid).val() == 'A' || $("#" + controlid).val() == 'a' || $("#" + controlid).val() == 'L' || $("#" + controlid).val() == 'l' || $("#" + controlid).val() == 'X' || $("#" + controlid).val() == 'x' || $("#" + controlid).val() == 'S' || $("#" + controlid).val() == 's' || $("#" + controlid).val() == 'M' || $("#" + controlid).val() == 'm' || $("#" + controlid).val() == 'U' || $("#" + controlid).val() == 'u' || $("#" + controlid).val() == 'T' || $("#" + controlid).val() == 't') {
                 p10 = $("#" + controlid).val().toUpperCase();
+                verzuim = $("#" + controlid).val();
+                fila = $("#" + controlid).attr('fila');
+                for (i = 1; i <= 9; i++) {
+                    if ($('#lp' + i + fila).val() == '' || $('#lp' + i + fila).val() == 0 || $('#lp' + i + fila).val() == null) {
+                        $('#lp' + i + fila).val(verzuim);
+                        x[i] = verzuim;
+                    }
+                }
+                x.forEach(function(v, i) {
+                    switch (i) {
+                        case 1:
+                            p1 = v;
+                            break;
+                        case 2:
+                            p2 = v;
+                            break;
+                        case 3:
+                            p3 = v;
+                            break;
+                        case 4:
+                            p4 = v;
+                            break;
+                        case 5:
+                            p5 = v;
+                            break;
+                        case 6:
+                            p6 = v;
+                            break;
+                        case 7:
+                            p7 = v;
+                            break;
+                        case 8:
+                            p8 = v;
+                            break;
+                        case 9:
+                            p9 = v;
+                            break;
+                    }
+                });
             } else {
                 p10 = 0;
             }
-
+        console.log(x)
         $.ajax({
             url: "ajax/create_le_verzuim_student.php",
             type: 'POST',
@@ -283,6 +323,17 @@ if (
                     console.log(response);
                 }
             });
+        })
+
+        $('.select_dag').change(function(e) {
+            e.preventDefault();
+            verzuim = $(this).val();
+            fila = $(this).attr('fila');
+            for (i = 1; i <= 9; i++) {
+                if ($('#lp' + i + '_' + fila).val() == '' || $('#lp' + i + '_' + fila).val() == 0 || $('#lp' + i + '_' + fila).val() == null) {
+                    $('#lp' + i + '_' + fila).val(verzuim);
+                }
+            }
         })
     })
 </script>
