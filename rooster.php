@@ -11,7 +11,7 @@
                 <div class="container container-fs">
                     <div class="row">
                         <div class="default-secondary-bg-color col-md-12 inset brd-bottom">
-                            <h1 class="primary-color">Settings</h1>
+                            <h1 class="primary-color">Rooster</h1>
                             <?php include 'breadcrumb.php'; ?>
                         </div>
                     </div>

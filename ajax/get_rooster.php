@@ -27,10 +27,20 @@ $schooljaar = $_POST["schooljaar_rapport"]; ?>
         border: 2px solid black;
     }
 
+    #table_planner td {
+        text-align: center !important;
+    }
+
+    #table_planner td select {
+        width: 80%;
+        font-size: medium;
+    }
+
 
     #table_planner {
-        width: 100%;
-        height: 50rem;
+        width: 90%;
+        margin: 0 auto;
+        height: 30rem;
     }
 
     .dias {
@@ -42,14 +52,13 @@ $schooljaar = $_POST["schooljaar_rapport"]; ?>
 
     .days {
         text-align: center;
-        font-size: medium;
+        font-size: large;
     }
 
     .title {
         background-color: skyblue;
         text-align: center;
-        width: 5%;
-        font-size: medium;
+        font-size: large;
     }
 
     .days,

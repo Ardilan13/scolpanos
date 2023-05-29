@@ -200,8 +200,8 @@ if (
 
         if (controlp == "p10")
             if ($("#" + controlid).val() == 'A' || $("#" + controlid).val() == 'a' || $("#" + controlid).val() == 'L' || $("#" + controlid).val() == 'l' || $("#" + controlid).val() == 'X' || $("#" + controlid).val() == 'x' || $("#" + controlid).val() == 'S' || $("#" + controlid).val() == 's' || $("#" + controlid).val() == 'M' || $("#" + controlid).val() == 'm' || $("#" + controlid).val() == 'U' || $("#" + controlid).val() == 'u' || $("#" + controlid).val() == 'T' || $("#" + controlid).val() == 't') {
-                p10 = $("#" + controlid).val().toUpperCase();
-                verzuim = $("#" + controlid).val();
+                verzuim = $("#" + controlid).val().toUpperCase();
+                x[10] = verzuim;
                 fila = $("#" + controlid).attr('fila');
                 for (i = 1; i <= 9; i++) {
                     if ($('#lp' + i + fila).val() == '' || $('#lp' + i + fila).val() == 0 || $('#lp' + i + fila).val() == null) {
@@ -210,6 +210,17 @@ if (
                     }
                 }
                 x.forEach(function(v, i) {
+                    p1 = '';
+                    p2 = '';
+                    p3 = '';
+                    p4 = '';
+                    p5 = '';
+                    p6 = '';
+                    p7 = '';
+                    p8 = '';
+                    p9 = '';
+                    p10 = '';
+
                     switch (i) {
                         case 1:
                             p1 = v;
@@ -239,7 +250,35 @@ if (
                             p9 = v;
                             break;
                     }
+                    $.ajax({
+                        url: "ajax/create_le_verzuim_student.php",
+                        type: 'POST',
+                        //dataType: "Json",
+                        //data: "school_id="+schoolid,
+                        data: {
+                            school_id: schoolid,
+                            schooljaar: SchoolJaar,
+                            klas: _klas,
+                            datum: datum,
+                            vak: vakid,
+                            studentid: studentid,
+                            p1: p1,
+                            p2: p2,
+                            p3: p3,
+                            p4: p4,
+                            p5: p5,
+                            p6: p6,
+                            p7: p7,
+                            p8: p8,
+                            p9: p9,
+                            p10: p10
+                        },
+                        success: function(response) {
+                            console.log(response);
+                        }
+                    });
                 });
+                p10 = $("#" + controlid).val().toUpperCase();
             } else {
                 p10 = 0;
             }
