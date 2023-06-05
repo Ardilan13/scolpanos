@@ -64,8 +64,8 @@ switch ($schoolId) {
     break;
   case 13:
     $img = "Abrahamdeveer.jpeg";
-    $titleP = "Commandant&nbsp&nbsp&nbspGeneraal&nbsp&nbsp&nbspAbraham&nbsp&nbsp&nbspde&nbsp&nbsp&nbspVeerschool";
-    $titleD = "Commandant Generaal Abraham de Veerschool";
+    $titleP = "Commandant&nbsp&nbsp&nbspGeneraal&nbsp&nbsp&nbspAbraham&nbsp&nbsp&nbspde&nbsp&nbsp&nbspVeer SFchool";
+    $titleD = "Commandant Generaal Abraham de Veer School";
     break;
   case 12:
     $img = "ceque_logo.png";
