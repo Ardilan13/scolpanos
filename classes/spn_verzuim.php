@@ -187,7 +187,7 @@ class spn_verzuim
             $spn_audit = new spn_audit();
             $UserGUID = $_SESSION['UserGUID'];
             $spn_audit->create_audit($UserGUID, 'verzuim', 'list verzuim', appconfig::GetDummy());
-            $this->error = false;
+            
             $result = 1;
 
             $select->bind_result($studentid, $verzuimid, $klas, $firstname, $lastname, $sex, $telaat, $absent, $toetsinhalen, $uitsturen, $huiswerk, $lp, $opmerking);
@@ -252,7 +252,7 @@ class spn_verzuim
             }
           } else {
             /* error executing query */
-            $this->error = true;
+            
             $this->errormessage = $mysqli->error;
             $result = 0;
 
@@ -263,7 +263,7 @@ class spn_verzuim
           }
         } else {
           /* error binding parameters */
-          $this->error = true;
+          
           $this->errormessage = $mysqli->error;
           $result = 0;
 
@@ -273,7 +273,7 @@ class spn_verzuim
         }
       } else {
         /* error preparing query */
-        $this->error = true;
+        
         $this->errormessage = $mysqli->error;
         $result = 0;
 
@@ -285,7 +285,7 @@ class spn_verzuim
       $returnvalue = $htmlcontrol;
       return $returnvalue;
     } catch (Exception $e) {
-      $this->error = true;
+      
       $this->errormessage = $e->getMessage();
       $result = 0;
 
@@ -348,7 +348,7 @@ class spn_verzuim
             $spn_audit = new spn_audit();
             $UserGUID = $_SESSION['UserGUID'];
             $spn_audit->create_audit($UserGUID, 'verzuim', 'list verzuim', appconfig::GetDummy());
-            $this->error = false;
+            
             $result = 1;
 
             $select->bind_result($studentid, $verzuimid, $klas, $firstname, $lastname, $sex, $telaat, $absent, $toetsinhalen, $uitsturen, $huiswerk, $lp, $opmerking);
@@ -401,7 +401,7 @@ class spn_verzuim
             }
           } else {
             /* error executing query */
-            $this->error = true;
+            
             $this->errormessage = $mysqli->error;
             $result = 0;
 
@@ -412,7 +412,7 @@ class spn_verzuim
           }
         } else {
           /* error binding parameters */
-          $this->error = true;
+          
           $this->errormessage = $mysqli->error;
           $result = 0;
 
@@ -422,7 +422,7 @@ class spn_verzuim
         }
       } else {
         /* error preparing query */
-        $this->error = true;
+        
         $this->errormessage = $mysqli->error;
         $result = 0;
 
@@ -434,7 +434,7 @@ class spn_verzuim
       $returnvalue = $htmlcontrol;
       return $returnvalue;
     } catch (Exception $e) {
-      $this->error = true;
+      
       $this->errormessage = $e->getMessage();
       $result = 0;
 
@@ -528,7 +528,7 @@ class spn_verzuim
             $spn_audit = new spn_audit();
             $UserGUID = $_SESSION['UserGUID'];
             $spn_audit->create_audit($UserGUID, 'verzuim', 'read verzuim', appconfig::GetDummy());
-            $this->error = false;
+            
             $result = 1;
 
             $select->store_result();
@@ -540,7 +540,7 @@ class spn_verzuim
             $returnvalue = $select->num_rows;
           } else {
             /* error executing query */
-            $this->error = true;
+            
             $this->errormessage = $mysqli->error;
             $result = 0;
 
@@ -551,7 +551,7 @@ class spn_verzuim
           }
         } else {
           /* error binding parameters */
-          $this->error = true;
+          
           $this->errormessage = $mysqli->error;
           $result = 0;
 
@@ -561,7 +561,7 @@ class spn_verzuim
         }
       } else {
         /* error preparing query */
-        $this->error = true;
+        
         $this->errormessage = $mysqli->error;
         $result = 0;
 
@@ -570,7 +570,7 @@ class spn_verzuim
         }
       }
     } catch (Exception $e) {
-      $this->error = true;
+      
       $this->errormessage = $e->getMessage();
       $result = 0;
 
@@ -609,7 +609,7 @@ class spn_verzuim
               // $spn_audit = new spn_audit();
               // $UserGUID = $_SESSION['UserGUID'];
               // $spn_audit->create_audit($UserGUID, 'verzuim','list verzuim',appconfig::GetDummy());
-              $this->error = false;
+              
               $result = 1;
               $stmt->bind_result($schooljaar_, $id_verzuim, $datum, $telaat, $absentie, $toetsinhalen, $uitsturen, $lp, $huiswerk, $opmerking);
               $stmt->store_result();
@@ -729,7 +729,7 @@ class spn_verzuim
         //if($select->bind_param("sissisis",$klas_in,$schoolid,$_datum_in,$klas_in,$schoolid,$klas_in,$schoolid,$_datum_in)) {
         if ($select->bind_param("sisissis", $klas_in, $schoolid, $datum_in, $period, $vak, $klas_in, $schoolid, $datum_in)) {
           if ($select->execute()) {
-            $this->error = false;
+            
             $result = 1;
 
             $select->bind_result($studentid, $verzuimid, $klas, $lastname, $firstname, $sex, $telaat, $absent, $toetsinhalen, $uitsturen, $huiswerk, $lp, $opmerking);
@@ -783,7 +783,7 @@ class spn_verzuim
             }
           } else {
             /* error executing query */
-            $this->error = true;
+            
             $this->errormessage = $mysqli->error;
             $result = 0;
 
@@ -794,7 +794,7 @@ class spn_verzuim
           }
         } else {
           /* error binding parameters */
-          $this->error = true;
+          
           $this->errormessage = $mysqli->error;
           $result = 0;
 
@@ -804,7 +804,7 @@ class spn_verzuim
         }
       } else {
         /* error preparing query */
-        $this->error = true;
+        
         $this->errormessage = $mysqli->error;
         $result = 0;
 
@@ -815,7 +815,7 @@ class spn_verzuim
       $returnvalue = $htmlcontrol;
       return $returnvalue;
     } catch (Exception $e) {
-      $this->error = true;
+      
       $this->errormessage = $e->getMessage();
       $result = 0;
 
@@ -1398,7 +1398,7 @@ class spn_verzuim
         //if($select->bind_param("sissisis",$klas_in,$schoolid,$_datum_in,$klas_in,$schoolid,$klas_in,$schoolid,$_datum_in)) {
         if ($select->bind_param("sissis", $klas, $schoolid, $_SESSION['SchoolJaar'], $datum, $period, $vak)) {
           if ($select->execute()) {
-            $this->error = false;
+            
             $result = 1;
 
             $select->bind_result($studentid, $verzuimid, $_klas, $lastname, $firstname, $sex, $telaat, $absent, $toetsinhalen, $uitsturen, $huiswerk, $lp, $opmerking);
@@ -1456,7 +1456,7 @@ class spn_verzuim
             }
           } else {
             /* error executing query */
-            $this->error = true;
+            
             $this->errormessage = $mysqli->error;
             $result = 0;
 
@@ -1467,7 +1467,6 @@ class spn_verzuim
           }
         } else {
           /* error binding parameters */
-          $this->error = true;
           $this->errormessage = $mysqli->error;
           $result = 0;
 
@@ -1477,7 +1476,7 @@ class spn_verzuim
         }
       } else {
         /* error preparing query */
-        $this->error = true;
+        
         $this->errormessage = $mysqli->error;
         $result = 0;
 
@@ -1489,7 +1488,7 @@ class spn_verzuim
       $returnvalue = $htmlcontrol;
       return $returnvalue;
     } catch (Exception $e) {
-      $this->error = true;
+      
       $this->errormessage = $e->getMessage();
       $result = 0;
 
@@ -1660,7 +1659,7 @@ class spn_verzuim
       if ($select = $mysqli->prepare($sql_query)) {
         if ($select->bind_param("isiss", $studentid_in, $datum_in, $period, $klas_in, $_SESSION['SchoolJaar'])) {
           if ($select->execute()) {
-            $this->error = false;
+            
             $result = 1;
 
             $select->store_result();
@@ -1672,7 +1671,7 @@ class spn_verzuim
             $returnvalue = $verzuimid;
           } else {
             /* error executing query */
-            $this->error = true;
+            
             $this->errormessage = $mysqli->error;
             $result = 0;
 
@@ -1683,7 +1682,7 @@ class spn_verzuim
           }
         } else {
           /* error binding parameters */
-          $this->error = true;
+          
           $this->errormessage = $mysqli->error;
           $result = 0;
 
@@ -1693,7 +1692,7 @@ class spn_verzuim
         }
       } else {
         /* error preparing query */
-        $this->error = true;
+        
         $this->errormessage = $mysqli->error;
         $result = 0;
 
@@ -1702,7 +1701,7 @@ class spn_verzuim
         }
       }
     } catch (Exception $e) {
-      $this->error = true;
+      
       $this->errormessage = $e->getMessage();
       $result = 0;
 
@@ -1754,7 +1753,7 @@ class spn_verzuim
         //if($select->bind_param("sissisis",$klas_in,$schoolid,$_datum_in,$klas_in,$schoolid,$klas_in,$schoolid,$_datum_in)) {
 
         if ($select->execute()) {
-          $this->error = false;
+          
           $result = 1;
 
           $select->bind_result($value_lesuur, $opmerking, $volledigenaamvak);
@@ -1777,7 +1776,7 @@ class spn_verzuim
           }
         } else {
           /* error executing query */
-          $this->error = true;
+          
           $this->errormessage = $mysqli->error;
           $result = 0;
 
@@ -1788,7 +1787,7 @@ class spn_verzuim
         }
       } else {
         /* error preparing query */
-        $this->error = true;
+        
         $this->errormessage = $mysqli->error;
         $result = 0;
 
@@ -1800,7 +1799,7 @@ class spn_verzuim
       $returnvalue = $htmlcontrol;
       return $returnvalue;
     } catch (Exception $e) {
-      $this->error = true;
+      
       $this->errormessage = $e->getMessage();
       $result = 0;
 
