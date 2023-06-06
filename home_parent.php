@@ -34,6 +34,9 @@ ob_flush();
   <link rel="stylesheet" href="<?php print appconfig::GetBaseURL(); ?>/assets/css/horizontal_tab.css" type="text/css" />
   <link href="mobile/css/bootstrap.min.css" rel="stylesheet">
   <link href="mobile/css/caribedev.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
 
   <link rel="stylesheet" href="assets/css/calendar.css">
   <!-- <link href="mobile/css/caribedev.css" rel="stylesheet"> -->
@@ -539,6 +542,8 @@ ob_flush();
 <script type="text/javascript" src="assets/js/calendar.js"></script>
 <script type="text/javascript" src="assets/js/app_calendar.js"></script>
 <script type="text/javascript" src="assets/js/parent.js?06"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
 <script type="text/javascript">
   function ChatRoom(vak, rapnr) {
 
@@ -575,4 +580,10 @@ ob_flush();
     var url = "https://digiroom.madworksglobal.com/?room=" + room + "&id=" + id + "&code=" + code + "&type=4" + "&idroom=" + idroom + "&school=1" + "&ts=" + time;
     window.open(url, "_blank");
   }
+
+  $(document).ready(function() {
+    var table = $("#tbl_cijfers_by_student").DataTable({
+      responsive: true,
+    });
+  });
 </script>

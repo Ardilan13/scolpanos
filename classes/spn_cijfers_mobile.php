@@ -3328,7 +3328,7 @@ class spn_cijfers_mobile
 
                 $htmlcontrol .= "<table id=\"tbl_cijfers_by_student\" class=\"table table-bordered table-colored\" data-table=\"yes\">";
 
-                $htmlcontrol .= "<thead><tr><th>Schooljaar</th><th>Klass</th><th>Rapport#</th><th>Vak</th><th>Chat</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th>19</th><th>20</th><th>Gemiddeld</th></tr></thead>";
+                $htmlcontrol .= "<thead><tr><th>Schooljaar</th><th>Klass</th><th>Rapport#</th><th>Vak</th><th>Chat</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>Gemiddeld</th></tr></thead>";
                 $htmlcontrol .= "<tbody>";
 
                 while ($stmt->fetch()) {
@@ -3351,16 +3351,6 @@ class spn_cijfers_mobile
                   $htmlcontrol .= "<td onclick=\"seeadd('$vak','$rapnummer','$klas','oc8')\" title=\" \" name =\"c1\"" . ($c8 >= 1 && $c8 <= 5.5 ?  "class=\"quaternary-bg-color default-secondary-color\"" : "") . ">" . ($c8 == 0.0 ? "" : htmlentities($c8)) . "</td>";
                   $htmlcontrol .= "<td onclick=\"seeadd('$vak','$rapnummer','$klas','oc9')\" title=\" \" name =\"c1\"" . ($c9 >= 1 && $c9 <= 5.5 ?  "class=\"quaternary-bg-color default-secondary-color\"" : "") . ">" . ($c9 == 0.0 ? "" : htmlentities($c9)) . "</td>";
                   $htmlcontrol .= "<td onclick=\"seeadd('$vak','$rapnummer','$klas','oc10')\" title=\" \" name =\"c1\"" . ($c10 >= 1 && $c10 <= 5.5 ?  "class=\"quaternary-bg-color default-secondary-color\"" : "") . ">" . ($c10 == 0.0 ? "" : htmlentities($c10)) . "</td>";
-                  $htmlcontrol .= "<td onclick=\"seeadd('$vak','$rapnummer','$klas','oc11')\" title=\" \" name =\"c1\"" . ($c11 >= 1 && $c11 <= 5.5 ?  "class=\"quaternary-bg-color default-secondary-color\"" : "") . ">" . ($c11 == 0.0 ? "" : htmlentities($c11)) . "</td>";
-                  $htmlcontrol .= "<td onclick=\"seeadd('$vak','$rapnummer','$klas','oc12')\" title=\" \" name =\"c1\"" . ($c12 >= 1 && $c12 <= 5.5 ?  "class=\"quaternary-bg-color default-secondary-color\"" : "") . ">" . ($c12 == 0.0 ? "" : htmlentities($c12)) . "</td>";
-                  $htmlcontrol .= "<td onclick=\"seeadd('$vak','$rapnummer','$klas','oc13')\" title=\" \" name =\"c1\"" . ($c13 >= 1 && $c13 <= 5.5 ?  "class=\"quaternary-bg-color default-secondary-color\"" : "") . ">" . ($c13 == 0.0 ? "" : htmlentities($c13)) . "</td>";
-                  $htmlcontrol .= "<td onclick=\"seeadd('$vak','$rapnummer','$klas','oc14')\" title=\" \" name =\"c1\"" . ($c14 >= 1 && $c14 <= 5.5 ?  "class=\"quaternary-bg-color default-secondary-color\"" : "") . ">" . ($c14 == 0.0 ? "" : htmlentities($c14)) . "</td>";
-                  $htmlcontrol .= "<td onclick=\"seeadd('$vak','$rapnummer','$klas','oc15')\" title=\" \" name =\"c1\"" . ($c15 >= 1 && $c15 <= 5.5 ?  "class=\"quaternary-bg-color default-secondary-color\"" : "") . ">" . ($c15 == 0.0 ? "" : htmlentities($c15)) . "</td>";
-                  $htmlcontrol .= "<td onclick=\"seeadd('$vak','$rapnummer','$klas','oc16')\" title=\" \" name =\"c1\"" . ($c16 >= 1 && $c16 <= 5.5 ?  "class=\"quaternary-bg-color default-secondary-color\"" : "") . ">" . ($c16 == 0.0 ? "" : htmlentities($c16)) . "</td>";
-                  $htmlcontrol .= "<td onclick=\"seeadd('$vak','$rapnummer','$klas','oc17')\" title=\" \" name =\"c1\"" . ($c17 >= 1 && $c17 <= 5.5 ?  "class=\"quaternary-bg-color default-secondary-color\"" : "") . ">" . ($c17 == 0.0 ? "" : htmlentities($c17)) . "</td>";
-                  $htmlcontrol .= "<td onclick=\"seeadd('$vak','$rapnummer','$klas','oc18')\" title=\" \" name =\"c1\"" . ($c18 >= 1 && $c18 <= 5.5 ?  "class=\"quaternary-bg-color default-secondary-color\"" : "") . ">" . ($c18 == 0.0 ? "" : htmlentities($c18)) . "</td>";
-                  $htmlcontrol .= "<td onclick=\"seeadd('$vak','$rapnummer','$klas','oc19')\" title=\" \" name =\"c1\"" . ($c19 >= 1 && $c19 <= 5.5 ?  "class=\"quaternary-bg-color default-secondary-color\"" : "") . ">" . ($c19 == 0.0 ? "" : htmlentities($c19)) . "</td>";
-                  $htmlcontrol .= "<td onclick=\"seeadd('$vak','$rapnummer','$klas','oc20')\" title=\" \" name =\"c1\"" . ($c20 >= 1 && $c20 <= 5.5 ?  "class=\"quaternary-bg-color default-secondary-color\"" : "") . ">" . ($c20 == 0.0 ? "" : htmlentities($c20)) . "</td>";
 
                   $htmlcontrol .= "<td name =\"gemiddelde\"" . ($gemiddelde >= 1 && $gemiddelde <= 5.5 ?  "class=\"quaternary-bg-color default-secondary-color\"" : "") . ">" . htmlentities($gemiddelde) . "</td>";
                   // $htmlcontrol .= "<td>". htmlentities($gemiddelde) ."</td>";

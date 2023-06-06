@@ -94,11 +94,18 @@
 													<label class="col-md-4 control-label" for="">Onderwerp</label>
 													<div class="col-md-8">
 														<select id="calendar_subject" name="calendar_subject" class="form-control">
-															<option selected value="Homework">Homework</option>
-															<option selected value="Test">Test</option>
-															<option selected value="Exam">Exam</option>
+															<option selected value="Homework">Huiswerk
+															</option>
+															<option selected value="Test">Overhoring</option>
+															<option selected value="Exam">Proefwerk</option>
 															<option selected value="Other">Other</option>
 														</select>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-md-4 control-label">Informatie</label>
+													<div class="col-md-8">
+														<textarea id="calendar_observation" class="form-control" name="calendar_observation" type="text" placeholder="Enter observation here..."></textarea>
 													</div>
 												</div>
 												<div class="form-group">
@@ -108,12 +115,7 @@
 													</div>
 												</div>
 												<!-- Observations -->
-												<div class="form-group">
-													<label class="col-md-4 control-label">Informatie</label>
-													<div class="col-md-8">
-														<textarea id="calendar_observation" class="form-control" name="calendar_observation" type="text" placeholder="Enter observation here..."></textarea>
-													</div>
-												</div>
+
 												<div class="form-group full-inset">
 													<button type="submit" class="btn btn-primary btn-m-w pull-right mrg-left" id="btn-add-calendar">Save</button>
 												</div>

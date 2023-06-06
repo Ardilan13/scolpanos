@@ -5,22 +5,20 @@ require_once("../config/app.config.php");
 
 
 $s = new spn_cijfers();
-if(session_status() == PHP_SESSION_NONE)
-session_start();
+if (session_status() == PHP_SESSION_NONE)
+	session_start();
 
 //echo $_POST["studentid"];
 
 $studentid = isset($_POST["studentid"]);
-print $s->list_cijfers_by_student($studentid,appconfig::GetDummy());
+print $s->list_cijfers_by_student($_SESSION['SchoolJaar'], $studentid, appconfig::GetDummy());
 ?>
 <script type="text/javascript">
-
-$(function() {
-	  $("#tbl_cijfers_by_student td").each(function () {
-	    if ($(this).text() >=1 && $(this).text() <= 5.5) {
-	      $(this).addClass('quaternary-bg-color default-secondary-color');
-	    }
-	  });
+	$(function() {
+		$("#tbl_cijfers_by_student td").each(function() {
+			if ($(this).text() >= 1 && $(this).text() <= 5.5) {
+				$(this).addClass('quaternary-bg-color default-secondary-color');
+			}
+		});
 	});
-
 </script>

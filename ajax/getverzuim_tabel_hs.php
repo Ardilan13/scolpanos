@@ -199,15 +199,13 @@ if (
             }
 
         if (controlp == "p10")
-            if ($("#" + controlid).val() == 'A' || $("#" + controlid).val() == 'a' || $("#" + controlid).val() == 'L' || $("#" + controlid).val() == 'l' || $("#" + controlid).val() == 'X' || $("#" + controlid).val() == 'x' || $("#" + controlid).val() == 'S' || $("#" + controlid).val() == 's' || $("#" + controlid).val() == 'M' || $("#" + controlid).val() == 'm' || $("#" + controlid).val() == 'U' || $("#" + controlid).val() == 'u' || $("#" + controlid).val() == 'T' || $("#" + controlid).val() == 't') {
+            if ($("#" + controlid).val() == 'A' || $("#" + controlid).val() == 'a' || $("#" + controlid).val() == 'L' || $("#" + controlid).val() == 'l' || $("#" + controlid).val() == 'X' || $("#" + controlid).val() == 'x' || $("#" + controlid).val() == 'S' || $("#" + controlid).val() == 's' || $("#" + controlid).val() == 'M' || $("#" + controlid).val() == 'm' || $("#" + controlid).val() == 'U' || $("#" + controlid).val() == 'u' || $("#" + controlid).val() == 'T' || $("#" + controlid).val() == 't' || $("#" + controlid).val() == 0) {
                 verzuim = $("#" + controlid).val().toUpperCase();
                 x[10] = verzuim;
                 fila = $("#" + controlid).attr('fila');
                 for (i = 1; i <= 9; i++) {
-                    if ($('#lp' + i + fila).val() == '' || $('#lp' + i + fila).val() == 0 || $('#lp' + i + fila).val() == null) {
-                        $('#lp' + i + fila).val(verzuim);
-                        x[i] = verzuim;
-                    }
+                    $('#lp' + i + fila).val(verzuim);
+                    x[i] = verzuim;
                 }
                 x.forEach(function(v, i) {
                     p1 = '';
@@ -310,6 +308,12 @@ if (
                 console.log(response);
             }
         });
+
+        $('.klasen_p').each(function() {
+            if ($(this).val() == 0) {
+                $(this).val('')
+            }
+        })
 
     }
 
