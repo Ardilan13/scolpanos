@@ -98,7 +98,7 @@ $returnarr = array();
 
 $l = new spn_leerling();
 if ($studentid == 'all') {
-  $array_leerling = $l->get_all_students_array_by_klas($_GET["klas"]);
+  $array_leerling = $l->get_all_students_array_by_klas($_GET["klas"], $_SESSION["SchoolJaar"]);
 } else {
   $select = "SELECT id,studentnumber,firstname,lastname,sex,dob,class FROM students where id = '$studentid' and status = 1";
   $resultado1 = mysqli_query($mysqli, $select);
@@ -188,8 +188,8 @@ foreach ($array_leerling as $item) {
       $page_html .= "<div style='margin: 0px; display: flex; align-items: center; flex-direction: column; margin-left: 10%;' >";
     }
   } else {
-    $page_html .= "<div class='row justify-content-end'>";
-    $page_html .= "<div class='col-7' style='display: flex; align-items: center;'>";
+    $page_html .= "<div class='row justify-content-end' style=''>";
+    $page_html .= "<div class='col-6' style='display: flex; align-items: center; padding-right: 10rem;'>";
     $page_html .= "</br>";
     $page_html .= "</br>";
     $page_html .= "</br>";
@@ -202,10 +202,10 @@ foreach ($array_leerling as $item) {
   if ($schoolId != 17 && $schoolId != 10) {
     if ($schoolId == 18) {
       $page_html .= "</br>";
-      $page_html .= "<h4 style='width:auto; margin-bottom: 10%;'>" . $titleD . "</h4>";
+      $page_html .= "<h4 style='width:auto; max-width: 25rem; margin-bottom: 10%;'>" . $titleD . "</h4>";
     } else {
       $page_html .= "</br>";
-      $page_html .= "<h4 style='width:auto; margin-bottom: 15%;'>" . $titleD . "</h4>";
+      $page_html .= "<h4 style='width:auto; max-width: 25rem; margin-bottom: 15%;'>" . $titleD . "</h4>";
     }
   } else {
     $page_html .= "</br>";
@@ -8356,7 +8356,7 @@ if($avg_h == 0.0){$avg_h = null;}
 
 <body>
 
-  <div class='container'>
+  <div>
     <?php echo $page_html ?>
     <!-- <div class="row justify-content-end">
     <div class="col-7">

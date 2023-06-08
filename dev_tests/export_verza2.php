@@ -29,6 +29,16 @@ $user = $_SESSION["UserGUID"];
 $s = new spn_setting();
 $s->getsetting_info($schoolid, false);
 
+if ($schoolid == 12) {
+    $img = 3;
+} else if ($schoolid == 13) {
+    $img = 2;
+} else if ($schoolid == 18) {
+    $img = 1;
+} else {
+    $img = 0;
+}
+
 $level_klas = substr($klas_in, 0, 1);
 
 switch ($level_klas) {
@@ -46,6 +56,10 @@ switch ($level_klas) {
 }
 
 $i = 1;
+
+$spreadsheet->setActiveSheetIndex(6);
+$hojaActiva = $spreadsheet->getActiveSheet();
+$hojaActiva->setCellValue('B4', $img);
 
 while ($i <= $rap_in) {
     $returnvalue = 0;
@@ -116,7 +130,13 @@ while ($i <= $rap_in) {
 
 
     $resultado = mysqli_query($mysqli, $sql_query);
+    $ckv = 0;
+    $mu = 0;
+    $bv = 0;
+    $cont = 1;
     while ($row = mysqli_fetch_assoc($resultado)) {
+        $cont = $cont + 1;
+        $ultima = mysqli_num_rows($resultado);
         if ($_while_counter == 0) {
             $_laststudent = $row["studentid"];
             $hojaActiva->setCellValue('B2', "Klas: " . $klas_in);
@@ -126,6 +146,18 @@ while ($i <= $rap_in) {
         $_currentstudent = $row["studentid"];
         $vakid_out = $row["vakid"];
         if ($_currentstudent != $_laststudent) {
+            if ($mu != 0 && $bv != 0)
+                $ckv = ($mu + $bv) / 2;
+            else if ($mu != 0 && $bv == 0)
+                $ckv = $mu;
+            else if ($mu == 0 && $bv != 0)
+                $ckv = $bv;
+            else if ($mu == 0 && $bv == 0)
+                $ckv = 0;
+            $hojaActiva->setCellValue('N' . (string)$_current_student_start_row, $ckv);
+            $ckv = 0;
+            $mu = 0;
+            $bv = 0;
             $_current_student_start_row++;
             $hojaActiva->setCellValue('B' . (string)$_current_student_start_row, $row["lastname"] . ", " . $row["firstname"]);
         }
@@ -186,6 +218,14 @@ while ($i <= $rap_in) {
 
                     case 're':
                         $returnvalue = 'O';
+                        break;
+
+                    case 'mu':
+                        $mu = $row["gemiddelde"];
+                        break;
+
+                    case 'bv':
+                        $bv = $row["gemiddelde"];
                         break;
 
                     default:
@@ -255,8 +295,12 @@ while ($i <= $rap_in) {
                         $returnvalue = 'M';
                         break;
 
-                    case 'ckv':
-                        $returnvalue = 'P';
+                    case 'mu':
+                        $mu = $row["gemiddelde"];
+                        break;
+
+                    case 'bv':
+                        $bv = $row["gemiddelde"];
                         break;
 
                     default:
@@ -265,7 +309,20 @@ while ($i <= $rap_in) {
                 }
                 break;
         }
-
+        if ($cont == $ultima - 1) {
+            if ($mu != 0 && $bv != 0)
+                $ckv = ($mu + $bv) / 2;
+            else if ($mu != 0 && $bv == 0)
+                $ckv = $mu;
+            else if ($mu == 0 && $bv != 0)
+                $ckv = $bv;
+            else if ($mu == 0 && $bv == 0)
+                $ckv = 0;
+            $hojaActiva->setCellValue('N' . (string)$_current_student_start_row, $ckv);
+            $ckv = 0;
+            $mu = 0;
+            $bv = 0;
+        }
         $colgemiddelde = (string)$returnvalue . (string)$_current_student_start_row;
         $hojaActiva->setCellValue($colgemiddelde, $row["gemiddelde"]);
         $_laststudent = $_currentstudent;

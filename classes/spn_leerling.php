@@ -2906,7 +2906,7 @@ class spn_leerling
     }
     return $returnvalue;
   }
-  function get_all_students_array_by_klas($klas)
+  function get_all_students_array_by_klas($klas, $schooljaar)
   {
     $returnvalue = "";
     $user_permission = "";
@@ -2917,13 +2917,18 @@ class spn_leerling
     $schoolId = $_SESSION['SchoolID'];
     $s = new spn_setting();
     $s->getsetting_info($schoolId, false);
-    $sql_query = "SELECT id,studentnumber,firstname,lastname,sex,dob,class  FROM students where class = ?  and schoolid = ? and status = 1 ORDER BY";
-    $sql_order = " lastname " . $s->_setting_sort . ", firstname";
-    if ($s->_setting_mj) {
-      $sql_query .= " sex " . $s->_setting_sort . ", " . $sql_order;
+    if ($schooljaar == "2017-2018" && $klas == "5A" && $_SESSION["SchoolID"] == 9) {
+      $sql_query = "SELECT DISTINCT c.studentid,s.studentnumber,s.firstname,s.lastname,s.sex,s.dob,s.class FROM le_cijfers c LEFT JOIN students s ON c.studentid = s.id where c.klas = ? and c.schooljaar = '2017-2018' and s.schoolid = ? ORDER BY s.lastname,s.firstname";
     } else {
-      $sql_query .=  $sql_order;
+      $sql_query = "SELECT id,studentnumber,firstname,lastname,sex,dob,class  FROM students where class = ?  and schoolid = ? and status = 1 ORDER BY";
+      $sql_order = " lastname " . $s->_setting_sort . ", firstname";
+      if ($s->_setting_mj) {
+        $sql_query .= " sex " . $s->_setting_sort . ", " . $sql_order;
+      } else {
+        $sql_query .=  $sql_order;
+      }
     }
+
     try {
       require_once("DBCreds.php");
       $DBCreds = new DBCreds();
