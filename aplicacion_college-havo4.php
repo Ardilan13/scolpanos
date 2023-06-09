@@ -19,285 +19,297 @@ ob_start();
 ob_flush() ?>
 
 <head>
-    <title>AANMELDINGSFORMULIER</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>AANMELDINGSFORMULIER</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
 <script src="components/jquery/jquery.min.js" type="text/javascript"></script>
 <script type="text/javascript">
-    $(document).on('change', 'input[type="file"]', function() {
-        // this.files[0].size recupera el tamaño del archivo
-        // alert(this.files[0].size);
+	$(document).on('change', 'input[type="file"]', function() {
+		// this.files[0].size recupera el tamaño del archivo
+		// alert(this.files[0].size);
 
-        var fileName = this.files[0].name;
-        var fileSize = this.files[0].size;
+		var fileName = this.files[0].name;
+		var fileSize = this.files[0].size;
 
-        if (fileSize > 2097152) {
-            alert('The file cant exceed 2MB');
-            this.value = '';
-            this.files[0].name = '';
-        } else {
-            // recuperamos la extensión del archivo
-            var ext = fileName.split('.').pop();
+		if (fileSize > 2097152) {
+			alert('The file cant exceed 2MB');
+			this.value = '';
+			this.files[0].name = '';
+		} else {
+			// recuperamos la extensión del archivo
+			var ext = fileName.split('.').pop();
 
-            // Convertimos en minúscula porque 
-            // la extensión del archivo puede estar en mayúscula
-            ext = ext.toLowerCase();
+			// Convertimos en minúscula porque 
+			// la extensión del archivo puede estar en mayúscula
+			ext = ext.toLowerCase();
 
-            // console.log(ext);
-            switch (ext) {
-                case 'jpg':
-                case 'jpeg':
-                case 'png':
-                case 'pdf':
-                case 'docx':
-                case 'xls':
-                case 'xlsx':
-                case 'xlsb':
-                    break;
-                default:
-                    alert('The file can be only an image, pdf, docx or excel.');
-                    this.value = ''; // reset del valor
-                    this.files[0].name = '';
-            }
-        }
-    });
+			// console.log(ext);
+			switch (ext) {
+				case 'jpg':
+				case 'jpeg':
+				case 'png':
+				case 'pdf':
+				case 'docx':
+				case 'xls':
+				case 'xlsx':
+				case 'xlsb':
+					break;
+				default:
+					alert('The file can be only an image, pdf, docx or excel.');
+					this.value = ''; // reset del valor
+					this.files[0].name = '';
+			}
+		}
+	});
+
+	$("#select_profiel").change(function() {
+		/* var selected = $(this).children("option:selected").val();
+		if (selected == "1") {
+			$("#select_profiel").css("border", "1px solid red");
+			$("#select_profiel").css("color", "red");
+		} else {
+			$("#select_profiel").css("border", "1px solid #1d407a");
+			$("#select_profiel").css("color", "#1d407a");
+		} */
+		alert("hola");
+	});
 </script>
 <style type="text/css" media="screen">
-    h2 {
-        color: red;
-        border-bottom: 2px solid red;
-        margin: 0 25%;
-    }
+	h2 {
+		color: red;
+		border-bottom: 2px solid red;
+		margin: 0 25%;
+	}
 
-    label {
-        display: inline-block;
-        margin: 1.2% .5% 1.2% 2%;
-    }
+	label {
+		display: inline-block;
+		margin: 1.2% .5% 1.2% 2%;
+	}
 
-    button {
-        margin: 4%;
-        background-color: yellow;
-        font-size: large;
-        cursor: pointer;
-        padding: 1% 6%;
-        border-radius: 7px;
-        border: 2px solid black;
+	button {
+		margin: 4%;
+		background-color: yellow;
+		font-size: large;
+		cursor: pointer;
+		padding: 1% 6%;
+		border-radius: 7px;
+		border: 2px solid black;
 
-    }
+	}
 
-    button:hover {
-        background-color: orange;
-        transition: 100ms;
-    }
+	button:hover {
+		background-color: orange;
+		transition: 100ms;
+	}
 
-    body {
-        background-color: #1d407a;
-    }
+	body {
+		background-color: #1d407a;
+	}
 
-    label {
-        font-size: 1rem;
-    }
+	label {
+		font-size: 1rem;
+	}
 
-    .container {
-        text-align: center;
-    }
+	.container {
+		text-align: center;
+	}
 
-    .form-bg {
-        background-color: white;
-        margin: 3% 7%;
-        padding: 0 5%;
-        text-align: center;
-        border-radius: 5px;
-        box-shadow: 0 5px 10px -5px rgb(0 0 0 / 30%);
-    }
+	.form-bg {
+		background-color: white;
+		margin: 3% 7%;
+		padding: 0 5%;
+		text-align: center;
+		border-radius: 5px;
+		box-shadow: 0 5px 10px -5px rgb(0 0 0 / 30%);
+	}
 
-    .info {
-        margin: 4% 0;
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 2em;
-    }
+	.info {
+		margin: 4% 0;
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 2em;
+	}
 
-    .info-top {
-        border-top: 1px solid #1d407a;
-        padding-top: 3%;
-    }
+	.info-top {
+		border-top: 1px solid #1d407a;
+		padding-top: 3%;
+	}
 
-    .form_group {
-        position: relative;
-        color: #4f4f4f;
-    }
+	.form_group {
+		position: relative;
+		color: #4f4f4f;
+	}
 
-    .input-text {
-        background: none;
-        font-size: 1rem;
-        padding: 1.3em 0.4em;
-        width: 250px;
-        height: 30px;
-        border: 1px solid #1d407a;
-        border-radius: 5px;
-        width: 100%;
-        outline: none;
-    }
+	.input-text {
+		background: none;
+		font-size: 1rem;
+		padding: 1.3em 0.4em;
+		width: 250px;
+		height: 30px;
+		border: 1px solid #1d407a;
+		border-radius: 5px;
+		width: 100%;
+		outline: none;
+	}
 
-    select {
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        outline: none;
-        background: none;
-        box-sizing: content-box;
-        padding: 0.32em 0.4em;
-        height: 30px;
-        font-size: 1rem;
-        width: 250px;
-        border: 1px solid #1d407a;
-        border-radius: 5px;
-        width: 97%;
-        cursor: pointer;
-    }
+	select {
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		appearance: none;
+		outline: none;
+		background: none;
+		box-sizing: content-box;
+		padding: 0.32em 0.4em;
+		height: 30px;
+		font-size: 1rem;
+		width: 250px;
+		border: 1px solid #1d407a;
+		border-radius: 5px;
+		width: 97%;
+		cursor: pointer;
+	}
 
-    .input-text:focus+.form_label,
-    .input-text:not(:placeholder-shown)+.form_label {
-        transform: translateY(-17px) scale(1.1);
-        transform-origin: left top;
-        color: #1d407a;
-    }
+	.input-text:focus+.form_label,
+	.input-text:not(:placeholder-shown)+.form_label {
+		transform: translateY(-17px) scale(1.1);
+		transform-origin: left top;
+		color: #1d407a;
+	}
 
-    .form_label {
-        color: #4f4f4f;
-        font-size: 1rem;
-        background-color: white;
-        position: absolute;
-        top: 0;
-        left: 10px;
-        transform: translateY(7px);
-        transition: transform .5s, color .3s;
-    }
+	.form_label {
+		color: #4f4f4f;
+		font-size: 1rem;
+		background-color: white;
+		position: absolute;
+		top: 0;
+		left: 10px;
+		transform: translateY(7px);
+		transition: transform .5s, color .3s;
+	}
 
-    .form-select {
-        transform: translateY(-17px) scale(1.1);
-        transform-origin: left top;
-        color: #1d407a;
-    }
+	.form-select {
+		transform: translateY(-17px) scale(1.1);
+		transform-origin: left top;
+		color: #1d407a;
+	}
 
-    #bishita {
-        grid-column: 1/3;
-    }
+	#bishita {
+		grid-column: 1/3;
+	}
 
-    #input_file {
-        padding-left: 20px;
-    }
+	#input_file {
+		padding-left: 20px;
+	}
 
-    .qwihi {
-        background-color: #262532;
-        padding-top: 1%;
-        margin: -2% -0.45%;
-        align-items: center;
-        text-align: center;
+	.qwihi {
+		background-color: #262532;
+		padding-top: 1%;
+		margin: -2% -0.45%;
+		align-items: center;
+		text-align: center;
 
-    }
+	}
 
-    #qwihi {
-        color: white;
-        font-size: larger;
-    }
+	#qwihi {
+		color: white;
+		font-size: larger;
+	}
 
-    #logo {
-        border-right: 1px solid white;
-        margin-right: 3%;
-        padding-right: 5%;
-    }
+	#logo {
+		border-right: 1px solid white;
+		margin-right: 3%;
+		padding-right: 5%;
+	}
 
-    @media (max-width: 1000px) {
+	@media (max-width: 1000px) {
 
-        .info,
-        select {
-            display: grid;
-            grid-template-columns: repeat(1, 1fr);
-        }
+		.info,
+		select {
+			display: grid;
+			grid-template-columns: repeat(1, 1fr);
+		}
 
-        .form-bg {
-            margin: 3%;
-            padding: 3%;
-        }
+		.form-bg {
+			margin: 3%;
+			padding: 3%;
+		}
 
-        button {
-            padding: 5% 35%;
-            font-size: large;
-            text-align: center;
-            margin: auto;
-        }
+		button {
+			padding: 5% 35%;
+			font-size: large;
+			text-align: center;
+			margin: auto;
+		}
 
-        .input-text {
-            height: 100px;
-            border-width: 2px;
-        }
+		.input-text {
+			height: 100px;
+			border-width: 2px;
+		}
 
-        select {
-            width: 97%;
-            font-size: 1.8rem;
-            height: 78px;
-            border-width: 2px;
-        }
+		select {
+			width: 97%;
+			font-size: 1.8rem;
+			height: 78px;
+			border-width: 2px;
+		}
 
-        .form_label {
-            transform: translateY(22px);
-        }
+		.form_label {
+			transform: translateY(22px);
+		}
 
-        .form-select {
-            transform: translateY(-30px) scale(1.1);
-        }
+		.form-select {
+			transform: translateY(-30px) scale(1.1);
+		}
 
-        .input-text:focus+.form_label,
-        .input-text:not(:placeholder-shown)+.form_label {
-            transform: translateY(-28px) scale(1.1);
-        }
+		.input-text:focus+.form_label,
+		.input-text:not(:placeholder-shown)+.form_label {
+			transform: translateY(-28px) scale(1.1);
+		}
 
-        label,
-        .form_label,
-        .input-text {
-            font-size: 1.8rem;
-        }
+		label,
+		.form_label,
+		.input-text {
+			font-size: 1.8rem;
+		}
 
-        #bishita {
-            font-size: 1.5rem;
-        }
+		#bishita {
+			font-size: 1.5rem;
+		}
 
-        input[type=radio],
-        input[type=checkbox] {
-            border: 0;
-            width: 2rem;
-            height: 2rem;
-        }
+		input[type=radio],
+		input[type=checkbox] {
+			border: 0;
+			width: 2rem;
+			height: 2rem;
+		}
 
-        span {
-            font-size: 1.5rem;
-            margin-left: .5rem;
-        }
+		span {
+			font-size: 1.5rem;
+			margin-left: .5rem;
+		}
 
-        #bishita {
-            grid-column: 1/2;
-        }
+		#bishita {
+			grid-column: 1/2;
+		}
 
-        #input_file {
-            font-size: 1.8rem;
-        }
+		#input_file {
+			font-size: 1.8rem;
+		}
 
-        .img-responsive {
-            width: 40%;
-        }
+		.img-responsive {
+			width: 40%;
+		}
 
-        button {
-            margin-top: 5%;
-            font-size: 2.5rem;
-            font-weight: bold;
-        }
-    }
+		button {
+			margin-top: 5%;
+			font-size: 2.5rem;
+			font-weight: bold;
+		}
+	}
 </style>
 <main id="main" role="main" class="login">
-    <div class="container">
-        <div class="form-bg"'>
+	<div class="container">
+		<div class="form-bg"'>
 			<div class="spn-logo">
 				<h1 class="brand">
 				<img class="img-responsive" src="img/monplaisir123.png" alt="Scol Pa Nos" width="12%">
@@ -305,8 +317,8 @@ ob_flush() ?>
 			</div>
 			<form action="ajax/college_mail.php" method="POST" id="formulario" enctype="multipart/form-data">
 				<h1>Aanmeldingsformulier Schooljaar 2023-2024</h1>
-                <h3>Mon Plaisir College HAVO-VWO</h3>
-				<h4>CB2 - Havo 3 - Vwo 3 - Havo 4</h4>
+                <h3>Mon Plaisir College HAVO</h3>
+				<h4>Havo 4</h4>
 
 				<div class="info">
 					<div class="form_group">
@@ -1233,10 +1245,10 @@ ob_flush() ?>
 				<h2>Uploaden</h2>
 			<div class="info">
 				<div class="form_group">
-					<label>Identiteitsbewijs:</label><input name="identiteitsbewijs" type="file" accept="image/jpeg,image/jpg,image/png,.pdf,.docx">
+					<label>ID:</label><input name="identiteitsbewijs" type="file" accept="image/jpeg,image/jpg,image/png,.pdf,.docx">
 				</div>
 				<div class="form_group">
-					<label>Uploaden rapport 1 en 2 van CB1 of Uploaden rapport 1 en 2 van CB 2:</label><input name="verklaring" type="file" accept="image/jpeg,image/jpg,image/png,.pdf,.docx,.xls,.xlsx, .xlsb">
+					<label>Cijferlijst SE1, SE2, SE 3 Mavo 4:</label><input name="verklaring" type="file" accept="image/jpeg,image/jpg,image/png,.pdf,.docx,.xls,.xlsx, .xlsb">
 				</div>
 				<!-- <div class="form_group">
 					<label>Verklaring van censo:</label><input name="verklaring" type="file" accept="image/jpeg,image/jpg,image/png,.pdf,.docx">
@@ -1250,24 +1262,24 @@ ob_flush() ?>
 					<label>Upload profielkeuze:</label><input name="profielh3" type="file" accept="image/jpeg,image/jpg,image/png,.pdf,.docx,.xls,.xlsx, .xlsb">
 				</div> -->
 				<div class="form_group">
-					<label>Uploaden rapport 1 en 2 van havo 2 of Uploaden rapport 1 en 2 van havo 3:</label><input name="klas5" type="file" accept="image/jpeg,image/jpg,image/png,.pdf,.docx,.xls,.xlsx, .xlsb">
+					<label>Cijferlijst CSE TV1:</label><input name="klas5" type="file" accept="image/jpeg,image/jpg,image/png,.pdf,.docx,.xls,.xlsx, .xlsb">
 				</div>
 
 				
 				<div class="form_group">
-					<label>Uploaden rapport 1 en 2 van cb 2 met schooladvies of Uploaden rapport 1 en 2 van vwo 3:</label><input name="schooladvies" type="file" accept="image/jpeg,image/jpg,image/png,.pdf,.docx,.xls,.xlsx, .xlsb">
+					<label>Cijferlijst CSE TV2:</label><input name="schooladvies" type="file" accept="image/jpeg,image/jpg,image/png,.pdf,.docx,.xls,.xlsx, .xlsb">
 				</div>
 
-				
+<!-- 				
 				<div class="form_group">
 					<label>Download profielkeuze:</label><a href="ajax/havo4.docx" download="Mon Plaisir College HAVO - VWO Profiel 2023 - 2024">Download.</a>
-				</div>
+				</div> -->
 				<div class="form_group">
-					<label>Upload profielkeuze:</label><input name="profielh4" type="file" accept="image/jpeg,image/jpg,image/png,.pdf,.docx,.xls,.xlsx, .xlsb">
+					<label>Profielkeuze Havo:</label><input name="profielh4" type="file" accept="image/jpeg,image/jpg,image/png,.pdf,.docx,.xls,.xlsx, .xlsb">
 				</div>
-				<div class="form_group">
+<!-- 				<div class="form_group">
 					<label>Uploaden rapport 1 en 2 van havo 3 of Uploaden rapport 1 en 2 van havo 4:</label><input name="klas6" type="file" accept="image/jpeg,image/jpg,image/png,.pdf,.docx,.xls,.xlsx, .xlsb">
-				</div>
+				</div> -->
 
 				<!-- <div id="bishita" class="form_group">
 					<h1 style="margin: 0;">MAVO 4</h1>
@@ -1281,6 +1293,60 @@ ob_flush() ?>
 				<div class="form_group">
 					<label>Cijferlijsten SE 1, SE 2 en SE 3:</label><input name="mavo4" type="file" accept="image/jpeg,image/jpg,image/png,.pdf,.docx,.xls,.xlsx, .xlsb">
 				</div> -->
+			</div>
+
+			<div>
+				<div class="form_group">
+					<label>voor de vakken INF/FIL/CKV-PR geldt dat deze vakken alleen aangeboden kunnen worden als er minstens 15 leerlingen ervoor hebben gekozen.
+					Mavo leerlingen worden met hun huidige profiel examenklas aangenomen.
+					</label>
+				</div>
+			</div>
+
+			<div class="info">
+				<div class="form_group">
+					<label class="form_label form-select">Profiel:</label>
+					<select name="profiel" class="" required id="select_profiel">
+						<option value=""></option>
+						<option value="1">NW01</option>
+						<option value="2">NW02</option>
+						<option value="3">NW03</option>
+						<option value="4">MM01</option>
+						<option value="5">MM02</option>
+						<option value="6">HU01</option>
+						<option value="7">HU02</option>
+					</select>
+				</div>
+				<div class="form_group">
+					<label class="form_label form-select">3:</label>
+					<select name="profiel1" id="profiel1" class="" required>
+						<option value=""></option>
+					</select>
+				</div>
+				<div class="form_group">
+					<label class="form_label form-select">4:</label>
+					<select name="profiel2" id="profiel2" class="" required>
+						<option value=""></option>
+					</select>
+				</div>
+				<div class="form_group">
+					<label class="form_label form-select">5:</label>
+					<select name="profiel3" id="profiel3" class="" required>
+						<option value=""></option>
+					</select>
+				</div>
+				<div class="form_group">
+					<label class="form_label form-select">6:</label>
+					<select name="profiel4" id="profiel4" class="" required>
+						<option value=""></option>
+					</select>
+				</div>
+				<div class="form_group">
+					<label class="form_label form-select">7:</label>
+					<select name="profiel5" id="profiel5" class="" required>
+						<option value=""></option>
+					</select>
+				</div>
 			</div>
 			<!-- <div>
 				<div class="form_group">
@@ -1317,7 +1383,7 @@ ob_flush() ?>
 				<div class="form_group">
 					<input name="datum_o2" type="date" class="input-text" placeholder=" " required><label class="form_label">Datum:</label>
 				</div>
-				<input type="text" name="type" value="1" hidden>
+				<input type="text" name="type" value="2" hidden>
 				<div class="form_group" id="bishita">
 					<input name="afleverende" type="text" class="input-text" placeholder=" " required><label class="form_label">Afleverende school/van welke school komt de leerling:</label>
 				</div>
@@ -1346,3 +1412,68 @@ ob_flush() ?>
 		<a href="https://qwihi.com"><img id="logo" src="img/QwihiLogo.png" alt="qwihi" width="150px"></a>
 		<label id="qwihi">Your Imagination is our Creation.</label>
 </div>
+<script type="text/javascript">
+	$("#select_profiel").change(function() {
+		var selected = $(this).children("option:selected").val();
+		switch (selected) {
+			case '1': 
+				$("#profiel1").html(' <option value=""></option><option value="1">WB</option>');
+				$("#profiel2").html(' <option value=""></option><option value="1">SK</option>');
+				$("#profiel3").html(' <option value=""></option><option value="1">NA</option>');
+				$("#profiel4").html(' <option value=""></option><option value="1">EC</option><option value="2">BI</option>');
+				$("#profiel5").html(' <option value=""></option><option value="1">BE</option><option value="2">EC</option><option value="3">INF**</option>');
+			break;
+
+			case '2': 
+				$("#profiel1").html(' <option value=""></option><option value="1">WA</option><option value="2">WB</option>');
+				$("#profiel2").html(' <option value=""></option><option value="1">SK</option>');
+				$("#profiel3").html(' <option value=""></option><option value="1">NA</option>');
+				$("#profiel4").html(' <option value=""></option><option value="1">BI</option><option value="2">SP</option><option value="3">PAP</option><option value="4">EC</option>');
+				$("#profiel5").html(' <option value=""></option><option value="1">BE</option><option value="2">SP</option><option value="3">PAP</option><option value="4">EC</option><option value="5">AK</option><option value="6">GS</option><option value="7">FIL**</option><option value="8">INF**</option>');
+			break;
+
+			case '3': 
+				$("#profiel1").html(' <option value=""></option><option value="1">WA</option><option value="2">WB</option>');
+				$("#profiel2").html(' <option value=""></option><option value="1">SK</option>');
+				$("#profiel3").html(' <option value=""></option><option value="1">BI</option>');
+				$("#profiel4").html(' <option value=""></option><option value="1">EC</option><option value="2">SP</option><option value="3">PAP</option><option value="4">EC</option>');
+				$("#profiel5").html(' <option value=""></option><option value="1">BE</option><option value="2">SP</option><option value="3">CKV-pr**</option><option value="4">EC</option><option value="5">AK</option><option value="6">GS</option><option value="7">FIL**</option><option value="8">INF**</option>');
+			break;
+
+			case '4': 
+				$("#profiel1").html(' <option value=""></option><option value="1">WA</option>');
+				$("#profiel2").html(' <option value=""></option><option value="1">GS</option>');
+				$("#profiel3").html(' <option value=""></option><option value="1">AK</option><option value="2">EC</option>');
+				$("#profiel4").html(' <option value=""></option><option value="1">SP</option><option value="2">PAP</option><option value="3">BE</option><option value="4">BI</option><option value="5">AK</option><option value="6">EC</option>');
+				$("#profiel5").html(' <option value=""></option><option value="1">BE</option><option value="2">SP</option><option value="3">PAP</option><option value="4">BI</option><option value="5">FIL**</option><option value="6">INF**</option><option value="7">CKV-pr**</option>');
+			break;
+
+			case '5': 
+				$("#profiel1").html(' <option value=""></option><option value="1">WA</option>');
+				$("#profiel2").html(' <option value=""></option><option value="1">AK</option>');
+				$("#profiel3").html(' <option value=""></option><option value="1">GS</option><option value="2">EC</option>');
+				$("#profiel4").html(' <option value=""></option><option value="1">SP</option><option value="2">PAP</option><option value="3">BE</option><option value="4">BI</option><option value="5">GS</option><option value="6">EC</option>');
+				$("#profiel5").html(' <option value=""></option><option value="1">BE</option><option value="2">SP</option><option value="3">PAP</option><option value="4">BI</option><option value="5">FIL**</option><option value="6">INF**</option><option value="7">CKV-pr**</option>');
+			break;
+
+			case '6': 
+				$("#profiel1").html(' <option value=""></option><option value="1">SP</option>');
+				$("#profiel2").html(' <option value=""></option><option value="1">CKV-pr**</option>');
+				$("#profiel3").html(' <option value=""></option><option value="1">AK</option><option value="2">GS</option>');
+				$("#profiel4").html(' <option value=""></option><option value="1">PAP</option>');
+				$("#profiel5").html(' <option value=""></option><option value="1">AK</option><option value="2">GS</option><option value="3">FIL**</option>');
+			break;
+
+			case '7': 
+				$("#profiel1").html(' <option value=""></option><option value="1">SP</option>');
+				$("#profiel2").html(' <option value=""></option><option value="1">CKV-pr**</option>');
+				$("#profiel3").html(' <option value=""></option><option value="1">AK</option><option value="2">GS</option>');
+				$("#profiel4").html(' <option value=""></option><option value="1">WA</option>');
+				$("#profiel5").html(' <option value=""></option><option value="1">PAP</option><option value="2">BE</option><option value="3">EC</option><option value="4">GS</option><option value="5">AK</option><option value="6">FIL**</option><option value="7">INF**</option>');
+				break;
+
+			default:
+			break;
+			}
+			});
+			</script>

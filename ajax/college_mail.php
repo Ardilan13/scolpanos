@@ -236,6 +236,7 @@ $dyslexie_f = $_POST["dyslexie_f"];
 $dyslexie = $_POST["dyslexie"];
 $dyscalculie = $_POST["dyscalculie"]; */
 
+
 if ($_FILES["identiteitsbewijs"]["size"] != 0) {
     $identiteitsbewijs_base = basename($_FILES["identiteitsbewijs"]["name"]);
     $identiteitsbewijs_final = "college_forms/" . date("m-d-y") . "-" . date("h-i-s") . "-" . $identiteitsbewijs_base;
@@ -296,50 +297,58 @@ $type = $_POST["type"];
 /* $consulta = "SELECT naam,voornamen,f_nacemento FROM aplicacion_college WHERE naam = '$naam' AND voornamen = '$voornamen' AND f_nacemento = '$f_nacemento'";
 $resultado = mysqli_query($mysqli, $consulta);
 if (mysqli_num_rows($resultado) == 0) { */
-$insertar = "INSERT INTO aplicacion_college(type,meld,datum,naam,voornamen,roepnaam,sexo,geboorteland,nacionalidad,f_nacemento,id_nr,wonachtig,adres,districto,telefoon_a,telefoon_c,email,religion,batisa,number_azv,cas,medicina,alergia,psycholoog,berkingen,leerstoorniseen,idioma,naam_p,voornamen_p,adres_p,celular_p,tel_p,geboorteland_p,nacionalidad_p,bibando_p,districto_p,email_p,religion_p,ocupacion_p,werkzaam_p,teltra_p,naam_m,voornamen_m,adres_m,celular_m,tel_m,geboorteland_m,nacionalidad_m,bibando_m,districto_m,email_m,religion_m,ocupacion_m,werkzaam_m,teltra_m,naam_v,voornamen_v,relatie,adres_v,celular_v,tel_v,geboorteland_v,nacionalidad_v,bibando_v,districto_v,email_v,religion_v,ocupacion_v,werkzaam_v,teltra_v,naam_g1,voornamen_g1,broer_g1,geboortedatum_g1,naam_g2,voornamen_g2,broer_g2,geboortedatum_g2,naam_g3,voornamen_g3,broer_g3,geboortedatum_g3,naam_g4,voornamen_g4,broer_g4,geboortedatum_g4,gesproken,informatie,naam_b1,basisschool_b1,school_b1,klas_b1,naam_b2,basisschool_b2,school_b2,klas_b2,naam_b3,basisschool_b3,school_b3,klas_b3,naam_b4,basisschool_b4,school_b4,klas_b4,relevant,identiteitsbewijs,verklaring,schooladvies,klas5,klas6,profielh3,profielh4,mavo4,profielm4,naam_o1,plaats_o1,datum_o1,naam_o2,plaats_o2,datum_o2,afleverende) VALUES ('$type','$meld','$datum','$naam', '$voornamen','$roepnaam', '$sexo', '$geboorteland','$nacionalidad' , '$f_nacemento', '$id_nr','$wonachtig','$adres','$districto','$telefoon_a','$telefoon_c','$email','$religion','$batisa','$number_azv','$cas','$medicina','$alergia','$psycholoog','$berkingen','$leerstoorniseen','$idioma','$naam_p','$voornamen_p','$adres_p','$celular_p','$tel_p','$geboorteland_p','$nacionalidad_p','$bibando_p','$districto_p','$email_p','$religion_p','$ocupacion_p','$werkzaam_p','$teltra_p','$naam_m','$voornamen_m','$adres_m','$celular_m','$tel_m','$geboorteland_m','$nacionalidad_m','$bibando_m','$districto_m','$email_m','$religion_m','$ocupacion_m','$werkzaam_m','$teltra_m','$naam_v','$voornamen_v','$relatie','$adres_v','$celular_v','$tel_v','$geboorteland_v','$nacionalidad_v','$bibando_v','$districto_v','$email_v','$religion_v','$ocupacion_v','$werkzaam_v','$teltra_v','$naam_g1','$voornamen_g1','$broer_g1','$geboortedatum_g1','$naam_g2','$voornamen_g2','$broer_g2','$geboortedatum_g2','$naam_g3','$voornamen_g3','$broer_g3','$geboortedatum_g3','$naam_g4','$voornamen_g4','$broer_g4','$geboortedatum_g4','$gesproken','$informatie','$naam_b1','$basisschool_b1','$school_b1','$klas_b1','$naam_b2','$basisschool_b2','$school_b2','$klas_b2','$naam_b3','$basisschool_b3','$school_b3','$klas_b3','$naam_b4','$basisschool_b4','$school_b4','$klas_b4','$relevant','$identiteitsbewijs_final','$verklaring_final','$schooladvies_final','$klas5_final','$klas6_final','$profielh3_final','$profielh4_final','$mavo4_final','$profielm4_final','$naam_o1','$plaats_o1','$datum_o1','$naam_o2','$plaats_o2','$datum_o2','$afleverende')";
-$resultado = mysqli_query($mysqli, $insertar);
-if ($resultado) {
-    $consulta = "SELECT ID FROM aplicacion_college WHERE naam = '$naam' AND f_nacemento = '$f_nacemento'";
-    $resultado = mysqli_query($mysqli, $consulta);
-    $row = mysqli_fetch_assoc($resultado);
-    $id = $row["ID"];
-    $headers = "From: no-reply@qwihi.com";
-    $subject = "Registratie nummer :" . $row["ID"];
-    if ($meld != null && $meld != 0 && $meld != '') {
-        $correo1 = "Bedankt dat u gekozen heeft voor de Mon Plaisir College Havo Vwo. Uw aanmelding wordt verwerkt, binnen 4 weken indien u alle nodige gegevens heeft opgestuurd.
+if ($type == 2) {
+    $profiel = $_POST["profiel"];
+    $profiel1 = $_POST["profiel1"];
+    $profiel2 = $_POST["profiel2"];
+    $profiel3 = $_POST["profiel3"];
+    $profiel4 = $_POST["profiel4"];
+    $profiel5 = $_POST["profiel5"];
+
+    $insertar = "INSERT INTO aplicacion_college(type,meld,datum,naam,voornamen,roepnaam,sexo,geboorteland,nacionalidad,f_nacemento,id_nr,wonachtig,adres,districto,telefoon_a,telefoon_c,email,religion,batisa,number_azv,cas,medicina,alergia,psycholoog,berkingen,leerstoorniseen,idioma,naam_p,voornamen_p,adres_p,celular_p,tel_p,geboorteland_p,nacionalidad_p,bibando_p,districto_p,email_p,religion_p,ocupacion_p,werkzaam_p,teltra_p,naam_m,voornamen_m,adres_m,celular_m,tel_m,geboorteland_m,nacionalidad_m,bibando_m,districto_m,email_m,religion_m,ocupacion_m,werkzaam_m,teltra_m,naam_v,voornamen_v,relatie,adres_v,celular_v,tel_v,geboorteland_v,nacionalidad_v,bibando_v,districto_v,email_v,religion_v,ocupacion_v,werkzaam_v,teltra_v,naam_g1,voornamen_g1,broer_g1,geboortedatum_g1,naam_g2,voornamen_g2,broer_g2,geboortedatum_g2,naam_g3,voornamen_g3,broer_g3,geboortedatum_g3,naam_g4,voornamen_g4,broer_g4,geboortedatum_g4,gesproken,informatie,naam_b1,basisschool_b1,school_b1,klas_b1,naam_b2,basisschool_b2,school_b2,klas_b2,naam_b3,basisschool_b3,school_b3,klas_b3,naam_b4,basisschool_b4,school_b4,klas_b4,relevant,identiteitsbewijs,verklaring,schooladvies,klas5,klas6,profielh3,profielh4,mavo4,profielm4,profiel,profiel1,profiel2,profiel3,profiel4,profiel5,naam_o1,plaats_o1,datum_o1,naam_o2,plaats_o2,datum_o2,afleverende) VALUES ('$type','$meld','$datum','$naam', '$voornamen','$roepnaam', '$sexo', '$geboorteland','$nacionalidad' , '$f_nacemento', '$id_nr','$wonachtig','$adres','$districto','$telefoon_a','$telefoon_c','$email','$religion','$batisa','$number_azv','$cas','$medicina','$alergia','$psycholoog','$berkingen','$leerstoorniseen','$idioma','$naam_p','$voornamen_p','$adres_p','$celular_p','$tel_p','$geboorteland_p','$nacionalidad_p','$bibando_p','$districto_p','$email_p','$religion_p','$ocupacion_p','$werkzaam_p','$teltra_p','$naam_m','$voornamen_m','$adres_m','$celular_m','$tel_m','$geboorteland_m','$nacionalidad_m','$bibando_m','$districto_m','$email_m','$religion_m','$ocupacion_m','$werkzaam_m','$teltra_m','$naam_v','$voornamen_v','$relatie','$adres_v','$celular_v','$tel_v','$geboorteland_v','$nacionalidad_v','$bibando_v','$districto_v','$email_v','$religion_v','$ocupacion_v','$werkzaam_v','$teltra_v','$naam_g1','$voornamen_g1','$broer_g1','$geboortedatum_g1','$naam_g2','$voornamen_g2','$broer_g2','$geboortedatum_g2','$naam_g3','$voornamen_g3','$broer_g3','$geboortedatum_g3','$naam_g4','$voornamen_g4','$broer_g4','$geboortedatum_g4','$gesproken','$informatie','$naam_b1','$basisschool_b1','$school_b1','$klas_b1','$naam_b2','$basisschool_b2','$school_b2','$klas_b2','$naam_b3','$basisschool_b3','$school_b3','$klas_b3','$naam_b4','$basisschool_b4','$school_b4','$klas_b4','$relevant','$identiteitsbewijs_final','$verklaring_final','$schooladvies_final','$klas5_final','$klas6_final','$profielh3_final','$profielh4_final','$mavo4_final','$profielm4_final','$profiel','$profiel1','$profiel2','$profiel3','$profiel4','$profiel5','$naam_o1','$plaats_o1','$datum_o1','$naam_o2','$plaats_o2','$datum_o2','$afleverende')";
+    $resultado = mysqli_query($mysqli, $insertar);
+    if ($resultado) {
+        $consulta = "SELECT ID FROM aplicacion_college WHERE naam = '$naam' AND f_nacemento = '$f_nacemento'";
+        $resultado = mysqli_query($mysqli, $consulta);
+        $row = mysqli_fetch_assoc($resultado);
+        $id = $row["ID"];
+        $headers = "From: no-reply@qwihi.com";
+        $subject = "Registratie nummer :" . $row["ID"];
+        if ($meld != null && $meld != 0 && $meld != '') {
+            $correo1 = "Bedankt dat u gekozen heeft voor de Mon Plaisir College Havo Vwo. Uw aanmelding wordt verwerkt, binnen 4 weken indien u alle nodige gegevens heeft opgestuurd.
 
             Indien er tijdens het uploaden van de nodige documenten problemen ontstaan. Kunt u de nodige gegevens mailen naar havompc.aanmelding@gmail.com. Dit valt onder optie 2.
             Maak alleen gebruik van optie 2 indien optie 1 niet lukt.";
-    } else {
-        $correo1 = "Bedankt dat u gekozen heeft voor de Mon Plaisir College Havo Vwo. Uw aanmelding wordt verwerkt, na het ontvangen van de uitslag van doorstroomtoets. Hooguit 2 juni moet u de uitslag ontvangen van de basisschool van uw kind.
+        } else {
+            $correo1 = "Bedankt dat u gekozen heeft voor de Mon Plaisir College Havo Vwo. Uw aanmelding wordt verwerkt, na het ontvangen van de uitslag van doorstroomtoets. Hooguit 2 juni moet u de uitslag ontvangen van de basisschool van uw kind.
             Mail de uitslag naar havompc.aanmelding@gmail.com zodat uw aanmelding verwerkt kan worden.";
-    }
-    mail($email_p, $subject, $correo1, $headers);
-    mail($email_m, $subject, $correo1, $headers);
+        }
+        mail($email_p, $subject, $correo1, $headers);
+        mail($email_m, $subject, $correo1, $headers);
 ?>
 
-    <body style="background-color: green;">
-        <div style="background-color: white; text-align: center; border-radius: 10px; padding:5% 0; margin:11%">
-            <h1>Uploaded successfully.</h1>
-            <img src="https://cdn.pixabay.com/photo/2017/03/28/01/46/check-mark-2180770_960_720.png" alt="correcto" width="100px" height="100px">
-            <h3>We send you a confirmation to the parent's email.</h3>
-            <?php echo $mavo4_final;
-            echo $_FILES["profielm4_final"]["name"];
-            echo $_FILES["klas6_final"]["name"]; ?>
-            <a style="font-size: large; display: block; margin-top: 20px;" href="../aplicacion_college.php">Go back.</a>
-        </div>
-    </body>
-<?php } else { ?>
+        <body style="background-color: green;">
+            <div style="background-color: white; text-align: center; border-radius: 10px; padding:5% 0; margin:11%">
+                <h1>Uploaded successfully.</h1>
+                <img src="https://cdn.pixabay.com/photo/2017/03/28/01/46/check-mark-2180770_960_720.png" alt="correcto" width="100px" height="100px">
+                <h3>We send you a confirmation to the parent's email.</h3>
+                <?php echo $mavo4_final;
+                echo $_FILES["profielm4_final"]["name"];
+                echo $_FILES["klas6_final"]["name"]; ?>
+                <a style="font-size: large; display: block; margin-top: 20px;" href="../aplicacion_college.php">Go back.</a>
+            </div>
+        </body>
+    <?php } else { ?>
 
-    <body style="background-color: red;">
-        <div style="background-color: white; text-align: center; border-radius: 10px; padding:5% 0; margin:17%">
-            <h1>The form was not sent, please try again.</h1>
-            <img src="https://cdn-icons-png.flaticon.com/512/148/148766.png" alt="error" width="100px" height="100px">
-            <a style="font-size: large; display: block; margin-top: 20px;" href="../aplicacion_college.php">Go back.</a>
-        </div>
-    </body>
-<?php }
-/* } else {
+        <body style="background-color: red;">
+            <div style="background-color: white; text-align: center; border-radius: 10px; padding:5% 0; margin:17%">
+                <h1>The form was not sent, please try again.</h1>
+                <img src="https://cdn-icons-png.flaticon.com/512/148/148766.png" alt="error" width="100px" height="100px">
+                <a style="font-size: large; display: block; margin-top: 20px;" href="../aplicacion_college.php">Go back.</a>
+            </div>
+        </body>
+    <?php }
+    /* } else {
     ?>
 
     <body style="background-color: red;">
@@ -355,3 +364,64 @@ if ($resultado) {
 
 <?php
 }   ?> */
+} else {
+    $insertar = "INSERT INTO aplicacion_college(type,meld,datum,naam,voornamen,roepnaam,sexo,geboorteland,nacionalidad,f_nacemento,id_nr,wonachtig,adres,districto,telefoon_a,telefoon_c,email,religion,batisa,number_azv,cas,medicina,alergia,psycholoog,berkingen,leerstoorniseen,idioma,naam_p,voornamen_p,adres_p,celular_p,tel_p,geboorteland_p,nacionalidad_p,bibando_p,districto_p,email_p,religion_p,ocupacion_p,werkzaam_p,teltra_p,naam_m,voornamen_m,adres_m,celular_m,tel_m,geboorteland_m,nacionalidad_m,bibando_m,districto_m,email_m,religion_m,ocupacion_m,werkzaam_m,teltra_m,naam_v,voornamen_v,relatie,adres_v,celular_v,tel_v,geboorteland_v,nacionalidad_v,bibando_v,districto_v,email_v,religion_v,ocupacion_v,werkzaam_v,teltra_v,naam_g1,voornamen_g1,broer_g1,geboortedatum_g1,naam_g2,voornamen_g2,broer_g2,geboortedatum_g2,naam_g3,voornamen_g3,broer_g3,geboortedatum_g3,naam_g4,voornamen_g4,broer_g4,geboortedatum_g4,gesproken,informatie,naam_b1,basisschool_b1,school_b1,klas_b1,naam_b2,basisschool_b2,school_b2,klas_b2,naam_b3,basisschool_b3,school_b3,klas_b3,naam_b4,basisschool_b4,school_b4,klas_b4,relevant,identiteitsbewijs,verklaring,schooladvies,klas5,klas6,profielh3,profielh4,mavo4,profielm4,naam_o1,plaats_o1,datum_o1,naam_o2,plaats_o2,datum_o2,afleverende) VALUES ('$type','$meld','$datum','$naam', '$voornamen','$roepnaam', '$sexo', '$geboorteland','$nacionalidad' , '$f_nacemento', '$id_nr','$wonachtig','$adres','$districto','$telefoon_a','$telefoon_c','$email','$religion','$batisa','$number_azv','$cas','$medicina','$alergia','$psycholoog','$berkingen','$leerstoorniseen','$idioma','$naam_p','$voornamen_p','$adres_p','$celular_p','$tel_p','$geboorteland_p','$nacionalidad_p','$bibando_p','$districto_p','$email_p','$religion_p','$ocupacion_p','$werkzaam_p','$teltra_p','$naam_m','$voornamen_m','$adres_m','$celular_m','$tel_m','$geboorteland_m','$nacionalidad_m','$bibando_m','$districto_m','$email_m','$religion_m','$ocupacion_m','$werkzaam_m','$teltra_m','$naam_v','$voornamen_v','$relatie','$adres_v','$celular_v','$tel_v','$geboorteland_v','$nacionalidad_v','$bibando_v','$districto_v','$email_v','$religion_v','$ocupacion_v','$werkzaam_v','$teltra_v','$naam_g1','$voornamen_g1','$broer_g1','$geboortedatum_g1','$naam_g2','$voornamen_g2','$broer_g2','$geboortedatum_g2','$naam_g3','$voornamen_g3','$broer_g3','$geboortedatum_g3','$naam_g4','$voornamen_g4','$broer_g4','$geboortedatum_g4','$gesproken','$informatie','$naam_b1','$basisschool_b1','$school_b1','$klas_b1','$naam_b2','$basisschool_b2','$school_b2','$klas_b2','$naam_b3','$basisschool_b3','$school_b3','$klas_b3','$naam_b4','$basisschool_b4','$school_b4','$klas_b4','$relevant','$identiteitsbewijs_final','$verklaring_final','$schooladvies_final','$klas5_final','$klas6_final','$profielh3_final','$profielh4_final','$mavo4_final','$profielm4_final','$naam_o1','$plaats_o1','$datum_o1','$naam_o2','$plaats_o2','$datum_o2','$afleverende')";
+    $resultado = mysqli_query($mysqli, $insertar);
+    if ($resultado) {
+        $consulta = "SELECT ID FROM aplicacion_college WHERE naam = '$naam' AND f_nacemento = '$f_nacemento'";
+        $resultado = mysqli_query($mysqli, $consulta);
+        $row = mysqli_fetch_assoc($resultado);
+        $id = $row["ID"];
+        $headers = "From: no-reply@qwihi.com";
+        $subject = "Registratie nummer :" . $row["ID"];
+        if ($meld != null && $meld != 0 && $meld != '') {
+            $correo1 = "Bedankt dat u gekozen heeft voor de Mon Plaisir College Havo Vwo. Uw aanmelding wordt verwerkt, binnen 4 weken indien u alle nodige gegevens heeft opgestuurd.
+
+            Indien er tijdens het uploaden van de nodige documenten problemen ontstaan. Kunt u de nodige gegevens mailen naar havompc.aanmelding@gmail.com. Dit valt onder optie 2.
+            Maak alleen gebruik van optie 2 indien optie 1 niet lukt.";
+        } else {
+            $correo1 = "Bedankt dat u gekozen heeft voor de Mon Plaisir College Havo Vwo. Uw aanmelding wordt verwerkt, na het ontvangen van de uitslag van doorstroomtoets. Hooguit 2 juni moet u de uitslag ontvangen van de basisschool van uw kind.
+            Mail de uitslag naar havompc.aanmelding@gmail.com zodat uw aanmelding verwerkt kan worden.";
+        }
+        mail($email_p, $subject, $correo1, $headers);
+        mail($email_m, $subject, $correo1, $headers);
+    ?>
+
+        <body style="background-color: green;">
+            <div style="background-color: white; text-align: center; border-radius: 10px; padding:5% 0; margin:11%">
+                <h1>Uploaded successfully.</h1>
+                <img src="https://cdn.pixabay.com/photo/2017/03/28/01/46/check-mark-2180770_960_720.png" alt="correcto" width="100px" height="100px">
+                <h3>We send you a confirmation to the parent's email.</h3>
+                <?php echo $mavo4_final;
+                echo $_FILES["profielm4_final"]["name"];
+                echo $_FILES["klas6_final"]["name"]; ?>
+                <a style="font-size: large; display: block; margin-top: 20px;" href="../aplicacion_college.php">Go back.</a>
+            </div>
+        </body>
+    <?php } else { ?>
+
+        <body style="background-color: red;">
+            <div style="background-color: white; text-align: center; border-radius: 10px; padding:5% 0; margin:17%">
+                <h1>The form was not sent, please try again.</h1>
+                <img src="https://cdn-icons-png.flaticon.com/512/148/148766.png" alt="error" width="100px" height="100px">
+                <a style="font-size: large; display: block; margin-top: 20px;" href="../aplicacion_college.php">Go back.</a>
+            </div>
+        </body>
+<?php }
+    /* } else {
+    ?>
+
+    <body style="background-color: red;">
+        <div style="background-color: white; text-align: center; border-radius: 10px; padding:5% 0; margin:17%">
+            <h1>The form was not sent, the student has already been registered.</h1>
+            <?php echo $mavo4_final;
+            echo $_FILES["profielm4_final"]["name"];
+            echo basename($_FILES["profielm4_final"]["name"]); ?>
+            <img src="https://cdn-icons-png.flaticon.com/512/148/148766.png" alt="error" width="100px" height="100px">
+            <a style="font-size: large; display: block; margin-top: 20px;" href="../aplicacion_college.php">Go back.</a>
+        </div>
+    </body>
+
+<?php
+}   ?> */
+}
