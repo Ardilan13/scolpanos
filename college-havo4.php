@@ -255,7 +255,7 @@ if (!isset($_SESSION['already_refreshed'])) {
             </table>
             <form action="ajax/get_aplicacionform_excel.php" method="POST">
                 <input name="scol" type="text" hidden value="11">
-                <input name="tipo" type="text" hidden value="1">
+                <input name="tipo" type="text" hidden value="2">
                 <button style="margin-bottom: 0;" type="submit" id="excelButton">Export</button>
             </form>
             <?php } ?>
