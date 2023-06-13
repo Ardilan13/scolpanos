@@ -14,258 +14,258 @@ $ID = $_GET["ID"];
 $scol = $_POST["scol"];
 
 if ($id != null && $id != "") {
-    $query = "SELECT * FROM aplicacion_college WHERE ID = '$id'";
+	$query = "SELECT * FROM aplicacion_college WHERE ID = '$id'";
 } else {
-    $query = "SELECT * FROM aplicacion_college WHERE ID = '$ID'";
+	$query = "SELECT * FROM aplicacion_college WHERE ID = '$ID'";
 }
 $resultado = mysqli_query($mysqli, $query);
 if (mysqli_num_rows($resultado) != 0) {
-    $row = mysqli_fetch_assoc($resultado); ?>
+	$row = mysqli_fetch_assoc($resultado); ?>
 
-    <head>
-        <title>AANMELDINGSFORMULIER</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    </head>
-    <script src="components/jquery/jquery.min.js" type="text/javascript"></script>
-    <script type="text/javascript">
+	<head>
+		<title>AANMELDINGSFORMULIER</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	</head>
+	<script src="components/jquery/jquery.min.js" type="text/javascript"></script>
+	<script type="text/javascript">
 
-    </script>
-    <style type="text/css" media="screen">
-        h2 {
-            color: red;
-            border-bottom: 2px solid red;
-            margin: 0 25%;
-        }
+	</script>
+	<style type="text/css" media="screen">
+		h2 {
+			color: red;
+			border-bottom: 2px solid red;
+			margin: 0 25%;
+		}
 
-        label {
-            display: inline-block;
-            margin: 1.2% .5% 1.2% 2%;
-        }
+		label {
+			display: inline-block;
+			margin: 1.2% .5% 1.2% 2%;
+		}
 
-        button {
-            margin: 4%;
-            background-color: yellow;
-            font-size: large;
-            cursor: pointer;
-            padding: 1% 6%;
-            border-radius: 7px;
-            border: 2px solid black;
+		button {
+			margin: 4%;
+			background-color: yellow;
+			font-size: large;
+			cursor: pointer;
+			padding: 1% 6%;
+			border-radius: 7px;
+			border: 2px solid black;
 
-        }
+		}
 
-        button:hover {
-            background-color: orange;
-            transition: 100ms;
-        }
+		button:hover {
+			background-color: orange;
+			transition: 100ms;
+		}
 
-        body {
-            background-color: #1d407a;
-        }
+		body {
+			background-color: #1d407a;
+		}
 
-        label {
-            font-size: 1rem;
-        }
+		label {
+			font-size: 1rem;
+		}
 
-        .container {
-            text-align: center;
-        }
+		.container {
+			text-align: center;
+		}
 
-        .form-bg {
-            background-color: white;
-            margin: 3% 15%;
-            padding: 0 5%;
-            text-align: center;
-            border-radius: 5px;
-            box-shadow: 0 5px 10px -5px rgb(0 0 0 / 30%);
-        }
+		.form-bg {
+			background-color: white;
+			margin: 3% 15%;
+			padding: 0 5%;
+			text-align: center;
+			border-radius: 5px;
+			box-shadow: 0 5px 10px -5px rgb(0 0 0 / 30%);
+		}
 
-        .info {
-            margin: 4% 0;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2em;
-        }
+		.info {
+			margin: 4% 0;
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			gap: 2em;
+		}
 
-        .info-top {
-            border-top: 1px solid #1d407a;
-            padding-top: 3%;
-        }
+		.info-top {
+			border-top: 1px solid #1d407a;
+			padding-top: 3%;
+		}
 
-        .form_group {
-            position: relative;
-            color: #4f4f4f;
-        }
+		.form_group {
+			position: relative;
+			color: #4f4f4f;
+		}
 
-        .input-text {
-            background: none;
-            font-size: 1rem;
-            padding: 1.3em 0.4em;
-            width: 250px;
-            height: 30px;
-            border: 1px solid #1d407a;
-            border-radius: 5px;
-            width: 100%;
-            outline: none;
-        }
+		.input-text {
+			background: none;
+			font-size: 1rem;
+			padding: 1.3em 0.4em;
+			width: 250px;
+			height: 30px;
+			border: 1px solid #1d407a;
+			border-radius: 5px;
+			width: 100%;
+			outline: none;
+		}
 
-        select {
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            outline: none;
-            background: none;
-            box-sizing: content-box;
-            padding: 0.32em 0.4em;
-            height: 30px;
-            font-size: 1rem;
-            width: 250px;
-            border: 1px solid #1d407a;
-            border-radius: 5px;
-            width: 97%;
-            cursor: pointer;
-        }
+		select {
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			appearance: none;
+			outline: none;
+			background: none;
+			box-sizing: content-box;
+			padding: 0.32em 0.4em;
+			height: 30px;
+			font-size: 1rem;
+			width: 250px;
+			border: 1px solid #1d407a;
+			border-radius: 5px;
+			width: 97%;
+			cursor: pointer;
+		}
 
-        .input-text:focus+.form_label,
-        .input-text:not(:placeholder-shown)+.form_label {
-            transform: translateY(-17px) scale(1.1);
-            transform-origin: left top;
-            color: #1d407a;
-        }
+		.input-text:focus+.form_label,
+		.input-text:not(:placeholder-shown)+.form_label {
+			transform: translateY(-17px) scale(1.1);
+			transform-origin: left top;
+			color: #1d407a;
+		}
 
-        .form_label {
-            color: #4f4f4f;
-            font-size: 1rem;
-            background-color: white;
-            position: absolute;
-            top: 0;
-            left: 10px;
-            transform: translateY(7px);
-            transition: transform .5s, color .3s;
-        }
+		.form_label {
+			color: #4f4f4f;
+			font-size: 1rem;
+			background-color: white;
+			position: absolute;
+			top: 0;
+			left: 10px;
+			transform: translateY(7px);
+			transition: transform .5s, color .3s;
+		}
 
-        .form-select {
-            transform: translateY(-17px) scale(1.1);
-            transform-origin: left top;
-            color: #1d407a;
-        }
+		.form-select {
+			transform: translateY(-17px) scale(1.1);
+			transform-origin: left top;
+			color: #1d407a;
+		}
 
-        #bishita {
-            grid-column: 1/3;
-        }
+		#bishita {
+			grid-column: 1/3;
+		}
 
-        #input_file {
-            padding-left: 20px;
-        }
+		#input_file {
+			padding-left: 20px;
+		}
 
-        .qwihi {
-            background-color: #262532;
-            padding-top: 1%;
-            margin: -2% -0.45%;
-            align-items: center;
-            text-align: center;
+		.qwihi {
+			background-color: #262532;
+			padding-top: 1%;
+			margin: -2% -0.45%;
+			align-items: center;
+			text-align: center;
 
-        }
+		}
 
-        #qwihi {
-            color: white;
-            font-size: larger;
-        }
+		#qwihi {
+			color: white;
+			font-size: larger;
+		}
 
-        #logo {
-            border-right: 1px solid white;
-            margin-right: 3%;
-            padding-right: 5%;
-        }
+		#logo {
+			border-right: 1px solid white;
+			margin-right: 3%;
+			padding-right: 5%;
+		}
 
-        @media (max-width: 1000px) {
+		@media (max-width: 1000px) {
 
-            .info,
-            select {
-                display: grid;
-                grid-template-columns: repeat(1, 1fr);
-            }
+			.info,
+			select {
+				display: grid;
+				grid-template-columns: repeat(1, 1fr);
+			}
 
-            .form-bg {
-                margin: 3%;
-                padding: 3%;
-            }
+			.form-bg {
+				margin: 3%;
+				padding: 3%;
+			}
 
-            button {
-                padding: 5% 35%;
-                font-size: large;
-                text-align: center;
-                margin: auto;
-            }
+			button {
+				padding: 5% 35%;
+				font-size: large;
+				text-align: center;
+				margin: auto;
+			}
 
-            .input-text {
-                height: 100px;
-                border-width: 2px;
-            }
+			.input-text {
+				height: 100px;
+				border-width: 2px;
+			}
 
-            select {
-                width: 97%;
-                font-size: 1.8rem;
-                height: 78px;
-                border-width: 2px;
-            }
+			select {
+				width: 97%;
+				font-size: 1.8rem;
+				height: 78px;
+				border-width: 2px;
+			}
 
-            .form_label {
-                transform: translateY(22px);
-            }
+			.form_label {
+				transform: translateY(22px);
+			}
 
-            .form-select {
-                transform: translateY(-30px) scale(1.1);
-            }
+			.form-select {
+				transform: translateY(-30px) scale(1.1);
+			}
 
-            .input-text:focus+.form_label,
-            .input-text:not(:placeholder-shown)+.form_label {
-                transform: translateY(-28px) scale(1.1);
-            }
+			.input-text:focus+.form_label,
+			.input-text:not(:placeholder-shown)+.form_label {
+				transform: translateY(-28px) scale(1.1);
+			}
 
-            label,
-            .form_label,
-            .input-text {
-                font-size: 1.8rem;
-            }
+			label,
+			.form_label,
+			.input-text {
+				font-size: 1.8rem;
+			}
 
-            #bishita {
-                font-size: 1.5rem;
-            }
+			#bishita {
+				font-size: 1.5rem;
+			}
 
-            input[type=radio],
-            input[type=checkbox] {
-                border: 0;
-                width: 2rem;
-                height: 2rem;
-            }
+			input[type=radio],
+			input[type=checkbox] {
+				border: 0;
+				width: 2rem;
+				height: 2rem;
+			}
 
-            span {
-                font-size: 1.5rem;
-                margin-left: .5rem;
-            }
+			span {
+				font-size: 1.5rem;
+				margin-left: .5rem;
+			}
 
-            #bishita {
-                grid-column: 1/2;
-            }
+			#bishita {
+				grid-column: 1/2;
+			}
 
-            #input_file {
-                font-size: 1.8rem;
-            }
+			#input_file {
+				font-size: 1.8rem;
+			}
 
-            .img-responsive {
-                width: 40%;
-            }
+			.img-responsive {
+				width: 40%;
+			}
 
-            button {
-                margin-top: 5%;
-                font-size: 2.5rem;
-                font-weight: bold;
-            }
-        }
-    </style>
-    <main id="main" role="main" class="login">
-        <div class="container">
-            <div class="form-bg"'>
+			button {
+				margin-top: 5%;
+				font-size: 2.5rem;
+				font-weight: bold;
+			}
+		}
+	</style>
+	<main id="main" role="main" class="login">
+		<div class="container">
+			<div class="form-bg"'>
 			<div class="spn-logo">
 				<h1 class="brand">
 				<img class="img-responsive" src="img/monplaisir123.png" alt="Scol Pa Nos" width="12%">
@@ -276,24 +276,15 @@ if (mysqli_num_rows($resultado) != 0) {
                 <h3>Mon Plaisir College Havo</h3>
 				<h4>Havo 4</h4>
 
-				<div class="info">
 					<div class="form_group">
 					<label class="form_label form-select">Ik meld mijn kind aan voor:</label>
 						<select name="meld" class="" required>
 							<option value="1" <?php $row['meld'] == 1 ? ' selected' : '' ?>>CB2</option>
 							<option value="2" <?php $row['meld'] == 2 ? ' selected' : '' ?>>HAVO 3</option>
 							<option value="3" <?php $row['meld'] == 3 ? ' selected' : '' ?>>VWO 3</option>
-							<option value="4" <?php $row['meld'] == 4 ? ' selected' : '' ?>>Havo 4 (afkomstig van havo 3)</option>
+							<option value="4" <?php $row['meld'] == 4 ? ' selected' : '' ?>>Havo 4</option>
 						</select>
 					</div>
-					<div>
-						<div class="form_group">
-							<p>	
-							Extra informatie: Aanmelding voor havo 4 leerlingen afkomstig van mavo 4 zal na de CE openen.
-							</p>
-						</div>
-					</div>
-				</div>
 				<h2>Personalia:</h2>
 			<div class="info">
 				<div class="form_group">
@@ -834,18 +825,18 @@ if (mysqli_num_rows($resultado) != 0) {
                 <div class="form_group">
 					<label class="form_label form-select">Districto:</label>
 					<?php if ($row["districto"] == 1) {
-                        $dis = "Noord";
-                    } else if ($row["districto"] == 2) {
-                        $dis = "Oranjestad";
-                    } else if ($row["districto"] == 3) {
-                        $dis = "Paradera";
-                    } else if ($row["districto"] == 4) {
-                        $dis = "San Nicolaas";
-                    } else if ($row["districto"] == 5) {
-                        $dis = "Santa Cruz";
-                    } else if ($row["districto"] == 6) {
-                        $dis = "Savaneta";
-                    } ?>
+						$dis = "Noord";
+					} else if ($row["districto"] == 2) {
+						$dis = "Oranjestad";
+					} else if ($row["districto"] == 3) {
+						$dis = "Paradera";
+					} else if ($row["districto"] == 4) {
+						$dis = "San Nicolaas";
+					} else if ($row["districto"] == 5) {
+						$dis = "Santa Cruz";
+					} else if ($row["districto"] == 6) {
+						$dis = "Savaneta";
+					} ?>
 					<select name="districto" class="" required>
 						<option value="<?php echo $row["districto"] ?>"> <?php echo $dis; ?> </option>
 						<option value="1">Noord</option>
@@ -868,42 +859,42 @@ if (mysqli_num_rows($resultado) != 0) {
                 <div class="form_group">
 					<label class="form_label form-select">Religie / Religion:</label>
 					<?php if ($row["religion"] == 1) {
-                        $rel = "Adventist";
-                    } else if ($row["religion"] == 2) {
-                        $rel = "Anglican";
-                    } else if ($row["religion"] == 3) {
-                        $rel = "Boedisme";
-                    } else if ($row["religion"] == 4) {
-                        $rel = "Christelijk";
-                    } else if ($row["religion"] == 5) {
-                        $rel = "Diciple di Jesus";
-                    } else if ($row["religion"] == 6) {
-                        $rel = "Evangelist";
-                    } else if ($row["religion"] == 7) {
-                        $rel = "Geen";
-                    } else if ($row["religion"] == 8) {
-                        $rel = "Gereformeerd";
-                    } else if ($row["religion"] == 9) {
-                        $rel = "Hindoeisme";
-                    } else if ($row["religion"] == 10) {
-                        $rel = "Islam";
-                    } else if ($row["religion"] == 11) {
-                        $rel = "Jehova getuige";
-                    } else if ($row["religion"] == 12) {
-                        $rel = "Jodendom";
-                    } else if ($row["religion"] == 13) {
-                        $rel = "Mormonen";
-                    } else if ($row["religion"] == 14) {
-                        $rel = "Niet van toepassing";
-                    } else if ($row["religion"] == 15) {
-                        $rel = "Pentecostal";
-                    } else if ($row["religion"] == 16) {
-                        $rel = "Pinkstergemeente";
-                    } else if ($row["religion"] == 17) {
-                        $rel = "Protestant";
-                    } else if ($row["religion"] == 18) {
-                        $rel = "Rooms Katholiek";
-                    } ?>
+						$rel = "Adventist";
+					} else if ($row["religion"] == 2) {
+						$rel = "Anglican";
+					} else if ($row["religion"] == 3) {
+						$rel = "Boedisme";
+					} else if ($row["religion"] == 4) {
+						$rel = "Christelijk";
+					} else if ($row["religion"] == 5) {
+						$rel = "Diciple di Jesus";
+					} else if ($row["religion"] == 6) {
+						$rel = "Evangelist";
+					} else if ($row["religion"] == 7) {
+						$rel = "Geen";
+					} else if ($row["religion"] == 8) {
+						$rel = "Gereformeerd";
+					} else if ($row["religion"] == 9) {
+						$rel = "Hindoeisme";
+					} else if ($row["religion"] == 10) {
+						$rel = "Islam";
+					} else if ($row["religion"] == 11) {
+						$rel = "Jehova getuige";
+					} else if ($row["religion"] == 12) {
+						$rel = "Jodendom";
+					} else if ($row["religion"] == 13) {
+						$rel = "Mormonen";
+					} else if ($row["religion"] == 14) {
+						$rel = "Niet van toepassing";
+					} else if ($row["religion"] == 15) {
+						$rel = "Pentecostal";
+					} else if ($row["religion"] == 16) {
+						$rel = "Pinkstergemeente";
+					} else if ($row["religion"] == 17) {
+						$rel = "Protestant";
+					} else if ($row["religion"] == 18) {
+						$rel = "Rooms Katholiek";
+					} ?>
 					<select name="religion">
 						<option value="<?php echo $row["religion"] ?>"> <?php echo $rel; ?> </option>
 						<option value="1">Adventist</option>
@@ -960,16 +951,16 @@ if (mysqli_num_rows($resultado) != 0) {
                 <div class="form_group">
 					<label class="form_label form-select">Thuistaal: / Idioma Materno:</label>
 					<?php if ($row["idioma"] == 1) {
-                        $idi = "Papiamento";
-                    } else if ($row["idioma"] == 2) {
-                        $idi = "Nederlands";
-                    } else if ($row["idioma"] == 3) {
-                        $idi = "Español";
-                    } else if ($row["idioma"] == 4) {
-                        $idi = "English";
-                    } else {
-                        $idi = "Otro";
-                    } ?>
+						$idi = "Papiamento";
+					} else if ($row["idioma"] == 2) {
+						$idi = "Nederlands";
+					} else if ($row["idioma"] == 3) {
+						$idi = "Español";
+					} else if ($row["idioma"] == 4) {
+						$idi = "English";
+					} else {
+						$idi = "Otro";
+					} ?>
 					<select name="idioma" class="" required>
 						<option value="<?php echo $row["idioma"]; ?>"> <?php echo $idi; ?> </option>
 						<option value="1">Papiamento</option>
@@ -1018,18 +1009,18 @@ if (mysqli_num_rows($resultado) != 0) {
 				<div class="form_group">
 					<label class="form_label form-select">District: / Districto:</label>
 					<?php if ($row["districto_p"] == 1) {
-                        $dis_p = "Noord";
-                    } else if ($row["districto_p"] == 2) {
-                        $dis_p = "Oranjestad";
-                    } else if ($row["districto_p"] == 3) {
-                        $dis_p = "Paradera";
-                    } else if ($row["districto_p"] == 4) {
-                        $dis_p = "San Nicolaas";
-                    } else if ($row["districto_p"] == 5) {
-                        $dis_p = "Santa Cruz";
-                    } else if ($row["districto_p"] == 6) {
-                        $dis_p = "Savaneta";
-                    } ?>
+						$dis_p = "Noord";
+					} else if ($row["districto_p"] == 2) {
+						$dis_p = "Oranjestad";
+					} else if ($row["districto_p"] == 3) {
+						$dis_p = "Paradera";
+					} else if ($row["districto_p"] == 4) {
+						$dis_p = "San Nicolaas";
+					} else if ($row["districto_p"] == 5) {
+						$dis_p = "Santa Cruz";
+					} else if ($row["districto_p"] == 6) {
+						$dis_p = "Savaneta";
+					} ?>
 					<select name="districto_p" class="" >
 						<option value="<?php echo $row["districto_p"]; ?>"> <?php echo $dis_p; ?></option>
 						<option value="1">Noord</option>
@@ -1046,42 +1037,42 @@ if (mysqli_num_rows($resultado) != 0) {
 				<div class="form_group">
 					<label class="form_label form-select">Religie / Religion:</label>
 					<?php if ($row["religion_p"] == 1) {
-                        $rel_p = "Adventist";
-                    } else if ($row["religion_p"] == 2) {
-                        $rel_p = "Anglican";
-                    } else if ($row["religion_p"] == 3) {
-                        $rel_p = "Boedisme";
-                    } else if ($row["religion_p"] == 4) {
-                        $rel_p = "Christelijk";
-                    } else if ($row["religion_p"] == 5) {
-                        $rel_p = "Diciple di Jesus";
-                    } else if ($row["religion_p"] == 6) {
-                        $rel_p = "Evangelist";
-                    } else if ($row["religion_p"] == 7) {
-                        $rel_p = "Geen";
-                    } else if ($row["religion_p"] == 8) {
-                        $rel_p = "Gereformeerd";
-                    } else if ($row["religion_p"] == 9) {
-                        $rel_p = "Hindoeisme";
-                    } else if ($row["religion_p"] == 10) {
-                        $rel_p = "Islam";
-                    } else if ($row["religion_p"] == 11) {
-                        $rel_p = "Jehova getuige";
-                    } else if ($row["religion_p"] == 12) {
-                        $rel_p = "Jodendom";
-                    } else if ($row["religion_p"] == 13) {
-                        $rel_p = "Mormonen";
-                    } else if ($row["religion_p"] == 14) {
-                        $rel_p = "Niet van toepassing";
-                    } else if ($row["religion_p"] == 15) {
-                        $rel_p = "Pentecostal";
-                    } else if ($row["religion_p"] == 16) {
-                        $rel_p = "Pinkstergemeente";
-                    } else if ($row["religion_p"] == 17) {
-                        $rel_p = "Protestant";
-                    } else if ($row["religion_p"] == 18) {
-                        $rel_p = "Rooms Katholiek";
-                    } ?>
+						$rel_p = "Adventist";
+					} else if ($row["religion_p"] == 2) {
+						$rel_p = "Anglican";
+					} else if ($row["religion_p"] == 3) {
+						$rel_p = "Boedisme";
+					} else if ($row["religion_p"] == 4) {
+						$rel_p = "Christelijk";
+					} else if ($row["religion_p"] == 5) {
+						$rel_p = "Diciple di Jesus";
+					} else if ($row["religion_p"] == 6) {
+						$rel_p = "Evangelist";
+					} else if ($row["religion_p"] == 7) {
+						$rel_p = "Geen";
+					} else if ($row["religion_p"] == 8) {
+						$rel_p = "Gereformeerd";
+					} else if ($row["religion_p"] == 9) {
+						$rel_p = "Hindoeisme";
+					} else if ($row["religion_p"] == 10) {
+						$rel_p = "Islam";
+					} else if ($row["religion_p"] == 11) {
+						$rel_p = "Jehova getuige";
+					} else if ($row["religion_p"] == 12) {
+						$rel_p = "Jodendom";
+					} else if ($row["religion_p"] == 13) {
+						$rel_p = "Mormonen";
+					} else if ($row["religion_p"] == 14) {
+						$rel_p = "Niet van toepassing";
+					} else if ($row["religion_p"] == 15) {
+						$rel_p = "Pentecostal";
+					} else if ($row["religion_p"] == 16) {
+						$rel_p = "Pinkstergemeente";
+					} else if ($row["religion_p"] == 17) {
+						$rel_p = "Protestant";
+					} else if ($row["religion_p"] == 18) {
+						$rel_p = "Rooms Katholiek";
+					} ?>
 					<select name="religion_p">
 					<option value="<?php echo $row["religion_p"] ?>"> <?php echo $rel_p; ?> </option>
 						<option value="1">Adventist</option>
@@ -1143,18 +1134,18 @@ if (mysqli_num_rows($resultado) != 0) {
 				<div class="form_group">
 					<label class="form_label form-select">District: / Districto:</label>
 					<?php if ($row["districto_m"] == 1) {
-                        $dis_m = "Noord";
-                    } else if ($row["districto_m"] == 2) {
-                        $dis_m = "Oranjestad";
-                    } else if ($row["districto_m"] == 3) {
-                        $dis_m = "Paradera";
-                    } else if ($row["districto_m"] == 4) {
-                        $dis_m = "San Nicolaas";
-                    } else if ($row["districto_m"] == 5) {
-                        $dis_m = "Santa Cruz";
-                    } else if ($row["districto_m"] == 6) {
-                        $dis_m = "Savaneta";
-                    } ?>
+						$dis_m = "Noord";
+					} else if ($row["districto_m"] == 2) {
+						$dis_m = "Oranjestad";
+					} else if ($row["districto_m"] == 3) {
+						$dis_m = "Paradera";
+					} else if ($row["districto_m"] == 4) {
+						$dis_m = "San Nicolaas";
+					} else if ($row["districto_m"] == 5) {
+						$dis_m = "Santa Cruz";
+					} else if ($row["districto_m"] == 6) {
+						$dis_m = "Savaneta";
+					} ?>
 					<select name="districto_m" class="" >
 						<option value="<?php echo $row["districto_m"]; ?>"> <?php echo $dis_m; ?></option>
 						<option value="1">Noord</option>
@@ -1171,42 +1162,42 @@ if (mysqli_num_rows($resultado) != 0) {
 				<div class="form_group">
 					<label class="form_label form-select">Religie / Religion:</label>
 					<?php if ($row["religion_m"] == 1) {
-                        $rel_m = "Adventist";
-                    } else if ($row["religion_m"] == 2) {
-                        $rel_m = "Anglican";
-                    } else if ($row["religion_m"] == 3) {
-                        $rel_m = "Boedisme";
-                    } else if ($row["religion_m"] == 4) {
-                        $rel_m = "Christelijk";
-                    } else if ($row["religion_m"] == 5) {
-                        $rel_m = "Diciple di Jesus";
-                    } else if ($row["religion_m"] == 6) {
-                        $rel_m = "Evangelist";
-                    } else if ($row["religion_m"] == 7) {
-                        $rel_m = "Geen";
-                    } else if ($row["religion_m"] == 8) {
-                        $rel_m = "Gereformeerd";
-                    } else if ($row["religion_m"] == 9) {
-                        $rel_m = "Hindoeisme";
-                    } else if ($row["religion_m"] == 10) {
-                        $rel_m = "Islam";
-                    } else if ($row["religion_m"] == 11) {
-                        $rel_m = "Jehova getuige";
-                    } else if ($row["religion_m"] == 12) {
-                        $rel_m = "Jodendom";
-                    } else if ($row["religion_m"] == 13) {
-                        $rel_m = "Mormonen";
-                    } else if ($row["religion_m"] == 14) {
-                        $rel_m = "Niet van toepassing";
-                    } else if ($row["religion_m"] == 15) {
-                        $rel_m = "Pentecostal";
-                    } else if ($row["religion_m"] == 16) {
-                        $rel_m = "Pinkstergemeente";
-                    } else if ($row["religion_m"] == 17) {
-                        $rel_m = "Protestant";
-                    } else if ($row["religion_m"] == 18) {
-                        $rel_m = "Rooms Katholiek";
-                    } ?>
+						$rel_m = "Adventist";
+					} else if ($row["religion_m"] == 2) {
+						$rel_m = "Anglican";
+					} else if ($row["religion_m"] == 3) {
+						$rel_m = "Boedisme";
+					} else if ($row["religion_m"] == 4) {
+						$rel_m = "Christelijk";
+					} else if ($row["religion_m"] == 5) {
+						$rel_m = "Diciple di Jesus";
+					} else if ($row["religion_m"] == 6) {
+						$rel_m = "Evangelist";
+					} else if ($row["religion_m"] == 7) {
+						$rel_m = "Geen";
+					} else if ($row["religion_m"] == 8) {
+						$rel_m = "Gereformeerd";
+					} else if ($row["religion_m"] == 9) {
+						$rel_m = "Hindoeisme";
+					} else if ($row["religion_m"] == 10) {
+						$rel_m = "Islam";
+					} else if ($row["religion_m"] == 11) {
+						$rel_m = "Jehova getuige";
+					} else if ($row["religion_m"] == 12) {
+						$rel_m = "Jodendom";
+					} else if ($row["religion_m"] == 13) {
+						$rel_m = "Mormonen";
+					} else if ($row["religion_m"] == 14) {
+						$rel_m = "Niet van toepassing";
+					} else if ($row["religion_m"] == 15) {
+						$rel_m = "Pentecostal";
+					} else if ($row["religion_m"] == 16) {
+						$rel_m = "Pinkstergemeente";
+					} else if ($row["religion_m"] == 17) {
+						$rel_m = "Protestant";
+					} else if ($row["religion_m"] == 18) {
+						$rel_m = "Rooms Katholiek";
+					} ?>
 					<select name="religion_m">
 						<option value="<?php echo $row["religion_m"] ?>"> <?php echo $rel_m; ?> </option>
 						<option value="1">Adventist</option>
@@ -1272,18 +1263,18 @@ if (mysqli_num_rows($resultado) != 0) {
 				<div class="form_group">
 					<label class="form_label form-select">District: / Districto:</label>
 					<?php if ($row["districto_v"] == 1) {
-                        $dis_v = "Noord";
-                    } else if ($row["districto_v"] == 2) {
-                        $dis_v = "Oranjestad";
-                    } else if ($row["districto_v"] == 3) {
-                        $dis_v = "Paradera";
-                    } else if ($row["districto_v"] == 4) {
-                        $dis_v = "San Nicolaas";
-                    } else if ($row["districto_v"] == 5) {
-                        $dis_v = "Santa Cruz";
-                    } else if ($row["districto_v"] == 6) {
-                        $dis_v = "Savaneta";
-                    } ?>
+						$dis_v = "Noord";
+					} else if ($row["districto_v"] == 2) {
+						$dis_v = "Oranjestad";
+					} else if ($row["districto_v"] == 3) {
+						$dis_v = "Paradera";
+					} else if ($row["districto_v"] == 4) {
+						$dis_v = "San Nicolaas";
+					} else if ($row["districto_v"] == 5) {
+						$dis_v = "Santa Cruz";
+					} else if ($row["districto_v"] == 6) {
+						$dis_v = "Savaneta";
+					} ?>
 					<select name="districto_v" class="" >
 						<option value="<?php echo $row["districto_v"]; ?>"> <?php echo $dis_v; ?></option>
 						<option value="1">Noord</option>
@@ -1300,42 +1291,42 @@ if (mysqli_num_rows($resultado) != 0) {
 				<div class="form_group">
 					<label class="form_label form-select">Religie / Religion:</label>
 					<?php if ($row["religion_v"] == 1) {
-                        $rel_v = "Adventist";
-                    } else if ($row["religion_v"] == 2) {
-                        $rel_v = "Anglican";
-                    } else if ($row["religion_v"] == 3) {
-                        $rel_v = "Boedisme";
-                    } else if ($row["religion_v"] == 4) {
-                        $rel_v = "Christelijk";
-                    } else if ($row["religion_v"] == 5) {
-                        $rel_v = "Diciple di Jesus";
-                    } else if ($row["religion_v"] == 6) {
-                        $rel_v = "Evangelist";
-                    } else if ($row["religion_v"] == 7) {
-                        $rel_v = "Geen";
-                    } else if ($row["religion_v"] == 8) {
-                        $rel_v = "Gereformeerd";
-                    } else if ($row["religion_v"] == 9) {
-                        $rel_v = "Hindoeisme";
-                    } else if ($row["religion_v"] == 10) {
-                        $rel_v = "Islam";
-                    } else if ($row["religion_v"] == 11) {
-                        $rel_v = "Jehova getuige";
-                    } else if ($row["religion_v"] == 12) {
-                        $rel_v = "Jodendom";
-                    } else if ($row["religion_v"] == 13) {
-                        $rel_v = "Mormonen";
-                    } else if ($row["religion_v"] == 14) {
-                        $rel_v = "Niet van toepassing";
-                    } else if ($row["religion_v"] == 15) {
-                        $rel_v = "Pentecostal";
-                    } else if ($row["religion_v"] == 16) {
-                        $rel_v = "Pinkstergemeente";
-                    } else if ($row["religion_v"] == 17) {
-                        $rel_v = "Protestant";
-                    } else if ($row["religion_v"] == 18) {
-                        $rel_v = "Rooms Katholiek";
-                    } ?>
+						$rel_v = "Adventist";
+					} else if ($row["religion_v"] == 2) {
+						$rel_v = "Anglican";
+					} else if ($row["religion_v"] == 3) {
+						$rel_v = "Boedisme";
+					} else if ($row["religion_v"] == 4) {
+						$rel_v = "Christelijk";
+					} else if ($row["religion_v"] == 5) {
+						$rel_v = "Diciple di Jesus";
+					} else if ($row["religion_v"] == 6) {
+						$rel_v = "Evangelist";
+					} else if ($row["religion_v"] == 7) {
+						$rel_v = "Geen";
+					} else if ($row["religion_v"] == 8) {
+						$rel_v = "Gereformeerd";
+					} else if ($row["religion_v"] == 9) {
+						$rel_v = "Hindoeisme";
+					} else if ($row["religion_v"] == 10) {
+						$rel_v = "Islam";
+					} else if ($row["religion_v"] == 11) {
+						$rel_v = "Jehova getuige";
+					} else if ($row["religion_v"] == 12) {
+						$rel_v = "Jodendom";
+					} else if ($row["religion_v"] == 13) {
+						$rel_v = "Mormonen";
+					} else if ($row["religion_v"] == 14) {
+						$rel_v = "Niet van toepassing";
+					} else if ($row["religion_v"] == 15) {
+						$rel_v = "Pentecostal";
+					} else if ($row["religion_v"] == 16) {
+						$rel_v = "Pinkstergemeente";
+					} else if ($row["religion_v"] == 17) {
+						$rel_v = "Protestant";
+					} else if ($row["religion_v"] == 18) {
+						$rel_v = "Rooms Katholiek";
+					} ?>
 					<select name="religion_v">
 						<option value="<?php echo $row["religion_v"] ?>"> <?php echo $rel_v; ?> </option>
 						<option value="1">Adventist</option>
@@ -1522,18 +1513,18 @@ if (mysqli_num_rows($resultado) != 0) {
 				<div class="form_group">
 					<label class="form_label form-select">Scol:</label>
 					<?php if ($row["basisschool_b1"] == 1) {
-                        $scol_b = "Peuter";
-                    } else if ($row["basisschool_b1"] == 2) {
-                        $scol_b = "Kleuter";
-                    } else if ($row["basisschool_b1"] == 3) {
-                        $scol_b = "Basisschool";
-                    } else if ($row["basisschool_b1"] == 4) {
-                        $scol_b = "Voortgezets";
-                    } else if ($row["basisschool_b1"] == 5) {
-                        $scol_b = "Onderwijs";
-                    } else {
-                        $scol_b = "";
-                    } ?>
+						$scol_b = "Peuter";
+					} else if ($row["basisschool_b1"] == 2) {
+						$scol_b = "Kleuter";
+					} else if ($row["basisschool_b1"] == 3) {
+						$scol_b = "Basisschool";
+					} else if ($row["basisschool_b1"] == 4) {
+						$scol_b = "Voortgezets";
+					} else if ($row["basisschool_b1"] == 5) {
+						$scol_b = "Onderwijs";
+					} else {
+						$scol_b = "";
+					} ?>
 					<select name="basisschool_b1">
 					<option value="<?php echo $row["basisschool_b1"]; ?>"> <?php echo $scol_b; ?></option>
 						<option value="1">Peuter</option>
@@ -1557,18 +1548,18 @@ if (mysqli_num_rows($resultado) != 0) {
 				<div class="form_group">
 					<label class="form_label form-select">Scol:</label>
 					<?php if ($row["basisschool_b2"] == 1) {
-                        $scol_b = "Peuter";
-                    } else if ($row["basisschool_b2"] == 2) {
-                        $scol_b = "Kleuter";
-                    } else if ($row["basisschool_b2"] == 3) {
-                        $scol_b = "Basisschool";
-                    } else if ($row["basisschool_b2"] == 4) {
-                        $scol_b = "Voortgezets";
-                    } else if ($row["basisschool_b2"] == 5) {
-                        $scol_b = "Onderwijs";
-                    } else {
-                        $scol_b = "";
-                    } ?>
+						$scol_b = "Peuter";
+					} else if ($row["basisschool_b2"] == 2) {
+						$scol_b = "Kleuter";
+					} else if ($row["basisschool_b2"] == 3) {
+						$scol_b = "Basisschool";
+					} else if ($row["basisschool_b2"] == 4) {
+						$scol_b = "Voortgezets";
+					} else if ($row["basisschool_b2"] == 5) {
+						$scol_b = "Onderwijs";
+					} else {
+						$scol_b = "";
+					} ?>
 					<select name="basisschool_b2">
 					<option value="<?php echo $row["basisschool_b2"]; ?>"> <?php echo $scol_b; ?></option>
 						<option value="1">Peuter</option>
@@ -1592,18 +1583,18 @@ if (mysqli_num_rows($resultado) != 0) {
 				<div class="form_group">
 					<label class="form_label form-select">Scol:</label>
 					<?php if ($row["basisschool_b3"] == 1) {
-                        $scol_b = "Peuter";
-                    } else if ($row["basisschool_b3"] == 2) {
-                        $scol_b = "Kleuter";
-                    } else if ($row["basisschool_b3"] == 3) {
-                        $scol_b = "Basisschool";
-                    } else if ($row["basisschool_b3"] == 4) {
-                        $scol_b = "Voortgezets";
-                    } else if ($row["basisschool_b3"] == 5) {
-                        $scol_b = "Onderwijs";
-                    } else {
-                        $scol_b = "";
-                    } ?>
+						$scol_b = "Peuter";
+					} else if ($row["basisschool_b3"] == 2) {
+						$scol_b = "Kleuter";
+					} else if ($row["basisschool_b3"] == 3) {
+						$scol_b = "Basisschool";
+					} else if ($row["basisschool_b3"] == 4) {
+						$scol_b = "Voortgezets";
+					} else if ($row["basisschool_b3"] == 5) {
+						$scol_b = "Onderwijs";
+					} else {
+						$scol_b = "";
+					} ?>
 					<select name="basisschool_b3">
 					<option value="<?php echo $row["basisschool_b3"]; ?>"> <?php echo $scol_b; ?></option>
 						<option value="1">Peuter</option>
@@ -1627,18 +1618,18 @@ if (mysqli_num_rows($resultado) != 0) {
 				<div class="form_group">
 					<label class="form_label form-select">Scol:</label>
 					<?php if ($row["basisschool_b4"] == 1) {
-                        $scol_b = "Peuter";
-                    } else if ($row["basisschool_b4"] == 2) {
-                        $scol_b = "Kleuter";
-                    } else if ($row["basisschool_b4"] == 3) {
-                        $scol_b = "Basisschool";
-                    } else if ($row["basisschool_b4"] == 4) {
-                        $scol_b = "Voortgezets";
-                    } else if ($row["basisschool_b4"] == 5) {
-                        $scol_b = "Onderwijs";
-                    } else {
-                        $scol_b = "";
-                    } ?>
+						$scol_b = "Peuter";
+					} else if ($row["basisschool_b4"] == 2) {
+						$scol_b = "Kleuter";
+					} else if ($row["basisschool_b4"] == 3) {
+						$scol_b = "Basisschool";
+					} else if ($row["basisschool_b4"] == 4) {
+						$scol_b = "Voortgezets";
+					} else if ($row["basisschool_b4"] == 5) {
+						$scol_b = "Onderwijs";
+					} else {
+						$scol_b = "";
+					} ?>
 					<select name="basisschool_b4">
 					<option value="<?php echo $row["basisschool_b4"]; ?>"> <?php echo $scol_b; ?></option>
 						<option value="1">Peuter</option>
@@ -1662,18 +1653,18 @@ if (mysqli_num_rows($resultado) != 0) {
 				<div class="form_group">
 					<label class="form_label form-select">Scol:</label>
 					<?php if ($row["basisschool_b5"] == 1) {
-                        $scol_b = "Peuter";
-                    } else if ($row["basisschool_b5"] == 2) {
-                        $scol_b = "Kleuter";
-                    } else if ($row["basisschool_b5"] == 3) {
-                        $scol_b = "Basisschool";
-                    } else if ($row["basisschool_b5"] == 4) {
-                        $scol_b = "Voortgezets";
-                    } else if ($row["basisschool_b5"] == 5) {
-                        $scol_b = "Onderwijs";
-                    } else {
-                        $scol_b = "";
-                    } ?>
+						$scol_b = "Peuter";
+					} else if ($row["basisschool_b5"] == 2) {
+						$scol_b = "Kleuter";
+					} else if ($row["basisschool_b5"] == 3) {
+						$scol_b = "Basisschool";
+					} else if ($row["basisschool_b5"] == 4) {
+						$scol_b = "Voortgezets";
+					} else if ($row["basisschool_b5"] == 5) {
+						$scol_b = "Onderwijs";
+					} else {
+						$scol_b = "";
+					} ?>
 					<select name="basisschool_b5">
 					<option value="<?php echo $row["basisschool_b5"]; ?>"> <?php echo $scol_b; ?></option>
 						<option value="1">Peuter</option>
@@ -1697,18 +1688,18 @@ if (mysqli_num_rows($resultado) != 0) {
 				<div class="form_group">
 					<label class="form_label form-select">Scol:</label>
 					<?php if ($row["basisschool_b6"] == 1) {
-                        $scol_b = "Peuter";
-                    } else if ($row["basisschool_b6"] == 2) {
-                        $scol_b = "Kleuter";
-                    } else if ($row["basisschool_b6"] == 3) {
-                        $scol_b = "Basisschool";
-                    } else if ($row["basisschool_b6"] == 4) {
-                        $scol_b = "Voortgezets";
-                    } else if ($row["basisschool_b6"] == 5) {
-                        $scol_b = "Onderwijs";
-                    } else {
-                        $scol_b = "";
-                    } ?>
+						$scol_b = "Peuter";
+					} else if ($row["basisschool_b6"] == 2) {
+						$scol_b = "Kleuter";
+					} else if ($row["basisschool_b6"] == 3) {
+						$scol_b = "Basisschool";
+					} else if ($row["basisschool_b6"] == 4) {
+						$scol_b = "Voortgezets";
+					} else if ($row["basisschool_b6"] == 5) {
+						$scol_b = "Onderwijs";
+					} else {
+						$scol_b = "";
+					} ?>
 					<select name="basisschool_b6">
 					<option value="<?php echo $row["basisschool_b6"]; ?>"> <?php echo $scol_b; ?></option>
 						<option value="1">Peuter</option>
@@ -1896,26 +1887,26 @@ if (mysqli_num_rows($resultado) != 0) {
 					<select disabled name="profiel1" id="profiel1" class="" required>
 						<option value="<?php echo $row['profiel1']; ?>">
                             <?php
-                            switch ($row['profiel']) {
-                                case 1:
-                                    echo 'WB';
-                                    break;
-                                case 2:
-                                case 3:
-                                    echo $row['profiel1'] != 1 ? 'WB' : 'WA';
-                                    break;
-                                case 4:
-                                case 5:
-                                    echo 'WA';
-                                    break;
-                                case 6:
-                                case 7:
-                                    echo 'SP';
-                                    break;
-                                default:
-                                    break;
-                            }
-                            ?>
+							switch ($row['profiel']) {
+								case 1:
+									echo 'WB';
+									break;
+								case 2:
+								case 3:
+									echo $row['profiel1'] != 1 ? 'WB' : 'WA';
+									break;
+								case 4:
+								case 5:
+									echo 'WA';
+									break;
+								case 6:
+								case 7:
+									echo 'SP';
+									break;
+								default:
+									break;
+							}
+							?>
                         </option>
 					</select>
 				</div>
@@ -1924,26 +1915,26 @@ if (mysqli_num_rows($resultado) != 0) {
 					<select disabled name="profiel2" id="profiel2" class="" required>
 						<option value="<?php echo $row['profiel2']; ?>">
                             <?php
-                            switch ($row['profiel']) {
-                                case 1:
-                                case 2:
-                                case 3:
-                                    echo 'SK';
-                                    break;
-                                case 4:
-                                    echo 'GS';
-                                    break;
-                                case 5:
-                                    echo 'AK';
-                                    break;
-                                case 6:
-                                case 7:
-                                    echo 'CKV-pr**';
-                                    break;
-                                default:
-                                    break;
-                            }
-                            ?>
+							switch ($row['profiel']) {
+								case 1:
+								case 2:
+								case 3:
+									echo 'SK';
+									break;
+								case 4:
+									echo 'GS';
+									break;
+								case 5:
+									echo 'AK';
+									break;
+								case 6:
+								case 7:
+									echo 'CKV-pr**';
+									break;
+								default:
+									break;
+							}
+							?>
                         </option>
 					</select>
 				</div>
@@ -1952,28 +1943,28 @@ if (mysqli_num_rows($resultado) != 0) {
 					<select disabled name="profiel3" id="profiel3" class="" required>
 						<option value="<?php echo $row['profiel3']; ?>">
                             <?php
-                            switch ($row['profiel']) {
-                                case 1:
-                                case 2:
-                                    echo 'NA';
-                                    break;
-                                case 3:
-                                    echo 'BI';
-                                    break;
-                                case 4:
-                                    echo $row['profiel3'] == 1 ? 'AK' : 'EC';
-                                    break;
-                                case 5:
-                                    echo $row['profiel3'] == 1 ? 'GS' : 'EC';
-                                    break;
-                                case 6:
-                                case 7:
-                                    echo $row['profiel3'] == 1 ? 'AK' : 'GS';
-                                    break;
-                                default:
-                                    break;
-                            }
-                            ?>
+							switch ($row['profiel']) {
+								case 1:
+								case 2:
+									echo 'NA';
+									break;
+								case 3:
+									echo 'BI';
+									break;
+								case 4:
+									echo $row['profiel3'] == 1 ? 'AK' : 'EC';
+									break;
+								case 5:
+									echo $row['profiel3'] == 1 ? 'GS' : 'EC';
+									break;
+								case 6:
+								case 7:
+									echo $row['profiel3'] == 1 ? 'AK' : 'GS';
+									break;
+								default:
+									break;
+							}
+							?>
                         </option>
 					</select>
 				</div>
@@ -1982,62 +1973,62 @@ if (mysqli_num_rows($resultado) != 0) {
 					<select disabled name="profiel4" id="profiel4" class="" required>
 						<option value="<?php echo $row['profiel4']; ?>">
                             <?php
-                            switch ($row['profiel']) {
-                                case 1:
-                                    echo $row['profiel4'] == 1 ? 'EC' : 'BI';
-                                    break;
-                                case 2:
-                                    if ($row['profiel4'] == 1) {
-                                        echo 'BI';
-                                    } else {
-                                        echo $row['profiel4'] == 2 ? 'SP' : 'PAP';
-                                    }
-                                    break;
-                                case 3:
-                                    if ($row['profiel4'] == 1) {
-                                        echo 'EC';
-                                    } else if ($row['profiel4'] == 2) {
-                                        echo 'SP';
-                                    } else {
-                                        echo $row['profiel4'] == 3 ? 'PAP' : 'EC';
-                                    }
-                                    break;
-                                case 4:
-                                    if ($row['profiel4'] == 1) {
-                                        echo 'SP';
-                                    } else if ($row['profiel4'] == 2) {
-                                        echo 'PAP';
-                                    } else if ($row['profiel4'] == 3) {
-                                        echo 'BE';
-                                    } else if ($row['profiel4'] == 4) {
-                                        echo 'BI';
-                                    } else {
-                                        echo $row['profiel4'] == 5 ? 'AK' : 'EC';
-                                    }
-                                    break;
-                                case 5:
-                                    if ($row['profiel4'] == 1) {
-                                        echo 'SP';
-                                    } else if ($row['profiel4'] == 2) {
-                                        echo 'PAP';
-                                    } else if ($row['profiel4'] == 3) {
-                                        echo 'BE';
-                                    } else if ($row['profiel4'] == 4) {
-                                        echo 'BI';
-                                    } else {
-                                        echo $row['profiel4'] == 5 ? 'GS' : 'EC';
-                                    }
-                                    break;
-                                case 6:
-                                    echo 'PAP';
-                                    break;
-                                case 7:
-                                    echo 'WA';
-                                    break;
-                                default:
-                                    break;
-                            }
-                            ?>
+							switch ($row['profiel']) {
+								case 1:
+									echo $row['profiel4'] == 1 ? 'EC' : 'BI';
+									break;
+								case 2:
+									if ($row['profiel4'] == 1) {
+										echo 'BI';
+									} else {
+										echo $row['profiel4'] == 2 ? 'SP' : 'PAP';
+									}
+									break;
+								case 3:
+									if ($row['profiel4'] == 1) {
+										echo 'EC';
+									} else if ($row['profiel4'] == 2) {
+										echo 'SP';
+									} else {
+										echo $row['profiel4'] == 3 ? 'PAP' : 'EC';
+									}
+									break;
+								case 4:
+									if ($row['profiel4'] == 1) {
+										echo 'SP';
+									} else if ($row['profiel4'] == 2) {
+										echo 'PAP';
+									} else if ($row['profiel4'] == 3) {
+										echo 'BE';
+									} else if ($row['profiel4'] == 4) {
+										echo 'BI';
+									} else {
+										echo $row['profiel4'] == 5 ? 'AK' : 'EC';
+									}
+									break;
+								case 5:
+									if ($row['profiel4'] == 1) {
+										echo 'SP';
+									} else if ($row['profiel4'] == 2) {
+										echo 'PAP';
+									} else if ($row['profiel4'] == 3) {
+										echo 'BE';
+									} else if ($row['profiel4'] == 4) {
+										echo 'BI';
+									} else {
+										echo $row['profiel4'] == 5 ? 'GS' : 'EC';
+									}
+									break;
+								case 6:
+									echo 'PAP';
+									break;
+								case 7:
+									echo 'WA';
+									break;
+								default:
+									break;
+							}
+							?>
                         </option>
 					</select>
 				</div>
@@ -2046,98 +2037,98 @@ if (mysqli_num_rows($resultado) != 0) {
 					<select disabled name="profiel5" id="profiel5" class="" required>
 						<option value="<?php echo $row['profiel5']; ?>">
                             <?php
-                            switch ($row['profiel']) {
-                                case 1:
-                                    if ($row['profiel5'] == 1) {
-                                        echo 'BE';
-                                    } else if ($row['profiel5'] == 2) {
-                                        echo 'EC';
-                                    } else {
-                                        echo 'INF**';
-                                    }
-                                    break;
-                                case 2:
-                                    if ($row['profiel5'] == 1) {
-                                        echo 'BE';
-                                    } else if ($row['profiel5'] == 2) {
-                                        echo 'SP';
-                                    } else if ($row['profiel5'] == 3) {
-                                        echo 'PAP';
-                                    } else if ($row['profiel5'] == 4) {
-                                        echo 'EC';
-                                    } else if ($row['profiel5'] == 5) {
-                                        echo 'AK';
-                                    } else if ($row['profiel5'] == 6) {
-                                        echo 'GS';
-                                    } else {
-                                        echo $row['profiel5'] == 7 ? 'FIL**' : 'INF**';
-                                    }
-                                    break;
-                                case 3:
-                                    if ($row['profiel5'] == 1) {
-                                        echo 'BE';
-                                    } else if ($row['profiel5'] == 2) {
-                                        echo 'SP';
-                                    } else if ($row['profiel5'] == 3) {
-                                        echo 'CKV-pr**';
-                                    } else if ($row['profiel5'] == 4) {
-                                        echo 'EC';
-                                    } else if ($row['profiel5'] == 5) {
-                                        echo 'AK';
-                                    } else if ($row['profiel5'] == 6) {
-                                        echo 'GS';
-                                    } else {
-                                        echo $row['profiel5'] == 7 ? 'FIL**' : 'INF**';
-                                    }
-                                    break;
-                                case 4:
-                                case 5:
-                                    if ($row['profiel5'] == 1) {
-                                        echo 'BE';
-                                    } else if ($row['profiel5'] == 2) {
-                                        echo 'SP';
-                                    } else if ($row['profiel5'] == 3) {
-                                        echo 'PAP';
-                                    } else if ($row['profiel5'] == 4) {
-                                        echo 'BI';
-                                    } else if ($row['profiel5'] == 5) {
-                                        echo 'FIL**';
-                                    } else if ($row['profiel5'] == 6) {
-                                        echo 'INF**';
-                                    } else {
-                                        echo 'CKV-pr**';
-                                    }
-                                    break;
-                                case 6:
-                                    if ($row['profiel5'] == 1) {
-                                        echo 'AK';
-                                    } else if ($row['profiel5'] == 2) {
-                                        echo 'GS';
-                                    } else if ($row['profiel5'] == 3) {
-                                        echo 'FIL**';
-                                    }
-                                    break;
-                                case 7:
-                                    if ($row['profiel5'] == 1) {
-                                        echo 'PAP';
-                                    } else if ($row['profiel5'] == 2) {
-                                        echo 'BE';
-                                    } else if ($row['profiel5'] == 3) {
-                                        echo 'EC';
-                                    } else if ($row['profiel5'] == 4) {
-                                        echo 'GS';
-                                    } else if ($row['profiel5'] == 5) {
-                                        echo 'AK';
-                                    } else if ($row['profiel5'] == 6) {
-                                        echo 'FIL**';
-                                    } else {
-                                        echo 'INF**';
-                                    }
-                                    break;
-                                default:
-                                    break;
-                            }
-                            ?>
+							switch ($row['profiel']) {
+								case 1:
+									if ($row['profiel5'] == 1) {
+										echo 'BE';
+									} else if ($row['profiel5'] == 2) {
+										echo 'EC';
+									} else {
+										echo 'INF**';
+									}
+									break;
+								case 2:
+									if ($row['profiel5'] == 1) {
+										echo 'BE';
+									} else if ($row['profiel5'] == 2) {
+										echo 'SP';
+									} else if ($row['profiel5'] == 3) {
+										echo 'PAP';
+									} else if ($row['profiel5'] == 4) {
+										echo 'EC';
+									} else if ($row['profiel5'] == 5) {
+										echo 'AK';
+									} else if ($row['profiel5'] == 6) {
+										echo 'GS';
+									} else {
+										echo $row['profiel5'] == 7 ? 'FIL**' : 'INF**';
+									}
+									break;
+								case 3:
+									if ($row['profiel5'] == 1) {
+										echo 'BE';
+									} else if ($row['profiel5'] == 2) {
+										echo 'SP';
+									} else if ($row['profiel5'] == 3) {
+										echo 'CKV-pr**';
+									} else if ($row['profiel5'] == 4) {
+										echo 'EC';
+									} else if ($row['profiel5'] == 5) {
+										echo 'AK';
+									} else if ($row['profiel5'] == 6) {
+										echo 'GS';
+									} else {
+										echo $row['profiel5'] == 7 ? 'FIL**' : 'INF**';
+									}
+									break;
+								case 4:
+								case 5:
+									if ($row['profiel5'] == 1) {
+										echo 'BE';
+									} else if ($row['profiel5'] == 2) {
+										echo 'SP';
+									} else if ($row['profiel5'] == 3) {
+										echo 'PAP';
+									} else if ($row['profiel5'] == 4) {
+										echo 'BI';
+									} else if ($row['profiel5'] == 5) {
+										echo 'FIL**';
+									} else if ($row['profiel5'] == 6) {
+										echo 'INF**';
+									} else {
+										echo 'CKV-pr**';
+									}
+									break;
+								case 6:
+									if ($row['profiel5'] == 1) {
+										echo 'AK';
+									} else if ($row['profiel5'] == 2) {
+										echo 'GS';
+									} else if ($row['profiel5'] == 3) {
+										echo 'FIL**';
+									}
+									break;
+								case 7:
+									if ($row['profiel5'] == 1) {
+										echo 'PAP';
+									} else if ($row['profiel5'] == 2) {
+										echo 'BE';
+									} else if ($row['profiel5'] == 3) {
+										echo 'EC';
+									} else if ($row['profiel5'] == 4) {
+										echo 'GS';
+									} else if ($row['profiel5'] == 5) {
+										echo 'AK';
+									} else if ($row['profiel5'] == 6) {
+										echo 'FIL**';
+									} else {
+										echo 'INF**';
+									}
+									break;
+								default:
+									break;
+							}
+							?>
                         </option>
 					</select>
 				</div>
@@ -2202,5 +2193,5 @@ if (mysqli_num_rows($resultado) != 0) {
 </div>
 
 <?php } else {
-    echo $query;
+	echo $query;
 } ?>
