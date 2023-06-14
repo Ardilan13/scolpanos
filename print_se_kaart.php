@@ -2259,6 +2259,7 @@ if($avg_h == 0.0){$avg_h = null;}
         $_h1_1 = "";
         $_h1_2 = "";
         $_h1_3 = "";
+        $avg_h = 0;
 
         $_h1_1 =  $c->_writerapportdata_cijfers(10, $item['studentid'], $_GET["schoolJaar"], $schoolId, 1);
         $_h1_2 =  $c->_writerapportdata_cijfers(10, $item['studentid'], $_GET["schoolJaar"], $schoolId, 2);
@@ -2352,6 +2353,7 @@ if($avg_h == 0.0){$avg_h = null;}
         $_h1_1 = "";
         $_h1_2 = "";
         $_h1_3 = "";
+        $avg_h = 0;
 
         $_h1_1 =  $c->_writerapportdata_cijfers(11, $item['studentid'], $_GET["schoolJaar"], $schoolId, 1);
         $_h1_2 =  $c->_writerapportdata_cijfers(11, $item['studentid'], $_GET["schoolJaar"], $schoolId, 2);
