@@ -60,17 +60,67 @@ if ($posicion != false) {
 
 $districto = $_POST["districto"];
 $telefoon_a = $_POST["telefoon_a"];
+$posicion = strpos($telefoon_a, "'");
+if ($posicion != false) {
+    $a = explode("'", $telefoon_a);
+    $telefoon_a = $a[0] . "\'" . $a[1];
+}
 $telefoon_c = $_POST["telefoon_c"];
+$posicion = strpos($telefoon_c, "'");
+if ($posicion != false) {
+    $a = explode("'", $telefoon_c);
+    $telefoon_c = $a[0] . "\'" . $a[1];
+}
 $email = $_POST["email"];
+$posicion = strpos($email, "'");
+if ($posicion != false) {
+    $a = explode("'", $email);
+    $email = $a[0] . "\'" . $a[1];
+}
 $religion = $_POST["religion"];
 $batisa = $_POST["batisa"];
 $number_azv = $_POST["number_azv"];
+$posicion = strpos($number_azv, "'");
+if ($posicion != false) {
+    $a = explode("'", $number_azv);
+    $number_azv = $a[0] . "\'" . $a[1];
+}
 $cas = $_POST["cas"];
+$posicion = strpos($cas, "'");
+if ($posicion != false) {
+    $a = explode("'", $cas);
+    $cas = $a[0] . "\'" . $a[1];
+}
 $medicina = $_POST["medicina"];
+$posicion = strpos($medicina, "'");
+if ($posicion != false) {
+    $a = explode("'", $medicina);
+    $medicina = $a[0] . "\'" . $a[1];
+}
 $alergia = $_POST["alergia"];
+$posicion = strpos($alergia, "'");
+if ($posicion != false) {
+    $a = explode("'", $alergia);
+    $alergia = $a[0] . "\'" . $a[1];
+}
 $psycholoog = $_POST["psycholoog"];
+$posicion = strpos($psycholoog, "'");
+if ($posicion != false) {
+    $a = explode("'", $psycholoog);
+    $psycholoog = $a[0] . "\'" . $a[1];
+}
 $berkingen = $_POST["berkingen"];
+$posicion = strpos($berkingen, "'");
+if ($posicion != false) {
+    $a = explode("'", $berkingen);
+    $berkingen = $a[0] . "\'" . $a[1];
+}
 $leerstoorniseen = $_POST["leerstoorniseen"];
+$posicion = strpos($leerstoorniseen, "'");
+if ($posicion != false) {
+    $a = explode("'", $leerstoorniseen);
+    $leerstoorniseen = $a[0] . "\'" . $a[1];
+}
 $idioma = $_POST["idioma"];
 $idioma_otro = $_POST["idioma_otro"];
 $posicion = strpos($idioma_otro, "'");
@@ -335,7 +385,7 @@ if ($type == 2) {
                 <?php echo $mavo4_final;
                 echo $_FILES["profielm4_final"]["name"];
                 echo $_FILES["klas6_final"]["name"]; ?>
-                <a style="font-size: large; display: block; margin-top: 20px;" href="../aplicacion_college.php">Go back.</a>
+                <a style="font-size: large; display: block; margin-top: 20px;" href="../aplicacion_college-havo4.php">Go back.</a>
             </div>
         </body>
     <?php } else { ?>
@@ -344,7 +394,7 @@ if ($type == 2) {
             <div style="background-color: white; text-align: center; border-radius: 10px; padding:5% 0; margin:17%">
                 <h1>The form was not sent, please try again.</h1>
                 <img src="https://cdn-icons-png.flaticon.com/512/148/148766.png" alt="error" width="100px" height="100px">
-                <a style="font-size: large; display: block; margin-top: 20px;" href="../aplicacion_college.php">Go back.</a>
+                <a style="font-size: large; display: block; margin-top: 20px;" href="../aplicacion_college-havo4.php">Go back.</a>
             </div>
         </body>
     <?php }

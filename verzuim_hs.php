@@ -116,7 +116,7 @@
                                      &nbsp&nbspDatum:<label id="lbl_datum_verzuim"></label>&nbsp/&nbspKlas:<label
                                         id="lbl_klas_verzuim">
                                 </div> -->
-                            <form method="post" action="ajax/getverzuim_tabel_hs-excel2.php" class="form-inline" style="text-align: right;" id="form_excel">
+                            <form method="post" action="table_verzamelstaten.php" class="form-inline" style="text-align: right;" id="form_excel">
                                 <input hidden id="klas-excel" type="text" name="klas1">
                                 <div class="form-group">
                                     <label>Start Datum</label>
@@ -133,7 +133,7 @@
                                             <i class="fa fa-calendar"></i>
                                         </span>
                                     </div>
-                                    <button type="submit" class="btn btn-primary btn-m-w btn-m-h" id="btn_download" href="ajax/getverzuim_tabel_hs-excel2.php">Export</button>
+                                    <button type="submit" class="btn btn-primary btn-m-w btn-m-h" id="btn_download" href="table_verzamelstaten.php">Export</button>
                                 </div>
                             </form>
                             </fieldset>
