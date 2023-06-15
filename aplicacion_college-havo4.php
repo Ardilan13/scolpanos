@@ -1404,155 +1404,61 @@ ob_flush() ?>
 	$("#select_profiel").change(function() {
 		var selected = $(this).children("option:selected").val();
 		switch (selected) {
-			case ' 1': $("#profiel1").html(' <option value="">
-			</option>
-			<option value="1">WB</option>');
-			$("#profiel2").html(' <option value=""></option>
-			<option value="1">SK</option>');
-			$("#profiel3").html(' <option value=""></option>
-			<option value="1">NA</option>');
-			$("#profiel4").html(' <option value=""></option>
-			<option value="1">EC</option>
-			<option value="2">BI</option>');
-			$("#profiel5").html(' <option value=""></option>
-			<option value="1">BE</option>
-			<option value="2">EC</option>
-			<option value="3">INF**</option>');
+			case '1': 
+				$("#profiel1").html(' <option value=""></option><option value="1">WB</option>');
+				$("#profiel2").html(' <option value=""></option><option value="1">SK</option>');
+				$("#profiel3").html(' <option value=""></option><option value="1">NA</option>');
+				$("#profiel4").html(' <option value=""></option><option value="1">EC</option><option value="2">BI</option>');
+				$("#profiel5").html(' <option value=""></option><option value="1">BE</option><option value="2">EC</option><option value="3">INF**</option>');
 			break;
 
-			case '2':
-			$("#profiel1").html(' <option value=""></option>
-			<option value="1">WA</option>
-			<option value="2">WB</option>');
-			$("#profiel2").html(' <option value=""></option>
-			<option value="1">SK</option>');
-			$("#profiel3").html(' <option value=""></option>
-			<option value="1">NA</option>');
-			$("#profiel4").html(' <option value=""></option>
-			<option value="1">BI</option>
-			<option value="2">SP</option>
-			<option value="3">PAP</option>
-			<option value="4">EC</option>');
-			$("#profiel5").html(' <option value=""></option>
-			<option value="1">BE</option>
-			<option value="2">SP</option>
-			<option value="3">PAP</option>
-			<option value="4">EC</option>
-			<option value="5">AK</option>
-			<option value="6">GS</option>
-			<option value="7">FIL**</option>
-			<option value="8">INF**</option>');
+			case '2': 
+				$("#profiel1").html(' <option value=""></option><option value="1">WA</option><option value="2">WB</option>');
+				$("#profiel2").html(' <option value=""></option><option value="1">SK</option>');
+				$("#profiel3").html(' <option value=""></option><option value="1">NA</option>');
+				$("#profiel4").html(' <option value=""></option><option value="1">BI</option><option value="2">SP</option><option value="3">PAP</option><option value="4">EC</option>');
+				$("#profiel5").html(' <option value=""></option><option value="1">BE</option><option value="2">SP</option><option value="3">PAP</option><option value="4">EC</option><option value="5">AK</option><option value="6">GS</option><option value="7">FIL**</option><option value="8">INF**</option>');
 			break;
 
-			case '3':
-			$("#profiel1").html(' <option value=""></option>
-			<option value="1">WA</option>
-			<option value="2">WB</option>');
-			$("#profiel2").html(' <option value=""></option>
-			<option value="1">SK</option>');
-			$("#profiel3").html(' <option value=""></option>
-			<option value="1">BI</option>');
-			$("#profiel4").html(' <option value=""></option>
-			<option value="1">EC</option>
-			<option value="2">SP</option>
-			<option value="3">PAP</option>
-			<option value="4">EC</option>');
-			$("#profiel5").html(' <option value=""></option>
-			<option value="1">BE</option>
-			<option value="2">SP</option>
-			<option value="3">CKV-pr**</option>
-			<option value="4">EC</option>
-			<option value="5">AK</option>
-			<option value="6">GS</option>
-			<option value="7">FIL**</option>
-			<option value="8">INF**</option>');
+			case '3': 
+				$("#profiel1").html(' <option value=""></option><option value="1">WA</option><option value="2">WB</option>');
+				$("#profiel2").html(' <option value=""></option><option value="1">SK</option>');
+				$("#profiel3").html(' <option value=""></option><option value="1">BI</option>');
+				$("#profiel4").html(' <option value=""></option><option value="1">EC</option><option value="2">SP</option><option value="3">PAP</option><option value="4">EC</option>');
+				$("#profiel5").html(' <option value=""></option><option value="1">BE</option><option value="2">SP</option><option value="3">CKV-pr**</option><option value="4">EC</option><option value="5">AK</option><option value="6">GS</option><option value="7">FIL**</option><option value="8">INF**</option>');
 			break;
 
-			case '4':
-			$("#profiel1").html(' <option value=""></option>
-			<option value="1">WA</option>');
-			$("#profiel2").html(' <option value=""></option>
-			<option value="1">GS</option>');
-			$("#profiel3").html(' <option value=""></option>
-			<option value="1">AK</option>
-			<option value="2">EC</option>');
-			$("#profiel4").html(' <option value=""></option>
-			<option value="1">SP</option>
-			<option value="2">PAP</option>
-			<option value="3">BE</option>
-			<option value="4">BI</option>
-			<option value="5">AK</option>
-			<option value="6">EC</option>');
-			$("#profiel5").html(' <option value=""></option>
-			<option value="1">BE</option>
-			<option value="2">SP</option>
-			<option value="3">PAP</option>
-			<option value="4">BI</option>
-			<option value="5">FIL**</option>
-			<option value="6">INF**</option>
-			<option value="7">CKV-pr**</option>');
+			case '4': 
+				$("#profiel1").html(' <option value=""></option><option value="1">WA</option>');
+				$("#profiel2").html(' <option value=""></option><option value="1">GS</option>');
+				$("#profiel3").html(' <option value=""></option><option value="1">AK</option><option value="2">EC</option>');
+				$("#profiel4").html(' <option value=""></option><option value="1">SP</option><option value="2">PAP</option><option value="3">BE</option><option value="4">BI</option><option value="5">AK</option><option value="6">EC</option>');
+				$("#profiel5").html(' <option value=""></option><option value="1">BE</option><option value="2">SP</option><option value="3">PAP</option><option value="4">BI</option><option value="5">FIL**</option><option value="6">INF**</option><option value="7">CKV-pr**</option>');
 			break;
 
-			case '5':
-			$("#profiel1").html(' <option value=""></option>
-			<option value="1">WA</option>');
-			$("#profiel2").html(' <option value=""></option>
-			<option value="1">AK</option>');
-			$("#profiel3").html(' <option value=""></option>
-			<option value="1">GS</option>
-			<option value="2">EC</option>');
-			$("#profiel4").html(' <option value=""></option>
-			<option value="1">SP</option>
-			<option value="2">PAP</option>
-			<option value="3">BE</option>
-			<option value="4">BI</option>
-			<option value="5">GS</option>
-			<option value="6">EC</option>');
-			$("#profiel5").html(' <option value=""></option>
-			<option value="1">BE</option>
-			<option value="2">SP</option>
-			<option value="3">PAP</option>
-			<option value="4">BI</option>
-			<option value="5">FIL**</option>
-			<option value="6">INF**</option>
-			<option value="7">CKV-pr**</option>');
+			case '5': 
+				$("#profiel1").html(' <option value=""></option><option value="1">WA</option>');
+				$("#profiel2").html(' <option value=""></option><option value="1">AK</option>');
+				$("#profiel3").html(' <option value=""></option><option value="1">GS</option><option value="2">EC</option>');
+				$("#profiel4").html(' <option value=""></option><option value="1">SP</option><option value="2">PAP</option><option value="3">BE</option><option value="4">BI</option><option value="5">GS</option><option value="6">EC</option>');
+				$("#profiel5").html(' <option value=""></option><option value="1">BE</option><option value="2">SP</option><option value="3">PAP</option><option value="4">BI</option><option value="5">FIL**</option><option value="6">INF**</option><option value="7">CKV-pr**</option>');
 			break;
 
-			case '6':
-			$("#profiel1").html(' <option value=""></option>
-			<option value="1">SP</option>');
-			$("#profiel2").html(' <option value=""></option>
-			<option value="1">CKV-pr**</option>');
-			$("#profiel3").html(' <option value=""></option>
-			<option value="1">AK</option>
-			<option value="2">GS</option>');
-			$("#profiel4").html(' <option value=""></option>
-			<option value="1">PAP</option>');
-			$("#profiel5").html(' <option value=""></option>
-			<option value="1">AK</option>
-			<option value="2">GS</option>
-			<option value="3">FIL**</option>');
+			case '6': 
+				$("#profiel1").html(' <option value=""></option><option value="1">SP</option>');
+				$("#profiel2").html(' <option value=""></option><option value="1">CKV-pr**</option>');
+				$("#profiel3").html(' <option value=""></option><option value="1">AK</option><option value="2">GS</option>');
+				$("#profiel4").html(' <option value=""></option><option value="1">PAP</option>');
+				$("#profiel5").html(' <option value=""></option><option value="1">AK</option><option value="2">GS</option><option value="3">FIL**</option>');
 			break;
 
-			case '7':
-			$("#profiel1").html(' <option value=""></option>
-			<option value="1">SP</option>');
-			$("#profiel2").html(' <option value=""></option>
-			<option value="1">CKV-pr**</option>');
-			$("#profiel3").html(' <option value=""></option>
-			<option value="1">AK</option>
-			<option value="2">GS</option>');
-			$("#profiel4").html(' <option value=""></option>
-			<option value="1">WA</option>');
-			$("#profiel5").html(' <option value=""></option>
-			<option value="1">PAP</option>
-			<option value="2">BE</option>
-			<option value="3">EC</option>
-			<option value="4">GS</option>
-			<option value="5">AK</option>
-			<option value="6">FIL**</option>
-			<option value="7">INF**</option>');
-			break;
+			case '7': 
+				$("#profiel1").html(' <option value=""></option><option value="1">SP</option>');
+				$("#profiel2").html(' <option value=""></option><option value="1">CKV-pr**</option>');
+				$("#profiel3").html(' <option value=""></option><option value="1">AK</option><option value="2">GS</option>');
+				$("#profiel4").html(' <option value=""></option><option value="1">WA</option>');
+				$("#profiel5").html(' <option value=""></option><option value="1">PAP</option><option value="2">BE</option><option value="3">EC</option><option value="4">GS</option><option value="5">AK</option><option value="6">FIL**</option><option value="7">INF**</option>');
+				break;
 
 			default:
 			break;
