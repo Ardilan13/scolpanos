@@ -11,9 +11,49 @@ $s->getsetting_info($_SESSION["SchoolID"], false);
 $DBCreds = new DBCreds();
 $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort, $dummy);
 
-echo date('l', strtotime("2021-05-20"));
+/* $query = "SELECT * FROM excel";
+$result = mysqli_query($mysqli, $query);
+while ($row = mysqli_fetch_assoc($result)) {
+    switch ($row['dia']) {
+        case "ma":
+            $dag = "Monday";
+            break;
+        case "di":
+            $dag = "Tuesday";
+            break;
+        case "wo":
+            $dag = "Wednesday";
+            break;
+        case "do":
+            $dag = "Thursday";
+            break;
+        case "vr":
+            $dag = "Friday";
+            break;
+    }
+    $schooljaar = "2022-2023";
+    $schoolid = 12;
+    $klas = $row['klas'];
+    $p = 'p' . $row['p'];
+    $id = mysqli_query($mysqli, "SELECT ID FROM le_vakken WHERE volledigenaamvak = '" . $row['vak'] . "' AND Klas ='$klas' AND SchoolID = 12 LIMIT 1");
+    $id = mysqli_fetch_assoc($id);
+    $vak = $id['ID'];
+    $klasenboek = mysqli_query($mysqli, "SELECT id FROM klassenboek_vak WHERE day = '$dag' AND klas ='$klas' AND schoolid = 12");
+    $id_klasenboek = mysqli_fetch_assoc($klasenboek);
+    if (mysqli_num_rows($klasenboek) == 0 && $vak != "" && $vak != null) {
+        $insert = "INSERT INTO `klassenboek_vak`(`day`, `schooljaar`, `schoolid`, `klas` ," . $p . ") VALUES ('$dag','$schooljaar',$schoolid,'$klas','$vak')";
+        $mysqli->query($insert);
+        echo $insert . "<br>";
+    } else if (mysqli_num_rows($klasenboek) > 0) {
+        $update = "UPDATE `klassenboek_vak` SET `" . $p . "` = '$vak' WHERE `id` = " . $id_klasenboek['id'];
+        $mysqli->query($update);
+        echo $update . "<br>";
+    }
+} */
 
-/* $email = "dilancorr@gmail.com";
+
+/* echo date('l', strtotime("2021-05-20"));
+$email = "dilancorr@gmail.com";
 $headers = 'From: no-reply@qwihi.com' . "\r\n" . 'Reply-To: havompc.aanmelding@gmail.com'  . "\r\n" . 'MIME-Version: 1.0' . "\r\n" . 'Content-type: multipart/mixed;';
 $subject = "Aanmelding MPCH";
 $correo1 = "Hierbij ontvangt u een belangrijk bericht van de Mon Plaisir College havo.

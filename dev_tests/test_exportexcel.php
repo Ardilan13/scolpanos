@@ -171,7 +171,9 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 					break;
 			}
 			$colgemiddelde = (string)$returnvalue . (string)$_current_student_start_row;
-			$hojaActiva->setCellValue($colgemiddelde, $row["gemiddelde"]);
+			if ($row["gemiddelde"] > 0.0) {
+				$hojaActiva->setCellValue($colgemiddelde, $row["gemiddelde"]);
+			}
 			$_laststudent = $_currentstudent;
 			$_while_counter++;
 		}
@@ -1164,7 +1166,9 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 									}
 
 									$colgemiddelde = (string)$returnvalue . (string)$_current_student_start_row;
-									$hojaActiva->setCellValue($colgemiddelde, $gemiddelde_out);
+									if ($gemiddelde_out > 0.1) {
+										$hojaActiva->setCellValue($colgemiddelde, $gemiddelde_out);
+									}
 									$_laststudent = $_currentstudent;
 									$_while_counter++;
 								}
@@ -2264,7 +2268,9 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 									}
 
 									$colgemiddelde = (string)$returnvalue . (string)$_current_student_start_row;
-									$hojaActiva->setCellValue($colgemiddelde, $gemiddelde_out);
+									if ($gemiddelde_out > 0.1) {
+										$hojaActiva->setCellValue($colgemiddelde, $gemiddelde_out);
+									}
 									$_laststudent = $_currentstudent;
 									$_while_counter++;
 								}
