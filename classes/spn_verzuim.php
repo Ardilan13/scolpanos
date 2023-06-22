@@ -1175,7 +1175,7 @@ class spn_verzuim
               if ($select1 != null && $select1 != "") {
                 $htmlcontrol .= $select1;
               } else {
-                $htmlcontrol .= "<th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>Dag</th>";
+                $htmlcontrol .= "<th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th>Dag</th>";
               }
               $htmlcontrol .= "<th>Event</th></tr>";
               $htmlcontrol .= "</thead>";
@@ -1331,7 +1331,7 @@ class spn_verzuim
           $conf = $vak["vak"];
         }
       }
-      $$html .= ($conf == "") ? ($i == 10 ? 'Dag' : $i) : $conf;
+      $$html .= ($conf == "") ? ($i == 10 ? 'Dag' : '') : $conf;
       $$html .= '</th>';
       $final .= $$html;
     }

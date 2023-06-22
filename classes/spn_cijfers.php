@@ -149,8 +149,8 @@ class spn_cijfers
     $s = new spn_setting();
     $s->getsetting_info($schoolid, false);
 
-    if ($_SESSION['SchoolID'] == 8 || $_SESSION["SchoolID"] == 18) {
-      $sql_query = "SELECT distinct s.id, c.id, s.class, s.firstname, s.lastname, s.sex, c.c1, c.c2, c.c3, c.c4, c.c5, c.c6, c.c7, c.c8, c.c9, c.c10, c.c11, c.c12, c.c13, c.c14, c.c15, c.c16, c.c17, c.c18, c.c19, c.c20, c.gemiddelde FROM students s LEFT JOIN le_cijfers c ON s.id = c.studentid LEFT JOIN le_vakken v ON c.vak = v.id WHERE s.class = ? AND v.id = ? AND c.rapnummer = ? AND c.schooljaar = ? ORDER BY ";
+    if ($_SESSION['SchoolID'] == 8 || $_SESSION["SchoolID"] == 18 || $_SESSION['SchoolType'] == 2) {
+      $sql_query = "SELECT distinct s.id, c.id, s.class, s.firstname, s.lastname, s.sex, c.c1, c.c2, c.c3, c.c4, c.c5, c.c6, c.c7, c.c8, c.c9, c.c10, c.c11, c.c12, c.c13, c.c14, c.c15, c.c16, c.c17, c.c18, c.c19, c.c20, c.gemiddelde FROM students s LEFT JOIN le_cijfers c ON s.id = c.studentid LEFT JOIN le_vakken v ON c.vak = v.id WHERE s.schoolid = ? AND s.class = ? AND v.id = ? AND c.rapnummer = ? AND c.schooljaar = ? ORDER BY ";
     } else {
       $sql_query = "SELECT distinct s.id, c.id, s.class, s.firstname, s.lastname, s.sex, c.c1, c.c2, c.c3, c.c4, c.c5, c.c6, c.c7, c.c8, c.c9, c.c10, c.c11, c.c12, c.c13, c.c14, c.c15, c.c16, c.c17, c.c18, c.c19, c.c20, c.gemiddelde FROM students s LEFT JOIN le_cijfers_ps c ON s.id = c.studentid AND s.schoolid = ?  LEFT JOIN le_vakken_ps v ON c.vak = v.id WHERE s.class = ? AND v.id = ? AND c.rapnummer = ? AND c.schooljaar = ? ORDER BY ";
     }
@@ -1091,7 +1091,6 @@ class spn_cijfers
             }
           } else {
             /* error executing query */
-            $this->error = true;
             $this->mysqlierror = $mysqli->error;
             $result = 0;
 
@@ -1132,7 +1131,6 @@ class spn_cijfers
       $returnvalue = $htmlcontrol;
       return $returnvalue;
     } catch (Exception $e) {
-      $this->error = true;
       $this->mysqlierror = $e->getMessage();
       $result = 0;
 

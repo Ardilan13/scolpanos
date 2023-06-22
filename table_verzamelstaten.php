@@ -83,7 +83,7 @@
                                         <i class="fa fa-calendar"></i>
                                     </span>
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-m-w btn-m-h" id="btn_download">Export</button>
+                                <button type="submit" class="btn btn-primary btn-m-w btn-m-h" id="btn_download">Zoeken</button>
                             </div>
                         </form>
                         </fieldset>
@@ -101,6 +101,14 @@
                             <div class="box">
 
                                 <div class="box-content full-inset clearfix">
+
+                                    <span><b>L</b> = Laat |</span>
+                                    <span><b> A</b> = Afwezig |</span>
+                                    <span><b> X</b> = Afspraak extern en komt terug op school |</span>
+                                    <span><b> S</b> = Spijbelen</span><br></br>
+                                    <span><b>M</b> = Met toestemming naar huis |</span>
+                                    <span><b> U</b> = Uitgestuurd |</span>
+                                    <span><b> T</b> = Time-out(schorsing)</span>
 
                                     <div class="data-display">
                                         <table class="table table-bordered table-colored table-houding">
@@ -190,7 +198,7 @@
                             </div>
 
                         </div>
-
+                        <a style="margin-top: 10px" type="submit" name="btn_verzuim_print" id="btn_verzuim_print" class="btn btn-default btn-m-w pull-right mrg-left" target="_blank">PRINT</a>
                     </div>
                 </div>
             </div>
@@ -224,6 +232,16 @@
                 alert('error')
             }
         })
+    });
+
+    $("#btn_verzuim_print").click(function() {
+        var start = $("#start_date").val(),
+            end = $("#end_date").val(),
+            klas = $("#klas option:selected").val();
+        window.open("print.php?name=table_verzamelstaten&title=Klassenboek List&klas1=" + klas + "&start_date=" + start + "&end_date=" + end);
+        $(document).ready(function() {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
     });
 
     /*  $(document).ready(function() {
