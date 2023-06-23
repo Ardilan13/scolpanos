@@ -894,7 +894,8 @@ class spn_see_kaart
                         $is_ckv = true;
                       }
                     } else {
-
+                      $average_divisor = 0;
+                      $average = 0;
                       $table .= "<td width='65%'>$complete_name ($vak_code)</td>";
                       if ((float)$gemmindele1 > 0.0 && $gemmindele1 != '' && $gemmindele1 != null) {
                         $average_divisor++;
@@ -903,17 +904,17 @@ class spn_see_kaart
                       if ($rapnummer == 2) {
                         if ((float)$gemmindele2 > 0.0 && $gemmindele2 != '' && $gemmindele2 != null) {
                           $average_divisor++;
-                          $average = ($gemmindele1 + $gemmindele2) / 2;
                         }
+                        $average = ($gemmindele1 + $gemmindele2) / $average_divisor;
                       }
                       if ($rapnummer == 3) {
                         if ((float)$gemmindele3 > 0.0 && $gemmindele3 != null  && $gemmindele3 != "") {
                           $average_divisor++;
-                          $average = ($gemmindele1 + $gemmindele2 + $gemmindele3) / 3;
-                        } else if ((float)$gemmindele2 > 0.0 && $gemmindele2 != '' && $gemmindele2 != null) {
-                          $average_divisor++;
-                          $average = ($gemmindele1 + $gemmindele2) / 2;
                         }
+                        if ((float)$gemmindele2 > 0.0 && $gemmindele2 != '' && $gemmindele2 != null) {
+                          $average_divisor++;
+                        }
+                        $average = ($gemmindele1 + $gemmindele2 + $gemmindele3) / $average_divisor;
 
                         if ($_SESSION['SchoolID'] == 17 && $schooljaar == "2021-2022" && ($volledigenaamvak == "lo" || $volledigenaamvak == "LO")) {
                           $average = ($gemmindele1 + $gemmindele2 + $gemmindele3) / 2;
