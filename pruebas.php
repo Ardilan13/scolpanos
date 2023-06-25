@@ -11,7 +11,32 @@ $s->getsetting_info($_SESSION["SchoolID"], false);
 $DBCreds = new DBCreds();
 $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort, $dummy);
 
-/* $query = "SELECT * FROM excel";
+/* $insert = "INSERT INTO
+`le_vakken`(
+    `ID`,
+    `SchoolID`,
+    `Klas`,
+    `vakid`,
+    `volledigenaamvak`,
+    `x_index`,
+    `complete_name`
+)
+VALUES ";
+$vaks = [
+    'Ne1', 'En1',    'Sp1',    'Pa1',    'Wi1',    'Lo1',    'Ak1',    'Gs1',    'Ec1',    'Bi1',    'Na1',    'Sk1',    'RT',
+    'Ne2',    'En2',    'Sp2',    'Pa2',    'Wi2',    'Lo2',    'Ak2',    'Gs2',    'Ec2',    'Bi2',    'Na2',    'Sk2',
+    'Ne3',    'En3',    'Sp3',    'Pa3',    'Wi3',    'Lo3',    'Ak3',    'Gs3',    'Ec3',    'Bi3',    'Na3',    'Sk3'
+];
+$i = 552777;
+foreach ($vaks as $vak) {
+    $i++;
+    $vak = strtolower($vak);
+    $insert .= "($i, 12, '4B', 0, '$vak', 0, '$vak'),";
+}
+
+echo $insert; */
+
+/* $query = "SELECT * FROM excel WHERE klas like '4%'";
 $result = mysqli_query($mysqli, $query);
 while ($row = mysqli_fetch_assoc($result)) {
     switch ($row['dia']) {
