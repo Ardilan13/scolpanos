@@ -204,8 +204,10 @@ if (
                 x[10] = verzuim;
                 fila = $("#" + controlid).attr('fila');
                 for (i = 1; i <= 9; i++) {
-                    $('#lp' + i + fila).val(verzuim);
-                    x[i] = verzuim;
+                    if ($('#lp' + i + fila).prop('disabled') == false) {
+                        $('#lp' + i + fila).val(verzuim);
+                        x[i] = verzuim;
+                    }
                 }
                 x.forEach(function(v, i) {
                     p1 = '';

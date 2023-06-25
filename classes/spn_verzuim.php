@@ -1177,6 +1177,7 @@ class spn_verzuim
               } else {
                 $htmlcontrol .= "<th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th>Dag</th>";
               }
+              $disabled = $this->klasenboek_vak_array($schoolid, $klas, $date);
               $htmlcontrol .= "<th>Event</th></tr>";
               $htmlcontrol .= "</thead>";
               $htmlcontrol .= "<tbody>";
@@ -1185,23 +1186,23 @@ class spn_verzuim
               while ($select->fetch()) {
                 $htmlcontrol .= "<tr data-student-id=\"$studentid\" data-klas=\"$_klas\"  data-datum=\"$datum\"><td>$x</td><td>" . $lastname  . ', ' . $firstname . "</td>";
 
-                $htmlcontrol .= "<td><input class='klasen_p' maxlength='1' style='max-width: 30px;' type='text' onchange='saveverzuimdata(" . "&#39;" . $_SESSION['SchoolJaar'] . "&#39;" . "," . "&#39;" . $schoolid . "&#39;" . "," . "&#39;" . $studentid . "&#39;" . "," . "&#39;" . $_klas . "&#39;" . "," . "&#39;" . $datum . "&#39;" . "," . "&#39;" . $verzuimid . "&#39;" . "," . "&#39;" . "lp1" . $x . "&#39;" .  "," . "&#39;" . "p1" . "&#39;" . ")' verzuim=\"$verzuimid\" id =\"lp1$x\" value=" . $p1 . "></td>";
+                $htmlcontrol .= "<td><input " . $disabled[1] . " class='klasen_p' maxlength='1' style='max-width: 30px;' type='text' onchange='saveverzuimdata(" . "&#39;" . $_SESSION['SchoolJaar'] . "&#39;" . "," . "&#39;" . $schoolid . "&#39;" . "," . "&#39;" . $studentid . "&#39;" . "," . "&#39;" . $_klas . "&#39;" . "," . "&#39;" . $datum . "&#39;" . "," . "&#39;" . $verzuimid . "&#39;" . "," . "&#39;" . "lp1" . $x . "&#39;" .  "," . "&#39;" . "p1" . "&#39;" . ")' verzuim=\"$verzuimid\" id =\"lp1$x\" value=" . $p1 . "></td>";
 
-                $htmlcontrol .= "<td><input class='klasen_p' maxlength='1' style='max-width: 30px;' type='text' onchange='saveverzuimdata(" . "&#39;" . $_SESSION['SchoolJaar'] . "&#39;" . "," . "&#39;" . $schoolid . "&#39;" . "," . "&#39;" . $studentid . "&#39;" . "," . "&#39;" . $_klas . "&#39;" . "," . "&#39;" . $datum . "&#39;" . "," . "&#39;" . $verzuimid . "&#39;" . "," . "&#39;" . "lp2" . $x . "&#39;" .  "," . "&#39;" . "p2" . "&#39;" . ")' verzuim=\"$verzuimid\" id =\"lp2$x\" value=" . $p2 . "></td>";
+                $htmlcontrol .= "<td><input " . $disabled[2] . " class='klasen_p' maxlength='1' style='max-width: 30px;' type='text' onchange='saveverzuimdata(" . "&#39;" . $_SESSION['SchoolJaar'] . "&#39;" . "," . "&#39;" . $schoolid . "&#39;" . "," . "&#39;" . $studentid . "&#39;" . "," . "&#39;" . $_klas . "&#39;" . "," . "&#39;" . $datum . "&#39;" . "," . "&#39;" . $verzuimid . "&#39;" . "," . "&#39;" . "lp2" . $x . "&#39;" .  "," . "&#39;" . "p2" . "&#39;" . ")' verzuim=\"$verzuimid\" id =\"lp2$x\" value=" . $p2 . "></td>";
 
-                $htmlcontrol .= "<td><input class='klasen_p' maxlength='1' style='max-width: 30px;' type='text' onchange='saveverzuimdata(" . "&#39;" . $_SESSION['SchoolJaar'] . "&#39;" . "," . "&#39;" . $schoolid . "&#39;" . "," . "&#39;" . $studentid . "&#39;" . "," . "&#39;" . $_klas . "&#39;" . "," . "&#39;" . $datum . "&#39;" . "," . "&#39;" . $verzuimid . "&#39;" . "," . "&#39;" . "lp3" . $x . "&#39;" .  "," . "&#39;" . "p3" . "&#39;" . ")' verzuim=\"$verzuimid\" id =\"lp3$x\" value=" . $p3 . "></td>";
+                $htmlcontrol .= "<td><input " . $disabled[3] . " class='klasen_p' maxlength='1' style='max-width: 30px;' type='text' onchange='saveverzuimdata(" . "&#39;" . $_SESSION['SchoolJaar'] . "&#39;" . "," . "&#39;" . $schoolid . "&#39;" . "," . "&#39;" . $studentid . "&#39;" . "," . "&#39;" . $_klas . "&#39;" . "," . "&#39;" . $datum . "&#39;" . "," . "&#39;" . $verzuimid . "&#39;" . "," . "&#39;" . "lp3" . $x . "&#39;" .  "," . "&#39;" . "p3" . "&#39;" . ")' verzuim=\"$verzuimid\" id =\"lp3$x\" value=" . $p3 . "></td>";
 
-                $htmlcontrol .= "<td><input class='klasen_p' maxlength='1' style='max-width: 30px;' type='text' onchange='saveverzuimdata(" . "&#39;" . $_SESSION['SchoolJaar'] . "&#39;" . "," . "&#39;" . $schoolid . "&#39;" . "," . "&#39;" . $studentid . "&#39;" . "," . "&#39;" . $_klas . "&#39;" . "," . "&#39;" . $datum . "&#39;" . "," . "&#39;" . $verzuimid . "&#39;" . "," . "&#39;" . "lp4" . $x . "&#39;" .  "," . "&#39;" . "p4" . "&#39;" . ")' verzuim=\"$verzuimid\" id =\"lp4$x\" value=" . $p4 . "></td>";
+                $htmlcontrol .= "<td><input " . $disabled[4] . " class='klasen_p' maxlength='1' style='max-width: 30px;' type='text' onchange='saveverzuimdata(" . "&#39;" . $_SESSION['SchoolJaar'] . "&#39;" . "," . "&#39;" . $schoolid . "&#39;" . "," . "&#39;" . $studentid . "&#39;" . "," . "&#39;" . $_klas . "&#39;" . "," . "&#39;" . $datum . "&#39;" . "," . "&#39;" . $verzuimid . "&#39;" . "," . "&#39;" . "lp4" . $x . "&#39;" .  "," . "&#39;" . "p4" . "&#39;" . ")' verzuim=\"$verzuimid\" id =\"lp4$x\" value=" . $p4 . "></td>";
 
-                $htmlcontrol .= "<td><input class='klasen_p' maxlength='1' style='max-width: 30px;' type='text' onchange='saveverzuimdata(" . "&#39;" . $_SESSION['SchoolJaar'] . "&#39;" . "," . "&#39;" . $schoolid . "&#39;" . "," . "&#39;" . $studentid . "&#39;" . "," . "&#39;" . $_klas . "&#39;" . "," . "&#39;" . $datum . "&#39;" . "," . "&#39;" . $verzuimid . "&#39;" . "," . "&#39;" . "lp5" . $x . "&#39;" .  "," . "&#39;" . "p5" . "&#39;" . ")' verzuim=\"$verzuimid\" id =\"lp5$x\" value=" . $p5 . "></td>";
+                $htmlcontrol .= "<td><input " . $disabled[5] . " class='klasen_p' maxlength='1' style='max-width: 30px;' type='text' onchange='saveverzuimdata(" . "&#39;" . $_SESSION['SchoolJaar'] . "&#39;" . "," . "&#39;" . $schoolid . "&#39;" . "," . "&#39;" . $studentid . "&#39;" . "," . "&#39;" . $_klas . "&#39;" . "," . "&#39;" . $datum . "&#39;" . "," . "&#39;" . $verzuimid . "&#39;" . "," . "&#39;" . "lp5" . $x . "&#39;" .  "," . "&#39;" . "p5" . "&#39;" . ")' verzuim=\"$verzuimid\" id =\"lp5$x\" value=" . $p5 . "></td>";
 
-                $htmlcontrol .= "<td><input class='klasen_p' maxlength='1' style='max-width: 30px;' type='text' onchange='saveverzuimdata(" . "&#39;" . $_SESSION['SchoolJaar'] . "&#39;" . "," . "&#39;" . $schoolid . "&#39;" . "," . "&#39;" . $studentid . "&#39;" . "," . "&#39;" . $_klas . "&#39;" . "," . "&#39;" . $datum . "&#39;" . "," . "&#39;" . $verzuimid . "&#39;" . "," . "&#39;" . "lp6" . $x . "&#39;" .  "," . "&#39;" . "p6" . "&#39;" . ")' verzuim=\"$verzuimid\" id =\"lp6$x\" value=" . $p6 . "></td>";
+                $htmlcontrol .= "<td><input " . $disabled[6] . " class='klasen_p' maxlength='1' style='max-width: 30px;' type='text' onchange='saveverzuimdata(" . "&#39;" . $_SESSION['SchoolJaar'] . "&#39;" . "," . "&#39;" . $schoolid . "&#39;" . "," . "&#39;" . $studentid . "&#39;" . "," . "&#39;" . $_klas . "&#39;" . "," . "&#39;" . $datum . "&#39;" . "," . "&#39;" . $verzuimid . "&#39;" . "," . "&#39;" . "lp6" . $x . "&#39;" .  "," . "&#39;" . "p6" . "&#39;" . ")' verzuim=\"$verzuimid\" id =\"lp6$x\" value=" . $p6 . "></td>";
 
-                $htmlcontrol .= "<td><input class='klasen_p' maxlength='1' style='max-width: 30px;' type='text' onchange='saveverzuimdata(" . "&#39;" . $_SESSION['SchoolJaar'] . "&#39;" . "," . "&#39;" . $schoolid . "&#39;" . "," . "&#39;" . $studentid . "&#39;" . "," . "&#39;" . $_klas . "&#39;" . "," . "&#39;" . $datum . "&#39;" . "," . "&#39;" . $verzuimid . "&#39;" . "," . "&#39;" . "lp7" . $x . "&#39;" .  "," . "&#39;" . "p7" . "&#39;" . ")' verzuim=\"$verzuimid\" id =\"lp7$x\" value=" . $p7 . "></td>";
+                $htmlcontrol .= "<td><input " . $disabled[7] . " class='klasen_p' maxlength='1' style='max-width: 30px;' type='text' onchange='saveverzuimdata(" . "&#39;" . $_SESSION['SchoolJaar'] . "&#39;" . "," . "&#39;" . $schoolid . "&#39;" . "," . "&#39;" . $studentid . "&#39;" . "," . "&#39;" . $_klas . "&#39;" . "," . "&#39;" . $datum . "&#39;" . "," . "&#39;" . $verzuimid . "&#39;" . "," . "&#39;" . "lp7" . $x . "&#39;" .  "," . "&#39;" . "p7" . "&#39;" . ")' verzuim=\"$verzuimid\" id =\"lp7$x\" value=" . $p7 . "></td>";
 
-                $htmlcontrol .= "<td><input class='klasen_p' maxlength='1' style='max-width: 30px;' type='text' onchange='saveverzuimdata(" . "&#39;" . $_SESSION['SchoolJaar'] . "&#39;" . "," . "&#39;" . $schoolid . "&#39;" . "," . "&#39;" . $studentid . "&#39;" . "," . "&#39;" . $_klas . "&#39;" . "," . "&#39;" . $datum . "&#39;" . "," . "&#39;" . $verzuimid . "&#39;" . "," . "&#39;" . "lp8" . $x . "&#39;" .  "," . "&#39;" . "p8" . "&#39;" . ")' verzuim=\"$verzuimid\" id =\"lp8$x\" value=" . $p8 . "></td>";
+                $htmlcontrol .= "<td><input " . $disabled[8] . " class='klasen_p' maxlength='1' style='max-width: 30px;' type='text' onchange='saveverzuimdata(" . "&#39;" . $_SESSION['SchoolJaar'] . "&#39;" . "," . "&#39;" . $schoolid . "&#39;" . "," . "&#39;" . $studentid . "&#39;" . "," . "&#39;" . $_klas . "&#39;" . "," . "&#39;" . $datum . "&#39;" . "," . "&#39;" . $verzuimid . "&#39;" . "," . "&#39;" . "lp8" . $x . "&#39;" .  "," . "&#39;" . "p8" . "&#39;" . ")' verzuim=\"$verzuimid\" id =\"lp8$x\" value=" . $p8 . "></td>";
 
-                $htmlcontrol .= "<td><input class='klasen_p' maxlength='1' style='max-width: 30px;' type='text' onchange='saveverzuimdata(" . "&#39;" . $_SESSION['SchoolJaar'] . "&#39;" . "," . "&#39;" . $schoolid . "&#39;" . "," . "&#39;" . $studentid . "&#39;" . "," . "&#39;" . $_klas . "&#39;" . "," . "&#39;" . $datum . "&#39;" . "," . "&#39;" . $verzuimid . "&#39;" . "," . "&#39;" . "lp9" . $x . "&#39;" .  "," . "&#39;" . "p9" . "&#39;" . ")' verzuim=\"$verzuimid\" id =\"lp9$x\" value=" . $p9 . "></td>";
+                $htmlcontrol .= "<td><input " . $disabled[9] . " class='klasen_p' maxlength='1' style='max-width: 30px;' type='text' onchange='saveverzuimdata(" . "&#39;" . $_SESSION['SchoolJaar'] . "&#39;" . "," . "&#39;" . $schoolid . "&#39;" . "," . "&#39;" . $studentid . "&#39;" . "," . "&#39;" . $_klas . "&#39;" . "," . "&#39;" . $datum . "&#39;" . "," . "&#39;" . $verzuimid . "&#39;" . "," . "&#39;" . "lp9" . $x . "&#39;" .  "," . "&#39;" . "p9" . "&#39;" . ")' verzuim=\"$verzuimid\" id =\"lp9$x\" value=" . $p9 . "></td>";
 
                 $htmlcontrol .= "<td><select fila='" . $x . "' class='select_dag' " . $user  . " onchange='saveverzuimdata(" . "&#39;" . $_SESSION['SchoolJaar'] . "&#39;" . "," . "&#39;" . $schoolid . "&#39;" . ","  . "&#39;" . $studentid . "&#39;" . "," . "&#39;" . $_klas . "&#39;" . "," . "&#39;" . $datum . "&#39;" . "," . "&#39;" . $verzuimid . "&#39;" . "," . "&#39;" . "lp10" . $x . "&#39;" . "," . "&#39;" . "p10" . "&#39;" . ")' verzuim=\"$verzuimid\" id =\"lp10$x\">
                 <option value=\"0\"></option>
@@ -1294,7 +1295,7 @@ class spn_verzuim
     $DBCreds = new DBCreds();
     date_default_timezone_set("America/Aruba");
     $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
-    $get_vak = "SELECT distinct v.ID, v.volledigenaamvak from le_vakken v where v.SchoolID = $schoolID and v.Klas = '$klas' and volgorde <> 99 order by v.volledigenaamvak asc;";
+    $get_vak = "SELECT distinct v.ID, v.volledigenaamvak from le_vakken v where v.SchoolID = $schoolID and v.Klas = '$klas' order by v.volledigenaamvak asc;";
     $result = mysqli_query($mysqli, $get_vak);
     while ($row1 = mysqli_fetch_assoc($result)) {
       $vaks[] = array("id" => $row1['ID'], "vak" => $row1['volledigenaamvak']);
@@ -1337,6 +1338,61 @@ class spn_verzuim
     }
 
     return $final;
+  }
+
+  function klasenboek_vak_array($schoolID, $klas, $datum)
+  {
+    $p1 = 0;
+    $p2 = 0;
+    $p3 = 0;
+    $p4 = 0;
+    $p5 = 0;
+    $p6 = 0;
+    $p7 = 0;
+    $p8 = 0;
+    $p9 = 0;
+    $p10 = 0;
+    require_once("DBCreds.php");
+    $DBCreds = new DBCreds();
+    date_default_timezone_set("America/Aruba");
+    $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
+    $get_vak = "SELECT distinct v.ID, v.volledigenaamvak from le_vakken v where v.SchoolID = $schoolID and v.Klas = '$klas' order by v.volledigenaamvak asc;";
+    $result = mysqli_query($mysqli, $get_vak);
+    while ($row1 = mysqli_fetch_assoc($result)) {
+      $vaks[] = array("id" => $row1['ID'], "vak" => $row1['volledigenaamvak']);
+    }
+
+    $day = date('l', strtotime($datum));
+    $select_klas = "SELECT id,p1,p2,p3,p4,p5,p6,p7,p8,p9 FROM klassenboek_vak where schoolid = $schoolID and klas = '$klas' and day = '$day' and schooljaar = '" . $_SESSION['SchoolJaar'] . "'";
+    $resultado = mysqli_query($mysqli, $select_klas);
+    if ($resultado->num_rows > 0) {
+      while ($row = mysqli_fetch_assoc($resultado)) {
+        $id = $row['id'];
+        $p1 = $row['p1'];
+        $p2 = $row['p2'];
+        $p3 = $row['p3'];
+        $p4 = $row['p4'];
+        $p5 = $row['p5'];
+        $p6 = $row['p6'];
+        $p7 = $row['p7'];
+        $p8 = $row['p8'];
+        $p9 = $row['p9'];
+      }
+    }
+
+    $conf = array();
+
+    for ($i = 1; $i <= 9; $i++) {
+      $x = 'p' . $i;
+      $conf[$i] = 'disabled';
+      foreach ($vaks as $vak) {
+        if ($vak["id"] == $$x) {
+          $conf[$i] = '';
+        }
+      }
+    }
+
+    return $conf;
   }
 
 
