@@ -1,7 +1,6 @@
 <?php
 
 
-	require_once("../classes/spn_test.php");
 	require_once("../classes/spn_authentication.php");
 	require_once("../config/app.config.php");
 
@@ -14,8 +13,6 @@
 	if(session_status() == PHP_SESSION_NONE)
 		session_start();
 
-	$t = new spn_test();
-	print $t->get_test(0, $_GET["id"], appconfig::GetDummy());
 	//print $m->get_test(0, 	1, appconfig::GetDummy());
 
 // }

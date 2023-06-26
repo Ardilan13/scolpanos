@@ -63,7 +63,6 @@
 	require_once("../classes/spn_contact.php");
 	require_once("../classes/spn_social_work.php"); //CODE CaribeDevelopers
 	require_once("../classes/spn_mdc.php"); //CODE CaribeDevelopers
-	require_once("../classes/spn_test.php"); //CODE CaribeDevelopers
     require_once("../classes/spn_event.php"); //CODE CaribeDevelopers
 	require_once("../classes/spn_remedial.php"); //CODE CaribeDevelopers
 	require_once("../classes/spn_documents.php"); //CODE CaribeDevelopers
@@ -74,7 +73,6 @@
 	$c = new spn_contact();
 	$sw = new spn_social_work(); //CODE CaribeDevelopers
 	$m = new spn_mdc(); //CODE CaribeDevelopers
-	$t = new spn_test(); //CODE CaribeDevelopers
     $ev = new spn_event(); //CODE CaribeDevelopers
 	$r = new spn_remedial(); //CODE CaribeDevelopers
 	$d = new spn_documents(); //CODE CaribeDevelopers
