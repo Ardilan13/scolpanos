@@ -893,7 +893,7 @@ class spn_see_kaart
                         $table .= "<td " . ((float)$final_avg_CKV >= 1 && (float)$final_avg_CKV <= 4.4  && (float)$final_avg_CKV ? "class=\"bg-danger\"" : "") . ">" . ((float)$final_avg_CKV > 0.0 && $final_avg_CKV != null  && $final_avg_CKV != "" ? ($final_avg_CKV >= 5.4 && $final_avg_CKV <= 6 ? 6 : round($final_avg_CKV)) : "") . "</td>";
                         $is_ckv = true;
                       }
-                    } else {
+                    } else if ($complete_name != null && $complete_name != '') {
                       $average_divisor = 0;
                       $average = 0;
                       $table .= "<td width='65%'>$complete_name ($vak_code)</td>";
