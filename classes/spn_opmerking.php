@@ -18,7 +18,7 @@ class spn_opmerking
   public $errormessage = "";
 
 
-  function create_opmerking($id_student, $SchoolJaar, $SchoolID, $klas, $opmerking1, $opmerking2, $opmerking3, $dummy)
+  function create_opmerking($id_student, $SchoolJaar, $SchoolID, $klas, $opmerking1, $opmerking2, $opmerking3, $advies, $dummy)
   {
     $result = 0;
 
@@ -39,9 +39,9 @@ class spn_opmerking
         $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
         // $mysqli=new mysqli("127.0.0.1", "root", "", "wwwxluni_scolpanos", 3306);
 
-        if ($stmt = $mysqli->prepare("CALL " . $this->sp_create_opmerking . " (?,?,?,?,?,?,?)")) {
+        if ($stmt = $mysqli->prepare("CALL " . $this->sp_create_opmerking . " (?,?,?,?,?,?,?,?)")) {
 
-          if ($stmt->bind_param("isissss", $id_student, $SchoolJaar, $SchoolID, $klas, $opmerking1, $opmerking2, $opmerking3)) {
+          if ($stmt->bind_param("isisssss", $id_student, $SchoolJaar, $SchoolID, $klas, $opmerking1, $opmerking2, $opmerking3, $advies)) {
             if ($stmt->execute()) {
               // Audit by Caribe Developers
               $spn_audit = new spn_audit();
@@ -73,7 +73,7 @@ class spn_opmerking
 
     return $result;
   }
-  function update_opmerking($id_student, $SchoolJaar, $SchoolID, $klas, $opmerking1, $opmerking2, $opmerking3, $dummy)
+  function update_opmerking($id_student, $SchoolJaar, $SchoolID, $klas, $opmerking1, $opmerking2, $opmerking3, $advies, $dummy)
   {
     $result = 0;
 
@@ -93,9 +93,9 @@ class spn_opmerking
         $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
         // $mysqli=new mysqli("127.0.0.1", "root", "", "wwwxluni_scolpanos", 3306);
 
-        if ($stmt = $mysqli->prepare("CALL " . $this->sp_update_opmerking . " (?,?,?,?,?,?,?)")) {
+        if ($stmt = $mysqli->prepare("CALL " . $this->sp_update_opmerking . " (?,?,?,?,?,?,?,?)")) {
 
-          if ($stmt->bind_param("isissss", $id_student, $SchoolJaar, $SchoolID, $klas, $opmerking1, $opmerking2, $opmerking3)) {
+          if ($stmt->bind_param("isisssss", $id_student, $SchoolJaar, $SchoolID, $klas, $opmerking1, $opmerking2, $opmerking3, $advies)) {
             if ($stmt->execute()) {
               // Audit by Caribe Developers
               $spn_audit = new spn_audit();
@@ -159,7 +159,7 @@ class spn_opmerking
             $this->error = false;
             $result = 1;
 
-            $select->bind_result($id_opmerking, $studentid, $opmerking_1, $opmerking_2, $opmerking_3);
+            $select->bind_result($id_opmerking, $studentid, $opmerking_1, $opmerking_2, $opmerking_3, $advies);
 
             $select->store_result();
             if ($select->num_rows > 0) {
@@ -167,7 +167,7 @@ class spn_opmerking
 
               while ($select->fetch()) {
 
-                $json_result[] = array("id_opmerking" => $id_opmerking, "opmerking_1" => $opmerking_1, "opmerking_2" => $opmerking_2, "opmerking_3" => $opmerking_3);
+                $json_result[] = array("id_opmerking" => $id_opmerking, "opmerking_1" => $opmerking_1, "opmerking_2" => $opmerking_2, "opmerking_3" => $opmerking_3, "advies" => $advies);
               }
             } else {
               $result = 0;
@@ -278,16 +278,16 @@ class spn_opmerking
 
     return $returnvalue;
   }
-  function save_opmerking($id_student, $SchoolJaar, $SchoolID, $klas, $opmerking1, $opmerking2, $opmerking3, $dummy)
+  function save_opmerking($id_student, $SchoolJaar, $SchoolID, $klas, $opmerking1, $opmerking2, $opmerking3, $advies, $dummy)
   {
 
-    $opmerking_count = $this->check_opmerking_student($id_student, $SchoolJaar, $SchoolID, $klas, $opmerking1, $opmerking2, $opmerking3, $dummy);
+    $opmerking_count = $this->check_opmerking_student($id_student, $SchoolJaar, $SchoolID, $klas);
     if ($opmerking_count == 1) {
 
-      return $this->update_opmerking($id_student, $SchoolJaar, $SchoolID, $klas, $opmerking1, $opmerking2, $opmerking3, $dummy);
+      return $this->update_opmerking($id_student, $SchoolJaar, $SchoolID, $klas, $opmerking1, $opmerking2, $opmerking3, $advies, $dummy);
     } else {
 
-      return $this->create_opmerking($id_student, $SchoolJaar, $SchoolID, $klas, $opmerking1, $opmerking2, $opmerking3, $dummy);
+      return $this->create_opmerking($id_student, $SchoolJaar, $SchoolID, $klas, $opmerking1, $opmerking2, $opmerking3, $advies, $dummy);
     }
   }
   function liststudentbyclass($class, $schoolid, $all, $dummy)

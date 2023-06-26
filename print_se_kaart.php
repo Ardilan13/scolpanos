@@ -126,14 +126,16 @@ foreach ($array_leerling as $item) {
   $opmerking1 = null;
   $opmerking2 = null;
   $opmerking3 = null;
+  $advies = null;
   $student = $item['studentid'];
   $schooljaar = $_GET["schoolJaar"];
-  $query = "SELECT opmerking1, opmerking2, opmerking3 FROM opmerking WHERE klas = '$klas' AND SchoolID = $schoolId AND studentid = $student AND schooljaar = '$schooljaar'";
+  $query = "SELECT opmerking1, opmerking2, opmerking3, advies FROM opmerking WHERE klas = '$klas' AND SchoolID = $schoolId AND studentid = $student AND schooljaar = '$schooljaar'";
   $resultado = mysqli_query($mysqli, $query);
   while ($row = mysqli_fetch_assoc($resultado)) {
     $opmerking1 = $row["opmerking1"];
     $opmerking2 = $row["opmerking2"];
     $opmerking3 = $row["opmerking3"];
+    $advies = $row["advies"];
   }
 
   if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["SchoolID"] != 18) {
@@ -8191,10 +8193,24 @@ if($avg_h == 0.0){$avg_h = null;}
   } else if ($_SESSION['SchoolID'] != 18) {
     $page_html .= "<div class='row' style='margin: 0 !important;'>";
     $page_html .= "<div style='width: 100%;'>";
-    $page_html .= "<p style='margin-bottom: .5rem !important;'>Ο Bevorderd naar klas: ..............................................................</p>";
-    $page_html .= "<p style='margin-bottom: .5rem !important;'>Ο Over wegens leeftijd naar klas: ...............................................</p>";
-    $page_html .= "<p style='margin-bottom: .5rem !important;'>Ο Niet bevorderd: ..............................................................</p>";
-    $page_html .= "<p style='margin-bottom: .5rem !important;'>Ο Verwezen naar: ..............................................................</p>";
+    $klas_next = substr($klas, 0, 1);
+    $klas_next = (int)$klas_next + 1;
+    $klas_next = $klas_next > 6 ? null : $klas_next;
+    if ($advies == '0') {
+      $page_html .= "<p style='margin: .5rem !important; text-align: center; font-size: 14px;'>Ο Bevorderd naar klas: " . $klas_next . "</p>";
+    } else if ($advies == '1') {
+      $page_html .= "<p style='margin: .5rem !important; text-align: center; font-size: 14px;'>Ο Over wegens leeftijd naar klas: " . $klas_next . "</p>";
+    } else if ($advies == '2') {
+      $page_html .= "<p style='margin: .5rem !important; text-align: center; font-size: 14px;'>Ο Niet bevorderd:</p>";
+    } else if ($advies == null || $advies == '') {
+      $page_html .= "<p style='margin-bottom: .5rem !important;'>Ο Bevorderd naar klas: ..............................................................</p>";
+      $page_html .= "<p style='margin-bottom: .5rem !important;'>Ο Over wegens leeftijd naar klas: ...............................................</p>";
+      $page_html .= "<p style='margin-bottom: .5rem !important;'>Ο Niet bevorderd: ..............................................................</p>";
+      $page_html .= "<p style='margin-bottom: .5rem !important;'>Ο Verwezen naar: ..............................................................</p>";
+    } else {
+      $page_html .= "<p style='margin: .5rem !important; text-align: center; font-size: 14px;'>Ο Verwezen naar: " . $advies . "</p>";
+    }
+
     $page_html .= "<div style='display:flex; flex-direction: row; justify-content: space-between; width: 100%;'>";
     $page_html .= "<p style='margin-bottom: .5rem !important;display: inline; '>Naam leerkracht: " . $teacher . "</p>";
     $page_html .= "<p>.................................................................</p>";
