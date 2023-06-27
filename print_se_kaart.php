@@ -8117,16 +8117,16 @@ if($avg_h == 0.0){$avg_h = null;}
   if ($_SESSION['SchoolID'] == 18) {
     $page_html .= "<div class='card-body' style='padding-bottom: 0px; padding-top: 0px;'>";
   } else {
-    $page_html .= "<div class='card-body' style='padding-bottom: 0px; padding-top: 0.5rem;'>";
+    $page_html .= "<div class='card-body' style='padding-bottom: 0px; padding-top: 0.3rem;'>";
   }
   if ($_SESSION['SchoolType'] == 2) {
     $page_html .= "<h6 class='card-title'>Betekenis persoonlijke kwaliteiten:</h6>";
-    $page_html .= "<div class='row' style='height: 130px;'>";
+    $page_html .= "<div class='row' style='height: 100px;'>";
     $page_html .= "<div class='col-8'>";
-    $page_html .= "<p style='margin-bottom: 0.5rem; font-size: 0.75rem'>5 = Goed</p>";
-    $page_html .= "<p style='margin-bottom: 0.5rem; font-size: 0.75rem'>4 = voldoende</li>";
-    $page_html .= "<p style='margin-bottom: 0.5rem; font-size: 0.75rem'>3 = Matig</p>";
-    $page_html .= "<p style='margin-bottom: 0.5rem; font-size: 0.75rem'>2 = Onvoldoende</p>";
+    $page_html .= "<p style='margin-bottom: 0.1rem; font-size: 0.75rem'>5 = Goed</p>";
+    $page_html .= "<p style='margin-bottom: 0.1rem; font-size: 0.75rem'>4 = voldoende</li>";
+    $page_html .= "<p style='margin-bottom: 0.1rem; font-size: 0.75rem'>3 = Matig</p>";
+    $page_html .= "<p style='margin-bottom: 0.1rem; font-size: 0.75rem'>2 = Onvoldoende</p>";
     $page_html .= "<p style='margin-bottom: 0.1rem; font-size: 0.75rem'>1 = Slecht</p>";
     $page_html .= "</div>";
     $page_html .= "</div>";
