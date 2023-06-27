@@ -171,7 +171,7 @@
 			$("#advies option[value='0']").html("Bevorderd naar klas " + klas);
 			$("#advies option[value='1']").html("Over wegens leeftijd naar klas " + klas);
 		} else {
-			$("#advies option[value='0']").html("Bevorderd");
+			$("#advies option[value='0']").html("Gaat naar het voortgezet onderwijs");
 			$("#advies option[value='1']").html("Over wegens leeftijd");
 		}
 
