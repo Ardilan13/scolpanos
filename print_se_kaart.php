@@ -8203,16 +8203,16 @@ if($avg_h == 0.0){$avg_h = null;}
         $page_html .= "<b><p style='margin: .5rem !important; text-align: center; font-size: 14px;'>Gaat naar het voortgezet onderwijs</p></b>";
       }
     } else if ($advies == '1') {
-      $page_html .= "<b><p style='margin: .5rem !important; text-align: center; font-size: 14px;'>Over wegens leeftijd naar klas " . $klas_next . "</p></b>";
+      $page_html .= "<b><p style='margin: .5rem !important; text-align: center; font-size: 14px;'>Over wegens leeftijd naar klas " . $klas_next . ".</p></b>";
     } else if ($advies == '2') {
-      $page_html .= "<b><p style='margin: .5rem !important; text-align: center; font-size: 14px;'>Niet bevorderd:</p></b>";
+      $page_html .= "<b><p style='margin: .5rem !important; text-align: center; font-size: 14px;'>Niet bevorderd.</p></b>";
     } else if ($advies == null || $advies == '') {
       $page_html .= "<p style='margin-bottom: .5rem !important;'>Ο Bevorderd naar klas: ..............................................................</p>";
       $page_html .= "<p style='margin-bottom: .5rem !important;'>Ο Over wegens leeftijd naar klas: ...............................................</p>";
       $page_html .= "<p style='margin-bottom: .5rem !important;'>Ο Niet bevorderd: ..............................................................</p>";
       $page_html .= "<p style='margin-bottom: .5rem !important;'>Ο Verwezen naar: ..............................................................</p>";
     } else {
-      $page_html .= "<b><p style='margin: .5rem !important; text-align: center; font-size: 14px;'>Ο Verwezen naar: " . $advies . "</p></b>";
+      $page_html .= "<b><p style='margin: .5rem !important; text-align: center; font-size: 14px;'>Verwezen naar " . $advies . "</p></b>";
     }
 
     $page_html .= "<div style='display:flex; flex-direction: row; justify-content: space-between; width: 100%;'>";
