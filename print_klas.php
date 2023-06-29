@@ -32,7 +32,7 @@ require_once("classes/spn_leerling.php");
 $l = new spn_leerling();
 
 
-$data_leerling_array = $l->get_all_students_array_by_klas($_GET["klas"]);
+$data_leerling_array = $l->get_all_students_array_by_klas($_GET["klas"], $_GET["schoolJaar"], 4);
 
 
 // print($data_leerling_array);
