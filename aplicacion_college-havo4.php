@@ -1,6 +1,6 @@
 <!-- Ardilan: formulario cerrado -->
 
-<!-- <head>
+<head>
 	<title>AANMELDINGSFORMULIER</title>
 </head>
 
@@ -10,13 +10,13 @@
 		<img class="img-responsive" src="img/monplaisir123.png" alt="Scol Pa Nos" width="15%"><br>
 		<h2 style="color: red;">Aplicacion pa aña escolar 2022-2023 a sera !</h2>
 	</div>
-</body> -->
+</body>
 
 
 <!-- Ardilan: formulario abierto -->
-<?php require_once "config/app.config.php";
-ob_start();
-ob_flush() ?>
+<!-- <?php require_once "config/app.config.php";
+		ob_start();
+		ob_flush() ?>
 
 <head>
 	<title>AANMELDINGSFORMULIER</title>
@@ -1238,17 +1238,6 @@ ob_flush() ?>
 				<div class="form_group">
 					<label>Cijferlijst SE1, SE2, SE 3 Mavo 4:</label><input name="verklaring" type="file" accept="image/jpeg,image/jpg,image/png,.pdf,.docx,.xls,.xlsx, .xlsb">
 				</div>
-				<!-- <div class="form_group">
-					<label>Verklaring van censo:</label><input name="verklaring" type="file" accept="image/jpeg,image/jpg,image/png,.pdf,.docx">
-				</div> -->
-
-				
-				<!-- <div class="form_group">
-					<label>Download profielkeuze:</label><a href="ajax/profiel_h.xlsb" download="Profiel_HAVO">Download.</a>
-				</div> -->
-<!-- 				<div class="form_group">
-					<label>Upload profielkeuze:</label><input name="profielh3" type="file" accept="image/jpeg,image/jpg,image/png,.pdf,.docx,.xls,.xlsx, .xlsb">
-				</div> -->
 				<div class="form_group">
 					<label>Cijferlijst CSE TV1:</label><input name="klas5" type="file" accept="image/jpeg,image/jpg,image/png,.pdf,.docx,.xls,.xlsx, .xlsb">
 				</div>
@@ -1257,30 +1246,9 @@ ob_flush() ?>
 				<div class="form_group">
 					<label>Cijferlijst CSE TV2:</label><input name="schooladvies" type="file" accept="image/jpeg,image/jpg,image/png,.pdf,.docx,.xls,.xlsx, .xlsb">
 				</div>
-
-<!-- 				
-				<div class="form_group">
-					<label>Download profielkeuze:</label><a href="ajax/havo4.docx" download="Mon Plaisir College HAVO - VWO Profiel 2023 - 2024">Download.</a>
-				</div> -->
 				<div class="form_group">
 					<label>Profielkeuze Havo:</label><input name="profielh4" type="file" accept="image/jpeg,image/jpg,image/png,.pdf,.docx,.xls,.xlsx, .xlsb">
 				</div>
-<!-- 				<div class="form_group">
-					<label>Uploaden rapport 1 en 2 van havo 3 of Uploaden rapport 1 en 2 van havo 4:</label><input name="klas6" type="file" accept="image/jpeg,image/jpg,image/png,.pdf,.docx,.xls,.xlsx, .xlsb">
-				</div> -->
-
-				<!-- <div id="bishita" class="form_group">
-					<h1 style="margin: 0;">MAVO 4</h1>
-				</div>
-				<div class="form_group">
-					<label>Download profielkeuze en cijferlijst:</label><a href="ajax/profiel_m.xlsb" download="Profiel_MAVO">Download.</a>
-				</div>
-				<div class="form_group">
-					<label>Upload profielkeuze en cijferlijst:</label><input name="profielm4" type="file" accept="image/jpeg,image/jpg,image/png,.pdf,.docx,.xls,.xlsx, .xlsb">
-				</div>
-				<div class="form_group">
-					<label>Cijferlijsten SE 1, SE 2 en SE 3:</label><input name="mavo4" type="file" accept="image/jpeg,image/jpg,image/png,.pdf,.docx,.xls,.xlsx, .xlsb">
-				</div> -->
 			</div>
 
 			<div>
@@ -1336,16 +1304,6 @@ ob_flush() ?>
 					</select>
 				</div>
 			</div>
-			<!-- <div>
-				<div class="form_group">
-					<p>	
-					Je moet het excel bestand nogmaals inleveren op:</br>
-						1.	Excel bestand en cijferlijst: 20 juni deadline cijfers CE-tijdvak 1 opsturen naar: havompc.aanmelding@gmail.com </br>
-					Indien je een herkansing moet maken:</br>
-						2.	Excel bestand en cijferlijst: 3 juli deadline cijfers CE-tijdvak 2 opsturen naar: havompc.aanmelding@gmail.com
-					</p>
-				</div>
-			</div> -->
 
 				<h2>Ouder/Verzorger 1:</h2>
 			<div class="info">
@@ -1464,4 +1422,4 @@ ob_flush() ?>
 			break;
 			}
 			});
-			</script>
+			</script> -->

@@ -313,20 +313,25 @@ switch ($_GET['name']) {
         $schoolid = $_SESSION["SchoolID"];
         $good = ['A', 'L', 'M', 'X', 'T', 'U', 'S'];
 
-        $print_table = '<table class="table table-bordered table-colored table-houding">
-                <caption>Verzuim rapport</caption>
-                <thead>
-                    <th>Name</th>
-                    <th>Lastname</th>
-                    <th>A</th>
-                    <th>L</th>
-                    <th>X</th>
-                    <th>S</th>
-                    <th>M</th>
-                    <th>U</th>
-                    <th>T</th>
-                </thead>
-                <tbody>';
+        $print_table = '<div style="font-size: 14px; width: 100%; display: flex; justify-content: space-between;">
+                            <span><b>Klas:</b>' . $i_klas . '</span>
+                            <span><b>Start Datum:</b>' . $i_start . '</span>
+                            <span><b>End Datum:</b>' . $i_end . '</span>
+                        </div>
+                        <table class="table table-bordered table-colored table-houding">
+                            <caption>Verzuim rapport</caption>
+                            <thead>
+                                <th>Name</th>
+                                <th>Lastname</th>
+                                <th>A</th>
+                                <th>L</th>
+                                <th>X</th>
+                                <th>S</th>
+                                <th>M</th>
+                                <th>U</th>
+                                <th>T</th>
+                            </thead>
+                            <tbody>';
 
 
         $students = "SELECT id,firstname,lastname FROM students WHERE class = '$i_klas' AND schoolid = $schoolid ORDER BY lastname ASC";
@@ -380,12 +385,19 @@ switch ($_GET['name']) {
                     <td>' . $M . '</td>
                     <td>' . $U . '</td>
                     <td>' . $T . '</td>
-    
                 </tr>';
             mysqli_free_result($resultado);
         }
         $print_table .= '</tbody>
-            </table>';
+            </table>
+            <div class="col-md-12">
+              <div style="font-size: 14px;"><span><b>L</b> = Laat   |</span>
+              <span><b>   A</b> = Afwezig   |</span>
+              <span><b>   X</b> = Afspraak extern en komt terug op school   |</span>
+              <span><b>   S</b> = Spijbelen</span>
+              <span><b>M</b> = Met toestemming naar huis   |</span>
+              <span><b>   U</b> = Uitgestuurd   |</span>
+              <span><b>   T</b> = Time-out(schorsing)</span></div>';
         break;
 
     case "leerling_inner_detail_remedial":
