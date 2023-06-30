@@ -11,6 +11,27 @@ $s->getsetting_info($_SESSION["SchoolID"], false);
 $DBCreds = new DBCreds();
 $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort, $dummy);
 
+
+/* $klas = ["1A", "1B", "1C", "1D", "2A", "2B", "2C", "2D"];
+$scol = 12;
+$volgorde = 2;
+foreach ($vaks as $vak) {
+    $vak = strtolower($vak);
+    foreach ($klas as $klas) {
+        $id = mysqli_query($mysqli, "SELECT id FROM le_vakken WHERE volledigenaamvak = '" . $vak . "' AND Klas ='$klas' AND SchoolID = $scol LIMIT 1");
+        $id = mysqli_fetch_assoc($id);
+        $vak_id[$klas] = $id['id'];
+    }
+}
+
+foreach ($vak_id as $k => $v) {
+    if ($v != 0 && $v != null && $v != "") {
+        $update = "UPDATE le_vakken SET volgorde = $volgorde WHERE id = $v AND SchoolID = $scol and Klas = '$k'";
+        $mysqli->query($update);
+        echo $update . "<br>";
+    }
+} */
+
 /* $insert = "INSERT INTO
 `le_vakken`(
     `ID`,
