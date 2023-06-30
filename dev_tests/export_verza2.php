@@ -11,6 +11,7 @@ require_once("../config/app.config.php");
 require_once "../classes/3rdparty/vendor/autoload.php";
 require_once "../classes/DBCreds.php";
 require_once("../classes/spn_setting.php");
+require_once("../classes/spn_utils.php");
 
 $DBCreds = new DBCreds();
 $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
@@ -27,6 +28,7 @@ $klas_in = $_GET["rapport_klassen_lijst"];
 $rap_in = $_GET["rapport"];
 $user = $_SESSION["UserGUID"];
 $s = new spn_setting();
+$u = new spn_utils();
 $s->getsetting_info($schoolid, false);
 
 if ($schoolid == 12) {
@@ -146,7 +148,6 @@ while ($i <= $rap_in) {
         }
         $_currentstudent = $row["studentid"];
         $vakid_out = $row["vakid"];
-
         if ($_currentstudent != $_laststudent) {
             if ($mu != 0 && $bv != 0)
                 $ckv = ($mu + $bv) / 2;
@@ -167,37 +168,28 @@ while ($i <= $rap_in) {
             $hojaActiva->setCellValue('B' . (string)$_current_student_start_row, $row["lastname"] . ", " . $row["firstname"]);
         }
 
-        if ($_while_counter == 0 || $_currentstudent != $_laststudent) {
+        if ($_currentstudent != $_laststudent) {
+            $_current_student_start_row++;
             switch ($level_klas) {
                 case 1:
                 case 2:
-                    $spreadsheet->setActiveSheetIndex(3);
-                    $hojaActiva = $spreadsheet->getActiveSheet();
-                    $hojaActiva->setCellValue('B2', "Klas: " . $klas_in);
-                    $spreadsheet->setActiveSheetIndex(4);
-                    $hojaActiva = $spreadsheet->getActiveSheet();
-                    $hojaActiva->setCellValue('B2', "Klas: " . $klas_in);
                     $spreadsheet->setActiveSheetIndex(5);
                     $hojaActiva = $spreadsheet->getActiveSheet();
-                    $hojaActiva->setCellValue('B2', "Klas: " . $klas_in);
-                    $hojaActiva->setCellValue('BK' . (string)$_current_student_start_row, $row['dob']);
+                    $hojaActiva->setCellValue('BK' . (string)$_current_student_start_row, $u->convertfrommysqldate($row['dob']));
                     break;
                 case 3:
                 case 4:
                     $spreadsheet->setActiveSheetIndex(3);
                     $hojaActiva = $spreadsheet->getActiveSheet();
-                    $hojaActiva->setCellValue('B2', "Klas: " . $klas_in);
-                    $hojaActiva->setCellValue('BV' . (string)$_current_student_start_row, $row['dob']);
+                    $hojaActiva->setCellValue('BV' . (string)$_current_student_start_row, $u->convertfrommysqldate($row['dob']));
 
                     $spreadsheet->setActiveSheetIndex(4);
                     $hojaActiva = $spreadsheet->getActiveSheet();
-                    $hojaActiva->setCellValue('B2', "Klas: " . $klas_in);
-                    $hojaActiva->setCellValue('BV' . (string)$_current_student_start_row, $row['dob']);
+                    $hojaActiva->setCellValue('BV' . (string)$_current_student_start_row, $u->convertfrommysqldate($row['dob']));
 
                     $spreadsheet->setActiveSheetIndex(5);
                     $hojaActiva = $spreadsheet->getActiveSheet();
-                    $hojaActiva->setCellValue('B2', "Klas: " . $klas_in);
-                    $hojaActiva->setCellValue('BV' . (string)$_current_student_start_row, $row['dob']);
+                    $hojaActiva->setCellValue('BV' . (string)$_current_student_start_row, $u->convertfrommysqldate($row['dob']));
                     break;
             }
             switch ($i) {
@@ -214,6 +206,58 @@ while ($i <= $rap_in) {
                     break;
             }
             $hojaActiva = $spreadsheet->getActiveSheet();
+            $_current_student_start_row--;
+        }
+
+        if ($_while_counter == 0) {
+            $_current_student_start_row++;
+            switch ($level_klas) {
+                case 1:
+                case 2:
+                    $spreadsheet->setActiveSheetIndex(3);
+                    $hojaActiva = $spreadsheet->getActiveSheet();
+                    $hojaActiva->setCellValue('B2', "Klas: " . $klas_in);
+                    $spreadsheet->setActiveSheetIndex(4);
+                    $hojaActiva = $spreadsheet->getActiveSheet();
+                    $hojaActiva->setCellValue('B2', "Klas: " . $klas_in);
+                    $spreadsheet->setActiveSheetIndex(5);
+                    $hojaActiva = $spreadsheet->getActiveSheet();
+                    $hojaActiva->setCellValue('B2', "Klas: " . $klas_in);
+                    $hojaActiva->setCellValue('BK' . (string)$_current_student_start_row, $u->convertfrommysqldate($row['dob']));
+                    break;
+                case 3:
+                case 4:
+                    $spreadsheet->setActiveSheetIndex(3);
+                    $hojaActiva = $spreadsheet->getActiveSheet();
+                    $hojaActiva->setCellValue('B2', "Klas: " . $klas_in);
+                    $hojaActiva->setCellValue('BV' . (string)$_current_student_start_row, $u->convertfrommysqldate($row['dob']));
+
+                    $spreadsheet->setActiveSheetIndex(4);
+                    $hojaActiva = $spreadsheet->getActiveSheet();
+                    $hojaActiva->setCellValue('B2', "Klas: " . $klas_in);
+                    $hojaActiva->setCellValue('BV' . (string)$_current_student_start_row, $u->convertfrommysqldate($row['dob']));
+
+                    $spreadsheet->setActiveSheetIndex(5);
+                    $hojaActiva = $spreadsheet->getActiveSheet();
+                    $hojaActiva->setCellValue('B2', "Klas: " . $klas_in);
+                    $hojaActiva->setCellValue('BV' . (string)$_current_student_start_row, $u->convertfrommysqldate($row['dob']));
+                    break;
+            }
+            switch ($i) {
+                case 1:
+                    $spreadsheet->setActiveSheetIndex(0);
+                    break;
+
+                case 2:
+                    $spreadsheet->setActiveSheetIndex(1);
+                    break;
+
+                case 3:
+                    $spreadsheet->setActiveSheetIndex(2);
+                    break;
+            }
+            $hojaActiva = $spreadsheet->getActiveSheet();
+            $_current_student_start_row--;
         }
 
         switch ($level_klas) {
@@ -396,8 +440,6 @@ while ($i <= $rap_in) {
     $_while_counter = 0;
 
     $resultado1 = mysqli_query($mysqli, $sql_query_student);
-    require_once("../classes/spn_utils.php");
-    $u = new spn_utils();
     while ($row = mysqli_fetch_assoc($resultado1)) {
         $id = $row['id'];
         $sql_query_verzuim = "SELECT s.id as studentid,v.p1,v.p2,v.p3,v.p4,v.p5,v.p6,v.p7,v.p8,v.p9,v.p10, v.datum
