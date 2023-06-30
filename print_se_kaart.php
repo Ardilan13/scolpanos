@@ -2639,6 +2639,7 @@ if($avg_h == 0.0){$avg_h = null;}
         $_h1_1 = "";
         $_h1_2 = "";
         $_h1_3 = "";
+        $avg_h = 0;
 
         $_h1_1 =  $c->_writerapportdata_cijfers(12, $item['studentid'], $_GET["schoolJaar"], $schoolId, 1);
         $_h1_2 =  $c->_writerapportdata_cijfers(12, $item['studentid'], $_GET["schoolJaar"], $schoolId, 2);
@@ -7190,7 +7191,7 @@ if($avg_h == 0.0){$avg_h = null;}
       $page_html .= "<td>" . $_h1_2 . " </td>";
       $page_html .= "<td>" . $_h1_3 . " </td>";
       if ($klas != 1) {
-        $page_html .= "<td>" . number_format($avg_h, 1) . " </td>";
+        $page_html .= "<td>" . number_format((float)$avg_h, 1) . " </td>";
       }
     }
 
