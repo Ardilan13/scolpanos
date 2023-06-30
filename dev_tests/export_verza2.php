@@ -149,7 +149,7 @@ while ($i <= $rap_in) {
         $_currentstudent = $row["studentid"];
         $vakid_out = $row["vakid"];
         if ($_currentstudent != $_laststudent) {
-            if ($mu != 0 && $bv != 0)
+            /* if ($mu != 0 && $bv != 0)
                 $ckv = ($mu + $bv) / 2;
             else if ($mu != 0 && $bv == 0)
                 $ckv = $mu;
@@ -160,7 +160,7 @@ while ($i <= $rap_in) {
             $hojaActiva->setCellValue('N' . (string)$_current_student_start_row, $ckv);
             $ckv = 0;
             $mu = 0;
-            $bv = 0;
+            $bv = 0; */
             $_current_student_start_row++;
             $hojaActiva->setCellValue('B' . (string)$_current_student_start_row, $row["lastname"] . ", " . $row["firstname"]);
         }
@@ -295,9 +295,6 @@ while ($i <= $rap_in) {
                     case 'sp':
                         $returnvalue = 'E';
                         break;
-                        /* case 'bv':
-                        $returnvalue = 'K';
-                        break; */
 
                     case 'n&t':
                         $returnvalue = 'H';
@@ -316,11 +313,8 @@ while ($i <= $rap_in) {
                         break;
 
                     case 'mu':
-                        $mu = $row["gemiddelde"];
-                        break;
-
                     case 'bv':
-                        $bv = $row["gemiddelde"];
+                        $returnvalue = 'N';
                         break;
 
                     default:
@@ -378,7 +372,7 @@ while ($i <= $rap_in) {
                         $returnvalue = 'J';
                         break;
 
-                    case 'eco':
+                    case 'ec':
                         $returnvalue = 'K';
                         break;
 
@@ -391,11 +385,8 @@ while ($i <= $rap_in) {
                         break;
 
                     case 'mu':
-                        $mu = $row["gemiddelde"];
-                        break;
-
                     case 'bv':
-                        $bv = $row["gemiddelde"];
+                        $returnvalue = 'P';
                         break;
 
                     default:
@@ -404,7 +395,7 @@ while ($i <= $rap_in) {
                 }
                 break;
         }
-        if ($cont == $ultima - 1) {
+        /*         if ($cont == $ultima - 1) {
             if ($mu != 0 && $bv != 0)
                 $ckv = ($mu + $bv) / 2;
             else if ($mu != 0 && $bv == 0)
@@ -413,13 +404,15 @@ while ($i <= $rap_in) {
                 $ckv = $bv;
             else if ($mu == 0 && $bv == 0)
                 $ckv = 0;
-            $hojaActiva->setCellValue('N' . (string)$_current_student_start_row, $ckv);
+            $hojaActiva->setCellValue('P' . (string)$_current_student_start_row, $ckv);
             $ckv = 0;
             $mu = 0;
             $bv = 0;
+        } */
+        if ($row["gemiddelde"] > 0) {
+            $colgemiddelde = (string)$returnvalue . (string)$_current_student_start_row;
+            $hojaActiva->setCellValue($colgemiddelde, $row["gemiddelde"]);
         }
-        $colgemiddelde = (string)$returnvalue . (string)$_current_student_start_row;
-        $hojaActiva->setCellValue($colgemiddelde, $row["gemiddelde"]);
         $_laststudent = $_currentstudent;
         $_while_counter++;
     }
@@ -449,18 +442,14 @@ while ($i <= $rap_in) {
         while ($row1 = mysqli_fetch_assoc($resultado)) {
             $datum = $u->convertfrommysqldate_new($row1["datum"]);
             if ($datum >= $fecha1 && $datum <= $fecha2) {
+                if ($row1["p10"] == 'A') {
+                    $cont_verzuim++;
+                }
                 for ($y = 1; $y <= 9; $y++) {
-                    if ($row1["p" . $y] == 'A') {
-                        $cont_verzuim++;
-                    } else if ($row1["p" . $y] == 'L') {
+                    if ($row1["p" . $y] == 'L') {
                         $cont_laat++;
                     }
                 }
-                /* if ($row1['p1'] == 'L' || $row1['p2'] == 'L' || $row1['p3'] == 'L' || $row1['p4'] == 'L' || $row["p5"] == 'L' || $row["p6"] == 'L' || $row["p7"] == 'L' || $row["p8"] == 'L' || $row["p9"] == 'L' || $row["p10"] == 'L') {
-                    $cont_laat++;
-                } else if ($row1['p1'] == 'A' || $row1['p2'] == 'A' || $row1['p3'] == 'A' || $row1['p4'] == 'A' || $row["p5"] == 'A' || $row["p6"] == 'A' || $row["p7"] == 'A' || $row["p8"] == 'A' || $row["p9"] == 'A' || $row["p10"] == 'A') {
-                    $cont_verzuim++;
-                } */
             }
         }
         $query = "SELECT opmerking1, opmerking2, opmerking3 FROM opmerking WHERE klas = '$klas_in' AND SchoolID = $schoolid AND studentid = $id AND schooljaar = '$schooljaar'";
