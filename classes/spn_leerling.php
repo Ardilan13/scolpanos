@@ -2906,7 +2906,7 @@ class spn_leerling
     }
     return $returnvalue;
   }
-  function get_all_students_array_by_klas($klas, $schooljaar)
+  function get_all_students_array_by_klas($klas, $schooljaar, $rapnumer)
   {
     $returnvalue = "";
     $user_permission = "";
@@ -2920,7 +2920,8 @@ class spn_leerling
     if ($schooljaar == "2017-2018" && $klas == "5A" && $_SESSION["SchoolID"] == 9) {
       $sql_query = "SELECT DISTINCT c.studentid,s.studentnumber,s.firstname,s.lastname,s.sex,s.dob,s.class FROM le_cijfers c LEFT JOIN students s ON c.studentid = s.id where c.klas = ? and c.schooljaar = '2017-2018' and s.schoolid = ? ORDER BY s.lastname,s.firstname";
     } else {
-      $sql_query = "SELECT id,studentnumber,firstname,lastname,sex,dob,class  FROM students where class = ?  and schoolid = ? and status = 1 ORDER BY";
+      $type = ($_SESSION['SchoolType'] == 2 || $_SESSION["SchoolID"] == 8) ? "le_cijfers" : "le_cijfers_ps";
+      $sql_query = "SELECT DISTINCT s.id,s.studentnumber,s.firstname,s.lastname,s.sex,s.dob,class  FROM students s INNER JOIN " . $type . " c ON s.id = c.studentid where s.class = ?  and s.schoolid = ? and s.status = 1 and c.rapnummer <= ? and c.schooljaar = ? and c.gemiddelde >= 0.0 ORDER BY";
       $sql_order = " lastname " . $s->_setting_sort . ", firstname";
       if ($s->_setting_mj) {
         $sql_query .= " sex " . $s->_setting_sort . ", " . $sql_order;
@@ -2934,7 +2935,7 @@ class spn_leerling
       $DBCreds = new DBCreds();
       $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
       if ($select = $mysqli->prepare($sql_query)) {
-        if ($select->bind_param("si", $klas, $_SESSION['SchoolID'])) {
+        if ($select->bind_param("siii", $klas, $_SESSION['SchoolID'], $rapnumer, $schooljaar)) {
           if ($select->execute()) {
             $this->error = false;
             $result = 1;

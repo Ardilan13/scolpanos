@@ -171,7 +171,7 @@
 			$("#advies option[value='0']").html("Bevorderd naar klas " + klas);
 			$("#advies option[value='1']").html("Over wegens leeftijd naar klas " + klas);
 		} else {
-			$("#advies option[value='0']").html("Bevorderd");
+			$("#advies option[value='0']").html("Gaat naar het voortgezet onderwijs");
 			$("#advies option[value='1']").html("Over wegens leeftijd");
 		}
 
@@ -227,14 +227,6 @@
 		$('#opmerking_2').val("");
 		$('#opmerking_3').text("");
 		$('#opmerking_3').val("");
-		$("#advies option[value='']").attr("selected", true);
-		$("#advies option[value='0']").attr("selected", false);
-		$("#advies option[value='1']").attr("selected", false);
-		$("#advies option[value='2']").attr("selected", false);
-		$("#advies option[value='3']").attr("selected", false);
-		$(".advies_text").hide();
-		$("#extra").attr('disabled', 'disabled');
-		$("#extra").val('');
 		$.ajax({
 			url: "ajax/get_opmerking_by_student.php",
 			data: $('#form_opmerking').serialize(),
@@ -249,16 +241,19 @@
 					$('#opmerking_2').val(data[0].opmerking_2);
 					$('#opmerking_3').text(data[0].opmerking_3);
 					$('#opmerking_3').val(data[0].opmerking_3);
+					$("#advies").html('<select name="advies" id="advies" style="width: 100%;height: 25px;font-size: 14px;"><option value=""></option><option value="0">Bevorderd naar klas</option><option value="1">Over wegens leeftijd naar klas</option><option value="2">Niet bevorderd</option><option value="3">Verwezen naar</option></select>')
+					$(".advies_text").hide();
+					$("#extra").attr('disabled', 'disabled');
+					$("#extra").val('');
+
 					if (data[0].advies != '0' && data[0].advies != '1' && data[0].advies != '2' && data[0].advies != '') {
-						$("#advies option[value='']").attr("selected", false);
 						$("#advies option[value='3']").attr("selected", true);
 						$(".advies_text").show();
 						$("#extra").removeAttr("disabled");
 						$("#extra").val(data[0].advies);
 					} else {
 						$(".advies_text").hide();
-						$("#advies option[value='']").attr("selected", false);
-						$("#advies option[value=" + data[0].advies + "]").attr("selected", true);
+						$("#advies option[value='" + data[0].advies + "']").attr("selected", true);
 					}
 				} else {
 					$('#opmerking_1').text("");

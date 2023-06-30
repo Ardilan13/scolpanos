@@ -98,7 +98,7 @@ $returnarr = array();
 
 $l = new spn_leerling();
 if ($studentid == 'all') {
-  $array_leerling = $l->get_all_students_array_by_klas($_GET["klas"], $_SESSION["SchoolJaar"]);
+  $array_leerling = $l->get_all_students_array_by_klas($_GET["klas"], $_SESSION["SchoolJaar"], $_GET['rap']);
 } else {
   $select = "SELECT id,studentnumber,firstname,lastname,sex,dob,class FROM students where id = '$studentid' and status = 1";
   $resultado1 = mysqli_query($mysqli, $select);
@@ -160,7 +160,7 @@ foreach ($array_leerling as $item) {
     } else {
       $page_html .= "<label style=' max-width: 100px;'>Comentario Rapport 1</label>";
     }
-    $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . $opmerking1 . "</textarea>";
+    $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking1) . "</textarea>";
 
     $page_html .= "</div>";
     $page_html .= "<div style='display: flex; align-items: center;'>";
@@ -170,7 +170,7 @@ foreach ($array_leerling as $item) {
     } else {
       $page_html .= "<label style=' max-width: 100px;'>Comentario Rapport 2</label>";
     }
-    $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . $opmerking2 . "</textarea>";
+    $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking2) . "</textarea>";
 
     $page_html .= "</div>";
     $page_html .= "<div style='display: flex; align-items: center;'>";
@@ -180,7 +180,7 @@ foreach ($array_leerling as $item) {
     } else {
       $page_html .= "<label style=' max-width: 100px;'>Comentario Rapport 3</label>";
     }
-    $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . $opmerking3 . "</textarea>";
+    $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking3) . "</textarea>";
 
     $page_html .= "</div>";
     $page_html .= "</div>";
@@ -1107,7 +1107,7 @@ foreach ($array_leerling as $item) {
           $avg_h = $_h1_3;
         }
 
-        if ($klas != 1) {
+        if ($klas != 1 && $_h1_1 > 0) {
           $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
         } else {
           $page_html .= "<td> </td>";
@@ -1389,7 +1389,7 @@ foreach ($array_leerling as $item) {
         $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h12', $item['studentid'], 2);
 
 
-        if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692) {
+        if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
           $page_html .= "<td>" . $_h1_1 . " </td>";
         } else {
           $page_html .= "<td> </td>";
@@ -1424,7 +1424,7 @@ foreach ($array_leerling as $item) {
         $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h12', $item['studentid'], 4);
 
 
-        if ($klas != 1  && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692) {
+        if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
           $page_html .= "<td>" . $_h1_1 . " </td>";
         } else {
           $page_html .= "<td> </td>";
@@ -1575,7 +1575,7 @@ foreach ($array_leerling as $item) {
       if ($_GET["rap"] == '1') {
         $_h1 = "";
         $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h13', $item['studentid'], 1);
-        if ($klas != 1  && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692) {
+        if ($klas != 1  && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
           $page_html .= "<td>" . $_h1 . " </td>";
         } else {
           $page_html .= "<td> </td>";
@@ -1595,7 +1595,7 @@ foreach ($array_leerling as $item) {
         $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h13', $item['studentid'], 1);
         $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h13', $item['studentid'], 2);
 
-        if ($klas != 1  && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692) {
+        if ($klas != 1  && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
           $page_html .= "<td>" . $_h1_1 . " </td>";
         } else {
           $page_html .= "<td> </td>";
@@ -1629,7 +1629,7 @@ foreach ($array_leerling as $item) {
         $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h13', $item['studentid'], 3);
         $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h13', $item['studentid'], 4);
 
-        if ($klas != 1  && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692) {
+        if ($klas != 1  && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
           $page_html .= "<td>" . $_h1_1 . " </td>";
         } else {
           $page_html .= "<td> </td>";
@@ -5102,7 +5102,7 @@ if($avg_h == 0.0){$avg_h = null;}
     if ($_GET["rap"] == '1') {
       $_h1 = "";
       $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 1);
-      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692) {
+      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1 . " </td>";
       } else {
         $page_html .= "<td> </td>";
@@ -5125,7 +5125,7 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 1);
       $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 2);
 
-      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692) {
+      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1_1 . " </td>";
       } else {
         $page_html .= "<td> </td>";
@@ -5163,7 +5163,7 @@ if($avg_h == 0.0){$avg_h = null;}
       $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 4);
 
 
-      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692) {
+      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1_1 . " </td>";
       } else {
         $page_html .= "<td> </td>";
@@ -5191,7 +5191,7 @@ if($avg_h == 0.0){$avg_h = null;}
     if ($_GET["rap"] == '1') {
       $_h1 = "";
       $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 1);
-      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692) {
+      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1 . " </td>";
       } else {
         $page_html .= "<td> </td>";
@@ -5215,7 +5215,7 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 2);
 
 
-      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692) {
+      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1_1 . " </td>";
       } else {
         $page_html .= "<td> </td>";
@@ -5253,7 +5253,7 @@ if($avg_h == 0.0){$avg_h = null;}
       $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 4);
 
 
-      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692) {
+      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1_1 . " </td>";
       } else {
         $page_html .= "<td> </td>";
@@ -5280,7 +5280,7 @@ if($avg_h == 0.0){$avg_h = null;}
     if ($_GET["rap"] == '1') {
       $_h1 = "";
       $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 1);
-      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692) {
+      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1 . " </td>";
       } else {
         $page_html .= "<td> </td>";
@@ -5304,7 +5304,7 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 2);
 
 
-      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692) {
+      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1_1 . " </td>";
       } else {
         $page_html .= "<td> </td>";
@@ -5342,7 +5342,7 @@ if($avg_h == 0.0){$avg_h = null;}
       $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 4);
 
 
-      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692) {
+      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1_1 . " </td>";
       } else {
         $page_html .= "<td> </td>";
@@ -5372,7 +5372,7 @@ if($avg_h == 0.0){$avg_h = null;}
     if ($_GET["rap"] == '1') {
       $_h1 = "";
       $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 1);
-      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692) {
+      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1 . " </td>";
       } else {
         $page_html .= "<td> </td>";
@@ -5397,7 +5397,7 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 2);
 
 
-      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692) {
+      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1_1 . " </td>";
       } else {
         $page_html .= "<td> </td>";
@@ -5435,7 +5435,7 @@ if($avg_h == 0.0){$avg_h = null;}
       $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 4);
 
 
-      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692) {
+      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1_1 . " </td>";
       } else {
         $page_html .= "<td> </td>";
@@ -5465,7 +5465,7 @@ if($avg_h == 0.0){$avg_h = null;}
     if ($_GET["rap"] == '1') {
       $_h1 = "";
       $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 1);
-      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692) {
+      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1 . " </td>";
       } else {
         $page_html .= "<td> </td>";
@@ -5489,7 +5489,7 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 1);
       $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 2);
 
-      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692) {
+      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1_1 . " </td>";
       } else {
         $page_html .= "<td> </td>";
@@ -5527,7 +5527,7 @@ if($avg_h == 0.0){$avg_h = null;}
       $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 4);
 
 
-      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692) {
+      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1_1 . " </td>";
       } else {
         $page_html .= "<td> </td>";
@@ -5556,7 +5556,7 @@ if($avg_h == 0.0){$avg_h = null;}
     if ($_GET["rap"] == '1') {
       $_h1 = "";
       $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 1);
-      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692) {
+      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1 . " </td>";
       } else {
         $page_html .= "<td> </td>";
@@ -5581,7 +5581,7 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 2);
 
 
-      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692) {
+      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1_1 . " </td>";
       } else {
         $page_html .= "<td> </td>";
@@ -5619,7 +5619,7 @@ if($avg_h == 0.0){$avg_h = null;}
       $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 4);
 
 
-      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692) {
+      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1_1 . " </td>";
       } else {
         $page_html .= "<td> </td>";
@@ -5644,7 +5644,7 @@ if($avg_h == 0.0){$avg_h = null;}
     if ($_GET["rap"] == '1') {
       $_h1 = "";
       $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h7', $item['studentid'], 1);
-      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692) {
+      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1 . " </td>";
       } else {
         $page_html .= "<td> </td>";
@@ -5665,7 +5665,7 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h7', $item['studentid'], 2);
 
 
-      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692) {
+      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1_1 . " </td>";
       } else {
         $page_html .= "<td> </td>";
@@ -5700,7 +5700,7 @@ if($avg_h == 0.0){$avg_h = null;}
       $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h7', $item['studentid'], 4);
 
 
-      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692) {
+      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1_1 . " </td>";
       } else {
         $page_html .= "<td> </td>";
@@ -5721,7 +5721,7 @@ if($avg_h == 0.0){$avg_h = null;}
     if ($_GET["rap"] == '1') {
       $_h1 = "";
       $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h8', $item['studentid'], 1);
-      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692) {
+      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1 . " </td>";
       } else {
         $page_html .= "<td> </td>";
@@ -5742,7 +5742,7 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h8', $item['studentid'], 2);
 
 
-      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692) {
+      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1_1 . " </td>";
       } else {
         $page_html .= "<td> </td>";
@@ -5777,7 +5777,7 @@ if($avg_h == 0.0){$avg_h = null;}
       $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h8', $item['studentid'], 4);
 
 
-      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692) {
+      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1_1 . " </td>";
       } else {
         $page_html .= "<td> </td>";
@@ -5798,7 +5798,7 @@ if($avg_h == 0.0){$avg_h = null;}
     if ($_GET["rap"] == '1') {
       $_h1 = "";
       $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h9', $item['studentid'], 1);
-      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692) {
+      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1 . " </td>";
       } else {
         $page_html .= "<td> </td>";
@@ -5819,7 +5819,7 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h9', $item['studentid'], 2);
 
 
-      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692) {
+      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1_1 . " </td>";
       } else {
         $page_html .= "<td> </td>";
@@ -5854,7 +5854,7 @@ if($avg_h == 0.0){$avg_h = null;}
       $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h9', $item['studentid'], 4);
 
 
-      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692) {
+      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1_1 . " </td>";
       } else {
         $page_html .= "<td> </td>";
@@ -5875,7 +5875,7 @@ if($avg_h == 0.0){$avg_h = null;}
     if ($_GET["rap"] == '1') {
       $_h1 = "";
       $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h10', $item['studentid'], 1);
-      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692) {
+      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1 . " </td>";
       } else {
         $page_html .= "<td></td>";
@@ -5896,7 +5896,7 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h10', $item['studentid'], 2);
 
 
-      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692) {
+      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1_1 . " </td>";
       } else {
         $page_html .= "<td> </td>";
@@ -5931,7 +5931,7 @@ if($avg_h == 0.0){$avg_h = null;}
       $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h10', $item['studentid'], 4);
 
 
-      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692) {
+      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1_1 . " </td>";
       } else {
         $page_html .= "<td> </td>";
@@ -5952,7 +5952,7 @@ if($avg_h == 0.0){$avg_h = null;}
     if ($_GET["rap"] == '1') {
       $_h1 = "";
       $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h11', $item['studentid'], 1);
-      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692) {
+      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1 . " </td>";
       } else {
         $page_html .= "<td> </td>";
@@ -5973,7 +5973,7 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h11', $item['studentid'], 2);
 
 
-      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692) {
+      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1_1 . " </td>";
       } else {
         $page_html .= "<td> </td>";
@@ -6008,7 +6008,7 @@ if($avg_h == 0.0){$avg_h = null;}
       $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h11', $item['studentid'], 4);
 
 
-      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692) {
+      if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1_1 . " </td>";
       } else {
         $page_html .= "<td> </td>";
@@ -8117,16 +8117,16 @@ if($avg_h == 0.0){$avg_h = null;}
   if ($_SESSION['SchoolID'] == 18) {
     $page_html .= "<div class='card-body' style='padding-bottom: 0px; padding-top: 0px;'>";
   } else {
-    $page_html .= "<div class='card-body' style='padding-bottom: 0px; padding-top: 0.5rem;'>";
+    $page_html .= "<div class='card-body' style='padding-bottom: 0px; padding-top: 0.3rem;'>";
   }
   if ($_SESSION['SchoolType'] == 2) {
     $page_html .= "<h6 class='card-title'>Betekenis persoonlijke kwaliteiten:</h6>";
-    $page_html .= "<div class='row' style='height: 130px;'>";
+    $page_html .= "<div class='row' style='height: 100px;'>";
     $page_html .= "<div class='col-8'>";
-    $page_html .= "<p style='margin-bottom: 0.5rem; font-size: 0.75rem'>5 = Goed</p>";
-    $page_html .= "<p style='margin-bottom: 0.5rem; font-size: 0.75rem'>4 = voldoende</li>";
-    $page_html .= "<p style='margin-bottom: 0.5rem; font-size: 0.75rem'>3 = Matig</p>";
-    $page_html .= "<p style='margin-bottom: 0.5rem; font-size: 0.75rem'>2 = Onvoldoende</p>";
+    $page_html .= "<p style='margin-bottom: 0.1rem; font-size: 0.75rem'>5 = Goed</p>";
+    $page_html .= "<p style='margin-bottom: 0.1rem; font-size: 0.75rem'>4 = voldoende</li>";
+    $page_html .= "<p style='margin-bottom: 0.1rem; font-size: 0.75rem'>3 = Matig</p>";
+    $page_html .= "<p style='margin-bottom: 0.1rem; font-size: 0.75rem'>2 = Onvoldoende</p>";
     $page_html .= "<p style='margin-bottom: 0.1rem; font-size: 0.75rem'>1 = Slecht</p>";
     $page_html .= "</div>";
     $page_html .= "</div>";
@@ -8197,18 +8197,22 @@ if($avg_h == 0.0){$avg_h = null;}
     $klas_next = (int)$klas_next + 1;
     $klas_next = $klas_next > 6 ? null : $klas_next;
     if ($advies == '0') {
-      $page_html .= "<p style='margin: .5rem !important; text-align: center; font-size: 14px;'>Ο Bevorderd naar klas: " . $klas_next . "</p>";
+      if ($klas_next != null) {
+        $page_html .= "<b><p style='margin: .5rem !important; text-align: center; font-size: 14px;'>Bevorderd naar klas " . $klas_next . "</p></b>";
+      } else {
+        $page_html .= "<b><p style='margin: .5rem !important; text-align: center; font-size: 14px;'>Gaat naar het voortgezet onderwijs</p></b>";
+      }
     } else if ($advies == '1') {
-      $page_html .= "<p style='margin: .5rem !important; text-align: center; font-size: 14px;'>Ο Over wegens leeftijd naar klas: " . $klas_next . "</p>";
+      $page_html .= "<b><p style='margin: .5rem !important; text-align: center; font-size: 14px;'>Over wegens leeftijd naar klas " . $klas_next . ".</p></b>";
     } else if ($advies == '2') {
-      $page_html .= "<p style='margin: .5rem !important; text-align: center; font-size: 14px;'>Ο Niet bevorderd:</p>";
+      $page_html .= "<b><p style='margin: .5rem !important; text-align: center; font-size: 14px;'>Niet bevorderd.</p></b>";
     } else if ($advies == null || $advies == '') {
       $page_html .= "<p style='margin-bottom: .5rem !important;'>Ο Bevorderd naar klas: ..............................................................</p>";
       $page_html .= "<p style='margin-bottom: .5rem !important;'>Ο Over wegens leeftijd naar klas: ...............................................</p>";
       $page_html .= "<p style='margin-bottom: .5rem !important;'>Ο Niet bevorderd: ..............................................................</p>";
       $page_html .= "<p style='margin-bottom: .5rem !important;'>Ο Verwezen naar: ..............................................................</p>";
     } else {
-      $page_html .= "<p style='margin: .5rem !important; text-align: center; font-size: 14px;'>Ο Verwezen naar: " . $advies . "</p>";
+      $page_html .= "<b><p style='margin: .5rem !important; text-align: center; font-size: 14px;'>Verwezen naar " . utf8_decode($advies) . "</p></b>";
     }
 
     $page_html .= "<div style='display:flex; flex-direction: row; justify-content: space-between; width: 100%;'>";
