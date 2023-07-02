@@ -207,7 +207,7 @@ foreach ($array_leerling as $item) {
       $page_html .= "<h4 style='width:auto; max-width: 25rem; margin-bottom: 10%;'>" . $titleD . "</h4>";
     } else {
       $page_html .= "</br>";
-      $page_html .= "<h4 style='width:auto; max-width: 25rem; margin-bottom: 15%;'>" . $titleD . "</h4>";
+      $page_html .= "<h4 style='width:auto; max-width: 25rem; margin-bottom: 15%; font-size: 1.14rem !important;'>" . $titleD . "</h4>";
     }
   } else {
     $page_html .= "</br>";
@@ -217,7 +217,7 @@ foreach ($array_leerling as $item) {
   if ($schoolId == 10) {
     $page_html .= "<img  width='200px' style='padding-left: 50px;' height='150px' src='" . appconfig::GetBaseURL() . "/assets/img/" . $img . "' class='mx-auto d-block'>";
   } else {
-    $page_html .= "<img  width='200px' height:'150px' src='" . appconfig::GetBaseURL() . "/assets/img/" . $img . "' class='mx-auto d-block'>";
+    $page_html .= "<img style='margin-right: 23% !important;'  width='200px' height:'200px' src='" . appconfig::GetBaseURL() . "/assets/img/" . $img . "' class='mx-auto d-block'>";
   }
   if ($schoolId == 18) {
     $page_html .= "<div class='card-body' style='padding-bottom: 0px;  margin-top: 5%;'>";
@@ -327,9 +327,6 @@ foreach ($array_leerling as $item) {
   $page_html .= "<p style='margin-bottom: 0rem;'><b>Klas: </b><span>" . $_GET["klas"] . "</span></p>";
   $page_html .= "</div>";
   $page_html .= "</div>";
-  if ($_SESSION['SchoolType'] == 2) {
-    $page_html .= "<hr>";
-  }
   $page_html .= "<div class='row'>";
   $page_html .= "<div class='col-md-12'>";
   if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["SchoolID"] != 18) {
@@ -772,8 +769,73 @@ foreach ($array_leerling as $item) {
       $page_html .= "<td>" . $_h1_3 . " </td>";
       $page_html .= "<td>" . number_format($avg_h, 1) . " </td>";
     }
+    $page_html .= "</tr>";
 
+    $id = $item['studentid'];
+    $schooljaar = $_GET["schoolJaar"];
+    $klas_in = $_GET["klas"];
+    $schoolid = $_SESSION["SchoolID"];
+    $cont_verzuim1 = 0;
+    $cont_verzuim2 = 0;
+    $cont_verzuim3 = 0;
+    $cont_laat1 = 0;
+    $cont_laat2 = 0;
+    $cont_laat3 = 0;
+    $fecha1 = $s->_setting_begin_rap_1;
+    $fecha2 = $s->_setting_end_rap_1;
+    $fecha3 = $s->_setting_begin_rap_2;
+    $fecha4 = $s->_setting_end_rap_2;
+    $fecha5 = $s->_setting_begin_rap_3;
+    $fecha6 = $s->_setting_end_rap_3;
+    $sql_query_verzuim = "SELECT s.id as studentid,v.p1,v.p2,v.p3,v.p4,v.p5,v.p6,v.p7,v.p8,v.p9,v.p10, v.datum
+            from students s inner join le_verzuim_hs v
+            where s.class = '$klas_in'  and s.schoolid = $schoolid and v.schooljaar = '$schooljaar' and v.studentid = $id and s.id = $id ORDER BY v.created;";
+    $resultado = mysqli_query($mysqli, $sql_query_verzuim);
+    while ($row1 = mysqli_fetch_assoc($resultado)) {
+      $datum = $u->convertfrommysqldate_new($row1["datum"]);
+      if ($datum >= $fecha1 && $datum <= $fecha2) {
+        if ($row1["p10"] == 'A') {
+          $cont_verzuim1++;
+        }
+        for ($y = 1; $y <= 9; $y++) {
+          if ($row1["p" . $y] == 'L') {
+            $cont_laat1++;
+          }
+        }
+      } else if ($datum >= $fecha3 && $datum <= $fecha4 && $_GET["rap"] > 1) {
+        if ($row1["p10"] == 'A') {
+          $cont_verzuim2++;
+        }
+        for ($y = 1; $y <= 9; $y++) {
+          if ($row1["p" . $y] == 'L') {
+            $cont_laat2++;
+          }
+        }
+      } else if ($datum >= $fecha5 && $datum <= $fecha6 && $_GET["rap"] > 2) {
+        if ($row1["p10"] == 'A') {
+          $cont_verzuim3++;
+        }
+        for ($y = 1; $y <= 9; $y++) {
+          if ($row1["p" . $y] == 'L') {
+            $cont_laat3++;
+          }
+        }
+      }
+    }
+    $page_html .= "<tr>";
+    $page_html .= "<td width='65%'>&nbsp;&nbsp;Verzuim</td>";
+    $page_html .= "<td>" . $cont_verzuim1 . " </td>";
+    $page_html .= "<td>" . $cont_verzuim2 . " </td>";
+    $page_html .= "<td>" . $cont_verzuim3 . "</td>";
+    $page_html .= "<td>" . ($cont_verzuim1 + $cont_verzuim2 + $cont_verzuim3) . "</td>";
+    $page_html .= "</tr>";
 
+    $page_html .= "<tr>";
+    $page_html .= "<td width='65%'>&nbsp;&nbsp;Laat</td>";
+    $page_html .= "<td>" . $cont_laat1 . " </td>";
+    $page_html .= "<td>" . $cont_laat2 . " </td>";
+    $page_html .= "<td>" . $cont_laat3 . "</td>";
+    $page_html .= "<td>" . ($cont_laat1 + $cont_laat2 + $cont_laat3) . "</td>";
     $page_html .= "</tr>";
   }
 
@@ -8431,9 +8493,12 @@ if($avg_h == 0.0){$avg_h = null;}
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+  </script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+  </script>
   <script type="text/javascript">
     $(document).ready(function() {
 

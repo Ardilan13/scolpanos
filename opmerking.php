@@ -79,10 +79,10 @@
 												<textarea class="form-control" name="opmerking_3" id="opmerking_3"></textarea>
 											</div>
 										</div>
-										<div class="col-md-2">
-											<label for="klas">Advies:</label>
-										</div>
-										<?php if ($_SESSION["SchoolType"] == 1) { ?>
+										<?php if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8) { ?>
+											<div class="col-md-2">
+												<label for="klas">Advies:</label>
+											</div>
 											<div class="form-group">
 												<div class="col-md-8">
 													<select name="advies" id="advies" style="width: 100%;height: 25px;font-size: 14px;">
@@ -158,6 +158,7 @@
 	});
 
 	$("#houding_klassen_lijst").change(function() {
+		NextClass();
 		var varCClass = $("#houding_klassen_lijst option:selected").val();
 		$.post("ajax/getliststudentbyclass.php", {
 				class: varCClass
@@ -165,6 +166,10 @@
 			function(data) {
 				$("#opmerking_student_name").html(data);
 			});
+	});
+
+	function NextClass() {
+		var varCClass = $("#houding_klassen_lijst option:selected").val();
 		var klas = varCClass.charAt(0);
 		klas = parseInt(klas) + 1;
 		if (klas < 7) {
@@ -174,8 +179,7 @@
 			$("#advies option[value='0']").html("Gaat naar het voortgezet onderwijs");
 			$("#advies option[value='1']").html("Over wegens leeftijd");
 		}
-
-	});
+	}
 
 	$("#advies").change(function() {
 		if ($("#advies option:selected").val() == "3") {
@@ -242,6 +246,7 @@
 					$('#opmerking_3').text(data[0].opmerking_3);
 					$('#opmerking_3').val(data[0].opmerking_3);
 					$("#advies").html('<select name="advies" id="advies" style="width: 100%;height: 25px;font-size: 14px;"><option value=""></option><option value="0">Bevorderd naar klas</option><option value="1">Over wegens leeftijd naar klas</option><option value="2">Niet bevorderd</option><option value="3">Verwezen naar</option></select>')
+					NextClass();
 					$(".advies_text").hide();
 					$("#extra").attr('disabled', 'disabled');
 					$("#extra").val('');
