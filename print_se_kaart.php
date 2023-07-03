@@ -191,7 +191,7 @@ foreach ($array_leerling as $item) {
     }
   } else {
     $page_html .= "<div class='row justify-content-end' style=''>";
-    $page_html .= "<div class='col-6' style='display: flex; align-items: center; padding-right: 10rem;'>";
+    $page_html .= "<div class='col-6' style='display: flex; align-items: center;'>";
     $page_html .= "</br>";
     $page_html .= "</br>";
     $page_html .= "</br>";
@@ -216,8 +216,10 @@ foreach ($array_leerling as $item) {
   }
   if ($schoolId == 10) {
     $page_html .= "<img  width='200px' style='padding-left: 50px;' height='150px' src='" . appconfig::GetBaseURL() . "/assets/img/" . $img . "' class='mx-auto d-block'>";
+  } else if ($schoolId == 13) {
+    $page_html .= "<img style='margin-right: 24% !important' width='200px' height:'200px' marin src='" . appconfig::GetBaseURL() . "/assets/img/" . $img . "' class='mx-auto d-block'>";
   } else {
-    $page_html .= "<img style='margin-right: 23% !important;'  width='200px' height:'200px' src='" . appconfig::GetBaseURL() . "/assets/img/" . $img . "' class='mx-auto d-block'>";
+    $page_html .= "<img  width='200px' height:'200px' src='" . appconfig::GetBaseURL() . "/assets/img/" . $img . "' class='mx-auto d-block'>";
   }
   if ($schoolId == 18) {
     $page_html .= "<div class='card-body' style='padding-bottom: 0px;  margin-top: 5%;'>";
@@ -1150,9 +1152,30 @@ foreach ($array_leerling as $item) {
       }
       if ($_GET["rap"] == '3') {
 
-        $_h1_1 = round(($h1_beg + $h1_tec) / 2, 1);
-        $_h1_2 = round(($h2_beg + $h2_tec) / 2, 1);
-        $_h1_3 = round(($h3_beg + $h3_tec) / 2, 1);
+        if ($h1_beg > 0 && $h1_tec > 0) {
+          $_h1_1 = round(($h1_beg + $h1_tec) / 2, 1);
+        } else if ($h1_beg > 0) {
+          $_h1_1 = $h1_beg;
+        } else if ($h1_tec > 0) {
+          $_h1_1 = $h1_tec;
+        }
+
+        if ($h2_beg > 0 && $h2_tec > 0) {
+          $_h1_2 = round(($h2_beg + $h2_tec) / 2, 1);
+        } else if ($h2_beg > 0) {
+          $_h1_2 = $h2_beg;
+        } else if ($h2_tec > 0) {
+          $_h1_2 = $h2_tec;
+        }
+
+        if ($h3_beg > 0 && $h3_tec > 0) {
+          $_h1_3 = round(($h3_beg + $h3_tec) / 2, 1);
+        } else if ($h3_beg > 0) {
+          $_h1_3 = $h3_beg;
+        } else if ($h3_tec > 0) {
+          $_h1_3 = $h3_tec;
+        }
+
         if ($_h1_1 > 0 && $_h1_2 > 0 && $_h1_3 > 0) {
           $avg_h = ((float)$_h1_1 + (float)$_h1_2 + (float)$_h1_3) / 3;
         } else if ($_h1_1 > 0 && $_h1_2 > 0) {
@@ -1250,6 +1273,7 @@ foreach ($array_leerling as $item) {
         $_h1_1 = "";
         $_h1_2 = "";
         $_h1_3 = "";
+        $avg_h = 0;
 
         $_h1_1 =  $c->_writerapportdata_cijfers(5, $item['studentid'], $_GET["schoolJaar"], $schoolId, 1);
         $_h1_2 =  $c->_writerapportdata_cijfers(5, $item['studentid'], $_GET["schoolJaar"], $schoolId, 2);
@@ -5077,7 +5101,7 @@ if($avg_h == 0.0){$avg_h = null;}
     $page_html .= "<div class='card'>";
     $page_html .= "<div class='card-body' style='padding-bottom: 0px;'>";
     $page_html .= "<h6 class='card-title'>Opmerking bij het eerste rapport</h6>";
-    $page_html .= "<hr style='border-top: dotted 2px; margin-top: 1rem;' />";
+    $page_html .= "<hr style='border-top: dotted 2px; margin-top: 2.1rem; margin-bottom: .3rem' />";
     $page_html .= "<h6>O Voldoende:</h6>";
     $page_html .= "<h6>O Onvoldoende:</h6>";
     $page_html .= "<br>";
@@ -5090,7 +5114,7 @@ if($avg_h == 0.0){$avg_h = null;}
     $page_html .= "<div class='card'>";
     $page_html .= "<div class='card-body'>";
     $page_html .= "<h6 class='card-title'>Opmerking bij het tweede rapport</h6>";
-    $page_html .= "<hr style='border-top: dotted 2px; margin-top: 1rem;' />";
+    $page_html .= "<hr style='border-top: dotted 2px; margin-top: 2.1rem; margin-bottom: .3rem' />";
     $page_html .= "<h6>O Voldoende:</h6>";
     $page_html .= "<h6>O Onvoldoende:</h6>";
     $page_html .= "</div>";
@@ -5102,7 +5126,7 @@ if($avg_h == 0.0){$avg_h = null;}
     $page_html .= "<div class='card'>";
     $page_html .= "<div class='card-body'>";
     $page_html .= "<h6 class='card-title'>Opmerking bij het derde rapport</h6>";
-    $page_html .= "<hr style='border-top: dotted 2px; margin-top: 1rem;' />";
+    $page_html .= "<hr style='border-top: dotted 2px; margin-top: 2.1rem; margin-bottom: .3rem' />";
     if ($schoolId != 17) {
       $page_html .= "<h6 class='classovernar' id='idovernar'>O&nbsp&nbsp&nbsp&nbsp&nbsp&nbspOver naar Ciclo Basico 2</h6>";
     } else {
@@ -8234,7 +8258,6 @@ if($avg_h == 0.0){$avg_h = null;}
   $page_html .= "</div>";
 
 
-  $page_html .= "<br>";
   $page_html .= "<div class='row'>";
   $page_html .= "<div class='card'>";
   $page_html .= "<div class='card-body' style='padding-bottom: 0px; padding-top: 0px;'>";

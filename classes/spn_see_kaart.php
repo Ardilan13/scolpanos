@@ -1719,9 +1719,9 @@ class spn_see_kaart
       $DBCreds = new DBCreds();
       $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
       if ($_SESSION['SchoolID'] != 18) {
-        $sql_query = "SELECT gemiddelde FROM le_cijfers_ps where studentid = $studentid_out and schooljaar = '$schooljaar' and rapnummer = $rap_in and school_id = $schoolid and vak = $vak";
+        $sql_query = "SELECT gemiddelde FROM le_cijfers_ps where studentid = $studentid_out and schooljaar = '$schooljaar' and rapnummer = $rap_in and school_id = $schoolid and vak = $vak and gemiddelde > 0.0";
       } else {
-        $sql_query = "SELECT gemiddelde FROM le_cijfers where studentid = $studentid_out and schooljaar = '$schooljaar' and rapnummer = $rap_in and vak = $vak";
+        $sql_query = "SELECT gemiddelde FROM le_cijfers where studentid = $studentid_out and schooljaar = '$schooljaar' and rapnummer = $rap_in and vak = $vak and gemiddelde > 0.0";
       }
       if ($select = $mysqli->prepare($sql_query)) {
 
