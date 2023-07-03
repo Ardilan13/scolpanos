@@ -268,6 +268,19 @@
 														</div>
 													</div>
 												</div>
+												<?php if ($_SESSION["SchoolType"] == 2) { ?>
+													<div class="col-sm-4 profiel" hidden>
+														<label class="col-md-4 control-label" for="profiel">Profiel</label>
+														<div class="col-md-6">
+															<select id="profiel" name="profiel" class="form-control">
+																<option value=""></option>
+																<option value="MM">MM</option>
+																<option value="HU">HU</option>
+																<option value="NW">NW</option>
+															</select>
+														</div>
+													</div>
+												<?php } ?>
 												<!--	<div class="col-sm-4">
 													<label class="col-md-4 control-label">Datum Uitschijving</label>
 													<div class="col-md-6">

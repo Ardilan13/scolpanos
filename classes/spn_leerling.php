@@ -94,7 +94,7 @@ class spn_leerling
     mysqli_report(MYSQLI_REPORT_STRICT);
     $sql_query = "SELECT id, studentnumber, firstname, lastname, sex, dob, class";
     $sql_query .= ", uuid, created, updated, schoolid, idnumber, enrollmentdate,  upper(birthplace), address, azvnumber, azvexpiredate, ";
-    $sql_query .= "phone1, phone2, colorcode, status, roepnaam, nationaliteit, vezorger, email, ne, en, sp, pa, voertaalanders, spraak, gehoor, gezicht, motoriek, medicatieanders, ";
+    $sql_query .= "phone1, phone2,profiel, colorcode, status, roepnaam, nationaliteit, vezorger, email, ne, en, sp, pa, voertaalanders, spraak, gehoor, gezicht, motoriek, medicatieanders, ";
     $sql_query .= "bijzonderemedisch, huisarts, huisartsnr, persoonlijkeeigenschappen, thuissituatie, fysiekebijzonderheden, schoolleereigenschappen, socialeeigenschappen, anders, voorletter, phone3, vorigeschool, bijzondermedischeindicatie, notas, id_family, securepin, outschooldate";
     if ($klas_in == "ALL")
       $sql_query .= " FROM students WHERE schoolid=? order by";
@@ -115,7 +115,7 @@ class spn_leerling
 
     if ($_SESSION['SchoolType'] == 2 && $_SESSION["UserRights"] == 'DOCENT') {
       $sql_query =  "select distinct s.id, s.studentnumber, s.firstname, s.lastname, s.sex, s.dob, s.class, s.uuid, s.created, s.updated, s.schoolid,";
-      $sql_query .= "s.idnumber, s.enrollmentdate, upper(s.birthplace), s.address, s.azvnumber, s.azvexpiredate, s.phone1, s.phone2, s.colorcode, s.status, ";
+      $sql_query .= "s.idnumber, s.enrollmentdate, upper(s.birthplace), s.address, s.azvnumber, s.azvexpiredate, s.phone1, s.phone2,s.profiel, s.colorcode, s.status, ";
       $sql_query .= "s.roepnaam, s.nationaliteit, s.vezorger, s.email, s.ne, s.en, s.sp, s.pa, s.voertaalanders, s.spraak, s.gehoor, s.gezicht, s.motoriek, ";
       $sql_query .= "s.medicatieanders, s.bijzonderemedisch, s.huisarts, s.huisartsnr, ";
       $sql_query .= "s.persoonlijkeeigenschappen, s.thuissituatie, s.fysiekebijzonderheden, s.schoolleereigenschappen, s.socialeeigenschappen, ";
@@ -152,7 +152,7 @@ class spn_leerling
               if ($select->execute()) {
                 $this->error = false;
                 $result = 1;
-                $select->bind_result($studentid, $studentnumber, $voornamen, $achternaam, $geslacht, $geboortedatum, $klas, $uuid, $created, $updated, $schoolid, $idnumber, $enrollmentdate, $birthplace, $address, $azvnumber, $azvexpiredate, $phone1, $phone2, $colorcode, $status, $roepnaam, $nationaliteit, $vezorger, $email, $ne, $en, $sp, $pa, $voertaalanders, $spraak, $gehoor, $gezicht, $motoriek, $medicatieanders, $bijzonderemedisch, $huisarts, $huisartsnr, $persoonlijkeeigenschappen, $thuissituatie, $fysiekebijzonderheden, $schoolleereigenschappen, $socialeeigenschappen, $anders, $voorletter, $phone3,  $vorigeschool, $bijzondermedischeindicatie, $notas, $id_family, $securepin, $outschooldate);
+                $select->bind_result($studentid, $studentnumber, $voornamen, $achternaam, $geslacht, $geboortedatum, $klas, $uuid, $created, $updated, $schoolid, $idnumber, $enrollmentdate, $birthplace, $address, $azvnumber, $azvexpiredate, $phone1, $phone2, $profiel, $colorcode, $status, $roepnaam, $nationaliteit, $vezorger, $email, $ne, $en, $sp, $pa, $voertaalanders, $spraak, $gehoor, $gezicht, $motoriek, $medicatieanders, $bijzonderemedisch, $huisarts, $huisartsnr, $persoonlijkeeigenschappen, $thuissituatie, $fysiekebijzonderheden, $schoolleereigenschappen, $socialeeigenschappen, $anders, $voorletter, $phone3,  $vorigeschool, $bijzondermedischeindicatie, $notas, $id_family, $securepin, $outschooldate);
                 $select->store_result();
 
                 //Audit by Caribe Developers
@@ -189,6 +189,7 @@ class spn_leerling
                     $htmlcontrol .= "<input type='hidden' name='azvexpiredate' value='" . ($utils->convertfrommysqldate($azvexpiredate) != false && $azvexpiredate != "" ? htmlentities($utils->convertfrommysqldate($azvexpiredate)) : "") . "'>";
                     $htmlcontrol .= "<input type='hidden' name='phone1' value='" . $phone1 . "'>";
                     $htmlcontrol .= "<input type='hidden' name='phone2' value='" . $phone2 . "'>";
+                    $htmlcontrol .= "<input type='hidden' name='profiel' value='" . $profiel . "'>";
                     $htmlcontrol .= "<input type='hidden' name='colorcode' value='" . $colorcode . "'>";
                     $htmlcontrol .= "<input type='hidden' name='status' value='" . $status . "'>";
                     $htmlcontrol .= "<input type='hidden' name='roepnaam' value='" . $roepnaam . "'>";
@@ -256,7 +257,7 @@ class spn_leerling
               if ($select->execute()) {
                 $this->error = false;
                 $result = 1;
-                $select->bind_result($studentid, $studentnumber, $voornamen, $achternaam, $geslacht, $geboortedatum, $klas, $uuid, $created, $updated, $schoolid, $idnumber, $enrollmentdate, $birthplace, $address, $azvnumber, $azvexpiredate, $phone1, $phone2, $colorcode, $status, $roepnaam, $nationaliteit, $vezorger, $email, $ne, $en, $sp, $pa, $voertaalanders, $spraak, $gehoor, $gezicht, $motoriek, $medicatieanders, $bijzonderemedisch, $huisarts, $huisartsnr, $persoonlijkeeigenschappen, $thuissituatie, $fysiekebijzonderheden, $schoolleereigenschappen, $socialeeigenschappen, $anders, $voorletter, $phone3,  $vorigeschool, $bijzondermedischeindicatie, $notas, $id_family, $securepin, $outschooldate);
+                $select->bind_result($studentid, $studentnumber, $voornamen, $achternaam, $geslacht, $geboortedatum, $klas, $uuid, $created, $updated, $schoolid, $idnumber, $enrollmentdate, $birthplace, $address, $azvnumber, $azvexpiredate, $phone1, $phone2, $profiel, $colorcode, $status, $roepnaam, $nationaliteit, $vezorger, $email, $ne, $en, $sp, $pa, $voertaalanders, $spraak, $gehoor, $gezicht, $motoriek, $medicatieanders, $bijzonderemedisch, $huisarts, $huisartsnr, $persoonlijkeeigenschappen, $thuissituatie, $fysiekebijzonderheden, $schoolleereigenschappen, $socialeeigenschappen, $anders, $voorletter, $phone3,  $vorigeschool, $bijzondermedischeindicatie, $notas, $id_family, $securepin, $outschooldate);
                 $select->store_result();
 
                 //Audit by Caribe Developers
@@ -291,6 +292,7 @@ class spn_leerling
                     $htmlcontrol .= "<input type='hidden' name='azvexpiredate' value='" . ($utils->convertfrommysqldate($azvexpiredate) != false && $azvexpiredate != "" ? htmlentities($utils->convertfrommysqldate($azvexpiredate)) : "") . "'>";
                     $htmlcontrol .= "<input type='hidden' name='phone1' value='" . $phone1 . "'>";
                     $htmlcontrol .= "<input type='hidden' name='phone2' value='" . $phone2 . "'>";
+                    $htmlcontrol .= "<input type='hidden' name='profiel' value='" . $profiel . "'>";
                     $htmlcontrol .= "<input type='hidden' name='colorcode' value='" . $colorcode . "'>";
                     $htmlcontrol .= "<input type='hidden' name='status' value='" . $status . "'>";
                     $htmlcontrol .= "<input type='hidden' name='roepnaam' value='" . $roepnaam . "'>";
@@ -1138,7 +1140,7 @@ class spn_leerling
     }
     return $result;
   }
-  function edit_leerling($studentid, $_DateTime, $schoolid, $idnumber, $studentnumber, $class, $enrollmentdate, $firstname, $lastname, $sex, $_dob, $birthplace, $address, $azvnumber, $azvexpiredate, $phone1, $phone2, $colorcode, $status, $roepnaam, $nationaliteit, $vezorger, $email, $ne, $pa, $en, $sp, $vo, $spraak, $gehoor, $gezicht, $motoriek, $huisarts, $huisartsnr, $anders, $voorletter, $phone3, $vorigeschool, $bijzondermedischeindicatie, $notas, $id_family, $datum_uitschijving)
+  function edit_leerling($studentid, $_DateTime, $schoolid, $idnumber, $studentnumber, $class, $enrollmentdate, $firstname, $lastname, $sex, $_dob, $birthplace, $address, $azvnumber, $azvexpiredate, $phone1, $phone2, $colorcode, $status, $roepnaam, $nationaliteit, $vezorger, $email, $ne, $pa, $en, $sp, $vo, $spraak, $gehoor, $gezicht, $motoriek, $huisarts, $huisartsnr, $anders, $voorletter, $phone3, $vorigeschool, $bijzondermedischeindicatie, $notas, $id_family, $datum_uitschijving, $profiel)
   {
     $result = 0;
     require_once("DBCreds.php");
@@ -1152,11 +1154,11 @@ class spn_leerling
     try {
       $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
       $mysqli->set_charset('utf8');
-      $sql_query_update = "CALL " . $this->sp_update_student . " (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+      $sql_query_update = "CALL " . $this->sp_update_student . " (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
       if ($stmt = $mysqli->prepare($sql_query_update)) {
         //if($stmt->bind_param("si",$_DateTime, $studentid))
         if ($stmt->bind_param(
-          "sisssssssssssssssissssiiiisiiiissssssssiis",
+          "sisssssssssssssssissssiiiisiiiissssssssiiss",
           $_DateTime,
           $schoolid,
           $idnumber,
@@ -1198,7 +1200,8 @@ class spn_leerling
           $notas,
           $id_family,
           $studentid,
-          $datum_uitschijving
+          $datum_uitschijving,
+          $profiel
         )) {
           if ($stmt->execute()) {
             if ($mysqli->affected_rows >= 1) {
