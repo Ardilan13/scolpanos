@@ -62,6 +62,7 @@ print $l->create_leerling(
 	$_POST["vorigeschool"],
 	$_POST["bizjonder"],
 	$_POST["notes"],
-	$_POST["leerling_family"]
+	$_POST["leerling_family"],
+	$_POST["profiel"]
 );
 ?>

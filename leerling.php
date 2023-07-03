@@ -445,6 +445,15 @@
 			});
 		});
 
+		$("#student-klas").change(function() {
+			var klas = $('#student-klas option:selected').val();
+			if (klas.charAt(0) == '3') {
+				$(".profiel").show();
+			} else {
+				$(".profiel").hide();
+			}
+		});
+
 		$("#btn_leerling_print").click(function() {
 			window.open("print.php?name=leerling&title=Leerling List");
 		});

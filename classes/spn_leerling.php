@@ -1094,7 +1094,7 @@ class spn_leerling
       return $htmlcontrol;
     }
   }
-  function create_leerling($userguid, $_DateTime, $schoolid, $idnumber, $studentnumber, $class, $enrollmentdate, $firstname, $lastname, $sex, $_dob, $birthplace, $address, $azvnumber, $azvexpiredate, $phone1, $phone2, $colorcode, $status, $roepnaam, $nationaliteit, $vezorger, $email, $ne, $en, $sp, $pa, $vo, $spraak, $gehoor, $gezicht, $motoriek, $huisarts, $huisartsnr, $anders, $voorletter, $phone3, $vorigeschool, $bijzondermedischeindicatie, $notas, $id_family)
+  function create_leerling($userguid, $_DateTime, $schoolid, $idnumber, $studentnumber, $class, $enrollmentdate, $firstname, $lastname, $sex, $_dob, $birthplace, $address, $azvnumber, $azvexpiredate, $phone1, $phone2, $colorcode, $status, $roepnaam, $nationaliteit, $vezorger, $email, $ne, $en, $sp, $pa, $vo, $spraak, $gehoor, $gezicht, $motoriek, $huisarts, $huisartsnr, $anders, $voorletter, $phone3, $vorigeschool, $bijzondermedischeindicatie, $notas, $id_family, $profiel)
   {
     $result = 1;
     require_once("DBCreds.php");
@@ -1108,8 +1108,8 @@ class spn_leerling
     try {
       $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
       $mysqli->set_charset('utf8');
-      if ($stmt = $mysqli->prepare("CALL " . $this->sp_create_student . " (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")) {
-        if ($stmt->bind_param("sssssssssssssssssssssssiiiisiiiissssssssi", $userguid, $_DateTime, $schoolid, $idnumber, $studentnumber, $class, $enrollmentdate, $firstname, $lastname, $sex, $_dob, $birthplace, $address, $azvnumber, $azvexpiredate, $phone1, $phone2, $colorcode, $status, $roepnaam, $nationaliteit, $vezorger, $email, $ne, $en, $sp, $pa, $vo, $spraak, $gehoor, $gezicht, $motoriek, $huisarts, $huisartsnr, $anders, $voorletter, $phone3, $vorigeschool, $bijzondermedischeindicatie, $notas, $id_family)) {
+      if ($stmt = $mysqli->prepare("CALL " . $this->sp_create_student . " (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")) {
+        if ($stmt->bind_param("sssssssssssssssssssssssiiiisiiiissssssssis", $userguid, $_DateTime, $schoolid, $idnumber, $studentnumber, $class, $enrollmentdate, $firstname, $lastname, $sex, $_dob, $birthplace, $address, $azvnumber, $azvexpiredate, $phone1, $phone2, $colorcode, $status, $roepnaam, $nationaliteit, $vezorger, $email, $ne, $en, $sp, $pa, $vo, $spraak, $gehoor, $gezicht, $motoriek, $huisarts, $huisartsnr, $anders, $voorletter, $phone3, $vorigeschool, $bijzondermedischeindicatie, $notas, $id_family, $profiel)) {
           if ($stmt->execute()) {
             $result = 1;
             $this->last_insert_id = $mysqli->insert_id;
