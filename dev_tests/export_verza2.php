@@ -82,6 +82,7 @@ while ($i <= $rap_in) {
                 s.lastname,
                 s.sex,
                 s.dob,
+                s.profiel,
                 c.gemiddelde,
                 v.volgorde,
                 v.x_index,
@@ -163,9 +164,15 @@ while ($i <= $rap_in) {
             $bv = 0; */
             $_current_student_start_row++;
             $hojaActiva->setCellValue('B' . (string)$_current_student_start_row, $row["lastname"] . ", " . $row["firstname"]);
+            if ($level_klas == 3 && $i == 1) {
+                $hojaActiva->setCellValue('AB' . (string)$_current_student_start_row, $row["profiel"]);
+            }
         }
         if ($_while_counter == 0) {
             $hojaActiva->setCellValue('B' . (string)$_current_student_start_row, $row["lastname"] . ", " . $row["firstname"]);
+            if ($level_klas == 3 && $i == 1) {
+                $hojaActiva->setCellValue('AB' . (string)$_current_student_start_row, $row["profiel"]);
+            }
         }
 
         if ($_currentstudent != $_laststudent) {
