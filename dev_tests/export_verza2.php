@@ -151,27 +151,29 @@ while ($i <= $rap_in) {
         $vakid_out = $row["vakid"];
         if ($_currentstudent != $_laststudent) {
 
-            if ($mu > 0 && $bv > 0)
-                $ckv = ($mu + $bv) / 2;
-            else if ($mu > 0)
-                $ckv = $mu;
-            else if ($bv > 0)
-                $ckv = $bv;
+            if ($schoolid != 12) {
+                if ($mu > 0 && $bv > 0)
+                    $ckv = ($mu + $bv) / 2;
+                else if ($mu > 0)
+                    $ckv = $mu;
+                else if ($bv > 0)
+                    $ckv = $bv;
 
-            switch ($level_klas) {
-                case 1:
-                case 2:
-                    $hojaActiva->setCellValue('N' . (string)$_current_student_start_row, $ckv);
-                    break;
+                switch ($level_klas) {
+                    case 1:
+                    case 2:
+                        $hojaActiva->setCellValue('N' . (string)$_current_student_start_row, $ckv);
+                        break;
 
-                case 3:
-                case 4:
-                    $hojaActiva->setCellValue('P' . (string)$_current_student_start_row, $ckv);
-                    break;
+                    case 3:
+                    case 4:
+                        $hojaActiva->setCellValue('P' . (string)$_current_student_start_row, $ckv);
+                        break;
+                }
+                $ckv = 0;
+                $mu = 0;
+                $bv = 0;
             }
-            $ckv = 0;
-            $mu = 0;
-            $bv = 0;
 
             $_current_student_start_row++;
             $hojaActiva->setCellValue('B' . (string)$_current_student_start_row, $row["lastname"] . ", " . $row["firstname"]);
@@ -191,23 +193,27 @@ while ($i <= $rap_in) {
             switch ($level_klas) {
                 case 1:
                 case 2:
-                    $spreadsheet->setActiveSheetIndex(5);
-                    $hojaActiva = $spreadsheet->getActiveSheet();
-                    $hojaActiva->setCellValue('BK' . (string)$_current_student_start_row, $u->convertfrommysqldate($row['dob']));
+                    if ($row["dob"] != "2000-00-00" && $row["dob"] != "0000-00-00") {
+                        $spreadsheet->setActiveSheetIndex(5);
+                        $hojaActiva = $spreadsheet->getActiveSheet();
+                        $hojaActiva->setCellValue('BK' . (string)$_current_student_start_row, $u->convertfrommysqldate($row['dob']));
+                    }
                     break;
                 case 3:
                 case 4:
-                    $spreadsheet->setActiveSheetIndex(3);
-                    $hojaActiva = $spreadsheet->getActiveSheet();
-                    $hojaActiva->setCellValue('BV' . (string)$_current_student_start_row, $u->convertfrommysqldate($row['dob']));
+                    if ($row["dob"] != "2000-00-00" && $row["dob"] != "0000-00-00") {
+                        $spreadsheet->setActiveSheetIndex(3);
+                        $hojaActiva = $spreadsheet->getActiveSheet();
+                        $hojaActiva->setCellValue('BV' . (string)$_current_student_start_row, $u->convertfrommysqldate($row['dob']));
 
-                    $spreadsheet->setActiveSheetIndex(4);
-                    $hojaActiva = $spreadsheet->getActiveSheet();
-                    $hojaActiva->setCellValue('BV' . (string)$_current_student_start_row, $u->convertfrommysqldate($row['dob']));
+                        $spreadsheet->setActiveSheetIndex(4);
+                        $hojaActiva = $spreadsheet->getActiveSheet();
+                        $hojaActiva->setCellValue('BV' . (string)$_current_student_start_row, $u->convertfrommysqldate($row['dob']));
 
-                    $spreadsheet->setActiveSheetIndex(5);
-                    $hojaActiva = $spreadsheet->getActiveSheet();
-                    $hojaActiva->setCellValue('BV' . (string)$_current_student_start_row, $u->convertfrommysqldate($row['dob']));
+                        $spreadsheet->setActiveSheetIndex(5);
+                        $hojaActiva = $spreadsheet->getActiveSheet();
+                        $hojaActiva->setCellValue('BV' . (string)$_current_student_start_row, $u->convertfrommysqldate($row['dob']));
+                    }
                     break;
             }
             switch ($i) {
@@ -241,24 +247,32 @@ while ($i <= $rap_in) {
                     $spreadsheet->setActiveSheetIndex(5);
                     $hojaActiva = $spreadsheet->getActiveSheet();
                     $hojaActiva->setCellValue('B2', "Klas: " . $klas_in);
-                    $hojaActiva->setCellValue('BK' . (string)$_current_student_start_row, $u->convertfrommysqldate($row['dob']));
+                    if ($row["dob"] != "2000-00-00" && $row["dob"] != "0000-00-00") {
+                        $hojaActiva->setCellValue('BK' . (string)$_current_student_start_row, $u->convertfrommysqldate($row['dob']));
+                    }
                     break;
                 case 3:
                 case 4:
                     $spreadsheet->setActiveSheetIndex(3);
                     $hojaActiva = $spreadsheet->getActiveSheet();
                     $hojaActiva->setCellValue('B2', "Klas: " . $klas_in);
-                    $hojaActiva->setCellValue('BV' . (string)$_current_student_start_row, $u->convertfrommysqldate($row['dob']));
+                    if ($row["dob"] != "2000-00-00" && $row["dob"] != "0000-00-00") {
+                        $hojaActiva->setCellValue('BV' . (string)$_current_student_start_row, $u->convertfrommysqldate($row['dob']));
+                    }
 
                     $spreadsheet->setActiveSheetIndex(4);
                     $hojaActiva = $spreadsheet->getActiveSheet();
                     $hojaActiva->setCellValue('B2', "Klas: " . $klas_in);
-                    $hojaActiva->setCellValue('BV' . (string)$_current_student_start_row, $u->convertfrommysqldate($row['dob']));
+                    if ($row["dob"] != "2000-00-00" && $row["dob"] != "0000-00-00") {
+                        $hojaActiva->setCellValue('BV' . (string)$_current_student_start_row, $u->convertfrommysqldate($row['dob']));
+                    }
 
                     $spreadsheet->setActiveSheetIndex(5);
                     $hojaActiva = $spreadsheet->getActiveSheet();
                     $hojaActiva->setCellValue('B2', "Klas: " . $klas_in);
-                    $hojaActiva->setCellValue('BV' . (string)$_current_student_start_row, $u->convertfrommysqldate($row['dob']));
+                    if ($row["dob"] != "2000-00-00" && $row["dob"] != "0000-00-00") {
+                        $hojaActiva->setCellValue('BV' . (string)$_current_student_start_row, $u->convertfrommysqldate($row['dob']));
+                    }
                     break;
             }
             switch ($i) {
@@ -419,7 +433,7 @@ while ($i <= $rap_in) {
                 }
                 break;
         }
-        if ($cont == $ultima - 1) {
+        if ($cont == $ultima - 1 && $schoolid != 12) {
             if ($mu > 0 && $bv > 0)
                 $ckv = ($mu + $bv) / 2;
             else if ($mu > 0 && $bv == 0)
@@ -443,6 +457,8 @@ while ($i <= $rap_in) {
             $ckv = 0;
             $mu = 0;
             $bv = 0;
+        } else if ($row["volledigenaamvak"] == "CKV" && $schoolid == 12) {
+            $hojaActiva->setCellValue('P' . (string)$_current_student_start_row, $row["gemiddelde"]);
         }
 
         if ($row["gemiddelde"] > 0) {
