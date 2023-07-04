@@ -166,8 +166,7 @@ class spn_opmerking
               $json_result = array();
 
               while ($select->fetch()) {
-
-                $json_result[] = array("id_opmerking" => $id_opmerking, "opmerking_1" => utf8_decode($opmerking_1), "opmerking_2" => utf8_decode($opmerking_2), "opmerking_3" => utf8_decode($opmerking_3), "advies" => utf8_decode($advies));
+                $json_result[] = array("id_opmerking" => $id_opmerking, "opmerking_1" => $opmerking_1, "opmerking_2" => $opmerking_2, "opmerking_3" => $opmerking_3, "advies" => $advies);
               }
             } else {
               $result = 0;
