@@ -111,6 +111,7 @@ while ($i <= $rap_in) {
     } else {
         $sql_query .=  $sql_order;
     }
+    $sql_query .= ", v.volgorde";
     switch ($i) {
         case 1:
             $spreadsheet->setActiveSheetIndex(0);
@@ -138,9 +139,11 @@ while ($i <= $rap_in) {
     $mu = 0;
     $bv = 0;
     $cont = 1;
+
     while ($row = mysqli_fetch_assoc($resultado)) {
         $cont = $cont + 1;
         $ultima = mysqli_num_rows($resultado);
+        $hojaActiva->setCellValue('BX1', $ultima . " " . $cont);
         if ($_while_counter == 0) {
             $_laststudent = $row["studentid"];
             $hojaActiva->setCellValue('B2', "Klas: " . $klas_in);
@@ -433,15 +436,13 @@ while ($i <= $rap_in) {
                 }
                 break;
         }
-        if ($cont == $ultima - 1 && $schoolid != 12) {
+        if ($cont == $ultima && $schoolid != 12) {
             if ($mu > 0 && $bv > 0)
                 $ckv = ($mu + $bv) / 2;
-            else if ($mu > 0 && $bv == 0)
+            else if ($mu > 0)
                 $ckv = $mu;
-            else if ($mu == 0 && $bv > 0)
+            else if ($bv > 0)
                 $ckv = $bv;
-            else if ($mu == 0 && $bv == 0)
-                $ckv = 0;
 
             switch ($level_klas) {
                 case 1:
