@@ -20,6 +20,7 @@
 		<main id="main" role="main">
 			<section>
 				<div class="container container-fs">
+					<input type="text" hidden value="<?php echo $_SESSION["SchoolID"]; ?>" id="schoolid">
 
 					<div class="row">
 						<div class="default-secondary-bg-color col-md-12 full-inset brd-bottom clearfix">
@@ -87,10 +88,15 @@
 												<div class="col-md-8">
 													<select name="advies" id="advies" style="width: 100%;height: 25px;font-size: 14px;">
 														<option value=""></option>
-														<option value="0">Bevorderd naar klas</option>
-														<option value="1">Over wegens leeftijd naar klas</option>
-														<option value="2">Niet bevorderd</option>
-														<option value="3">Verwezen naar</option>
+														<?php if ($_SESSION["SchoolID"] == 18) { ?>
+															<option value="0">A pasa e aña</option>
+															<option value="1">No a pasa e aña</option>
+														<?php } else { ?>
+															<option value="0">Bevorderd naar klas</option>
+															<option value="1">Over wegens leeftijd naar klas</option>
+															<option value="2">Niet bevorderd</option>
+															<option value="3">Verwezen naar</option>
+														<?php } ?>
 													</select>
 												</div>
 											</div>
@@ -172,12 +178,14 @@
 		var varCClass = $("#houding_klassen_lijst option:selected").val();
 		var klas = varCClass.charAt(0);
 		klas = parseInt(klas) + 1;
-		if (klas < 7) {
-			$("#advies option[value='0']").html("Bevorderd naar klas " + klas);
-			$("#advies option[value='1']").html("Over wegens leeftijd naar klas " + klas);
-		} else {
-			$("#advies option[value='0']").html("Gaat naar het voortgezet onderwijs");
-			$("#advies option[value='1']").html("Over wegens leeftijd");
+		if ($("#schoolid").val() != 18) {
+			if (klas < 7) {
+				$("#advies option[value='0']").html("Bevorderd naar klas " + klas);
+				$("#advies option[value='1']").html("Over wegens leeftijd naar klas " + klas);
+			} else {
+				$("#advies option[value='0']").html("Gaat naar het voortgezet onderwijs");
+				$("#advies option[value='1']").html("Over wegens leeftijd");
+			}
 		}
 	}
 
@@ -245,7 +253,11 @@
 					$('#opmerking_2').val(data[0].opmerking_2);
 					$('#opmerking_3').text(data[0].opmerking_3);
 					$('#opmerking_3').val(data[0].opmerking_3);
-					$("#advies").html('<select name="advies" id="advies" style="width: 100%;height: 25px;font-size: 14px;"><option value=""></option><option value="0">Bevorderd naar klas</option><option value="1">Over wegens leeftijd naar klas</option><option value="2">Niet bevorderd</option><option value="3">Verwezen naar</option></select>')
+					if ($("#schoolid").val() != 18) {
+						$("#advies").html('<select name="advies" id="advies" style="width: 100%;height: 25px;font-size: 14px;"><option value=""></option><option value="0">Bevorderd naar klas</option><option value="1">Over wegens leeftijd naar klas</option><option value="2">Niet bevorderd</option><option value="3">Verwezen naar</option></select>')
+					} else {
+						$("#advies").html('<select name="advies" id="advies" style="width: 100%;height: 25px;font-size: 14px;"><option value=""></option><option value="0">A pasa e aña</option><option value="1">No a pasa e aña</option></select>')
+					}
 					NextClass();
 					$(".advies_text").hide();
 					$("#extra").attr('disabled', 'disabled');
