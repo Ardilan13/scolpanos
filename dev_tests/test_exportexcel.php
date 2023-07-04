@@ -769,7 +769,11 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 		case 1:
 		case 2:
 			$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader("Xlsx");
-			$spreadsheet = $reader->load("../templates/8_conrado_klas_1.xlsx");
+			if ($level_klas == 1) {
+				$spreadsheet = $reader->load("../templates/8_conrado_klas_1.xlsx");
+			} else {
+				$spreadsheet = $reader->load("../templates/8_conrado_klas_2.xlsx");
+			}
 			$s = new spn_setting();
 			$s->getsetting_info($schoolid, false);
 			$i = 1;

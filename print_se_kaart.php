@@ -2849,7 +2849,7 @@ if($avg_h == 0.0){$avg_h = null;}
         } else {
           $page_html .= "<td> </td>";
         }
-        $page_html .= "<td>" . $_h1_2 . " </td>";
+        $page_html .= "<td>" . $_h1_2 > 0.0 ? $_h1_2 : '' . " </td>";
         $page_html .= "<td>" . $_h1_3 . " </td>";
         if ($avg_h > 0.0) {
           if ($klas != 1) {
