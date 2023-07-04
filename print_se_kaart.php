@@ -410,7 +410,7 @@ foreach ($array_leerling as $item) {
 
       $page_html .= "<td></td>";
       $page_html .= "<td></td>";
-      $page_html .= "<td>" . (float)$_h1  . " </td>";
+      $page_html .= "<td>" . (int)$_h1  . " </td>";
     }
     if ($_GET["rap"] == '2') {
 
@@ -436,7 +436,7 @@ foreach ($array_leerling as $item) {
       if ($avg_h == 0.0) {
         $avg_h = null;
       }
-      $page_html .= "<td>" . number_format($avg_h, 1) . " </td>";
+      $page_html .= "<td>" . number_format($avg_h, 0) . " </td>";
     }
     if ($_GET["rap"] == '3') {
 
@@ -454,7 +454,7 @@ foreach ($array_leerling as $item) {
 
       $page_html .= "<td>" . $_h1_2 . " </td>";
       $page_html .= "<td>" . $_h1_3 . " </td>";
-      $page_html .= "<td>" . number_format($avg_h, 1) . " </td>";
+      $page_html .= "<td>" . number_format($avg_h, 0) . " </td>";
     }
 
     $page_html .= "</tr>";
@@ -473,7 +473,7 @@ foreach ($array_leerling as $item) {
 
       $page_html .= "<td></td>";
       $page_html .= "<td></td>";
-      $page_html .= "<td>" . (float)$_h1  . " </td>";
+      $page_html .= "<td>" . (int)$_h1  . " </td>";
     }
     if ($_GET["rap"] == '2') {
 
@@ -498,7 +498,7 @@ foreach ($array_leerling as $item) {
       if ($avg_h == 0.0) {
         $avg_h = null;
       }
-      $page_html .= "<td>" . number_format($avg_h, 1) . " </td>";
+      $page_html .= "<td>" . number_format($avg_h, 0) . " </td>";
     }
     if ($_GET["rap"] == '3') {
 
@@ -516,7 +516,7 @@ foreach ($array_leerling as $item) {
 
       $page_html .= "<td>" . $_h1_2 . " </td>";
       $page_html .= "<td>" . $_h1_3 . " </td>";
-      $page_html .= "<td>" . number_format($avg_h, 1) . " </td>";
+      $page_html .= "<td>" . number_format($avg_h, 0) . " </td>";
     }
 
     $page_html .= "</tr>";
@@ -534,7 +534,7 @@ foreach ($array_leerling as $item) {
 
       $page_html .= "<td></td>";
       $page_html .= "<td></td>";
-      $page_html .= "<td>" . (float)$_h1  . " </td>";
+      $page_html .= "<td>" . (int)$_h1  . " </td>";
     }
     if ($_GET["rap"] == '2') {
 
@@ -560,7 +560,7 @@ foreach ($array_leerling as $item) {
       if ($avg_h == 0.0) {
         $avg_h = null;
       }
-      $page_html .= "<td>" . number_format($avg_h, 1) . " </td>";
+      $page_html .= "<td>" . number_format($avg_h, 0) . " </td>";
     }
     if ($_GET["rap"] == '3') {
 
@@ -578,7 +578,7 @@ foreach ($array_leerling as $item) {
 
       $page_html .= "<td>" . $_h1_2 . " </td>";
       $page_html .= "<td>" . $_h1_3 . " </td>";
-      $page_html .= "<td>" . number_format($avg_h, 1) . " </td>";
+      $page_html .= "<td>" . number_format($avg_h, 0) . " </td>";
     }
 
 
@@ -598,7 +598,7 @@ foreach ($array_leerling as $item) {
 
       $page_html .= "<td></td>";
       $page_html .= "<td></td>";
-      $page_html .= "<td>" . (float)$_h1 . " </td>";
+      $page_html .= "<td>" . (int)$_h1  . " </td>";
     }
     if ($_GET["rap"] == '2') {
 
@@ -624,7 +624,7 @@ foreach ($array_leerling as $item) {
       if ($avg_h == 0.0) {
         $avg_h = null;
       }
-      $page_html .= "<td>" . number_format($avg_h, 1) . " </td>";
+      $page_html .= "<td>" . number_format($avg_h, 0) . " </td>";
     }
     if ($_GET["rap"] == '3') {
 
@@ -642,7 +642,7 @@ foreach ($array_leerling as $item) {
 
       $page_html .= "<td>" . $_h1_2 . " </td>";
       $page_html .= "<td>" . $_h1_3 . " </td>";
-      $page_html .= "<td>" . number_format($avg_h, 1) . " </td>";
+      $page_html .= "<td>" . number_format($avg_h, 0) . " </td>";
     }
 
 
@@ -662,7 +662,7 @@ foreach ($array_leerling as $item) {
 
       $page_html .= "<td></td>";
       $page_html .= "<td></td>";
-      $page_html .= "<td>" . (float)$_h1 . " </td>";
+      $page_html .= "<td>" . (int)$_h1  . " </td>";
     }
     if ($_GET["rap"] == '2') {
 
@@ -688,7 +688,7 @@ foreach ($array_leerling as $item) {
       if ($avg_h == 0.0) {
         $avg_h = null;
       }
-      $page_html .= "<td>" . number_format($avg_h, 1) . " </td>";
+      $page_html .= "<td>" . number_format($avg_h, 0) . " </td>";
     }
     if ($_GET["rap"] == '3') {
 
@@ -706,7 +706,7 @@ foreach ($array_leerling as $item) {
 
       $page_html .= "<td>" . $_h1_2 . " </td>";
       $page_html .= "<td>" . $_h1_3 . " </td>";
-      $page_html .= "<td>" . number_format($avg_h, 1) . " </td>";
+      $page_html .= "<td>" . number_format($avg_h, 0) . " </td>";
     }
 
 
@@ -725,7 +725,7 @@ foreach ($array_leerling as $item) {
 
       $page_html .= "<td></td>";
       $page_html .= "<td></td>";
-      $page_html .= "<td>" . (float)$_h1  . " </td>";
+      $page_html .= "<td>" . (int)$_h1  . " </td>";
     }
     if ($_GET["rap"] == '2') {
 
@@ -751,7 +751,7 @@ foreach ($array_leerling as $item) {
       if ($avg_h == 0.0) {
         $avg_h = null;
       }
-      $page_html .= "<td>" . number_format($avg_h, 1) . " </td>";
+      $page_html .= "<td>" . number_format($avg_h, 0) . " </td>";
     }
     if ($_GET["rap"] == '3') {
 
@@ -769,7 +769,7 @@ foreach ($array_leerling as $item) {
 
       $page_html .= "<td>" . $_h1_2 . " </td>";
       $page_html .= "<td>" . $_h1_3 . " </td>";
-      $page_html .= "<td>" . number_format($avg_h, 1) . " </td>";
+      $page_html .= "<td>" . number_format($avg_h, 0) . " </td>";
     }
     $page_html .= "</tr>";
 

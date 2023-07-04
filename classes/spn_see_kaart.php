@@ -823,53 +823,7 @@ class spn_see_kaart
                             $average_ckv_divisor++;
                           }
 
-
-                          //
-                          // print('<br>Avg 1: '.$avg_rap1);
-                          // print('<br>Avg 2: '.$avg_rap2);
-                          // print('<br>Avg 3: '.$avg_rap3);
-
-
-                          // $avg_rap1 = $avg_rap1 /1;
-                          // $avg_rap2 = $avg_rap2 /2;
-                          // $avg_rap3 = $avg_rap3 /3;
-
-
-
-
-                          //
-                          // print('<br>Avg 1: '.$avg_rap1);
-                          // print('<br>Avg 2: '.$avg_rap2);
-                          // print('<br>Avg 3: '.$avg_rap3);
-                          // print('<br>La Sumatoria: '.($avg_rap1 + $avg_rap2 + $avg_rap3));
-                          // print('<br>La el divisor: '.($average_ckv_divisor));
-                          //
-                          // print('<br>Avg total: '.$final_avg_CKV);
-
                           $final_avg_CKV = ($avg_rap1 + $avg_rap2 + $avg_rap3) / $average_ckv_divisor;
-
-                          /*
-  
-                          if($_SESSION['SchoolID'] == 12 && $schooljaar == "2019-2020" && $rapnummer == 3)
-                          {
-                            if($avg_rap1 != 0)
-                            {
-                              if($avg_rap2 != 0){
-                                if($avg_rap3 != 0){
-                                  $final_avg_CKV = (($avg_rap1) + ($avg_rap2) + ($avg_rap3) )/ 3;
-                                }
-                                else {
-                                  $final_avg_CKV = (($avg_rap1) + ($avg_rap2))/ 2;
-                                }
-                              }
-                              else {
-                                $final_avg_CKV = $avg_rap1;
-                              }
-                            }
-                            else {
-                              $final_avg_CKV = (($avg_rap2) + ($avg_rap3) )/ 2;
-                            }
-                          }*/
 
                           $average_ckv_divisor = 1;
                         }
@@ -890,7 +844,7 @@ class spn_see_kaart
                           $table .= "<td " . ((float)$avg_rap3 >= 1 && (float)$avg_rap3 <= 4.4  && (float)$avg_rap3 ? "class=\"bg-danger\"" : "") . ">" . ((float)$avg_rap3 > 0.0 && $avg_rap3 != null  && $avg_rap3 != "" ? round($avg_rap3, 1) : "") . "</td>";
                         }
 
-                        $table .= "<td " . ((float)$final_avg_CKV >= 1 && (float)$final_avg_CKV <= 4.4  && (float)$final_avg_CKV ? "class=\"bg-danger\"" : "") . ">" . ((float)$final_avg_CKV > 0.0 && $final_avg_CKV != null  && $final_avg_CKV != "" ? ($final_avg_CKV >= 5.4 && $final_avg_CKV <= 6 ? 6 : round($final_avg_CKV)) : "") . "</td>";
+                        $table .= "<td " . ((float)$final_avg_CKV >= 1 && (float)$final_avg_CKV <= 4.4  && (float)$final_avg_CKV ? "class=\"bg-danger\"" : "") . ">" . ((float)$final_avg_CKV > 0.0 && $final_avg_CKV != null  && $final_avg_CKV != "" ? ($final_avg_CKV >= 5.5 && $final_avg_CKV <= 6 ? 6 : round($final_avg_CKV)) : "") . "</td>";
                         $is_ckv = true;
                       }
                     } else if ($complete_name != null && $complete_name != '') {
