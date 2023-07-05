@@ -3055,7 +3055,7 @@ if($avg_h == 0.0){$avg_h = null;}
 
       $page_html .= "<tr>";
 
-      $page_html .= "<td width='65%'>&nbsp;&nbsp;Combersacion</td>";
+      $page_html .= "<td width='65%'>Combersacion</td>";
       $page_html .= "<td></td>";
       if ($_GET["rap"] == '1') {
         $_h1 = "";
@@ -3119,7 +3119,7 @@ if($avg_h == 0.0){$avg_h = null;}
 
       $page_html .= "<tr>";
 
-      $page_html .= "<td width='65%'>&nbsp;&nbsp;Comprension</td>";
+      $page_html .= "<td width='65%'>Comprension</td>";
       $page_html .= "<td></td>";
       if ($_GET["rap"] == '1') {
         $_h1 = "";
@@ -3224,7 +3224,7 @@ if($avg_h == 0.0){$avg_h = null;}
 
       $page_html .= "<tr>";
 
-      $page_html .= "<td width='65%'>&nbsp;&nbsp;Ehercicio</td>";
+      $page_html .= "<td width='65%'>Ehercicio</td>";
       $page_html .= "<td></td>";
       if ($_GET["rap"] == '1') {
         $_h1 = "";
@@ -3288,7 +3288,7 @@ if($avg_h == 0.0){$avg_h = null;}
 
       $page_html .= "<tr>";
 
-      $page_html .= "<td width='65%'>&nbsp;&nbsp;Composicion</td>";
+      $page_html .= "<td width='65%'>Composicion</td>";
       $page_html .= "<td></td>";
       if ($_GET["rap"] == '1') {
         $_h1 = "";
@@ -3353,7 +3353,7 @@ if($avg_h == 0.0){$avg_h = null;}
 
       $page_html .= "<tr>";
 
-      $page_html .= "<td width='65%'>&nbsp;&nbsp;Dictado</td>";
+      $page_html .= "<td width='65%'>Dictado</td>";
       $page_html .= "<td></td>";
       if ($_GET["rap"] == '1') {
         $_h1 = "";
@@ -3451,7 +3451,7 @@ if($avg_h == 0.0){$avg_h = null;}
 
       $page_html .= "<tr>";
 
-      $page_html .= "<td width='65%'>&nbsp;&nbsp;Tecnica</td>";
+      $page_html .= "<td width='65%'>Tecnica</td>";
       $page_html .= "<td></td>";
       if ($_GET["rap"] == '1') {
         $_h1 = "";
@@ -3516,7 +3516,7 @@ if($avg_h == 0.0){$avg_h = null;}
 
       $page_html .= "<tr>";
 
-      $page_html .= "<td width='65%'>&nbsp;&nbsp;Entonacion</td>";
+      $page_html .= "<td width='65%'>Entonacion</td>";
       $page_html .= "<td></td>";
       if ($_GET["rap"] == '1') {
         $_h1 = "";
@@ -3581,7 +3581,7 @@ if($avg_h == 0.0){$avg_h = null;}
 
       $page_html .= "<tr>";
 
-      $page_html .= "<td width='65%'>&nbsp;&nbsp;Comprension</td>";
+      $page_html .= "<td width='65%'>Comprension</td>";
       $page_html .= "<td></td>";
       if ($_GET["rap"] == '1') {
         $_h1 = "";
@@ -3679,7 +3679,7 @@ if($avg_h == 0.0){$avg_h = null;}
 
       $page_html .= "<tr>";
 
-      $page_html .= "<td width='65%'>&nbsp;&nbsp;Traha som</td>";
+      $page_html .= "<td width='65%'>Traha som</td>";
       $page_html .= "<td></td>";
       if ($_GET["rap"] == '1') {
         $_h1 = "";
@@ -3744,7 +3744,7 @@ if($avg_h == 0.0){$avg_h = null;}
 
       $page_html .= "<tr>";
 
-      $page_html .= "<td width='65%'>&nbsp;&nbsp;Rek for di cabes</td>";
+      $page_html .= "<td width='65%'>Rek for di cabes</td>";
       $page_html .= "<td></td>";
       if ($_GET["rap"] == '1') {
         $_h1 = "";
@@ -3809,7 +3809,7 @@ if($avg_h == 0.0){$avg_h = null;}
 
       $page_html .= "<tr>";
 
-      $page_html .= "<td width='65%'>&nbsp;&nbsp;Tafels</td>";
+      $page_html .= "<td width='65%'>Tafels</td>";
       $page_html .= "<td></td>";
       if ($_GET["rap"] == '1') {
         $_h1 = "";
@@ -3874,7 +3874,7 @@ if($avg_h == 0.0){$avg_h = null;}
 
       $page_html .= "<tr>";
 
-      $page_html .= "<td width='65%'>&nbsp;&nbsp;Redaccion</td>";
+      $page_html .= "<td width='65%'>Redaccion</td>";
       $page_html .= "<td></td>";
       if ($_GET["rap"] == '1') {
         $_h1 = "";
@@ -3939,7 +3939,7 @@ if($avg_h == 0.0){$avg_h = null;}
 
       $page_html .= "<tr>";
 
-      $page_html .= "<td width='65%'>&nbsp;&nbsp;Placa</td>";
+      $page_html .= "<td width='65%'>Placa</td>";
       $page_html .= "<td></td>";
       if ($_GET["rap"] == '1') {
         $_h1 = "";
@@ -4004,7 +4004,7 @@ if($avg_h == 0.0){$avg_h = null;}
 
       $page_html .= "<tr>";
 
-      $page_html .= "<td width='65%'>&nbsp;&nbsp;Midi</td>";
+      $page_html .= "<td width='65%'>Midi</td>";
       $page_html .= "<td></td>";
       if ($_GET["rap"] == '1') {
         $_h1 = "";
@@ -4069,7 +4069,7 @@ if($avg_h == 0.0){$avg_h = null;}
 
       $page_html .= "<tr>";
 
-      $page_html .= "<td width='65%'>&nbsp;&nbsp;Holoshi</td>";
+      $page_html .= "<td width='65%'>Holoshi</td>";
       $page_html .= "<td></td>";
       if ($_GET["rap"] == '1') {
         $_h1 = "";
@@ -4134,7 +4134,7 @@ if($avg_h == 0.0){$avg_h = null;}
 
       $page_html .= "<tr>";
 
-      $page_html .= "<td width='65%'>&nbsp;&nbsp;Kalender</td>";
+      $page_html .= "<td width='65%'>Kalender</td>";
       $page_html .= "<td></td>";
       if ($_GET["rap"] == '1') {
         $_h1 = "";
