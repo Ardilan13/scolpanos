@@ -138,7 +138,7 @@ while ($i <= $rap_in) {
     $ckv = 0;
     $mu = 0;
     $bv = 0;
-    $cont = 1;
+    $cont = 0;
 
     while ($row = mysqli_fetch_assoc($resultado)) {
         $cont = $cont + 1;
