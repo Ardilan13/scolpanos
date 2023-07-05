@@ -1012,8 +1012,10 @@ class spn_see_kaart
             while ($select->fetch()) {
               $result = 0;
               if ($_SESSION["SchoolType"] == 1) {
-                if ($avg == null) {
+                if ($avg == null && $_SESSION["SchoolID"] != 18) {
                   $result = 'A';
+                } else if ($avg == null && $_SESSION["SchoolID"] == 18) {
+                  $result = '';
                 } else {
                   if ($avg == 4) {
                     $result = "D";
@@ -1042,8 +1044,10 @@ class spn_see_kaart
               }
             }
           } else {
-            if ($_SESSION['SchoolType'] == 1) {
+            if ($_SESSION['SchoolType'] == 1 && $_SESSION['SchoolID'] != 18) {
               $result = "A";
+            } else if ($_SESSION['SchoolID'] == 18) {
+              $result = '';
             } else {
               $result = 4;
             }
