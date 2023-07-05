@@ -25,6 +25,7 @@ $s = new spn_setting();
 $s->getsetting_info($schoolId, false);
 $user = $_SESSION['UserGUID'];
 $klas = $_GET["klas"];
+$level_klas = substr($klas, 0, 1);
 $studentid = $_GET["studentid"];
 $query = "SELECT FirstName, LastName FROM app_useraccounts WHERE Class = '$klas' AND SchoolID = $schoolId AND UserRights = 'DOCENT' LIMIT 1";
 $resultado = mysqli_query($mysqli, $query);
@@ -4445,8 +4446,20 @@ if($avg_h == 0.0){$avg_h = null;}
     $page_html .= "<div class='card-body'>";
     $page_html .= "<h6 class='card-title'>Opmerking bij het derde rapport</h6>";
     $page_html .= "<hr style='border-top: dotted 2px; margin-top: 2.1rem; margin-bottom: .3rem' />";
-    if ($schoolId != 17) {
+    if ($schoolId != 17 && $_SESSION["SchoolType"] != 2) {
       $page_html .= "<h6 class='classovernar' id='idovernar'>O&nbsp&nbsp&nbsp&nbsp&nbsp&nbspOver naar Ciclo Basico 2</h6>";
+    } else if ($_SESSION["SchoolType"] == 2) {
+      switch ($level_klas) {
+        case 1:
+          $page_html .= "<h6 class='classovernar' id='idovernar'>O&nbsp&nbsp&nbsp&nbsp&nbsp&nbspOver naar Ciclo Basico 2</h6>";
+          break;
+        case 2:
+          $page_html .= "<h6 class='classovernar' id='idovernar'>O&nbsp&nbsp&nbsp&nbsp&nbsp&nbspOver naar Ciclo Avansa 1</h6>";
+          break;
+        case 3:
+          $page_html .= "<h6 class='classovernar' id='idovernar'>O&nbsp&nbsp&nbsp&nbsp&nbsp&nbspOver naar Ciclo Avansa 2</h6>";
+          break;
+      }
     } else {
       $page_html .= "<h6 class='classovernar' id='idovernar'>O&nbsp&nbsp&nbsp&nbsp&nbsp&nbspOver naar</h6>";
     }
