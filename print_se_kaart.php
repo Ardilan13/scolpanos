@@ -7186,6 +7186,7 @@ if($avg_h == 0.0){$avg_h = null;}
 
   if ($_SESSION['SchoolID'] == 18) {
     $page_html .= "<br>";
+    $page_html .= "<br>";
     $page_html .= "<div class='row'>";
     $page_html .= "<div class='card'>";
     $page_html .= "<div class='card-body' style='padding-bottom: 1%; padding-top: 1%;display:flex;justify-content:center; '>";
