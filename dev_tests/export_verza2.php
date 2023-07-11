@@ -154,7 +154,7 @@ while ($i <= $rap_in) {
         $vakid_out = $row["vakid"];
         if ($_currentstudent != $_laststudent) {
 
-            if ($schoolid != 12) {
+            if ($schoolid != 12 || $level_klas < 3) {
                 if ($mu > 0 && $bv > 0)
                     $ckv = ($mu + $bv) / 2;
                 else if ($mu > 0)
@@ -176,6 +176,8 @@ while ($i <= $rap_in) {
                 $ckv = 0;
                 $mu = 0;
                 $bv = 0;
+            } else if ($row["volledigenaamvak"] == "CKV" && $schoolid == 12) {
+                $hojaActiva->setCellValue('P' . (string)$_current_student_start_row, $row["gemiddelde"]);
             }
 
             $_current_student_start_row++;
@@ -436,7 +438,7 @@ while ($i <= $rap_in) {
                 }
                 break;
         }
-        if ($cont == $ultima && $schoolid != 12) {
+        if ($cont == $ultima && ($schoolid != 12 || $level_klas < 3)) {
             if ($mu > 0 && $bv > 0)
                 $ckv = ($mu + $bv) / 2;
             else if ($mu > 0)
