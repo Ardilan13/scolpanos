@@ -156,6 +156,7 @@
 															<option value="CHINA">China</option>
 															<option value="COLOMBIA">Colombia</option>
 															<option value="CURACAO">Curaçao</option>
+															<option value="CUBA">Cuba</option>
 															<option value="DOMINICAANSE REPUBLIEK">Dominicaanse Republiek</option>
 															<option value="ECUADOR">Ecuador</option>
 															<option value="HAITI">Haiti</option>
