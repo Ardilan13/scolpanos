@@ -1171,7 +1171,7 @@ class spn_verzuim
               require_once("spn_utils.php");
               $u = new spn_utils();
               $date = $u->convertfrommysqldate_new($datum);
-              $select1 = $this->klasenboek_vak($schoolid, $klas, $date);
+              $select1 = $this->klasenboek_vak($schoolid, $klas, $date, 0);
               if ($select1 != null && $select1 != "") {
                 $htmlcontrol .= $select1;
               } else {
@@ -1269,7 +1269,175 @@ class spn_verzuim
     return $returnvalue;
   }
 
-  function klasenboek_vak($schoolID, $klas, $datum)
+  function listverzuimprint_hs($schoolid, $klas, $datum)
+  {
+    $returnvalue = "";
+    $sql_query = "";
+    $htmlcontrol = "";
+    $user = 'disabled';
+
+    $l1 = array();
+    $l2 =  array();
+    $l3 =  array();
+    $l4 =  array();
+    $l5 =  array();
+    $l6 =  array();
+    $l7 =  array();
+    $l8 =  array();
+    $l9 =  array();
+
+    mysqli_report(MYSQLI_REPORT_STRICT);
+
+    require_once("spn_utils.php");
+    $utils = new spn_utils();
+
+    $_datum_in = null;
+
+    if ($utils->converttomysqldate($datum) != false) {
+      $datum = $utils->converttomysqldate($datum);
+    } else {
+      $datum = null;
+    }
+
+    $s = new spn_setting();
+    $s->getsetting_info($schoolid, false);
+
+    // End change settings (laldana@caribedev)
+    $sql_query = "select s.id, v.id, s.class, s.lastname, s.firstname,s.sex,v.telaat,v.absentie,v.toetsinhalen, v.uitsturen, v.huiswerk, v.lp, v.opmerking,
+                  v.p1,v.p2,v.p3,v.p4,v.p5,v.p6,v.p7,v.p8,v.p9,v.p10
+                  from students s inner join le_verzuim_hs v on s.id = v.studentid
+                  where s.class = ?  and s.schoolid = ? and v.schooljaar = ? and v.datum = ? order by ";
+
+    $sql_order = " lastname, firstname ";
+    if ($s->_setting_mj) {
+      $sql_query .= " sex " . $s->_setting_sort . ", " . $sql_order;
+    } else {
+      $sql_query .=  $sql_order;
+    }
+    //print($sql_query);
+    // End change settings (laldana@caribedev)
+    try {
+      require_once("DBCreds.php");
+      $DBCreds = new DBCreds();
+      $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
+      $mysqli->set_charset('utf8');
+      if ($select = $mysqli->prepare($sql_query)) {
+
+        if ($select->bind_param("siss", $klas, $schoolid, $_SESSION['SchoolJaar'], $datum)) {
+          if ($select->execute()) {
+            $result = 1;
+
+            $select->bind_result($studentid, $verzuimid, $_klas, $lastname, $firstname, $sex, $telaat, $absent, $toetsinhalen, $uitsturen, $huiswerk, $lp, $opmerking, $p1, $p2, $p3, $p4, $p5, $p6, $p7, $p8, $p9, $p10);
+
+            $select->store_result();
+
+            if ($select->num_rows > 0) {
+              $htmlcontrol .= "<div class='col-md-12'>";
+              $htmlcontrol .= "<div style='font-size: 14px;'><span><b>L</b> = Laat   |</span>";
+              $htmlcontrol .= "<span><b>   A</b> = Afwezig   |</span>";
+              $htmlcontrol .= "<span><b>   X</b> = Afspraak extern en komt terug op school   |</span>";
+              $htmlcontrol .= "<span><b>   S</b> = Spijbelen</span><br></br>";
+              $htmlcontrol .= "<span><b>M</b> = Met toestemming naar huis   |</span>";
+              $htmlcontrol .= "<span><b>   U</b> = Uitgestuurd   |</span>";
+              $htmlcontrol .= "<span><b>   T</b> = Time-out(schorsing)</span></div>";
+              $htmlcontrol .= "<b>Datum: </b><label>" . $datum . "      </label><b>       Klas: </b><label>" . $klas . "</label>";
+
+
+              $htmlcontrol .= "<table class=\"table table-bordered table-colored table-houding\" data-table=\"no\">";
+              $htmlcontrol .= "<thead>";
+              $htmlcontrol .= "<tr class=\"text-align-center\"><th class=\"btn-m-w\">Naam</th>";
+              require_once("spn_utils.php");
+              $u = new spn_utils();
+              $date = $u->convertfrommysqldate_new($datum);
+              $select1 = $this->klasenboek_vak($schoolid, $klas, $date, 1);
+              if ($select1 != null && $select1 != "") {
+                $htmlcontrol .= $select1;
+              } else {
+                $htmlcontrol .= "<th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th>Dag</th>";
+              }
+              $disabled = $this->klasenboek_vak_array($schoolid, $klas, $date);
+              $htmlcontrol .= "</tr>";
+              $htmlcontrol .= "</thead>";
+              $htmlcontrol .= "<tbody>";
+              $x = 1;
+              $xx = 1;
+              while ($select->fetch()) {
+                $htmlcontrol .= "<tr data-student-id=\"$studentid\" data-klas=\"$_klas\"  data-datum=\"$datum\"><td>" . $lastname  . ', ' . $firstname . "</td>";
+
+                $htmlcontrol .= "<td>" . ($p1 == 0 ? "" : $p1) . "</td>";
+
+                $htmlcontrol .= "<td>" . ($p2 == 0 ? "" : $p2) . "</td>";
+
+                $htmlcontrol .= "<td>" . ($p3 == 0 ? "" : $p3) . "</td>";
+
+                $htmlcontrol .= "<td>" . ($p4 == 0 ? "" : $p4) . "</td>";
+
+                $htmlcontrol .= "<td>" . ($p5 == 0 ? "" : $p5) . "</td>";
+
+                $htmlcontrol .= "<td>" . ($p6 == 0 ? "" : $p6) . "</td>";
+
+                $htmlcontrol .= "<td>" . ($p7 == 0 ? "" : $p7) . "</td>";
+
+                $htmlcontrol .= "<td>" . ($p8 == 0 ? "" : $p8) . "</td>";
+
+                $htmlcontrol .= "<td>" . ($p9 == 0 ? "" : $p9) . "</td>";
+
+                $htmlcontrol .= "<td>" . ($p10 == 0 ? "" : $p10) . "</td>";
+                $x++;
+                $xx++;
+              }
+
+              $htmlcontrol .= "</tbody>";
+              $htmlcontrol .= "</table>";
+
+              $htmlcontrol .= "</div>";
+            } else {
+              //$htmlcontrol = "INSERT INTO le_verzuim_hs SELECT (select max(id) +1 as next_ from le_verzuim_hs),id,now(),now(),'" . $_SESSION['SchoolJaar'] . "','" . $klas . "','" .  $datum . "', 0,'','','SPN',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 from students where schoolid =" . $schoolid . " and class = '" . $klas . "'";             
+              $htmlcontrol .= "No results to show";
+            }
+          } else {
+            /* error executing query */
+            $this->errormessage = $mysqli->error;
+            $result = 0;
+
+            if ($this->debug) {
+              print "error executing query" . "<br />";
+              print "error" . $mysqli->error;
+            }
+          }
+        } else {
+          /* error binding parameters */
+          $result = 0;
+
+          if ($this->debug) {
+            print "error binding parameters";
+          }
+        }
+      } else {
+        /* error preparing query */
+        $this->errormessage = $mysqli->error;
+        $result = 0;
+
+        if ($this->debug) {
+          print "error preparing query";
+        }
+      }
+
+      $returnvalue = $htmlcontrol;
+      return $returnvalue;
+    } catch (Exception $e) {
+      $this->errormessage = $e->getMessage();
+      $result = 0;
+
+      if ($this->debug) {
+        print "exception: " . $e->getMessage();
+      }
+    }
+
+    return $returnvalue;
+  }
+
+  function klasenboek_vak($schoolID, $klas, $datum, $type)
   {
     $html1 = "";
     $html2 = "";
@@ -1281,16 +1449,16 @@ class spn_verzuim
     $html8 = "";
     $html9 = "";
     $html10 = "";
-    $p1 = 0;
-    $p2 = 0;
-    $p3 = 0;
-    $p4 = 0;
-    $p5 = 0;
-    $p6 = 0;
-    $p7 = 0;
-    $p8 = 0;
-    $p9 = 0;
-    $p10 = 0;
+    $p1 = '';
+    $p2 = '';
+    $p3 = '';
+    $p4 = '';
+    $p5 = '';
+    $p6 = '';
+    $p7 = '';
+    $p8 = '';
+    $p9 = '';
+    $p10 = '';
     require_once("DBCreds.php");
     $DBCreds = new DBCreds();
     date_default_timezone_set("America/Aruba");
@@ -1324,7 +1492,11 @@ class spn_verzuim
 
     for ($i = 1; $i <= 10; $i++) {
       $html = "html" . $i;
-      $$html .= '<th>';
+      if ($type == 0) {
+        $$html .= '<th>';
+      } else {
+        $$html .= '<th style="max-width: 20px;">';
+      }
       $x = 'p' . $i;
       $conf = "";
       foreach ($vaks as $vak) {
@@ -1342,16 +1514,16 @@ class spn_verzuim
 
   function klasenboek_vak_array($schoolID, $klas, $datum)
   {
-    $p1 = 0;
-    $p2 = 0;
-    $p3 = 0;
-    $p4 = 0;
-    $p5 = 0;
-    $p6 = 0;
-    $p7 = 0;
-    $p8 = 0;
-    $p9 = 0;
-    $p10 = 0;
+    $p1 = '';
+    $p2 = '';
+    $p3 = '';
+    $p4 = '';
+    $p5 = '';
+    $p6 = '';
+    $p7 = '';
+    $p8 = '';
+    $p9 = '';
+    $p10 = '';
     require_once("DBCreds.php");
     $DBCreds = new DBCreds();
     date_default_timezone_set("America/Aruba");

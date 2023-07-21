@@ -31,6 +31,17 @@ switch ($_GET['name']) {
             $print_table = $s->listverzuimprint($_SESSION["SchoolID"], $_GET["klas"], $_GET["datum"], "");
         }
         break;
+    case "verzuim_hs":
+        require_once("classes/spn_verzuim.php"); //CODE CaribeDevelopers
+        $s = new spn_verzuim();
+        if ($_SESSION["UserRights"] == "DOCENT" || $_SESSION["UserRights"] == "ASSISTENT") {
+            if (isset($_SESSION["Class"])) {
+                $print_table = $s->listverzuimprint_hs($_SESSION["SchoolID"], $_GET["klas"], $_GET["datum"]);
+            }
+        } else if ($_SESSION["UserRights"] == "BEHEER" || $_SESSION["UserRights"] == "ADMINISTRATIE" || $_SESSION["UserRights"] == "ONDERSTEUNING") {
+            $print_table = $s->listverzuimprint_hs($_SESSION["SchoolID"], $_GET["klas"], $_GET["datum"]);
+        }
+        break;
     case "leerling":
         require_once("classes/spn_leerling.php");
         $leerling_print = new spn_leerling();

@@ -471,7 +471,7 @@
         $("#btn_verzuim_print").click(function() {
             var datum = $("#datum").val(),
                 klas = $("#verzuim_klassen_lijst option:selected").val();
-            window.open("print.php?name=verzuim&title=Verzuim List&datum=" + datum + "&klas=" + klas);
+            window.open("print.php?name=verzuim_hs&title=Verzuim List&datum=" + datum + "&klas=" + klas);
             $(document).ready(function() {
                 $('[data-toggle="tooltip"]').tooltip();
             });

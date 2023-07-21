@@ -35,10 +35,11 @@ ob_flush();
 								<?php } ?>
 
 								<li><a href="document_klas.php">Documents Klas</a></li>
-								<li><a href="rapport_export.php">Verzamelstaten</a></li>
 								<?php if ($_SESSION['SchoolType'] == 2) { ?>
-									<li><a href="verza_hs.php">Verzamelstaten V2</a></li>
-								<? } ?>
+									<li><a href="verza_hs.php">Verzamelstaten</a></li>
+								<? } else { ?>
+									<li><a href="rapport_export.php">Verzamelstaten</a></li>
+								<?php } ?>
 
 								<?php if ($_SESSION['SchoolType'] == 1) : ?>
 									<li><a href="houding.php">Houding</a></li>
@@ -156,10 +157,11 @@ ob_flush();
 								<?php } else { ?>
 									<li><a href="cijfers.php">Cijfers</a></li>
 								<?php } ?> <li><a href="document_klas.php">Documents Klas</a></li>
-								<li><a href="rapport_export.php">Verzamelstaten</a></li>
 								<?php if ($_SESSION['SchoolType'] == 2) { ?>
-									<li><a href="verza_hs.php">Verzamelstaten V2</a></li>
-								<? } ?>
+									<li><a href="verza_hs.php">Verzamelstaten</a></li>
+								<? } else { ?>
+									<li><a href="rapport_export.php">Verzamelstaten</a></li>
+								<?php } ?>
 
 								<?php if ($_SESSION['SchoolType'] == 1) : ?>
 									<li><a href="houding.php">Houding</a></li>
@@ -242,10 +244,11 @@ ob_flush();
 
 								<?php endif; ?>
 								<!--<li><a href="document_klas.php">Documents Klas</a></li>-->
-								<li><a href="rapport_export.php">Verzamelstaten</a></li>
 								<?php if ($_SESSION['SchoolType'] == 2) { ?>
-									<li><a href="verza_hs.php">Verzamelstaten V2</a></li>
-								<? } ?>
+									<li><a href="verza_hs.php">Verzamelstaten</a></li>
+								<? } else { ?>
+									<li><a href="rapport_export.php">Verzamelstaten</a></li>
+								<?php } ?>
 
 
 								<?php if ($_SESSION['SchoolType'] == 1) : ?>
