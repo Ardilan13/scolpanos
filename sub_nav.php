@@ -47,7 +47,11 @@ ob_flush();
 									<li><a href="houding_hs.php">Houding</a></li>
 								<?php endif; ?>
 
-								<li><a href="opmerking.php">Opmerking</a></li>
+								<?php if ($_SESSION['SchoolType'] == 2) { ?>
+									<li><a href="bespreking.php">Rapport bespreking</a></li>
+								<? } else { ?>
+									<li><a href="opmerking.php">Opmerking</a></li>
+								<?php } ?>
 
 								<?php if ($_SESSION['SchoolType'] == 1) : ?>
 									<li><a href="ttr.php">TTR</a></li>
@@ -169,7 +173,11 @@ ob_flush();
 									<li><a href="houding_hs.php">Houding</a></li>
 								<?php endif; ?>
 
-								<li><a href="opmerking.php">Opmerking</a></li>
+								<?php if ($_SESSION['SchoolType'] == 2) { ?>
+									<li><a href="bespreking.php">Rapport bespreking</a></li>
+								<? } else { ?>
+									<li><a href="opmerking.php">Opmerking</a></li>
+								<?php } ?>
 
 								<?php if ($_SESSION['SchoolType'] == 1) : ?>
 									<li><a href="ttr.php">TTR</a></li>
@@ -256,7 +264,11 @@ ob_flush();
 								<?php else : ?>
 									<li><a href="houding_hs.php">Houding</a></li>
 								<?php endif; ?>
-								<li><a href="opmerking.php">Opmerking</a></li>
+								<?php if ($_SESSION['SchoolType'] == 2) { ?>
+									<li><a href="bespreking.php">Rapport bespreking</a></li>
+								<? } else { ?>
+									<li><a href="opmerking.php">Opmerking</a></li>
+								<?php } ?>
 								<li><a href="ttr.php">TTR</a></li>
 								<li><a href="verzuim_hs.php">Klassenboek</a></li>
 								<!-- <li><a href="verzuim.php">Verzuim</a></li>-->
