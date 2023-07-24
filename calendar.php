@@ -61,9 +61,9 @@
 
 											<fieldset>
 												<input type="hidden" id="id_calendar" name="id_calendar" value="0">
+												<input type="hidden" id="calendar_config" name="calendar_config" value="||true|">
 												<input type="hidden" id="schoolid" name="schoolid" value="<?php echo $_SESSION['SchoolID']; ?>">
 												<input type="hidden" id="schooljaar" name="schooljaar" value="<?php echo $_SESSION['SchoolJaar']; ?>">
-												<input type="hidden" id="calendar_config" name="calendar_config" value="||true|">
 												<div id="lblDocent" class="form-group">
 													<label class="col-md-4 control-label" for="">Docent</label>
 													<div class="dataDocentOnLoad" data-ajax-href="ajax/getlistdocent.php"></div>
@@ -109,15 +109,16 @@
 													</div>
 												</div>
 												<!-- <div class="form-group">
-													<label class="col-md-4 control-label">Bestand</label>
-													<div class="col-md-8">
-														<input class="form-control" type="file" name="fileToUpload" id="fileToUpload">
-													</div>
-												</div> -->
+                                                            <label class="col-md-4 control-label">Bestand</label>
+                                                            <div class="col-md-8">
+                                                                <input class="form-control" type="file" name="fileToUpload" id="fileToUpload">
+                                                            </div>
+                                                        </div> -->
 												<!-- Observations -->
 
 												<div class="form-group full-inset">
-													<button type="submit" class="btn btn-primary btn-m-w pull-right mrg-left" id="btn-add-calendar">Save</button>
+													<button style="display: none;" class="btn btn-danger btn-m" id="btn-clear-calendar">Delete</button>
+													<button type="submit" class="btn btn-primary btn-m pull-right mrg-left" id="btn-add-calendar">Save</button>
 												</div>
 											</fieldset>
 										</form>
@@ -136,6 +137,21 @@
 <script type="text/javascript" src="assets/js/calendar.js"></script>
 <script type="text/javascript" src="assets/js/app_calendar.js"></script>
 <script type="text/javascript">
+	function update_calendar(id, name, klas, vak, type, extra, date) {
+		$('#id_calendar').val(id);
+		$('#calendar_date').val(date);
+		$('#cijfers_klassen_lijst').val(klas);
+		$('#calendar_subject').val(type);
+		$('#calendar_observation').val(extra);
+		$('#btn-add-calendar').html('Update');
+		$('#btn-clear-calendar').show();
+	}
+
+	$('#btn-clear-calendar').click(function(e) {
+		e.preventDefault();
+		delete_calendar($('#id_calendar').val());
+	});
+
 	function delete_calendar(id) {
 		var result = confirm("Want to delete event calendar?");
 		if (result) {
@@ -147,6 +163,13 @@
 			} else if (request.responseText === '2') {
 				alert("You don't have permissions to do this");
 			}
+			$('#id_calendar').val(0);
+			$('#calendar_date').val('');
+			$('#cijfers_klassen_lijst').val('');
+			$('#calendar_subject').val('');
+			$('#calendar_observation').val('');
+			$('#btn-add-calendar').html('Save');
+			$('#btn-clear-calendar').hide();
 		}
 	}
 </script>

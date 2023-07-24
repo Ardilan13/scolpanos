@@ -102,6 +102,88 @@ class spn_calendar
     return $returnvalue;
   }
 
+  function update_calendar($docent, $class, $date_calendar, $subject_calendar, $observations)
+  {
+    require_once("spn_utils.php");
+    $sql_query = "";
+    $htmlcontrol = "";
+    $result = 0;
+    $dummy = 0;
+    require_once("DBCreds.php");
+    $DBCreds = new DBCreds();
+    date_default_timezone_set("America/Aruba");
+    $_DateTime = date("Y-m-d H:i:s");
+    $status = 1;
+    mysqli_report(MYSQLI_REPORT_STRICT);
+
+    try {
+      require_once("DBCreds.php");
+      $DBCreds = new DBCreds();
+
+      $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
+
+      $update = "UPDATE calendar SET class = '$class', date = '$date_calendar', subject = '$subject_calendar', observations = '$observations' WHERE id_calendar = " . $_POST['id_calendar'];
+      $result = mysqli_query($mysqli, $update);
+      if ($result) {
+        $this->error = false;
+        $returnvalue = 1;
+      }
+    } catch (Exception $e) {
+      $this->error = true;
+      $this->errormessage = $e->getMessage();
+      $result = 0;
+
+      if ($this->debug) {
+        print "exception: " . $e->getMessage();
+      }
+    }
+
+    return $returnvalue;
+  }
+
+  function get_exams($class, $date_calendar, $subject_calendar, $schoolID)
+  {
+    require_once("spn_utils.php");
+    $result = 0;
+    if ($subject_calendar == 'Exam') {
+      $exam = 2;
+    } else if ($subject_calendar == 'Test') {
+      $exam = 1;
+    }
+    require_once("DBCreds.php");
+    $DBCreds = new DBCreds();
+    date_default_timezone_set("America/Aruba");
+    mysqli_report(MYSQLI_REPORT_STRICT);
+
+    try {
+      require_once("DBCreds.php");
+      $DBCreds = new DBCreds();
+
+      $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
+
+      $select = "SELECT subject FROM calendar WHERE class = '$class' AND date = '$date_calendar' AND SchoolID = '$schoolID'";
+      $result = mysqli_query($mysqli, $select);
+      while ($row = mysqli_fetch_array($result)) {
+        if ($row['subject'] == 'Exam') {
+          $exam = $exam + 2;
+        } else if ($row['subject'] == 'Test') {
+          $exam = $exam + 1;
+        }
+      }
+      $returnvalue = $exam;
+    } catch (Exception $e) {
+      $this->error = true;
+      $this->errormessage = $e->getMessage();
+      $result = 0;
+
+      if ($this->debug) {
+        print "exception: " . $e->getMessage();
+      }
+    }
+
+    return $returnvalue;
+  }
+
   function delete_calendar($id_calendar, $dummy)
   {
     $result = 0;
@@ -339,7 +421,7 @@ class spn_calendar
                       $json_result .= "\"title\": \"" . $DocentLastName . " >>" . " Klas: " . $class . " >> " . $subjet . " : " . preg_replace("/\r|\n/", "", $observations)  . "\",";
                     }
 
-                    $json_result .= "\"url\": \"javascript:update_calendar(" . $idcalendar . "," . $DocentLastName . "," .  $class . "," . $volledigenaamvak . "," . $subjet . "," . $observations . ");\",";
+                    $json_result .= "\"url\": \"javascript:update_calendar(" . $idcalendar . ",'" . $DocentLastName . "','" .  $class . "','" . $volledigenaamvak . "','" . $subjet . "','" . $observations . "','" . $date . "');\",";
                     /*                     $json_result .= "\"url\": \"javascript:delete_calendar(" . $idcalendar . ");\",";*/
                     switch ($subjet) {
                       case 'Homework':

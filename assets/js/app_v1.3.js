@@ -2469,13 +2469,59 @@ vak.append($("<option />").val(this.id).text(this.vak));
                 $formAddCalendar.find(".alert-error").removeClass("hidden");
                 $formAddCalendar.find(".alert-info").addClass("hidden");
                 $formAddCalendar.find(".alert-warning").addClass("hidden");
+              } else if (text == "exams") {
+                alert(
+                  "You can only create 2 toets proferk or 4 overhoring per day per class!"
+                );
               } else {
                 alert("Calendar added successfully!");
+                console.log(text);
                 $("#id_calendar").val("0");
                 // Clear all object of form
                 $("input[type=text]").each(function () {
                   $(this).val("");
                 });
+                $("#calendar_observation").val("");
+                $formAddCalendar.find(".alert-error").addClass("hidden");
+                $formAddCalendar.find(".alert-info").addClass("hidden");
+                $formAddCalendar.find(".alert-warning").addClass("hidden");
+                location.reload();
+              }
+            },
+            error: function (xhr, status, errorThrown) {
+              console.log("error");
+            },
+            complete: function (xhr, status) {
+              $("html, body").animate({ scrollTop: 0 }, "fast");
+              return false;
+            },
+          });
+        } else {
+          $.ajax({
+            url: "ajax/update_calendar.php",
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: new FormData(this),
+            type: "POST",
+            success: function (text) {
+              if (text.trim() == "0") {
+                $formAddCalendar.find(".alert-error").removeClass("hidden");
+                $formAddCalendar.find(".alert-info").addClass("hidden");
+                $formAddCalendar.find(".alert-warning").addClass("hidden");
+              } else if (text == "exams") {
+                alert(
+                  "You can only create 2 toets proferk or 4 overhoring per day per class!"
+                );
+              } else {
+                alert("Calendar updated successfully!");
+                $("#id_calendar").val("0");
+                // Clear all object of form
+                $("input[type=text]").each(function () {
+                  $(this).val("");
+                });
+                console.log(text);
+                $("#btn-clear-calendar").click();
                 $("#calendar_observation").val("");
                 $formAddCalendar.find(".alert-error").addClass("hidden");
                 $formAddCalendar.find(".alert-info").addClass("hidden");

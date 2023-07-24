@@ -1,7 +1,6 @@
 <?php include 'document_start.php'; ?>
 
 <?php include 'sub_nav.php'; ?>
-
 <div class="push-content-220">
     <main id="main" role="main" class="home">
         <?php include 'header.php'; ?>
@@ -102,6 +101,12 @@
                                     <div style="background:#ffffff;color:#000000;text-decoration:none;">
                                         <div id="calendar"></div>
                                         <script type="text/javascript" src="assets/js/calendar.js"></script>
+                                        <div style="background:#ffffff;color:#000000;text-decoration:none; margin: 10px 20px; display: flex; justify-content: space-evenly;">
+                                            <label><a class="pull-left event event-info"></a> Huiswerk</label>
+                                            <label><a class="pull-left event event-success"></a> Overhoring</label>
+                                            <label><a class="pull-left event event-warning"></a> Toets Proefwerk</label>
+                                            <label><a class="pull-left event event-special"></a> Anders</label>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -189,7 +194,8 @@
                                                         <!-- Observations -->
 
                                                         <div class="form-group full-inset">
-                                                            <button type="submit" class="btn btn-primary btn-m-w pull-right mrg-left" id="btn-add-calendar">Save</button>
+                                                            <button style="display: none;" class="btn btn-danger btn-m" id="btn-clear-calendar">Delete</button>
+                                                            <button type="submit" class="btn btn-primary btn-m pull-right mrg-left" id="btn-add-calendar">Save</button>
                                                         </div>
                                                     </fieldset>
                                                 </form>
@@ -241,9 +247,21 @@
         uit = 'Spijbelen';
     }
 
-    function update_calendar(id,name,klas,vak,type,extra){
-        
+    function update_calendar(id, name, klas, vak, type, extra, date) {
+        $('#id_calendar').val(id);
+        $('#calendar_date').val(date);
+        $('#cijfers_klassen_lijst').val(klas);
+        $('#calendar_subject').val(type);
+        $('#calendar_observation').val(extra);
+        $('#btn-add-calendar').html('Update');
+        $('#btn-clear-calendar').show();
     }
+
+    $('#btn-clear-calendar').click(function(e) {
+        e.preventDefault();
+        delete_calendar($('#id_calendar').val());
+    });
+
     function delete_calendar(id) {
         var result = confirm("Want to delete event calendar?");
         if (result) {
@@ -255,6 +273,13 @@
             } else if (request.responseText === '2') {
                 alert("You don't have permissions to do this");
             }
+            $('#id_calendar').val(0);
+            $('#calendar_date').val('');
+            $('#cijfers_klassen_lijst').val('');
+            $('#calendar_subject').val('');
+            $('#calendar_observation').val('');
+            $('#btn-add-calendar').html('Save');
+            $('#btn-clear-calendar').hide();
         }
     }
     $(function() {
