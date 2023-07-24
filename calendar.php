@@ -97,8 +97,8 @@
 															<option selected value="Homework">Huiswerk
 															</option>
 															<option selected value="Test">Overhoring</option>
-															<option selected value="Exam">Proefwerk</option>
-															<option selected value="Other">Other</option>
+															<option selected value="Exam">Toets Proefwerk</option>
+															<option selected value="Other">Anders</option>
 														</select>
 													</div>
 												</div>
@@ -108,12 +108,12 @@
 														<textarea id="calendar_observation" class="form-control" name="calendar_observation" type="text" placeholder="Enter observation here..."></textarea>
 													</div>
 												</div>
-												<div class="form-group">
+												<!-- <div class="form-group">
 													<label class="col-md-4 control-label">Bestand</label>
 													<div class="col-md-8">
 														<input class="form-control" type="file" name="fileToUpload" id="fileToUpload">
 													</div>
-												</div>
+												</div> -->
 												<!-- Observations -->
 
 												<div class="form-group full-inset">

@@ -11,6 +11,17 @@ $s->getsetting_info($_SESSION["SchoolID"], false);
 $DBCreds = new DBCreds();
 $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort, $dummy);
 
+/* $id = 552839;
+$klas = ["3A", "3B", "3C", "3D"];
+for ($i = 12; $i <= 13; $i++) {
+    foreach ($klas as $k) {
+        $update = "INSERT INTO le_vakken (ID,SchoolID,Klas,volledigenaamvak,volgorde,complete_name) VALUES ($id,$i,'$k','CKV',20,'CKV');";
+        echo $update . "<br>";
+        $mysqli->query($update);
+        $id++;
+    }
+} */
+
 
 /* $klas = ["1A", "1B", "1C", "1D", "2A", "2B", "2C", "2D"];
 $scol = 12;
