@@ -348,15 +348,6 @@ while ($i <= $rap_in) {
                     case 'rk':
                         $returnvalue = 'O';
                         break;
-
-                    case 'mu':
-                        $mu = $row["gemiddelde"];
-                        break;
-
-                    case 'bv':
-                        $bv = $row["gemiddelde"];
-                        break;
-
                     default:
                         $returnvalue = "XX";
                         $houding = "XZ";
@@ -422,14 +413,6 @@ while ($i <= $rap_in) {
 
                     case 'gs':
                         $returnvalue = 'M';
-                        break;
-
-                    case 'mu':
-                        $mu = $row["gemiddelde"];
-                        break;
-
-                    case 'bv':
-                        $bv = $row["gemiddelde"];
                         break;
 
                     default:
