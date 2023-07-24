@@ -14,6 +14,46 @@
 							<h1 class="primary-color">Calendar</h1>
 							<?php include 'breadcrumb.php'; ?>
 						</div>
+						<?php if ($_SESSION["SchoolType"] == 2) { ?>
+							<div class="default-secondary-bg-color col-md-12 full-inset filter-bar brd-bottom clearfix">
+								<form id="form_opmerking" class="form-inline form-data-retriever" name="form_opmerking" role="form">
+									<fieldset>
+										<div class="form-group">
+											<label>Start Datum</label>
+											<div class="input-group date col-md-1">
+												<input type="text" id="start_date" name="start_date" calendar="full" class="form-control input-sm calendar" required autocomplete="off">
+												<span class="input-group-addon">
+													<i class="fa fa-calendar"></i>
+												</span>
+											</div>
+										</div>
+										<div class="form-group">
+											<label>End Datum</label>
+											<div class="input-group date col-md-1">
+												<input type="text" id="end_date" name="end_date" calendar="full" class="form-control input-sm calendar" required autocomplete="off">
+												<span class="input-group-addon">
+													<i class="fa fa-calendar"></i>
+												</span>
+											</div>
+										</div>
+										<div class="form-group">
+											<button id="btn_bespreking" class="btn btn-primary btn-m-w btn-m-h">zoeken</button>
+										</div>
+									</fieldset>
+								</form>
+							</div>
+						<?php } ?>
+					</div>
+					<div class="row">
+						<div class="col-md-12 full-inset">
+							<div class="sixth-bg-color brd-full">
+								<div class="box box_form">
+									<div class="box-content full-inset">
+										<div id="table" class="data-display"></div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 					<!-- DESDE AQUI EL CODIGO DE CARIBEDEVELOPERS ==== DESDE AQUI EL CODIGO DE CARIBEDEVELOPERS-->
 					<div class="row">
@@ -151,6 +191,23 @@
 		e.preventDefault();
 		delete_calendar($('#id_calendar').val());
 	});
+
+	$("#btn_bespreking").click(function(e) {
+		e.preventDefault()
+
+		$.ajax({
+			url: "ajax/get_calendar.php",
+			data: $('#form_opmerking').serialize(),
+			type: "POST",
+			dataType: "text",
+			success: function(text) {
+				$("#table").html(text);
+			},
+			error: function(xhr, status, errorThrown) {
+				alert("error");
+			},
+		});
+	})
 
 	function delete_calendar(id) {
 		var result = confirm("Want to delete event calendar?");
