@@ -34,7 +34,7 @@ if (isset($_SESSION["UserRights"]) && isset($_SESSION["SchoolID"]) && isset($_PO
 
 	if ($_SESSION["UserRights"] == "DOCENT" || $_SESSION["UserRights"] == "TEACHER"  || $_SESSION["UserRights"] == "ASSISTENT") {
 		if (isset($_SESSION["Class"])) {
-			$spn_audit->create_audit($UserGUID, 'cijfers', 'update cijfer  id:' . $_POST["id_cijfer"] . ' cijfer:' . $_POST['cijfervalue'], appconfig::GetDummy());
+			$spn_audit->create_audit($UserGUID, 'cijfers', 'update cijfer:' . $_POST["id_cijfer"] . ' -' . $_POST['cijfervalue'] . ' extra:' . $_POST['extra_info'], appconfig::GetDummy());
 
 			$s = new spn_cijfers();
 			//function savecijfer($schoolid,$studentid_in,$cijfer_number_in,$cijfer_value_in,$klas_in,$rap_in,$vak_in)
@@ -42,7 +42,7 @@ if (isset($_SESSION["UserRights"]) && isset($_SESSION["SchoolID"]) && isset($_PO
 			//	print $s->mysqlierror;
 		}
 	} else if ($_SESSION["UserRights"] == "BEHEER" || $_SESSION["UserRights"] == "ADMINISTRATIE" || $_SESSION["UserRights"] == "ONDERSTEUNING") {
-		$spn_audit->create_audit($UserGUID, 'cijfers', 'update cijfer  id:' . $_POST["id_cijfer"] . ' cijfer:' . $_POST['cijfervalue'], appconfig::GetDummy());
+		$spn_audit->create_audit($UserGUID, 'cijfers', 'update cijfer:' . $_POST["id_cijfer"] . ' -' . $_POST['cijfervalue'] . ' extra:' . $_POST['extra_info'], appconfig::GetDummy());
 
 		$s = new spn_cijfers();
 		//function savecijfer($schoolid,$studentid_in,$cijfer_number_in,$cijfer_value_in,$klas_in,$rap_in,$vak_in)

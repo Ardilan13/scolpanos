@@ -93,7 +93,13 @@
 							</div>
 						</div>
 						<a type="submit" name="btn_cijfers_print" id="btn_cijfers_print" class="btn btn-default btn-m-w pull-right mrg-left" target="_blank">PRINT</a>
-						<?php if ($_SESSION["UserRights"] != "ASSISTENT") { ?>
+						<?php if ($_SESSION["UserRights"] != "ASSISTENT") {
+							if ($_SESSION["SchoolType"] == 2) { ?>
+								<div style="padding-left: 15px;" class="form-group pull-left pd-15">
+									<label>Informatie:</label>
+									<input style="padding: 5px; width: 300px;" name="extra" id="extra_info"></input>
+								</div>
+							<?php } ?>
 							<button id="btn_extra_save_cijfer" name="btn_extra_save_cijfer" class="btn btn-success btn-m-w btn-m-h pull-right"></button>
 						<?php } ?>
 					</div>
