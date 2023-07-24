@@ -241,6 +241,9 @@
         uit = 'Spijbelen';
     }
 
+    function update_calendar(id,name,klas,vak,type,extra){
+        
+    }
     function delete_calendar(id) {
         var result = confirm("Want to delete event calendar?");
         if (result) {

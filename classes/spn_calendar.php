@@ -339,7 +339,8 @@ class spn_calendar
                       $json_result .= "\"title\": \"" . $DocentLastName . " >>" . " Klas: " . $class . " >> " . $subjet . " : " . preg_replace("/\r|\n/", "", $observations)  . "\",";
                     }
 
-                    $json_result .= "\"url\": \"javascript:delete_calendar(" . $idcalendar . ");\",";
+                    $json_result .= "\"url\": \"javascript:update_calendar(" . $idcalendar . "," . $DocentLastName . "," .  $class . "," . $volledigenaamvak . "," . $subjet . "," . $observations . ");\",";
+                    /*                     $json_result .= "\"url\": \"javascript:delete_calendar(" . $idcalendar . ");\",";*/
                     switch ($subjet) {
                       case 'Homework':
                         $json_result .= "\"class\": \"event-info\",";
