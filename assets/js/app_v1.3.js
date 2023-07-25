@@ -6058,7 +6058,7 @@ vak.append($("<option />").val(this.id).text(this.vak));
       i_extra_cijfer_array++;
     }
   }
-  function extra_save_in_bd_cijfer_sessionStorage(info) {
+  function extra_save_in_bd_cijfer_sessionStorage() {
     $("#loader_spn").toggleClass("hidden");
     var extra_ss_cijfers_data = JSON.parse(
       sessionStorage.getItem("extra_ss_cijfer")
@@ -6080,7 +6080,6 @@ vak.append($("<option />").val(this.id).text(this.vak));
           var $rapport = extra_ss_cijfers_data[i][5];
           var $vak = extra_ss_cijfers_data[i][6];
           var $cell_cijfer = extra_ss_cijfers_data[i][7];
-          var $extra_info = info;
 
           cell_extra_saved.push($cell_cijfer);
           //extra_ss_cijfers_data.splice([i], 1);
@@ -6102,9 +6101,7 @@ vak.append($("<option />").val(this.id).text(this.vak));
               "&rapport=" +
               $rapport +
               "&vak=" +
-              $vak +
-              "&extra_info=" +
-              $extra_info,
+              $vak,
             type: "POST",
             dataType: "HTML",
             cache: false,
@@ -6171,20 +6168,15 @@ vak.append($("<option />").val(this.id).text(this.vak));
   }
   $("#btn_extra_save_cijfer").click(function (e) {
     e.preventDefault();
-    var info = $("#extra_info").val();
-    if (info != "" && info != null) {
-      var check_ss = JSON.parse(sessionStorage.getItem("extra_ss_cijfer"));
-      if (check_ss == null) {
-        alert("Sorry, you do not have data to save in the System");
-      } else {
-        //set time out to show loader_spn, without setTimeout, this loader not work in google chrome
-        setTimeout(function () {
-          extra_save_in_bd_cijfer_sessionStorage(info);
-        }, 500);
-        $("#loader_spn").toggleClass("hidden");
-      }
+    var check_ss = JSON.parse(sessionStorage.getItem("extra_ss_cijfer"));
+    if (check_ss == null) {
+      alert("Sorry, you do not have data to save in the System");
     } else {
-      alert("Must fill in the information.");
+      //set time out to show loader_spn, without setTimeout, this loader not work in google chrome
+      setTimeout(function () {
+        extra_save_in_bd_cijfer_sessionStorage();
+      }, 500);
+      $("#loader_spn").toggleClass("hidden");
     }
   });
 
