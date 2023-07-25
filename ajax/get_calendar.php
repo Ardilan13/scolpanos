@@ -14,6 +14,8 @@ $end = $utils->convertfrommysqldate_new($end);
 $schoolid = $_SESSION["SchoolID"];
 $i = 1;
 ?>
+<link href="https://cdn.datatables.net/v/dt/dt-1.13.5/datatables.min.css" rel="stylesheet">
+<script src="https://cdn.datatables.net/v/dt/dt-1.13.5/datatables.min.js"></script>
 <style>
     .opmerking {
         width: 50%;
@@ -79,3 +81,14 @@ $i = 1;
         } ?>
     </tbody>
 </table>
+<script>
+    $(document).ready(function() {
+        $('.table-houding').DataTable({
+            "searching": false,
+            "info": false,
+            "language": {
+                "emptyTable": "No data found"
+            }
+        });
+    });
+</script>

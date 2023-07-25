@@ -182,6 +182,8 @@
 		} ?> <!-- PLEASE CAREFULLY WIH THIS "}" THAT CLOSE SECURITY  ELSE IF -->
 <script type="text/javascript" src="assets/js/calendar.js"></script>
 <script type="text/javascript" src="assets/js/app_calendar.js"></script>
+<script src="https://cdn.datatables.net/v/dt/dt-1.13.5/datatables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.js"></script>
 <script type="text/javascript">
 	function update_calendar(id, name, klas, vak, type, extra, date) {
 		$('#id_calendar').val(id);

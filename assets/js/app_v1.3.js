@@ -2521,7 +2521,6 @@ vak.append($("<option />").val(this.id).text(this.vak));
                   $(this).val("");
                 });
                 console.log(text);
-                $("#btn-clear-calendar").click();
                 $("#calendar_observation").val("");
                 $formAddCalendar.find(".alert-error").addClass("hidden");
                 $formAddCalendar.find(".alert-info").addClass("hidden");

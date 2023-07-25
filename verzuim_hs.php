@@ -199,6 +199,12 @@
                                     <div style="background:#ffffff;color:#000000;text-decoration:none;">
                                         <div id="calendar"></div>
                                         <script type="text/javascript" src="assets/js/app_calendar.js"></script>
+                                        <div style="background:#ffffff;color:#000000;text-decoration:none; margin: 10px 20px; display: flex; justify-content: space-evenly;">
+                                            <label><a class="pull-left event event-info"></a> Huiswerk</label>
+                                            <label><a class="pull-left event event-success"></a> Overhoring</label>
+                                            <label><a class="pull-left event event-warning"></a> Toets Proefwerk</label>
+                                            <label><a class="pull-left event event-special"></a> Anders</label>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -213,19 +219,16 @@
                                             <div class="sixth-bg-color box content full-inset">
                                                 <form class="form-horizontal align-left" role="form" name="form-add-calendar" id="form-add-calendar">
                                                     <div class="alert alert-danger hidden">
-                                                        <p><i class="fa fa-warning"></i> Er zijn lege velden die
-                                                            ingevuld moet worden!</p>
+                                                        <p><i class="fa fa-warning"></i> Er zijn lege velden die ingevuld moet worden!</p>
                                                     </div>
                                                     <div class="alert alert-info hidden">
                                                         <p><i class="fa fa-check"></i> Uw bericht is verzonden!</p>
                                                     </div>
                                                     <div class="alert alert-error hidden">
-                                                        <p><i class="fa fa-warning"></i> Excuseer me, was er een
-                                                            fout in het verzenden van berichten!</p>
+                                                        <p><i class="fa fa-warning"></i> Excuseer me, was er een fout in het verzenden van berichten!</p>
                                                     </div>
                                                     <div class="alert alert-error-bad-charecter hidden">
-                                                        <p><i class="fa fa-warning"></i> The text has characters
-                                                            that are not accepted, remove these characters</p>
+                                                        <p><i class="fa fa-warning"></i> The text has characters that are not accepted, remove these characters</p>
                                                     </div>
 
 
@@ -241,7 +244,6 @@
                                                                 <div id="data_docent"></div>
                                                             </div>
                                                         </div>
-
                                                         <div id="lblKlassen" class="form-group">
                                                             <label class="col-md-4 control-label" for="">Klas</label>
                                                             <div class="dataKlassenOnLoad" data-ajax-href="ajax/getlistklassen.php"></div>
@@ -250,19 +252,6 @@
                                                                 </select>
                                                             </div>
                                                         </div>
-
-                                                        <div class="form-group" id='div_vak'>
-                                                            <label class="col-md-4 control-label" for="">Vak</label>
-                                                            <div class="col-md-8">
-
-                                                                <select class="form-control" name="verzuim_vakken_lijst" id="verzuim_vakken_lijst">
-                                                                </select>
-
-                                                                <input class='hidden' id='verzuim_vakken_lijst_disabled' name='verzuim_vakken_lijst_disabled' value="">
-                                                            </div>
-                                                        </div>
-
-
                                                         <!-- datepicker -->
                                                         <div class="form-group">
                                                             <label class="col-md-4 control-label">Datum</label>
@@ -281,8 +270,8 @@
                                                                     <option selected value="Homework">Huiswerk
                                                                     </option>
                                                                     <option selected value="Test">Overhoring</option>
-                                                                    <option selected value="Exam">Proefwerk</option>
-                                                                    <option selected value="Other">Other</option>
+                                                                    <option selected value="Exam">Toets Proefwerk</option>
+                                                                    <option selected value="Other">Anders</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -292,16 +281,17 @@
                                                                 <textarea id="calendar_observation" class="form-control" name="calendar_observation" type="text" placeholder="Enter observation here..."></textarea>
                                                             </div>
                                                         </div>
-                                                        <div class="form-group">
+                                                        <!-- <div class="form-group">
                                                             <label class="col-md-4 control-label">Bestand</label>
                                                             <div class="col-md-8">
                                                                 <input class="form-control" type="file" name="fileToUpload" id="fileToUpload">
                                                             </div>
-                                                        </div>
+                                                        </div> -->
                                                         <!-- Observations -->
 
                                                         <div class="form-group full-inset">
-                                                            <button type="submit" class="btn btn-primary btn-m-w pull-right mrg-left" id="btn-add-calendar">Save</button>
+                                                            <button style="display: none;" class="btn btn-danger btn-m" id="btn-clear-calendar">Delete</button>
+                                                            <button type="submit" class="btn btn-primary btn-m pull-right mrg-left" id="btn-add-calendar">Save</button>
                                                         </div>
                                                     </fieldset>
                                                 </form>
@@ -432,18 +422,39 @@
 <script type="text/javascript" src="assets/js/app_calendar.js"></script>
 <!-- INICIO CODE CaribeDevelopers Delete Calendar -->
 <script type="text/javascript">
+    function update_calendar(id, name, klas, vak, type, extra, date) {
+        $('#id_calendar').val(id);
+        $('#calendar_date').val(date);
+        $('#cijfers_klassen_lijst').val(klas);
+        $('#calendar_subject').val(type);
+        $('#calendar_observation').val(extra);
+        $('#btn-add-calendar').html('Update');
+        $('#btn-clear-calendar').show();
+    }
+
+    $('#btn-clear-calendar').click(function(e) {
+        e.preventDefault();
+        delete_calendar($('#id_calendar').val());
+    });
+
     function delete_calendar(id) {
         var result = confirm("Want to delete event calendar?");
         if (result) {
             var request = new XMLHttpRequest();
             request.open('GET', 'ajax/delete_calendar.php?id_calendar=' + id, false);
             request.send();
-            location.reload();
-            if (request.responseText === 1) {
+            if (request.responseText === '1') {
                 location.reload();
             } else if (request.responseText === '2') {
                 alert("You don't have permissions to do this");
             }
+            $('#id_calendar').val(0);
+            $('#calendar_date').val('');
+            $('#cijfers_klassen_lijst').val('');
+            $('#calendar_subject').val('');
+            $('#calendar_observation').val('');
+            $('#btn-add-calendar').html('Save');
+            $('#btn-clear-calendar').hide();
         }
     }
 

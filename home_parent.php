@@ -248,6 +248,12 @@ ob_flush();
       </div>
       <div style="background:#ffffff;color:#000000;text-decoration:none;">
         <div id="calendar"></div>
+        <div style="background:#ffffff;color:#000000;text-decoration:none; margin: 10px 20px; display: flex; justify-content: space-evenly;">
+          <label><a class="pull-left event event-info"></a> Huiswerk</label>
+          <label><a class="pull-left event event-success"></a> Overhoring</label>
+          <label><a class="pull-left event event-warning"></a> Toets Proefwerk</label>
+          <label><a class="pull-left event event-special"></a> Anders</label>
+        </div>
       </div>
     </div>
     <div class="jumbotron white">
