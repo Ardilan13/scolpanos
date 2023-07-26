@@ -1165,7 +1165,7 @@ class spn_verzuim
               $htmlcontrol .= "<span><b>   T</b> = Time-out(schorsing)</span></div>";
 
 
-              $htmlcontrol .= "<table id=\"dataRequest-verzuim\" class=\"table table-bordered table-colored table-houding\" data-table=\"no\">";
+              $htmlcontrol .= "<table class=\"table table-bordered table-colored table-houding\" data-table=\"no\">";
               $htmlcontrol .= "<thead>";
               $htmlcontrol .= "<tr class=\"text-align-center\"> <th>ID</th><th class=\"btn-m-w\">Naam</th>";
               require_once("spn_utils.php");
