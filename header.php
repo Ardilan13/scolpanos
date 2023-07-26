@@ -13,13 +13,10 @@ $session_firstname = $a->GetSessionValue("FirstName");
 $session_lastname = $a->GetSessionValue("LastName");
 $session_title = $a->GetSessionValue("UserRights");
 
-if(!empty($session_firstname) && !empty($session_lastname) && !empty($session_title))
-{
+if (!empty($session_firstname) && !empty($session_lastname) && !empty($session_title)) {
 	$fullname = $session_firstname . chr(32) . $session_lastname;
 	$title = $session_title;
-}
-else
-{
+} else {
 	$fullname = "Scol Pa Nos User";
 	$title = "User";
 }
@@ -101,6 +98,9 @@ else
 								</div>
 							</div>
 						</li>
+						<?php if ($_SESSION['SchoolType'] == 2) { ?>
+							<li class="pull-right" style="font-weight: bold; color: white;"><?php echo $_SESSION['schoolname']; ?></li>
+						<?php } ?>
 					</ul>
 				</nav>
 			</div>

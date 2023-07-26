@@ -440,24 +440,28 @@ function get_info_by_schooljaar(schooljaar) {
       $("#dataRequest-cijfers_detail").html(data);
       $("#dataRequest-cijfers_detail").css("display", "block");
       if (anchoVentana < 601) {
+        $(".mobile").css("display", "none");
         $("input:radio[name=rapport]").click(function (e) {
           if ($("input:radio[name=rapport]:checked").val() == "1") {
             $(".1").show();
             $(".2").css("display", "none");
             $(".3").css("display", "none");
+            console.log("1");
           } else if ($("input:radio[name=rapport]:checked").val() == "2") {
             $(".1").css("display", "none");
             $(".2").show();
             $(".3").css("display", "none");
+            console.log("2");
           } else if ($("input:radio[name=rapport]:checked").val() == "3") {
             $(".1").css("display", "none");
             $(".2").css("display", "none");
             $(".3").show();
+            console.log("3");
           }
         });
-        /* contador = 1;
-        $("#tbl_cijfers_by_student tr").each(function () {
-          if (contador > 4) {
+        contador = 1;
+        /* $("#tbl_cijfers_by_student tr").each(function () {
+          if (contador > 6) {
             $(this).css("display", "none");
           }
           contador = contador + 1;
@@ -472,7 +476,7 @@ function get_info_by_schooljaar(schooljaar) {
           e.preventDefault();
           contador = 1;
           $("#tbl_cijfers_by_student tbody tr").each(function () {
-            if (contador > 3) {
+            if (contador > 6) {
               $(this).css("display", "none");
             }
             contador = contador + 1;

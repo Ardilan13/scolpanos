@@ -3308,7 +3308,7 @@ class spn_cijfers_mobile
               if ($stmt->num_rows > 0) {
                 $htmlcontrol .= "<div class=\"col-xs-11 table-responsive\">";
 
-                /* $htmlcontrol .= "<div class='radio_buttons'>";
+                $htmlcontrol .= "<div class='radio_buttons'>";
                 $htmlcontrol .= "<div>";
                 $htmlcontrol .= "<input type='radio' id='rapport_1' name='rapport' value='1'>";
                 $htmlcontrol .= "<label for='rapport_1'>R1</label>";
@@ -3324,21 +3324,20 @@ class spn_cijfers_mobile
                 $htmlcontrol .= "<label for='rapport_3'>R3</label>";
                 $htmlcontrol .= "</div>";
 
-                $htmlcontrol .= "</div>"; */
+                $htmlcontrol .= "</div>";
 
                 $htmlcontrol .= "<table id=\"tbl_cijfers_by_student\" class=\"table table-bordered table-colored\" data-table=\"yes\">";
 
-                $htmlcontrol .= "<thead><tr><th>Schooljaar</th><th>Klass</th><th>Rapport#</th><th>Vak</th><th>Chat</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>Gemiddeld</th></tr></thead>";
+                $htmlcontrol .= "<thead><tr><th class='mobile'>Schooljaar</th><th class='mobile'>Klass</th><th>Rapport#</th><th>Vak</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>Gem</th></tr></thead>";
                 $htmlcontrol .= "<tbody>";
 
                 while ($stmt->fetch()) {
-                  $htmlcontrol .= "<tr>";
-                  $htmlcontrol .= "<td>" . htmlentities($schooljaar) . "</td>";
-                  $htmlcontrol .= "<td>" . htmlentities($klas) . "</td>";
+                  $htmlcontrol .= "<tr  class=" . htmlentities($rapnummer) . " >";
+                  $htmlcontrol .= "<td class='mobile'>" . htmlentities($schooljaar) . "</td>";
+                  $htmlcontrol .= "<td class='mobile'>" . htmlentities($klas) . "</td>";
                   $htmlcontrol .= "<td>" . htmlentities($rapnummer) . "</td>";
                   $htmlcontrol .= "<td>" . htmlentities($volledigenaamvak) . "</td>";
-                  $htmlcontrol .= "<td> <button id='btn_chat_room' name='btn_chat_room' onclick='ChatRoom(\"" . htmlentities($volledigenaamvak) . "\",\"" . htmlentities($rapnummer) . "\")' type='button' class='btn btn-primary btn-m-w btn-m-h'>Virtuele klas</button> </td>";
-
+                  /*                   $htmlcontrol .= "<td> <button id='btn_chat_room' name='btn_chat_room' onclick='ChatRoom(\"" . htmlentities($volledigenaamvak) . "\",\"" . htmlentities($rapnummer) . "\")' type='button' class='btn btn-primary btn-m-w btn-m-h'>Virtuele klas</button> </td>"; */
                   // $htmlcontrol .= "<td>". ($c1 >= 1 && $c1 <= 5.5 ? "class=\"quaternary-bg-color default-secondary-color\"": "") ."</td>";
 
                   $htmlcontrol .= "<td onclick=\"seeadd('$vak','$rapnummer','$klas','oc1')\" title=\" \" name =\"c1\"" . ($c1 >= 1 && $c1 <= 5.5 ?  "class=\"quaternary-bg-color default-secondary-color\"" : "") . ">" . ($c1 == 0.0 ? "" : htmlentities($c1)) . "</td>";
