@@ -10,6 +10,8 @@ $rapport = $_POST["cijfers_rapporten_lijst"];
 $schoolid = $_SESSION["SchoolID"];
 $datum = date('Y-m-d');
 $schooljaar = $_SESSION["SchoolJaar"];
+$students = array();
+$cijfers = array();
 $i = 1;
 ?>
 <style>
@@ -61,13 +63,63 @@ $i = 1;
                     $opmerking2 = "";
                     $opmerking3 = "";
                 }
+
+                $cuenta_pri = 0;
+                $cuenta = 0;
+                $get_cijfers = "SELECT (SELECT volledigenaamvak FROM le_vakken WHERE ID = c.vak) as vak,c.gemiddelde FROM le_cijfers c WHERE c.studentid = '$id' AND c.klas = '$klas' AND c.rapnummer = $rapport AND c.schooljaar = '$schooljaar' AND c.gemiddelde is not NULL;";
+                $result2 = mysqli_query($mysqli, $get_cijfers);
+                if ($result2->num_rows > 0) {
+                    while ($row3 = mysqli_fetch_assoc($result2)) {
+                        $cijfers[$id] = $cijfers[$id] + $row3["gemiddelde"];
+                        if ($row3["vak"] == "ne" || $row3["vak"] == "en" || $row3["vak"] == "wi") {
+                            if ($row3["gemiddelde"] == 0 || $row3["gemiddelde"] >= 5.5) {
+                                $cuenta_pri = $cuenta_pri + 0;
+                            } else if ($row3["gemiddelde"] < 1) {
+                                $cuenta_pri = $cuenta_pri + 6;
+                            } else if ($row3["gemiddelde"] < 2) {
+                                $cuenta_pri = $cuenta_pri + 5;
+                            } else if ($row3["gemiddelde"] < 3) {
+                                $cuenta_pri = $cuenta_pri + 4;
+                            } else if ($row3["gemiddelde"] < 4) {
+                                $cuenta_pri = $cuenta_pri + 3;
+                            } else if ($row3["gemiddelde"] < 5) {
+                                $cuenta_pri = $cuenta_pri + 2;
+                            } else if ($row3["gemiddelde"] < 5.5) {
+                                $cuenta_pri = $cuenta_pri + 1;
+                            }
+                        } else if ($row3["vak"] != "rk") {
+                            if ($row3["gemiddelde"] == 0 || $row3["gemiddelde"] >= 5.5) {
+                                $cuenta = $cuenta + 0;
+                            } else if ($row3["gemiddelde"] < 1) {
+                                $cuenta = $cuenta + 6;
+                            } else if ($row3["gemiddelde"] < 2) {
+                                $cuenta = $cuenta + 5;
+                            } else if ($row3["gemiddelde"] < 3) {
+                                $cuenta = $cuenta + 4;
+                            } else if ($row3["gemiddelde"] < 4) {
+                                $cuenta = $cuenta + 3;
+                            } else if ($row3["gemiddelde"] < 5) {
+                                $cuenta = $cuenta + 2;
+                            } else if ($row3["gemiddelde"] < 5.5) {
+                                $cuenta = $cuenta + 1;
+                            }
+                        }
+                    }
+                }
                 ?>
                 <td><input type="text" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ', ' . $rapport . ',' . $i; ?>)" id="opmerking_<?php echo $i; ?>" class="opmerking_input" value="<?php echo $opmerking1; ?>"></td>
-                <td><?php echo $opmerking2; ?></td>
+                <td>
+                    <?php if ($cijfers[$id] < 71 || $cuenta_pri > 2 || ($cuenta + $cuenta_pri) > 3) {
+                        echo "O";
+                    } else {
+                        echo "V";
+                    } ?>
+                </td>
                 <td><input type="text" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ', ' . $rapport . ',' . $i; ?>)" id="definitiet_<?php echo $i; ?>" class="definitiet_input" value="<?php echo $opmerking3; ?>"></td>
             </tr>
         <?php $i++;
-        } ?>
+        }
+        ?>
     </tbody>
 </table>
 <script>
