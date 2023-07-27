@@ -24,16 +24,16 @@ if ($result->num_rows > 0) {
     $sql = "UPDATE opmerking SET opmerking1 = '$opmerking', opmerking3 = '$definitiet' WHERE SchoolID = '$schoolid' AND klas = '$klas' AND studentid = '$studentid' AND rapport = $rapport AND schooljaar ='$schooljaar';";
     $result = mysqli_query($mysqli, $sql);
     if ($result) {
-        echo "Opmerkingen bijgewerkt";
+        echo "Opmerkingen Updated";
     } else {
-        echo "Er is iets misgegaan";
+        echo "Error";
     }
 } else {
     $sql = "INSERT INTO opmerking (SchoolID, klas, studentid, rapport, schooljaar, opmerking1, opmerking3) VALUES ('$schoolid', '$klas', '$studentid', $rapport, '$schooljaar', '$opmerking', '$definitiet');";
     $result = mysqli_query($mysqli, $sql);
     if ($result) {
-        echo "Opmerkingen toegevoegd";
+        echo "Opmerkingen Saved";
     } else {
-        echo "Er is iets misgegaan";
+        echo "Error";
     }
 }

@@ -37,7 +37,7 @@ $i = 1;
             <th>ID</th>
             <th>Naam</th>
             <th class="opmerking">Opmerking</th>
-            <th>Systeem</th>
+            <th class="definitiet">Systeem</th>
             <th class="definitiet">Definitief</th>
         </tr>
     </thead>
@@ -108,15 +108,15 @@ $i = 1;
                 }
                 ?>
                 <td><input type="text" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ', ' . $rapport . ',' . $i; ?>)" id="opmerking_<?php echo $i; ?>" class="opmerking_input" value="<?php echo $opmerking1; ?>"></td>
-                <td>
+                <td class="text-center">
                     <?php if ($cijfers[$id] < 71 || $cuenta_pri > 2 || ($cuenta + $cuenta_pri) > 3) {
-                        echo "O";
+                        echo "<label style='margin: 0;' class='text-danger'>O</label>";
                     } else {
-                        echo "V";
+                        echo "<label style='margin: 0;' class='text-primary'>V</label>";
                     } ?>
 
                 </td>
-                <td><input type="text" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ', ' . $rapport . ',' . $i; ?>)" id="definitiet_<?php echo $i; ?>" class="definitiet_input" value="<?php echo $opmerking3; ?>"></td>
+                <td><input type="text" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ', ' . $rapport . ',' . $i; ?>)" id="definitiet_<?php echo $i; ?>" class="definitiet_input" value="<?php echo strtoupper($opmerking3); ?>"></td>
             </tr>
         <?php $i++;
         }
@@ -127,6 +127,9 @@ $i = 1;
     function savebespreking(schooljaar, klas, student, rap, i) {
         var opmerking = document.getElementById("opmerking_" + i).value;
         var definitiet = document.getElementById("definitiet_" + i).value;
+        if (definitiet != "v" && definitiet != "V" && definitiet != "o" && definitiet != "O") {
+            definitiet = "";
+        }
         var data = {
             "studentid": student,
             "schooljaar": schooljaar,

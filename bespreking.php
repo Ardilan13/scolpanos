@@ -64,11 +64,18 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group pull-right">
+                        <div class="row">
+                            <div class="col-md-12 full-inset">
+                                <div id="loader_spn" class="hidden">
+                                    <div class="loader_spn"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="form-group pull-right">
                             <div class="col-md-12">
                                 <button type="submit" class="btn btn-primary btn-m-w btn-m-h" id="save_opmerking">Save</button>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
             </section>
         </main>
@@ -81,17 +88,19 @@
 <script>
     $("#btn_bespreking").click(function(e) {
         e.preventDefault()
-
+        $("#loader_spn").removeClass("hidden");
         $.ajax({
             url: "ajax/get_bespreking.php",
             data: $('#form_opmerking').serialize(),
             type: "POST",
             dataType: "text",
             success: function(text) {
+                $("#loader_spn").addClass("hidden");
                 $("#table").html(text);
             },
             error: function(xhr, status, errorThrown) {
                 alert("error");
+                location.reload();
             },
         });
     })
