@@ -3,7 +3,7 @@ require_once("spn_audit.php");
 require_once("spn_setting.php");
 class spn_see_kaart
 {
-  function list_cijfers_by_student_se_kaart_rapport($schooljaar, $studentid, $rapnummer, $klas, $dummy)
+  function list_cijfers_by_student_se_kaart_rapport($schooljaar, $studentid, $rapnummer, $klas, $profiel, $color, $dummy)
   {
 
     $returnvalue = "";
@@ -247,7 +247,7 @@ class spn_see_kaart
                           $table .= "<td " . ((float)$avg_rap3 >= 1 && (float)$avg_rap3 <= 4.4  && (float)$avg_rap3 ? "class=\"bg-danger\"" : "") . ">" . ((float)$avg_rap3 > 0.0 && $avg_rap3 != null  && $avg_rap3 != "" ? round($avg_rap3, 1) : "") . "</td>";
                         }
 
-                        $table .= "<td " . ((float)$final_avg_CKV >= 1 && (float)$final_avg_CKV <= 4.4  && (float)$final_avg_CKV ? "class=\"bg-danger\"" : "") . ">" . ((float)$final_avg_CKV > 0.0 && $final_avg_CKV != null  && $final_avg_CKV != "" ? ($final_avg_CKV >= 5.5 && $final_avg_CKV <= 6 ? 6 : round($final_avg_CKV)) : "") . "</td>";
+                        $table .= "<td class='" . $color . "' " . ((float)$final_avg_CKV >= 1 && (float)$final_avg_CKV <= 4.4  && (float)$final_avg_CKV ? "class=\"bg-danger\"" : "") . ">" . ((float)$final_avg_CKV > 0.0 && $final_avg_CKV != null  && $final_avg_CKV != "" ? ($final_avg_CKV >= 5.5 && $final_avg_CKV <= 6 ? 6 : round($final_avg_CKV)) : "") . "</td>";
                         $is_ckv = true;
                       }
                     } else if ($complete_name != null && $complete_name != '') {
@@ -311,7 +311,73 @@ class spn_see_kaart
                         $table .= "<td " . ((float)$gemmindele3 >= 1 && (float)$gemmindele3 <= 4.4  && (float)$gemmindele3 ? "class=\"bg-danger\"" : "") . ">" . ((float)$gemmindele3 > 0.0 && $gemmindele3 != null  && $gemmindele3 != "" ? $gemmindele3 : "") . "</td>";
                       }
 
-                      $table .= "<td " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? round($average) : "") . "</td>";
+                      if ($vak_code == "NE" || $vak_code == "EN" || $vak_code == "LO" || ($vak_code == "WI" && $profiel != "HU08")) {
+                        $table .= "<td class='" . $color . "' " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? round($average) : "") . "</td>";
+                      } else {
+                        $paket = substr($profiel, 0, 2);
+
+                        switch ($vak_code) {
+                          case 'EC':
+                            if ($profiel != "MM10" && $profiel != "MM11" && $profiel != "MM12" && $profiel != "NW01" && $profiel != "NW02" && $profiel != "NW04" && $profiel != "NW07" && $profiel != "HU07") {
+                              $table .= "<td class='" . $color . "' " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? round($average) : "") . "</td>";
+                            } else {
+                              $table .= "<td " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? round($average) : "") . "</td>";
+                            }
+                            break;
+                          case 'GS':
+                            if ($profiel != "MM04" && $profiel != "MM05" && $profiel != "MM07" && $paket != "NW") {
+                              $table .= "<td class='" . $color . "' " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? round($average) : "") . "</td>";
+                            } else {
+                              $table .= "<td " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? round($average) : "") . "</td>";
+                            }
+                            break;
+                          case 'SP':
+                            if ($profiel != "MM03" && $profiel != "MM07" && $profiel != "MM08" && $profiel != "MM09" && $profiel != "MM12" && $profiel != "NW04" && $profiel != "NW05" && $profiel != "NW06" && $profiel != "NW09") {
+                              $table .= "<td class='" . $color . "' " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? round($average) : "") . "</td>";
+                            } else {
+                              $table .= "<td " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? round($average) : "") . "</td>";
+                            }
+                            break;
+                          case 'PA':
+                            if ($profiel != "MM02" && $profiel != "MM05" && $profiel != "MM06" && $profiel != "MM09" && $profiel != "MM11" && $profiel != "NW02" && $profiel != "NW03" && $profiel != "NW06" && $profiel != "NW08" && $profiel != "HU10") {
+                              $table .= "<td class='" . $color . "' " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? round($average) : "") . "</td>";
+                            } else {
+                              $table .= "<td " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? round($average) : "") . "</td>";
+                            }
+                            break;
+                          case 'BI':
+                            if ($profiel != "MM01" && $profiel != "MM04" && $profiel != "MM06" && $profiel != "MM08" && $profiel != "MM10" && $profiel != "NW01" && $profiel != "NW03" && $profiel != "NW05" && $paket != "HU") {
+                              $table .= "<td class='" . $color . "' " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? round($average) : "") . "</td>";
+                            } else {
+                              $table .= "<td " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? round($average) : "") . "</td>";
+                            }
+                            break;
+                          case 'AK':
+                            if ($profiel != "MM01" && $profiel != "MM02" && $profiel != "MM03" && $paket != "NW") {
+                              $table .= "<td class='" . $color . "' " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? round($average) : "") . "</td>";
+                            } else {
+                              $table .= "<td " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? round($average) : "") . "</td>";
+                            }
+                            break;
+                          case 'NA':
+                            if ($paket != "MM" && $profiel != "NW07" && $profiel != "NW08" && $profiel != "NW09" && $paket != "HU") {
+                              $table .= "<td class='" . $color . "' " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? round($average) : "") . "</td>";
+                            } else {
+                              $table .= "<td " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? round($average) : "") . "</td>";
+                            }
+                            break;
+                          case 'SK':
+                            if ($paket != "MM" && $paket != "HU") {
+                              $table .= "<td class='" . $color . "' " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? round($average) : "") . "</td>";
+                            } else {
+                              $table .= "<td " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? round($average) : "") . "</td>";
+                            }
+                            break;
+                          default:
+                            $table .= "<td " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? round($average) : "") . "</td>";
+                            break;
+                        }
+                      }
 
                       $table .= "</tr>";
                     }

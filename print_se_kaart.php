@@ -101,7 +101,7 @@ $l = new spn_leerling();
 if ($studentid == 'all') {
   $array_leerling = $l->get_all_students_array_by_klas($_GET["klas"], $_SESSION["SchoolJaar"], $_GET['rap']);
 } else {
-  $select = "SELECT id,studentnumber,firstname,lastname,sex,dob,class FROM students where id = '$studentid' and status = 1";
+  $select = "SELECT id,studentnumber,firstname,lastname,sex,dob,class,profiel FROM students where id = '$studentid' and status = 1";
   $resultado1 = mysqli_query($mysqli, $select);
   while ($row = mysqli_fetch_assoc($resultado1)) {
     $returnarr["studentid"] = $studentid;
@@ -111,6 +111,7 @@ if ($studentid == 'all') {
     $returnarr["geslacht"] = $row["sex"];
     $returnarr["geboortedatum"] = $row["dob"];
     $returnarr["klas"] = $row["class"];
+    $returnarr["profiel"] = $row["profiel"];
     array_push($array, $returnarr);
   }
   $array_leerling = $array;
@@ -139,10 +140,30 @@ foreach ($array_leerling as $item) {
     $advies = $row["advies"];
   }
 
+  switch (substr($item["profiel"], 0, 2)) {
+    case 'MM':
+      $paket = "<b class='p-1 ml-2 bg-warning text-white'>" . $item["profiel"] . "</b>";
+      $color = "bg-warning";
+      break;
+    case 'NW':
+      $paket = "<b class='p-1 ml-2 bg-primary text-white'>" . $item["profiel"] . "</b>";
+      $color = "bg-primary";
+      break;
+    case 'HU':
+      $paket = "<b class='p-1 ml-2 bg-success text-white'>" . $item["profiel"] . "</b>";
+      $color = "bg-success";
+      break;
+    default:
+      $paket = "";
+      $color = "";
+      break;
+  }
+  $profiel = $item["profiel"];
+
   if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["SchoolID"] != 18) {
     $table_cijfers = "";
   } else if ($_SESSION["SchoolID"] != 18) {
-    $table_cijfers = $c->list_cijfers_by_student_se_kaart_rapport($_GET["schoolJaar"], $item['studentid'], $_GET["rap"], $klas, false);
+    $table_cijfers = $c->list_cijfers_by_student_se_kaart_rapport($_GET["schoolJaar"], $item['studentid'], $_GET["rap"], $klas,$profiel, $color, false);
   }
   // $table_cijfers = $c->list_cijfers_by_student_se_kaart_rapport($_SESSION["SchoolJaar"], 5291,2,false);
 
@@ -4422,59 +4443,233 @@ if($avg_h == 0.0){$avg_h = null;}
   $page_html .= "<div class='card border-0'>";
 
   if ($_SESSION["SchoolType"] == 2) {
-    $page_html .= "<div class='row'>";
-    $page_html .= "<div class='card'>";
-    $page_html .= "<div class='card-body' style='padding-bottom: 0px;'>";
-    $page_html .= "<h6 class='card-title'>Opmerking bij het eerste rapport</h6>";
-    $page_html .= "<hr style='border-top: dotted 2px; margin-top: 2.1rem; margin-bottom: .3rem' />";
-    $page_html .= "<h6>O Voldoende:</h6>";
-    $page_html .= "<h6>O Onvoldoende:</h6>";
-    $page_html .= "<br>";
-    $page_html .= "</div>";
-    $page_html .= "</div>";
-    $page_html .= "</div>";
+    if ($klas == 3) {
+      $opmerking = array();
+      $defi = array();
+      $id = $item['studentid'];
+      $rapport = $_GET["rap"];
+      $klas_o = $_GET["klas"];
+      for ($y = 1; $rapport >= $y; $y++) {
+        $get_opmerking = "SELECT opmerking1,opmerking3 FROM opmerking WHERE SchoolID = '$schoolid' AND klas = '$klas_o' AND studentid = '$id' AND rapport = $y AND schooljaar ='$schooljaar' LIMIT 1;";
+        $result1 = mysqli_query($mysqli, $get_opmerking);
+        if ($result1->num_rows > 0) {
+          $row2 = mysqli_fetch_assoc($result1);
+          $opmerking[$y] = $row2["opmerking1"];
+          $opmerking3 = $row2["opmerking3"];
+        } else {
+          $opmerking[$y] = null;
+          $opmerking3 = null;
+        }
+        if ($opmerking3 == null || $opmerking3 == "") {
+          $cuenta_pri = 0;
+          $cuenta = 0;
+          $get_cijfers = "SELECT (SELECT volledigenaamvak FROM le_vakken WHERE ID = c.vak AND volgorde > 0) as vak,c.gemiddelde FROM le_cijfers c WHERE c.studentid = '$id' AND c.klas = '$klas_o' AND c.rapnummer = $y AND c.schooljaar = '$schooljaar' AND c.gemiddelde is not NULL;";
+          $result2 = mysqli_query($mysqli, $get_cijfers);
+          if ($result2->num_rows > 0) {
+            while ($row3 = mysqli_fetch_assoc($result2)) {
+              $cijfers = $cijfers + $row3["gemiddelde"];
+              if ($row3["vak"] == "ne" || $row3["vak"] == "en" || $row3["vak"] == "wi") {
+                if ($row3["gemiddelde"] == 0 || $row3["gemiddelde"] >= 5.5 || $row3["gemiddelde"] == NULL) {
+                  $cuenta_pri = $cuenta_pri + 0;
+                } else if ($row3["gemiddelde"] < 1) {
+                  $cuenta_pri = $cuenta_pri + 6;
+                } else if ($row3["gemiddelde"] < 2) {
+                  $cuenta_pri = $cuenta_pri + 5;
+                } else if ($row3["gemiddelde"] < 3) {
+                  $cuenta_pri = $cuenta_pri + 4;
+                } else if ($row3["gemiddelde"] < 4) {
+                  $cuenta_pri = $cuenta_pri + 3;
+                } else if ($row3["gemiddelde"] < 5) {
+                  $cuenta_pri = $cuenta_pri + 2;
+                } else if ($row3["gemiddelde"] < 5.5) {
+                  $cuenta_pri = $cuenta_pri + 1;
+                }
+              } else if ($row3["vak"] != "rk" && $row3["vak"] != NULL) {
+                if ($row3["gemiddelde"] == 0 || $row3["gemiddelde"] >= 5.5 || $row3["gemiddelde"] == NULL) {
+                  $cuenta = $cuenta + 0;
+                } else if ($row3["gemiddelde"] < 1) {
+                  $cuenta = $cuenta + 6;
+                } else if ($row3["gemiddelde"] < 2) {
+                  $cuenta = $cuenta + 5;
+                } else if ($row3["gemiddelde"] < 3) {
+                  $cuenta = $cuenta + 4;
+                } else if ($row3["gemiddelde"] < 4) {
+                  $cuenta = $cuenta + 3;
+                } else if ($row3["gemiddelde"] < 5) {
+                  $cuenta = $cuenta + 2;
+                } else if ($row3["gemiddelde"] < 5.5) {
+                  $cuenta = $cuenta + 1;
+                }
+              }
+            }
+          }
 
-
-    $page_html .= "<div class='row'>";
-    $page_html .= "<div class='card'>";
-    $page_html .= "<div class='card-body'>";
-    $page_html .= "<h6 class='card-title'>Opmerking bij het tweede rapport</h6>";
-    $page_html .= "<hr style='border-top: dotted 2px; margin-top: 2.1rem; margin-bottom: .3rem' />";
-    $page_html .= "<h6>O Voldoende:</h6>";
-    $page_html .= "<h6>O Onvoldoende:</h6>";
-    $page_html .= "</div>";
-    $page_html .= "</div>";
-    $page_html .= "</div>";
-
-
-    $page_html .= "<div class='row'>";
-    $page_html .= "<div class='card'>";
-    $page_html .= "<div class='card-body'>";
-    $page_html .= "<h6 class='card-title'>Opmerking bij het derde rapport</h6>";
-    $page_html .= "<hr style='border-top: dotted 2px; margin-top: 2.1rem; margin-bottom: .3rem' />";
-    if ($schoolId != 17 && $_SESSION["SchoolType"] != 2) {
-      $page_html .= "<h6 class='classovernar' id='idovernar'>O&nbsp&nbsp&nbsp&nbsp&nbsp&nbspOver naar Ciclo Basico 2</h6>";
-    } else if ($_SESSION["SchoolType"] == 2) {
-      switch ($level_klas) {
-        case 1:
-          $page_html .= "<h6 class='classovernar' id='idovernar'>O&nbsp&nbsp&nbsp&nbsp&nbsp&nbspOver naar Ciclo Basico 2</h6>";
-          break;
-        case 2:
-          $page_html .= "<h6 class='classovernar' id='idovernar'>O&nbsp&nbsp&nbsp&nbsp&nbsp&nbspOver naar Ciclo Avansa 1</h6>";
-          break;
-        case 3:
-          $page_html .= "<h6 class='classovernar' id='idovernar'>O&nbsp&nbsp&nbsp&nbsp&nbsp&nbspOver naar Ciclo Avansa 2</h6>";
-          break;
+          if ($cijfers < 71 || $cuenta_pri > 2 || ($cuenta + $cuenta_pri) > 3) {
+            $defi[$y] = 0;
+          } else {
+            $defi[$y] = 1;
+          }
+        } else {
+          if (strtoupper($opmerking3) == "O") {
+            $defi[$y] = 0;
+          } else {
+            $defi[$y] = 1;
+          }
+        }
       }
+
+      $page_html .= "<div class='row'>";
+      $page_html .= "<div class='card'>";
+      $page_html .= "<div class='card-body' style='padding-bottom: 0px;'>";
+      $page_html .= "<h6 class='card-title'>Opmerking bij het eerste rapport</h6>";
+      $page_html .= "<textarea style='width: 100%;'>" . $opmerking[1] . "</textarea>";
+      $page_html .= "<div class='row' style='justify-content: space-evenly;'>";
+      if ($defi[1] == 1) {
+        $page_html .= "<div>";
+        $page_html .= "<input type='radio' checked><label>Voldoende</label>";
+        $page_html .= "</div>";
+        $page_html .= "<div>";
+        $page_html .= "<input type='radio'><label>Onvoldoende</label>";
+        $page_html .= "</div>";
+      } else if ($defi[1] == 0) {
+        $page_html .= "<div>";
+        $page_html .= "<input type='radio'><label>Voldoende</label>";
+        $page_html .= "</div>";
+        $page_html .= "<div>";
+        $page_html .= "<input type='radio' checked><label>Onvoldoende</label>";
+        $page_html .= "</div>";
+      } else {
+        $page_html .= "<div>";
+        $page_html .= "<input type='radio'><label>Voldoende</label>";
+        $page_html .= "</div>";
+        $page_html .= "<div>";
+        $page_html .= "<input type='radio'><label>Onvoldoende</label>";
+        $page_html .= "</div>";
+      }
+      $page_html .= "</div>";
+      $page_html .= "<h6 class='card-title'>Opmerking bij het tweede rapport</h6>";
+      $page_html .= "<textarea style='width: 100%;'>" . $opmerking[2] . "</textarea>";
+      $page_html .= "<div class='row' style='justify-content: space-evenly;'>";
+      if ($defi[2] == 1) {
+        $page_html .= "<div>";
+        $page_html .= "<input type='radio' checked><label>Voldoende</label>";
+        $page_html .= "</div>";
+        $page_html .= "<div>";
+        $page_html .= "<input type='radio'><label>Onvoldoende</label>";
+        $page_html .= "</div>";
+      } else if ($defi[2] == 0) {
+        $page_html .= "<div>";
+        $page_html .= "<input type='radio'><label>Voldoende</label>";
+        $page_html .= "</div>";
+        $page_html .= "<div>";
+        $page_html .= "<input type='radio' checked><label>Onvoldoende</label>";
+        $page_html .= "</div>";
+      } else {
+        $page_html .= "<div>";
+        $page_html .= "<input type='radio'><label>Voldoende</label>";
+        $page_html .= "</div>";
+        $page_html .= "<div>";
+        $page_html .= "<input type='radio'><label>Onvoldoende</label>";
+        $page_html .= "</div>";
+      }
+      $page_html .= "</div>";
+      $page_html .= "<h6 class='card-title'>Opmerking bij het eindrapport</h6>";
+      $page_html .= "<textarea style='width: 100%;'>" .  $opmerking[3] . "</textarea>";
+      $page_html .= "<div class='row' style='justify-content: space-evenly;'>";
+      if ($defi[3] == 1) {
+        $page_html .= "<div>";
+        $page_html .= "<input type='radio' checked><label>Voldoende</label>";
+        $page_html .= "</div>";
+        $page_html .= "<div>";
+        $page_html .= "<input type='radio'><label>Onvoldoende</label>";
+        $page_html .= "</div>";
+      } else if ($defi[3] == 0) {
+        $page_html .= "<div>";
+        $page_html .= "<input type='radio'><label>Voldoende</label>";
+        $page_html .= "</div>";
+        $page_html .= "<div>";
+        $page_html .= "<input type='radio' checked><label>Onvoldoende</label>";
+        $page_html .= "</div>";
+      } else {
+        $page_html .= "<div>";
+        $page_html .= "<input type='radio'><label>Voldoende</label>";
+        $page_html .= "</div>";
+        $page_html .= "<div>";
+        $page_html .= "<input type='radio'><label>Onvoldoende</label>";
+        $page_html .= "</div>";
+      }
+      $page_html .= "</div>";
+      $page_html .= "<br>";
+      $page_html .= "<div class='column'>";
+      $page_html .= "<div>";
+      $page_html .= "<input type='radio'><label>Over naar ciclo avansa 2 met pakket</label>" . $paket;
+      $page_html .= "</div>";
+      $page_html .= "<div>";
+      $page_html .= "<input type='radio'><label>Niet over</label>";
+      $page_html .= "</div>";
+      $page_html .= "<div>";
+      $page_html .= "<input type='radio'><label>Verwezen naar ander schooltype</label>";
+      $page_html .= "</div>";
+      $page_html .= "</div>";
+
+      $page_html .= "</div>";
+      $page_html .= "</div>";
+      $page_html .= "</div>";
     } else {
-      $page_html .= "<h6 class='classovernar' id='idovernar'>O&nbsp&nbsp&nbsp&nbsp&nbsp&nbspOver naar</h6>";
+      $page_html .= "<div class='row'>";
+      $page_html .= "<div class='card'>";
+      $page_html .= "<div class='card-body' style='padding-bottom: 0px;'>";
+      $page_html .= "<h6 class='card-title'>Opmerking bij het eerste rapport</h6>";
+      $page_html .= "<hr style='border-top: dotted 2px; margin-top: 2.1rem; margin-bottom: .3rem' />";
+      $page_html .= "<h6>O Voldoende:</h6>";
+      $page_html .= "<h6>O Onvoldoende:</h6>";
+      $page_html .= "<br>";
+      $page_html .= "</div>";
+      $page_html .= "</div>";
+      $page_html .= "</div>";
+
+
+      $page_html .= "<div class='row'>";
+      $page_html .= "<div class='card'>";
+      $page_html .= "<div class='card-body'>";
+      $page_html .= "<h6 class='card-title'>Opmerking bij het tweede rapport</h6>";
+      $page_html .= "<hr style='border-top: dotted 2px; margin-top: 2.1rem; margin-bottom: .3rem' />";
+      $page_html .= "<h6>O Voldoende:</h6>";
+      $page_html .= "<h6>O Onvoldoende:</h6>";
+      $page_html .= "</div>";
+      $page_html .= "</div>";
+      $page_html .= "</div>";
+
+
+      $page_html .= "<div class='row'>";
+      $page_html .= "<div class='card'>";
+      $page_html .= "<div class='card-body'>";
+      $page_html .= "<h6 class='card-title'>Opmerking bij het derde rapport</h6>";
+      $page_html .= "<hr style='border-top: dotted 2px; margin-top: 2.1rem; margin-bottom: .3rem' />";
+      if ($schoolId != 17 && $_SESSION["SchoolType"] != 2) {
+        $page_html .= "<h6 class='classovernar' id='idovernar'>O&nbsp&nbsp&nbsp&nbsp&nbsp&nbspOver naar Ciclo Basico 2</h6>";
+      } else if ($_SESSION["SchoolType"] == 2) {
+        switch ($level_klas) {
+          case 1:
+            $page_html .= "<h6 class='classovernar' id='idovernar'>O&nbsp&nbsp&nbsp&nbsp&nbsp&nbspOver naar Ciclo Basico 2</h6>";
+            break;
+          case 2:
+            $page_html .= "<h6 class='classovernar' id='idovernar'>O&nbsp&nbsp&nbsp&nbsp&nbsp&nbspOver naar Ciclo Avansa 1</h6>";
+            break;
+          case 3:
+            $page_html .= "<h6 class='classovernar' id='idovernar'>O&nbsp&nbsp&nbsp&nbsp&nbsp&nbspOver naar Ciclo Avansa 2</h6>";
+            break;
+        }
+      } else {
+        $page_html .= "<h6 class='classovernar' id='idovernar'>O&nbsp&nbsp&nbsp&nbsp&nbsp&nbspOver naar</h6>";
+      }
+      $page_html .= "<h6>O&nbsp&nbsp&nbsp&nbsp&nbsp&nbspNiet over</h6>";
+      $page_html .= "<h6>O&nbsp&nbsp&nbsp&nbsp&nbsp&nbspVerwezen naar:.................................................................</h6>";
+      $page_html .= "<h6>O&nbsp&nbsp&nbsp&nbsp&nbsp&nbspOpmerking:.....................................................................</h6>";
+      $page_html .= "</div>";
+      $page_html .= "</div>";
+      $page_html .= "</div>";
     }
-    $page_html .= "<h6>O&nbsp&nbsp&nbsp&nbsp&nbsp&nbspNiet over</h6>";
-    $page_html .= "<h6>O&nbsp&nbsp&nbsp&nbsp&nbsp&nbspVerwezen naar:.................................................................</h6>";
-    $page_html .= "<h6>O&nbsp&nbsp&nbsp&nbsp&nbsp&nbspOpmerking:.....................................................................</h6>";
-    $page_html .= "</div>";
-    $page_html .= "</div>";
-    $page_html .= "</div>";
   }
 
   $page_html .= "<div class='row' style='margin: 0 !important;'>";
@@ -7074,13 +7269,13 @@ if($avg_h == 0.0){$avg_h = null;}
   }
   if ($_SESSION['SchoolType'] == 2) {
     $page_html .= "<h6 class='card-title'>Betekenis persoonlijke kwaliteiten:</h6>";
-    $page_html .= "<div class='row' style='height: 100px;'>";
-    $page_html .= "<div class='col-8'>";
-    $page_html .= "<p style='margin-bottom: 0.1rem; font-size: 0.75rem'>5 = Goed</p>";
-    $page_html .= "<p style='margin-bottom: 0.1rem; font-size: 0.75rem'>4 = voldoende</li>";
-    $page_html .= "<p style='margin-bottom: 0.1rem; font-size: 0.75rem'>3 = Matig</p>";
-    $page_html .= "<p style='margin-bottom: 0.1rem; font-size: 0.75rem'>2 = Onvoldoende</p>";
-    $page_html .= "<p style='margin-bottom: 0.1rem; font-size: 0.75rem'>1 = Slecht</p>";
+    $page_html .= "<div class='row'>";
+    $page_html .= "<div class='row col-12' style='justify-content: center;'>";
+    $page_html .= "<p style='margin-bottom: 0.5rem; font-size: 0.75rem'>5 = Goed,</p>";
+    $page_html .= "<p style='margin-bottom: 0.1rem; font-size: 0.75rem'> 4 = voldoende,</li>";
+    $page_html .= "<p style='margin-bottom: 0.1rem; font-size: 0.75rem'> 3 = Matig,</p>";
+    $page_html .= "<p style='margin-bottom: 0.1rem; font-size: 0.75rem'> 2 = Onvoldoende,</p>";
+    $page_html .= "<p style='margin-bottom: 0.1rem; font-size: 0.75rem'> 1 = Slecht</p>";
     $page_html .= "</div>";
     $page_html .= "</div>";
   } else if ($_SESSION['SchoolID'] != 18) {

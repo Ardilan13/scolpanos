@@ -2924,7 +2924,7 @@ class spn_leerling
       $sql_query = "SELECT DISTINCT c.studentid,s.studentnumber,s.firstname,s.lastname,s.sex,s.dob,s.class FROM le_cijfers c LEFT JOIN students s ON c.studentid = s.id where c.klas = ? and c.schooljaar = '2017-2018' and s.schoolid = ? ORDER BY s.lastname,s.firstname";
     } else {
       $type = ($_SESSION['SchoolType'] == 2 || $_SESSION["SchoolID"] == 8 || $_SESSION['SchoolID'] == 18) ? "le_cijfers" : "le_cijfers_ps";
-      $sql_query = "SELECT DISTINCT s.id,s.studentnumber,s.firstname,s.lastname,s.sex,s.dob,class  FROM students s INNER JOIN " . $type . " c ON s.id = c.studentid where s.class = ?  and s.schoolid = ? and s.status = 1 and c.rapnummer <= ? and c.schooljaar = ? and c.gemiddelde >= 0.0 ORDER BY";
+      $sql_query = "SELECT DISTINCT s.id,s.studentnumber,s.firstname,s.lastname,s.sex,s.dob,class,s.profiel  FROM students s INNER JOIN " . $type . " c ON s.id = c.studentid where s.class = ?  and s.schoolid = ? and s.status = 1 and c.rapnummer <= ? and c.schooljaar = ? and c.gemiddelde >= 0.0 ORDER BY";
       $sql_order = " lastname " . $s->_setting_sort . ", firstname";
       if ($s->_setting_mj) {
         $sql_query .= " sex " . $s->_setting_sort . ", " . $sql_order;
@@ -2942,7 +2942,7 @@ class spn_leerling
           if ($select->execute()) {
             $this->error = false;
             $result = 1;
-            $select->bind_result($studentid, $studentnumber, $voornamen, $achternaam, $geslacht, $geboortedatum, $klas);
+            $select->bind_result($studentid, $studentnumber, $voornamen, $achternaam, $geslacht, $geboortedatum, $klas, $profiel);
             $select->store_result();
 
             if ($select->num_rows > 0) {
@@ -2962,6 +2962,7 @@ class spn_leerling
                 $returnarr["geslacht"] = $geslacht;
                 $returnarr["geboortedatum"] = $geboortedatum;
                 $returnarr["klas"] = $klas;
+                $returnarr["profiel"] = $profiel;
 
                 array_push($studentlist, $returnarr);
               }

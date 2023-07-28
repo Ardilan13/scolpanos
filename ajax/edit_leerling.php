@@ -24,7 +24,7 @@ if ($_FILES["pictureToUpload"] != "") {
 }
 
 $_DateTime = date("Y-m-d H:i:s");
-print  $l->edit_leerling(
+print $l->edit_leerling(
 	$_POST["student_id"],
 	$_DateTime,
 	$_POST["school_id"],
