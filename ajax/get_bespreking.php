@@ -43,6 +43,7 @@ $i = 1;
     </thead>
     <tbody>
         <?php
+        $disabled = $_SESSION["UserRights"] == "BEHEER" ? "" : "disabled";
         $get_students = "SELECT id,firstname,lastname FROM students WHERE schoolid = '$schoolid' AND class = '$klas' ORDER BY lastname, firstname;";
         $result = mysqli_query($mysqli, $get_students);
         while ($row1 = mysqli_fetch_assoc($result)) { ?>
@@ -107,7 +108,7 @@ $i = 1;
                     }
                 }
                 ?>
-                <td><input type="text" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ', ' . $rapport . ',' . $i; ?>)" id="opmerking_<?php echo $i; ?>" class="opmerking_input" value="<?php echo $opmerking1; ?>"></td>
+                <td><input <?php echo $disabled; ?> type="text" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ', ' . $rapport . ',' . $i; ?>)" id="opmerking_<?php echo $i; ?>" class="opmerking_input" value="<?php echo $opmerking1; ?>"></td>
                 <td class="text-center">
                     <?php if ($cijfers[$id] < 71 || $cuenta_pri > 2 || ($cuenta + $cuenta_pri) > 3) {
                         echo "<label style='margin: 0;' class='text-danger'>O</label>";
@@ -116,7 +117,7 @@ $i = 1;
                     } ?>
 
                 </td>
-                <td><input type="text" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ', ' . $rapport . ',' . $i; ?>)" id="definitiet_<?php echo $i; ?>" class="definitiet_input" value="<?php echo strtoupper($opmerking3); ?>"></td>
+                <td><input <?php echo $disabled; ?> type="text" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ', ' . $rapport . ',' . $i; ?>)" id="definitiet_<?php echo $i; ?>" class="definitiet_input" value="<?php echo strtoupper($opmerking3); ?>"></td>
             </tr>
         <?php $i++;
         }
