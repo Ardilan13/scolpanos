@@ -62,9 +62,9 @@
 									<div class="form-group">
 										<button id="btn_submit_cijfers" name="btn_submit_cijfers" onclick="active_loader()" data-display="data-display" data-ajax-href="ajax/getvakken_tabel.php" type="submit" class="btn btn-primary btn-m-w btn-m-h">zoeken</button>
 									</div>
-									<div class="form-group">
+									<!-- <div class="form-group">
 										<button id="btn_chat_room" name="btn_chat_room" onclick="ChatRoom()" type="button" class="btn btn-primary btn-m-w btn-m-h">Virtuele klas</button>
-									</div>
+									</div> -->
 									<ol class="breadcrumb">
 										&nbsp&nbsp
 										<li>Klas: <label id="lbl_cijfers_klassen_lijst"></label></li>
