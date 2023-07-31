@@ -125,6 +125,18 @@ ob_flush();
 
 							</ul>
 						</li>
+						<?php if ($_SESSION["SchoolType"] == 2) { ?>
+							<li class="multilevel">
+								<a class="nav-item" href="#" role="button">EBA<i class="fa fa-angle-left pull-right"></i></a>
+								<ul class="nav nav-second-level">
+									<li> <a href="eba_personalia.php">Personalia</a></li>
+									<li> <a href="eba_geem.php">Geem Deel-DAG</a></li>
+									<li> <a href="eba_.php"></a></li>
+									<li> <a href="eba_.php"></a></li>
+									<li> <a href="eba_.php"></a></li>
+								</ul>
+							</li>
+						<?php } ?>
 
 						<?php if ($_SESSION['SchoolID'] == 11) : ?>
 							<li><a href="rapport_montessori.php" class="nav-item" role="button">Montessori</a></li>
