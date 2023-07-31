@@ -11,6 +11,23 @@ $s->getsetting_info($_SESSION["SchoolID"], false);
 $DBCreds = new DBCreds();
 $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort, $dummy);
 
+/* $schoolid = 12;
+$klas = "3A";
+$schooljaar = "2022-2023";
+
+$get_students = "SELECT id,firstname,lastname FROM students WHERE schoolid = '$schoolid' AND class = '$klas' ORDER BY lastname, firstname;";
+$result = mysqli_query($mysqli, $get_students);
+while ($row1 = mysqli_fetch_assoc($result)) {
+    $id = $row1["id"];
+    $get_cijfers = "SELECT v.volledigenaamvak as vak,SUM(c.gemiddelde) as gemiddelde,COUNT(c.rapnummer) as rapnummer FROM le_cijfers c INNER JOIN le_vakken v ON v.ID = c.vak WHERE v.volgorde > 0 AND c.studentid = '$id' AND c.klas = '$klas' AND c.schooljaar = '$schooljaar' AND c.gemiddelde is not NULL GROUP BY vak ORDER BY c.studentid,vak;";
+    $result2 = mysqli_query($mysqli, $get_cijfers);
+    if ($result2->num_rows > 0) {
+        while ($row3 = mysqli_fetch_assoc($result2)) {
+            echo $row3["vak"] . " " . $row3["gemiddelde"] . " " . $row3["rapnummer"] . "<br>";
+        }
+    }
+} */
+
 /* $id = 552839;
 $klas = ["3A", "3B", "3C", "3D"];
 for ($i = 12; $i <= 13; $i++) {

@@ -211,13 +211,13 @@ foreach ($array_leerling as $item) {
     } else {
       $page_html .= "<div style='margin: 0px; display: flex; align-items: center; flex-direction: column; margin-left: 10%;' >";
     }
-  } else {
+  } else if (substr($_GET["klas"], 0, 1) != 1) {
     $page_html .= "<div style='display: flex; justify-content: space-evenly;'>";
     $page_html .= "<div style=' display: flex; align-items: center; justify-content: space-evenly;'>";
 
     $page_html .= "<img  width='450px' height:'450px' src='" . appconfig::GetBaseURL() . "/assets/img/profiels.png' class='mx-auto d-block'>";
     $page_html .= "<div style='width: 35rem; margin: 0px; display: flex; align-items: center; flex-direction: column;' >";
-  }/*  else {
+  } else {
     $page_html .= "<div class='row justify-content-end' style=''>";
     $page_html .= "<div class='col-6' style='display: flex; align-items: center;'>";
     $page_html .= "</br>";
@@ -226,7 +226,7 @@ foreach ($array_leerling as $item) {
     $page_html .= "</br>";
     $page_html .= "</br>";
     $page_html .= "<div style='width: 50rem; margin: 0px; display: flex; align-items: center; flex-direction: column;' >";
-  } */
+  }
 
 
   if ($schoolId != 17 && $schoolId != 10) {
@@ -4446,10 +4446,11 @@ if($avg_h == 0.0){$avg_h = null;}
     /* if ($klas == 3) { */
     $opmerking = array();
     $defi = array();
-    $id = $item['studentid'];
     $rapport = $_GET["rap"];
+    $id = $item['studentid'];
     $klas_o = $_GET["klas"];
     for ($y = 1; $rapport >= $y; $y++) {
+      $y = $y == 3 ? 4 : $y;
       $get_opmerking = "SELECT opmerking1,opmerking3 FROM opmerking WHERE SchoolID = '$schoolid' AND klas = '$klas_o' AND studentid = '$id' AND rapport = $y AND schooljaar ='$schooljaar' LIMIT 1;";
       $result1 = mysqli_query($mysqli, $get_opmerking);
       if ($result1->num_rows > 0) {
@@ -4463,11 +4464,18 @@ if($avg_h == 0.0){$avg_h = null;}
       if ($opmerking3 == null || $opmerking3 == "") {
         $cuenta_pri = 0;
         $cuenta = 0;
-        $get_cijfers = "SELECT (SELECT volledigenaamvak FROM le_vakken WHERE ID = c.vak AND volgorde > 0) as vak,c.gemiddelde FROM le_cijfers c WHERE c.studentid = '$id' AND c.klas = '$klas_o' AND c.rapnummer = $y AND c.schooljaar = '$schooljaar' AND c.gemiddelde is not NULL;";
+        $cijfers = 0;
+        if ($y == 4) {
+          $get_cijfers = "SELECT v.volledigenaamvak as vak,ROUND(SUM(c.gemiddelde)/COUNT(c.rapnummer)) as gemiddelde FROM le_cijfers c INNER JOIN le_vakken v ON v.ID = c.vak WHERE v.volgorde > 0 AND c.studentid = '$id' AND c.klas = '$klas_o' AND c.schooljaar = '$schooljaar' AND c.gemiddelde is not NULL GROUP BY vak ORDER BY c.studentid,vak;";
+        } else {
+          $get_cijfers = "SELECT (SELECT volledigenaamvak FROM le_vakken WHERE ID = c.vak AND volgorde > 0) as vak,c.gemiddelde FROM le_cijfers c WHERE c.studentid = '$id' AND c.klas = '$klas_o' AND c.rapnummer = $y AND c.schooljaar = '$schooljaar' AND c.gemiddelde is not NULL;";
+        }
         $result2 = mysqli_query($mysqli, $get_cijfers);
         if ($result2->num_rows > 0) {
           while ($row3 = mysqli_fetch_assoc($result2)) {
-            $cijfers = $cijfers + $row3["gemiddelde"];
+            if ($row3["vak"] != "rk" && $row3["vak"] != null) {
+              $cijfers = $cijfers + $row3["gemiddelde"];
+            }
             if ($row3["vak"] == "ne" || $row3["vak"] == "en" || $row3["vak"] == "wi") {
               if ($row3["gemiddelde"] == 0 || $row3["gemiddelde"] >= 5.5 || $row3["gemiddelde"] == NULL) {
                 $cuenta_pri = $cuenta_pri + 0;
@@ -4518,6 +4526,7 @@ if($avg_h == 0.0){$avg_h = null;}
           $defi[$y] = null;
         }
       }
+      $y = $y == 4 ? 3 : $y;
     }
 
     $page_html .= "<div class='row'>";
@@ -4576,16 +4585,16 @@ if($avg_h == 0.0){$avg_h = null;}
     }
     $page_html .= "</div>";
     $page_html .= "<h6 class='card-title'>Opmerking bij het eindrapport</h6>";
-    $page_html .= "<textarea style='width: 100%;'>" .  $opmerking[3] . "</textarea>";
+    $page_html .= "<textarea style='width: 100%;'>" .  $opmerking[4] . "</textarea>";
     $page_html .= "<div class='row' style='justify-content: space-evenly;'>";
-    if ($defi[3] == 1 && $rapport == 3) {
+    if ($defi[4] == 1 && $rapport == 3) {
       $page_html .= "<div>";
       $page_html .= "<input type='radio' checked><label>Voldoende</label>";
       $page_html .= "</div>";
       $page_html .= "<div>";
       $page_html .= "<input type='radio'><label>Onvoldoende</label>";
       $page_html .= "</div>";
-    } else if ($defi[3] == 0 && $rapport == 3) {
+    } else if ($defi[4] == 0 && $rapport == 3) {
       $page_html .= "<div>";
       $page_html .= "<input type='radio'><label>Voldoende</label>";
       $page_html .= "</div>";

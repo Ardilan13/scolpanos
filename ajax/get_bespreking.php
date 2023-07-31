@@ -67,11 +67,19 @@ $i = 1;
 
                 $cuenta_pri = 0;
                 $cuenta = 0;
-                $get_cijfers = "SELECT (SELECT volledigenaamvak FROM le_vakken WHERE ID = c.vak AND volgorde > 0) as vak,c.gemiddelde FROM le_cijfers c WHERE c.studentid = '$id' AND c.klas = '$klas' AND c.rapnummer = $rapport AND c.schooljaar = '$schooljaar' AND c.gemiddelde is not NULL;";
+                $last_vak = "";
+                if ($rapport == 4) {
+                    $get_cijfers = "SELECT v.volledigenaamvak as vak,ROUND(SUM(c.gemiddelde)/COUNT(c.rapnummer)) as gemiddelde FROM le_cijfers c INNER JOIN le_vakken v ON v.ID = c.vak WHERE v.volgorde > 0 AND c.studentid = '$id' AND c.klas = '$klas' AND c.schooljaar = '$schooljaar' AND c.gemiddelde is not NULL GROUP BY vak ORDER BY c.studentid,vak;";
+                } else {
+                    $get_cijfers = "SELECT (SELECT volledigenaamvak FROM le_vakken WHERE ID = c.vak AND volgorde > 0) as vak,c.gemiddelde FROM le_cijfers c WHERE c.studentid = '$id' AND c.klas = '$klas' AND c.rapnummer = $rapport AND c.schooljaar = '$schooljaar' AND c.gemiddelde is not NULL;";
+                }
+
                 $result2 = mysqli_query($mysqli, $get_cijfers);
                 if ($result2->num_rows > 0) {
                     while ($row3 = mysqli_fetch_assoc($result2)) {
-                        $cijfers[$id] = $cijfers[$id] + $row3["gemiddelde"];
+                        if ($row3["vak"] != "rk" && $row3["vak"] != NULL) {
+                            $cijfers[$id] = $cijfers[$id] + $row3["gemiddelde"];
+                        }
                         if ($row3["vak"] == "ne" || $row3["vak"] == "en" || $row3["vak"] == "wi") {
                             if ($row3["gemiddelde"] == 0 || $row3["gemiddelde"] >= 5.5 || $row3["gemiddelde"] == NULL) {
                                 $cuenta_pri = $cuenta_pri + 0;
@@ -107,6 +115,7 @@ $i = 1;
                         }
                     }
                 }
+
                 ?>
                 <td><input <?php echo $disabled; ?> type="text" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ', ' . $rapport . ',' . $i; ?>)" id="opmerking_<?php echo $i; ?>" class="opmerking_input" value="<?php echo $opmerking1; ?>"></td>
                 <td class="text-center">
