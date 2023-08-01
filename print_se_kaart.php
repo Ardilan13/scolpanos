@@ -4451,16 +4451,38 @@ if($avg_h == 0.0){$avg_h = null;}
     $klas_o = $_GET["klas"];
     for ($y = 1; $rapport >= $y; $y++) {
       $y = $y == 3 ? 4 : $y;
-      $get_opmerking = "SELECT opmerking1,opmerking3 FROM opmerking WHERE SchoolID = '$schoolid' AND klas = '$klas_o' AND studentid = '$id' AND rapport = $y AND schooljaar ='$schooljaar' LIMIT 1;";
+      $get_opmerking = "SELECT
+      (SELECT opmerking1 FROM opmerking WHERE SchoolID = '$schoolid' AND klas = '$klas_o' AND studentid = '$id' AND rapport = $y AND schooljaar = '$schooljaar' LIMIT 1) as opmerking1,
+      opmerking2,
+      (SELECT opmerking3 FROM opmerking WHERE SchoolID = '$schoolid' AND klas = '$klas_o' AND studentid = '$id' AND rapport = $y AND schooljaar = '$schooljaar' LIMIT 1) as opmerking3,
+      advies,
+      ciclo
+    FROM opmerking
+    WHERE schoolid = '$schoolid'
+      AND klas = '$klas_o'
+      AND studentid = '$id'
+      AND schooljaar = '$schooljaar'
+      AND rapport = 4
+    LIMIT 1;
+    ;";
       $result1 = mysqli_query($mysqli, $get_opmerking);
       if ($result1->num_rows > 0) {
         $row2 = mysqli_fetch_assoc($result1);
         $opmerking[$y] = $row2["opmerking1"];
+        $radio1 = $row2["opmerking2"];
         $opmerking3 = $row2["opmerking3"];
+        $radio2 = $row2["advies"];
+        $radio3 = $row2["ciclo"];
       } else {
         $opmerking[$y] = null;
         $opmerking3 = null;
+        $radio1 = "";
+        $radio2 = "";
+        $radio3 = "";
       }
+      $radio1 = $radio1 == 1 ? "checked" : "";
+      $radio2 = $radio2 == 1 ? "checked" : "";
+      $radio3 = $radio3 == 1 ? "checked" : "";
       if ($opmerking3 == null || $opmerking3 == "") {
         $cuenta_pri = 0;
         $cuenta = 0;
@@ -4613,13 +4635,27 @@ if($avg_h == 0.0){$avg_h = null;}
     $page_html .= "<br>";
     $page_html .= "<div class='column'>";
     $page_html .= "<div>";
-    $page_html .= "<input type='radio'><label>Over naar ciclo avansa 2 met pakket</label>" . $paket;
+    switch (substr($_GET["klas"], 0, 1)) {
+      case 1:
+        $klas_var = "<label>Over naar ciclo basico 2</label>";
+        break;
+      case 2:
+        $klas_var = "<label>Over naar ciclo avansa 1</label>";
+        break;
+      case 3:
+      case 4:
+        $klas_var = "<label>Over naar ciclo avansa 2 met pakket</label>" . $paket;
+        break;
+    }
+    $page_html .= "<input " . $radio2 . " type='radio'>" . $klas_var;
     $page_html .= "</div>";
+    $page_html .= "<br>";
     $page_html .= "<div>";
-    $page_html .= "<input type='radio'><label>Niet over</label>";
+    $page_html .= "<input " . $radio3 . " type='radio'><label>Niet over</label>";
     $page_html .= "</div>";
+    $page_html .= "<br>";
     $page_html .= "<div>";
-    $page_html .= "<input type='radio'><label>Verwezen naar ander schooltype</label>";
+    $page_html .= "<input " . $radio1 . " type='radio'><label>Verwezen naar ander schooltype</label>";
     $page_html .= "</div>";
     $page_html .= "</div>";
 

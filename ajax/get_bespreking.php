@@ -37,6 +37,11 @@ $i = 1;
             <th>ID</th>
             <th>Naam</th>
             <th class="opmerking">Opmerking</th>
+            <?php if ($rapport == 4) { ?>
+                <th>Andere Schooltype</th>
+                <th>Over Naar Ciclo</th>
+                <th>Niet Over</th>
+            <?php } ?>
             <th class="definitiet">Systeem</th>
             <th class="definitiet">Definitief</th>
         </tr>
@@ -52,18 +57,26 @@ $i = 1;
                 <td><?php echo $row1["lastname"] . ", " . $row1["firstname"]; ?></td>
                 <?php
                 $id = $row1["id"];
-                $get_opmerking = "SELECT opmerking1,opmerking2,opmerking3 FROM opmerking WHERE SchoolID = '$schoolid' AND klas = '$klas' AND studentid = '$id' AND rapport = $rapport AND schooljaar ='$schooljaar' LIMIT 1;";
+                $get_opmerking = "SELECT opmerking1,opmerking2,opmerking3,advies,ciclo FROM opmerking WHERE SchoolID = '$schoolid' AND klas = '$klas' AND studentid = '$id' AND rapport = $rapport AND schooljaar ='$schooljaar' LIMIT 1;";
                 $result1 = mysqli_query($mysqli, $get_opmerking);
                 if ($result1->num_rows > 0) {
                     $row2 = mysqli_fetch_assoc($result1);
                     $opmerking1 = $row2["opmerking1"];
-                    $opmerking2 = $row2["opmerking2"];
+                    $radio1 = $row2["opmerking2"];
                     $opmerking3 = $row2["opmerking3"];
+                    $radio2 = $row2["advies"];
+                    $radio3 = $row2["ciclo"];
                 } else {
                     $opmerking1 = "";
-                    $opmerking2 = "";
                     $opmerking3 = "";
+                    $radio1 = "";
+                    $radio2 = "";
+                    $radio3 = "";
                 }
+
+                $radio1 = $radio1 == 1 ? "checked" : "";
+                $radio2 = $radio2 == 1 ? "checked" : "";
+                $radio3 = $radio3 == 1 ? "checked" : "";
 
                 $cuenta_pri = 0;
                 $cuenta = 0;
@@ -118,7 +131,12 @@ $i = 1;
 
                 ?>
                 <td><input <?php echo $disabled; ?> type="text" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ', ' . $rapport . ',' . $i; ?>)" id="opmerking_<?php echo $i; ?>" class="opmerking_input" value="<?php echo $opmerking1; ?>"></td>
-                <td class="text-center">
+                <?php if ($rapport == 4) { ?>
+                    <td class="text-center"><input <?php echo $radio1; ?> type="checkbox" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ', ' . $rapport . ',' . $i; ?>)" id="radio1_<?php echo $i; ?>"></td>
+                    <td class="text-center"><input <?php echo $radio2; ?> type="checkbox" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ', ' . $rapport . ',' . $i; ?>)" id="radio2_<?php echo $i; ?>"></td>
+                    <td class="text-center"><input <?php echo $radio3; ?> type="checkbox" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ', ' . $rapport . ',' . $i; ?>)" id="radio3_<?php echo $i; ?>"></td>
+                <?php } ?>
+                <td class=" text-center">
                     <?php if ($cijfers[$id] < 71 || $cuenta_pri > 2 || ($cuenta + $cuenta_pri) > 3) {
                         echo "<label style='margin: 0;' class='text-danger'>O</label>";
                     } else {
@@ -137,6 +155,15 @@ $i = 1;
     function savebespreking(schooljaar, klas, student, rap, i) {
         var opmerking = document.getElementById("opmerking_" + i).value;
         var definitiet = document.getElementById("definitiet_" + i).value;
+        var radio1 = null;
+        var radio2 = null;
+        var radio3 = null;
+        if (rap == 4) {
+            radio1 = document.getElementById("radio1_" + i).checked;
+            radio2 = document.getElementById("radio2_" + i).checked;
+            radio3 = document.getElementById("radio3_" + i).checked;
+        }
+
         if (definitiet != "v" && definitiet != "V" && definitiet != "o" && definitiet != "O") {
             definitiet = "";
         }
@@ -147,6 +174,9 @@ $i = 1;
             "rap": rap,
             "opmerking": opmerking,
             "definitiet": definitiet,
+            "radio1": radio1,
+            "radio2": radio2,
+            "radio3": radio3,
         };
         $.ajax({
             url: "ajax/save_bespreking.php",
