@@ -16,6 +16,7 @@
                 <div class="row">
                     <div class="default-secondary-bg-color col-md-12 full-inset brd-bottom clearfix">
                         <h1 class="primary-color">PERSONALIA</h1>
+                        <button id="btn_eba_export" class="btn btn-primary btn-m-w btn-s-h">Export</button>
                         <?php include 'breadcrumb.php'; ?>
                     </div>
                     <div class="row">
@@ -128,5 +129,11 @@
                 console.log(data);
             }
         });
+    });
+
+    $("#btn_eba_export").click(function() {
+        var schoolid = $("#schoolid").val();
+        var schooljaar = $("#schooljaar").val();
+        window.open("dev_tests\\export_eba_personalia.php");
     });
 </script>

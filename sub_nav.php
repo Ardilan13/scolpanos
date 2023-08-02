@@ -131,9 +131,6 @@ ob_flush();
 								<ul class="nav nav-second-level">
 									<li> <a href="eba_personalia.php">Personalia</a></li>
 									<li> <a href="eba_geem.php">Geem Deel-DAG</a></li>
-									<li> <a href="eba_.php"></a></li>
-									<li> <a href="eba_.php"></a></li>
-									<li> <a href="eba_.php"></a></li>
 								</ul>
 							</li>
 						<?php } ?>
