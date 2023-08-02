@@ -33,39 +33,33 @@
                                             $schooljaar = $_SESSION["SchoolJaar"];
                                             $s->getsetting_info($schoolid, false);
 
-                                            $get_personalia = "SELECT s.id,p.code,p.opmerking,s.lastname,s.firstname,s.sex,s.dob,s.birthplace FROM personalia p INNER JOIN students s ON s.id = p.studentid WHERE p.schoolid = $schoolid AND p.schooljaar = '$schooljaar' ORDER BY p.code;";
+                                            $get_personalia = "SELECT c.studentid,(SELECT volledigenaamvak FROM le_vakken WHERE ID = c.vak AND SchoolID = $schoolid AND volledigenaamvak IN ('mu','bv','CKV') AND volledigenaamvak IS NOT NULL) as vak,c.gemiddelde FROM le_cijfers c INNER JOIN personalia p ON p.studentid = c.studentid WHERE c.schooljaar = '$schooljaar' AND p.schooljaar = '$schooljaar' AND p.schoolid = $schoolid AND c.gemiddelde > 0 ORDER BY c.studentid";
                                             $result = mysqli_query($mysqli, $get_personalia);
                                             if ($result->num_rows > 0) { ?>
                                                 <table class="table table-bordered table-colored table-houding">
                                                     <thead>
                                                         <tr>
                                                             <th>Nr</th>
+                                                            <th>Nr</th>
                                                             <th>Achternaam</th>
-                                                            <th>Alle Voornamen</th>
-                                                            <th>V/M</th>
-                                                            <th>Geboorte Datum</th>
-                                                            <th>Geboorte Land</th>
-                                                            <th>Opmerkingen</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <?php while ($row = mysqli_fetch_assoc($result)) {
-                                                            if ($row["dob"] != null && $row["dob"] != "0000-00-00") {
-                                                                $dob = new DateTime($row["dob"]);
-                                                            } else {
-                                                                $dob = null;
-                                                            }
+                                                            if ($row["vak"] != NULL) {
+                                                                $get_student = "SELECT firstname,lastname FROM students WHERE id = " . $row["studentid"] . "";
+                                                                $result_student = mysqli_query($mysqli, $get_student);
+                                                                $row_name = mysqli_fetch_assoc($result_student)["firstname"];
+                                                                $row_lastname = mysqli_fetch_assoc($result_student)["lastname"];
                                                         ?>
-                                                            <tr>
-                                                                <td><?php echo $row["code"]; ?></td>
-                                                                <td><?php echo $row["lastname"]; ?></td>
-                                                                <td><?php echo $row["firstname"]; ?></td>
-                                                                <td><?php echo $row["sex"]; ?></td>
-                                                                <td><?php echo $dob != null ? $dob->format("d M Y") : ""; ?></td>
-                                                                <td><?php echo $row["birthplace"]; ?></td>
-                                                                <td><input type="text" id="<?php echo $row['id']; ?>" class="opmerking" value="<?php echo $row["opmerking"]; ?>"></td>
-                                                            </tr>
-                                                        <?php } ?>
+                                                                <tr>
+                                                                    <td><?php echo $row_lastname; ?></td>
+                                                                    <td><?php echo $row_name; ?></td>
+                                                                    <td><?php echo $row["vak"]; ?></td>
+                                                                    <td><?php echo $row["gemiddelde"]; ?></td>
+                                                                </tr>
+                                                        <?php }
+                                                        } ?>
                                                     </tbody>
                                                 </table>
                                             <?php } ?>
