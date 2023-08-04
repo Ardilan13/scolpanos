@@ -33,7 +33,7 @@
                                             $schooljaar = $_SESSION["SchoolJaar"];
                                             $s->getsetting_info($schoolid, false);
 
-                                            $get_personalia = "SELECT studentid,code FROM personalia WHERE schoolid = $schoolid AND schooljaar = '$schooljaar' ORDER BY id";
+                                            $get_personalia = "SELECT p.code,p.ckv,p.lo,s.lastname,s.firstname FROM personalia p INNER JOIN students s ON s.id = p.studentid WHERE p.schoolid = $schoolid AND p.schooljaar = '$schooljaar' AND (p.ckv IS NOT NULL OR p.lo IS NOT NULL) ORDER BY p.code;";
                                             $result = mysqli_query($mysqli, $get_personalia);
                                             if ($result->num_rows > 0) { ?>
                                                 <table class="table table-bordered table-colored table-houding">
@@ -41,44 +41,53 @@
                                                         <tr>
                                                             <th>Nr</th>
                                                             <th>Achternaam</th>
-                                                            <th>Alle Voornamen voluit</th>
+                                                            <th>Alle Voornamen</th>
                                                             <th>CKV</th>
                                                             <th>LO</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <?php while ($row = mysqli_fetch_assoc($result)) {
-                                                            $code = $row["code"];
-                                                            $get_cijfers = "SELECT 
-                                                            CASE 
-                                                              WHEN AVG(CASE WHEN v.volledigenaamvak = 'CKV' THEN c.gemiddelde END) < 6 THEN 'Onvoldoende'
-                                                              WHEN AVG(CASE WHEN v.volledigenaamvak = 'CKV' THEN c.gemiddelde END) >= 6 THEN 'Vold'
-                                                            END AS ckv,
-                                                            CASE 
-                                                              WHEN AVG(CASE WHEN v.volledigenaamvak = 'lo' THEN c.gemiddelde END) < 6 THEN 'Onvoldoende'
-                                                              WHEN AVG(CASE WHEN v.volledigenaamvak = 'lo' THEN c.gemiddelde END) >= 6 THEN 'Vold'
-                                                            END AS lo,
-                                                            s.lastname,
-                                                            s.firstname
-                                                          FROM students s
-                                                          LEFT JOIN le_cijfers c ON s.id = c.studentid AND c.schooljaar = '2021-2022' AND c.gemiddelde > 0
-                                                          LEFT JOIN le_vakken v ON c.vak = v.ID AND v.schoolid = $schoolid AND v.volledigenaamvak IN ('CKV', 'lo')
-                                                          WHERE s.id = $row[studentid]
-                                                          GROUP BY s.lastname, s.firstname;";
-                                                            $result1 = mysqli_query($mysqli, $get_cijfers);
-                                                            while ($row1 = mysqli_fetch_assoc($result1)) { ?>
-                                                                <tr>
-                                                                    <td><?php echo $row["code"]; ?></td>
-                                                                    <td><?php echo $row1["lastname"]; ?></td>
-                                                                    <td><?php echo $row1["firstname"]; ?></td>
-                                                                    <td><?php echo $row1["ckv"]; ?></td>
-                                                                    <td><?php echo $row1["lo"]; ?></td>
-                                                                </tr>
-                                                        <?php }
-                                                        } ?>
+                                                        <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+                                                            <tr>
+                                                                <td><?php echo $row["code"]; ?></td>
+                                                                <td><?php echo $row["lastname"]; ?></td>
+                                                                <td><?php echo $row["firstname"]; ?></td>
+                                                                <td class="text-center"><?php echo $row["ckv"] == 1 ? "<b class='text-primary'>Voldoende</b>" : ($row["ckv"] == 0 ? "<b class='text-danger'>Onvoldoende</b>" : ""); ?></td>
+                                                                <td class="text-center"><?php echo $row["lo"] == 1 ? "<b class='text-primary'>Voldoende</b>" : ($row["lo"] == 0 ? "<b class='text-danger'>Onvoldoende</b>" : ""); ?></td>
+                                                            </tr>
+                                                        <?php } ?>
                                                     </tbody>
                                                 </table>
-                                            <?php } ?>
+                                            <?php } else {
+                                                $get_students = "SELECT studentid FROM personalia WHERE schoolid = $schoolid AND schooljaar = '$schooljaar'";
+                                                $result = mysqli_query($mysqli, $get_students);
+                                                while ($row = mysqli_fetch_assoc($result)) {
+                                                    $id = $row["studentid"];
+                                                    $get_cijfers = "SELECT 
+                                                                      CASE 
+                                                                        WHEN AVG(CASE WHEN v.volledigenaamvak = 'CKV' THEN c.gemiddelde END) < 6 THEN 0
+                                                                        WHEN AVG(CASE WHEN v.volledigenaamvak = 'CKV' THEN c.gemiddelde END) >= 6 THEN 1
+                                                                      END AS ckv,
+                                                                      CASE 
+                                                                        WHEN AVG(CASE WHEN v.volledigenaamvak = 'lo' THEN c.gemiddelde END) < 6 THEN 0
+                                                                        WHEN AVG(CASE WHEN v.volledigenaamvak = 'lo' THEN c.gemiddelde END) >= 6 THEN 1
+                                                                      END AS lo
+                                                                    FROM students s
+                                                                    LEFT JOIN le_cijfers c ON s.id = c.studentid AND c.schooljaar = '2021-2022' AND c.gemiddelde > 0
+                                                                    LEFT JOIN le_vakken v ON c.vak = v.ID AND v.schoolid = $schoolid AND v.volledigenaamvak IN ('CKV', 'lo')
+                                                                    WHERE s.id = $id
+                                                                    GROUP BY s.lastname, s.firstname;";
+                                                    $result1 = mysqli_query($mysqli, $get_cijfers);
+                                                    echo $get_cijfers . "<br>";
+                                                    while ($row1 = mysqli_fetch_assoc($result1)) {
+                                                        $update_result = "UPDATE personalia SET ckv = '" . $row1["ckv"] . "', lo = '" . $row1["lo"] . "' WHERE studentid = $id AND schoolid = $schoolid AND schooljaar = '$schooljaar';";
+                                                        mysqli_query($mysqli, $update_result);
+                                                        echo $update_result . "<br>";
+                                                    }
+                                                }
+                                                header("Refresh:0");
+                                            }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>

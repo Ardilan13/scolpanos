@@ -69,7 +69,7 @@
                                                                 <td><?php echo $row["sex"]; ?></td>
                                                                 <td><?php echo $dob != null ? $dob->format("d M Y") : ""; ?></td>
                                                                 <td><?php echo $row["birthplace"]; ?></td>
-                                                                <td><input type="text" id="<?php echo $row['id']; ?>" class="opmerking" value="<?php echo $row["opmerking"]; ?>"></td>
+                                                                <td><input type="text" id="<?php echo $row['id']; ?>" style="width: 100%;" class="opmerking" value="<?php echo $row["opmerking"]; ?>"></td>
                                                             </tr>
                                                         <?php } ?>
                                                     </tbody>
