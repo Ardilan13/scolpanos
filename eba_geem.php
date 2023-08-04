@@ -102,8 +102,6 @@
 
 <script>
     $("#btn_eba_export").click(function() {
-        var schoolid = $("#schoolid").val();
-        var schooljaar = $("#schooljaar").val();
-        window.open("dev_tests\\export_eba_gem.php");
+        window.open("dev_tests\\export_eba_geem.php");
     });
 </script>
