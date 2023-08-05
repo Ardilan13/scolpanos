@@ -78,11 +78,9 @@
                                                                     WHERE s.id = $id
                                                                     GROUP BY s.lastname, s.firstname;";
                                                     $result1 = mysqli_query($mysqli, $get_cijfers);
-                                                    echo $get_cijfers . "<br>";
                                                     while ($row1 = mysqli_fetch_assoc($result1)) {
                                                         $update_result = "UPDATE personalia SET ckv = '" . $row1["ckv"] . "', lo = '" . $row1["lo"] . "' WHERE studentid = $id AND schoolid = $schoolid AND schooljaar = '$schooljaar';";
                                                         mysqli_query($mysqli, $update_result);
-                                                        echo $update_result . "<br>";
                                                     }
                                                 }
                                                 header("Refresh:0");
