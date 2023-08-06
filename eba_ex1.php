@@ -21,6 +21,44 @@
             width: 100%;
             font-weight: bold;
         }
+
+        .recuadro {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .cuadro {
+            padding: 1px 5px;
+            border: 1px solid #000;
+            text-align: center;
+            font-weight: bold;
+            background-color: lightgray;
+        }
+
+        .recuadro p {
+            margin: 0;
+        }
+
+        p label {
+            margin: 0;
+            margin-right: 5px;
+        }
+
+        .cuadro_x {
+            background-color: white;
+        }
+
+        .cuadro_h {
+            background-color: lightgreen;
+        }
+
+        .cuadro_ns {
+            background-color: deeppink;
+        }
+
+        .cuadro_v {
+            background-color: dodgerblue;
+        }
     </style>
 
     <main id="main" role="main">
@@ -30,6 +68,13 @@
                     <div class="default-secondary-bg-color col-md-12 full-inset brd-bottom clearfix">
                         <h1 class="primary-color">EX. 1-M</h1>
                         <button id="btn_eba_export" class="btn btn-primary btn-m-w btn-s-h">Export</button>
+                        <div class="recuadro">
+                            <p><b class="cuadro cuadro_x">X</b><label>Kandidaat heeft dit vak gekozen</label></p>
+                            <p><b class="cuadro cuadro_h">H</b><label>Kandidaat doet herexamen in dit vak</label></p>
+                            <p><b class="cuadro cuadro_ns">NS</b><label>Ziek tijdens examen</label></p>
+                            <p><b class="cuadro cuadro_v">V</b><label>Vrijstelling</label></p>
+                            <p><b class="cuadro cuadro_0">  </b><label>Kandidaat heeft dit vak niet gekozen</label></p>
+                        </div>
                         <?php include 'breadcrumb.php'; ?>
                     </div>
                     <div class="row">
