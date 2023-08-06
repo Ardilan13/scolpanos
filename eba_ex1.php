@@ -73,7 +73,7 @@
                             <p><b class="cuadro cuadro_h">H</b><label>Kandidaat doet herexamen in dit vak</label></p>
                             <p><b class="cuadro cuadro_ns">NS</b><label>Ziek tijdens examen</label></p>
                             <p><b class="cuadro cuadro_v">V</b><label>Vrijstelling</label></p>
-                            <p><b class="cuadro cuadro_0">  </b><label>Kandidaat heeft dit vak niet gekozen</label></p>
+                            <p><b class="cuadro cuadro_0"> </b><label>Kandidaat heeft dit vak niet gekozen</label></p>
                         </div>
                         <?php include 'breadcrumb.php'; ?>
                     </div>
@@ -291,19 +291,22 @@
         var ex = $(this).attr("class").split(" ")[2];
         changeColor(value);
         $(this).css("background-color", $color);
-        console.log(id + " " + value + " " + ex);
-        $.ajax({
-            url: "ajax/save_eba_ex.php",
-            type: "POST",
-            data: {
-                id: id,
-                value: value,
-                ex: ex,
-            },
-            success: function(data) {
-                console.log(data);
-            }
-        });
+        if ($color != "lightgray") {
+            $.ajax({
+                url: "ajax/save_eba_ex.php",
+                type: "POST",
+                data: {
+                    id: id,
+                    value: value,
+                    ex: ex,
+                },
+                success: function(data) {
+                    console.log(data);
+                }
+            });
+        } else {
+            $(this).val("");
+        }
         countVaks();
     });
 
