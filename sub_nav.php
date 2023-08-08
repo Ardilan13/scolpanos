@@ -125,7 +125,7 @@ ob_flush();
 
 							</ul>
 						</li>
-						<?php if ($_SESSION["SchoolType"] == 2) { ?>
+						<?php if ($_SESSION["SchoolType"] == 2 && ($_SESSION['UserRights'] == "BEHEER" || $_SESSION['UserRights'] == "ADMINISTRATIE")) { ?>
 							<li class="multilevel">
 								<a class="nav-item" href="#" role="button">EBA<i class="fa fa-angle-left pull-right"></i></a>
 								<ul class="nav nav-second-level">
@@ -378,6 +378,16 @@ ob_flush();
 					<?php endif; ?>
 				</ul>
 			</li>
+			<?php if ($_SESSION["SchoolType"] == 2 && ($_SESSION['UserRights'] == "BEHEER" || $_SESSION['UserRights'] == "ADMINISTRATIE")) { ?>
+				<li class="multilevel">
+					<a class="nav-item" href="#" role="button">EBA<i class="fa fa-angle-left pull-right"></i></a>
+					<ul class="nav nav-second-level">
+						<li> <a href="eba_personalia.php">Personalia</a></li>
+						<li> <a href="eba_geem.php">Geem Deel-DAG</a></li>
+						<li> <a href="eba_ex1.php">EX.1-M</a></li>
+					</ul>
+				</li>
+			<?php } ?>
 			<li><a id="sub_nav_setting" class="nav-item disabled" href="user_account.php" role="button">Users Account</a></li>
 			<li><a id="sub_nav_setting" class="nav-item" href="change_class.php" role="button">Klas samenstellen</a></li>
 			<li><a id="sub_nav_images" class="nav-item" href="images.php" role="button">Upload Images</a></li>

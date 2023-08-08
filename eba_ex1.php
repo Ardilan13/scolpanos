@@ -49,7 +49,7 @@
         }
 
         .cuadro_h {
-            background-color: lightgreen;
+            background-color: #ccffff;
         }
 
         .cuadro_ns {
@@ -98,7 +98,7 @@
                                             $schooljaar = $_SESSION["SchoolJaar"];
                                             $s->getsetting_info($schoolid, false);
 
-                                            $get_personalia = "SELECT e.id,e.*,p.code,s.lastname,s.firstname,s.profiel FROM eba_ex e INNER JOIN personalia p ON e.id_personalia = p.id INNER JOIN students s ON p.studentid = s.id WHERE e.schoolid = $schoolid AND e.schooljaar = '$schooljaar' AND s.SchoolID = $schoolid;";
+                                            $get_personalia = "SELECT e.id,e.*,p.code,s.lastname,s.firstname,s.profiel,s.id as studentid FROM eba_ex e INNER JOIN personalia p ON e.id_personalia = p.id INNER JOIN students s ON p.studentid = s.id WHERE e.schoolid = $schoolid AND e.schooljaar = '$schooljaar' AND s.SchoolID = $schoolid;";
                                             $result = mysqli_query($mysqli, $get_personalia);
                                             if ($result->num_rows > 0) { ?>
                                                 <table class="table table-bordered table-colored table-houding">
@@ -147,7 +147,7 @@
                                                                 <td><input id="<?php echo $row['id']; ?>" maxlength="2" style="width: 100%;" class="text-center ex e11 i<?php echo $x; ?>" type="text" value="<?php echo $row["e11"]; ?>"></td>
                                                                 <td><input id="<?php echo $row['id']; ?>" maxlength="2" style="width: 100%;" class="text-center ex e12 i<?php echo $x; ?>" type="text" value="<?php echo $row["e12"]; ?>"></td>
                                                                 <td>
-                                                                    <select class="profiel <?php echo $row["profiel"]; ?>" name="profiel" class="form-control" id="p<?php echo $x; ?>">
+                                                                    <select class="profiel <?php echo $row["profiel"] . ' ' . $row['studentid']; ?>" name="profiel" class="form-control" id="p<?php echo $x; ?>">
                                                                         <option value=""></option>
                                                                         <option value="MM01">MM01</option>
                                                                         <option value="MM02">MM02</option>
@@ -257,7 +257,7 @@
                 $color = "dodgerblue"
                 break;
             case "H":
-                $color = "lightgreen"
+                $color = "#ccffff"
                 break;
             case "NS":
                 $color = "deeppink"
@@ -273,7 +273,6 @@
             var value = $(this).attr("class").split(" ")[1];
             var id = $(this).attr("id");
             if (value != null && value != "") {
-                console.log(value);
                 $("#" + id + ' option[value="' + value + '"]').attr("selected", true);
             }
         });
@@ -311,9 +310,8 @@
     });
 
     $(".profiel").change(function() {
-        var id = $(this).attr("id");
-        var value = $(this).val();
-        console.log(id + " " + value);
+        var id = $(this).attr("class").split(" ")[2];
+        var value = $(this).children("option:selected").val();
         $.ajax({
             url: "ajax/save_eba_ex.php",
             type: "POST",

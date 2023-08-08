@@ -9,10 +9,20 @@ $DBCreds = new DBCreds();
 $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
 $mysqli->set_charset('utf8');
 
-$update_opmerking = "UPDATE eba_ex SET $ex = '$value' WHERE id = $id;";
-$result = mysqli_query($mysqli, $update_opmerking);
-if ($result) {
-    echo $ex . " saved: " . $value;
+if ($ex != "profiel") {
+    $update_opmerking = "UPDATE eba_ex SET $ex = '$value' WHERE id = $id;";
+    $result = mysqli_query($mysqli, $update_opmerking);
+    if ($result) {
+        echo $ex . " saved: " . $value;
+    } else {
+        echo "Error saving ex";
+    }
 } else {
-    echo "Error saving ex";
+    $update_profiel = "UPDATE students SET profiel = '$value' WHERE id = $id;";
+    $result = mysqli_query($mysqli, $update_profiel);
+    if ($result) {
+        echo $id . " saved: " . $value;
+    } else {
+        echo "Error saving ex";
+    }
 }
