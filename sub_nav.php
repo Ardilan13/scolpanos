@@ -132,6 +132,7 @@ ob_flush();
 									<li> <a href="eba_personalia.php">Personalia</a></li>
 									<li> <a href="eba_geem.php">Geem Deel-DAG</a></li>
 									<li> <a href="eba_ex1.php">EX.1-M</a></li>
+									<li> <a href="eba_docentlist.php">Docenten lijst</a></li>
 								</ul>
 							</li>
 						<?php } ?>
@@ -385,6 +386,7 @@ ob_flush();
 						<li> <a href="eba_personalia.php">Personalia</a></li>
 						<li> <a href="eba_geem.php">Geem Deel-DAG</a></li>
 						<li> <a href="eba_ex1.php">EX.1-M</a></li>
+						<li> <a href="eba_docentlist.php">Docenten lijst</a></li>
 					</ul>
 				</li>
 			<?php } ?>
