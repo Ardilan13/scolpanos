@@ -11,7 +11,7 @@ $DBCreds = new DBCreds();
 $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
 $mysqli->set_charset('utf8');
 
-if (isset($_POST['id'])) {
+if (isset($_POST['id']) && $_POST['id'] != '' && $_POST['id'] != null) {
     if ($code == 'delete') {
         $delete_docent = "DELETE FROM eba_docentlist WHERE id = " . $_POST['id'];
         $result = mysqli_query($mysqli, $delete_docent);

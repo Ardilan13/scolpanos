@@ -98,7 +98,7 @@
                                             $schooljaar = $_SESSION["SchoolJaar"];
                                             $s->getsetting_info($schoolid, false);
 
-                                            $get_personalia = "SELECT e.id,e.*,p.code,s.lastname,s.firstname,s.profiel,s.id as studentid FROM eba_ex e INNER JOIN personalia p ON e.id_personalia = p.id INNER JOIN students s ON p.studentid = s.id WHERE e.schoolid = $schoolid AND e.schooljaar = '$schooljaar' AND s.SchoolID = $schoolid;";
+                                            $get_personalia = "SELECT e.id,e.*,p.code,s.lastname,s.firstname,s.profiel,s.id as studentid FROM eba_ex e INNER JOIN personalia p ON e.id_personalia = p.id INNER JOIN students s ON p.studentid = s.id WHERE e.schoolid = $schoolid AND e.schooljaar = '$schooljaar' AND s.SchoolID = $schoolid AND e.type = 0;";
                                             $result = mysqli_query($mysqli, $get_personalia);
                                             if ($result->num_rows > 0) { ?>
                                                 <table class="table table-bordered table-colored table-houding">
@@ -189,7 +189,7 @@
                                                 $get_students = "SELECT id FROM personalia WHERE schoolid = $schoolid AND schooljaar = '$schooljaar'";
                                                 $result = mysqli_query($mysqli, $get_students);
                                                 while ($row = mysqli_fetch_assoc($result)) {
-                                                    $create_ex1 = "INSERT INTO eba_ex (schoolid,schooljaar,id_personalia) VALUES ($schoolid,'$schooljaar'," . $row["id"] . ")";
+                                                    $create_ex1 = "INSERT INTO eba_ex (type,schoolid,schooljaar,id_personalia) VALUES (1,$schoolid,'$schooljaar'," . $row["id"] . ")";
                                                     mysqli_query($mysqli, $create_ex1);
                                                 }
                                                 header("Refresh:0");
