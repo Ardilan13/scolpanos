@@ -68,6 +68,28 @@ if ($result->num_rows > 0) {
             $i++;
         }
     }
+
+    $get_colors = "SELECT e.* FROM eba_ex e WHERE e.schoolid = $schoolid AND e.schooljaar = '$schooljaar' AND e.type = 0 ORDER BY e.id_personalia;";
+    $result2 = mysqli_query($mysqli, $get_colors);
+    if ($result2->num_rows > 0) {
+        $i = 13;
+        while ($row = mysqli_fetch_assoc($result2)) {
+            $hojaActiva->setCellValue('BB' . $i, $row["e1"]);
+            $hojaActiva->setCellValue('BC' . $i, $row["e2"]);
+            $hojaActiva->setCellValue('BD' . $i, $row["e3"]);
+            $hojaActiva->setCellValue('BE' . $i, $row["e4"]);
+            $hojaActiva->setCellValue('BF' . $i, $row["e5"]);
+            $hojaActiva->setCellValue('BG' . $i, $row["e6"]);
+            $hojaActiva->setCellValue('BH' . $i, $row["e7"]);
+            $hojaActiva->setCellValue('BI' . $i, $row["e8"]);
+            $hojaActiva->setCellValue('BJ' . $i, $row["e9"]);
+            $hojaActiva->setCellValue('BK' . $i, $row["e10"]);
+            $hojaActiva->setCellValue('BL' . $i, $row["e11"]);
+            $hojaActiva->setCellValue('BM' . $i, $row["e12"]);
+
+            $i++;
+        }
+    }
 }
 
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
