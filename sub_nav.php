@@ -134,6 +134,7 @@ ob_flush();
 									<li> <a href="eba_ex1.php">EX.1-M</a></li>
 									<li> <a href="eba_docentlist.php">Docenten lijst</a></li>
 									<li> <a href="eba_docenten.php">EBA DOCENTEN LIJST</a></li>
+									<li> <a href="eba_ex2.php">EX.2-M</a></li>
 								</ul>
 							</li>
 						<?php } ?>
@@ -389,6 +390,7 @@ ob_flush();
 						<li> <a href="eba_ex1.php">EX.1-M</a></li>
 						<li> <a href="eba_docentlist.php">Docenten lijst</a></li>
 						<li> <a href="eba_docenten.php">EBA DOCENTEN LIJST</a></li>
+						<li> <a href="eba_ex2.php">EX.2-M</a></li>
 					</ul>
 				</li>
 			<?php } ?>

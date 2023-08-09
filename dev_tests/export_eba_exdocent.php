@@ -25,6 +25,7 @@ $DBCreds = new DBCreds();
 $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
 $mysqli->set_charset('utf8');
 
+$type = $_GET["type"];
 $schooljaar = $_SESSION['SchoolJaar'];
 $schoolid = $_SESSION['SchoolID'];
 $schoolname = $_SESSION['schoolname'];
@@ -32,7 +33,34 @@ $i = 13;
 
 $s->getsetting_info($schoolid, false);
 
-$get_personalia = "SELECT e.*,s.lastname,s.firstname,s.profiel FROM eba_ex e INNER JOIN personalia p ON e.id_personalia = p.id INNER JOIN students s ON p.studentid = s.id WHERE e.schoolid = $schoolid AND e.schooljaar = '$schooljaar' AND s.SchoolID = $schoolid AND e.type = 1 ORDER BY s.lastname, s.firstname;";
+$get_personalia = "SELECT 
+e.id, 
+e.id_personalia,
+CASE WHEN e0.e1 IS NOT NULL AND e0.e1 <> '' THEN e.e1 ELSE NULL END AS e1,
+CASE WHEN e0.e2 IS NOT NULL AND e0.e2 <> '' THEN e.e2 ELSE NULL END AS e2,
+CASE WHEN e0.e3 IS NOT NULL AND e0.e3 <> '' THEN e.e3 ELSE NULL END AS e3,
+CASE WHEN e0.e4 IS NOT NULL AND e0.e4 <> '' THEN e.e4 ELSE NULL END AS e4,
+CASE WHEN e0.e5 IS NOT NULL AND e0.e5 <> '' THEN e.e5 ELSE NULL END AS e5,
+CASE WHEN e0.e6 IS NOT NULL AND e0.e6 <> '' THEN e.e6 ELSE NULL END AS e6,
+CASE WHEN e0.e7 IS NOT NULL AND e0.e7 <> '' THEN e.e7 ELSE NULL END AS e7,
+CASE WHEN e0.e8 IS NOT NULL AND e0.e8 <> '' THEN e.e8 ELSE NULL END AS e8,
+CASE WHEN e0.e9 IS NOT NULL AND e0.e9 <> '' THEN e.e9 ELSE NULL END AS e9,
+CASE WHEN e0.e10 IS NOT NULL AND e0.e10 <> '' THEN e.e10 ELSE NULL END AS e10,
+CASE WHEN e0.e11 IS NOT NULL AND e0.e11 <> '' THEN e.e11 ELSE NULL END AS e11,
+CASE WHEN e0.e12 IS NOT NULL AND e0.e12 <> '' THEN e.e12 ELSE NULL END AS e12,
+s.lastname, 
+s.firstname, 
+s.profiel 
+FROM eba_ex e
+INNER JOIN personalia p ON e.id_personalia = p.id
+INNER JOIN students s ON p.studentid = s.id
+LEFT JOIN eba_ex e0 ON e0.id_personalia = e.id_personalia AND e0.schooljaar = e.schooljaar AND e0.type = 0
+WHERE e.schoolid = '$schoolid'
+AND e.schooljaar = '$schooljaar'
+AND s.SchoolID = '$schoolid'
+AND e.type = '$type'
+ORDER BY s.lastname, s.firstname;
+";
 $result = mysqli_query($mysqli, $get_personalia);
 if ($result->num_rows > 0) {
     $hojaActiva->setCellValue('B8', $schoolname);
@@ -93,7 +121,11 @@ if ($result->num_rows > 0) {
 }
 
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-header('Content-Disposition: attachment;filename="eba_exdocent_' . $schooljaar . '.xlsx"');
+if ($type == 1) {
+    header('Content-Disposition: attachment;filename="eba_exdocent_' . $schooljaar . '.xlsx"');
+} else {
+    header('Content-Disposition: attachment;filename="eba_ex2_' . $schooljaar . '.xlsx"');
+}
 
 $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
 $writer->save('php://output');

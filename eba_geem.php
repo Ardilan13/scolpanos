@@ -59,6 +59,9 @@
                                                     </tbody>
                                                 </table>
                                             <?php } else {
+                                                $currentYear = intval(substr($schooljaar, 0, 4)); // Obtenemos el año actual (2022)
+                                                $previousYear = $currentYear - 1; // Calculamos el año anterior (2021)
+                                                $previousSchooljaar = $previousYear . "-" . ($previousYear + 1);
                                                 $get_students = "SELECT studentid FROM personalia WHERE schoolid = $schoolid AND schooljaar = '$schooljaar'";
                                                 $result = mysqli_query($mysqli, $get_students);
                                                 while ($row = mysqli_fetch_assoc($result)) {
@@ -73,7 +76,7 @@
                                                                         WHEN AVG(CASE WHEN v.volledigenaamvak = 'lo' THEN c.gemiddelde END) >= 6 THEN 1
                                                                       END AS lo
                                                                     FROM students s
-                                                                    LEFT JOIN le_cijfers c ON s.id = c.studentid AND c.schooljaar = '2021-2022' AND c.gemiddelde > 0
+                                                                    LEFT JOIN le_cijfers c ON s.id = c.studentid AND c.schooljaar = '$previousSchooljaar' AND c.gemiddelde > 0
                                                                     LEFT JOIN le_vakken v ON c.vak = v.ID AND v.schoolid = $schoolid AND v.volledigenaamvak IN ('CKV', 'lo')
                                                                     WHERE s.id = $id
                                                                     GROUP BY s.lastname, s.firstname;";
