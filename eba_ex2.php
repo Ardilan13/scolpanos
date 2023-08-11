@@ -91,9 +91,37 @@
                                             $schooljaar = $_SESSION["SchoolJaar"];
                                             $s->getsetting_info($schoolid, false);
 
-                                            $get_personalia1 = "SELECT e.id,e.*,p.code,s.lastname,s.firstname,s.profiel,s.id as studentid FROM eba_ex e INNER JOIN personalia p ON e.id_personalia = p.id INNER JOIN students s ON p.studentid = s.id WHERE e.schoolid = $schoolid AND e.schooljaar = '$schooljaar' AND s.SchoolID = $schoolid AND e.type = 2;";
+                                            $get_personalia1 = "SELECT e.id,e.*,s.id as studentid FROM eba_ex e INNER JOIN personalia p ON e.id_personalia = p.id INNER JOIN students s ON p.studentid = s.id WHERE e.schoolid = $schoolid AND e.schooljaar = '$schooljaar' AND s.SchoolID = $schoolid AND e.type = 2;";
                                             $result1 = mysqli_query($mysqli, $get_personalia1);
                                             if ($result1->num_rows > 0) {
+                                                while ($row1 = mysqli_fetch_assoc($result1)) {
+                                                    $ex = $row1["id"];
+                                                    $id = $row1["studentid"];
+                                                    $get_cijfers = "SELECT 
+                                                    ROUND(AVG(CASE WHEN v.volledigenaamvak = 'ne' THEN c.gemiddelde END), 1) AS ne,
+                                                    ROUND(AVG(CASE WHEN v.volledigenaamvak = 'en' THEN c.gemiddelde END), 1) AS en,
+                                                    ROUND(AVG(CASE WHEN v.volledigenaamvak = 'sp' THEN c.gemiddelde END), 1) AS sp,
+                                                    ROUND(AVG(CASE WHEN v.volledigenaamvak = 'pa' THEN c.gemiddelde END), 1) AS pa,
+                                                    ROUND(AVG(CASE WHEN v.volledigenaamvak = 'wi' THEN c.gemiddelde END), 1) AS wi,
+                                                    ROUND(AVG(CASE WHEN v.volledigenaamvak = 'na' THEN c.gemiddelde END), 1) AS na,
+                                                    ROUND(AVG(CASE WHEN v.volledigenaamvak = 'bi' THEN c.gemiddelde END), 1) AS bi,
+                                                    ROUND(AVG(CASE WHEN v.volledigenaamvak = 'ec' THEN c.gemiddelde END), 1) AS ec,
+                                                    ROUND(AVG(CASE WHEN v.volledigenaamvak = 'ak' THEN c.gemiddelde END), 1) AS ak,
+                                                    ROUND(AVG(CASE WHEN v.volledigenaamvak = 'gs' THEN c.gemiddelde END), 1) AS gs,
+                                                    ROUND(AVG(CASE WHEN v.volledigenaamvak = 're' THEN c.gemiddelde END), 1) AS re
+                                                  FROM students s
+                                                  LEFT JOIN le_cijfers c ON s.id = c.studentid AND c.schooljaar = '$schooljaar' AND c.gemiddelde > 0
+                                                  LEFT JOIN le_vakken v ON c.vak = v.ID AND v.schoolid = $schoolid AND v.volledigenaamvak IN ('ne', 'en', 'sp', 'pa', 'wi', 'na', 'bi', 'ec', 'ak', 'gs', 're')
+                                                  WHERE s.id = $id;";
+                                                    $result2 = mysqli_query($mysqli, $get_cijfers);
+                                                    while ($row2 = mysqli_fetch_assoc($result2)) {
+                                                        if ($row1["e1"] != $row2["ne"] || $row1["e2"] != $row2["en"] || $row1["e3"] != $row2["sp"] || $row1["e4"] != $row2["pa"] || $row1["e5"] != $row2["wi"] || $row1["e6"] != $row2["na"] || $row1["e7"] != $row2["bi"] || $row1["e8"] != $row2["ec"] || $row1["e9"] != $row2["ak"] || $row1["e10"] != $row2["gs"] || $row1["e11"] != $row2["re"]) {
+                                                            $create_ex1 = "UPDATE eba_ex SET e1 = '" . $row2["ne"] . "', e2 = '" . $row2["en"] . "', e3 ='" . $row2["sp"] . "',e4 ='" . $row2["pa"] . "',e5 ='" . $row2["wi"] . "',e6='" . $row2["na"] . "',e7='" . $row2["na"] . "',e8='" . $row2["bi"] . "',e9='" . $row2["ec"] . "',e10='" . $row2["ak"] . "',e11='" . $row2["gs"] . "',e12='" . $row2["re"] . "' WHERE id = $ex;";
+                                                            mysqli_query($mysqli, $create_ex1);
+                                                        }
+                                                    }
+                                                }
+
                                                 $get_personalia = "SELECT e.id,e.*,p.code,s.lastname,s.firstname,s.profiel,s.id as studentid FROM eba_ex e INNER JOIN personalia p ON e.id_personalia = p.id INNER JOIN students s ON p.studentid = s.id WHERE e.schoolid = $schoolid AND e.schooljaar = '$schooljaar' AND s.SchoolID = $schoolid AND e.type = 0;";
                                                 $result = mysqli_query($mysqli, $get_personalia); ?>
                                                 <table class="table table-bordered table-colored table-houding">
