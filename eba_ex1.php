@@ -189,7 +189,7 @@
                                                 $get_students = "SELECT id FROM personalia WHERE schoolid = $schoolid AND schooljaar = '$schooljaar'";
                                                 $result = mysqli_query($mysqli, $get_students);
                                                 while ($row = mysqli_fetch_assoc($result)) {
-                                                    $create_ex1 = "INSERT INTO eba_ex (type,schoolid,schooljaar,id_personalia) VALUES (1,$schoolid,'$schooljaar'," . $row["id"] . ")";
+                                                    $create_ex1 = "INSERT INTO eba_ex (type,schoolid,schooljaar,id_personalia) VALUES (0,$schoolid,'$schooljaar'," . $row["id"] . ")";
                                                     mysqli_query($mysqli, $create_ex1);
                                                 }
                                                 header("Refresh:0");
