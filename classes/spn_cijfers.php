@@ -4438,71 +4438,82 @@ AND lc.schooljaar = '$schooljaar'
               // Changes settings (ladalan@caribedev)
 
               if (($s->_setting_rapnumber_1 && $rap_in == 1) || ($s->_setting_rapnumber_2 && $rap_in == 2) || ($s->_setting_rapnumber_3 && $rap_in == 3)) {
-
+                $DBCreds = new DBCreds();
+                $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort, $dummy);
+                $get_students = "SELECT oc1,oc2,oc3,oc4,oc5,oc6,oc7,oc8,oc9,oc10,oc11,oc12,oc13,oc14,oc15,oc16,oc17,oc18,oc19,oc20 FROM le_cijfersextra WHERE schoolid = '$schoolid' AND klas = '$klas_in' AND vak = '$vak_in' AND rapnummer = '$rap_in' AND schooljaar = '$schooljaar' LIMIT 1";
+                $result1 = mysqli_query($mysqli, $get_students);
+                if (mysqli_num_rows($result1) > 0) {
+                  while ($row1 = mysqli_fetch_assoc($result1)) {
+                    for ($x = 1; $x <= 20; $x++) {
+                      $y = "oc" . $x;
+                      $$y = $row1['oc' . $x];
+                    }
+                  }
+                }
                 $htmlcontrol .= "<th></th>
                             </tr>
                             <tr class=\"text-align-center\">
                             <th>#</th>
                             <th class=\"btn-m-w\">Naam</th>
                             <th>
-                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{title}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"1\">1 <i class=\"fa fa-edit\"></i></a>
+                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{$oc1}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"1\">1 <i class=\"fa fa-edit\"></i></a>
                             </th>
                             <th>
-                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{title}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"2\">2 <i class=\"fa fa-edit\"></i></a>
+                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{$oc2}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"2\">2 <i class=\"fa fa-edit\"></i></a>
                             </th>
                             <th>
-                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{title}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"3\">3 <i class=\"fa fa-edit\"></i></a>
+                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{$oc3}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"3\">3 <i class=\"fa fa-edit\"></i></a>
                             </th>
                             <th>
-                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{title}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"4\">4 <i class=\"fa fa-edit\"></i></a>
+                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{$oc4}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"4\">4 <i class=\"fa fa-edit\"></i></a>
                             </th>
                             <th>
-                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{title}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"5\">5 <i class=\"fa fa-edit\"></i></a>
+                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{$oc5}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"5\">5 <i class=\"fa fa-edit\"></i></a>
                             </th>
                             <th>
-                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{title}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"6\">6 <i class=\"fa fa-edit\"></i></a>
+                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{$oc6}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"6\">6 <i class=\"fa fa-edit\"></i></a>
                             </th>
                             <th>
-                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{title}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"7\">7 <i class=\"fa fa-edit\"></i></a>
+                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{$oc7}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"7\">7 <i class=\"fa fa-edit\"></i></a>
                             </th>
                             <th>
-                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{title}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"8\">8 <i class=\"fa fa-edit\"></i></a>
+                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{$oc8}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"8\">8 <i class=\"fa fa-edit\"></i></a>
                             </th>
                             <th>
-                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{title}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"9\">9 <i class=\"fa fa-edit\"></i></a>
+                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{$oc9}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"9\">9 <i class=\"fa fa-edit\"></i></a>
                             </th>
                             <th>
-                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{title}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"10\">10 <i class=\"fa fa-edit\"></i></a>
+                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{$oc10}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"10\">10 <i class=\"fa fa-edit\"></i></a>
                             </th>
                             <th>
-                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{title}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"11\">11 <i class=\"fa fa-edit\"></i></a>
+                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{$oc11}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"11\">11 <i class=\"fa fa-edit\"></i></a>
                             </th>
                             <th>
-                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{title}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"12\">12 <i class=\"fa fa-edit\"></i></a>
+                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{$oc12}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"12\">12 <i class=\"fa fa-edit\"></i></a>
                             </th>
                             <th>
-                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{title}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"13\">13 <i class=\"fa fa-edit\"></i></a>
+                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{$oc13}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"13\">13 <i class=\"fa fa-edit\"></i></a>
                             </th>
                             <th>
-                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{title}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"14\">14 <i class=\"fa fa-edit\"></i></a>
+                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{$oc14}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"14\">14 <i class=\"fa fa-edit\"></i></a>
                             </th>
                             <th>
-                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{title}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"15\">15 <i class=\"fa fa-edit\"></i></a>
+                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{$oc15}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"15\">15 <i class=\"fa fa-edit\"></i></a>
                             </th>
                             <th>
-                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{title}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"16\">16 <i class=\"fa fa-edit\"></i></a>
+                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{$oc16}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"16\">16 <i class=\"fa fa-edit\"></i></a>
                             </th>
                             <th>
-                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{title}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"17\">17 <i class=\"fa fa-edit\"></i></a>
+                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{$oc17}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"17\">17 <i class=\"fa fa-edit\"></i></a>
                             </th>
                             <th>
-                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{title}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"18\">18 <i class=\"fa fa-edit\"></i></a>
+                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{$oc18}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"18\">18 <i class=\"fa fa-edit\"></i></a>
                             </th>
                             <th>
-                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{title}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"19\">19 <i class=\"fa fa-edit\"></i></a>
+                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{$oc19}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"19\">19 <i class=\"fa fa-edit\"></i></a>
                             </th>
                             <th>
-                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{title}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"20\">20 <i class=\"fa fa-edit\"></i></a>
+                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{$oc20}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"20\">20 <i class=\"fa fa-edit\"></i></a>
                             </th>
                             <th>
                             Gemiddeld
