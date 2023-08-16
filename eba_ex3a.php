@@ -66,7 +66,7 @@
             <div class="container container-fs">
                 <div class="row">
                     <div class="default-secondary-bg-color col-md-12 full-inset brd-bottom clearfix">
-                        <h1 class="primary-color">EBA DOCENTEN LIJST</h1>
+                        <h1 class="primary-color">EX. 3a-M</h1>
                         <button id="btn_eba_export" class="btn btn-primary btn-m-w btn-s-h">Export</button>
                         <?php include 'breadcrumb.php'; ?>
                     </div>
@@ -91,7 +91,7 @@
                                             $schooljaar = $_SESSION["SchoolJaar"];
                                             $s->getsetting_info($schoolid, false);
 
-                                            $get_personalia1 = "SELECT e.id,e.*,p.code,s.lastname,s.firstname,s.profiel,s.id as studentid FROM eba_ex e INNER JOIN personalia p ON e.id_personalia = p.id INNER JOIN students s ON p.studentid = s.id WHERE e.schoolid = $schoolid AND e.schooljaar = '$schooljaar' AND s.SchoolID = $schoolid AND e.type = 1;";
+                                            $get_personalia1 = "SELECT e.id,e.*,p.code,s.lastname,s.firstname,s.profiel,s.id as studentid FROM eba_ex e INNER JOIN personalia p ON e.id_personalia = p.id INNER JOIN students s ON p.studentid = s.id WHERE e.schoolid = $schoolid AND e.schooljaar = '$schooljaar' AND s.SchoolID = $schoolid AND e.type = 3;";
                                             $result1 = mysqli_query($mysqli, $get_personalia1);
                                             if ($result1->num_rows > 0) {
                                                 $get_personalia = "SELECT e.id,e.*,p.code,s.lastname,s.firstname,s.profiel,s.id as studentid FROM eba_ex e INNER JOIN personalia p ON e.id_personalia = p.id INNER JOIN students s ON p.studentid = s.id WHERE e.schoolid = $schoolid AND e.schooljaar = '$schooljaar' AND s.SchoolID = $schoolid AND e.type = 0 ORDER BY p.code;";
@@ -102,7 +102,7 @@
                                                             <th class="nr">Nr</th>
                                                             <th>Achternaam</th>
                                                             <th>Alle Voornamen</th>
-                                                            <th class="nr">#<br>Vak</th>
+                                                            <th class="nr">#<br>CE</th>
                                                             <th class="text-center min">ne</th>
                                                             <th class="text-center min">en</th>
                                                             <th class="text-center min">sp</th>
@@ -115,7 +115,6 @@
                                                             <th class="text-center min">ak</th>
                                                             <th class="text-center min">gs</th>
                                                             <th class="text-center min">re</th>
-                                                            <th class="paket">Paket</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -137,7 +136,6 @@
                                                                 <td><input id="<?php echo $row['studentid']; ?>" maxlength="3" style="width: 100%;" class="text-center ex e10 i<?php echo $x; ?>" type="text" color="<?php echo $row["e10"]; ?>"></td>
                                                                 <td><input id="<?php echo $row['studentid']; ?>" maxlength="3" style="width: 100%;" class="text-center ex e11 i<?php echo $x; ?>" type="text" color="<?php echo $row["e11"]; ?>"></td>
                                                                 <td><input id="<?php echo $row['studentid']; ?>" maxlength="3" style="width: 100%;" class="text-center ex e12 i<?php echo $x; ?>" type="text" color="<?php echo $row["e12"]; ?>"></td>
-                                                                <td><?php echo $row["profiel"]; ?></td>
                                                             </tr>
                                                         <?php
                                                             $x++;
@@ -148,7 +146,7 @@
                                                 $get_students = "SELECT id FROM personalia WHERE schoolid = $schoolid AND schooljaar = '$schooljaar'";
                                                 $result = mysqli_query($mysqli, $get_students);
                                                 while ($row = mysqli_fetch_assoc($result)) {
-                                                    $create_ex1 = "INSERT INTO eba_ex (type,schoolid,schooljaar,id_personalia) VALUES (1,$schoolid,'$schooljaar'," . $row["id"] . ")";
+                                                    $create_ex1 = "INSERT INTO eba_ex (type,schoolid,schooljaar,id_personalia) VALUES (3,$schoolid,'$schooljaar'," . $row["id"] . ")";
                                                     mysqli_query($mysqli, $create_ex1);
                                                 }
                                                 header("Refresh:0");
@@ -224,7 +222,7 @@
                     data: {
                         id: $(this).attr("id"),
                         ex: $(this).attr("class").split(" ")[2],
-                        type: 1
+                        type: 3
                     },
                     success: function(data) {
                         if (data != null && data != "") {
@@ -251,6 +249,7 @@
                 id: id,
                 code: code,
                 ex: ex,
+                type: 3
             },
             success: function(data) {
                 console.log(data);
@@ -260,6 +259,6 @@
     });
 
     $("#btn_eba_export").click(function() {
-        window.open("dev_tests\\export_eba_exdocent.php?type=1");
+        window.open("dev_tests\\export_eba_exdocent.php?type=3");
     });
 </script>

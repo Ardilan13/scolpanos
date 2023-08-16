@@ -77,7 +77,7 @@
                                             <?php } else {
                                                 $x = 1;
                                                 $get_students = "SELECT id FROM students WHERE schoolid = $schoolid AND class LIKE '4%' ORDER BY";
-                                                $sql_order = " lastname " . $s->_setting_sort . ", firstname";
+                                                $sql_order = " lastname , firstname";
                                                 if ($s->_setting_mj) {
                                                     $get_students .= " sex " . $s->_setting_sort . ", " . $sql_order;
                                                 } else {
