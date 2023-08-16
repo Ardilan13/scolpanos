@@ -519,7 +519,7 @@
                 function() {
                     console.log("--------------------------------------------");
                     console.log($("#verzuim_klassen_lijst option:selected").val());
-                    $("#btnzoeken").click();
+                    /* $("#btnzoeken").click(); */
                 }, 600);
         });
 

@@ -120,6 +120,18 @@ if (
 <script>
     $("#loader_spn").toggleClass('hidden');
 
+    function aumentarTamanio(td) {
+        var imagen = td.querySelector("img");
+        console.log(imagen);
+        imagen.style.width = "100px";
+    }
+
+    function restaurarTamanio(td) {
+        var imagen = td.querySelector("img");
+        console.log(imagen)
+        imagen.style.width = "30px";
+    }
+
     function saveverzuimdata(SchoolJaar, schoolid, studentid, _klas, datum, verzuimid, controlid, controlp) {
         var vakid = $("#verzuim_vakken_lijst").val()
 
