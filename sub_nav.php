@@ -109,7 +109,7 @@ ob_flush();
 							<li><a id="sub_nav_setting" class="nav-item" href="setting.php" role="button">Settings</a></li>
 						<?php } ?>
 						<li>
-							<a class="nav-item disabled" href="#" role="button">Groepsplan</a>
+							<a class="nav-item" href="groups.php" role="button">Groepsplan</a>
 						</li>
 						<li class="multilevel">
 							<a class="nav-item" href="#" role="button">Overzichten<i class="fa fa-angle-left pull-right"></i></a>
@@ -137,6 +137,8 @@ ob_flush();
 									<li> <a href="eba_ex2.php">EX.2-M</a></li>
 									<li> <a href="eba_ex2a.php">EX.2a-M</a></li>
 									<li> <a href="eba_ex3.php">EX.3-M</a></li>
+									<li> <a href="eba_ex3a.php">EX.3a-M</a></li>
+									<li> <a href="eba_ex4.php">EX.4-M</a></li>
 								</ul>
 							</li>
 						<?php } ?>
@@ -395,6 +397,8 @@ ob_flush();
 						<li> <a href="eba_ex2.php">EX.2-M</a></li>
 						<li> <a href="eba_ex2a.php">EX.2a-M</a></li>
 						<li> <a href="eba_ex3.php">EX.3-M</a></li>
+						<li> <a href="eba_ex3a.php">EX.3a-M</a></li>
+						<li> <a href="eba_ex4.php">EX.4-M</a></li>
 					</ul>
 				</li>
 			<?php } ?>
