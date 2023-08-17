@@ -7,7 +7,7 @@ $mysqli->set_charset('utf8');
 
 $schoolid = $_SESSION["SchoolID"];
 $klas = $_GET["klas"];
-$group = $_GET["group"] == "all" ? "" : "AND g.name = '" . $_GET["group"] . "'";
+$group = $_GET["group"] == "all" ? "" : $_GET["group"];
 ?>
 <style>
     .opmerking {
@@ -19,7 +19,7 @@ $group = $_GET["group"] == "all" ? "" : "AND g.name = '" . $_GET["group"] . "'";
     }
 
     .definitiet {
-        width: 3% !important;
+        width: 5% !important;
     }
 
     .definitiet_input {
@@ -28,63 +28,73 @@ $group = $_GET["group"] == "all" ? "" : "AND g.name = '" . $_GET["group"] . "'";
 </style>
 <?php
 $groups = array();
-$get_students = "SELECT g.id,g.name FROM groups g INNER JOIN le_vakken v ON g.vak = v.ID WHERE g.schoolid = $schoolid AND v.Klas = '$klas' $group;";
-$result = mysqli_query($mysqli, $get_students);
-while ($row1 = mysqli_fetch_assoc($result)) {
-    $groups[$row1['id']] = $row1['name'];
+$get_groups = "SELECT g.id,g.name FROM groups g INNER JOIN le_vakken v ON g.vak = v.ID WHERE g.schoolid = $schoolid ORDER BY g.name;";
+$result = mysqli_query($mysqli, $get_groups);
+while ($row = mysqli_fetch_assoc($result)) {
+    $groups[$row['id']] = $row['name'];
 }
-echo json_encode($groups);
 ?>
 
-<!-- <table class="table table-bordered table-colored table-houding">
+<table class="table table-bordered table-colored table-houding">
     <thead>
         <tr>
-            <th>ID</th>
+            <th class="definitiet">ID</th>
             <th>Naam</th>
+            <?php foreach ($groups as $id => $name) { ?>
+                <th class="definitiet"><?php echo $name; ?></th>
+            <?php } ?>
         </tr>
     </thead>
     <tbody>
         <?php
-        $get_students = "SELECT g.id,g.name,v.volledigenaamvak as vak,v.Klas FROM groups g INNER JOIN le_vakken v ON g.vak = v.ID WHERE g.schoolid = '$schoolid';";
-        $result = mysqli_query($mysqli, $get_students);
-        while ($row1 = mysqli_fetch_assoc($result)) { ?>
-            <tr class="group" id="<?php echo $row1['id'] ?>" vak="<?php echo $row1['vak'] ?>" klas="<?php echo $row1['Klas'] ?>">
-                <td><?php echo $row1['id'] ?></td>
-                <td><?php echo $row1['name'] ?></td>
+        $schooljaar = $_SESSION["SchoolJaar"];
+        $s = 1;
+        if ($group != "" && $group != "all" && $group != null) {
+            $get_students = "SELECT s.id,CONCAT(s.lastname,', ',s.firstname) as nombre FROM students s INNER JOIN group_student g ON s.id = g.student_id WHERE s.schoolid = '$schoolid' AND s.class = '$klas' AND g.group_id = $group AND g.schooljaar = '$schooljaar' ORDER BY s.lastname,s.firstname;";
+        } else {
+            $get_students = "SELECT s.id,CONCAT(s.lastname,', ',s.firstname) as nombre FROM students s WHERE s.schoolid = '$schoolid' AND s.class = '$klas' ORDER BY s.lastname,s.firstname;";
+        }
+        $result1 = mysqli_query($mysqli, $get_students);
+        while ($row1 = mysqli_fetch_assoc($result1)) { ?>
+            <tr>
+                <td><?php echo $s ?></td>
+                <td><?php echo $row1['nombre'] ?></td>
+                <?php foreach ($groups as $id => $name) {
+                    $get_student_group = "SELECT id FROM group_student WHERE student_id = '" . $row1['id'] . "' AND group_id = '$id';";
+                    $result2 = mysqli_query($mysqli, $get_student_group);
+                    $row2 = mysqli_fetch_assoc($result2);
+                    $checked = $row2['id'] != "" ? "checked" : "";
+                ?>
+                    <td class="text-center"><input <?php echo $checked; ?> class="student" id="<?php echo $row1['id'] ?>" type="checkbox" value="<?php echo $id ?>"></td>
+                <?php } ?>
             </tr>
-        <?php
+        <?php $s++;
         }
         ?>
     </tbody>
 </table>
 <script>
     $(document).ready(function() {
-        $(".group").click(function() {
+        $(".student").change(function() {
             var id = $(this).attr("id");
-            var vak = $(this).attr("vak");
-            var klas = $(this).attr("klas");
-            $("#group_klas option[value=" + klas + "]").attr("selected", "selected");
-
-            $.getJSON("ajax/getvakken_json.php", {
-                klas: klas
-            }, function(result) {
-                var vak_s = $(".group_vak");
-                vak_s.empty();
-                vak_s.append($("<option/>"));
-                $.each(result, function() {
-                    vak_s.append($("<option />").val(this.id).text(this.vak).attr("selected", this.vak == vak));
-                });
+            var group = $(this).val();
+            var check = $(this).prop('checked');
+            $.ajax({
+                url: "ajax/add_group_student.php",
+                data: {
+                    id: id,
+                    group: group,
+                    check: check
+                },
+                type: "POST",
+                dataType: "text",
+                success: function(text) {
+                    console.log(text);
+                },
+                error: function(xhr, status, errorThrown) {
+                    console.log("error");
+                },
             });
-
-            $("#group_preffix_name").val($(this).children().eq(1).text().slice(0, -1));
-            $("#group_suffix_name").val($(this).children().eq(1).text().slice(-1));
-
-            $("#btn_create_group_hs").hide();
-            $("#btn_update_group_hs").removeClass("hidden");
-            $("#btn_delete_group_hs").removeClass("hidden");
-            $("#vakid").attr("value", id);
-
-            console.log(id);
         });
     });
-</script> -->
+</script>

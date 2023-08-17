@@ -1,4 +1,9 @@
-<?php include 'document_start.php'; ?>
+<?php include 'document_start.php';
+require_once "classes/DBCreds.php";
+$DBCreds = new DBCreds();
+$mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
+$mysqli->set_charset('utf8');
+?>
 
 <?php include 'sub_nav.php'; ?>
 <div class="push-content-220">
@@ -181,6 +186,14 @@
                                                                                         <label for="group">Group</label>
                                                                                         <select class="form-control" name="group" id="group">
                                                                                             <option value="all">All Groups</option>
+                                                                                            <?php
+                                                                                            $schoolid = $_SESSION['SchoolID'];
+                                                                                            $get_groups = "SELECT g.id,g.name FROM groups g WHERE g.schoolid = $schoolid ORDER BY g.name;";
+                                                                                            $result = mysqli_query($mysqli, $get_groups);
+                                                                                            while ($row = mysqli_fetch_assoc($result)) { ?>
+                                                                                                <option value="<?php echo $row['id'] ?>"><?php echo $row['name'] ?></option>
+                                                                                            <?php }
+                                                                                            ?>
                                                                                         </select>
                                                                                     </div>
                                                                                     <div class="form-group">
