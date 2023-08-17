@@ -91,12 +91,12 @@
                                                                                                     <p><i class="fa fa-check"></i> The group Has Been Deleted</p>
                                                                                                 </div>
                                                                                                 <fieldset>
-                                                                                                    <div class="form-group">
+                                                                                                    <div class="form-group hidden" hidden>
                                                                                                         <label class="col-md-4 control-label">Klas</label>
                                                                                                         <div class="col-md-8">
                                                                                                             <select id="group_klas" name="group_klas" class="form-control group_klas" required>
                                                                                                                 <option value="">Select a klas</option>
-                                                                                                                <option value="4A">4A</option>
+                                                                                                                <option value="4A" selected>4A</option>
                                                                                                                 <option value="4B">4B</option>
                                                                                                                 <option value="4C">4C</option>
                                                                                                                 <option value="4D">4D</option>
@@ -170,8 +170,6 @@
                                                                                     <div class="form-group">
                                                                                         <label for="group_klas">Klas</label>
                                                                                         <select class="form-control group_klas" name="group_klas" id="group_klas1">
-
-                                                                                            <!-- Options populated by AJAX get -->
                                                                                             <option value=""></option>
                                                                                             <option value="4A">4A</option>
                                                                                             <option value="4B">4B</option>
@@ -180,20 +178,9 @@
                                                                                         </select>
                                                                                     </div>
                                                                                     <div class="form-group">
-                                                                                        <label for="suffix">Suffix</label>
-                                                                                        <select class="form-control" name="group_suffix" id="group_suffix">
-                                                                                            <option value="All">All Groups</option>
-                                                                                            <option value="1">1</option>
-                                                                                            <option value="2">2</option>
-                                                                                            <option value="3">3</option>
-                                                                                            <option value="4">4</option>
-                                                                                            <option value="5">5</option>
-                                                                                            <option value="6">6</option>
-                                                                                            <option value="7">7</option>
-                                                                                            <option value="8">8</option>
-                                                                                            <option value="9">9</option>
-                                                                                            <option value="10">10</option>
-
+                                                                                        <label for="group">Group</label>
+                                                                                        <select class="form-control" name="group" id="group">
+                                                                                            <option value="all">All Groups</option>
                                                                                         </select>
                                                                                     </div>
                                                                                     <div class="form-group">
@@ -243,22 +230,31 @@
 <script>
     $(document).ready(function() {
         console.log("ready!");
-    });
-
-    $("#group_klas").on("change", function() {
-        $(".group_vak").empty();
-        var $klas = $(this).val();
 
         $.getJSON("ajax/getvakken_json.php", {
-            klas: $klas
+            klas: '4A'
         }, function(result) {
             var vak = $(".group_vak");
-            vak.append($("<option/>"));
             $.each(result, function() {
                 vak.append($("<option />").val(this.id).text(this.vak));
             });
         });
     });
+
+    /*     $("#group_klas").on("change", function() {
+            $(".group_vak").empty();
+            var $klas = $(this).val();
+
+            $.getJSON("ajax/getvakken_json.php", {
+                klas: $klas
+            }, function(result) {
+                var vak = $(".group_vak");
+                vak.append($("<option/>"));
+                $.each(result, function() {
+                    vak.append($("<option />").val(this.id).text(this.vak));
+                });
+            });
+        }); */
 
     $("#group_vak").change(function() {
         $('#group_preffix_name').val($("#group_vak option:selected").text() + '-');
@@ -368,26 +364,11 @@
 
     // STUDENTS TO GROUPS SECCION
 
-
-    /* $("#students_grade_list").change(function() {
-        $.ajax({
-            url: "ajax/get_list_klas_by_grade.php?grade=" + $("#students_grade_list").val(),
-            type: "GET",
-            dataType: "HTML",
-            async: false,
-            success: function(data) {
-                $("#students_klas_list").empty();
-                $("#students_klas_list").append("<option value='All'> All Students for this grade</option>")
-                $("#students_klas_list").append(data);
-            }
-        });
-    })
-
     $('#btn_submit_groups').click(function(e) {
         e.preventDefault();
         $("#loader_spn").removeClass("hidden");
         $.ajax({
-            url: "ajax/get_list_students_groups.php?grade=" + $("#students_grade_list").val() + '&klas=' + $("#students_klas_list").val() + '&suffix=' + $('#group_suffix').val(),
+            url: "ajax/get_students_groups.php?klas=" + $("#group_klas1").val() + '&group=' + $('#group').val(),
             type: "GET",
             dataType: "HTML",
             async: true,
@@ -399,7 +380,7 @@
                 $("#loader_spn").addClass("hidden");
             },
         });
-    }); */
+    });
 
 
     function updateStudentGroup(studentid, vakid) {

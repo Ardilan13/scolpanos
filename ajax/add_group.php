@@ -22,11 +22,10 @@ if ($type == "delete") {
     }
 } else {
     $schoolid = $_SESSION["SchoolID"];
-    $schooljaar = $_SESSION["SchoolJaar"];
     $name = $_POST["group_name"];
     $vak = $_POST["group_vak"];
 
-    $sql = "SELECT * FROM groups WHERE schoolid = '$schoolid' AND vak = '$vak' AND schooljaar ='$schooljaar' AND id = $id;";
+    $sql = "SELECT * FROM groups WHERE id = $id;";
     $result = mysqli_query($mysqli, $sql);
     if ($result->num_rows > 0) {
         $sqlu = "UPDATE groups SET name = '$name', vak = '$vak' WHERE id = $id;";
@@ -34,15 +33,15 @@ if ($type == "delete") {
         if ($result) {
             echo 2;
         } else {
-            echo 0 . $sql;
+            echo 0 . $sqlu;
         }
     } else {
-        $sqli = "INSERT INTO groups (schoolid,schooljaar,name,vak) VALUES ($schoolid,'$schooljaar', '$name',$vak);";
+        $sqli = "INSERT INTO groups (schoolid,name,vak) VALUES ($schoolid, '$name',$vak);";
         $result = mysqli_query($mysqli, $sqli);
         if ($result) {
             echo 1;
         } else {
-            echo 0 . $sql;
+            echo 0 . $sqli;
         }
     }
 }

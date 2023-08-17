@@ -6,7 +6,8 @@ $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $D
 $mysqli->set_charset('utf8');
 
 $schoolid = $_SESSION["SchoolID"];
-$schooljaar = $_SESSION["SchoolJaar"];
+$klas = $_GET["klas"];
+$group = $_GET["group"] == "all" ? "" : "AND g.name = '" . $_GET["group"] . "'";
 ?>
 <style>
     .opmerking {
@@ -25,12 +26,21 @@ $schooljaar = $_SESSION["SchoolJaar"];
         width: 5rem;
     }
 </style>
-<table class="table table-bordered table-colored table-houding">
+<?php
+$groups = array();
+$get_students = "SELECT g.id,g.name FROM groups g INNER JOIN le_vakken v ON g.vak = v.ID WHERE g.schoolid = $schoolid AND v.Klas = '$klas' $group;";
+$result = mysqli_query($mysqli, $get_students);
+while ($row1 = mysqli_fetch_assoc($result)) {
+    $groups[$row1['id']] = $row1['name'];
+}
+echo json_encode($groups);
+?>
+
+<!-- <table class="table table-bordered table-colored table-houding">
     <thead>
         <tr>
             <th>ID</th>
-            <th>Klas</th>
-            <th>Group Name</th>
+            <th>Naam</th>
         </tr>
     </thead>
     <tbody>
@@ -40,7 +50,6 @@ $schooljaar = $_SESSION["SchoolJaar"];
         while ($row1 = mysqli_fetch_assoc($result)) { ?>
             <tr class="group" id="<?php echo $row1['id'] ?>" vak="<?php echo $row1['vak'] ?>" klas="<?php echo $row1['Klas'] ?>">
                 <td><?php echo $row1['id'] ?></td>
-                <td><?php echo '4'; ?></td>
                 <td><?php echo $row1['name'] ?></td>
             </tr>
         <?php
@@ -67,8 +76,8 @@ $schooljaar = $_SESSION["SchoolJaar"];
                 });
             });
 
-            $("#group_preffix_name").val($(this).children().eq(2).text().slice(0, -1));
-            $("#group_suffix_name").val($(this).children().eq(2).text().slice(-1));
+            $("#group_preffix_name").val($(this).children().eq(1).text().slice(0, -1));
+            $("#group_suffix_name").val($(this).children().eq(1).text().slice(-1));
 
             $("#btn_create_group_hs").hide();
             $("#btn_update_group_hs").removeClass("hidden");
@@ -78,4 +87,4 @@ $schooljaar = $_SESSION["SchoolJaar"];
             console.log(id);
         });
     });
-</script>
+</script> -->

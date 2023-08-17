@@ -13,7 +13,7 @@ $schoolid = $_SESSION["SchoolID"];
 $schooljaar = $_SESSION["SchoolJaar"];
 $name = $_GET['group_name'];
 
-$sql = "SELECT id FROM groups WHERE schoolid = '$schoolid' AND name = '$name' AND schooljaar ='$schooljaar';";
+$sql = "SELECT id FROM groups WHERE schoolid = '$schoolid' AND name = '$name';";
 $result = mysqli_query($mysqli, $sql);
 if ($result->num_rows > 0) {
     echo 1;

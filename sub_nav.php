@@ -109,7 +109,7 @@ ob_flush();
 							<li><a id="sub_nav_setting" class="nav-item" href="setting.php" role="button">Settings</a></li>
 						<?php } ?>
 						<li>
-							<a class="nav-item" href="groups.php" role="button">Groepsplan</a>
+							<a class="nav-item" href="groups.php" role="button">Groepsplan Klas 4</a>
 						</li>
 						<li class="multilevel">
 							<a class="nav-item" href="#" role="button">Overzichten<i class="fa fa-angle-left pull-right"></i></a>
@@ -238,7 +238,7 @@ ob_flush();
 							<a class="nav-item disabled" disabled="disabled" href="facturen_overzicht.php" role="button">Financieel</a>
 						</li>
 						<li>
-							<a class="nav-item disabled" href="#" role="button">Groepsplan</a>
+							<a class="nav-item disabled" href="#" role="button">Groepsplan Klas 4</a>
 						</li>
 						<li class="multilevel">
 							<a class="nav-item" href="#" role="button">Overzichten<i class="fa fa-angle-left pull-right"></i></a>
@@ -317,7 +317,7 @@ ob_flush();
 			</ul>
 			</li>
 			<li>
-				<a class="nav-item disabled" href="#" role="button">Groepsplan</a>
+				<a class="nav-item disabled" href="#" role="button">Groepsplan Klas 4</a>
 			</li>
 			<li class="multilevel">
 				<a class="nav-item disable" href="#" role="button">Overzichten<i class="fa fa-angle-left pull-right"></i></a>
@@ -372,7 +372,7 @@ ob_flush();
 			</li>
 			<li><a id="sub_nav_setting" class="nav-item disabled" href="setting.php" role="button">Settings</a></li>
 			<li>
-				<a class="nav-item disabled" href="#" role="button">Groepsplan</a>
+				<a class="nav-item disabled" href="#" role="button">Groepsplan Klas 4</a>
 			</li>
 			<li class="multilevel">
 				<a class="nav-item" href="#" role="button">Overzichten<i class="fa fa-angle-left pull-right"></i></a>
@@ -446,7 +446,7 @@ ob_flush();
 			</li>
 			<li><a id="sub_nav_setting" class="nav-item disabled" href="setting.php" role="button">Settings</a></li>
 			<li>
-				<a class="nav-item disabled" href="#" role="button">Groepsplan</a>
+				<a class="nav-item disabled" href="#" role="button">Groepsplan Klas 4</a>
 			</li>
 			<li class="multilevel">
 				<a class="nav-item disabled" href="#" role="button">Overzichten<i class="fa fa-angle-left pull-right"></i></a>
