@@ -11,6 +11,18 @@ $s->getsetting_info($_SESSION["SchoolID"], false);
 $DBCreds = new DBCreds();
 $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort, $dummy);
 
+/* $get_students = "SELECT ID_PK FROM `le_vakken` where SchoolID = 13 and Klas like '4%' and ID = 0
+ORDER BY `le_vakken`.`ID`  DESC";
+$result = mysqli_query($mysqli, $get_students);
+$x = 552843;
+while ($row1 = mysqli_fetch_assoc($result)) {
+    $id = $row1["ID_PK"];
+    $update = "UPDATE le_vakken SET ID = $x WHERE ID_PK = $id";
+    $mysqli->query($update);
+    echo $update . "<br>";
+    $x++;
+} */
+
 /* $schoolid = 12;
 $klas = "3A";
 $schooljaar = "2022-2023";

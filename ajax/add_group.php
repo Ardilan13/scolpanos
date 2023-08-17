@@ -29,18 +29,18 @@ if ($type == "delete") {
     $sql = "SELECT * FROM groups WHERE schoolid = '$schoolid' AND vak = '$vak' AND schooljaar ='$schooljaar' AND id = $id;";
     $result = mysqli_query($mysqli, $sql);
     if ($result->num_rows > 0) {
-        $sql = "UPDATE groups SET name = '$name', vak = '$vak' WHERE id = $id;";
-        $result = mysqli_query($mysqli, $sql);
+        $sqlu = "UPDATE groups SET name = '$name', vak = '$vak' WHERE id = $id;";
+        $result = mysqli_query($mysqli, $sqlu);
         if ($result) {
             echo 2;
         } else {
             echo 0 . $sql;
         }
     } else {
-        $sql = "INSERT INTO groups (schoolid,schooljaar,name,vak) VALUES ($schoolid,'$schooljaar', '$name',$vak);";
-        $result = mysqli_query($mysqli, $sql);
+        $sqli = "INSERT INTO groups (schoolid,schooljaar,name,vak) VALUES ($schoolid,'$schooljaar', '$name',$vak);";
+        $result = mysqli_query($mysqli, $sqli);
         if ($result) {
-            echo 1 . $id;
+            echo 1;
         } else {
             echo 0 . $sql;
         }
