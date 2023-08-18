@@ -152,7 +152,7 @@ class spn_cijfers
     if ($_SESSION['SchoolID'] == 8 || $_SESSION["SchoolID"] == 18 || $_SESSION['SchoolType'] == 2) {
       $sql_query = "SELECT distinct s.id, c.id, s.class, s.firstname, s.lastname, s.sex, c.c1, c.c2, c.c3, c.c4, c.c5, c.c6, c.c7, c.c8, c.c9, c.c10, c.c11, c.c12, c.c13, c.c14, c.c15, c.c16, c.c17, c.c18, c.c19, c.c20, c.gemiddelde FROM students s LEFT JOIN le_cijfers c ON s.id = c.studentid LEFT JOIN le_vakken v ON c.vak = v.id WHERE s.schoolid = ? AND s.class = ? AND v.id = ? AND c.rapnummer = ? AND c.schooljaar = ? ORDER BY ";
     } else {
-      $sql_query = "SELECT distinct s.id, c.id, s.class, s.firstname, s.lastname, s.sex, c.c1, c.c2, c.c3, c.c4, c.c5, c.c6, c.c7, c.c8, c.c9, c.c10, c.c11, c.c12, c.c13, c.c14, c.c15, c.c16, c.c17, c.c18, c.c19, c.c20, c.gemiddelde FROM students s LEFT JOIN le_cijfers_ps c ON s.id = c.studentid AND s.schoolid = ?  LEFT JOIN le_vakken_ps v ON c.vak = v.id WHERE s.class = ? AND v.id = ? AND c.rapnummer = ? AND c.schooljaar = ? ORDER BY ";
+      $sql_query = "SELECT distinct s.id, c.id, s.class, s.firstname, s.lastname, s.sex, c.c1, c.c2, c.c3, c.c4, c.c5, c.c6, c.c7, c.c8, c.c9, c.c10, c.c11, c.c12, c.c13, c.c14, c.c15, c.c16, c.c17, c.c18, c.c19, c.c20, c.gemiddelde FROM students s LEFT JOIN le_cijfers_ps c ON s.id = c.studentid AND s.schoolid = ?  LEFT JOIN le_vakken_ps v ON c.vak = v.id WHERE s.class = ? AND v.id = ? AND c.rapnummer = ? AND c.schooljaar = ? AND c.klas = ? ORDER BY ";
     }
 
     $sql_order = " s.lastname, s.firstname ";
@@ -173,7 +173,7 @@ class spn_cijfers
       $DBCreds = new DBCreds();
       $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
       if ($select = $mysqli->prepare($sql_query)) {
-        if ($select->bind_param("isiss", $schoolid, $klas_in, $vak_in, $rap_in, $schooljaar)) {
+        if ($select->bind_param("isisss", $schoolid, $klas_in, $vak_in, $rap_in, $schooljaar, $klas_in)) {
           if ($select->execute()) {
             $spn_audit = new spn_audit();
             $UserGUID = $_SESSION['UserGUID'];

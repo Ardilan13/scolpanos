@@ -24,7 +24,10 @@ $group = $_GET["group"] == "all" ? "" : $_GET["group"];
     }
 
     .name {
-        min-width: 200px !important;
+        position: sticky;
+        left: 0;
+        z-index: 1;
+        min-width: 250px !important;
     }
 
     .definitiet_input {
@@ -63,7 +66,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         while ($row1 = mysqli_fetch_assoc($result1)) { ?>
             <tr>
                 <td><?php echo $s ?></td>
-                <td><?php echo $row1['nombre'] ?></td>
+                <td class="name"><?php echo $row1['nombre'] ?></td>
                 <?php foreach ($groups as $id => $name) {
                     $get_student_group = "SELECT id FROM group_student WHERE student_id = '" . $row1['id'] . "' AND group_id = '$id';";
                     $result2 = mysqli_query($mysqli, $get_student_group);
@@ -80,6 +83,10 @@ while ($row = mysqli_fetch_assoc($result)) {
 </table>
 <script>
     $(document).ready(function() {
+        var stickyWidth = $('.name').outerWidth();
+        $('th:not(.name), td:not(.name)').css('margin-left', stickyWidth + 'px');
+
+
         $(".student").change(function() {
             var id = $(this).attr("id");
             var group = $(this).val();
