@@ -4730,6 +4730,7 @@ vak.append($("<option />").val(this.id).text(this.vak));
             $formAddStudent.find(".alert-info-update").removeClass("hidden");
             $formAddStudent.find(".alert-info").addClass("hidden");
             $formAddStudent.find(".alert-warning").addClass("hidden");
+            console.log(text);
           },
           error: function (xhr, status, errorThrown) {
             console.log("error");

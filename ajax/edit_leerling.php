@@ -1,5 +1,6 @@
-
 <?php
+if (session_status() == PHP_SESSION_NONE)
+	session_start();
 
 /* studentnummer, klas, achternaam, voornaam, geslacht, geboortedatum, geboorteplaats, adres, telefoon, status */
 // if(isset($_POST["studentnummer"]) && isset($_POST["klas"]) && isset($_POST["voornamen"]) && isset($_POST["achternaam"]) && isset($_POST["geslacht"]) && isset($_POST["geboortedatum"]) && isset($_POST["geboorteplaats"]) && isset($_POST["adres"]) && isset($_POST["telefoon"]) && isset($_POST["status"]))
@@ -10,16 +11,13 @@ require_once("../classes/spn_utils.php");
 $l = new spn_leerling();
 $u = new spn_utils();
 
-if (session_status() == PHP_SESSION_NONE)
-	session_start();
-
 
 if ($_FILES["pictureToUpload"] != "") {
 	chdir("..");
 	$target_dir = getcwd() . "/profile_students/";
 	// $document_id = basename($_FILES["pictureToUpload"]["name"]);
 	$document_id = $_POST["studentnummer"];
-	$target_file = $target_dir . $document_id . "-" . $session_schoolid;
+	$target_file = $target_dir . $document_id . "-" . $_SESSION["SchoolID"];
 	move_uploaded_file($_FILES['pictureToUpload']['tmp_name'], $target_file);
 }
 
@@ -73,11 +71,8 @@ print $l->edit_leerling(
 	$_POST["profiel"]
 );
 
-
 // }
 // else
 // {
 // 	print "0";
 // }
-
-?>
