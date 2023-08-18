@@ -20,6 +20,11 @@ $group = $_GET["group"] == "all" ? "" : $_GET["group"];
 
     .definitiet {
         width: 5% !important;
+        min-width: 45px !important;
+    }
+
+    .name {
+        min-width: 200px !important;
     }
 
     .definitiet_input {
@@ -39,7 +44,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     <thead>
         <tr>
             <th class="definitiet">ID</th>
-            <th>Naam</th>
+            <th class="name">Naam</th>
             <?php foreach ($groups as $id => $name) { ?>
                 <th class="definitiet"><?php echo $name; ?></th>
             <?php } ?>

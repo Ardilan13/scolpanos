@@ -108,8 +108,12 @@ ob_flush();
 						<?php } else { ?>
 							<li><a id="sub_nav_setting" class="nav-item" href="setting.php" role="button">Settings</a></li>
 						<?php } ?>
-						<li>
-							<a class="nav-item" href="groups.php" role="button">Groepsplan Klas 4</a>
+						<li class="multilevel">
+							<a class="nav-item" href="#" role="button">Groepsplan<i class="fa fa-angle-left pull-right"></i></a>
+							<ul class="nav nav-second-level">
+								<li> <a href="groups.php">Groepsplan Klas 4</a></li>
+								<li> <a href="student_group.php">Student to Group</a></li>
+							</ul>
 						</li>
 						<li class="multilevel">
 							<a class="nav-item" href="#" role="button">Overzichten<i class="fa fa-angle-left pull-right"></i></a>
