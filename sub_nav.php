@@ -112,7 +112,7 @@ ob_flush();
 							<a class="nav-item" href="#" role="button">Groepsplan<i class="fa fa-angle-left pull-right"></i></a>
 							<ul class="nav nav-second-level">
 								<li> <a href="groups.php">Groepsplan Klas 4</a></li>
-								<li> <a href="student_group.php">Student to Group</a></li>
+								<li> <a href="student_group.php">Student Naar Groep</a></li>
 							</ul>
 						</li>
 						<li class="multilevel">

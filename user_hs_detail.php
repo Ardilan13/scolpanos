@@ -21,7 +21,7 @@
 								<div class="box">
 									<div class="box-title full-inset brd-bottom">
 										<div class="row">
-											<h2 class="col-md-8">Asociated Klas and Vaks</h2>
+											<h2 class="col-md-8">RECHTEN DOCENT NAAR VAKKEN</h2>
 										</div>
 									</div>
 									<div class="box-content full-inset sixth-bg-color">
