@@ -16,7 +16,7 @@ $group = 71;
 $schooljaar = $_SESSION["SchoolJaar"];
 $rapnummer = 1;
 
-$sql = "SELECT s.id,s.class,gr.vak FROM students s INNER JOIN group_student g ON s.id = g.student_id INNER JOIN groups gr ON g.group_id = gr.id WHERE s.schoolid = '$schoolid' AND g.group_id = $group AND g.schooljaar = '$schooljaar';";
+/* $sql = "SELECT s.id,s.class,gr.vak FROM students s INNER JOIN group_student g ON s.id = g.student_id INNER JOIN groups gr ON g.group_id = gr.id WHERE s.schoolid = '$schoolid' AND g.group_id = $group AND g.schooljaar = '$schooljaar';";
 $result = mysqli_query($mysqli, $sql);
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
@@ -45,7 +45,7 @@ if ($result->num_rows > 0) {
             echo $select . $row1 . "<br>";
         }
     }
-}
+} */
 
 /* $get_students = "SELET ID_PK FROM `le_vakken` where SchoolID = 13 and Klas like '4%' and ID = 0
 ORDER BY `le_vakken`.`ID`  DESC";
