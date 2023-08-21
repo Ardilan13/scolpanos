@@ -1,5 +1,6 @@
 <?php
-
+if (session_status() == PHP_SESSION_NONE)
+    session_start();
 require_once("../classes/spn_user_hs_account.php");
 require_once("../config/app.config.php");
 
@@ -9,10 +10,5 @@ the $baseurl & $detailpage will be used to create the "View Details" link in the
 */
 $baseurl = appconfig::GetBaseURL();
 
-if(session_status() == PHP_SESSION_NONE)
-session_start();
-
 $a = new spn_user_hs_account();
-print $a->check_mentor_in_klas( $_GET["klas"], $_GET["userGUID"],$_GET["type_check"],appconfig::GetDummy());
-
-?>
+print $a->check_mentor_in_klas($_GET["klas"], $_GET["userGUID"], $_GET["type_check"], appconfig::GetDummy());

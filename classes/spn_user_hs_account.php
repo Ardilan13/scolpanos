@@ -470,7 +470,17 @@ class spn_user_hs_account
               $htmlcontrol .= "<tbody>";
 
               while ($select->fetch()) {
-
+                if ($klas == '4') {
+                  require_once "DBCreds.php";
+                  $DBCreds = new DBCreds();
+                  $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort, $dummy);
+                  $sql = "SELECT name FROM groups WHERE id = '$vak_id'";
+                  $result = $mysqli->query($sql);
+                  if ($result->num_rows > 0) {
+                    $row = $result->fetch_assoc();
+                    $vak_name = $row['name'];
+                  }
+                }
                 $htmlcontrol .= "<tr>";
                 $htmlcontrol .= "<td><input type='hidden' name='user_access_id' id='access_id' value='" . $id . "'>" . htmlentities($klas) . "</td>";
                 $htmlcontrol .= "<td><input type='hidden' name='vak_id' value='" . $vak_id . "'>" . htmlentities($vak_name) . "</td>";

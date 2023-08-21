@@ -1,4 +1,8 @@
-<?php include 'document_start.php'; ?>
+<?php include 'document_start.php';
+require_once "classes/DBCreds.php";
+$DBCreds = new DBCreds();
+$mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
+$mysqli->set_charset('utf8'); ?>
 <?php include 'sub_nav.php'; ?>
 <div class="push-content-220">
 	<main id="main" role="main">
@@ -89,7 +93,7 @@
 													</div>
 													<!-- <input id="user_class" name="user_class" type="text" value="" hidden> -->
 												</div>
-												<div class="form-group" style="margin-bottom: 1px;">
+												<div class="form-group vaken" style="margin-bottom: 1px;">
 													<label class="col-md-4 control-label">Vak</label>
 													<div class="col-md-8">
 														<select id="cijfers_vakken_lijst" name="cijfers_vakken_lijst" class="form-control">
@@ -97,6 +101,22 @@
 														</select>
 													</div>
 													<!-- <input id="user_class" name="user_class" type="text" value="" hidden> -->
+												</div>
+												<div class="form-group group hidden" style="margin-bottom: 1px;">
+													<label for="group" class="col-md-4 control-label">Group</label>
+													<div class="col-md-8">
+														<select class="form-control" name="group" id="group">
+															<option value="all">All Groups</option>
+															<?php
+															$schoolid = $_SESSION['SchoolID'];
+															$get_groups = "SELECT g.id,g.name FROM groups g WHERE g.schoolid = $schoolid ORDER BY g.name;";
+															$result = mysqli_query($mysqli, $get_groups);
+															while ($row = mysqli_fetch_assoc($result)) { ?>
+																<option value="<?php echo $row['id'] ?>"><?php echo $row['name'] ?></option>
+															<?php }
+															?>
+														</select>
+													</div>
 												</div>
 												<div class="form-group" id="div_tutor">
 													<label class="col-md-4 control-label" for="" style="padding-top: 17px;">Is Mentor</label>
@@ -137,6 +157,9 @@
 						</div>
 					</div>
 				</div>
+				<div id="loader_spn" class="hidden">
+					<div class="loader_spn"></div>
+				</div>
 			</section>
 	</main>
 	<?php include 'footer.php'; ?>
@@ -165,7 +188,7 @@
 		$("#btn_add_vak_klas_hs").click(function(e) {
 			e.preventDefault();
 			if ($("#cijfers_klassen_lijst").val().length === 0 ||
-				$("#cijfers_vakken_lijst").val().length === 0 ||
+				($("#cijfers_vakken_lijst").val().length === 0 && $("#group").val().length === 0) ||
 				$("input[name='is_tutor']:checked").val().length === 0) {
 				$frm_vak_klas_hs.find('.alert-error').removeClass('hidden');
 			} else {
@@ -342,27 +365,43 @@
 
 	}
 
-	function check_tutor(type_check) {
-		var c = null;
-		var hrefLink = 'ajax/get_check_tutor?klas=' + $("#cijfers_klassen_lijst").val() + '&userGUID=' + getParam('userGUID') + '&type_check=' + type_check;
+	/* 	function check_tutor(type_check) {
+			var c = null;
+			var hrefLink = 'ajax/get_check_tutor?klas=' + $("#cijfers_klassen_lijst").val() + '&userGUID=' + getParam('userGUID') + '&type_check=' + type_check;
 
-		$.ajax({
-			url: hrefLink,
-			type: 'GET',
-			async: false,
-			cache: false,
-			error: function() {
-				c = 0;
-			},
-			success: function(data) {
-				c = parseInt(data);
-			}
-		});
-		return c;
-	}
+			$.ajax({
+				url: hrefLink,
+				type: 'GET',
+				async: false,
+				cache: false,
+				error: function() {
+					c = 0;
+				},
+				success: function(data) {
+					c = parseInt(data);
+				}
+			});
+			return c;
+		} */
 
 	$('#cijfers_klassen_lijst').change(function() {
+		$("#loader_spn").removeClass("hidden");
+		var klas = $(this).val()[0];
+		if (klas == '4') {
+			$('.vaken').addClass('hidden');
+			$('.group').removeClass('hidden');
+			$("#cijfers_vakken_lijst").attr('disabled', true);
+
+		} else {
+			$('.vaken').removeClass('hidden');
+			$('.group').addClass('hidden');
+			$("#cijfers_vakken_lijst").attr('disabled', false);
+
+		}
+		console.log(klas);
+
 		check_docent_is_tutor_or_klas("Klas");
+		$("#group").val('');
 	});
 
 
@@ -378,7 +417,7 @@
 	})
 
 	function check_docent_is_tutor_or_klas(type_check) {
-		check = check_tutor(type_check);
+		check = 2;
 		if (check == 0) {
 			if (!message_tutor) {
 				$('#has_tutor').addClass('hidden');
@@ -405,5 +444,6 @@
 			active_check = false;
 			message_tutor = true;
 		}
+		$("#loader_spn").addClass("hidden");
 	}
 </script>
