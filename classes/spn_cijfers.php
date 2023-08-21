@@ -2273,6 +2273,55 @@ class spn_cijfers
     return $result;
   }
 
+  function create_le_cijfer_student_group($schooljaar, $rapnummer, $klass, $schoolID, $group)
+  {
+    $result = 0;
+    require_once("DBCreds.php");
+    $DBCreds = new DBCreds();
+    date_default_timezone_set("America/Aruba");
+    $_DateTime = date("Y-m-d H:i:s");
+    $status = 1;
+    mysqli_report(MYSQLI_REPORT_STRICT);
+    try {
+      $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
+      $sql = "SELECT s.id,s.class,gr.vak FROM students s INNER JOIN group_student g ON s.id = g.student_id INNER JOIN groups gr ON g.group_id = gr.id WHERE s.schoolid = '$schoolID' AND g.group_id = $group AND g.schooljaar = '$schooljaar';";
+      $consult = mysqli_query($mysqli, $sql);
+      if ($consult->num_rows > 0) {
+        while ($row = $consult->fetch_assoc()) {
+          $id = $row['id'];
+          $klas = $row['class'];
+          $vakid = $row['vak'];
+          $sql1 = "SELECT lc.studentid
+                    FROM 
+                      le_cijfers lc 
+                    INNER JOIN 
+                      students s on lc.studentid = s.id 
+                    WHERE s.schoolid = '$schoolID'
+                    AND lc.studentid = '$id'
+                    AND lc.schooljaar = '$schooljaar'
+                    AND lc.rapnummer = '$rapnummer'
+                    AND lc.klas = '$klas' AND lc.vak = '$vakid';";
+          $consulta = mysqli_query($mysqli, $sql1);
+          if ($consulta->num_rows == 0) {
+            $sqlI = "INSERT INTO
+        le_cijfers
+        (`studentid`,`lastchanged`,`created`,`schooljaar`,`rapnummer`,`vak`,`klas`,`user`) values ($id,null,now(),'$schooljaar','$rapnummer','$vakid','$klas','spn')";
+            $resultado123 = mysqli_query($mysqli, $sqlI);
+            if (!$resultado123) {
+              $mysqli->close();
+            }
+          } else {
+            $result = 0;
+          }
+        }
+      }
+    } catch (Exception $e) {
+      $result = -2;
+      //$this->exceptionvalue = $e->getMessage();
+    }
+    return $result;
+  }
+
   function create_le_cijfer_student_ps($schooljaar, $rapnummer, $klas, $schoolID, $vakid)
   {
     $result = 0;
@@ -3251,6 +3300,53 @@ class spn_cijfers
       //$this->exceptionvalue = $e->getMessage();
     }
 
+
+    return $result;
+  }
+
+  function createcijferswaarde_first_time_group($schoolid, $schooljaar, $rapnummer, $group, $c1, $c2, $c3, $c4, $c5, $c6, $c7, $c8, $c9, $c10, $c11, $c12, $c13, $c14, $c15, $c16, $c17, $c18, $c19, $c20)
+  {
+    $result = 0;
+
+    require_once("DBCreds.php");
+    $DBCreds = new DBCreds();
+    date_default_timezone_set("America/Aruba");
+    $_DateTime = date("Y-m-d H:i:s");
+    $status = 1;
+
+    mysqli_report(MYSQLI_REPORT_STRICT);
+
+    $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
+
+    $sql = "SELECT s.class,gr.vak FROM students s INNER JOIN group_student g ON s.id = g.student_id INNER JOIN groups gr ON g.group_id = gr.id WHERE s.schoolid = '$schoolid' AND g.group_id = $group AND g.schooljaar = '$schooljaar';";
+    $consult = mysqli_query($mysqli, $sql);
+    if ($consult->num_rows > 0) {
+      while ($row = $consult->fetch_assoc()) {
+        $klas = $row['class'];
+        $vak = $row['vak'];
+        $select = "SELECT COUNT(lc.id) as num FROM le_cijferswaarde lc 
+        INNER JOIN le_vakken lv ON lc.vak = lv.id 
+        AND lc.schooljaar = '$schooljaar'
+        AND lc.rapnummer = $rapnummer
+        AND lv.schoolid = $schoolid
+        AND lc.klas = '$klas'
+        AND lv.id = $vak;";
+        $result1 = mysqli_query($mysqli, $select);
+        $row1 = mysqli_fetch_assoc($result1)['num'];
+        if ($row1 == 0) {
+          $insert = "INSERT INTO `le_cijferswaarde`
+            (`klas`,`schooljaar`,`rapnummer`,`vak`,
+            `c1`,`c2`,`c3`,`c4`,`c5`,`c6`,`c7`,`c8`,`c9`,`c10`,
+            `c11`,`c12`,`c13`,`c14`,`c15`,`c16`,`c17`,`c18`,`c19`,`c20`)
+            VALUES
+                ('$klas','$schooljaar','$rapnummer','$vak',1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1);;";
+          $mysqli->query($insert);
+          $result = 1;
+        }
+      }
+    } else {
+      $result = 0;
+    }
 
     return $result;
   }
@@ -4966,6 +5062,867 @@ AND lc.schooljaar = '$schooljaar'
       // $htmlcontrol .= "<input type=\"hidden\" id=\"schooljaar_cijferswaarde\" name=\"schooljaar_cijferswaarde\" value=\"" . htmlentities($schooljaar) . "\"/>";
       // $htmlcontrol .= "<input type=\"hidden\" id=\"rapnummer_cijferswaarde\" name=\"rapnummer_cijferswaarde\" value=\"" . htmlentities($rap_in) . "\"/>";
       // $htmlcontrol .= "<input type=\"hidden\" id=\"vak_cijferswaarde\" name=\"vak_cijferswaarde\" value=\"" . htmlentities($vak_in) . "\"/>";
+
+
+
+      $returnvalue = $htmlcontrol;
+      return $returnvalue;
+    } catch (Exception $e) {
+      $this->error = true;
+      $this->mysqlierror = $e->getMessage();
+      $result = 0;
+
+      if ($this->debug) {
+        //print "exception: " . $e->getMessage();
+        $result = 0;
+        return $result;
+      }
+    }
+
+    return $returnvalue;
+  }
+
+  function listcijfers_group($schoolid, $klas_in, $vak_in, $rap_in, $sort_order, $schooljaar)
+  {
+    $returnvalue = "";
+    $user_permission = "";
+    $sql_query = "";
+    $htmlcontrol = "";
+    $htmlcijferswaarde = "";
+
+    require_once("DBCreds.php");
+    require_once("spn_utils.php");
+    $DBCreds = new DBCreds();
+    $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
+
+    $get_vak = "SELECT vak FROM groups WHERE id = $vak_in";
+    $vak_result = $mysqli->query($get_vak);
+    $vak_row = $vak_result->fetch_assoc()['vak'];
+
+    // if($this->debug)
+    // {
+    //   print "schoolid: " . $schoolid . "<br />";
+    //   print "klas_in: " . $klas_in . "<br />";
+    //   print "vak_in: " . $vak_in . "<br />";
+    //   print "rap_in: " . $rap_in . "<br />";
+    //   print "sort_order: " . $sort_order . "<br />";
+    // }
+
+    mysqli_report(MYSQLI_REPORT_STRICT);
+
+    // Changes settings (ladalan@caribedev)
+
+    $s = new spn_setting();
+    $s->getsetting_info($schoolid, false);
+
+    $sql_query = "SELECT distinct s.id, c.id, s.class, s.lastname,s.firstname, s.sex, c.c1, c.c2, c.c3, c.c4, c.c5, c.c6, c.c7, c.c8, c.c9, c.c10, c.c11, c.c12, c.c13, c.c14, c.c15, c.c16, c.c17, c.c18, c.c19, c.c20, c.gemiddelde FROM students s LEFT JOIN le_cijfers c ON s.id = c.studentid LEFT JOIN le_vakken v ON c.vak = v.id LEFT JOIN group_student g ON s.id = g.student_id WHERE v.id = ? AND c.rapnummer = ? AND c.schooljaar = ? AND g.schooljaar = ? AND s.schoolid = ? ORDER BY ";
+
+    $sql_order = " s.lastname, s.firstname ";
+    if ($s->_setting_mj) {
+      $sql_query .= " s.sex " . $s->_setting_sort . ", " . $sql_order;
+    } else {
+      $sql_query .=  $sql_order;
+    }
+    // End change settings (laldana@caribedev)
+
+
+    /* TODO: QUERY NEEDS TO BE FIXED , EL */
+
+
+    try {
+
+      if ($select = $mysqli->prepare($sql_query)) {
+        if ($select->bind_param("isssi", $vak_row, $rap_in, $schooljaar, $schooljaar, $schoolid)) {
+          if ($select->execute()) {
+            $spn_audit = new spn_audit();
+            $UserGUID = $_SESSION['UserGUID'];
+            $spn_audit->create_audit($UserGUID, 'cijfers', 'list cijfers', appconfig::GetDummy());
+            $this->error = false;
+            $result = 1;
+
+            $select->bind_result($studentid, $cijferid, $klas, $lastname, $firstname, $sex, $c1, $c2, $c3, $c4, $c5, $c6, $c7, $c8, $c9, $c10, $c11, $c12, $c13, $c14, $c15, $c16, $c17, $c18, $c19, $c20, $gemiddelde);
+            $select->store_result();
+
+            if ($select->num_rows > 0) {
+
+              //BEGIN le_cijferswaarde (ejaspe@caribedev)
+              $u = new spn_utils();
+              if ($stmtcijferswaarde = $mysqli->prepare("CALL " . $this->sp_read_le_cijferswaarde . " (?,?,?,?)")) {
+                if ($stmtcijferswaarde->bind_param("ssis", $klas_in, $vak_row, $rap_in, $schooljaar)) {
+                  if ($stmtcijferswaarde->execute()) {
+                    $stmtcijferswaarde->bind_result($cijferswaardeid, $klas, $schooljaar, $rapnummer, $vak, $cijferswaarde1, $cijferswaarde2, $cijferswaarde3, $cijferswaarde4, $cijferswaarde5, $cijferswaarde6, $cijferswaarde7, $cijferswaarde8, $cijferswaarde9, $cijferswaarde10, $cijferswaarde11, $cijferswaarde12, $cijferswaarde13, $cijferswaarde14, $cijferswaarde15, $cijferswaarde16, $cijferswaarde17, $cijferswaarde18, $cijferswaarde19, $cijferswaarde20);
+                    $stmtcijferswaarde->store_result();
+
+                    if ($stmtcijferswaarde->num_rows > 0) {
+                      if ($rap_in == 1) {
+                        if ($s->_setting_rapnumber_1) {
+                          // Edit mode
+                          while ($stmtcijferswaarde->fetch()) {
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde1\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde1) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde2\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde2) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde3\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde3) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde4\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde4) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde5\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde5) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde6\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde6) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde7\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde7) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde8\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde8) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde9\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde9) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde10\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde10) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde11\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde11) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde12\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde12) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde13\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde13) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde14\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde14) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde15\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde15) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde16\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde16) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde17\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde17) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde18\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde18) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde19\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde19) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde20\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde20) . "\"/></th>";
+                          }
+                        } else {
+                          // View mode
+                          while ($stmtcijferswaarde->fetch()) {
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde1\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde1) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde2\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde2) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde3\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde3) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde4\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde4) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde5\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde5) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde6\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde6) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde7\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde7) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde8\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde8) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde9\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde9) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde10\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde10) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde11\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde11) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde12\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde12) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde13\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde13) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde14\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde14) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde15\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde15) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde16\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde16) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde17\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde17) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde18\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde18) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde19\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde19) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde20\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde20) . "\" disabled/></th>";
+                          }
+                        }
+                      } elseif ($rap_in == 2) {
+                        if ($s->_setting_rapnumber_2) {
+                          // Edit mode
+                          while ($stmtcijferswaarde->fetch()) {
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde1\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde1) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde2\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde2) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde3\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde3) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde4\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde4) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde5\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde5) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde6\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde6) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde7\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde7) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde8\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde8) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde9\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde9) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde10\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde10) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde11\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde11) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde12\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde12) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde13\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde13) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde14\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde14) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde15\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde15) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde16\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde16) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde17\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde17) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde18\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde18) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde19\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde19) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde20\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde20) . "\"/></th>";
+                          }
+                        } else {
+                          // View mode
+                          while ($stmtcijferswaarde->fetch()) {
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde1\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde1) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde2\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde2) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde3\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde3) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde4\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde4) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde5\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde5) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde6\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde6) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde7\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde7) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde8\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde8) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde9\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde9) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde10\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde10) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde11\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde11) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde12\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde12) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde13\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde13) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde14\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde14) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde15\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde15) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde16\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde16) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde17\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde17) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde18\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde18) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde19\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde19) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde20\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde20) . "\" disabled/></th>";
+                          }
+                        }
+                      } elseif ($rap_in == 3) {
+                        if ($s->_setting_rapnumber_3) {
+                          // Edit mode
+                          while ($stmtcijferswaarde->fetch()) {
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde1\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde1) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde2\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde2) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde3\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde3) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde4\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde4) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde5\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde5) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde6\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde6) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde7\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde7) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde8\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde8) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde9\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde9) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde10\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde10) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde11\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde11) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde12\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde12) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde13\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde13) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde14\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde14) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde15\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde15) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde16\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde16) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde17\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde17) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde18\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde18) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde19\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde19) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde20\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde20) . "\"/></th>";
+                          }
+                        } else {
+                          // View mode
+                          while ($stmtcijferswaarde->fetch()) {
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde1\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde1) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde2\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde2) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde3\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde3) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde4\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde4) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde5\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde5) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde6\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde6) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde7\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde7) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde8\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde8) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde9\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde9) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde10\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde10) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde11\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde11) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde12\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde12) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde13\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde13) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde14\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde14) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde15\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde15) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde16\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde16) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde17\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde17) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde18\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde18) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde19\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde19) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde20\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde20) . "\" disabled/></th>";
+                          }
+                        }
+                      }
+                    } else {
+                      // Changes settings (ladalan@caribedev)
+
+                      if ($s->_setting_rapnumber_1  || $s->_setting_rapnumber_2 || $s->_setting_rapnumber_3) {
+                        //NO DATA FIELDS
+                        $htmlcijferswaarde .= "<th><input id=\"cijferswaarde1\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"\"/></th>";
+                        $htmlcijferswaarde .= "<th><input id=\"cijferswaarde2\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"\"/></th>";
+                        $htmlcijferswaarde .= "<th><input id=\"cijferswaarde3\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"\"/></th>";
+                        $htmlcijferswaarde .= "<th><input id=\"cijferswaarde4\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"\"/></th>";
+                        $htmlcijferswaarde .= "<th><input id=\"cijferswaarde5\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"\"/></th>";
+                        $htmlcijferswaarde .= "<th><input id=\"cijferswaarde6\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"\"/></th>";
+                        $htmlcijferswaarde .= "<th><input id=\"cijferswaarde7\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"\"/></th>";
+                        $htmlcijferswaarde .= "<th><input id=\"cijferswaarde8\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"\"/></th>";
+                        $htmlcijferswaarde .= "<th><input id=\"cijferswaarde9\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"\"/></th>";
+                        $htmlcijferswaarde .= "<th><input id=\"cijferswaarde10\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"\"/></th>";
+                        $htmlcijferswaarde .= "<th><input id=\"cijferswaarde11\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"\"/></th>";
+                        $htmlcijferswaarde .= "<th><input id=\"cijferswaarde12\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"\"/></th>";
+                        $htmlcijferswaarde .= "<th><input id=\"cijferswaarde13\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"\"/></th>";
+                        $htmlcijferswaarde .= "<th><input id=\"cijferswaarde14\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"\"/></th>";
+                        $htmlcijferswaarde .= "<th><input id=\"cijferswaarde15\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"\"/></th>";
+                        $htmlcijferswaarde .= "<th><input id=\"cijferswaarde16\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"\"/></th>";
+                        $htmlcijferswaarde .= "<th><input id=\"cijferswaarde17\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"\"/></th>";
+                        $htmlcijferswaarde .= "<th><input id=\"cijferswaarde18\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"\"/></th>";
+                        $htmlcijferswaarde .= "<th><input id=\"cijferswaarde19\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"\"/></th>";
+                        $htmlcijferswaarde .= "<th><input id=\"cijferswaarde20\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"\"/></th>";
+                      } else {
+                        //NO DATA FIELDS
+                        $htmlcijferswaarde .= "<th><input id=\"cijferswaarde1\" type=\"text\" class=\"form-control\" value=\"\" disabled/></th>";
+                        $htmlcijferswaarde .= "<th><input id=\"cijferswaarde2\" type=\"text\" class=\"form-control\" value=\"\" disabled/></th>";
+                        $htmlcijferswaarde .= "<th><input id=\"cijferswaarde3\" type=\"text\" class=\"form-control\" value=\"\" disabled/></th>";
+                        $htmlcijferswaarde .= "<th><input id=\"cijferswaarde4\" type=\"text\" class=\"form-control\" value=\"\" disabled/></th>";
+                        $htmlcijferswaarde .= "<th><input id=\"cijferswaarde5\" type=\"text\" class=\"form-control\" value=\"\" disabled/></th>";
+                        $htmlcijferswaarde .= "<th><input id=\"cijferswaarde6\" type=\"text\" class=\"form-control\" value=\"\" disabled/></th>";
+                        $htmlcijferswaarde .= "<th><input id=\"cijferswaarde7\" type=\"text\" class=\"form-control\" value=\"\" disabled/></th>";
+                        $htmlcijferswaarde .= "<th><input id=\"cijferswaarde8\" type=\"text\" class=\"form-control\" value=\"\" disabled/></th>";
+                        $htmlcijferswaarde .= "<th><input id=\"cijferswaarde9\" type=\"text\" class=\"form-control\" value=\"\" disabled/></th>";
+                        $htmlcijferswaarde .= "<th><input id=\"cijferswaarde10\" type=\"text\" class=\"form-control\" value=\"\" disabled/></th>";
+                        $htmlcijferswaarde .= "<th><input id=\"cijferswaarde11\" type=\"text\" class=\"form-control\" value=\"\" disabled/></th>";
+                        $htmlcijferswaarde .= "<th><input id=\"cijferswaarde12\" type=\"text\" class=\"form-control\" value=\"\" disabled/></th>";
+                        $htmlcijferswaarde .= "<th><input id=\"cijferswaarde13\" type=\"text\" class=\"form-control\" value=\"\" disabled/></th>";
+                        $htmlcijferswaarde .= "<th><input id=\"cijferswaarde14\" type=\"text\" class=\"form-control\" value=\"\" disabled/></th>";
+                        $htmlcijferswaarde .= "<th><input id=\"cijferswaarde15\" type=\"text\" class=\"form-control\" value=\"\" disabled/></th>";
+                        $htmlcijferswaarde .= "<th><input id=\"cijferswaarde16\" type=\"text\" class=\"form-control\" value=\"\" disabled/></th>";
+                        $htmlcijferswaarde .= "<th><input id=\"cijferswaarde17\" type=\"text\" class=\"form-control\" value=\"\" disabled/></th>";
+                        $htmlcijferswaarde .= "<th><input id=\"cijferswaarde18\" type=\"text\" class=\"form-control\" value=\"\" disabled/></th>";
+                        $htmlcijferswaarde .= "<th><input id=\"cijferswaarde19\" type=\"text\" class=\"form-control\" value=\"\" disabled/></th>";
+                        $htmlcijferswaarde .= "<th><input id=\"cijferswaarde20\" type=\"text\" class=\"form-control\" value=\"\" disabled/></th>";
+                      }
+                    }
+
+                    // End changes settings (laldana@caribedev)
+                  } else {
+                    $result = 0;
+                    $this->mysqlierror = $mysqli->error;
+                    $this->mysqlierrornumber = $mysqli->errno;
+                    $result = $mysqli->error;
+                  }
+                } else {
+                  $result = 0;
+                  $this->mysqlierror = $mysqli->error;
+                  $this->mysqlierrornumber = $mysqli->errno;
+
+                  $result = $mysqli->error;
+                }
+              } else {
+                $result = 0;
+                $this->mysqlierror = $mysqli->error;
+                $this->mysqlierrornumber = $mysqli->errno;
+
+                $result = $mysqli->error;
+              }
+              //END le_cijferswaarde
+
+
+              /* begin drawing table */
+              $htmlcontrol .= "<div class=\"table-responsive\">
+                          <table id=\"vak\" class=\"table table-bordered table-colored table-vak\">
+                          <thead>
+                          <tr>
+
+
+                          <th colspan=\"2\">Vul hierboven de bijhorende norm: </th>";
+              // <th class=\"btn-m-w\"></th>";
+
+
+              $htmlcontrol .= $htmlcijferswaarde;
+
+              // Changes settings (ladalan@caribedev)
+
+              if (($s->_setting_rapnumber_1 && $rap_in == 1) || ($s->_setting_rapnumber_2 && $rap_in == 2) || ($s->_setting_rapnumber_3 && $rap_in == 3)) {
+                $DBCreds = new DBCreds();
+                $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort, $dummy);
+                $get_students = "SELECT oc1,oc2,oc3,oc4,oc5,oc6,oc7,oc8,oc9,oc10,oc11,oc12,oc13,oc14,oc15,oc16,oc17,oc18,oc19,oc20 FROM le_cijfersextra WHERE schoolid = '$schoolid' AND klas = '$klas_in' AND vak = '$vak_row' AND rapnummer = '$rap_in' AND schooljaar = '$schooljaar' LIMIT 1";
+                $result1 = mysqli_query($mysqli, $get_students);
+                if (mysqli_num_rows($result1) > 0) {
+                  while ($row1 = mysqli_fetch_assoc($result1)) {
+                    for ($x = 1; $x <= 20; $x++) {
+                      $y = "oc" . $x;
+                      $$y = $row1['oc' . $x];
+                    }
+                  }
+                }
+                $htmlcontrol .= "<th></th>
+                            </tr>
+                            <tr class=\"text-align-center\">
+                            <th>#</th>
+                            <th class=\"btn-m-w\">Naam</th>
+                            <th>
+                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{$oc1}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"1\">1 <i class=\"fa fa-edit\"></i></a>
+                            </th>
+                            <th>
+                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{$oc2}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"2\">2 <i class=\"fa fa-edit\"></i></a>
+                            </th>
+                            <th>
+                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{$oc3}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"3\">3 <i class=\"fa fa-edit\"></i></a>
+                            </th>
+                            <th>
+                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{$oc4}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"4\">4 <i class=\"fa fa-edit\"></i></a>
+                            </th>
+                            <th>
+                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{$oc5}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"5\">5 <i class=\"fa fa-edit\"></i></a>
+                            </th>
+                            <th>
+                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{$oc6}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"6\">6 <i class=\"fa fa-edit\"></i></a>
+                            </th>
+                            <th>
+                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{$oc7}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"7\">7 <i class=\"fa fa-edit\"></i></a>
+                            </th>
+                            <th>
+                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{$oc8}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"8\">8 <i class=\"fa fa-edit\"></i></a>
+                            </th>
+                            <th>
+                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{$oc9}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"9\">9 <i class=\"fa fa-edit\"></i></a>
+                            </th>
+                            <th>
+                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{$oc10}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"10\">10 <i class=\"fa fa-edit\"></i></a>
+                            </th>
+                            <th>
+                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{$oc11}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"11\">11 <i class=\"fa fa-edit\"></i></a>
+                            </th>
+                            <th>
+                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{$oc12}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"12\">12 <i class=\"fa fa-edit\"></i></a>
+                            </th>
+                            <th>
+                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{$oc13}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"13\">13 <i class=\"fa fa-edit\"></i></a>
+                            </th>
+                            <th>
+                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{$oc14}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"14\">14 <i class=\"fa fa-edit\"></i></a>
+                            </th>
+                            <th>
+                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{$oc15}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"15\">15 <i class=\"fa fa-edit\"></i></a>
+                            </th>
+                            <th>
+                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{$oc16}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"16\">16 <i class=\"fa fa-edit\"></i></a>
+                            </th>
+                            <th>
+                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{$oc17}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"17\">17 <i class=\"fa fa-edit\"></i></a>
+                            </th>
+                            <th>
+                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{$oc18}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"18\">18 <i class=\"fa fa-edit\"></i></a>
+                            </th>
+                            <th>
+                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{$oc19}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"19\">19 <i class=\"fa fa-edit\"></i></a>
+                            </th>
+                            <th>
+                            <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{$oc20}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"20\">20 <i class=\"fa fa-edit\"></i></a>
+                            </th>
+                            <th>
+                            Gemiddeld
+                            </th>
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                            <td></td>
+                            <td class=\"btn-w-m align-right\">Gemiddeld</td>
+                            <td><div id=\"gemiddeld_1\">0</div></td>
+                            <td><div id=\"gemiddeld_2\">0</div></td>
+                            <td><div id=\"gemiddeld_3\">0</div></td>
+                            <td><div id=\"gemiddeld_4\">0</div></td>
+                            <td><div id=\"gemiddeld_5\">0</div></td>
+                            <td><div id=\"gemiddeld_6\">0</div></td>
+                            <td><div id=\"gemiddeld_7\">0</div></td>
+                            <td><div id=\"gemiddeld_8\">0</div></td>
+                            <td><div id=\"gemiddeld_9\">0</div></td>
+                            <td><div id=\"gemiddeld_10\">0</div></td>
+                            <td><div id=\"gemiddeld_11\">0</div></td>
+                            <td><div id=\"gemiddeld_12\">0</div></td>
+                            <td><div id=\"gemiddeld_13\">0</div></td>
+                            <td><div id=\"gemiddeld_14\">0</div></td>
+                            <td><div id=\"gemiddeld_15\">0</div></td>
+                            <td><div id=\"gemiddeld_16\">0</div></td>
+                            <td><div id=\"gemiddeld_17\">0</div></td>
+                            <td><div id=\"gemiddeld_18\">0</div></td>
+                            <td><div id=\"gemiddeld_19\">0</div></td>
+                            <td><div id=\"gemiddeld_20\">0</div></td>
+                            <td><div id=\"gemiddeld_total\">0</div></td>
+                            </tr>
+                            </tfoot>
+                            <tbody>";
+              } else {
+                $htmlcontrol .= "<th></th>
+                            </tr>
+                            <tr class=\"text-align-center\">
+                            <th>#</th>
+                            <th class=\"btn-m-w\">Naam</th>
+                            <th>
+                            1
+                            </th>
+                            <th>
+                            2
+                            </th>
+                            <th>
+                            3
+                            </th>
+                            <th>
+                            4
+                            </th>
+                            <th>
+                            5
+                            </th>
+                            <th>
+                            6
+                            </th>
+                            <th>
+                            7
+                            </th>
+                            <th>
+                            8
+                            </th>
+                            <th>
+                            9
+                            </th>
+                            <th>
+                            10
+                            </th>
+                            <th>
+                            11
+                            </th>
+                            <th>
+                            12
+                            </th>
+                            <th>
+                            13
+                            </th>
+                            <th>
+                            14
+                            </th>
+                            <th>
+                            15
+                            </th>
+                            <th>
+                            16
+                            </th>
+                            <th>
+                            17
+                            </th>
+                            <th>
+                            18
+                            </th>
+                            <th>
+                            19
+                            </th>
+                            <th>
+                            20
+                            </th>
+                            <th>
+                            Gemiddeld
+                            </th>
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                            <td></td>
+                            <td class=\"btn-w-m align-right\">Gemiddeld</td>
+                            <td><div id=\"gemiddeld_1\">0</div></td>
+                            <td><div id=\"gemiddeld_2\">0</div></td>
+                            <td><div id=\"gemiddeld_3\">0</div></td>
+                            <td><div id=\"gemiddeld_4\">0</div></td>
+                            <td><div id=\"gemiddeld_5\">0</div></td>
+                            <td><div id=\"gemiddeld_6\">0</div></td>
+                            <td><div id=\"gemiddeld_7\">0</div></td>
+                            <td><div id=\"gemiddeld_8\">0</div></td>
+                            <td><div id=\"gemiddeld_9\">0</div></td>
+                            <td><div id=\"gemiddeld_10\">0</div></td>
+                            <td><div id=\"gemiddeld_11\">0</div></td>
+                            <td><div id=\"gemiddeld_12\">0</div></td>
+                            <td><div id=\"gemiddeld_13\">0</div></td>
+                            <td><div id=\"gemiddeld_14\">0</div></td>
+                            <td><div id=\"gemiddeld_15\">0</div></td>
+                            <td><div id=\"gemiddeld_16\">0</div></td>
+                            <td><div id=\"gemiddeld_17\">0</div></td>
+                            <td><div id=\"gemiddeld_18\">0</div></td>
+                            <td><div id=\"gemiddeld_19\">0</div></td>
+                            <td><div id=\"gemiddeld_20\">0</div></td>
+                            <td><div id=\"gemiddeld_total\">0</div></td>
+                            </tr>
+                            </tfoot>
+                            <tbody>";
+              }
+
+              // End changes settings (ladalan@caribedev)
+
+              /* initialize counter variable, this variable is used to display student count number */
+              $x = 1;
+
+              /* initialize counter variable, this variable is used to set the data-cijfer attribute */
+              $xx = 1;
+
+              //print $select->num_rows;
+
+              while ($select->fetch()) {
+
+                $htmlcontrol .= "<tr><td>$x</td><td><input class=\"hidden\" studentidarray=\"$studentid\"></input>" . utf8_encode($lastname) . ', ' . utf8_encode($firstname) . "</td>";
+
+                for ($y = 1; $y <= 20; $y++) {
+                  $htmlcontrol .= "";
+
+                  $_cijfer_number = 0;
+                  /* check dimension of the cijfers */
+                  switch ($y) {
+                    case 1:
+                      $c1 = ($c1 == 0.0 ? "" : $c1);
+                      $_cijfer_number = $c1;
+                      break;
+
+                    case 2:
+                      $c2 = ($c2 == 0.0 ? "" : $c2);
+                      $_cijfer_number = $c2;
+                      break;
+
+                    case 3:
+                      $c3 = ($c3 == 0.0 ? "" : $c3);
+                      $_cijfer_number = $c3;
+                      break;
+
+                    case 4:
+                      $c4 = ($c4 == 0.0 ? "" : $c4);
+                      $_cijfer_number = $c4;
+                      break;
+
+                    case 5:
+                      $c5 = ($c5 == 0.0 ? "" : $c5);
+                      $_cijfer_number = $c5;
+                      break;
+
+                    case 6:
+                      $c6 = ($c6 == 0.0 ? "" : $c6);
+                      $_cijfer_number = $c6;
+                      break;
+
+                    case 7:
+                      $c7 = ($c7 == 0.0 ? "" : $c7);
+                      $_cijfer_number = $c7;
+                      break;
+
+                    case 8:
+                      $c8 = ($c8 == 0.0 ? "" : $c8);
+                      $_cijfer_number = $c8;
+                      break;
+
+                    case 9:
+                      $c9 = ($c9 == 0.0 ? "" : $c9);
+                      $_cijfer_number = $c9;
+                      break;
+
+                    case 10:
+                      $c10 = ($c10 == 0.0 ? "" : $c10);
+                      $_cijfer_number = $c10;
+                      break;
+
+                    case 11:
+                      $c11 = ($c11 == 0.0 ? "" : $c11);
+                      $_cijfer_number = $c11;
+                      break;
+
+                    case 12:
+                      $c12 = ($c12 == 0.0 ? "" : $c12);
+                      $_cijfer_number = $c12;
+                      break;
+
+                    case 13:
+                      $c13 = ($c13 == 0.0 ? "" : $c13);
+                      $_cijfer_number = $c13;
+                      break;
+
+                    case 14:
+                      $c14 = ($c14 == 0.0 ? "" : $c14);
+                      $_cijfer_number = $c14;
+                      break;
+
+                    case 15:
+                      $c15 = ($c15 == 0.0 ? "" : $c15);
+                      $_cijfer_number = $c15;
+                      break;
+
+                    case 16:
+                      $c16 = ($c16 == 0.0 ? "" : $c16);
+                      $_cijfer_number = $c16;
+                      break;
+
+                    case 17:
+                      $c17 = ($c17 == 0.0 ? "" : $c17);
+                      $_cijfer_number = $c17;
+                      break;
+
+                    case 18:
+                      $c18 = ($c18 == 0.0 ? "" : $c18);
+                      $_cijfer_number = $c18;
+                      break;
+
+                    case 19:
+                      $c19 = ($c19 == 0.0 ? "" : $c19);
+                      $_cijfer_number = $c19;
+                      break;
+
+                    case 20:
+                      $c20 = ($c20 == 0.0 ? "" : $c20);
+                      $_cijfer_number = $c20;
+                      break;
+
+                    default:
+                      $_cijfer_number = 0;
+                      break;
+                  }
+
+                  // Changes settings (ladalan@caribedev)
+
+                  if (($s->_setting_rapnumber_1 && $rap_in == 1) || ($s->_setting_rapnumber_2 && $rap_in == 2) || ($s->_setting_rapnumber_3 && $rap_in == 3)) {
+                    $cell = 'x' . $x . 'y' . $y;
+                    $htmlcontrol .= "<td><span id=\"lblName1\" disabled='true' data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas_in\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\" class=\"editable\">$_cijfer_number</span></td>";
+                  } else {
+                    $cell = 'x' . $x . 'y' . $y;
+                    $htmlcontrol .= "<td><span id=\"lblName1\" data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas_in\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\">$_cijfer_number</span></td>";
+                  }
+
+                  // End changes settings (ladalan@caribedev)
+
+                  $xx++;
+                }
+
+                $htmlcontrol .= "<td id=\"ge$x\">$gemiddelde</td></tr>";
+
+                /* increment variable with one */
+                $x++;
+              }
+
+              $htmlcontrol .= "</tbody>";
+              $htmlcontrol .= "</table>";
+              $htmlcontrol .= "</div>";
+              //BEGIN CaribeDevelopers - Janio Acero
+              $u = new spn_utils();
+              $mysqli->close();
+              $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
+              if ($stmt = $mysqli->prepare("CALL " . $this->sp_read_le_cijfersextra . " (?,?,?,?)")) {
+                if ($stmt->bind_param("ssis", $klas_in, $vak_row, $rap_in, $schooljaar)) {
+                  if ($stmt->execute()) {
+                    $stmt->bind_result(
+                      $cijfersextraid,
+                      $klas,
+                      $schooljaar,
+                      $rapnummer,
+                      $vak,
+                      $oc1,
+                      $oc2,
+                      $oc3,
+                      $oc4,
+                      $oc5,
+                      $oc6,
+                      $oc7,
+                      $oc8,
+                      $oc9,
+                      $oc10,
+                      $oc11,
+                      $oc12,
+                      $oc13,
+                      $oc14,
+                      $oc15,
+                      $oc16,
+                      $oc17,
+                      $oc18,
+                      $oc19,
+                      $oc20,
+                      $dc1,
+                      $dc2,
+                      $dc3,
+                      $dc4,
+                      $dc5,
+                      $dc6,
+                      $dc7,
+                      $dc8,
+                      $dc9,
+                      $dc10,
+                      $dc11,
+                      $dc12,
+                      $dc13,
+                      $dc14,
+                      $dc15,
+                      $dc16,
+                      $dc17,
+                      $dc18,
+                      $dc19,
+                      $dc20
+                    );
+                    $stmt->store_result();
+
+                    if ($stmt->num_rows > 0) {
+                      while ($stmt->fetch()) {
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"id_cijfersextra\" name=\"id_cijfersextra\" value=\"" . htmlentities($cijfersextraid) . "\"/>";
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"klas_cijfersextra\" name=\"klas_cijfersextra\" value=\"" . htmlentities($klas) . "\">";
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"schooljaar_cijfersextra\" name=\"schooljaar_cijfersextra\" value=\"" . htmlentities($schooljaar) . "\"/>";
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"rapnummer_cijfersextra\" name=\"rapnummer_cijfersextra\" value=\"" . htmlentities($rapnummer) . "\"/>";
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"vak_cijfersextra\" name=\"vak_cijfersextra\" value=\"" . htmlentities($vak) . "\"/>";
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"oc1_cijfersextra\" name=\"oc1_cijfersextra\" value=\"" . htmlentities($oc1) . "\"/>";
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"oc2_cijfersextra\" name=\"oc2_cijfersextra\" value=\"" . htmlentities($oc2) . "\"/>";
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"oc3_cijfersextra\" name=\"oc3_cijfersextra\" value=\"" . htmlentities($oc3) . "\"/>";
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"oc4_cijfersextra\" name=\"oc4_cijfersextra\" value=\"" . htmlentities($oc4) . "\"/>";
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"oc5_cijfersextra\" name=\"oc5_cijfersextra\" value=\"" . htmlentities($oc5) . "\"/>";
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"oc6_cijfersextra\" name=\"oc6_cijfersextra\" value=\"" . htmlentities($oc6) . "\"/>";
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"oc7_cijfersextra\" name=\"oc7_cijfersextra\" value=\"" . htmlentities($oc7) . "\"/>";
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"oc8_cijfersextra\" name=\"oc8_cijfersextra\" value=\"" . htmlentities($oc8) . "\"/>";
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"oc9_cijfersextra\" name=\"oc9_cijfersextra\" value=\"" . htmlentities($oc9) . "\"/>";
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"oc10_cijfersextra\" name=\"oc10_cijfersextra\" value=\"" . htmlentities($oc10) . "\"/>";
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"oc11_cijfersextra\" name=\"oc11_cijfersextra\" value=\"" . htmlentities($oc11) . "\"/>";
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"oc12_cijfersextra\" name=\"oc12_cijfersextra\" value=\"" . htmlentities($oc12) . "\"/>";
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"oc13_cijfersextra\" name=\"oc13_cijfersextra\" value=\"" . htmlentities($oc13) . "\"/>";
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"oc14_cijfersextra\" name=\"oc14_cijfersextra\" value=\"" . htmlentities($oc14) . "\"/>";
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"oc15_cijfersextra\" name=\"oc15_cijfersextra\" value=\"" . htmlentities($oc15) . "\"/>";
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"oc16_cijfersextra\" name=\"oc16_cijfersextra\" value=\"" . htmlentities($oc16) . "\"/>";
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"oc17_cijfersextra\" name=\"oc17_cijfersextra\" value=\"" . htmlentities($oc17) . "\"/>";
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"oc18_cijfersextra\" name=\"oc18_cijfersextra\" value=\"" . htmlentities($oc18) . "\"/>";
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"oc19_cijfersextra\" name=\"oc19_cijfersextra\" value=\"" . htmlentities($oc19) . "\"/>";
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"oc20_cijfersextra\" name=\"oc20_cijfersextra\" value=\"" . htmlentities($oc20) . "\"/>";
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"dc1_cijfersextra\" name=\"dc1_cijfersextra\" value=\"" . $u->convertfrommysqldate(htmlentities($dc1)) . "\"/>";
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"dc2_cijfersextra\" name=\"dc2_cijfersextra\" value=\"" . $u->convertfrommysqldate(htmlentities($dc2)) . "\"/>";
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"dc3_cijfersextra\" name=\"dc3_cijfersextra\" value=\"" . $u->convertfrommysqldate(htmlentities($dc3)) . "\"/>";
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"dc4_cijfersextra\" name=\"dc4_cijfersextra\" value=\"" . $u->convertfrommysqldate(htmlentities($dc4)) . "\"/>";
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"dc5_cijfersextra\" name=\"dc5_cijfersextra\" value=\"" . $u->convertfrommysqldate(htmlentities($dc5)) . "\"/>";
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"dc6_cijfersextra\" name=\"dc6_cijfersextra\" value=\"" . $u->convertfrommysqldate(htmlentities($dc6)) . "\"/>";
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"dc7_cijfersextra\" name=\"dc7_cijfersextra\" value=\"" . $u->convertfrommysqldate(htmlentities($dc7)) . "\"/>";
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"dc8_cijfersextra\" name=\"dc8_cijfersextra\" value=\"" . $u->convertfrommysqldate(htmlentities($dc8)) . "\"/>";
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"dc9_cijfersextra\" name=\"dc9_cijfersextra\" value=\"" . $u->convertfrommysqldate(htmlentities($dc9)) . "\"/>";
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"dc10_cijfersextra\" name=\"dc10_cijfersextra\" value=\"" . $u->convertfrommysqldate(htmlentities($dc10)) . "\"/>";
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"dc11_cijfersextra\" name=\"dc11_cijfersextra\" value=\"" . $u->convertfrommysqldate(htmlentities($dc11)) . "\"/>";
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"dc12_cijfersextra\" name=\"dc12_cijfersextra\" value=\"" . $u->convertfrommysqldate(htmlentities($dc12)) . "\"/>";
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"dc13_cijfersextra\" name=\"dc13_cijfersextra\" value=\"" . $u->convertfrommysqldate(htmlentities($dc13)) . "\"/>";
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"dc14_cijfersextra\" name=\"dc14_cijfersextra\" value=\"" . $u->convertfrommysqldate(htmlentities($dc14)) . "\"/>";
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"dc15_cijfersextra\" name=\"dc15_cijfersextra\" value=\"" . $u->convertfrommysqldate(htmlentities($dc15)) . "\"/>";
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"dc16_cijfersextra\" name=\"dc16_cijfersextra\" value=\"" . $u->convertfrommysqldate(htmlentities($dc16)) . "\"/>";
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"dc17_cijfersextra\" name=\"dc17_cijfersextra\" value=\"" . $u->convertfrommysqldate(htmlentities($dc17)) . "\"/>";
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"dc18_cijfersextra\" name=\"dc18_cijfersextra\" value=\"" . $u->convertfrommysqldate(htmlentities($dc18)) . "\"/>";
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"dc19_cijfersextra\" name=\"dc19_cijfersextra\" value=\"" . $u->convertfrommysqldate(htmlentities($dc19)) . "\"/>";
+                        $htmlcontrol .= "<input type=\"hidden\" id=\"dc20_cijfersextra\" name=\"dc20_cijfersextra\" value=\"" . $u->convertfrommysqldate(htmlentities($dc20)) . "\"/>";
+                      }
+                    } else {
+                      //POR AHORA NADA
+                    }
+                  } else {
+                    $result = 0;
+                    $this->mysqlierror = $mysqli->error;
+                    $this->mysqlierrornumber = $mysqli->errno;
+                    $result = $mysqli->error;
+                  }
+                } else {
+                  $result = 0;
+                  $this->mysqlierror = $mysqli->error;
+                  $this->mysqlierrornumber = $mysqli->errno;
+
+                  $result = $mysqli->error;
+                }
+              } else {
+                $result = 0;
+                $this->mysqlierror = $mysqli->error;
+                $this->mysqlierrornumber = $mysqli->errno;
+
+                $result = $mysqli->error;
+              }
+              //END CaribeDevelopers - Janio Acero
+            } else {
+              $htmlcontrol .= "No results to show";
+            }
+          } else {
+            /* error executing query */
+            $this->error = true;
+            $this->mysqlierror = $mysqli->error;
+            $result = 0;
+
+            if ($this->debug) {
+              print "error executing query" . "<br />";
+              print "error" . $mysqli->error;
+            }
+          }
+        } else {
+          /* error binding parameters */
+          $this->error = true;
+          $this->mysqlierror = $mysqli->error;
+          $result = 0;
+
+          if ($this->debug) {
+            print "error binding parameters";
+          }
+        }
+      } else {
+        /* error preparing query */
+        $this->error = true;
+        $this->mysqlierror = $mysqli->error;
+        $result = 0;
+
+        if ($this->debug) {
+          print "error preparing query";
+        }
+      }
+
+
+      // $htmlcontrol .= "<input type=\"hidden\" id=\"klas_cijferswaarde\" name=\"klas_cijferswaarde\" value=\"" . htmlentities($klas_in) . "\">";
+      // $htmlcontrol .= "<input type=\"hidden\" id=\"schooljaar_cijferswaarde\" name=\"schooljaar_cijferswaarde\" value=\"" . htmlentities($schooljaar) . "\"/>";
+      // $htmlcontrol .= "<input type=\"hidden\" id=\"rapnummer_cijferswaarde\" name=\"rapnummer_cijferswaarde\" value=\"" . htmlentities($rap_in) . "\"/>";
+      // $htmlcontrol .= "<input type=\"hidden\" id=\"vak_cijferswaarde\" name=\"vak_cijferswaarde\" value=\"" . htmlentities($vak_row) . "\"/>";
 
 
 

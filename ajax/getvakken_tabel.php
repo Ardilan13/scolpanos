@@ -22,31 +22,38 @@ $IsTutor = $u->check_mentor_in_klas($_GET['cijfers_klassen_lijst'], $_SESSION["U
 $IsTutorinVak = $u->check_mentor_in_klas_and_vak($_GET['cijfers_klassen_lijst'], $_SESSION["UserGUID"], $_GET["cijfers_vakken_lijst"], appconfig::GetDummy());
 $IsMyVak = $u->check_is_docent_vak($_GET['cijfers_klassen_lijst'], $_SESSION["UserGUID"], $_GET["cijfers_vakken_lijst"], appconfig::GetDummy());
 
-if (isset($_SESSION["UserRights"]) && isset($_SESSION["SchoolID"]) && isset($_GET["cijfers_klassen_lijst"]) && isset($_GET["cijfers_vakken_lijst"]) && isset($_GET["cijfers_rapporten_lijst"])) {
+if (isset($_SESSION["UserRights"]) && isset($_SESSION["SchoolID"]) && isset($_GET["cijfers_klassen_lijst"]) && (isset($_GET["cijfers_vakken_lijst"]) || isset($_GET['group'])) && isset($_GET["cijfers_rapporten_lijst"])) {
 	if ($_SESSION["UserRights"] == "DOCENT" || $_SESSION["UserRights"] == "ASSISTENT") {
 		$s = new spn_cijfers();
-		if (isset($_SESSION["Class"])) {
-			//CaribeDev
-			if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["SchoolID"] != 18) {
-				$cijferswarde = $s->createcijferswaarde_first_time_ps($_GET["cijfers_klassen_lijst"], $_SESSION["SchoolJaar"], $_GET["cijfers_rapporten_lijst"], $_GET["cijfers_vakken_lijst"], 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
-				$result = $s->create_le_cijfer_student_ps($_SESSION["SchoolJaar"], $_GET["cijfers_rapporten_lijst"], $_GET["cijfers_klassen_lijst"], $_SESSION["SchoolID"], $_GET["cijfers_vakken_lijst"]);
-			} else {
-				$cijferswarde = $s->createcijferswaarde_first_time($_GET["cijfers_klassen_lijst"], $_SESSION["SchoolID"], $_SESSION["SchoolJaar"], $_GET["cijfers_rapporten_lijst"], $_GET["cijfers_vakken_lijst"], 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
-				$result = $s->create_le_cijfer_student($_SESSION["SchoolJaar"], $_GET["cijfers_rapporten_lijst"], $_GET["cijfers_klassen_lijst"], $_SESSION["SchoolID"], $_GET["cijfers_vakken_lijst"]);
-			}
+		if ($_GET['cijfers_klassen_lijst'] == '4') {
+			$cijferswarde = $s->createcijferswaarde_first_time_group($_SESSION["SchoolID"], $_SESSION["SchoolJaar"], $_GET["cijfers_rapporten_lijst"], $_GET["group"], 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+			$result = $s->create_le_cijfer_student_group($_SESSION["SchoolJaar"], $_GET["cijfers_rapporten_lijst"], $_GET["cijfers_klassen_lijst"], $_SESSION["SchoolID"], $_GET["group"]);
+			$table = print_vakken_table();
+			print $table;
+		} else {
+			if (isset($_SESSION["Class"])) {
+				//CaribeDev
+				if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["SchoolID"] != 18) {
+					$cijferswarde = $s->createcijferswaarde_first_time_ps($_GET["cijfers_klassen_lijst"], $_SESSION["SchoolJaar"], $_GET["cijfers_rapporten_lijst"], $_GET["cijfers_vakken_lijst"], 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+					$result = $s->create_le_cijfer_student_ps($_SESSION["SchoolJaar"], $_GET["cijfers_rapporten_lijst"], $_GET["cijfers_klassen_lijst"], $_SESSION["SchoolID"], $_GET["cijfers_vakken_lijst"]);
+				} else {
+					$cijferswarde = $s->createcijferswaarde_first_time($_GET["cijfers_klassen_lijst"], $_SESSION["SchoolID"], $_SESSION["SchoolJaar"], $_GET["cijfers_rapporten_lijst"], $_GET["cijfers_vakken_lijst"], 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+					$result = $s->create_le_cijfer_student($_SESSION["SchoolJaar"], $_GET["cijfers_rapporten_lijst"], $_GET["cijfers_klassen_lijst"], $_SESSION["SchoolID"], $_GET["cijfers_vakken_lijst"]);
+				}
 
-			if ($IsTutor >= 1 && $_SESSION["SchoolType"] != 1) {
-				if ($IsMyVak == 1) {
+				if ($IsTutor >= 1 && $_SESSION["SchoolType"] != 1) {
+					if ($IsMyVak == 1) {
+						// print $s->listcijfers($_SESSION["SchoolID"],$_GET["cijfers_klassen_lijst"],$_GET["cijfers_vakken_lijst"],$_GET["cijfers_rapporten_lijst"],"",$_SESSION["SchoolJaar"]);
+						$table = print_vakken_table();
+						print $table;
+					} else {
+						print $s->listcijfers_for_tutor($_SESSION["SchoolID"], $_GET["cijfers_klassen_lijst"], $_GET["cijfers_vakken_lijst"], $_GET["cijfers_rapporten_lijst"], "", $_SESSION["SchoolJaar"]);
+					}
+				} else {
 					// print $s->listcijfers($_SESSION["SchoolID"],$_GET["cijfers_klassen_lijst"],$_GET["cijfers_vakken_lijst"],$_GET["cijfers_rapporten_lijst"],"",$_SESSION["SchoolJaar"]);
 					$table = print_vakken_table();
 					print $table;
-				} else {
-					print $s->listcijfers_for_tutor($_SESSION["SchoolID"], $_GET["cijfers_klassen_lijst"], $_GET["cijfers_vakken_lijst"], $_GET["cijfers_rapporten_lijst"], "", $_SESSION["SchoolJaar"]);
 				}
-			} else {
-				// print $s->listcijfers($_SESSION["SchoolID"],$_GET["cijfers_klassen_lijst"],$_GET["cijfers_vakken_lijst"],$_GET["cijfers_rapporten_lijst"],"",$_SESSION["SchoolJaar"]);
-				$table = print_vakken_table();
-				print $table;
 			}
 		}
 	} else if ($_SESSION["UserRights"] == "BEHEER" || $_SESSION["UserRights"] == "ADMINISTRATIE" || $_SESSION["UserRights"] == "ONDERSTEUNING") {
@@ -71,7 +78,11 @@ function print_vakken_table()
 {
 	$s = new spn_cijfers();
 	if ($_SESSION['SchoolType'] == 2 || $_SESSION['SchoolID'] == 8 || $_SESSION['SchoolID'] == 18) {
-		print $s->listcijfers_hs($_SESSION["SchoolID"], $_GET["cijfers_klassen_lijst"], $_GET["cijfers_vakken_lijst"], $_GET["cijfers_rapporten_lijst"], "", $_SESSION["SchoolJaar"]);
+		if ($_GET["cijfers_klassen_lijst"] == '4') {
+			print $s->listcijfers_group($_SESSION["SchoolID"], $_GET["cijfers_klassen_lijst"], $_GET["group"], $_GET["cijfers_rapporten_lijst"], "", $_SESSION["SchoolJaar"]);
+		} else {
+			print $s->listcijfers_hs($_SESSION["SchoolID"], $_GET["cijfers_klassen_lijst"], $_GET["cijfers_vakken_lijst"], $_GET["cijfers_rapporten_lijst"], "", $_SESSION["SchoolJaar"]);
+		}
 	} else {
 		print $s->listcijfers($_SESSION["SchoolID"], $_GET["cijfers_klassen_lijst"], $_GET["cijfers_vakken_lijst"], $_GET["cijfers_rapporten_lijst"], "", $_SESSION["SchoolJaar"]);
 	}

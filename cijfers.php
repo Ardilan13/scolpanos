@@ -25,7 +25,7 @@
 											<!-- <option value="NONE">NONE</option> -->
 										</select>
 									</div>
-									<div class="form-group">
+									<div class="form-group vaken">
 										<?php if ($_SESSION['SchoolType'] == 1 && $_SESSION['SchoolID'] != 8 && $_SESSION["SchoolID"] != 18) { ?>
 											<label for="cijfers_vakken_lijst_ps">Vak</label>
 											<select class="form-control cijfers_vakken_lijst" name="cijfers_vakken_lijst" id="cijfers_vakken_lijst_ps">
@@ -48,6 +48,10 @@
 												<!--<option value="NONE">-- Kies een Vak --</option>-->
 											</select>
 										<?php } ?>
+									</div>
+									<div class="form-group group hidden">
+										<label for="group">Group</label>
+										<select class="form-control" name="group" id="group"></select>
 									</div>
 									<div class="form-group">
 										<label for="cijfers_rapporten_lijst">Rapnr.</label>
@@ -107,6 +111,50 @@
 <!-- PLEASE CAREFULLY WIH THIS "}" THAT CLOSE SECURITY  ELSE IF -->
 <script>
 	var a = JSON.parse(sessionStorage.getItem("extra_ss_cijfer"));
+	$(document).ready(function() {
+		setTimeout(function() {
+			if ($("#cijfers_klassen_lijst").val() == '4') {
+				$.getJSON("ajax/get_groups.php", {}, function(result) {
+					console.log(result);
+					var vak = $("#group");
+					$.each(result, function() {
+						vak.append($("<option />").val(this.group).text(this.vak).attr("vak", this.id));
+					});
+				});
+				$("#group").attr('disabled', false);
+				$("#cijfers_vakken_lijst").attr('disabled', true);
+				$(".vaken").addClass("hidden");
+				$(".group").removeClass("hidden");
+			} else {
+				$("#cijfers_vakken_lijst").attr('disabled', false);
+				$("#group").attr('disabled', true);
+				$(".group").addClass("hidden");
+				$(".vaken").removeClass("hidden");
+			}
+		}, 1000);
+
+		$("#cijfers_klassen_lijst").change(function() {
+			if ($("#cijfers_klassen_lijst").val() == '4') {
+				$.getJSON("ajax/get_groups.php", {}, function(result) {
+					console.log(result);
+					var vak = $("#group");
+					$.each(result, function() {
+						vak.append($("<option />").val(this.group).text(this.vak).attr("vak", this.id));
+					});
+				});
+				$("#group").attr('disabled', false);
+				$("#cijfers_vakken_lijst").attr('disabled', true);
+				$(".vaken").addClass("hidden");
+				$(".group").removeClass("hidden");
+			} else {
+				$("#cijfers_vakken_lijst").attr('disabled', false);
+				$("#group").attr('disabled', true);
+				$(".group").addClass("hidden");
+				$(".vaken").removeClass("hidden");
+			}
+		});
+	})
+
 	if (a == null) {
 		$("#btn_extra_save_cijfer").text("Ex. Save: " + 0);
 	} else {

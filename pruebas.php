@@ -11,7 +11,43 @@ $s->getsetting_info($_SESSION["SchoolID"], false);
 $DBCreds = new DBCreds();
 $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort, $dummy);
 
-/* $get_students = "SELECT ID_PK FROM `le_vakken` where SchoolID = 13 and Klas like '4%' and ID = 0
+$schoolid = $_SESSION["SchoolID"];
+$group = 71;
+$schooljaar = $_SESSION["SchoolJaar"];
+$rapnummer = 1;
+
+$sql = "SELECT s.id,s.class,gr.vak FROM students s INNER JOIN group_student g ON s.id = g.student_id INNER JOIN groups gr ON g.group_id = gr.id WHERE s.schoolid = '$schoolid' AND g.group_id = $group AND g.schooljaar = '$schooljaar';";
+$result = mysqli_query($mysqli, $sql);
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $studentid = $row['id'];
+        $klas = $row['class'];
+        $vak = $row['vak'];
+        $select = "SELECT COUNT(lc.id) as num FROM le_cijferswaarde lc 
+        INNER JOIN le_vakken lv ON lc.vak = lv.id 
+        AND lc.schooljaar = '$schooljaar'
+        AND lc.rapnummer = $rapnummer
+        AND lv.schoolid = $schoolid
+        AND lc.klas = '$klas'
+        AND lv.id = $vak;";
+        $result1 = mysqli_query($mysqli, $select);
+        $row1 = mysqli_fetch_assoc($result1)['num'];
+        if ($row1 == 0) {
+            $insert = "INSERT INTO `le_cijferswaarde`
+            (`klas`,`schooljaar`,`rapnummer`,`vak`,
+            `c1`,`c2`,`c3`,`c4`,`c5`,`c6`,`c7`,`c8`,`c9`,`c10`,
+            `c11`,`c12`,`c13`,`c14`,`c15`,`c16`,`c17`,`c18`,`c19`,`c20`)
+            VALUES
+                ('$klas','$schooljaar','$rapnummer','$vak',1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1);;";
+            $mysqli->query($insert);
+            echo $insert . "<br>";
+        } else {
+            echo $select . $row1 . "<br>";
+        }
+    }
+}
+
+/* $get_students = "SELET ID_PK FROM `le_vakken` where SchoolID = 13 and Klas like '4%' and ID = 0
 ORDER BY `le_vakken`.`ID`  DESC";
 $result = mysqli_query($mysqli, $get_students);
 $x = 552843;
