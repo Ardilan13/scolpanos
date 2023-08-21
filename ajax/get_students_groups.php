@@ -26,8 +26,23 @@ $group = $_GET["group"] == "all" ? "" : $_GET["group"];
     .name {
         position: sticky;
         left: 0;
-        z-index: 1;
+        z-index: 2;
         min-width: 250px !important;
+    }
+
+    .table-responsive {
+        height: 600px !important;
+    }
+
+    .group {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+
+    .table-responsive {
+        height: 200px;
+        overflow: scroll;
     }
 
     .definitiet_input {
@@ -43,13 +58,13 @@ while ($row = mysqli_fetch_assoc($result)) {
 }
 ?>
 
-<table class="table table-bordered table-colored table-houding">
+<table class="table table-bordered table-colored table-houding table-responsive">
     <thead>
         <tr>
             <th class="definitiet">ID</th>
             <th class="name">Naam</th>
             <?php foreach ($groups as $id => $name) { ?>
-                <th class="definitiet"><?php echo $name; ?></th>
+                <th class="definitiet group"><?php echo $name; ?></th>
             <?php } ?>
         </tr>
     </thead>
