@@ -5144,11 +5144,11 @@ AND lc.schooljaar = '$schooljaar'
             $select->store_result();
 
             if ($select->num_rows > 0) {
-
               //BEGIN le_cijferswaarde (ejaspe@caribedev)
               $u = new spn_utils();
+              $klas_ex = "4A";
               if ($stmtcijferswaarde = $mysqli->prepare("CALL " . $this->sp_read_le_cijferswaarde . " (?,?,?,?)")) {
-                if ($stmtcijferswaarde->bind_param("ssis", $klas_in, $vak_row, $rap_in, $schooljaar)) {
+                if ($stmtcijferswaarde->bind_param("ssis", $klas_ex, $vak_row, $rap_in, $schooljaar)) {
                   if ($stmtcijferswaarde->execute()) {
                     $stmtcijferswaarde->bind_result($cijferswaardeid, $klas, $schooljaar, $rapnummer, $vak, $cijferswaarde1, $cijferswaarde2, $cijferswaarde3, $cijferswaarde4, $cijferswaarde5, $cijferswaarde6, $cijferswaarde7, $cijferswaarde8, $cijferswaarde9, $cijferswaarde10, $cijferswaarde11, $cijferswaarde12, $cijferswaarde13, $cijferswaarde14, $cijferswaarde15, $cijferswaarde16, $cijferswaarde17, $cijferswaarde18, $cijferswaarde19, $cijferswaarde20);
                     $stmtcijferswaarde->store_result();
@@ -5397,7 +5397,7 @@ AND lc.schooljaar = '$schooljaar'
               if (($s->_setting_rapnumber_1 && $rap_in == 1) || ($s->_setting_rapnumber_2 && $rap_in == 2) || ($s->_setting_rapnumber_3 && $rap_in == 3)) {
                 $DBCreds = new DBCreds();
                 $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort, $dummy);
-                $get_students = "SELECT oc1,oc2,oc3,oc4,oc5,oc6,oc7,oc8,oc9,oc10,oc11,oc12,oc13,oc14,oc15,oc16,oc17,oc18,oc19,oc20 FROM le_cijfersextra WHERE schoolid = '$schoolid' AND klas = '$klas_in' AND vak = '$vak_row' AND rapnummer = '$rap_in' AND schooljaar = '$schooljaar' LIMIT 1";
+                $get_students = "SELECT oc1,oc2,oc3,oc4,oc5,oc6,oc7,oc8,oc9,oc10,oc11,oc12,oc13,oc14,oc15,oc16,oc17,oc18,oc19,oc20 FROM le_cijfersextra WHERE schoolid = '$schoolid' AND klas = '$klas_ex' AND vak = '$vak_row' AND rapnummer = '$rap_in' AND schooljaar = '$schooljaar' LIMIT 1";
                 $result1 = mysqli_query($mysqli, $get_students);
                 if (mysqli_num_rows($result1) > 0) {
                   while ($row1 = mysqli_fetch_assoc($result1)) {
@@ -5735,10 +5735,10 @@ AND lc.schooljaar = '$schooljaar'
 
                   if (($s->_setting_rapnumber_1 && $rap_in == 1) || ($s->_setting_rapnumber_2 && $rap_in == 2) || ($s->_setting_rapnumber_3 && $rap_in == 3)) {
                     $cell = 'x' . $x . 'y' . $y;
-                    $htmlcontrol .= "<td><span id=\"lblName1\" disabled='true' data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas_in\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\" class=\"editable\">$_cijfer_number</span></td>";
+                    $htmlcontrol .= "<td><span id=\"lblName1\" disabled='true' data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\" class=\"editable\">$_cijfer_number</span></td>";
                   } else {
                     $cell = 'x' . $x . 'y' . $y;
-                    $htmlcontrol .= "<td><span id=\"lblName1\" data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas_in\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\">$_cijfer_number</span></td>";
+                    $htmlcontrol .= "<td><span id=\"lblName1\" data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\">$_cijfer_number</span></td>";
                   }
 
                   // End changes settings (ladalan@caribedev)
@@ -5760,7 +5760,7 @@ AND lc.schooljaar = '$schooljaar'
               $mysqli->close();
               $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
               if ($stmt = $mysqli->prepare("CALL " . $this->sp_read_le_cijfersextra . " (?,?,?,?)")) {
-                if ($stmt->bind_param("ssis", $klas_in, $vak_row, $rap_in, $schooljaar)) {
+                if ($stmt->bind_param("ssis", $klas_ex, $vak_row, $rap_in, $schooljaar)) {
                   if ($stmt->execute()) {
                     $stmt->bind_result(
                       $cijfersextraid,
