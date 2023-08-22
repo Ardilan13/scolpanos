@@ -21,9 +21,9 @@
 
     $utils = new spn_utils();
     $schoolid = $_SESSION["SchoolID"];
-    $i_klas = $_POST["klas1"];
-    $i_start = $_POST["start_date"];
-    $i_end = $_POST["end_date"];
+    $i_klas = $_GET["klas1"];
+    $i_start = $_GET["start_date"];
+    $i_end = $_GET["end_date"];
     $i_end = $utils->convertfrommysqldate_new($i_end);
     $i_start = $utils->convertfrommysqldate_new($i_start);
     $schoolid = $_SESSION["SchoolID"];
@@ -53,32 +53,22 @@
                         <form class="form-inline" id="form_excel">
                             <div class="form-group">
                                 <label for="klas">Klas</label>
-                                <select class="form-control" name="klas1" id="klas" value="<?php echo $i_klas; ?>">
-                                    <?php
-                                    $sql = "select distinct v.Klas from le_vakken v where v.SchoolID = $schoolid order by v.Klas asc;";
-                                    $result = mysqli_query($mysqli, $sql);
-                                    while ($row = mysqli_fetch_assoc($result)) {
-                                        $klas = $row["Klas"];
-                                        if ($klas == $i_klas) {
-                                            echo "<option value='$klas' selected>$klas</option>";
-                                        } else {
-                                            echo "<option value='$klas'>$klas</option>";
-                                        }
-                                    }
-                                    ?>
+                                <select class="form-control" name="verzuim_klassen_lijst" id="verzuim_klassen_lijst" value="<?php echo $i_klas; ?>">
                                 </select>
                             </div>
+
+
                             <div class="form-group">
                                 <label>Start Datum</label>
                                 <div class="input-group date col-md-1">
-                                    <input type="text" id="start_date" name="start_date" value="<?php echo $_POST['start_date'] ?>" calendar="full" class="form-control input-sm calendar" required autocomplete="off">
+                                    <input type="text" id="start_date" name="start_date" value="<?php echo $_GET['start_date'] ?>" calendar="full" class="form-control input-sm calendar" required autocomplete="off">
                                     <span class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </span>
                                 </div>
                                 <label>End Datum</label>
                                 <div class="input-group date col-md-1">
-                                    <input type="text" id="end_date" name="end_date" value="<?php echo $_POST['end_date'] ?>" calendar="full" class="form-control input-sm calendar" required autocomplete="off">
+                                    <input type="text" id="end_date" name="end_date" value="<?php echo $_GET['end_date'] ?>" calendar="full" class="form-control input-sm calendar" required autocomplete="off">
                                     <span class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </span>

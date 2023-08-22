@@ -137,7 +137,7 @@
                                             <i class="fa fa-calendar"></i>
                                         </span>
                                     </div>
-                                    <button type="submit" class="btn btn-primary btn-m-w btn-m-h" id="btn_download" href="table_verzamelstaten.php">Export</button>
+                                    <button type="submit" class="btn btn-primary btn-m-w btn-m-h" id="btn_download">Export</button>
                                 </div>
                             </form>
                             </fieldset>
@@ -175,10 +175,6 @@
                             </div>
 
                         </div>
-
-
-
-
                         <div class="col-md-4 full-inset">
                             <div class="row">
                                 <div class="col-md-12">
@@ -430,7 +426,6 @@
         setTimeout(function() {
             if ($("#verzuim_klassen_lijst").val() == '4') {
                 $.getJSON("ajax/get_groups.php", {}, function(result) {
-                    console.log(result);
                     var vak = $("#group");
                     $.each(result, function() {
                         vak.append($("<option />").val(this.group).text(this.vak).attr("vak", this.id));
@@ -447,7 +442,6 @@
         $("#verzuim_klassen_lijst").change(function() {
             if ($("#verzuim_klassen_lijst").val() == '4') {
                 $.getJSON("ajax/get_groups.php", {}, function(result) {
-                    console.log(result);
                     var vak = $("#group");
                     $.each(result, function() {
                         vak.append($("<option />").val(this.group).text(this.vak).attr("vak", this.id));
@@ -554,20 +548,19 @@
 
             $("#calendar_date").val(output);
             $("#datum").val(output);
-
-            setTimeout(
-                function() {
-                    console.log("--------------------------------------------");
-                    console.log($("#verzuim_klassen_lijst option:selected").val());
-                    /* $("#btnzoeken").click(); */
-                }, 600);
         });
 
     });
 
     $("#form_excel").submit(function() {
-        var x = $('#verzuim_klassen_lijst option:selected').val();
-        $('#klas-excel').val(x);
+        var klas = $('#verzuim_klassen_lijst option:selected').val();
+        if (klas == '4') {
+            klas = "4A";
+        }
+        var start_date = $('#start_date').val();
+        var end_date = $('#end_date').val();
+        var url = "table_verzamelstaten.php?klas1=" + klas + "&start_date=" + start_date + "&end_date=" + end_date;
+        window.location.href = url;
     });
 
     $("#btn-clear-event").click(function(e) {
@@ -582,7 +575,6 @@
             },
 
             success: function(response) {
-                console.log(response);
                 $('#table_event_studentid').html(response);
             },
             error: function(error) {
@@ -630,7 +622,6 @@
                 },
 
                 success: function(response) {
-                    console.log(response);
                     $('#table_event_studentid').html(response);
                     alert('Event added successfully!')
                     $("#btn-clear-event").click()

@@ -7,7 +7,7 @@ $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $D
 $mysqli->set_charset('utf8');
 
 $utils = new spn_utils();
-$i_klas = $_POST["klas1"];
+$i_klas = $_POST["verzuim_klassen_lijst"];
 $i_start = $_POST["start_date"];
 $i_end = $_POST["end_date"];
 $i_end = $utils->convertfrommysqldate_new($i_end);
