@@ -273,34 +273,31 @@ $cabeceras .= 'From: Qwihi <no-reply@qwihi.com>' . "\r\n";
 $mensaje = 'Please click on this <a href=' . "http:/scolpanos.qwihi.com" . '/reset.php?token=' . $plaintexttoken . '&username=' . urlencode($username) . '>link</a> to reset your password <p> The link is only valid for 30 minutes</p> <b>no-reply@qwihi.com ,Scol Pa Nos App | Do Not Reply</b>';
 mail($email, $subject, $mensaje, $cabeceras); */
 // echo $_SESSION["UserGUID"];
-/* $select = "SELECT * FROM scol20";
-$y = 10742;
+/* $select = "SELECT * FROM excel";
+$y = 10949;
 $resultado1 = mysqli_query($mysqli, $select);
 while ($row = mysqli_fetch_assoc($resultado1)) {
     $rand = mt_rand(1000, 9999);
     $userguid = $u->CreateGUID();
     $date = date("Y-m-d H:i:s");
-    $school = 20;
+    $school = 12;
     $status = 1;
     $date1 = $u->converttomysqldate(date("Y-m-d H:i:s"));
     $colorcode = '#CC2AA';
 
     $class = $row["klas"];
-    $fam = $row["naam"];
-    $nombre = $row["voornamen"];
-    $sexo = $row["v/m"];
-    $studentnr = $row["studentnr"];
-    $stid = $row["stid"];
-    $huis = $row["huis"];
-    $voertaal = $row["voertaal"];
-    $geb = $row["geb"];
+    $fam = $row["name"];
+    $nombre = $row["lastname"];
+    $sexo = $row["sex"];
+    $studentnr = $row["number"];
 
     $famili = $fam . "(" . $studentnr . ")";
 
     $insertar = "INSERT INTO family(id_family,family_name,family_date,status) VALUES ('$y','$famili', '$date','1')";
     $resultado123 = mysqli_query($mysqli, $insertar);
     if ($resultado123) {
-        $insertarS = "INSERT INTO students(uuid,birthplace,idnumber,address,created,schoolid,studentnumber,class,enrollmentdate,firstname,lastname,sex,colorcode,status,id_family,securepin) VALUES ('$userguid','$geb','$stid','$huis','$date', '$school','$studentnr', '$class', '$date1', '$nombre', '$fam','$sexo','$colorcode','$status','$y','$rand')";
+        $insertarS = "INSERT INTO students(uuid,created,schoolid,studentnumber,class,enrollmentdate,firstname,lastname,sex,colorcode,status,id_family,securepin) VALUES ('$userguid','$date', '$school','$studentnr', '$class', '$date1', '$nombre', '$fam','$sexo','$colorcode','$status','$y','$rand')";
+        echo $insertarS . "<br>";
         $resultadoS = mysqli_query($mysqli, $insertarS);
         if ($resultadoS) {
             echo "Student insert";
@@ -312,8 +309,7 @@ while ($row = mysqli_fetch_assoc($resultado1)) {
     }
     $y = $y + 1;
 } */
-/* echo $u->CreateGUID();
- */
+/* echo $u->CreateGUID(); */
 /* $select = "SELECT * FROM excel ORDER BY id ASC";
 $resultado1 = mysqli_query($mysqli, $select);
 while ($row = mysqli_fetch_assoc($resultado1)) {

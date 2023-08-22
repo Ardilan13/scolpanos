@@ -13,13 +13,10 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 $vak_selected = "";
-/*
-if (isset($_GET["verzuim_vakken_lijst"])) {
-    $vak_selected = $_GET["verzuim_vakken_lijst"];
-} else {
-    $vak_selected = $_GET["verzuim_vakken_lijst_disabled"];
+
+if (isset($_GET["group"]) && $_GET["klas"] == 4) {
+    $vak_selected = $_GET["group"];
 }
-*/
 
 $period = "";
 
@@ -70,7 +67,7 @@ if (
         $_GET["klas"],
         0,
         $_GET["datum"],
-        $vak_selected
+        null
     );
 
     if ($_SESSION["UserRights"] == "DOCENT") {

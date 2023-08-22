@@ -83,7 +83,7 @@
 
                         <div class="default-secondary-bg-color col-md-12 full-inset filter-bar brd-bottom clearfix">
 
-                            <form id="form-laat-absent" class="form-inline form-data-retriever" name="filter-vak" role="form">
+                            <form id="form-laat-absent" class="form-inline form-data-retriever col-md-7" name="filter-vak" role="form" style="padding: 0;">
 
                                 <div class="form-group">
 
@@ -106,6 +106,10 @@
                                     <select class="form-control" name="klas" id="verzuim_klassen_lijst">
                                     </select>
                                 </div>
+                                <div class="form-group group hidden">
+                                    <label for="group">Group</label>
+                                    <select class="form-control" name="group" id="group"></select>
+                                </div>
 
                                 <div class="form-group">
                                     <button data-display="data-display" id="btnzoeken" data-ajax-href="ajax/getverzuim_tabel_hs.php" type="submit" class="btn btn-primary btn-m-w btn-m-h">zoeken</button>
@@ -116,17 +120,17 @@
                                      &nbsp&nbspDatum:<label id="lbl_datum_verzuim"></label>&nbsp/&nbspKlas:<label
                                         id="lbl_klas_verzuim">
                                 </div> -->
-                            <form method="post" action="table_verzamelstaten.php" class="form-inline" style="text-align: right;" id="form_excel">
+                            <form method="post" action="table_verzamelstaten.php" class="form-inline form-data-retriever col-md-5" id="form_excel" style="padding: 0;">
                                 <input hidden id="klas-excel" type="text" name="klas1">
                                 <div class="form-group">
-                                    <label>Start Datum</label>
+                                    <label>Start</label>
                                     <div class="input-group date col-md-1">
                                         <input type="text" id="start_date" name="start_date" calendar="full" class="form-control input-sm calendar" required autocomplete="off">
                                         <span class="input-group-addon">
                                             <i class="fa fa-calendar"></i>
                                         </span>
                                     </div>
-                                    <label>End Datum</label>
+                                    <label>End</label>
                                     <div class="input-group date col-md-1">
                                         <input type="text" id="end_date" name="end_date" calendar="full" class="form-control input-sm calendar" required autocomplete="off">
                                         <span class="input-group-addon">
@@ -422,6 +426,42 @@
 <script type="text/javascript" src="assets/js/app_calendar.js"></script>
 <!-- INICIO CODE CaribeDevelopers Delete Calendar -->
 <script type="text/javascript">
+    $(document).ready(function() {
+        setTimeout(function() {
+            if ($("#verzuim_klassen_lijst").val() == '4') {
+                $.getJSON("ajax/get_groups.php", {}, function(result) {
+                    console.log(result);
+                    var vak = $("#group");
+                    $.each(result, function() {
+                        vak.append($("<option />").val(this.group).text(this.vak).attr("vak", this.id));
+                    });
+                });
+                $("#group").attr('disabled', false);
+                $(".group").removeClass("hidden");
+            } else {
+                $("#group").attr('disabled', true);
+                $(".group").addClass("hidden");
+            }
+        }, 1000);
+
+        $("#verzuim_klassen_lijst").change(function() {
+            if ($("#verzuim_klassen_lijst").val() == '4') {
+                $.getJSON("ajax/get_groups.php", {}, function(result) {
+                    console.log(result);
+                    var vak = $("#group");
+                    $.each(result, function() {
+                        vak.append($("<option />").val(this.group).text(this.vak).attr("vak", this.id));
+                    });
+                });
+                $("#group").attr('disabled', false);
+                $(".group").removeClass("hidden");
+            } else {
+                $("#group").attr('disabled', true);
+                $(".group").addClass("hidden");
+            }
+        });
+    })
+
     function update_calendar(id, name, klas, vak, type, extra, date) {
         $('#id_calendar').val(id);
         $('#calendar_date').val(date);
