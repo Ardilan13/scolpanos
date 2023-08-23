@@ -28,8 +28,9 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="cijfers_rapporten_lijst">SchoolJaar.</label>
+                                <label for="cijfers_rapporten_lijst">SchoolJaar</label>
                                 <select class="form-control" name="schooljaar_rapport" id="schooljaar">
+                                    <option value="2023-2024">2023-2024</option>
                                     <option value="2022-2023">2022-2023</option>
                                     <option value="2021-2022">2021-2022</option>
                                 </select>
