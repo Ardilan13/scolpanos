@@ -51,7 +51,7 @@ $group = $_GET["group"] == "all" ? "" : $_GET["group"];
 </style>
 <?php
 $groups = array();
-$get_groups = "SELECT g.id,g.name FROM groups g INNER JOIN le_vakken v ON g.vak = v.ID WHERE g.schoolid = $schoolid ORDER BY g.name;";
+$get_groups = "SELECT g.id,g.name FROM groups g INNER JOIN le_vakken v ON g.vak = v.ID WHERE g.schoolid = $schoolid ORDER BY g.id;";
 $result = mysqli_query($mysqli, $get_groups);
 while ($row = mysqli_fetch_assoc($result)) {
     $groups[$row['id']] = $row['name'];
