@@ -109,7 +109,7 @@ $mysqli->set_charset('utf8'); ?>
 															<option value="all">All Groups</option>
 															<?php
 															$schoolid = $_SESSION['SchoolID'];
-															$get_groups = "SELECT g.id,g.name FROM groups g WHERE g.schoolid = $schoolid ORDER BY g.name;";
+															$get_groups = "SELECT g.id,g.name FROM groups g WHERE g.schoolid = $schoolid ORDER BY g.id;";
 															$result = mysqli_query($mysqli, $get_groups);
 															while ($row = mysqli_fetch_assoc($result)) { ?>
 																<option value="<?php echo $row['id'] ?>"><?php echo $row['name'] ?></option>
