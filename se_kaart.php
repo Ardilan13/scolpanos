@@ -41,7 +41,7 @@
 											<!-- Options populated by AJAX get -->
 											<!-- TEMPORARY ENTERED MANUALLY -->
 											<!-- <option value="All">All Schooljaars</option> -->
-											<option value="2022-2023">2023-2024</option>
+											<option value="2023-2024">2023-2024</option>
 											<option value="2022-2023">2022-2023</option>
 											<option value="2021-2022">2021-2022</option>
 											<option value="2020-2021">2020-2021</option>

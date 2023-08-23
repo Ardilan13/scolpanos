@@ -9,7 +9,7 @@ $schoolid = $_SESSION["SchoolID"];
 $user = $_SESSION["UserGUID"];
 $json = array();
 
-$get_students = "SELECT g.vak,h.vak as gro,g.name FROM user_hs h INNER JOIN groups g ON h.vak = g.id WHERE h.user_GUID = '$user' AND h.schoolid = '$schoolid' AND h.klas = '4'";
+$get_students = "SELECT g.vak,h.vak as gro,g.name FROM user_hs h INNER JOIN groups g ON h.vak = g.id WHERE h.user_GUID = '$user' AND h.schoolid = '$schoolid' AND h.klas = '4' ORDER BY g.id";
 $result = mysqli_query($mysqli, $get_students);
 if ($result->num_rows > 0) {
     while ($row1 = mysqli_fetch_assoc($result)) {
