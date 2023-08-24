@@ -1,6 +1,9 @@
 <?php
 
 ob_start();
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
 
 require_once("config/app.config.php");
 require_once("classes/spn_authentication.php");
@@ -12,11 +15,6 @@ require_once("classes/spn_setting.php");
 require_once("classes/spn_utils.php");
 $u = new spn_utils();
 
-
-
-if (session_status() == PHP_SESSION_NONE) {
-  session_start();
-}
 $schoolId = $_SESSION['SchoolID'];
 $DBCreds = new DBCreds();
 $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
@@ -99,7 +97,7 @@ $returnarr = array();
 
 $l = new spn_leerling();
 if ($studentid == 'all') {
-  $array_leerling = $l->get_all_students_array_by_klas($_GET["klas"], $_SESSION["SchoolJaar"], $_GET['rap']);
+  $array_leerling = $l->get_all_students_array_by_klas($_GET["klas"], $_GET["schoolJaar"], $_GET['rap']);
 } else {
   $select = "SELECT id,studentnumber,firstname,lastname,sex,dob,class,profiel FROM students where id = '$studentid' and status = 1";
   $resultado1 = mysqli_query($mysqli, $select);
@@ -116,7 +114,6 @@ if ($studentid == 'all') {
   }
   $array_leerling = $array;
 }
-
 $table_cijfers = "";
 $c = new spn_see_kaart();
 // $table_cijfers = $c->list_cijfers_by_student_se_kaart_rapport($_SESSION["SchoolJaar"], 5307,1,false);
@@ -133,12 +130,15 @@ foreach ($array_leerling as $item) {
   $schooljaar = $_GET["schoolJaar"];
   $query = "SELECT opmerking1, opmerking2, opmerking3, advies FROM opmerking WHERE klas = '$klas' AND SchoolID = $schoolId AND studentid = $student AND schooljaar = '$schooljaar'";
   $resultado = mysqli_query($mysqli, $query);
-  while ($row = mysqli_fetch_assoc($resultado)) {
-    $opmerking1 = $row["opmerking1"];
-    $opmerking2 = $row["opmerking2"];
-    $opmerking3 = $row["opmerking3"];
-    $advies = $row["advies"];
+  if ($resultado->num_rows > 0) {
+    while ($row = mysqli_fetch_assoc($resultado)) {
+      $opmerking1 = $row["opmerking1"];
+      $opmerking2 = $row["opmerking2"];
+      $opmerking3 = $row["opmerking3"];
+      $advies = $row["advies"];
+    }
   }
+
 
   switch (substr($item["profiel"], 0, 2)) {
     case 'MM':
