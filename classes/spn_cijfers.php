@@ -2242,29 +2242,34 @@ class spn_cijfers
     mysqli_report(MYSQLI_REPORT_STRICT);
     try {
       $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
-      if ($stmt = $mysqli->prepare("CALL sp_create_le_cijfers_student (?,?,?,?,?)")) {
-        if ($stmt->bind_param("ssssi", $schooljaar, $rapnummer, $klass, $schoolID, $vakid)) {
-          if ($stmt->execute()) {
-            /*
-            Need to check for errors on database side for primary key errors etc.
-            */
-            //$result = 1;
-            $stmt->close();
-            $mysqli->close();
+      $sql = "SELECT id FROM students WHERE schoolid = '$schoolID' AND class = '$klass';";
+      $consult = mysqli_query($mysqli, $sql);
+      if ($consult->num_rows > 0) {
+        while ($row = $consult->fetch_assoc()) {
+          $id = $row['id'];
+          $sql1 = "SELECT lc.studentid
+                    FROM 
+                      le_cijfers lc 
+                    INNER JOIN 
+                      students s on lc.studentid = s.id 
+                    WHERE s.schoolid = '$schoolID'
+                    AND lc.studentid = '$id'
+                    AND lc.schooljaar = '$schooljaar'
+                    AND lc.rapnummer = '$rapnummer'
+                    AND lc.klas = '$klass' AND lc.vak = '$vakid';";
+          $consulta = mysqli_query($mysqli, $sql1);
+          if ($consulta->num_rows == 0) {
+            $sqlI = "INSERT INTO
+        le_cijfers
+        (`studentid`,`lastchanged`,`created`,`schooljaar`,`rapnummer`,`vak`,`klas`,`user`) values ($id,null,now(),'$schooljaar','$rapnummer','$vakid','$klas','spn')";
+            $resultado123 = mysqli_query($mysqli, $sqlI);
+            if (!$resultado123) {
+              $mysqli->close();
+            }
           } else {
             $result = 0;
-            echo $this->mysqlierror = $mysqli->error;
-            echo "# " .  $this->mysqlierrornumber = $mysqli->errno;
           }
-        } else {
-          $result = 0;
-          echo $this->mysqlierror = $mysqli->error;
-          echo "# " .       $this->mysqlierrornumber = $mysqli->errno;
         }
-      } else {
-        $result = 0;
-        echo $this->mysqlierror = $mysqli->error;
-        echo "# " .   $this->mysqlierrornumber = $mysqli->errno;
       }
     } catch (Exception $e) {
       $result = -2;
