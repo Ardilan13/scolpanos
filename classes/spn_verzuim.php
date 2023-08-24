@@ -1613,10 +1613,18 @@ class spn_verzuim
     date_default_timezone_set("America/Aruba");
     $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
     $klas_1 = substr($klas, 0, 1);
-    $get_vak = "SELECT distinct v.ID, v.volledigenaamvak from le_vakken v where v.SchoolID = $schoolID and v.Klas = '$klas' order by v.volledigenaamvak asc;";
-    $result = mysqli_query($mysqli, $get_vak);
-    while ($row1 = mysqli_fetch_assoc($result)) {
-      $vaks[] = array("id" => $row1['ID'], "vak" => $row1['volledigenaamvak']);
+    if ($klas_1 == 4) {
+      $get_vak = "SELECT id,name FROM groups WHERE schoolid = $schoolID;";
+      $result = mysqli_query($mysqli, $get_vak);
+      while ($row1 = mysqli_fetch_assoc($result)) {
+        $vaks[] = array("id" => $row1['id'], "vak" => $row1['name']);
+      }
+    } else {
+      $get_vak = "SELECT distinct v.ID, v.volledigenaamvak from le_vakken v where v.SchoolID = $schoolID and v.Klas = '$klas' order by v.volledigenaamvak asc;";
+      $result = mysqli_query($mysqli, $get_vak);
+      while ($row1 = mysqli_fetch_assoc($result)) {
+        $vaks[] = array("id" => $row1['ID'], "vak" => $row1['volledigenaamvak']);
+      }
     }
 
 
@@ -1640,28 +1648,23 @@ class spn_verzuim
     }
 
     $final = "";
-    $klas_1 = substr($klas, 0, 1);
-    if ($klas_1 != 4) {
-      for ($i = 1; $i <= 10; $i++) {
-        $html = "html" . $i;
-        if ($type == 0) {
-          $$html .= '<th>';
-        } else {
-          $$html .= '<th style="max-width: 20px;">';
-        }
-        $x = 'p' . $i;
-        $conf = "";
-        foreach ($vaks as $vak) {
-          if ($vak["id"] == $$x) {
-            $conf = $vak["vak"];
-          }
-        }
-        $$html .= ($conf == "") ? ($i == 10 ? 'Dag' : '') : $conf;
-        $$html .= '</th>';
-        $final .= $$html;
+    for ($i = 1; $i <= 10; $i++) {
+      $html = "html" . $i;
+      if ($type == 0) {
+        $$html .= '<th>';
+      } else {
+        $$html .= '<th style="max-width: 20px;">';
       }
-    } else {
-      $final = "<th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>Dag</th>";
+      $x = 'p' . $i;
+      $conf = "";
+      foreach ($vaks as $vak) {
+        if ($vak["id"] == $$x) {
+          $conf = $vak["vak"];
+        }
+      }
+      $$html .= ($conf == "") ? ($i == 10 ? 'Dag' : '') : $conf;
+      $$html .= '</th>';
+      $final .= $$html;
     }
 
     return $final;

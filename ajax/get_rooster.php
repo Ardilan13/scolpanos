@@ -113,10 +113,18 @@ $schooljaar = $_POST["schooljaar_rapport"]; ?>
 </style>
 
 <?php
-$get_vak = "SELECT distinct v.ID, v.volledigenaamvak from le_vakken v where v.SchoolID = $schoolid and v.Klas = '$klas' and (v.volgorde <> 99 OR v.volledigenaamvak = 'msl') order by v.volgorde asc;";
-$result = mysqli_query($mysqli, $get_vak);
-while ($row1 = mysqli_fetch_assoc($result)) {
-    $vaks[] = array("id" => $row1['ID'], "vak" => $row1['volledigenaamvak']);
+if ($klas == 4) {
+    $get_vak = "SELECT id,name FROM groups WHERE schoolid = $schoolid ORDER BY id;";
+    $result = mysqli_query($mysqli, $get_vak);
+    while ($row1 = mysqli_fetch_assoc($result)) {
+        $vaks[] = array("id" => $row1['id'], "vak" => $row1['name']);
+    }
+} else {
+    $get_vak = "SELECT distinct v.ID, v.volledigenaamvak from le_vakken v where v.SchoolID = $schoolid and v.Klas = '$klas' and (v.volgorde <> 99 OR v.volledigenaamvak = 'msl') order by v.volgorde asc;";
+    $result = mysqli_query($mysqli, $get_vak);
+    while ($row1 = mysqli_fetch_assoc($result)) {
+        $vaks[] = array("id" => $row1['ID'], "vak" => $row1['volledigenaamvak']);
+    }
 } ?>
 <form id="planning">
     <table id="table_planner" border="1">
