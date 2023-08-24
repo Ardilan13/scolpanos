@@ -1645,14 +1645,14 @@ if (isset($_GET["id"])) {
 			if (SchoolID == '8') {
 				// this.prop("href", "http://www.jakcms.com")
 				$('#export_by_student_download').attr('href', 'templates/wittekaart_cococo.xlsx');
-			} else if (SchoolID == '9' || SchoolID == '10' || SchoolID == '11') {
+			} else if (SchoolID == '6' || SchoolID == '9' || SchoolID == '10' || SchoolID == '11') {
 				$('#export_by_student_download').attr('href', 'templates/Witte_kaart_2018 _s9_s10_s11.xlsx');
 			}
 		});
 
 
 
-		if (SchoolID == '4' || SchoolID == '8' || SchoolID == '9' || SchoolID == '10' || SchoolID == '11') {
+		if (SchoolID == '4' || SchoolID == '6' || SchoolID == '8' || SchoolID == '9' || SchoolID == '10' || SchoolID == '11') {
 			$('#report_excel').removeClass('hidden');
 		} else {
 			$('#report_excel').addClass('hidden');
