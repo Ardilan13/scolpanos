@@ -10,11 +10,26 @@ $s = new spn_setting();
 $s->getsetting_info($_SESSION["SchoolID"], false);
 $DBCreds = new DBCreds();
 $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort, $dummy);
-
 $schoolid = $_SESSION["SchoolID"];
-$group = 71;
 $schooljaar = $_SESSION["SchoolJaar"];
-$rapnummer = 1;
+
+/* $id = 552917;
+$get_klas = "SELECT name_class FROM class WHERE schoolid = $schoolid AND level_class > 0 ORDER BY name_class ASC";
+$result = mysqli_query($mysqli, $get_klas);
+while ($row = mysqli_fetch_assoc($result)) {
+    $klas = $row['name_class'];
+    $update = "INSERT INTO le_vakken (ID,SchoolID,Klas,volledigenaamvak,complete_name) VALUES ($id,13,'$klas','msl','msl');";
+    echo $update . "<br>";
+    $mysqli->query($update);
+    $id++;
+} */
+/* for ($i = 12; $i <= 13; $i++) {
+    foreach ($klas as $k) {
+        $update = "INSERT INTO le_vakken (ID,SchoolID,Klas,volledigenaamvak,complete_name) VALUES ($id,$i,'$k','msl','msl');";
+        echo $update . "<br>";
+        $id++;
+    }
+} */
 
 /* $sql = "SELECT s.id,s.class,gr.vak FROM students s INNER JOIN group_student g ON s.id = g.student_id INNER JOIN groups gr ON g.group_id = gr.id WHERE s.schoolid = '$schoolid' AND g.group_id = $group AND g.schooljaar = '$schooljaar';";
 $result = mysqli_query($mysqli, $sql);
@@ -897,7 +912,7 @@ while ($row = mysqli_fetch_assoc($resultado1)) {
     $resultado1 = mysqli_query($mysqli, $sql_query_text);
     while ($row = mysqli_fetch_assoc($resultado1)) {
     ?>
-        <option value="<?php echo $row['id']; ?>"><?php echo $row['vak_naam']; ?></option>
+    <option value="<?php echo $row['id']; ?>"><?php echo $row['vak_naam']; ?></option>
     <?php
     } ?>
 </select>
