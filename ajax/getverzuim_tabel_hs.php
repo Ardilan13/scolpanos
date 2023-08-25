@@ -119,13 +119,11 @@ if (
 
     function aumentarTamanio(td) {
         var imagen = td.querySelector("img");
-        console.log(imagen);
         imagen.style.width = "100px";
     }
 
     function restaurarTamanio(td) {
         var imagen = td.querySelector("img");
-        console.log(imagen)
         imagen.style.width = "30px";
     }
 
@@ -389,5 +387,17 @@ if (
                 }
             }
         })
+
+        var group = $('#group option:selected').text();
+
+        $('table thead th').each(function(index) {
+            var thText = $(this).text();
+            if (!thText.includes(group) || thText == '' || thText == null) {
+                $('table tbody tr').each(function() {
+                    $(this).find('td:eq(' + index + ') input').prop('disabled', true);
+                });
+            }
+        });
+
     })
 </script>
