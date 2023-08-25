@@ -32,13 +32,13 @@ $schooljaar = $_POST["schooljaar_rapport"]; ?>
     }
 
     #table_planner td select {
-        width: 80%;
+        width: 90%;
         font-size: medium;
     }
 
 
     #table_planner {
-        width: 90%;
+        width: 100%;
         margin: 0 auto;
         height: 30rem;
     }
@@ -97,18 +97,10 @@ $schooljaar = $_POST["schooljaar_rapport"]; ?>
         width: 30%;
     }
 
-    .submit_form {
-        margin: 3% 45% 0;
-        background-color: yellow;
-        cursor: pointer;
-        padding: 1% 2%;
-        border-radius: 7px;
-        border: 1px solid black;
-    }
-
-    .submit_form:hover {
-        background-color: orange;
-        transition: 100ms;
+    .select_group {
+        max-width: 60px !important;
+        font-size: small !important;
+        margin: 0 5px !important;
     }
 </style>
 
@@ -129,20 +121,20 @@ if ($klas == 4) {
 <form id="planning">
     <table id="table_planner" border="1">
         <tr>
-            <td class="title">DAY</td>
-            <td class="title">p1</td>
-            <td class="title">p2</td>
-            <td class="title">p3</td>
-            <td class="title">p4</td>
-            <td class="title">p5</td>
-            <td class="title">p6</td>
-            <td class="title">p7</td>
-            <td class="title">p8</td>
-            <td class="title">p9</td>
+            <td class="title">DAGEN</td>
+            <td class="title">lu 1</td>
+            <td class="title">lu 2</td>
+            <td class="title">lu 3</td>
+            <td class="title">lu 4</td>
+            <td class="title">lu 5</td>
+            <td class="title">lu 6</td>
+            <td class="title">lu 7</td>
+            <td class="title">lu 8</td>
+            <td class="title">lu 9</td>
             <td class="title">Dag</td>
         </tr>
         <tr>
-            <td class="days">DIALUNA</td>
+            <td class="days">MAANDAG</td>
             <?php
             $query = "SELECT * FROM klassenboek_vak WHERE day = 'Monday' AND klas = '$klas' AND schooljaar = '$schooljaar' AND schoolid = $schoolid;";
             $resultado = mysqli_query($mysqli, $query);
@@ -168,24 +160,68 @@ if ($klas == 4) {
                     <?php if ($i == 10) { ?>
                         <select class="select_vaks" klas="<?php echo $klas; ?>" day="Monday" name="vak_<?php echo $i; ?>" id="<?php echo $i; ?>" schooljaar="<?php echo $schooljaar; ?>">
                             <option value="0">Dag</option>
-                        <?php } else { ?>
-                            <select class="select_vaks" klas="<?php echo $klas; ?>" day="Monday" name="vak_<?php echo $i; ?>" id="<?php echo $i; ?>" schooljaar="<?php echo $schooljaar; ?>">
-                                <option value="0"><?php echo $i; ?></option>
-                            <?php }
-                        foreach ($vaks as $vak) {
-                            if ($vak["id"] == $$x && $row['day'] == "Monday") {
-                                $conf = " selected";
-                            } else {
-                                $conf = "";
-                            } ?>
+                            <?php foreach ($vaks as $vak) {
+                                if ($vak["id"] == $$x && $row['day'] == "Monday") {
+                                    $conf = " selected";
+                                } else {
+                                    $conf = "";
+                                } ?>
                                 <option <?php echo $conf; ?> value="<?php echo $vak["id"]; ?>"><?php echo $vak["vak"]; ?> </option>
                             <?php } ?>
-                            </select>
+                        </select>
+                    <?php } else if ($klas != 4) { ?>
+                        <select class="select_vaks" klas="<?php echo $klas; ?>" day="Monday" name="vak_<?php echo $i; ?>" id="<?php echo $i; ?>" schooljaar="<?php echo $schooljaar; ?>">
+                            <option value="0"><?php echo $i; ?></option>
+                            <?php foreach ($vaks as $vak) {
+                                if ($vak["id"] == $$x && $row['day'] == "Monday") {
+                                    $conf = " selected";
+                                } else {
+                                    $conf = "";
+                                } ?>
+                                <option <?php echo $conf; ?> value="<?php echo $vak["id"]; ?>"><?php echo $vak["vak"]; ?> </option>
+                            <?php } ?>
+                        </select>
+                    <?php } else {
+                        $valores = explode(",", $$x); ?>
+                        <select class="select_group" klas="<?php echo $klas; ?>" day="Monday" name="vak_<?php echo $i; ?>" id="<?php echo $i; ?>" schooljaar="<?php echo $schooljaar; ?>">
+                            <option value="0"><?php echo $i; ?></option>
+                            <?php foreach ($vaks as $vak) {
+                                if ($vak["id"] == $valores[0] && $row['day'] == "Monday") {
+                                    $conf = " selected";
+                                } else {
+                                    $conf = "";
+                                } ?>
+                                <option <?php echo $conf; ?> value="<?php echo $vak["id"]; ?>"><?php echo $vak["vak"]; ?> </option>
+                            <?php } ?>
+                        </select>
+                        <select class="select_group" klas="<?php echo $klas; ?>" day="Monday" name="vak_<?php echo $i; ?>" id="<?php echo $i; ?>" schooljaar="<?php echo $schooljaar; ?>">
+                            <option value="0"><?php echo $i; ?></option>
+                            <?php foreach ($vaks as $vak) {
+                                if ($vak["id"] == $valores[1] && $row['day'] == "Monday") {
+                                    $conf = " selected";
+                                } else {
+                                    $conf = "";
+                                } ?>
+                                <option <?php echo $conf; ?> value="<?php echo $vak["id"]; ?>"><?php echo $vak["vak"]; ?> </option>
+                            <?php } ?>
+                        </select>
+                        <select class="select_group" klas="<?php echo $klas; ?>" day="Monday" name="vak_<?php echo $i; ?>" id="<?php echo $i; ?>" schooljaar="<?php echo $schooljaar; ?>">
+                            <option value="0"><?php echo $i; ?></option>
+                            <?php foreach ($vaks as $vak) {
+                                if ($vak["id"] == $valores[2] && $row['day'] == "Monday") {
+                                    $conf = " selected";
+                                } else {
+                                    $conf = "";
+                                } ?>
+                                <option <?php echo $conf; ?> value="<?php echo $vak["id"]; ?>"><?php echo $vak["vak"]; ?> </option>
+                            <?php } ?>
+                        </select>
+                    <?php } ?>
                 </td>
             <?php } ?>
         </tr>
         <tr>
-            <td class="days">DIAMARS</td>
+            <td class="days">DINSDAG</td>
             <?php
             $query = "SELECT * FROM klassenboek_vak WHERE day = 'Tuesday' AND klas = '$klas' AND schooljaar = '$schooljaar' AND schoolid = $schoolid;";
             $resultado = mysqli_query($mysqli, $query);
@@ -212,24 +248,68 @@ if ($klas == 4) {
                     <?php if ($i == 10) { ?>
                         <select class="select_vaks" klas="<?php echo $klas; ?>" day="Tuesday" name="vak_<?php echo $i; ?>" id="<?php echo $i; ?>" schooljaar="<?php echo $schooljaar; ?>">
                             <option value="0">Dag</option>
-                        <?php } else { ?>
-                            <select class="select_vaks" klas="<?php echo $klas; ?>" day="Tuesday" name="vak_<?php echo $i; ?>" id="<?php echo $i; ?>" schooljaar="<?php echo $schooljaar; ?>">
-                                <option value="0"><?php echo $i; ?></option>
-                            <?php }
-                        foreach ($vaks as $vak) {
-                            if ($vak["id"] == $$x && $row['day'] == "Tuesday") {
-                                $conf = " selected";
-                            } else {
-                                $conf = "";
-                            } ?>
+                            <?php foreach ($vaks as $vak) {
+                                if ($vak["id"] == $$x && $row['day'] == "Tuesday") {
+                                    $conf = " selected";
+                                } else {
+                                    $conf = "";
+                                } ?>
                                 <option <?php echo $conf; ?> value="<?php echo $vak["id"]; ?>"><?php echo $vak["vak"]; ?> </option>
                             <?php } ?>
-                            </select>
+                        </select>
+                    <?php } else if ($klas != 4) { ?>
+                        <select class="select_vaks" klas="<?php echo $klas; ?>" day="Tuesday" name="vak_<?php echo $i; ?>" id="<?php echo $i; ?>" schooljaar="<?php echo $schooljaar; ?>">
+                            <option value="0"><?php echo $i; ?></option>
+                            <?php foreach ($vaks as $vak) {
+                                if ($vak["id"] == $$x && $row['day'] == "Tuesday") {
+                                    $conf = " selected";
+                                } else {
+                                    $conf = "";
+                                } ?>
+                                <option <?php echo $conf; ?> value="<?php echo $vak["id"]; ?>"><?php echo $vak["vak"]; ?> </option>
+                            <?php } ?>
+                        </select>
+                    <?php } else {
+                        $valores = explode(",", $$x); ?>
+                        <select class="select_group" klas="<?php echo $klas; ?>" day="Tuesday" name="vak_<?php echo $i; ?>" id="<?php echo $i; ?>" schooljaar="<?php echo $schooljaar; ?>">
+                            <option value="0"><?php echo $i; ?></option>
+                            <?php foreach ($vaks as $vak) {
+                                if ($vak["id"] == $valores[0] && $row['day'] == "Tuesday") {
+                                    $conf = " selected";
+                                } else {
+                                    $conf = "";
+                                } ?>
+                                <option <?php echo $conf; ?> value="<?php echo $vak["id"]; ?>"><?php echo $vak["vak"]; ?> </option>
+                            <?php } ?>
+                        </select>
+                        <select class="select_group" klas="<?php echo $klas; ?>" day="Tuesday" name="vak_<?php echo $i; ?>" id="<?php echo $i; ?>" schooljaar="<?php echo $schooljaar; ?>">
+                            <option value="0"><?php echo $i; ?></option>
+                            <?php foreach ($vaks as $vak) {
+                                if ($vak["id"] == $valores[1] && $row['day'] == "Tuesday") {
+                                    $conf = " selected";
+                                } else {
+                                    $conf = "";
+                                } ?>
+                                <option <?php echo $conf; ?> value="<?php echo $vak["id"]; ?>"><?php echo $vak["vak"]; ?> </option>
+                            <?php } ?>
+                        </select>
+                        <select class="select_group" klas="<?php echo $klas; ?>" day="Tuesday" name="vak_<?php echo $i; ?>" id="<?php echo $i; ?>" schooljaar="<?php echo $schooljaar; ?>">
+                            <option value="0"><?php echo $i; ?></option>
+                            <?php foreach ($vaks as $vak) {
+                                if ($vak["id"] == $valores[2] && $row['day'] == "Tuesday") {
+                                    $conf = " selected";
+                                } else {
+                                    $conf = "";
+                                } ?>
+                                <option <?php echo $conf; ?> value="<?php echo $vak["id"]; ?>"><?php echo $vak["vak"]; ?> </option>
+                            <?php } ?>
+                        </select>
+                    <?php } ?>
                 </td>
             <?php } ?>
         </tr>
         <tr>
-            <td class="days">DIARANSON</td>
+            <td class="days">WOENSDAG</td>
             <?php
             $query = "SELECT * FROM klassenboek_vak WHERE day = 'Wednesday' AND klas = '$klas' AND schooljaar = '$schooljaar' AND schoolid = $schoolid;";
             $resultado = mysqli_query($mysqli, $query);
@@ -256,24 +336,68 @@ if ($klas == 4) {
                     <?php if ($i == 10) { ?>
                         <select class="select_vaks" klas="<?php echo $klas; ?>" day="Wednesday" name="vak_<?php echo $i; ?>" id="<?php echo $i; ?>" schooljaar="<?php echo $schooljaar; ?>">
                             <option value="0">Dag</option>
-                        <?php } else { ?>
-                            <select class="select_vaks" klas="<?php echo $klas; ?>" day="Wednesday" name="vak_<?php echo $i; ?>" id="<?php echo $i; ?>" schooljaar="<?php echo $schooljaar; ?>">
-                                <option value="0"><?php echo $i; ?></option>
-                            <?php }
-                        foreach ($vaks as $vak) {
-                            if ($vak["id"] == $$x && $row['day'] == "Wednesday") {
-                                $conf = " selected";
-                            } else {
-                                $conf = "";
-                            } ?>
+                            <?php foreach ($vaks as $vak) {
+                                if ($vak["id"] == $$x && $row['day'] == "Wednesday") {
+                                    $conf = " selected";
+                                } else {
+                                    $conf = "";
+                                } ?>
                                 <option <?php echo $conf; ?> value="<?php echo $vak["id"]; ?>"><?php echo $vak["vak"]; ?> </option>
                             <?php } ?>
-                            </select>
+                        </select>
+                    <?php } else if ($klas != 4) { ?>
+                        <select class="select_vaks" klas="<?php echo $klas; ?>" day="Wednesday" name="vak_<?php echo $i; ?>" id="<?php echo $i; ?>" schooljaar="<?php echo $schooljaar; ?>">
+                            <option value="0"><?php echo $i; ?></option>
+                            <?php foreach ($vaks as $vak) {
+                                if ($vak["id"] == $$x && $row['day'] == "Wednesday") {
+                                    $conf = " selected";
+                                } else {
+                                    $conf = "";
+                                } ?>
+                                <option <?php echo $conf; ?> value="<?php echo $vak["id"]; ?>"><?php echo $vak["vak"]; ?> </option>
+                            <?php } ?>
+                        </select>
+                    <?php } else {
+                        $valores = explode(",", $$x); ?>
+                        <select class="select_group" klas="<?php echo $klas; ?>" day="Wednesday" name="vak_<?php echo $i; ?>" id="<?php echo $i; ?>" schooljaar="<?php echo $schooljaar; ?>">
+                            <option value="0"><?php echo $i; ?></option>
+                            <?php foreach ($vaks as $vak) {
+                                if ($vak["id"] == $valores[0] && $row['day'] == "Wednesday") {
+                                    $conf = " selected";
+                                } else {
+                                    $conf = "";
+                                } ?>
+                                <option <?php echo $conf; ?> value="<?php echo $vak["id"]; ?>"><?php echo $vak["vak"]; ?> </option>
+                            <?php } ?>
+                        </select>
+                        <select class="select_group" klas="<?php echo $klas; ?>" day="Wednesday" name="vak_<?php echo $i; ?>" id="<?php echo $i; ?>" schooljaar="<?php echo $schooljaar; ?>">
+                            <option value="0"><?php echo $i; ?></option>
+                            <?php foreach ($vaks as $vak) {
+                                if ($vak["id"] == $valores[1] && $row['day'] == "Wednesday") {
+                                    $conf = " selected";
+                                } else {
+                                    $conf = "";
+                                } ?>
+                                <option <?php echo $conf; ?> value="<?php echo $vak["id"]; ?>"><?php echo $vak["vak"]; ?> </option>
+                            <?php } ?>
+                        </select>
+                        <select class="select_group" klas="<?php echo $klas; ?>" day="Wednesday" name="vak_<?php echo $i; ?>" id="<?php echo $i; ?>" schooljaar="<?php echo $schooljaar; ?>">
+                            <option value="0"><?php echo $i; ?></option>
+                            <?php foreach ($vaks as $vak) {
+                                if ($vak["id"] == $valores[2] && $row['day'] == "Wednesday") {
+                                    $conf = " selected";
+                                } else {
+                                    $conf = "";
+                                } ?>
+                                <option <?php echo $conf; ?> value="<?php echo $vak["id"]; ?>"><?php echo $vak["vak"]; ?> </option>
+                            <?php } ?>
+                        </select>
+                    <?php } ?>
                 </td>
             <?php } ?>
         </tr>
         <tr>
-            <td class="days">DIAHUEBS</td>
+            <td class="days">DONDERDAG</td>
             <?php
             $query = "SELECT * FROM klassenboek_vak WHERE day = 'Thursday' AND klas = '$klas' AND schooljaar = '$schooljaar' AND schoolid = $schoolid;";
             $resultado = mysqli_query($mysqli, $query);
@@ -300,24 +424,68 @@ if ($klas == 4) {
                     <?php if ($i == 10) { ?>
                         <select class="select_vaks" klas="<?php echo $klas; ?>" day="Thursday" name="vak_<?php echo $i; ?>" id="<?php echo $i; ?>" schooljaar="<?php echo $schooljaar; ?>">
                             <option value="0">Dag</option>
-                        <?php } else { ?>
-                            <select class="select_vaks" klas="<?php echo $klas; ?>" day="Thursday" name="vak_<?php echo $i; ?>" id="<?php echo $i; ?>" schooljaar="<?php echo $schooljaar; ?>">
-                                <option value="0"><?php echo $i; ?></option>
-                            <?php }
-                        foreach ($vaks as $vak) {
-                            if ($vak["id"] == $$x && $row['day'] == "Thursday") {
-                                $conf = " selected";
-                            } else {
-                                $conf = "";
-                            } ?>
+                            <?php foreach ($vaks as $vak) {
+                                if ($vak["id"] == $$x && $row['day'] == "Thursday") {
+                                    $conf = " selected";
+                                } else {
+                                    $conf = "";
+                                } ?>
                                 <option <?php echo $conf; ?> value="<?php echo $vak["id"]; ?>"><?php echo $vak["vak"]; ?> </option>
                             <?php } ?>
-                            </select>
+                        </select>
+                    <?php } else if ($klas != 4) { ?>
+                        <select class="select_vaks" klas="<?php echo $klas; ?>" day="Thursday" name="vak_<?php echo $i; ?>" id="<?php echo $i; ?>" schooljaar="<?php echo $schooljaar; ?>">
+                            <option value="0"><?php echo $i; ?></option>
+                            <?php foreach ($vaks as $vak) {
+                                if ($vak["id"] == $$x && $row['day'] == "Thursday") {
+                                    $conf = " selected";
+                                } else {
+                                    $conf = "";
+                                } ?>
+                                <option <?php echo $conf; ?> value="<?php echo $vak["id"]; ?>"><?php echo $vak["vak"]; ?> </option>
+                            <?php } ?>
+                        </select>
+                    <?php } else {
+                        $valores = explode(",", $$x); ?>
+                        <select class="select_group" klas="<?php echo $klas; ?>" day="Thursday" name="vak_<?php echo $i; ?>" id="<?php echo $i; ?>" schooljaar="<?php echo $schooljaar; ?>">
+                            <option value="0"><?php echo $i; ?></option>
+                            <?php foreach ($vaks as $vak) {
+                                if ($vak["id"] == $valores[0] && $row['day'] == "Thursday") {
+                                    $conf = " selected";
+                                } else {
+                                    $conf = "";
+                                } ?>
+                                <option <?php echo $conf; ?> value="<?php echo $vak["id"]; ?>"><?php echo $vak["vak"]; ?> </option>
+                            <?php } ?>
+                        </select>
+                        <select class="select_group" klas="<?php echo $klas; ?>" day="Thursday" name="vak_<?php echo $i; ?>" id="<?php echo $i; ?>" schooljaar="<?php echo $schooljaar; ?>">
+                            <option value="0"><?php echo $i; ?></option>
+                            <?php foreach ($vaks as $vak) {
+                                if ($vak["id"] == $valores[1] && $row['day'] == "Thursday") {
+                                    $conf = " selected";
+                                } else {
+                                    $conf = "";
+                                } ?>
+                                <option <?php echo $conf; ?> value="<?php echo $vak["id"]; ?>"><?php echo $vak["vak"]; ?> </option>
+                            <?php } ?>
+                        </select>
+                        <select class="select_group" klas="<?php echo $klas; ?>" day="Thursday" name="vak_<?php echo $i; ?>" id="<?php echo $i; ?>" schooljaar="<?php echo $schooljaar; ?>">
+                            <option value="0"><?php echo $i; ?></option>
+                            <?php foreach ($vaks as $vak) {
+                                if ($vak["id"] == $valores[2] && $row['day'] == "Thursday") {
+                                    $conf = " selected";
+                                } else {
+                                    $conf = "";
+                                } ?>
+                                <option <?php echo $conf; ?> value="<?php echo $vak["id"]; ?>"><?php echo $vak["vak"]; ?> </option>
+                            <?php } ?>
+                        </select>
+                    <?php } ?>
                 </td>
             <?php } ?>
         </tr>
         <tr>
-            <td class="days">DIABIERNA</td>
+            <td class="days">VRIJDAG</td>
             <?php
             $query = "SELECT * FROM klassenboek_vak WHERE day = 'Friday' AND klas = '$klas' AND schooljaar = '$schooljaar' AND schoolid = $schoolid;";
             $resultado = mysqli_query($mysqli, $query);
@@ -344,19 +512,63 @@ if ($klas == 4) {
                     <?php if ($i == 10) { ?>
                         <select class="select_vaks" klas="<?php echo $klas; ?>" day="Friday" name="vak_<?php echo $i; ?>" id="<?php echo $i; ?>" schooljaar="<?php echo $schooljaar; ?>">
                             <option value="0">Dag</option>
-                        <?php } else { ?>
-                            <select class="select_vaks" klas="<?php echo $klas; ?>" day="Friday" name="vak_<?php echo $i; ?>" id="<?php echo $i; ?>" schooljaar="<?php echo $schooljaar; ?>">
-                                <option value="0"><?php echo $i; ?></option>
-                            <?php }
-                        foreach ($vaks as $vak) {
-                            if ($vak["id"] == $$x && $row['day'] == "Friday") {
-                                $conf = " selected";
-                            } else {
-                                $conf = "";
-                            } ?>
+                            <?php foreach ($vaks as $vak) {
+                                if ($vak["id"] == $$x && $row['day'] == "Friday") {
+                                    $conf = " selected";
+                                } else {
+                                    $conf = "";
+                                } ?>
                                 <option <?php echo $conf; ?> value="<?php echo $vak["id"]; ?>"><?php echo $vak["vak"]; ?> </option>
                             <?php } ?>
-                            </select>
+                        </select>
+                    <?php } else if ($klas != 4) { ?>
+                        <select class="select_vaks" klas="<?php echo $klas; ?>" day="Friday" name="vak_<?php echo $i; ?>" id="<?php echo $i; ?>" schooljaar="<?php echo $schooljaar; ?>">
+                            <option value="0"><?php echo $i; ?></option>
+                            <?php foreach ($vaks as $vak) {
+                                if ($vak["id"] == $$x && $row['day'] == "Friday") {
+                                    $conf = " selected";
+                                } else {
+                                    $conf = "";
+                                } ?>
+                                <option <?php echo $conf; ?> value="<?php echo $vak["id"]; ?>"><?php echo $vak["vak"]; ?> </option>
+                            <?php } ?>
+                        </select>
+                    <?php } else {
+                        $valores = explode(",", $$x); ?>
+                        <select class="select_group" klas="<?php echo $klas; ?>" day="Friday" name="vak_<?php echo $i; ?>" id="<?php echo $i; ?>" schooljaar="<?php echo $schooljaar; ?>">
+                            <option value="0"><?php echo $i; ?></option>
+                            <?php foreach ($vaks as $vak) {
+                                if ($vak["id"] == $valores[0] && $row['day'] == "Friday") {
+                                    $conf = " selected";
+                                } else {
+                                    $conf = "";
+                                } ?>
+                                <option <?php echo $conf; ?> value="<?php echo $vak["id"]; ?>"><?php echo $vak["vak"]; ?> </option>
+                            <?php } ?>
+                        </select>
+                        <select class="select_group" klas="<?php echo $klas; ?>" day="Friday" name="vak_<?php echo $i; ?>" id="<?php echo $i; ?>" schooljaar="<?php echo $schooljaar; ?>">
+                            <option value="0"><?php echo $i; ?></option>
+                            <?php foreach ($vaks as $vak) {
+                                if ($vak["id"] == $valores[1] && $row['day'] == "Friday") {
+                                    $conf = " selected";
+                                } else {
+                                    $conf = "";
+                                } ?>
+                                <option <?php echo $conf; ?> value="<?php echo $vak["id"]; ?>"><?php echo $vak["vak"]; ?> </option>
+                            <?php } ?>
+                        </select>
+                        <select class="select_group" klas="<?php echo $klas; ?>" day="Friday" name="vak_<?php echo $i; ?>" id="<?php echo $i; ?>" schooljaar="<?php echo $schooljaar; ?>">
+                            <option value="0"><?php echo $i; ?></option>
+                            <?php foreach ($vaks as $vak) {
+                                if ($vak["id"] == $valores[2] && $row['day'] == "Friday") {
+                                    $conf = " selected";
+                                } else {
+                                    $conf = "";
+                                } ?>
+                                <option <?php echo $conf; ?> value="<?php echo $vak["id"]; ?>"><?php echo $vak["vak"]; ?> </option>
+                            <?php } ?>
+                        </select>
+                    <?php } ?>
                 </td>
             <?php } ?>
         </tr>
@@ -364,28 +576,6 @@ if ($klas == 4) {
 </form>
 
 <script>
-    $(".submit_form").click(function(e) {
-        e.preventDefault()
-        $.ajax({
-            url: "ajax/insert_planner.php",
-            data: $('#planning').serialize(),
-            type: "POST",
-            dataType: "text",
-            success: function(text) {
-                if (text == 1) {
-                    alert("PLANNER CREATED")
-                } else if (text == 2) {
-                    alert("PLANNER UPDATED")
-                } else {
-                    alert("ERROR")
-                }
-            },
-            error: function(xhr, status, errorThrown) {
-                alert("error");
-            },
-        });
-    })
-
     $('.select_vaks').change(function(e) {
         e.preventDefault();
         p = $(this).attr('id');
@@ -393,6 +583,36 @@ if ($klas == 4) {
         klas = $(this).attr('klas');
         schooljaar = $(this).attr('schooljaar');
         day = $(this).attr('day');
+        $.ajax({
+            url: "ajax/update_klasenboek_vak.php",
+            type: 'POST',
+            data: {
+                klas: klas,
+                day: day,
+                vak: vak,
+                p: p,
+                schooljaar: schooljaar,
+            },
+            success: function(response) {
+                console.log(response);
+            }
+        });
+    })
+
+    $(".select_group").change(function(e) {
+        e.preventDefault();
+        p = $(this).attr('id');
+        klas = $(this).attr('klas');
+        schooljaar = $(this).attr('schooljaar');
+        day = $(this).attr('day');
+        var selectedValues = [];
+
+        $(this).closest("td").find(".select_group").each(function() {
+            selectedValues.push($(this).val());
+        });
+
+        var vak = selectedValues.join(",");
+
         $.ajax({
             url: "ajax/update_klasenboek_vak.php",
             type: 'POST',

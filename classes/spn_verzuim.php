@@ -1649,6 +1649,7 @@ class spn_verzuim
 
     $final = "";
     for ($i = 1; $i <= 10; $i++) {
+      $valores = [];
       $html = "html" . $i;
       if ($type == 0) {
         $$html .= '<th>';
@@ -1657,10 +1658,25 @@ class spn_verzuim
       }
       $x = 'p' . $i;
       $conf = "";
+      $valores = explode(",", $$x);
+      $confArray = [];
+
       foreach ($vaks as $vak) {
+        if ($klas_1 == 4) {
+          if (in_array($vak["id"], $valores)) {
+            $confArray[] = $vak["vak"];
+          }
+        } else if ($vak["id"] == $$x) {
+          $conf = $vak["vak"];
+        }
+
         if ($vak["id"] == $$x) {
           $conf = $vak["vak"];
         }
+      }
+
+      if ($klas_1 == 4 && !empty($confArray)) {
+        $conf = implode('<br>', $confArray);
       }
       $$html .= ($conf == "") ? ($i == 10 ? 'Dag' : '') : $conf;
       $$html .= '</th>';
