@@ -98,9 +98,8 @@ $schooljaar = $_POST["schooljaar_rapport"]; ?>
     }
 
     .select_group {
-        max-width: 60px !important;
-        font-size: small !important;
-        margin: 0 5px !important;
+        display: block !important;
+        margin: 5px !important;
     }
 </style>
 
