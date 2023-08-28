@@ -2261,7 +2261,7 @@ class spn_cijfers
           if ($consulta->num_rows == 0) {
             $sqlI = "INSERT INTO
         le_cijfers
-        (`studentid`,`lastchanged`,`created`,`schooljaar`,`rapnummer`,`vak`,`klas`,`user`) values ($id,null,now(),'$schooljaar','$rapnummer','$vakid','$klas','spn')";
+        (`studentid`,`lastchanged`,`created`,`schooljaar`,`rapnummer`,`vak`,`klas`,`user`) values ($id,null,now(),'$schooljaar','$rapnummer','$vakid','$klass','spn')";
             $resultado123 = mysqli_query($mysqli, $sqlI);
             if (!$resultado123) {
               $mysqli->close();
