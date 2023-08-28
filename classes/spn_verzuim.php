@@ -1614,7 +1614,7 @@ class spn_verzuim
     $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
     $klas_1 = substr($klas, 0, 1);
     if ($klas_1 == 4) {
-      $klas = '4A';
+      $klas = $klas == '4' ? '4A' : $klas;
       $get_vak = "SELECT id,name FROM groups WHERE schoolid = $schoolID;";
       $result = mysqli_query($mysqli, $get_vak);
       while ($row1 = mysqli_fetch_assoc($result)) {
