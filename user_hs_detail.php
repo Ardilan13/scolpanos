@@ -365,24 +365,24 @@ $mysqli->set_charset('utf8'); ?>
 
 	}
 
-	/* 	function check_tutor(type_check) {
-			var c = null;
-			var hrefLink = 'ajax/get_check_tutor?klas=' + $("#cijfers_klassen_lijst").val() + '&userGUID=' + getParam('userGUID') + '&type_check=' + type_check;
+	function check_tutor(type_check) {
+		var c = null;
+		var hrefLink = 'ajax/get_check_tutor?klas=' + $("#cijfers_klassen_lijst").val() + '&userGUID=' + getParam('userGUID') + '&type_check=' + type_check;
 
-			$.ajax({
-				url: hrefLink,
-				type: 'GET',
-				async: false,
-				cache: false,
-				error: function() {
-					c = 0;
-				},
-				success: function(data) {
-					c = parseInt(data);
-				}
-			});
-			return c;
-		} */
+		$.ajax({
+			url: hrefLink,
+			type: 'GET',
+			async: false,
+			cache: false,
+			error: function() {
+				c = 0;
+			},
+			success: function(data) {
+				c = parseInt(data);
+			}
+		});
+		return c;
+	}
 
 	$('#cijfers_klassen_lijst').change(function() {
 		$("#loader_spn").removeClass("hidden");
@@ -417,7 +417,7 @@ $mysqli->set_charset('utf8'); ?>
 	})
 
 	function check_docent_is_tutor_or_klas(type_check) {
-		check = 2;
+		check = check_tutor(type_check);
 		if (check == 0) {
 			if (!message_tutor) {
 				$('#has_tutor').addClass('hidden');
