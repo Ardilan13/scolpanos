@@ -46,16 +46,11 @@ print $a->detail_user_account(appconfig::GetBaseURL(), $_GET["userGUID"], appcon
             $('#is_tutor_no').prop('checked', true);
             $('#is_tutor_hidden').val('No');
         }
-        $('#btn_clear_vak_klas_hs').addClass("hidden");
         $('#btn_delete_vak_klas_hs').removeClass("hidden");
 
         $('#btn_add_vak_klas_hs').addClass("hidden");
         $('#btn_update_vak_klas_hs').removeClass("hidden");
         $('#user_access_id').attr("value", user_access_id);
-
-
-
-
     });
 
     function fillVakByKlas(vak_selected) {

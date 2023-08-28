@@ -143,10 +143,10 @@ $mysqli->set_charset('utf8'); ?>
 
 												<!-- Buttons -->
 												<div class="form-group full-inset">
-													<button type="button" class="btn btn-primary btn-m-w pull-right mrg-left" id="btn_add_vak_klas_hs">SAVE</button>
-													<button class="btn btn-primary btn-m-w pull-right mrg-left hidden" id="btn_update_vak_klas_hs">UPDATE</button>
-													<button type="reset" class="btn btn-danger btn-m-w pull-right mrg-left" id="btn_clear_vak_klas_hs">CLEAR</button>
-													<button class="btn btn-danger btn-m-w pull-right mrg-left hidden" id="btn_delete_vak_klas_hs">DELETE</button>
+													<button type="button" class="btn btn-primary btn-s-w pull-right mrg-left" id="btn_add_vak_klas_hs">SAVE</button>
+													<button class="btn btn-primary btn-s-w pull-right mrg-left hidden" id="btn_update_vak_klas_hs">UPDATE</button>
+													<button class="btn btn-s-w pull-right mrg-left" id="btn_clear_vak_klas_hs">CLEAR</button>
+													<button class="btn btn-danger btn-s-w pull-right mrg-left hidden" id="btn_delete_vak_klas_hs">DELETE</button>
 												</div>
 											</fieldset>
 
@@ -180,8 +180,34 @@ $mysqli->set_charset('utf8'); ?>
 		get_user_name();
 		user_detail_hs_account();
 		check_docent_is_tutor_or_klas("Docent");
-
+		/* 		$("#cijfers_klassen_lijst").val('');
+		 */
+		setTimeout(function() {
+			$("#cijfers_klassen_lijst option").each(function() {
+				if ($(this).val() == '4A') {
+					console.log($(this).val());
+					$(this).text('4');
+				} else if ($(this).val()[0] == '4') {
+					$(this).attr('disabled', true);
+					$(this).addClass('hidden');
+				}
+			});
+		}, 1500);
 	});
+
+	$("#btn_clear_vak_klas_hs").click(function(e) {
+		e.preventDefault();
+		$("#cijfers_klassen_lijst").val('');
+		$("#cijfers_vakken_lijst").val('');
+		$("#group").val('');
+		$("#is_tutor_yes").prop('checked', false);
+		$("#is_tutor_no").prop('checked', false);
+		$("#is_tutor_hidden").val('');
+		$("#btn_add_vak_klas_hs").removeClass("hidden");
+		$("#btn_update_vak_klas_hs").addClass("hidden");
+		$("#btn_delete_vak_klas_hs").addClass("hidden");
+		console.log("clear")
+	})
 
 	$frm_vak_klas_hs = $('#frm_vak_klas_hs'),
 
