@@ -112,7 +112,13 @@
                                             $get_students = "SELECT id FROM personalia WHERE schoolid = $schoolid AND schooljaar = '$schooljaar'";
                                             $result_p = mysqli_query($mysqli, $get_students);
 
-                                            $get_personalia = "SELECT e.id,e.*,p.code,s.lastname,s.firstname,s.profiel,s.id as studentid FROM eba_ex e INNER JOIN personalia p ON e.id_personalia = p.id INNER JOIN students s ON p.studentid = s.id WHERE e.schoolid = $schoolid AND e.schooljaar = '$schooljaar' AND s.SchoolID = $schoolid AND e.type = 0 ORDER BY p.code;";
+                                            $get_personalia = "SELECT e.id,e.*,p.code,s.lastname,s.firstname,s.profiel,s.id as studentid FROM eba_ex e INNER JOIN personalia p ON e.id_personalia = p.id INNER JOIN students s ON p.studentid = s.id WHERE e.schoolid = $schoolid AND e.schooljaar = '$schooljaar' AND s.SchoolID = $schoolid AND e.type = 0 ORDER BY";
+                                            $sql_order = " lastname , firstname";
+                                            if ($s->_setting_mj) {
+                                                $get_personalia .= " sex " . $s->_setting_sort . ", " . $sql_order;
+                                            } else {
+                                                $get_personalia .=  $sql_order;
+                                            }
                                             $result = mysqli_query($mysqli, $get_personalia);
                                             if ($result->num_rows > 0 && $result->num_rows == $result_p->num_rows) { ?>
                                                 <table class="table table-bordered table-colored table-houding">

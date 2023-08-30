@@ -45,7 +45,13 @@
                                             $schooljaar = $_SESSION["SchoolJaar"];
                                             $s->getsetting_info($schoolid, false);
 
-                                            $get_personalia = "SELECT p.code,p.ckv,p.lo,s.lastname,s.firstname FROM personalia p INNER JOIN students s ON s.id = p.studentid WHERE p.schoolid = $schoolid AND p.schooljaar = '$schooljaar' AND (p.ckv IS NOT NULL OR p.lo IS NOT NULL) ORDER BY p.code;";
+                                            $get_personalia = "SELECT p.code,p.ckv,p.lo,s.lastname,s.firstname FROM personalia p INNER JOIN students s ON s.id = p.studentid WHERE p.schoolid = $schoolid AND p.schooljaar = '$schooljaar' AND (p.ckv IS NOT NULL OR p.lo IS NOT NULL) ORDER BY";
+                                            $sql_order = " lastname , firstname";
+                                            if ($s->_setting_mj) {
+                                                $get_personalia .= " sex " . $s->_setting_sort . ", " . $sql_order;
+                                            } else {
+                                                $get_personalia .=  $sql_order;
+                                            }
                                             $result = mysqli_query($mysqli, $get_personalia);
                                             if ($result->num_rows > 0) { ?>
                                                 <table class="table table-bordered table-colored table-houding">
