@@ -228,7 +228,6 @@ $mysqli->set_charset('utf8'); ?>
 							$frm_vak_klas_hs.find('.alert-error').removeClass('hidden');
 						} else {
 							$frm_vak_klas_hs.find('#created_suscessfully').removeClass('hidden');
-							window.location.reload();
 							$('#btn_clear_user').text("CLEAR");
 							// Clear all object of form
 							$('select').each(function() {
@@ -255,6 +254,7 @@ $mysqli->set_charset('utf8'); ?>
 							//$fromuser_hs_accountRegistration.find('.alert-info').addClass('hidden');
 							//$fromuser_hs_accountRegistration.find('.alert-error').addClass('hidden');
 							$('#created_suscessfully').fadeOut(1500);
+							location.reload();
 						}, 3000);
 					}
 				});
