@@ -312,8 +312,13 @@ ob_flush();
           </div>
           <label>2022-2023</label>
           <div class="input-group col-md-1">
-            <input type="radio" class="form-group" name="_2022_2023" id="_2022_2023" checked="checked" />
-            <input type="hidden" name="2022_2023" id="2022_2023" value="1" />
+            <input type="radio" class="form-group" name="_2022_2023" id="_2022_2023" />
+            <input type="hidden" name="2022_2023" id="2022_2023" value="0" />
+          </div>
+          <label>2023-2024</label>
+          <div class="input-group col-md-1">
+            <input type="radio" class="form-group" name="_2023_2024" id="_2023_2024" checked="checked" />
+            <input type="hidden" name="2023_2024" id="2023_2024" value="1" />
           </div>
         </form>
       </div>
