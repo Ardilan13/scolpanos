@@ -59,6 +59,17 @@
         .cuadro_v {
             background-color: dodgerblue;
         }
+
+        .group {
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+
+        .table-responsive {
+            height: 600px !important;
+            overflow: scroll !important;
+        }
     </style>
 
     <main id="main" role="main">
@@ -82,7 +93,7 @@
                             <div class="sixth-bg-color brd-full">
                                 <div class="box box_form">
                                     <div class="box-content full-inset">
-                                        <div id="table" class="data-display">
+                                        <div id="table" class="data-display table-responsive">
                                             <?php
                                             require_once 'classes/DBCreds.php';
                                             require_once 'classes/spn_setting.php';
@@ -98,11 +109,14 @@
                                             $schooljaar = $_SESSION["SchoolJaar"];
                                             $s->getsetting_info($schoolid, false);
 
+                                            $get_students = "SELECT id FROM personalia WHERE schoolid = $schoolid AND schooljaar = '$schooljaar'";
+                                            $result_p = mysqli_query($mysqli, $get_students);
+
                                             $get_personalia = "SELECT e.id,e.*,p.code,s.lastname,s.firstname,s.profiel,s.id as studentid FROM eba_ex e INNER JOIN personalia p ON e.id_personalia = p.id INNER JOIN students s ON p.studentid = s.id WHERE e.schoolid = $schoolid AND e.schooljaar = '$schooljaar' AND s.SchoolID = $schoolid AND e.type = 0 ORDER BY p.code;";
                                             $result = mysqli_query($mysqli, $get_personalia);
-                                            if ($result->num_rows > 0) { ?>
+                                            if ($result->num_rows > 0 && $result->num_rows == $result_p->num_rows) { ?>
                                                 <table class="table table-bordered table-colored table-houding">
-                                                    <thead>
+                                                    <thead class="group">
                                                         <tr>
                                                             <th class="nr">Nr</th>
                                                             <th>Achternaam</th>

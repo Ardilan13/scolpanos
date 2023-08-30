@@ -59,6 +59,17 @@
         .cuadro_v {
             background-color: dodgerblue;
         }
+
+        .group {
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+
+        .table-responsive {
+            height: 600px !important;
+            overflow-y: scroll !important;
+        }
     </style>
 
     <main id="main" role="main">
@@ -75,7 +86,7 @@
                             <div class="sixth-bg-color brd-full">
                                 <div class="box box_form">
                                     <div class="box-content full-inset">
-                                        <div id="table" class="data-display">
+                                        <div id="table" class="data-display table-responsive">
                                             <?php
                                             require_once 'classes/DBCreds.php';
                                             require_once 'classes/spn_setting.php';
@@ -98,7 +109,7 @@
                                                 $result = mysqli_query($mysqli, $get_personalia); ?>
                                                 <table class="table table-bordered table-colored table-houding">
                                                     <thead>
-                                                        <tr>
+                                                        <tr class="group">
                                                             <th class="nr">Nr</th>
                                                             <th>Achternaam</th>
                                                             <th>Alle Voornamen</th>

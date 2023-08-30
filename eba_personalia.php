@@ -2,7 +2,16 @@
 
 <?php include 'sub_nav.php'; ?>
 <style>
+    .group {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
 
+    .table-responsive {
+        height: 600px !important;
+        overflow-y: scroll !important;
+    }
 </style>
 <div class="push-content-220">
     <?php include 'header.php'; ?>
@@ -24,7 +33,7 @@
                             <div class="sixth-bg-color brd-full">
                                 <div class="box box_form">
                                     <div class="box-content full-inset">
-                                        <div id="table" class="data-display">
+                                        <div id="table" class="data-display table-responsive">
                                             <?php
                                             require_once 'classes/DBCreds.php';
                                             require_once 'classes/spn_setting.php';
@@ -39,11 +48,14 @@
                                             $schooljaar = $_SESSION["SchoolJaar"];
                                             $s->getsetting_info($schoolid, false);
 
+                                            $get_students = "SELECT id FROM personalia WHERE schoolid = $schoolid AND schooljaar = '$schooljaar'";
+                                            $result_p = mysqli_query($mysqli, $get_students);
+
                                             $get_personalia = "SELECT s.id,p.code,p.opmerking,s.lastname,s.firstname,s.sex,s.dob,s.birthplace FROM personalia p INNER JOIN students s ON s.id = p.studentid WHERE p.schoolid = $schoolid AND p.schooljaar = '$schooljaar' ORDER BY p.code;";
                                             $result = mysqli_query($mysqli, $get_personalia);
-                                            if ($result->num_rows > 0) { ?>
+                                            if ($result->num_rows > 0 && $result->num_rows == $result_p->num_rows) { ?>
                                                 <table class="table table-bordered table-colored table-houding">
-                                                    <thead>
+                                                    <thead class="group">
                                                         <tr>
                                                             <th>Nr</th>
                                                             <th>Achternaam</th>
@@ -86,8 +98,13 @@
                                                 $result = mysqli_query($mysqli, $get_students);
                                                 while ($row = mysqli_fetch_assoc($result)) {
                                                     $id = $row["id"];
-                                                    $create_personalia = "INSERT INTO personalia (code,studentid, schoolid, schooljaar) VALUES ($x,$id, $schoolid, '$schooljaar');";
-                                                    $result1 = mysqli_query($mysqli, $create_personalia);
+                                                    $select_personalia = "SELECT id FROM personalia WHERE studentid = $id AND schoolid = $schoolid AND schooljaar = '$schooljaar';";
+                                                    $result1 = mysqli_query($mysqli, $select_personalia);
+                                                    if ($result1->num_rows == 0) {
+                                                        $create_personalia = "INSERT INTO personalia (code,studentid, schoolid, schooljaar) VALUES ($x,$id, $schoolid, '$schooljaar');";
+                                                        $result1 = mysqli_query($mysqli, $create_personalia);
+                                                    }
+
                                                     $x++;
                                                 }
                                                 header("Refresh:0");

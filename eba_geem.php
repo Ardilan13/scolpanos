@@ -1,6 +1,18 @@
 <?php include 'document_start.php'; ?>
 
 <?php include 'sub_nav.php'; ?>
+<style>
+    .group {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+
+    .table-responsive {
+        height: 600px !important;
+        overflow-y: scroll !important;
+    }
+</style>
 <div class="push-content-220">
     <?php include 'header.php'; ?>
 
@@ -18,7 +30,7 @@
                             <div class="sixth-bg-color brd-full">
                                 <div class="box box_form">
                                     <div class="box-content full-inset">
-                                        <div id="table" class="data-display">
+                                        <div id="table" class="data-display table-responsive">
                                             <?php
                                             require_once 'classes/DBCreds.php';
                                             require_once 'classes/spn_setting.php';
@@ -37,7 +49,7 @@
                                             $result = mysqli_query($mysqli, $get_personalia);
                                             if ($result->num_rows > 0) { ?>
                                                 <table class="table table-bordered table-colored table-houding">
-                                                    <thead>
+                                                    <thead class="group">
                                                         <tr>
                                                             <th>Nr</th>
                                                             <th>Achternaam</th>
