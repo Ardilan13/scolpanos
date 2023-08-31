@@ -466,7 +466,7 @@ class spn_user_hs_account
             $select->store_result();
             if ($select->num_rows > 0) {  /*$htmlcontrol .= "<table id=\"cstable\" class=\"table table-striped table-bordered\">"; */
               $htmlcontrol .= "<table id=\"tbl_detail_user_hs_acount\" class=\"table table-bordered table-colored\" data-table=\"yes\">";
-              $htmlcontrol .= "<thead><tr><th>Klas</th><th>Vak</th><th>Mentor</th></tr></thead>";
+              $htmlcontrol .= "<thead><tr><th class='hidden'>ID</th><th>Klas</th><th>Vak</th><th>Mentor</th></tr></thead>";
               $htmlcontrol .= "<tbody>";
 
               while ($select->fetch()) {
@@ -482,6 +482,7 @@ class spn_user_hs_account
                   }
                 }
                 $htmlcontrol .= "<tr>";
+                $htmlcontrol .= "<td class='hidden'>" . htmlentities($id) . "</td>";
                 $htmlcontrol .= "<td><input type='hidden' name='user_access_id' id='access_id' value='" . $id . "'>" . htmlentities($klas) . "</td>";
                 $htmlcontrol .= "<td><input type='hidden' name='vak_id' value='" . $vak_id . "'>" . htmlentities($vak_name) . "</td>";
                 $htmlcontrol .= "<td>" . htmlentities($is_tutor) . "</td>";

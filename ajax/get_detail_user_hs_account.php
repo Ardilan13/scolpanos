@@ -20,22 +20,22 @@ print $a->detail_user_account(appconfig::GetBaseURL(), $_GET["userGUID"], appcon
     $('#tbl_detail_user_hs_acount tr').click(function() {
         $(this).closest('tr').siblings().children('td, th').css('background-color', '');
         $(this).children('td, th').css('background-color', '#cccccc');
-        user_access_id = $(this).find("td").eq(0).find("[name='user_access_id']").val();
-        if ($(this).find("td").eq(0).text() == '4') {
+        user_access_id = $(this).find("td").eq(1).find("[name='user_access_id']").val();
+        if ($(this).find("td").eq(1).text() == '4') {
             $('#cijfers_klassen_lijst').val('4A');
             $('.vaken').addClass('hidden');
             $('.group').removeClass('hidden');
             $("#cijfers_vakken_lijst").attr('disabled', true);
-            $("#group").val($(this).find("td").eq(1).find("[name='vak_id']").val())
+            $("#group").val($(this).find("td").eq(2).find("[name='vak_id']").val())
         } else {
-            $('#cijfers_klassen_lijst').val($(this).find("td").eq(0).text());
+            $('#cijfers_klassen_lijst').val($(this).find("td").eq(1).text());
             $('.vaken').removeClass('hidden');
             $('.group').addClass('hidden');
             $("#cijfers_vakken_lijst").attr('disabled', false);
-            fillVakByKlas($(this).find("td").eq(1).find("[name='vak_id']").val());
+            fillVakByKlas($(this).find("td").eq(2).find("[name='vak_id']").val());
         }
 
-        if ($(this).find("td").eq(2).text() == 'Yes') {
+        if ($(this).find("td").eq(3).text() == 'Yes') {
             $('#is_tutor_yes').prop('checked', true);
             $('#is_tutor_hidden').val('Yes');
             $('#is_tutor_no').prop('checked', false);

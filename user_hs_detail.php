@@ -180,6 +180,7 @@ $mysqli->set_charset('utf8'); ?>
 		get_user_name();
 		user_detail_hs_account();
 		check_docent_is_tutor_or_klas("Docent");
+
 		/* 		$("#cijfers_klassen_lijst").val('');
 		 */
 		setTimeout(function() {
@@ -192,6 +193,8 @@ $mysqli->set_charset('utf8'); ?>
 					$(this).addClass('hidden');
 				}
 			});
+
+			$("#tbl_detail_account .sorting_asc").click()
 		}, 1500);
 	});
 
