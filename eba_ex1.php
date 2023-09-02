@@ -310,22 +310,18 @@
         var ex = $(this).attr("class").split(" ")[2];
         changeColor(value);
         $(this).css("background-color", $color);
-        if ($color != "lightgray") {
-            $.ajax({
-                url: "ajax/save_eba_ex.php",
-                type: "POST",
-                data: {
-                    id: id,
-                    value: value,
-                    ex: ex,
-                },
-                success: function(data) {
-                    console.log(data);
-                }
-            });
-        } else {
-            $(this).val("");
-        }
+        $.ajax({
+            url: "ajax/save_eba_ex.php",
+            type: "POST",
+            data: {
+                id: id,
+                value: value,
+                ex: ex,
+            },
+            success: function(data) {
+                console.log(data);
+            }
+        });
         countVaks();
     });
 

@@ -1127,7 +1127,7 @@ class spn_verzuim
     $s = new spn_setting();
     $s->getsetting_info($schoolid, false);
     //cheking if data exist for that parameters
-    $this->create_le_verzuim_student_all($schoolid, $_SESSION['SchoolJaar'], $klas, $datum, $vak);
+    $test = $this->create_le_verzuim_student_all($schoolid, $_SESSION['SchoolJaar'], $klas, $datum, $vak);
 
     if ($klas == '4') {
       $schooljaar = $_SESSION['SchoolJaar'];
@@ -2013,64 +2013,33 @@ class spn_verzuim
     date_default_timezone_set("America/Aruba");
     $_DateTime = date("Y-m-d H:i:s");
     $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
+    $mysqliP = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
     $status = 1;
     mysqli_report(MYSQLI_REPORT_STRICT);
     require_once("spn_utils.php");
     $utils = new spn_utils();
-    try {
-      //$datum = $utils->converttomysqldate($datum);
-      if ($klas == '4') {
-        $sql = "SELECT s.id,s.class,gr.vak FROM students s INNER JOIN group_student g ON s.id = g.student_id INNER JOIN groups gr ON g.group_id = gr.id WHERE s.schoolid = '$schoolID' AND g.group_id = $group AND g.schooljaar = '$schooljaar';";
-        $consult = mysqli_query($mysqli, $sql);
-        while ($row = $consult->fetch_assoc()) {
-          $id = $row['id'];
-          $klas = $row['class'];
-          $vakid = $row['vak'];
-          $sqla = "SELECT lv.studentid 
-						FROM 
-							le_verzuim_hs lv 
-						INNER JOIN 
-							students s on lv.studentid = s.id 
-						WHERE 
-                        s.schoolid = $schoolID 
-						AND lv.schooljaar = '$schooljaar'
-						AND lv.klas = '$klas'
-            AND s.id = $id
-                        and lv.datum = '$datum';";
-          mysqli_connect();
-          $consulta = $mysqli->query($sqla);
-          if ($consulta->num_rows == 0) {
-            if ($stmt = $mysqli->prepare("CALL sp_create_le_verzuim_students_all (?,?,?,?)")) {
-              if ($stmt->bind_param("isss", $schoolID, $schooljaar, $klas, $datum)) {
-                if ($stmt->execute()) {
-                  $stmt->close();
-                  $mysqli->close();
-                  $result = 100;
-                } else {
-                  $result = 0;
-                  echo $this->mysqlierror = $mysqli->error;
-                  echo "# " . $this->mysqlierrornumber = $mysqli->errno;
-                }
-              } else {
-                $result = 0;
-                echo $this->mysqlierror = $mysqli->error;
-                echo "# " . $this->mysqlierrornumber = $mysqli->errno;
-              }
-            }
-          }
-        }
-      } else {
+    //$datum = $utils->converttomysqldate($datum);
+    if ($klas == '4') {
+      $sql = "SELECT DISTINCT s.class FROM students s INNER JOIN group_student g ON s.id = g.student_id INNER JOIN groups gr ON g.group_id = gr.id WHERE s.schoolid = '$schoolID' AND g.group_id = $group AND g.schooljaar = '$schooljaar';";
+      $consult = mysqli_query($mysqliP, $sql);
+      while ($row = $consult->fetch_assoc()) {
+        $klas = $row['class'];
         if ($stmt = $mysqli->prepare("CALL sp_create_le_verzuim_students_all (?,?,?,?)")) {
           if ($stmt->bind_param("isss", $schoolID, $schooljaar, $klas, $datum)) {
             if ($stmt->execute()) {
               $stmt->close();
-              $mysqli->close();
-              $result = 100;
-            } else {
-              $result = 0;
-              echo $this->mysqlierror = $mysqli->error;
-              echo "# " . $this->mysqlierrornumber = $mysqli->errno;
+              $result = $klas;
             }
+          }
+        }
+      }
+    } else {
+      if ($stmt = $mysqli->prepare("CALL sp_create_le_verzuim_students_all (?,?,?,?)")) {
+        if ($stmt->bind_param("isss", $schoolID, $schooljaar, $klas, $datum)) {
+          if ($stmt->execute()) {
+            $stmt->close();
+            $mysqli->close();
+            $result = 100;
           } else {
             $result = 0;
             echo $this->mysqlierror = $mysqli->error;
@@ -2079,14 +2048,16 @@ class spn_verzuim
         } else {
           $result = 0;
           echo $this->mysqlierror = $mysqli->error;
-          echo "# " .   $this->mysqlierrornumber = $mysqli->errno;
+          echo "# " . $this->mysqlierrornumber = $mysqli->errno;
         }
+      } else {
+        $result = 0;
+        echo $this->mysqlierror = $mysqli->error;
+        echo "# " .   $this->mysqlierrornumber = $mysqli->errno;
       }
-    } catch (Exception $e) {
-      $result = -2;
-      //$this->exceptionvalue = $e->getMessage();
     }
-    return "OK";
+
+    return $result;
   }
 
   function _getverzuimcount_hs($schoolid, $studentid_in, $klas_in, $datum_in, $period)
