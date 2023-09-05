@@ -11,6 +11,6 @@ if (session_status() == PHP_SESSION_NONE)
 	session_start();
 
 $vak = $_POST["cijfers_vakken_lijst"] == "" || !isset($_POST["cijfers_vakken_lijst"]) || $_POST['cijfers_vakken_lijst'] == 0 ? $_POST['group'] : $_POST["cijfers_vakken_lijst"];
-$klas = $_POST['group'] == "" ? $_POST["cijfers_klassen_lijst"] : substr($_POST["cijfers_klassen_lijst"], 0, 1);
+$klas = substr($_POST["cijfers_klassen_lijst"], 0, 1) != 4 ? $_POST["cijfers_klassen_lijst"] : substr($_POST["cijfers_klassen_lijst"], 0, 1);
 
 print $a->update_klas_vak_user_hs_account($_POST["user_access_id"], $vak, $klas, $_POST["is_tutor_hidden"], appconfig::GetDummy());

@@ -193,6 +193,7 @@
                                                                         <option value="HU07">HU07</option>
                                                                         <option value="HU08">HU08</option>
                                                                         <option value="HU09">HU09</option>
+                                                                        <option value="HU10">HU10</option>
                                                                     </select>
                                                                 </td>
                                                                 <td id="x_<?php echo $x; ?>"></td>
