@@ -41,7 +41,7 @@ if (isset($_SESSION["UserRights"]) && isset($_SESSION["SchoolID"]) && isset($_GE
 					$result = $s->create_le_cijfer_student($_SESSION["SchoolJaar"], $_GET["cijfers_rapporten_lijst"], $_GET["cijfers_klassen_lijst"], $_SESSION["SchoolID"], $_GET["cijfers_vakken_lijst"]);
 				}
 
-				if ($IsTutor >= 1 && $_SESSION["SchoolType"] != 1) {
+				/* if ($IsTutor >= 1 && $_SESSION["SchoolType"] != 1) {
 					if ($IsMyVak == 1) {
 						// print $s->listcijfers($_SESSION["SchoolID"],$_GET["cijfers_klassen_lijst"],$_GET["cijfers_vakken_lijst"],$_GET["cijfers_rapporten_lijst"],"",$_SESSION["SchoolJaar"]);
 						$table = print_vakken_table();
@@ -53,7 +53,9 @@ if (isset($_SESSION["UserRights"]) && isset($_SESSION["SchoolID"]) && isset($_GE
 					// print $s->listcijfers($_SESSION["SchoolID"],$_GET["cijfers_klassen_lijst"],$_GET["cijfers_vakken_lijst"],$_GET["cijfers_rapporten_lijst"],"",$_SESSION["SchoolJaar"]);
 					$table = print_vakken_table();
 					print $table;
-				}
+				} */
+				$table = print_vakken_table();
+				print $table;
 			}
 		}
 	} else if ($_SESSION["UserRights"] == "BEHEER" || $_SESSION["UserRights"] == "ADMINISTRATIE" || $_SESSION["UserRights"] == "ONDERSTEUNING") {
