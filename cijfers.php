@@ -1,6 +1,17 @@
 <?php include 'document_start.php'; ?>
 <?php include 'sub_nav.php'; ?>
+<style>
+	.group {
+		position: sticky;
+		top: 0;
+		z-index: 1;
+	}
 
+	.table-responsive {
+		height: 600px !important;
+		overflow: scroll !important;
+	}
+</style>
 <div class="push-content-220">
 	<?php include 'header.php'; ?>
 	<?php $UserRights = $_SESSION['UserRights'];
@@ -149,7 +160,9 @@
 					console.log(result);
 					var vak = $("#group");
 					$.each(result, function() {
-						vak.append($("<option />").val(this.group).text(this.vak).attr("vak", this.id));
+						if (this.vak != "msl") {
+							vak.append($("<option />").val(this.group).text(this.vak).attr("vak", this.id));
+						}
 					});
 				});
 				$("#group").attr('disabled', false);

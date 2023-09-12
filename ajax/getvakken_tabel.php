@@ -102,19 +102,17 @@ function print_vakken_table()
 	/*$("#btn_submit_cijfers").prop('disabled', false);*/
 	$(document).ready(function() {
 		function get_clase() {
-			$("td.se").filter(function() {
-				return $(this).find('span').text().trim() !== "" && $(this).find('span').text() !== null;
-			}).each(function() {
+			$("td.se").each(function() {
 				var total = 0;
 				const clase = $(this).attr('class').split(' ').pop().slice(-1);
 				total = get_cijfers($(this), clase);
-				if (total != 0) {
-					if (clase % 2 == 0) {
-						$(this).next().text(total);
-					} else {
-						$(this).next().next().text(total);
-					}
+				total = total == 0 ? '' : total;
+				if (clase % 2 == 0) {
+					$(this).next().text(total);
+				} else {
+					$(this).next().next().text(total);
 				}
+
 			});
 		}
 
@@ -133,7 +131,6 @@ function print_vakken_table()
 			total = se1 > se2 ? se1 : se2;
 			return total;
 		}
-
 		setInterval(function() {
 			get_clase()
 		}, 2000)

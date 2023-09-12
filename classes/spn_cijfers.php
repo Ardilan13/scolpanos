@@ -5121,7 +5121,7 @@ AND lc.schooljaar = '$schooljaar'
     $s = new spn_setting();
     $s->getsetting_info($schoolid, false);
 
-    $sql_query = "SELECT distinct s.id, c.id, s.class, s.lastname,s.firstname, s.sex, c.c1, c.c2, c.c3, c.c4, c.c5, c.c6, c.c7, c.c8, c.c9, c.c10, c.c11, c.c12, c.c13, c.c14, c.c15, c.c16, c.c17, c.c18, c.c19, c.c20, c.gemiddelde FROM students s LEFT JOIN le_cijfers c ON s.id = c.studentid LEFT JOIN le_vakken v ON c.vak = v.id LEFT JOIN group_student g ON s.id = g.student_id WHERE v.id = ? AND c.rapnummer = ? AND c.schooljaar = ? AND g.schooljaar = ? AND s.schoolid = ? ORDER BY ";
+    $sql_query = "SELECT distinct s.id, c.id, s.class, s.lastname,s.firstname, s.sex, c.c1, c.c2, c.c3, c.c4, c.c5, c.c6, c.c7, c.c8, c.c9, c.c10, c.c11, c.c12, c.c13, c.c14, c.c15, c.c16, c.c17, c.c18, c.c19, c.c20, c.gemiddelde FROM students s LEFT JOIN le_cijfers c ON s.id = c.studentid LEFT JOIN le_vakken v ON c.vak = v.id LEFT JOIN group_student g ON s.id = g.student_id WHERE v.id = ? AND g.group_id = ? AND c.rapnummer = ? AND c.schooljaar = ? AND g.schooljaar = ? AND s.schoolid = ? ORDER BY ";
 
     $sql_order = " s.lastname, s.firstname ";
     if ($s->_setting_mj) {
@@ -5138,7 +5138,7 @@ AND lc.schooljaar = '$schooljaar'
     try {
 
       if ($select = $mysqli->prepare($sql_query)) {
-        if ($select->bind_param("isssi", $vak_row, $rap_in, $schooljaar, $schooljaar, $schoolid)) {
+        if ($select->bind_param("iisssi", $vak_row, $vak_in, $rap_in, $schooljaar, $schooljaar, $schoolid)) {
           if ($select->execute()) {
             $spn_audit = new spn_audit();
             $UserGUID = $_SESSION['UserGUID'];
@@ -5158,7 +5158,7 @@ AND lc.schooljaar = '$schooljaar'
               /* begin drawing table */
               $htmlcontrol .= "<div class=\"table-responsive\">
                           <table id=\"vak\" class=\"table table-bordered table-colored table-vak\">
-                          <thead>";
+                          <thead class='group'>";
 
 
               $htmlcontrol .= $htmlcijferswaarde;
@@ -5169,54 +5169,54 @@ AND lc.schooljaar = '$schooljaar'
                 $htmlcontrol .= "<tr class=\"text-align-center\">
                             <th>#</th>
                             <th class=\"btn-m-w\">Naam</th>
-                            <th>SE1</th>
-                            <th>HER SE1</th>
-                            <th>ESE1</th>
+                            <th style='width: 4% !important;'>SE1</th>
+                            <th style='width: 4% !important;'>HER SE1</th>
+                            <th style='width: 4% !important;'>ESE1</th>
                             <th></th>
-                            <th>SE2</th>
-                            <th>HER SE2</th>
-                            <th>ESE2</th>
+                            <th style='width: 4% !important;'>SE2</th>
+                            <th style='width: 4% !important;'>HER SE2</th>
+                            <th style='width: 4% !important;'>ESE2</th>
                             <th></th>
-                            <th>SE3</th>
-                            <th>HER SE3</th>
-                            <th>ESE3</th>
+                            <th style='width: 4% !important;'>SE3</th>
+                            <th style='width: 4% !important;'>HER SE3</th>
+                            <th style='width: 4% !important;'>ESE3</th>
                             <th></th>
-                            <th>GSE</th>
+                            <th style='width: 4% !important;'>GSE</th>
                             
-                            <th>CEX</th>
+                            <th style='width: 4% !important;'>CEX</th>
                             
-                            <th>HER CEX</th>
+                            <th style='width: 4% !important;'>HER CEX</th>
                             
-                            <th>EC</th>
+                            <th style='width: 4% !important;'>EC</th>
                             </tr>
                             </thead>
                             <tbody>";
               } else {
                 $htmlcontrol .= "<tr class=\"text-align-center\">
-                <th>#</th>
-                <th class=\"btn-m-w\">Naam</th>
-                <th>SE1</th>
-                <th>HER SE1</th>
-                <th>ESE1</th>
-                <th></th>
-                <th>SE2</th>
-                <th>HER SE2</th>
-                <th>ESE2</th>
-                <th></th>
-                <th>SE3</th>
-                <th>HER SE3</th>
-                <th>ESE3</th>
-                <th></th>
-                <th>GSE</th>
-
-                <th>CEX</th>
-
-                <th>HER CEX</th>
-
-                <th>EC</th>
-                </tr>
-                </thead>
-                <tbody>";
+                            <th>#</th>
+                            <th class=\"btn-m-w\">Naam</th>
+                            <th style='width: 4% !important;'>SE1</th>
+                            <th style='width: 4% !important;'>HER SE1</th>
+                            <th style='width: 4% !important;'>ESE1</th>
+                            <th></th>
+                            <th style='width: 4% !important;'>SE2</th>
+                            <th style='width: 4% !important;'>HER SE2</th>
+                            <th style='width: 4% !important;'>ESE2</th>
+                            <th></th>
+                            <th style='width: 4% !important;'>SE3</th>
+                            <th style='width: 4% !important;'>HER SE3</th>
+                            <th style='width: 4% !important;'>ESE3</th>
+                            <th></th>
+                            <th style='width: 4% !important;'>GSE</th>
+                            
+                            <th style='width: 4% !important;'>CEX</th>
+                            
+                            <th style='width: 4% !important;'>HER CEX</th>
+                            
+                            <th style='width: 4% !important;'>EC</th>
+                            </tr>
+                            </thead>
+                            <tbody>";
               }
 
               // End changes settings (ladalan@caribedev)
