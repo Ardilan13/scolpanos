@@ -53,7 +53,7 @@
 										<label for="group">Group</label>
 										<select class="form-control" name="group" id="group"></select>
 									</div>
-									<div class="form-group">
+									<div class="form-group rapport">
 										<label for="cijfers_rapporten_lijst">Rapnr.</label>
 										<select class="form-control" name="cijfers_rapporten_lijst" id="cijfers_rapporten_lijst">
 											<!-- Options populated by AJAX get -->
@@ -110,6 +110,13 @@
 	} ?>
 <!-- PLEASE CAREFULLY WIH THIS "}" THAT CLOSE SECURITY  ELSE IF -->
 <script>
+	function ajustar_klas() {
+		$("#cijfers_klassen_lijst option[value='4A']").text('4').val('4');
+		$("#cijfers_klassen_lijst option[value='4B']").remove();
+		$("#cijfers_klassen_lijst option[value='4C']").remove();
+		$("#cijfers_klassen_lijst option[value='4D']").remove();
+	}
+
 	var a = JSON.parse(sessionStorage.getItem("extra_ss_cijfer"));
 	$(document).ready(function() {
 		setTimeout(function() {
@@ -125,12 +132,15 @@
 				$("#cijfers_vakken_lijst").attr('disabled', true);
 				$(".vaken").addClass("hidden");
 				$(".group").removeClass("hidden");
+				$(".rapport").addClass("hidden");
 			} else {
 				$("#cijfers_vakken_lijst").attr('disabled', false);
 				$("#group").attr('disabled', true);
 				$(".group").addClass("hidden");
 				$(".vaken").removeClass("hidden");
+				$(".rapport").removeClass("hidden");
 			}
+			ajustar_klas()
 		}, 1000);
 
 		$("#cijfers_klassen_lijst").change(function() {
@@ -146,11 +156,13 @@
 				$("#cijfers_vakken_lijst").attr('disabled', true);
 				$(".vaken").addClass("hidden");
 				$(".group").removeClass("hidden");
+				$(".rapport").addClass("hidden");
 			} else {
 				$("#cijfers_vakken_lijst").attr('disabled', false);
 				$("#group").attr('disabled', true);
 				$(".group").addClass("hidden");
 				$(".vaken").removeClass("hidden");
+				$(".rapport").removeClass("hidden");
 			}
 		});
 	})

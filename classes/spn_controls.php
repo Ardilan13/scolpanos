@@ -799,4 +799,3 @@ class spn_controls
 		}
 	}
 }
-?>

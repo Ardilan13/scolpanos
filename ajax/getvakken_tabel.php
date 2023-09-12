@@ -62,7 +62,12 @@ if (isset($_SESSION["UserRights"]) && isset($_SESSION["SchoolID"]) && isset($_GE
 		$s = new spn_cijfers();
 
 		//CaribeDev
-		if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["SchoolID"] != 18) {
+		if ($_GET['cijfers_klassen_lijst'] == '4') {
+			$cijferswarde = $s->createcijferswaarde_first_time_group($_SESSION["SchoolID"], $_SESSION["SchoolJaar"], 4, $_GET["group"], 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+			$result = $s->create_le_cijfer_student_group($_SESSION["SchoolJaar"], 4, $_GET["cijfers_klassen_lijst"], $_SESSION["SchoolID"], $_GET["group"]);
+			$table = print_vakken_table();
+			print $table;
+		} else if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["SchoolID"] != 18) {
 			$cijferswarde = $s->createcijferswaarde_first_time_ps($_GET["cijfers_klassen_lijst"], $_SESSION["SchoolJaar"], $_GET["cijfers_rapporten_lijst"], $_GET["cijfers_vakken_lijst"], 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
 			$result = $s->create_le_cijfer_student_ps($_SESSION["SchoolJaar"], $_GET["cijfers_rapporten_lijst"], $_GET["cijfers_klassen_lijst"], $_SESSION["SchoolID"], $_GET["cijfers_vakken_lijst"]);
 			$table = print_vakken_table();
@@ -81,7 +86,7 @@ function print_vakken_table()
 	$s = new spn_cijfers();
 	if ($_SESSION['SchoolType'] == 2 || $_SESSION['SchoolID'] == 8 || $_SESSION['SchoolID'] == 18) {
 		if ($_GET["cijfers_klassen_lijst"] == '4') {
-			print $s->listcijfers_group($_SESSION["SchoolID"], $_GET["cijfers_klassen_lijst"], $_GET["group"], $_GET["cijfers_rapporten_lijst"], "", $_SESSION["SchoolJaar"]);
+			print $s->listcijfers_group($_SESSION["SchoolID"], $_GET["cijfers_klassen_lijst"], $_GET["group"], 4, "", $_SESSION["SchoolJaar"]);
 		} else {
 			print $s->listcijfers_hs($_SESSION["SchoolID"], $_GET["cijfers_klassen_lijst"], $_GET["cijfers_vakken_lijst"], $_GET["cijfers_rapporten_lijst"], "", $_SESSION["SchoolJaar"]);
 		}
@@ -96,6 +101,45 @@ function print_vakken_table()
 	$("#loader_spn").toggleClass('hidden');
 	/*$("#btn_submit_cijfers").prop('disabled', false);*/
 	$(document).ready(function() {
+		function get_clase() {
+			$("td.se").filter(function() {
+				return $(this).find('span').text().trim() !== "" && $(this).find('span').text() !== null;
+			}).each(function() {
+				var total = 0;
+				const clase = $(this).attr('class').split(' ').pop().slice(-1);
+				total = get_cijfers($(this), clase);
+				if (total != 0) {
+					if (clase % 2 == 0) {
+						$(this).next().text(total);
+					} else {
+						$(this).next().next().text(total);
+					}
+				}
+			});
+		}
+
+		function get_cijfers(td, clase) {
+			if (clase % 2 == 0) {
+				se1 = parseFloat(td.children('span').text());
+				se2 = parseFloat(td.prev().children('span').text());
+				Number.isNaN(se1) ? se1 = 0 : se1 = se1;
+				Number.isNaN(se2) ? se2 = 0 : se2 = se2;
+			} else {
+				se1 = parseFloat(td.children('span').text());
+				se2 = parseFloat(td.next().children('span').text());
+				Number.isNaN(se1) ? se1 = 0 : se1 = se1;
+				Number.isNaN(se2) ? se2 = 0 : se2 = se2;
+			}
+			total = se1 > se2 ? se1 : se2;
+			return total;
+		}
+
+		setInterval(function() {
+			get_clase()
+		}, 2000)
+
+		get_clase();
+
 		function calculate_gemiddelde() {
 
 			var $total = 0.00;
