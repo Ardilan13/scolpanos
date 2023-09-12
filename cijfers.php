@@ -20,6 +20,7 @@
 	} else { ?>
 		<main id="main" role="main">
 			<section>
+				<input hidden type="text" id="schooltype" value="<?php echo $_SESSION['SchoolType'] ?>">
 				<div class="container container-fs">
 					<div class="row">
 						<div class="default-secondary-bg-color col-md-12 inset brd-bottom clearfix">
@@ -151,7 +152,9 @@
 				$(".vaken").removeClass("hidden");
 				$(".rapport").removeClass("hidden");
 			}
-			ajustar_klas()
+			if ($("#schooltype").val() == 2) {
+				ajustar_klas()
+			}
 		}, 1000);
 
 		$("#cijfers_klassen_lijst").change(function() {

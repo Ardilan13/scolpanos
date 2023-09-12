@@ -5167,20 +5167,20 @@ AND lc.schooljaar = '$schooljaar'
 
               if (($s->_setting_rapnumber_1) || ($s->_setting_rapnumber_2) || ($s->_setting_rapnumber_3)) {
                 $htmlcontrol .= "<tr class=\"text-align-center\">
-                            <th>#</th>
-                            <th class=\"btn-m-w\">Naam</th>
+                            <th style='width: 2% !important;'>#</th>
+                            <th style='width: 25% !important;' class=\"btn-m-w\">Naam</th>
                             <th style='width: 4% !important;'>SE1</th>
                             <th style='width: 4% !important;'>HER SE1</th>
                             <th style='width: 4% !important;'>ESE1</th>
-                            <th></th>
+                            <th style='width: 2% !important;'></th>
                             <th style='width: 4% !important;'>SE2</th>
                             <th style='width: 4% !important;'>HER SE2</th>
                             <th style='width: 4% !important;'>ESE2</th>
-                            <th></th>
+                            <th style='width: 2% !important;'></th>
                             <th style='width: 4% !important;'>SE3</th>
                             <th style='width: 4% !important;'>HER SE3</th>
                             <th style='width: 4% !important;'>ESE3</th>
-                            <th></th>
+                            <th style='width: 2% !important;'></th>
                             <th style='width: 4% !important;'>GSE</th>
                             
                             <th style='width: 4% !important;'>CEX</th>
