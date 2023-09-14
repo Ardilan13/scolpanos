@@ -666,8 +666,13 @@ if (isset($_GET["id"])) {
 																		</div>
 																		<label>2022-2023</label>
 																		<div class="input-group input_radio">
-																			<input type="radio" class="form-group" name="_2022_2023_cijfer" id="_2022_2023_cijfer" checked="checked">
+																			<input type="radio" class="form-group" name="_2022_2023_cijfer" id="_2022_2023_cijfer">
 																			<input type="hidden" name="2023_2023_cijfer" id="2022_2023_cijfer" value="1">
+																		</div>
+																		<label>2023-2024</label>
+																		<div class="input-group input_radio">
+																			<input type="radio" class="form-group" name="_2023_2024_cijfer" id="_2023_2024_cijfer" checked="checked">
+																			<input type="hidden" name="2023_2023_cijfer" id="2023_2024_cijfer" value="1">
 																		</div>
 																	</form>
 																</div>
@@ -1607,7 +1612,7 @@ if (isset($_GET["id"])) {
 
 		var studentid = getParam("id");
 		var familyid = getParam("id_family");
-		$("#_2022_2023_cijfer").click();
+		$("#_2023_2024_cijfer").click();
 		$("#_2021_2022_houding").click();
 
 		var userRights = "<?php echo $_SESSION["UserRights"] ?>";
@@ -1882,6 +1887,23 @@ if (isset($_GET["id"])) {
 
 
 	//function to cijfers and houding dinamic by year
+	$("#_2023_2024_cijfer").on('click', function() {
+
+		if ($('#_2023_2024_cijfer').prop("checked", true)) {
+			get_cijfer_by_schooljaar("2023-2024");
+			$('#schooljaar_selected').val('2023-2024');
+			$('#_2018_2019_cijfer').val(0);
+			$('#_2017_2018_cijfer').val(0);
+			$('#_2016_2017_cijfer').val(0);
+			$('#_2019_2020_cijfer').val(0);
+			$('#_2020_2021_cijfer').val(0);
+			$('#_2021_2022_cijfer').val(0);
+			$('#_2022_2023_cijfer').val(0);
+			$('#_2023_2024_cijfer').val(1);
+
+		}
+	});
+
 	$("#_2022_2023_cijfer").on('click', function() {
 
 		if ($('#_2022_2023_cijfer').prop("checked", true)) {
@@ -1894,6 +1916,7 @@ if (isset($_GET["id"])) {
 			$('#_2020_2021_cijfer').val(0);
 			$('#_2021_2022_cijfer').val(0);
 			$('#_2022_2023_cijfer').val(1);
+			$('#_2023_2024_cijfer').val(0);
 
 		}
 	});
@@ -1910,8 +1933,7 @@ if (isset($_GET["id"])) {
 			$('#_2020_2021_cijfer').val(0);
 			$('#_2021_2022_cijfer').val(1);
 			$('#_2022_2023_cijfer').val(0);
-
-
+			$('#_2023_2024_cijfer').val(0);
 		}
 	});
 
@@ -1927,6 +1949,7 @@ if (isset($_GET["id"])) {
 			$('#_2020_2021_cijfer').val(1);
 			$('#_2021_2022_cijfer').val(0);
 			$('#_2022_2023_cijfer').val(0);
+			$('#_2023_2024_cijfer').val(0);
 
 		}
 	});
@@ -1943,6 +1966,7 @@ if (isset($_GET["id"])) {
 			$('#_2020_2021_cijfer').val(0);
 			$('#_2021_2022_cijfer').val(0);
 			$('#_2022_2023_cijfer').val(0);
+			$('#_2023_2024_cijfer').val(0);
 
 		}
 	});
@@ -1959,6 +1983,7 @@ if (isset($_GET["id"])) {
 			$('#_2020_2021_cijfer').val(0);
 			$('#_2021_2022_cijfer').val(0);
 			$('#_2022_2023_cijfer').val(0);
+			$('#_2023_2024_cijfer').val(0);
 
 		}
 
@@ -1974,6 +1999,7 @@ if (isset($_GET["id"])) {
 			$('#_2020_2021_cijfer').val(0);
 			$('#_2021_2022_cijfer').val(0);
 			$('#_2022_2023_cijfer').val(0);
+			$('#_2023_2024_cijfer').val(0);
 		}
 
 	});
@@ -1989,6 +2015,7 @@ if (isset($_GET["id"])) {
 			$('#_2020_2021_cijfer').val(0);
 			$('#_2021_2022_cijfer').val(0);
 			$('#_2022_2023_cijfer').val(0);
+			$('#_2023_2024_cijfer').val(0);
 		}
 
 	});

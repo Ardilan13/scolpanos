@@ -3229,6 +3229,7 @@ vak.append($("<option />").val(this.id).text(this.vak));
                   if ($(this).attr("name") != "school_name") $(this).val("");
                 });
               }
+              console.log(text)
             },
             error: function (xhr, status, errorThrown) {
               console.log("error");

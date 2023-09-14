@@ -204,29 +204,29 @@
 												</div>
 												<?php if ($_SESSION["SchoolType"] == 2) { ?>
 													<div class="form-group">
-														<label class="col-md-4 control-label">Mj</label>
+														<label class="col-md-4 control-label">CEX</label>
 														<div class="col-md-8">
 															<label>
-																<input type="checkbox" name="setting_mj" id="setting_mj" value="1">
-																<input type="hidden" name="setting_mj_val" id="setting_mj_val" value=0>
+																<input type="checkbox" name="setting_c1" id="setting_c1" value="1">
+																<input type="hidden" name="setting_c1_val" id="setting_c1_val" value=0>
 															</label>
 														</div>
 													</div>
 													<div class="form-group">
-														<label class="col-md-4 control-label">Mj</label>
+														<label class="col-md-4 control-label">HER CEX</label>
 														<div class="col-md-8">
 															<label>
-																<input type="checkbox" name="setting_mj" id="setting_mj" value="1">
-																<input type="hidden" name="setting_mj_val" id="setting_mj_val" value=0>
+																<input type="checkbox" name="setting_c2" id="setting_c2" value="1">
+																<input type="hidden" name="setting_c2_val" id="setting_c2_val" value=0>
 															</label>
 														</div>
 													</div>
 													<div class="form-group">
-														<label class="col-md-4 control-label">Mj</label>
+														<label class="col-md-4 control-label">EC</label>
 														<div class="col-md-8">
 															<label>
-																<input type="checkbox" name="setting_mj" id="setting_mj" value="1">
-																<input type="hidden" name="setting_mj_val" id="setting_mj_val" value=0>
+																<input type="checkbox" name="setting_c3" id="setting_c3" value="1">
+																<input type="hidden" name="setting_c3_val" id="setting_c3_val" value=0>
 															</label>
 														</div>
 													</div>
@@ -302,6 +302,39 @@
 		} else {
 			$('#setting_mj').val(0);
 			$('#setting_mj_val').val(0);
+
+		}
+	});
+	$('#setting_c1').change(function() {
+		if ($(this).prop('checked')) {
+			$('#setting_c1').val(1);
+			$('#setting_c1_val').val(1);
+
+		} else {
+			$('#setting_c1').val(0);
+			$('#setting_c1_val').val(0);
+
+		}
+	});
+	$('#setting_c2').change(function() {
+		if ($(this).prop('checked')) {
+			$('#setting_c2').val(1);
+			$('#setting_c2_val').val(1);
+
+		} else {
+			$('#setting_c2').val(0);
+			$('#setting_c2_val').val(0);
+
+		}
+	});
+	$('#setting_c3').change(function() {
+		if ($(this).prop('checked')) {
+			$('#setting_c3').val(1);
+			$('#setting_c3_val').val(1);
+
+		} else {
+			$('#setting_c3').val(0);
+			$('#setting_c3_val').val(0);
 
 		}
 	});
