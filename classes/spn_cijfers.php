@@ -5156,7 +5156,7 @@ AND lc.schooljaar = '$schooljaar'
 
 
               /* begin drawing table */
-              $htmlcontrol .= "<div class=\"table-responsive\">
+              $htmlcontrol .= "<div style='width: 90%; margin: 0 auto;' class=\"table-responsive\">
                           <table id=\"vak\" class=\"table table-bordered table-colored table-vak\">
                           <thead class='group'>";
 

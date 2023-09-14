@@ -130,7 +130,7 @@
 													<label class="col-md-4 control-label">Datum</label>
 													<div class="col-md-8">
 														<div class="input-group date">
-															<input id="calendar_date" type="text" value="" placeholder="" class="form-control calendar" name="calendar_date">
+															<input autocomplete="off" id="calendar_date" type="text" value="" placeholder="" class="form-control calendar" name="calendar_date">
 															<span class="input-group-addon"><i class="fa fa-calendar default-primary-color"></i></span>
 														</div>
 													</div>

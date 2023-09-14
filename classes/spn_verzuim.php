@@ -1614,7 +1614,7 @@ class spn_verzuim
     $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
     $klas_1 = substr($klas, 0, 1);
     if ($klas_1 == 4) {
-      $klas = $klas == '4' ? '4A' : $klas;
+      $klas = $klas == '4' ? '4%' : $klas;
       $get_vak = "SELECT id,name FROM groups WHERE schoolid = $schoolID;";
       $result = mysqli_query($mysqli, $get_vak);
       while ($row1 = mysqli_fetch_assoc($result)) {
@@ -1630,7 +1630,61 @@ class spn_verzuim
 
 
     $day = date('l', strtotime($datum));
-    $select_klas = "SELECT id,p1,p2,p3,p4,p5,p6,p7,p8,p9,p10 FROM klassenboek_vak where schoolid = $schoolID and klas = '$klas' and day = '$day' and schooljaar = '" . $_SESSION['SchoolJaar'] . "'";
+    if ($klas_1 == 4) {
+      $select_klas = "SELECT
+      id,
+      GROUP_CONCAT(
+          CONCAT_WS(',', p1) SEPARATOR ','
+      ) AS p1,
+      GROUP_CONCAT(
+          CONCAT_WS(',', p2) SEPARATOR ','
+      ) AS p2,
+      GROUP_CONCAT(
+          CONCAT_WS(',', p3) SEPARATOR ','
+      ) AS p3,
+      GROUP_CONCAT(
+          CONCAT_WS(',', p4) SEPARATOR ','
+      ) AS p4,
+      GROUP_CONCAT(
+          CONCAT_WS(',', p5) SEPARATOR ','
+      ) AS p5,
+      GROUP_CONCAT(
+          CONCAT_WS(',', p6) SEPARATOR ','
+      ) AS p6,
+      GROUP_CONCAT(
+          CONCAT_WS(',', p7) SEPARATOR ','
+      ) AS p7,
+      GROUP_CONCAT(
+          CONCAT_WS(',', p8) SEPARATOR ','
+      ) AS p8,
+      GROUP_CONCAT(
+          CONCAT_WS(',', p9) SEPARATOR ','
+      ) AS p9,
+      GROUP_CONCAT(
+          CONCAT_WS(',', p10) SEPARATOR ','
+      ) AS p10
+  FROM klassenboek_vak
+  WHERE
+      schoolid = $schoolID
+      AND klas LIKE '$klas'
+      AND day = '$day'
+      AND schooljaar = '" . $_SESSION['SchoolJaar'] . "'
+      AND (
+          p1 is NOT null
+          OR p2 IS NOT NULL
+          OR p3 IS NOT NULL
+          OR p4 IS NOT NULL
+          OR p5 IS NOT NULL
+          OR p6 IS NOT NULL
+          OR p7 IS NOT NULL
+          OR p8 IS NOT NULL
+          OR p9 IS NOT NULL
+          OR p10 IS NOT NULL
+      )
+  GROUP BY day";
+    } else {
+      $select_klas = "SELECT id,p1,p2,p3,p4,p5,p6,p7,p8,p9,p10 FROM klassenboek_vak where schoolid = $schoolID and klas like '$klas' and day = '$day' and schooljaar = '" . $_SESSION['SchoolJaar'] . "'";
+    }
     $resultado = mysqli_query($mysqli, $select_klas);
     if ($resultado->num_rows > 0) {
       while ($row = mysqli_fetch_assoc($resultado)) {
