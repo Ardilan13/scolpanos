@@ -103,31 +103,123 @@ function print_vakken_table()
 	$(document).ready(function() {
 		function get_clase() {
 			$("td.se").each(function() {
+				const existe = $('td').hasClass('se11');
 				var total = 0;
-				const clase = $(this).attr('class').split(' ').pop().slice(-1);
+				var clase = $(this).attr('class').split(' ').pop();
+				if (clase.length == 3) {
+					clase = clase.slice(-1);
+				} else {
+					clase = clase.slice(-2);
+				}
 				total = get_cijfers($(this), clase);
 				total = total == 0 ? '' : total;
-				if (clase % 2 == 0) {
-					$(this).next().text(total);
-				} else {
-					$(this).next().next().text(total);
+				if (clase < 9) {
+					if (clase % 2 == 0) {
+						$(this).next().text(total);
+					} else {
+						$(this).next().next().text(total);
+					}
+				} else if (clase < 12) {
+					if (existe) {
+						switch (clase) {
+							case '9':
+								$(this).next().next().next().text(total);
+								break;
+							case '10':
+								$(this).next().next().text(total);
+								break;
+							case '11':
+								$(this).next().text(total);
+								break;
+						}
+					} else {
+						switch (clase) {
+							case '9':
+								$(this).next().next().text(total);
+								break;
+							case '10':
+								$(this).next().text(total);
+								break;
+						}
+					}
+				}
+			});
+
+			$(".student").each(function() {
+				const textos = [];
+				const existe = $('td').hasClass('se11');
+
+				$(this).find('td.gec').each(function() {
+					if (!isNaN($(this).text()) && $(this).text() != '') {
+						textos.push(Number($(this).text()));
+					}
+				});
+				if (existe) {
+					if (!isNaN($(this).find('td.se11 span').text()) && $(this).find('td.se11 span').text() != '') {
+						textos.push(Number($(this).find('td.se11 span').text()));
+					}
 				}
 
+				const suma = textos.reduce((total, num) => total + num, 0);
+
+				const promedio = suma / textos.length;
+
+				if (existe && textos.length == 4) {
+					$(this).find("td.gse").text(promedio.toFixed(1))
+				} else if (!existe && textos.length == 3) {
+					$(this).find("td.gse").text(promedio.toFixed(1))
+				} else {
+					$(this).find("td.gse").text("")
+				}
 			});
 		}
 
 		function get_cijfers(td, clase) {
-			if (clase % 2 == 0) {
-				se1 = parseFloat(td.children('span').text());
-				se2 = parseFloat(td.prev().children('span').text());
+			const existe = $('td').hasClass('se11');
+			var se1 = 0
+			var se2 = 0
+			var se3 = 0
+			if (clase < 9) {
+				if (clase % 2 == 0) {
+					se1 = parseFloat(td.children('span').text());
+					se2 = parseFloat(td.prev().children('span').text());
+				} else {
+					se1 = parseFloat(td.children('span').text());
+					se2 = parseFloat(td.next().children('span').text());
+				}
 				Number.isNaN(se1) ? se1 = 0 : se1 = se1;
 				Number.isNaN(se2) ? se2 = 0 : se2 = se2;
-			} else {
-				se1 = parseFloat(td.children('span').text());
-				se2 = parseFloat(td.next().children('span').text());
+			} else if (clase < 12) {
+				const tdOriginal = td;
+				switch (clase) {
+					case '9':
+						se1 = Number(tdOriginal.find('span').text());
+						se2 = Number(tdOriginal.next().find('span').text());
+						se3 = Number(tdOriginal.next().next().find('span').text());
+						break;
+
+					case '10':
+						se1 = Number(tdOriginal.find('span').text());
+						se2 = Number(tdOriginal.prev().find('span').text());
+						se3 = Number(tdOriginal.next().find('span').text());
+						break;
+
+					case '11':
+						se1 = Number(tdOriginal.find('span').text());
+						se2 = Number(tdOriginal.prev().find('span').text());
+						se3 = Number(tdOriginal.prev().prev().find('span').text());
+						break;
+
+					default:
+						// código por defecto
+						break;
+				}
 				Number.isNaN(se1) ? se1 = 0 : se1 = se1;
 				Number.isNaN(se2) ? se2 = 0 : se2 = se2;
+				Number.isNaN(se3) ? se3 = 0 : se3 = se3;
+				se2 = se2 > se3 ? se2 : se3;
 			}
+
 			total = se1 > se2 ? se1 : se2;
 			return total;
 		}

@@ -5091,6 +5091,7 @@ AND lc.schooljaar = '$schooljaar'
   function listcijfers_group($schoolid, $klas_in, $vak_in, $rap_in, $sort_order, $schooljaar)
   {
     $returnvalue = "";
+    $po = ["na", "bi", "ak", "gs"];
     $cijfer = "";
     $extra = "";
     $user_permission = "";
@@ -5103,18 +5104,13 @@ AND lc.schooljaar = '$schooljaar'
     $DBCreds = new DBCreds();
     $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
 
-    $get_vak = "SELECT vak FROM groups WHERE id = $vak_in";
+    $get_vak = "SELECT vak,name FROM groups WHERE id = $vak_in";
     $vak_result = $mysqli->query($get_vak);
-    $vak_row = $vak_result->fetch_assoc()['vak'];
+    $result = $vak_result->fetch_assoc();
 
-    // if($this->debug)
-    // {
-    //   print "schoolid: " . $schoolid . "<br />";
-    //   print "klas_in: " . $klas_in . "<br />";
-    //   print "vak_in: " . $vak_in . "<br />";
-    //   print "rap_in: " . $rap_in . "<br />";
-    //   print "sort_order: " . $sort_order . "<br />";
-    // }
+    $vak_row = $result['vak'];
+    $name_row = substr($result['name'], 0, 2);
+
 
     mysqli_report(MYSQLI_REPORT_STRICT);
 
@@ -5156,7 +5152,6 @@ AND lc.schooljaar = '$schooljaar'
               $u = new spn_utils();
               $klas_ex = "4A";
 
-
               /* begin drawing table */
               $htmlcontrol .= "<div class=\"table-responsive\">
                           <table id=\"vak\" class=\"table table-bordered table-colored table-vak\">
@@ -5195,10 +5190,13 @@ AND lc.schooljaar = '$schooljaar'
                             <th style='width: 4% !important;'>ESE2</th>
                             <th style='width: 2% !important;'></th>
                             <th style='width: 4% !important;'>SE3</th>
-                            <th style='width: 4% !important;'>HER SE3</th>
-                            <th style='width: 4% !important;'>ESE3</th>
-                            <th style='width: 2% !important;'></th>
-                            <th style='width: 4% !important;'>GSE</th>";
+                            <th style='width: 4% !important;'>HER SE3</th>";
+                if (in_array($name_row, $po)) {
+                  $htmlcontrol .= "<th style='width: 4% !important;'>PO</th>";
+                }
+                $htmlcontrol .= "<th style='width: 4% !important;'>ESE3</th>
+                                  <th style='width: 2% !important;'></th>
+                                  <th style='width: 4% !important;'>GSE</th>";
                 $htmlcontrol .= $cijfer;
               } else {
                 $htmlcontrol .= "<tr class=\"text-align-center\">
@@ -5213,10 +5211,13 @@ AND lc.schooljaar = '$schooljaar'
                             <th style='width: 4% !important;'>ESE2</th>
                             <th></th>
                             <th style='width: 4% !important;'>SE3</th>
-                            <th style='width: 4% !important;'>HER SE3</th>
-                            <th style='width: 4% !important;'>ESE3</th>
-                            <th></th>
-                            <th style='width: 4% !important;'>GSE</th";
+                            <th style='width: 4% !important;'>HER SE3</th>";
+                if (in_array($name_row, $po)) {
+                  $htmlcontrol .= "<th style='width: 4% !important;'>PO</th>";
+                }
+                $htmlcontrol .= "<th style='width: 4% !important;'>ESE3</th>
+                                  <th style='width: 2% !important;'></th>
+                                  <th style='width: 4% !important;'>GSE</th>";
                 $htmlcontrol .= $cijfer;
               }
 
@@ -5232,7 +5233,7 @@ AND lc.schooljaar = '$schooljaar'
 
               while ($select->fetch()) {
 
-                $htmlcontrol .= "<tr><td>$x</td><td><input class=\"hidden\" studentidarray=\"$studentid\"></input>" . utf8_encode($lastname) . ', ' . utf8_encode($firstname) . "</td>";
+                $htmlcontrol .= "<tr class='student'><td>$x</td><td><input class=\"hidden\" studentidarray=\"$studentid\"></input>" . utf8_encode($lastname) . ', ' . utf8_encode($firstname) . "</td>";
 
                 for ($y = 1; $y <= 13; $y++) {
                   $htmlcontrol .= "";
@@ -5308,13 +5309,15 @@ AND lc.schooljaar = '$schooljaar'
 
                   // Changes settings (ladalan@caribedev)
                   if ($y == 3 || $y == 7 || $y == 12) {
-                    $htmlcontrol .= "<td id=\"gec4_$y\"></td>";
+                    $htmlcontrol .= "<td class=\"gec\"></td>";
                   } else if ($y == 4 || $y == 8 || $y == 13) {
                     $htmlcontrol .= "<td class='bg-light' style='background-color: white !important;'></td>";
                   } else {
                     if (($s->_setting_rapnumber_1 && ($y == 1 || $y == 2)) || ($s->_setting_rapnumber_2 && ($y == 5 || $y == 6)) || ($s->_setting_rapnumber_3 && ($y == 9 || $y == 10 || $y == 11))) {
                       $cell = 'x' . $x . 'y' . $y;
                       if ($y != 11) {
+                        $htmlcontrol .= "<td class='se se" . $y . "'><span id=\"lblName1\" disabled='true' data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\" class=\"editable\">$_cijfer_number</span></td>";
+                      } else if (in_array($name_row, $po)) {
                         $htmlcontrol .= "<td class='se se" . $y . "'><span id=\"lblName1\" disabled='true' data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\" class=\"editable\">$_cijfer_number</span></td>";
                       }
                     } else {
@@ -5328,9 +5331,9 @@ AND lc.schooljaar = '$schooljaar'
                   $xx++;
                 }
 
-                $htmlcontrol .= "<td id=\"ec$x\"></td>";
+                $htmlcontrol .= "<td class=\"gse\"></td>";
 
-                for ($y == 14; $y <= 16; $y++) {
+                for ($y = 14; $y <= 16; $y++) {
                   switch ($y) {
                     case 14:
                       $c14 = ($c14 == 0.0 ? "" : $c14);
@@ -5354,11 +5357,11 @@ AND lc.schooljaar = '$schooljaar'
                   if ($s->_setting_rapnumber_1 || $s->_setting_rapnumber_2 || $s->_setting_rapnumber_3) {
                     $cell = 'x' . $x . 'y' . $y;
                     if ($s->_cijfer1 == 1 && $y == 14) {
-                      $htmlcontrol .= "<td class='se se" . $y . " cex'><span id=\"lblName1\" disabled='true' data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\" class=\"editable\">$_cijfer_number</span></td>";
+                      $htmlcontrol .= "<td class='se cex se" . $y . "'><span id=\"lblName1\" disabled='true' data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\" class=\"editable\">$_cijfer_number</span></td>";
                     } else if ($s->_cijfer2 == 1 && $y == 15) {
-                      $htmlcontrol .= "<td class='se se" . $y . " hercex'><span id=\"lblName1\" disabled='true' data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\" class=\"editable\">$_cijfer_number</span></td>";
+                      $htmlcontrol .= "<td class='se hercex se" . $y . "'><span id=\"lblName1\" disabled='true' data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\" class=\"editable\">$_cijfer_number</span></td>";
                     } else if ($s->_cijfer3 == 1 && $y == 16) {
-                      $htmlcontrol .= "<td class='se se" . $y . " ec'><span id=\"lblName1\" disabled='true' data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\" class=\"editable\">$_cijfer_number</span></td>";
+                      $htmlcontrol .= "<td class='se ec se" . $y . "'></td>";
                     }
                   }
                 }
