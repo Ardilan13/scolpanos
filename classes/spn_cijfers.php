@@ -2017,10 +2017,23 @@ class spn_cijfers
     $samen  = 0;
 
     for ($i = 1; $i < 21; $i++) {
-      if (${'c' . $i} > 0 && ${'c' . $i} <= 10) {
-        $samen = $samen + (${'c' . $i} * ${'w' . $i});
-        $index = $index + ${'w' . $i};
+      $c = ${'c' . $i};
+      $w = ${'w' . $i};
+
+      if ($w > 0) {
+
+        if (empty($c) || $c === 0) {
+          $c = 0; // considerar 0 para nulos
+        }
+
+        $samen += ($c * $w);
+        $index += $w;
       }
+
+      // if (${'c' . $i} > 0 && ${'c' . $i} <= 10) {
+      //   $samen = $samen + (${'c' . $i} * ${'w' . $i});
+      //   $index = $index + ${'w' . $i};
+      // }
       //  else{
       //
       //  }
