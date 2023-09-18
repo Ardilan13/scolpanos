@@ -142,6 +142,26 @@ function print_vakken_table()
 								break;
 						}
 					}
+				} else if (clase < 16) {
+					if (total != 0 && total != '') {
+						switch (clase) {
+							case '14':
+								$(this).next().next().text(Math.round(total));
+								break;
+							case '15':
+								$(this).next().text(Math.round(total));
+								break;
+						}
+					} else {
+						switch (clase) {
+							case '14':
+								$(this).next().next().text('');
+								break;
+							case '15':
+								$(this).next().text('');
+								break;
+						}
+					}
 				}
 			});
 
@@ -218,6 +238,28 @@ function print_vakken_table()
 				Number.isNaN(se2) ? se2 = 0 : se2 = se2;
 				Number.isNaN(se3) ? se3 = 0 : se3 = se3;
 				se2 = se2 > se3 ? se2 : se3;
+			} else if (clase < 16) {
+				if (clase % 2 == 0) {
+					se1 = parseFloat(td.children('span').text());
+					se2 = parseFloat(td.next().children('span').text());
+					se3 = parseFloat(td.prev().text());
+				} else {
+					se1 = parseFloat(td.prev().children('span').text());
+					se2 = parseFloat(td.children('span').text());
+					se3 = parseFloat(td.prev().prev().text());
+				}
+				Number.isNaN(se1) ? se1 = 0 : se1 = se1;
+				Number.isNaN(se2) ? se2 = 0 : se2 = se2;
+				Number.isNaN(se3) ? se3 = 0 : se3 = se3;
+				if (se1 == 0 || se3 == 0) {
+					se1 = 0;
+					se2 = 0;
+					se3 = 0;
+				} else {
+					se1 = se1 > se2 ? se1 : se2;
+				}
+				total = (se1 + se3) / 2;
+				return total;
 			}
 
 			total = se1 > se2 ? se1 : se2;
