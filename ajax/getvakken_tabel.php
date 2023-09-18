@@ -172,6 +172,7 @@ function print_vakken_table()
 				$(this).find('td.gec').each(function() {
 					if (!isNaN($(this).text()) && $(this).text() != '') {
 						textos.push(Number($(this).text()));
+						textos.push(Number($(this).text()));
 					}
 				});
 				if (existe) {
@@ -184,9 +185,9 @@ function print_vakken_table()
 
 				const promedio = suma / textos.length;
 
-				if (existe && textos.length == 4) {
+				if (existe && textos.length == 7) {
 					$(this).find("td.gse").text(promedio.toFixed(1))
-				} else if (!existe && textos.length == 3) {
+				} else if (!existe && textos.length == 6) {
 					$(this).find("td.gse").text(promedio.toFixed(1))
 				} else {
 					$(this).find("td.gse").text("")
@@ -215,19 +216,16 @@ function print_vakken_table()
 					case '9':
 						se1 = Number(tdOriginal.find('span').text());
 						se2 = Number(tdOriginal.next().find('span').text());
-						se3 = Number(tdOriginal.next().next().find('span').text());
 						break;
 
 					case '10':
 						se1 = Number(tdOriginal.find('span').text());
 						se2 = Number(tdOriginal.prev().find('span').text());
-						se3 = Number(tdOriginal.next().find('span').text());
 						break;
 
 					case '11':
-						se1 = Number(tdOriginal.find('span').text());
-						se2 = Number(tdOriginal.prev().find('span').text());
-						se3 = Number(tdOriginal.prev().prev().find('span').text());
+						se1 = Number(tdOriginal.prev().find('span').text());
+						se2 = Number(tdOriginal.prev().prev().find('span').text());
 						break;
 
 					default:
@@ -236,8 +234,6 @@ function print_vakken_table()
 				}
 				Number.isNaN(se1) ? se1 = 0 : se1 = se1;
 				Number.isNaN(se2) ? se2 = 0 : se2 = se2;
-				Number.isNaN(se3) ? se3 = 0 : se3 = se3;
-				se2 = se2 > se3 ? se2 : se3;
 			} else if (clase < 16) {
 				if (clase % 2 == 0) {
 					se1 = parseFloat(td.children('span').text());
