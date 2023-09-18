@@ -11,8 +11,8 @@ $mysqli->set_charset('utf8');
 
 $select = "SELECT e.id FROM eba_ex e INNER JOIN personalia p ON e.id_personalia = p.id WHERE p.studentid = $id AND e.type = 1;";
 $result = mysqli_query($mysqli, $select);
-$personalia = mysqli_fetch_assoc($result)['id'];
 if ($result->num_rows > 0) {
+    $personalia = mysqli_fetch_assoc($result)['id'];
     $update_opmerking = "UPDATE eba_ex SET $ex = '$code' WHERE id = $personalia AND type = 1;";
     $result = mysqli_query($mysqli, $update_opmerking);
     if ($result) {
