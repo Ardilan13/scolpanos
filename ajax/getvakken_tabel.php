@@ -26,7 +26,7 @@ if (isset($_SESSION["UserRights"]) && isset($_SESSION["SchoolID"]) && isset($_GE
 	if ($_SESSION["UserRights"] == "DOCENT" || $_SESSION["UserRights"] == "ASSISTENT") {
 		$s = new spn_cijfers();
 		if ($_GET['cijfers_klassen_lijst'] == '4') {
-			$cijferswarde = $s->createcijferswaarde_first_time_group($_SESSION["SchoolID"], $_SESSION["SchoolJaar"], $_GET["cijfers_rapporten_lijst"], $_GET["group"], 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+			$cijferswarde = $s->createcijferswaarde_first_time_group($_SESSION["SchoolID"], $_SESSION["SchoolJaar"], $_GET["cijfers_rapporten_lijst"], $_GET["group"], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 			$result = $s->create_le_cijfer_student_group($_SESSION["SchoolJaar"], $_GET["cijfers_rapporten_lijst"], $_GET["cijfers_klassen_lijst"], $_SESSION["SchoolID"], $_GET["group"]);
 			$table = print_vakken_table();
 			print $table;
@@ -37,7 +37,7 @@ if (isset($_SESSION["UserRights"]) && isset($_SESSION["SchoolID"]) && isset($_GE
 					$cijferswarde = $s->createcijferswaarde_first_time_ps($_GET["cijfers_klassen_lijst"], $_SESSION["SchoolJaar"], $_GET["cijfers_rapporten_lijst"], $_GET["cijfers_vakken_lijst"], 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
 					$result = $s->create_le_cijfer_student_ps($_SESSION["SchoolJaar"], $_GET["cijfers_rapporten_lijst"], $_GET["cijfers_klassen_lijst"], $_SESSION["SchoolID"], $_GET["cijfers_vakken_lijst"]);
 				} else {
-					$cijferswarde = $s->createcijferswaarde_first_time($_GET["cijfers_klassen_lijst"], $_SESSION["SchoolID"], $_SESSION["SchoolJaar"], $_GET["cijfers_rapporten_lijst"], $_GET["cijfers_vakken_lijst"], 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+					$cijferswarde = $s->createcijferswaarde_first_time($_GET["cijfers_klassen_lijst"], $_SESSION["SchoolID"], $_SESSION["SchoolJaar"], $_GET["cijfers_rapporten_lijst"], $_GET["cijfers_vakken_lijst"], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 					$result = $s->create_le_cijfer_student($_SESSION["SchoolJaar"], $_GET["cijfers_rapporten_lijst"], $_GET["cijfers_klassen_lijst"], $_SESSION["SchoolID"], $_GET["cijfers_vakken_lijst"]);
 				}
 
@@ -63,7 +63,7 @@ if (isset($_SESSION["UserRights"]) && isset($_SESSION["SchoolID"]) && isset($_GE
 
 		//CaribeDev
 		if ($_GET['cijfers_klassen_lijst'] == '4') {
-			$cijferswarde = $s->createcijferswaarde_first_time_group($_SESSION["SchoolID"], $_SESSION["SchoolJaar"], 4, $_GET["group"], 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+			$cijferswarde = $s->createcijferswaarde_first_time_group($_SESSION["SchoolID"], $_SESSION["SchoolJaar"], 4, $_GET["group"], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 			$result = $s->create_le_cijfer_student_group($_SESSION["SchoolJaar"], 4, $_GET["cijfers_klassen_lijst"], $_SESSION["SchoolID"], $_GET["group"]);
 			$table = print_vakken_table();
 			print $table;
@@ -72,7 +72,7 @@ if (isset($_SESSION["UserRights"]) && isset($_SESSION["SchoolID"]) && isset($_GE
 			$result = $s->create_le_cijfer_student_ps($_SESSION["SchoolJaar"], $_GET["cijfers_rapporten_lijst"], $_GET["cijfers_klassen_lijst"], $_SESSION["SchoolID"], $_GET["cijfers_vakken_lijst"]);
 			$table = print_vakken_table();
 		} else {
-			$cijferswarde = $s->createcijferswaarde_first_time($_GET["cijfers_klassen_lijst"], $_SESSION["SchoolID"], $_SESSION["SchoolJaar"], $_GET["cijfers_rapporten_lijst"], $_GET["cijfers_vakken_lijst"], 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+			$cijferswarde = $s->createcijferswaarde_first_time($_GET["cijfers_klassen_lijst"], $_SESSION["SchoolID"], $_SESSION["SchoolJaar"], $_GET["cijfers_rapporten_lijst"], $_GET["cijfers_vakken_lijst"], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 			$result = $s->create_le_cijfer_student($_SESSION["SchoolJaar"], $_GET["cijfers_rapporten_lijst"], $_GET["cijfers_klassen_lijst"], $_SESSION["SchoolID"], $_GET["cijfers_vakken_lijst"]);
 			$table = print_vakken_table();
 		}

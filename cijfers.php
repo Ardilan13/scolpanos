@@ -306,16 +306,9 @@
 				/* do something if needed */
 				//	console.log(data);
 			}).done(function(data) {
-
-			$('#btn_submit_cijfers').trigger('click');
-
+			/* 			$('#btn_submit_cijfers').trigger('click');
+			 */
 			/* it's done */
-			if (data == 1) {
-
-			} else {
-				//	console.log(data);
-				// RE-TRY FUNCTION
-			};
 
 		}).fail(function() {
 			alert('Error, please contact developers.');
