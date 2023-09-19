@@ -43,7 +43,7 @@ $.get(
 $.get(
   "ajax/getleerlingdetail_Last_cijfers_tabel_mobil.php?id=" +
     studentid +
-    "&schoolJaar=2022-2023",
+    "&schoolJaar=2023-2024",
   {},
   function (data) {
     $("#dataRequest-last_cijfers_detail").html(data);
