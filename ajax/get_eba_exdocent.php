@@ -4,7 +4,7 @@ include_once '../classes/DBCreds.php';
 $id = $_POST["id"];
 $ex = "e." . $_POST["ex"];
 $type = $_POST["type"];
-$schooljaar = $_SESSION["Schooljaar"];
+$schooljaar = $_SESSION["SchoolJaar"];
 
 $DBCreds = new DBCreds();
 $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
