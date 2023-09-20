@@ -221,7 +221,7 @@ ob_flush();
 
         <div class="row">
           <div class="form-group col-md-12 full-inset">
-            <a href="templates/Schoolgids 2022-2023.pdf" target="_blank" class="btn btn-info btn-m-w pull-right mrg-left" id="btn_add_contact">schoolgids 2022-2023</a>
+            <a href="templates/Schoolgids 2023-2024.pdf" target="_blank" class="btn btn-info btn-m-w pull-right mrg-left" id="btn_add_contact">schoolgids 2023-2024</a>
             <a href="templates/info_bewegingso_derwijs_lessen_Scol_Primario Kudawecha_gym.pdf" target="_blank" class="btn btn-info btn-m-w pull-right mrg-left" id="btn_clear_contact">info bewegingsonderwijs lessen Scol Primario Kudawecha</a>
             <a href="templates/Regla pa mayor.pdf" target="_blank" class="btn btn-info btn-m-w pull-right mrg-left" id="btn_clear_contact">Regla pa mayor</a>
           </div>

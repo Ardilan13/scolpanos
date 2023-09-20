@@ -802,8 +802,13 @@ if (isset($_GET["id"])) {
 																			</div>
 																			<label>2022-2023</label>
 																			<div class="input-group col-md-1">
-																				<input type="radio" class="form-group" name="_2022_2023_verzuim" id="_2022_2023_verzuim" checked="checked">
+																				<input type="radio" class="form-group" name="_2022_2023_verzuim" id="_2022_2023_verzuim">
 																				<input type="hidden" name="2022_2023_verzuim" id="2022_2023_verzuim" value="1">
+																			</div>
+																			<label>2023-2024</label>
+																			<div class="input-group col-md-1">
+																				<input type="radio" class="form-group" name="_2023_2024_verzuim" id="_2023_2024_verzuim" checked="checked">
+																				<input type="hidden" name="2023_2024_verzuim" id="2023_2024_verzuim" value="1">
 																			</div>
 																		</form>
 																	</div>
@@ -2101,6 +2106,21 @@ if (isset($_GET["id"])) {
 
 	//VERZUIM BY year
 
+	$("#_2023_2024_verzuim").on('click', function() {
+		if ($('#_2023_2024_verzuim').prop("checked", true)) {
+			get_verzuim_by_schooljaar("2022-2023");
+			$('#schooljaar_selected').val('2022-2023');
+			$('#_2017_2018_verzuim').val(0);
+			$('#_2016_2017_verzuim').val(0);
+			$('#_2018_2019_verzuim').val(0);
+			$('#_2019_2020_verzuim').val(0);
+			$('#_2020_2021_verzuim').val(0);
+			$('#_2021_2022_verzuim').val(0);
+			$('#_2022_2023_verzuim').val(0);
+			$('#_2023_2024_verzuim').val(1);
+		}
+	});
+
 	$("#_2022_2023_verzuim").on('click', function() {
 		if ($('#_2022_2023_verzuim').prop("checked", true)) {
 			get_verzuim_by_schooljaar("2022-2023");
@@ -2112,6 +2132,8 @@ if (isset($_GET["id"])) {
 			$('#_2020_2021_verzuim').val(0);
 			$('#_2021_2022_verzuim').val(0);
 			$('#_2022_2023_verzuim').val(1);
+			$('#_2023_2024_verzuim').val(0);
+
 		}
 	});
 
@@ -2125,6 +2147,7 @@ if (isset($_GET["id"])) {
 			$('#_2019_2020_verzuim').val(0);
 			$('#_2020_2021_verzuim').val(0);
 			$('#_2021_2022_verzuim').val(1);
+			$('#_2023_2024_verzuim').val(0);
 		}
 	});
 
@@ -2139,6 +2162,7 @@ if (isset($_GET["id"])) {
 			$('#_2019_2020_verzuim').val(0);
 			$('#_2020_2021_verzuim').val(1);
 			$('#_2021_2022_verzuim').val(0);
+			$('#_2023_2024_verzuim').val(0);
 		}
 	});
 
@@ -2153,6 +2177,7 @@ if (isset($_GET["id"])) {
 			$('#_2019_2020_verzuim').val(0);
 			$('#_2020_2021_verzuim').val(0);
 			$('#_2021_2022_verzuim').val(0);
+			$('#_2023_2024_verzuim').val(0);
 		}
 	});
 
@@ -2166,6 +2191,8 @@ if (isset($_GET["id"])) {
 			$('#_2019_2020_verzuim').val(0);
 			$('#_2020_2021_verzuim').val(0);
 			$('#_2021_2022_verzuim').val(0);
+			$('#_2023_2024_verzuim').val(0);
+
 		}
 	});
 
@@ -2179,6 +2206,8 @@ if (isset($_GET["id"])) {
 			$('#_2019_2020_verzuim').val(0);
 			$('#_2020_2021_verzuim').val(0);
 			$('#_2021_2022_verzuim').val(0);
+			$('#_2023_2024_verzuim').val(0);
+
 		}
 
 	});
@@ -2193,6 +2222,8 @@ if (isset($_GET["id"])) {
 			$('#_2019_2020_verzuim').val(0);
 			$('#_2020_2021_verzuim').val(0);
 			$('#_2021_2022_verzuim').val(0);
+			$('#_2023_2024_verzuim').val(0);
+
 		}
 
 	});
