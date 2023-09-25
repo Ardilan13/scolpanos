@@ -66,6 +66,7 @@ if ($result->num_rows > 0) {
     $hojaActiva->setCellValue('B8', $schoolname);
     $hojaActiva->setCellValue('C7', $schooljaar);
     while ($row = mysqli_fetch_assoc($result)) {
+        $personalia = $row["id_personalia"];
         $hojaActiva->setCellValue('B' . $i, $row["lastname"]);
         $hojaActiva->setCellValue('C' . $i, $row["firstname"]);
         $hojaActiva->setCellValue('E' . $i, $row["e1"]);
@@ -82,6 +83,25 @@ if ($result->num_rows > 0) {
         $hojaActiva->setCellValue('P' . $i, $row["e12"]);
         $hojaActiva->setCellValue('Q' . $i, $row["profiel"]);
 
+        $get_colors = "SELECT e.* FROM eba_ex e WHERE e.schoolid = $schoolid AND e.schooljaar = '$schooljaar' AND e.type = 0 AND id_personalia = $personalia LIMIT 1;";
+        $result2 = mysqli_query($mysqli, $get_colors);
+        if ($result2->num_rows > 0) {
+            while ($row = mysqli_fetch_assoc($result2)) {
+                $hojaActiva->setCellValue('BB' . $i, $row["e1"]);
+                $hojaActiva->setCellValue('BC' . $i, $row["e2"]);
+                $hojaActiva->setCellValue('BD' . $i, $row["e3"]);
+                $hojaActiva->setCellValue('BE' . $i, $row["e4"]);
+                $hojaActiva->setCellValue('BF' . $i, $row["e5"]);
+                $hojaActiva->setCellValue('BG' . $i, $row["e6"]);
+                $hojaActiva->setCellValue('BH' . $i, $row["e7"]);
+                $hojaActiva->setCellValue('BI' . $i, $row["e8"]);
+                $hojaActiva->setCellValue('BJ' . $i, $row["e9"]);
+                $hojaActiva->setCellValue('BK' . $i, $row["e10"]);
+                $hojaActiva->setCellValue('BL' . $i, $row["e11"]);
+                $hojaActiva->setCellValue('BM' . $i, $row["e12"]);
+            }
+        }
+
         $i++;
     }
 
@@ -93,28 +113,6 @@ if ($result->num_rows > 0) {
             $hojaActiva->setCellValue('S' . $i, $row1["docent"]);
             $hojaActiva->setCellValue('U' . $i, $row1["vak"]);
             $hojaActiva->setCellValue('T' . $i, $row1["code"]);
-            $i++;
-        }
-    }
-
-    $get_colors = "SELECT e.* FROM eba_ex e WHERE e.schoolid = $schoolid AND e.schooljaar = '$schooljaar' AND e.type = 0 ORDER BY e.id_personalia;";
-    $result2 = mysqli_query($mysqli, $get_colors);
-    if ($result2->num_rows > 0) {
-        $i = 13;
-        while ($row = mysqli_fetch_assoc($result2)) {
-            $hojaActiva->setCellValue('BB' . $i, $row["e1"]);
-            $hojaActiva->setCellValue('BC' . $i, $row["e2"]);
-            $hojaActiva->setCellValue('BD' . $i, $row["e3"]);
-            $hojaActiva->setCellValue('BE' . $i, $row["e4"]);
-            $hojaActiva->setCellValue('BF' . $i, $row["e5"]);
-            $hojaActiva->setCellValue('BG' . $i, $row["e6"]);
-            $hojaActiva->setCellValue('BH' . $i, $row["e7"]);
-            $hojaActiva->setCellValue('BI' . $i, $row["e8"]);
-            $hojaActiva->setCellValue('BJ' . $i, $row["e9"]);
-            $hojaActiva->setCellValue('BK' . $i, $row["e10"]);
-            $hojaActiva->setCellValue('BL' . $i, $row["e11"]);
-            $hojaActiva->setCellValue('BM' . $i, $row["e12"]);
-
             $i++;
         }
     }
