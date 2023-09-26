@@ -3229,7 +3229,7 @@ vak.append($("<option />").val(this.id).text(this.vak));
                   if ($(this).attr("name") != "school_name") $(this).val("");
                 });
               }
-              console.log(text)
+              console.log(text);
             },
             error: function (xhr, status, errorThrown) {
               console.log("error");
@@ -4507,6 +4507,7 @@ vak.append($("<option />").val(this.id).text(this.vak));
                 }
               )
                 .done(function (data) {
+                  console.log("update:" + data);
                   if (data != 1) {
                     $parentSelector.css({
                       "background-color": "rgba(145,206,162,0.9)",

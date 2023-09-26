@@ -1322,7 +1322,7 @@ class spn_cijfers
 
   function getgemiddelde_ps($schoolid, $studentid_in, $klas_in, $rap_in, $vak_in)
   {
-    $returnvalue = 0;
+    $returnvalue = "error";
     $user_permission = "";
     $sql_query = "";
     $htmlcontrol = "";
@@ -1475,12 +1475,7 @@ class spn_cijfers
             // function _savecijfersgemiddelde($schoolid,$studentid_in,$klas_in,$rap_in,$vak_in)
             $result = $this->_savecijfersgemiddelde_ps($schooljaar, $schoolid, $studentid_in, $klas_in, $rap_in, $vak_in);
             if ($this->debug) {
-              print "result = " . $result . "</br>";
-              print "sudentid = " . $studentid_in . "</br>";
-              print "klas = " . $klas_in . "</br>";
-              print "rap = " . $rap_in . "</br>";
-              print "vak = " . $vak_in . "</br>";
-              print "cijfer = " . $cijfer_value_in . "</br>";
+              print "result = " . $result;
             }
             $stmt->close();
             $mysqli->close();
@@ -1756,7 +1751,7 @@ class spn_cijfers
     inner join le_cijferswaarde cw on cw.vak = v.id
     and cw.schooljaar = c.schooljaar
     and cw.rapnummer = c.rapnummer
-    where s.class = ? and v.id = ?
+    where c.klas = ? and v.id = ?
     and c.rapnummer = ?
     and c.studentid = ?
     and c.schooljaar = ? order by s.firstname asc LIMIT 1";
@@ -1882,7 +1877,7 @@ class spn_cijfers
                 //if ($_SESSION['SchoolType']>=2){
                 $gemid = round($gemid, 1);
                 //}
-                print $gemid;
+                print "prueba:" . $gemid;
 
                 //$mysqli=new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
                 $sql_querygemid = "update le_cijfers_ps set gemiddelde =  ? where id = ?";
@@ -1890,7 +1885,7 @@ class spn_cijfers
                 if ($update = $mysqli->prepare($sql_querygemid)) {
                   if ($update->bind_param("si", $gemid, $cijferid)) {
                     if ($update->execute()) {
-                      $returnvalue = 1;
+                      $returnvalue = $gemid;
                     } else {
                       /* error executing query */
                       $this->error = true;
@@ -2034,15 +2029,10 @@ class spn_cijfers
         if (${'c' . $i} > 0 && ${'c' . $i} <= 10) {
           $samen = $samen + (${'c' . $i} * ${'w' . $i});
           $index = $index + ${'w' . $i};
-        } else {
         }
       }
     }
 
-    if ($this->debug) {
-      print 'c1 =' . $c1 . 'w1=' . $w1 . '<br>';
-      print "index" . $index . " samen " . $samen;
-    }
     if ($index > 0 && $samen > 0) {
 
       $Xgemid = ($samen / $index);
@@ -5173,68 +5163,80 @@ AND lc.schooljaar = '$schooljaar'
 
               $htmlcontrol .= $htmlcijferswaarde;
 
-              // Changes settings (ladalan@caribedev)
-              if ($s->_setting_rapnumber_1 || $s->_setting_rapnumber_2 || $s->_setting_rapnumber_3) {
-                if ($s->_cijfer1 == 1) {
-                  $cijfer .= "<th style='width: 4% !important;'>CEX</th>";
-                }
-
-                if ($s->_cijfer2 == 1) {
-                  $cijfer .= "<th style='width: 4% !important;'>HER CEX</th>";
-                }
-
-                if ($s->_cijfer3 == 1) {
-                  $cijfer .= "<th style='width: 4% !important;'>EC</th>";
-                }
-              }
-
-              $cijfer .= "</tr></thead><tbody>";
-
-              if (($s->_setting_rapnumber_1) || ($s->_setting_rapnumber_2) || ($s->_setting_rapnumber_3)) {
+              if ($name_row == "lo" || $name_row == "ckv") {
                 $htmlcontrol .= "<tr class=\"text-align-center\">
-                            <th style='width: 2% !important;'>#</th>
-                            <th style='width: 25% !important;' class=\"btn-m-w\">Naam</th>
-                            <th style='width: 4% !important;'>SE1</th>
-                            <th style='width: 4% !important;'>HER SE1</th>
-                            <th style='width: 4% !important;'>ESE1</th>
-                            <th style='width: 2% !important;'></th>
-                            <th style='width: 4% !important;'>SE2</th>
-                            <th style='width: 4% !important;'>HER SE2</th>
-                            <th style='width: 4% !important;'>ESE2</th>
-                            <th style='width: 2% !important;'></th>
-                            <th style='width: 4% !important;'>SE3</th>
-                            <th style='width: 4% !important;'>HER SE3</th>";
-                if (in_array($name_row, $po)) {
-                  $htmlcontrol .= "<th style='width: 4% !important;'>PO</th>";
+              <th style='width: 2% !important;'>#</th>
+              <th style='width: 25% !important;' class=\"btn-m-w\">Naam</th>";
+                if ($name_row == "ckv") {
+                  $htmlcontrol .= "<th style='width: 4% !important;'>Klas 3</th><th style='width: 4% !important;'>HER CKV</th>";
+                } else {
+                  $htmlcontrol .= "<th style='width: 4% !important;'>EIND</th>";
                 }
-                $htmlcontrol .= "<th style='width: 4% !important;'>ESE3</th>
-                                  <th style='width: 2% !important;'></th>
-                                  <th style='width: 4% !important;'>GSE</th>";
-                $htmlcontrol .= $cijfer;
+                $htmlcontrol .= "</tr></thead><tbody>";
               } else {
-                $htmlcontrol .= "<tr class=\"text-align-center\">
-                            <th>#</th>
-                            <th class=\"btn-m-w\">Naam</th>
-                            <th style='width: 4% !important;'>SE1</th>
-                            <th style='width: 4% !important;'>HER SE1</th>
-                            <th style='width: 4% !important;'>ESE1</th>
-                            <th></th>
-                            <th style='width: 4% !important;'>SE2</th>
-                            <th style='width: 4% !important;'>HER SE2</th>
-                            <th style='width: 4% !important;'>ESE2</th>
-                            <th></th>
-                            <th style='width: 4% !important;'>SE3</th>
-                            <th style='width: 4% !important;'>HER SE3</th>";
-                if (in_array($name_row, $po)) {
-                  $htmlcontrol .= "<th style='width: 4% !important;'>PO</th>";
-                }
-                $htmlcontrol .= "<th style='width: 4% !important;'>ESE3</th>
-                                  <th style='width: 2% !important;'></th>
-                                  <th style='width: 4% !important;'>GSE</th>";
-                $htmlcontrol .= $cijfer;
-              }
+                // Changes settings (ladalan@caribedev)
+                if ($s->_setting_rapnumber_1 || $s->_setting_rapnumber_2 || $s->_setting_rapnumber_3) {
+                  if ($s->_cijfer1 == 1) {
+                    $cijfer .= "<th style='width: 4% !important;'>CEX</th>";
+                  }
 
-              // End changes settings (ladalan@caribedev)
+                  if ($s->_cijfer2 == 1) {
+                    $cijfer .= "<th style='width: 4% !important;'>HER CEX</th>";
+                  }
+
+                  if ($s->_cijfer3 == 1) {
+                    $cijfer .= "<th style='width: 4% !important;'>EC</th>";
+                  }
+                }
+
+                $cijfer .= "</tr></thead><tbody>";
+
+                if (($s->_setting_rapnumber_1) || ($s->_setting_rapnumber_2) || ($s->_setting_rapnumber_3)) {
+                  $htmlcontrol .= "<tr class=\"text-align-center\">
+              <th style='width: 2% !important;'>#</th>
+              <th style='width: 25% !important;' class=\"btn-m-w\">Naam</th>
+              <th style='width: 4% !important;'>SE1</th>
+              <th style='width: 4% !important;'>HER SE1</th>
+              <th style='width: 4% !important;'>ESE1</th>
+              <th style='width: 2% !important;'></th>
+              <th style='width: 4% !important;'>SE2</th>
+              <th style='width: 4% !important;'>HER SE2</th>
+              <th style='width: 4% !important;'>ESE2</th>
+              <th style='width: 2% !important;'></th>
+              <th style='width: 4% !important;'>SE3</th>
+              <th style='width: 4% !important;'>HER SE3</th>";
+                  if (in_array($name_row, $po)) {
+                    $htmlcontrol .= "<th style='width: 4% !important;'>PO</th>";
+                  }
+                  $htmlcontrol .= "<th style='width: 4% !important;'>ESE3</th>
+                    <th style='width: 2% !important;'></th>
+                    <th style='width: 4% !important;'>GSE</th>";
+                  $htmlcontrol .= $cijfer;
+                } else {
+                  $htmlcontrol .= "<tr class=\"text-align-center\">
+              <th>#</th>
+              <th class=\"btn-m-w\">Naam</th>
+              <th style='width: 4% !important;'>SE1</th>
+              <th style='width: 4% !important;'>HER SE1</th>
+              <th style='width: 4% !important;'>ESE1</th>
+              <th></th>
+              <th style='width: 4% !important;'>SE2</th>
+              <th style='width: 4% !important;'>HER SE2</th>
+              <th style='width: 4% !important;'>ESE2</th>
+              <th></th>
+              <th style='width: 4% !important;'>SE3</th>
+              <th style='width: 4% !important;'>HER SE3</th>";
+                  if (in_array($name_row, $po)) {
+                    $htmlcontrol .= "<th style='width: 4% !important;'>PO</th>";
+                  }
+                  $htmlcontrol .= "<th style='width: 4% !important;'>ESE3</th>
+                    <th style='width: 2% !important;'></th>
+                    <th style='width: 4% !important;'>GSE</th>";
+                  $htmlcontrol .= $cijfer;
+                }
+
+                // End changes settings (ladalan@caribedev)
+              }
 
               /* initialize counter variable, this variable is used to display student count number */
               $x = 1;
@@ -5248,136 +5250,168 @@ AND lc.schooljaar = '$schooljaar'
 
                 $htmlcontrol .= "<tr class='student'><td>$x</td><td><input class=\"hidden\" studentidarray=\"$studentid\"></input>" . utf8_encode($lastname) . ', ' . utf8_encode($firstname) . "</td>";
 
-                for ($y = 1; $y <= 13; $y++) {
-                  $htmlcontrol .= "";
-
-                  $_cijfer_number = 0;
-                  /* check dimension of the cijfers */
-                  switch ($y) {
-                    case 1:
-                      $c1 = ($c1 == 0.0 ? "" : $c1);
-                      $_cijfer_number = $c1;
-                      break;
-
-                    case 2:
-                      $c2 = ($c2 == 0.0 ? "" : $c2);
-                      $_cijfer_number = $c2;
-                      break;
-
-                    case 3:
-                      $c3 = ($c3 == 0.0 ? "" : $c3);
-                      $_cijfer_number = $c3;
-                      break;
-
-                    case 4:
-                      $c4 = ($c4 == 0.0 ? "" : $c4);
-                      $_cijfer_number = $c4;
-                      break;
-
-                    case 5:
-                      $c5 = ($c5 == 0.0 ? "" : $c5);
-                      $_cijfer_number = $c5;
-                      break;
-
-                    case 6:
-                      $c6 = ($c6 == 0.0 ? "" : $c6);
-                      $_cijfer_number = $c6;
-                      break;
-
-                    case 7:
-                      $c7 = ($c7 == 0.0 ? "" : $c7);
-                      $_cijfer_number = $c7;
-                      break;
-
-                    case 8:
-                      $c8 = ($c8 == 0.0 ? "" : $c8);
-                      $_cijfer_number = $c8;
-                      break;
-
-                    case 9:
-                      $c9 = ($c9 == 0.0 ? "" : $c9);
-                      $_cijfer_number = $c9;
-                      break;
-
-                    case 10:
-                      $c10 = ($c10 == 0.0 ? "" : $c10);
-                      $_cijfer_number = $c10;
-                      break;
-
-                    case 11:
-                      $c11 = ($c11 == 0.0 ? "" : $c11);
-                      $_cijfer_number = $c11;
-                      break;
-
-                    case 12:
-                      $c12 = ($c12 == 0.0 ? "" : $c12);
-                      $_cijfer_number = $c12;
-                      break;
-
-                    case 13:
-                      $c13 = ($c13 == 0.0 ? "" : $c13);
-                      $_cijfer_number = $c13;
-                      break;
-                  }
-
-                  // Changes settings (ladalan@caribedev)
-                  if ($y == 3 || $y == 7 || $y == 12) {
-                    $htmlcontrol .= "<td class=\"gec\"></td>";
-                  } else if ($y == 4 || $y == 8 || $y == 13) {
-                    $htmlcontrol .= "<td class='bg-light' style='background-color: white !important;'></td>";
-                  } else {
-                    if (($s->_setting_rapnumber_1 && ($y == 1 || $y == 2)) || ($s->_setting_rapnumber_2 && ($y == 5 || $y == 6)) || ($s->_setting_rapnumber_3 && ($y == 9 || $y == 10 || $y == 11))) {
-                      $cell = 'x' . $x . 'y' . $y;
-                      if ($y != 11) {
-                        $htmlcontrol .= "<td class='se se" . $y . "'><span id=\"lblName1\" disabled='true' data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\" class=\"editable\">$_cijfer_number</span></td>";
-                      } else if (in_array($name_row, $po)) {
-                        $htmlcontrol .= "<td class='se se" . $y . "'><span id=\"lblName1\" disabled='true' data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\" class=\"editable\">$_cijfer_number</span></td>";
-                      }
-                    } else {
-                      $cell = 'x' . $x . 'y' . $y;
-                      $htmlcontrol .= "<td><span id=\"lblName1\" data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\">$_cijfer_number</span></td>";
-                    }
-                  }
-
-                  // End changes settings (ladalan@caribedev)
-
-                  $xx++;
-                }
-
-                $htmlcontrol .= "<td class=\"gse\"></td>";
-
-                for ($y = 14; $y <= 16; $y++) {
-                  switch ($y) {
-                    case 14:
-                      $c14 = ($c14 == 0.0 ? "" : $c14);
-                      $_cijfer_number = $c14;
-                      break;
-
-                    case 15:
-                      $c15 = ($c15 == 0.0 ? "" : $c15);
-                      $_cijfer_number = $c15;
-                      break;
-
-                    case 16:
-                      $c16 = ($c16 == 0.0 ? "" : $c16);
-                      $_cijfer_number = $c16;
-                      break;
-
-                    default:
-                      $_cijfer_number = 0;
-                      break;
-                  }
+                if ($name_row == "lo") {
+                  $y = 1;
                   if ($s->_setting_rapnumber_1 || $s->_setting_rapnumber_2 || $s->_setting_rapnumber_3) {
                     $cell = 'x' . $x . 'y' . $y;
-                    if ($s->_cijfer1 == 1 && $y == 14) {
-                      $htmlcontrol .= "<td class='se cex se" . $y . "'><span id=\"lblName1\" disabled='true' data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\" class=\"editable\">$_cijfer_number</span></td>";
-                    } else if ($s->_cijfer2 == 1 && $y == 15) {
-                      $htmlcontrol .= "<td class='se hercex se" . $y . "'><span id=\"lblName1\" disabled='true' data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\" class=\"editable\">$_cijfer_number</span></td>";
-                    } else if ($s->_cijfer3 == 1 && $y == 16) {
-                      $htmlcontrol .= "<td class='se ec se" . $y . "'></td>";
+                    $htmlcontrol .= "<td class='se se" . $y . "'><select><option></option><option value='10'>Voldoende</option><option value='1'>Onvoldoende</option></select></td>";
+                  } else {
+                    $cell = 'x' . $x . 'y' . $y;
+                    $htmlcontrol .= "<td><span style='padding-top: 0 !important;' id=\"lblName1\" data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\">$_cijfer_number</span></td>";
+                  }
+                } else if ($name_row == "ckv") {
+                  $y = 1;
+                  if ($s->_setting_rapnumber_1 || $s->_setting_rapnumber_2 || $s->_setting_rapnumber_3) {
+                    $cell = 'x' . $x . 'y' . $y;
+                    $htmlcontrol .= "<td><span style='padding-top: 0 !important;' id=\"lblName1\" data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\">$_cijfer_number</span></td>";
+                    $y = 2;
+                    $cell = 'x' . $x . 'y' . $y;
+                    $htmlcontrol .= "<td class='se se" . $y . "'><select><option></option><option value='10'>Voldoende</option><option value='1'>Onvoldoende</option></select></td>";
+                  } else {
+                    $cell = 'x' . $x . 'y' . $y;
+                    $htmlcontrol .= "<td><span style='padding-top: 0 !important;' id=\"lblName1\" data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\">$_cijfer_number</span></td>";
+                    $y = 2;
+                    $cell = 'x' . $x . 'y' . $y;
+                    $htmlcontrol .= "<td><span style='padding-top: 0 !important;' id=\"lblName1\" data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\">$_cijfer_number</span></td>";
+                  }
+                } else {
+                  for ($y = 1; $y <= 13; $y++) {
+                    $htmlcontrol .= "";
+
+                    $_cijfer_number = 0;
+                    /* check dimension of the cijfers */
+                    switch ($y) {
+                      case 1:
+                        $c1 = ($c1 == 0.0 ? "" : $c1);
+                        $_cijfer_number = $c1;
+                        break;
+
+                      case 2:
+                        $c2 = ($c2 == 0.0 ? "" : $c2);
+                        $_cijfer_number = $c2;
+                        break;
+
+                      case 3:
+                        $c3 = ($c3 == 0.0 ? "" : $c3);
+                        $_cijfer_number = $c3;
+                        break;
+
+                      case 4:
+                        $c4 = ($c4 == 0.0 ? "" : $c4);
+                        $_cijfer_number = $c4;
+                        break;
+
+                      case 5:
+                        $c5 = ($c5 == 0.0 ? "" : $c5);
+                        $_cijfer_number = $c5;
+                        break;
+
+                      case 6:
+                        $c6 = ($c6 == 0.0 ? "" : $c6);
+                        $_cijfer_number = $c6;
+                        break;
+
+                      case 7:
+                        $c7 = ($c7 == 0.0 ? "" : $c7);
+                        $_cijfer_number = $c7;
+                        break;
+
+                      case 8:
+                        $c8 = ($c8 == 0.0 ? "" : $c8);
+                        $_cijfer_number = $c8;
+                        break;
+
+                      case 9:
+                        $c9 = ($c9 == 0.0 ? "" : $c9);
+                        $_cijfer_number = $c9;
+                        break;
+
+                      case 10:
+                        $c10 = ($c10 == 0.0 ? "" : $c10);
+                        $_cijfer_number = $c10;
+                        break;
+
+                      case 11:
+                        $c11 = ($c11 == 0.0 ? "" : $c11);
+                        $_cijfer_number = $c11;
+                        break;
+
+                      case 12:
+                        $c12 = ($c12 == 0.0 ? "" : $c12);
+                        $_cijfer_number = $c12;
+                        break;
+
+                      case 13:
+                        $c13 = ($c13 == 0.0 ? "" : $c13);
+                        $_cijfer_number = $c13;
+                        break;
+                    }
+
+                    // Changes settings (ladalan@caribedev)
+                    if ($y == 3 || $y == 7 || $y == 12) {
+                      $htmlcontrol .= "<td class=\"gec\"></td>";
+                    } else if ($y == 4 || $y == 8 || $y == 13) {
+                      $htmlcontrol .= "<td class='bg-light' style='background-color: white !important;'></td>";
+                    } else {
+                      if (($s->_setting_rapnumber_1 && ($y == 1 || $y == 2)) || ($s->_setting_rapnumber_2 && ($y == 5 || $y == 6)) || ($s->_setting_rapnumber_3 && ($y == 9 || $y == 10 || $y == 11))) {
+                        $cell = 'x' . $x . 'y' . $y;
+                        if ($y != 11) {
+                          $htmlcontrol .= "<td class='se se" . $y . "'><span id=\"lblName1\" disabled='true' data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\" class=\"editable\">$_cijfer_number</span></td>";
+                        } else if (in_array($name_row, $po)) {
+                          $htmlcontrol .= "<td class='se se" . $y . "'><span id=\"lblName1\" disabled='true' data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\" class=\"editable\">$_cijfer_number</span></td>";
+                        }
+                      } else {
+                        $cell = 'x' . $x . 'y' . $y;
+                        if ($y != 11) {
+                          $htmlcontrol .= "<td><span id=\"lblName1\" data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\">$_cijfer_number</span></td>";
+                        } else if (in_array($name_row, $po)) {
+                          $htmlcontrol .= "<td><span id=\"lblName1\" data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\">$_cijfer_number</span></td>";
+                        }
+                      }
+                    }
+
+                    // End changes settings (ladalan@caribedev)
+
+                    $xx++;
+                  }
+
+                  $htmlcontrol .= "<td class=\"gse\"></td>";
+
+                  for ($y = 14; $y <= 16; $y++) {
+                    switch ($y) {
+                      case 14:
+                        $c14 = ($c14 == 0.0 ? "" : $c14);
+                        $_cijfer_number = $c14;
+                        break;
+
+                      case 15:
+                        $c15 = ($c15 == 0.0 ? "" : $c15);
+                        $_cijfer_number = $c15;
+                        break;
+
+                      case 16:
+                        $c16 = ($c16 == 0.0 ? "" : $c16);
+                        $_cijfer_number = $c16;
+                        break;
+
+                      default:
+                        $_cijfer_number = 0;
+                        break;
+                    }
+                    if ($s->_setting_rapnumber_1 || $s->_setting_rapnumber_2 || $s->_setting_rapnumber_3) {
+                      $cell = 'x' . $x . 'y' . $y;
+                      if ($s->_cijfer1 == 1 && $y == 14) {
+                        $htmlcontrol .= "<td class='se cex se" . $y . "'><span id=\"lblName1\" disabled='true' data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\" class=\"editable\">$_cijfer_number</span></td>";
+                      } else if ($s->_cijfer2 == 1 && $y == 15) {
+                        $htmlcontrol .= "<td class='se hercex se" . $y . "'><span id=\"lblName1\" disabled='true' data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\" class=\"editable\">$_cijfer_number</span></td>";
+                      } else if ($s->_cijfer3 == 1 && $y == 16) {
+                        $htmlcontrol .= "<td class='se ec se" . $y . "'></td>";
+                      }
                     }
                   }
                 }
+
+
 
                 /* increment variable with one */
                 $x++;

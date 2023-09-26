@@ -79,7 +79,7 @@
 										<button id="btn_submit_cijfers" name="btn_submit_cijfers" onclick="active_loader()" data-display="data-display" data-ajax-href="ajax/getvakken_tabel.php" type="submit" class="btn btn-primary btn-m-w btn-m-h">zoeken</button>
 									</div>
 									<?php if ($_SESSION["SchoolType"] == 2) { ?>
-										<div class="form-group" style="background-color: #ffdc66; border: 1px solid black;">
+										<div class="form-group" style="background-color: #ffdc66; border: 1px solid black; margin-left: 20px;">
 											<p>Belangrijk, vul eerst de norm in en dan de cijfers!</p>
 										</div>
 									<?php } ?>
@@ -234,7 +234,6 @@
 
 	//SAVE CIJFERSWAARDE (ejaspe - caribeDevelopers)
 	function save_cijferswaarde() {
-
 		var
 			$klas = $('#cijfers_klassen_lijst').val(),
 			$schooljaar = "<?php echo $_SESSION["SchoolJaar"]; ?>";
@@ -305,12 +304,15 @@
 						dataType: "HTML",
 						cache: false,
 						async: true,
-						success: function(data) {}
+						success: function(data) {
+							console.log("gem:" + data)
+						}
 					});
 				}
 				/* do something if needed */
 				//	console.log(data);
 			}).done(function(data) {
+			console.log("xd :" + data);
 			/* 			$('#btn_submit_cijfers').trigger('click');
 			 */
 			/* it's done */

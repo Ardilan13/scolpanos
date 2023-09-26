@@ -47,7 +47,7 @@ if (isset($_SESSION["UserRights"]) && isset($_SESSION["SchoolID"]) && isset($_PO
 		$s = new spn_cijfers();
 		//function savecijfer($schoolid,$studentid_in,$cijfer_number_in,$cijfer_value_in,$klas_in,$rap_in,$vak_in)
 		print $s->savecijfer($_SESSION["SchoolJaar"], $_SESSION["SchoolID"], $_POST["id_cijfer"], $_POST["studentid"], $_POST["cijfername"], $_POST["cijfervalue"], $_POST["klas"], $_POST["rapport"], $_POST["vak"]);
-
+		print " hola:" . $_POST["cijfervalue"];
 		//print $s->mysqlierror;
 	}
 }

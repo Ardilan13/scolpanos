@@ -433,7 +433,7 @@ foreach ($array_leerling as $item) {
 
     if ($_GET["rap"] == '1') {
       $_h1 = "";
-      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 1);
+      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 1, $schooljaar);
       $page_html .= "<td>" . $_h1 . " </td>";
 
       $page_html .= "<td></td>";
@@ -446,8 +446,8 @@ foreach ($array_leerling as $item) {
       $_h1_2 = "";
       $avg_h = 0;
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 1);
-      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 2);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 1, $schooljaar);
+      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 2, $schooljaar);
 
       $page_html .= "<td>" . $_h1_1 . " </td>";
 
@@ -473,10 +473,10 @@ foreach ($array_leerling as $item) {
       $_h1_3 = "";
       $avg_h = "";
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 1);
-      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 2);
-      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 3);
-      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 4);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 1, $schooljaar);
+      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 2, $schooljaar);
+      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 3, $schooljaar);
+      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 4, $schooljaar);
 
       $page_html .= "<td>" . $_h1_1 . " </td>";
 
@@ -496,7 +496,7 @@ foreach ($array_leerling as $item) {
 
     if ($_GET["rap"] == '1') {
       $_h1 = "";
-      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 1);
+      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 1, $schooljaar);
       $page_html .= "<td>" . $_h1 . " </td>";
 
       $page_html .= "<td></td>";
@@ -509,8 +509,8 @@ foreach ($array_leerling as $item) {
       $_h1_2 = "";
       $avg_h = 0;
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 1);
-      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 2);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 1, $schooljaar);
+      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 2, $schooljaar);
 
       $page_html .= "<td>" . $_h1_1 . " </td>";
       $page_html .= "<td>" . $_h2_1 . " </td>";
@@ -535,10 +535,10 @@ foreach ($array_leerling as $item) {
       $_h1_3 = "";
       $avg_h = "";
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 1);
-      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 2);
-      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 3);
-      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 4);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 1, $schooljaar);
+      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 2, $schooljaar);
+      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 3, $schooljaar);
+      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 4, $schooljaar);
 
       $page_html .= "<td>" . $_h1_1 . " </td>";
 
@@ -557,7 +557,7 @@ foreach ($array_leerling as $item) {
 
     if ($_GET["rap"] == '1') {
       $_h1 = "";
-      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 1);
+      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 1, $schooljaar);
       $page_html .= "<td>" . $_h1 . " </td>";
 
       $page_html .= "<td></td>";
@@ -570,8 +570,8 @@ foreach ($array_leerling as $item) {
       $_h1_2 = "";
       $avg_h = 0;
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 1);
-      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 2);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 1, $schooljaar);
+      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 2, $schooljaar);
 
       $page_html .= "<td>" . $_h1_1 . " </td>";
 
@@ -597,10 +597,10 @@ foreach ($array_leerling as $item) {
       $_h1_3 = "";
       $avg_h = "";
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 1);
-      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 2);
-      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 3);
-      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 4);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 1, $schooljaar);
+      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 2, $schooljaar);
+      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 3, $schooljaar);
+      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 4, $schooljaar);
 
       $page_html .= "<td>" . $_h1_1 . " </td>";
 
@@ -621,7 +621,7 @@ foreach ($array_leerling as $item) {
 
     if ($_GET["rap"] == '1') {
       $_h1 = "";
-      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 1);
+      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 1, $schooljaar);
       $page_html .= "<td>" . $_h1 . " </td>";
 
       $page_html .= "<td></td>";
@@ -634,8 +634,8 @@ foreach ($array_leerling as $item) {
       $_h1_2 = "";
       $avg_h = 0;
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 1);
-      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 2);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 1, $schooljaar);
+      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 2, $schooljaar);
 
       $page_html .= "<td>" . $_h1_1 . " </td>";
 
@@ -661,10 +661,10 @@ foreach ($array_leerling as $item) {
       $_h1_3 = "";
       $avg_h = "";
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 1);
-      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 2);
-      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 3);
-      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 4);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 1, $schooljaar);
+      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 2, $schooljaar);
+      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 3, $schooljaar);
+      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 4, $schooljaar);
 
       $page_html .= "<td>" . $_h1_1 . " </td>";
 
@@ -685,7 +685,7 @@ foreach ($array_leerling as $item) {
 
     if ($_GET["rap"] == '1') {
       $_h1 = "";
-      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 1);
+      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 1, $schooljaar);
       $page_html .= "<td>" . $_h1 . " </td>";
 
       $page_html .= "<td></td>";
@@ -698,8 +698,8 @@ foreach ($array_leerling as $item) {
       $_h1_2 = "";
       $avg_h = 0;
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 1);
-      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 2);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 1, $schooljaar);
+      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 2, $schooljaar);
 
       $page_html .= "<td>" . $_h1_1 . " </td>";
 
@@ -725,10 +725,10 @@ foreach ($array_leerling as $item) {
       $_h1_3 = "";
       $avg_h = "";
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 1);
-      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 2);
-      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 3);
-      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 4);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 1, $schooljaar);
+      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 2, $schooljaar);
+      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 3, $schooljaar);
+      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 4, $schooljaar);
 
       $page_html .= "<td>" . $_h1_1 . " </td>";
 
@@ -748,7 +748,7 @@ foreach ($array_leerling as $item) {
 
     if ($_GET["rap"] == '1') {
       $_h1 = "";
-      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 1);
+      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 1, $schooljaar);
       $page_html .= "<td>" . $_h1 . " </td>";
 
       $page_html .= "<td></td>";
@@ -761,8 +761,8 @@ foreach ($array_leerling as $item) {
       $_h1_2 = "";
       $avg_h = 0;
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 1);
-      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 2);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 1, $schooljaar);
+      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 2, $schooljaar);
 
       $page_html .= "<td>" . $_h1_1 . " </td>";
 
@@ -788,10 +788,10 @@ foreach ($array_leerling as $item) {
       $_h1_3 = "";
       $avg_h = "";
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 1);
-      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 2);
-      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 3);
-      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 4);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 1, $schooljaar);
+      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 2, $schooljaar);
+      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 3, $schooljaar);
+      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 4, $schooljaar);
 
       $page_html .= "<td>" . $_h1_1 . " </td>";
 
@@ -1477,7 +1477,7 @@ foreach ($array_leerling as $item) {
       $page_html .= "<td style='width: 75px;'></td>";
       if ($_GET["rap"] == '1') {
         $_h1 = "";
-        $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h12', $item['studentid'], 1);
+        $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h12', $item['studentid'], 1, $schooljaar);
         if ($klas != 1) {
           if ($item['studentid'] != 4966 && $item['studentid'] != 5017) {
             $page_html .= "<td>" . $_h1 . " </td>";
@@ -1499,8 +1499,8 @@ foreach ($array_leerling as $item) {
         $_h1_2 = "";
         $avg_h = 0;
 
-        $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h12', $item['studentid'], 1);
-        $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h12', $item['studentid'], 2);
+        $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h12', $item['studentid'], 1, $schooljaar);
+        $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h12', $item['studentid'], 2, $schooljaar);
 
 
         if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
@@ -1532,10 +1532,10 @@ foreach ($array_leerling as $item) {
         $_h1_3 = "";
         $avg_h = "";
 
-        $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h12', $item['studentid'], 1);
-        $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h12', $item['studentid'], 2);
-        $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h12', $item['studentid'], 3);
-        $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h12', $item['studentid'], 4);
+        $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h12', $item['studentid'], 1, $schooljaar);
+        $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h12', $item['studentid'], 2, $schooljaar);
+        $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h12', $item['studentid'], 3, $schooljaar);
+        $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h12', $item['studentid'], 4, $schooljaar);
 
 
         if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
@@ -1688,7 +1688,7 @@ foreach ($array_leerling as $item) {
       $page_html .= "<td></td>";
       if ($_GET["rap"] == '1') {
         $_h1 = "";
-        $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h13', $item['studentid'], 1);
+        $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h13', $item['studentid'], 1, $schooljaar);
         if ($klas != 1  && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
           $page_html .= "<td>" . $_h1 . " </td>";
         } else {
@@ -1706,8 +1706,8 @@ foreach ($array_leerling as $item) {
         $_h1_2 = "";
         $avg_h = 0;
 
-        $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h13', $item['studentid'], 1);
-        $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h13', $item['studentid'], 2);
+        $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h13', $item['studentid'], 1, $schooljaar);
+        $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h13', $item['studentid'], 2, $schooljaar);
 
         if ($klas != 1  && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
           $page_html .= "<td>" . $_h1_1 . " </td>";
@@ -1738,10 +1738,10 @@ foreach ($array_leerling as $item) {
         $_h1_3 = "";
         $avg_h = "";
 
-        $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h13', $item['studentid'], 1);
-        $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h13', $item['studentid'], 2);
-        $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h13', $item['studentid'], 3);
-        $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h13', $item['studentid'], 4);
+        $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h13', $item['studentid'], 1, $schooljaar);
+        $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h13', $item['studentid'], 2, $schooljaar);
+        $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h13', $item['studentid'], 3, $schooljaar);
+        $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h13', $item['studentid'], 4, $schooljaar);
 
         if ($klas != 1  && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
           $page_html .= "<td>" . $_h1_1 . " </td>";
@@ -2225,7 +2225,7 @@ if($avg_h == 0.0){$avg_h = null;}
         $page_html .= "<td style='width: 75px;'></td>";
         if ($_GET["rap"] == '1') {
           $_h1 = "";
-          $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h14', $item['studentid'], 1);
+          $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h14', $item['studentid'], 1, $schooljaar);
           $page_html .= "<td >" . $_h1 . " </td>";
           $page_html .= "<td></td>";
           $page_html .= "<td></td>";
@@ -2237,8 +2237,8 @@ if($avg_h == 0.0){$avg_h = null;}
           $_h1_2 = "";
           $avg_h = 0;
 
-          $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h14', $item['studentid'], 1);
-          $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h14', $item['studentid'], 2);
+          $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h14', $item['studentid'], 1, $schooljaar);
+          $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h14', $item['studentid'], 2, $schooljaar);
 
 
           $page_html .= "<td>" . $_h1_1 . " </td>";
@@ -2264,10 +2264,10 @@ if($avg_h == 0.0){$avg_h = null;}
           $_h1_3 = "";
           $avg_h = "";
 
-          $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h14', $item['studentid'], 1);
-          $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h14', $item['studentid'], 2);
-          $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h14', $item['studentid'], 3);
-          $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h14', $item['studentid'], 4);
+          $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h14', $item['studentid'], 1, $schooljaar);
+          $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h14', $item['studentid'], 2, $schooljaar);
+          $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h14', $item['studentid'], 3, $schooljaar);
+          $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h14', $item['studentid'], 4, $schooljaar);
 
 
           $page_html .= "<td>" . $_h1_1 . " </td>";
@@ -2897,7 +2897,7 @@ if($avg_h == 0.0){$avg_h = null;}
 
       if ($_GET["rap"] == '1') {
         $_h1 = "";
-        $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h12', $item['studentid'], 1);
+        $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h12', $item['studentid'], 1, $schooljaar);
         $page_html .= "<td>" . $_h1 . " </td>";
       }
       if ($_GET["rap"] == '2') {
@@ -2906,8 +2906,8 @@ if($avg_h == 0.0){$avg_h = null;}
         $_h1_2 = "";
         $avg_h = 0;
 
-        $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h12', $item['studentid'], 1);
-        $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h12', $item['studentid'], 2);
+        $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h12', $item['studentid'], 1, $schooljaar);
+        $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h12', $item['studentid'], 2, $schooljaar);
 
 
         $page_html .= "<td>" . $_h1_1 . " </td>";
@@ -2931,10 +2931,10 @@ if($avg_h == 0.0){$avg_h = null;}
         $_h1_3 = "";
         $avg_h = "";
 
-        $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h12', $item['studentid'], 1);
-        $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h12', $item['studentid'], 2);
-        $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h12', $item['studentid'], 3);
-        $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h12', $item['studentid'], 4);
+        $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h12', $item['studentid'], 1, $schooljaar);
+        $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h12', $item['studentid'], 2, $schooljaar);
+        $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h12', $item['studentid'], 3, $schooljaar);
+        $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h12', $item['studentid'], 4, $schooljaar);
 
 
         $page_html .= "<td>" . $_h1_1 . " </td>";
@@ -2949,7 +2949,7 @@ if($avg_h == 0.0){$avg_h = null;}
 
       if ($_GET["rap"] == '1') {
         $_h1 = "";
-        $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h13', $item['studentid'], 1);
+        $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h13', $item['studentid'], 1, $schooljaar);
         $page_html .= "<td>" . $_h1 . " </td>";
       }
       if ($_GET["rap"] == '2') {
@@ -2958,8 +2958,8 @@ if($avg_h == 0.0){$avg_h = null;}
         $_h1_2 = "";
         $avg_h = 0;
 
-        $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h13', $item['studentid'], 1);
-        $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h13', $item['studentid'], 2);
+        $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h13', $item['studentid'], 1, $schooljaar);
+        $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h13', $item['studentid'], 2, $schooljaar);
 
 
         $page_html .= "<td>" . $_h1_1 . " </td>";
@@ -2983,10 +2983,10 @@ if($avg_h == 0.0){$avg_h = null;}
         $_h1_3 = "";
         $avg_h = "";
 
-        $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h13', $item['studentid'], 1);
-        $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h13', $item['studentid'], 2);
-        $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h13', $item['studentid'], 3);
-        $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h13', $item['studentid'], 4);
+        $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h13', $item['studentid'], 1, $schooljaar);
+        $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h13', $item['studentid'], 2, $schooljaar);
+        $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h13', $item['studentid'], 3, $schooljaar);
+        $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h13', $item['studentid'], 4, $schooljaar);
 
 
         $page_html .= "<td>" . $_h1_1 . " </td>";
@@ -3001,7 +3001,7 @@ if($avg_h == 0.0){$avg_h = null;}
 
       if ($_GET["rap"] == '1') {
         $_h1 = "";
-        $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h14', $item['studentid'], 1);
+        $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h14', $item['studentid'], 1, $schooljaar);
         $page_html .= "<td>" . $_h1 . " </td>";
       }
       if ($_GET["rap"] == '2') {
@@ -3010,8 +3010,8 @@ if($avg_h == 0.0){$avg_h = null;}
         $_h1_2 = "";
         $avg_h = 0;
 
-        $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h14', $item['studentid'], 1);
-        $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h14', $item['studentid'], 2);
+        $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h14', $item['studentid'], 1, $schooljaar);
+        $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h14', $item['studentid'], 2, $schooljaar);
 
 
         $page_html .= "<td>" . $_h1_1 . " </td>";
@@ -3035,10 +3035,10 @@ if($avg_h == 0.0){$avg_h = null;}
         $_h1_3 = "";
         $avg_h = "";
 
-        $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h14', $item['studentid'], 1);
-        $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h14', $item['studentid'], 2);
-        $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h14', $item['studentid'], 3);
-        $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h14', $item['studentid'], 4);
+        $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h14', $item['studentid'], 1, $schooljaar);
+        $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h14', $item['studentid'], 2, $schooljaar);
+        $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h14', $item['studentid'], 3, $schooljaar);
+        $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h14', $item['studentid'], 4, $schooljaar);
 
 
         $page_html .= "<td>" . $_h1_1 . " </td>";
@@ -4767,7 +4767,7 @@ if($avg_h == 0.0){$avg_h = null;}
 
     if ($_GET["rap"] == '1') {
       $_h1 = "";
-      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 1);
+      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 1, $schooljaar);
       if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1 . " </td>";
       } else {
@@ -4788,8 +4788,8 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h1_2 = "";
       $avg_h = 0;
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 1);
-      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 2);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 1, $schooljaar);
+      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 2, $schooljaar);
 
       if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1_1 . " </td>";
@@ -4823,10 +4823,10 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h1_3 = "";
       $avg_h = "";
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 1);
-      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 2);
-      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 3);
-      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 4);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 1, $schooljaar, $schooljaar);
+      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 2, $schooljaar, $schooljaar);
+      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 3, $schooljaar, $schooljaar);
+      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 4, $schooljaar, $schooljaar);
 
 
       if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
@@ -4856,7 +4856,7 @@ if($avg_h == 0.0){$avg_h = null;}
 
     if ($_GET["rap"] == '1') {
       $_h1 = "";
-      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 1);
+      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 1, $schooljaar);
       if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1 . " </td>";
       } else {
@@ -4877,8 +4877,8 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h1_2 = "";
       $avg_h = 0;
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 1);
-      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 2);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 1, $schooljaar);
+      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 2, $schooljaar);
 
 
       if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
@@ -4913,10 +4913,10 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h1_3 = "";
       $avg_h = "";
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 1);
-      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 2);
-      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 3);
-      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 4);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 1, $schooljaar);
+      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 2, $schooljaar);
+      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 3, $schooljaar);
+      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 4, $schooljaar);
 
 
       if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
@@ -4945,7 +4945,7 @@ if($avg_h == 0.0){$avg_h = null;}
 
     if ($_GET["rap"] == '1') {
       $_h1 = "";
-      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 1);
+      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 1, $schooljaar);
       if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1 . " </td>";
       } else {
@@ -4966,8 +4966,8 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h1_2 = "";
       $avg_h = 0;
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 1);
-      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 2);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 1, $schooljaar);
+      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 2, $schooljaar);
 
 
       if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
@@ -5002,10 +5002,10 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h1_3 = "";
       $avg_h = "";
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 1);
-      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 2);
-      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 3);
-      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 4);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 1, $schooljaar);
+      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 2, $schooljaar);
+      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 3, $schooljaar);
+      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 4, $schooljaar);
 
 
       if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
@@ -5037,7 +5037,7 @@ if($avg_h == 0.0){$avg_h = null;}
 
     if ($_GET["rap"] == '1') {
       $_h1 = "";
-      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 1);
+      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 1, $schooljaar);
       if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1 . " </td>";
       } else {
@@ -5059,8 +5059,8 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h1_2 = "";
       $avg_h = 0;
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 1);
-      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 2);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 1, $schooljaar);
+      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 2, $schooljaar);
 
 
       if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
@@ -5095,10 +5095,10 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h1_3 = "";
       $avg_h = "";
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 1);
-      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 2);
-      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 3);
-      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 4);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 1, $schooljaar);
+      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 2, $schooljaar);
+      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 3, $schooljaar);
+      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 4, $schooljaar);
 
 
       if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
@@ -5130,7 +5130,7 @@ if($avg_h == 0.0){$avg_h = null;}
 
     if ($_GET["rap"] == '1') {
       $_h1 = "";
-      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 1);
+      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 1, $schooljaar);
       if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1 . " </td>";
       } else {
@@ -5152,8 +5152,8 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h1_2 = "";
       $avg_h = 0;
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 1);
-      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 2);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 1, $schooljaar);
+      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 2, $schooljaar);
 
       if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1_1 . " </td>";
@@ -5187,10 +5187,10 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h1_3 = "";
       $avg_h = "";
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 1);
-      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 2);
-      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 3);
-      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 4);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 1, $schooljaar);
+      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 2, $schooljaar);
+      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 3, $schooljaar);
+      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 4, $schooljaar);
 
 
       if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
@@ -5221,7 +5221,7 @@ if($avg_h == 0.0){$avg_h = null;}
 
     if ($_GET["rap"] == '1') {
       $_h1 = "";
-      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 1);
+      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 1, $schooljaar);
       if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1 . " </td>";
       } else {
@@ -5243,8 +5243,8 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h1_2 = "";
       $avg_h = 0;
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 1);
-      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 2);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 1, $schooljaar);
+      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 2, $schooljaar);
 
 
       if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
@@ -5279,10 +5279,10 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h1_3 = "";
       $avg_h = "";
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 1);
-      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 2);
-      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 3);
-      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 4);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 1, $schooljaar);
+      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 2, $schooljaar);
+      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 3, $schooljaar);
+      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 4, $schooljaar);
 
 
       if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
@@ -5309,7 +5309,7 @@ if($avg_h == 0.0){$avg_h = null;}
 
     if ($_GET["rap"] == '1') {
       $_h1 = "";
-      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h7', $item['studentid'], 1);
+      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h7', $item['studentid'], 1, $schooljaar);
       if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1 . " </td>";
       } else {
@@ -5327,8 +5327,8 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h1_2 = "";
       $avg_h = 0;
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h7', $item['studentid'], 1);
-      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h7', $item['studentid'], 2);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h7', $item['studentid'], 1, $schooljaar);
+      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h7', $item['studentid'], 2, $schooljaar);
 
 
       if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
@@ -5360,10 +5360,10 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h1_3 = "";
       $avg_h = "";
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h7', $item['studentid'], 1);
-      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h7', $item['studentid'], 2);
-      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h7', $item['studentid'], 3);
-      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h7', $item['studentid'], 4);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h7', $item['studentid'], 1, $schooljaar);
+      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h7', $item['studentid'], 2, $schooljaar);
+      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h7', $item['studentid'], 3, $schooljaar);
+      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h7', $item['studentid'], 4, $schooljaar);
 
 
       if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
@@ -5386,7 +5386,7 @@ if($avg_h == 0.0){$avg_h = null;}
 
     if ($_GET["rap"] == '1') {
       $_h1 = "";
-      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h8', $item['studentid'], 1);
+      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h8', $item['studentid'], 1, $schooljaar);
       if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1 . " </td>";
       } else {
@@ -5404,8 +5404,8 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h1_2 = "";
       $avg_h = 0;
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h8', $item['studentid'], 1);
-      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h8', $item['studentid'], 2);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h8', $item['studentid'], 1, $schooljaar);
+      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h8', $item['studentid'], 2, $schooljaar);
 
 
       if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
@@ -5437,10 +5437,10 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h1_3 = "";
       $avg_h = "";
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h8', $item['studentid'], 1);
-      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h8', $item['studentid'], 2);
-      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h8', $item['studentid'], 3);
-      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h8', $item['studentid'], 4);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h8', $item['studentid'], 1, $schooljaar);
+      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h8', $item['studentid'], 2, $schooljaar);
+      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h8', $item['studentid'], 3, $schooljaar);
+      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h8', $item['studentid'], 4, $schooljaar);
 
 
       if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
@@ -5463,7 +5463,7 @@ if($avg_h == 0.0){$avg_h = null;}
 
     if ($_GET["rap"] == '1') {
       $_h1 = "";
-      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h9', $item['studentid'], 1);
+      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h9', $item['studentid'], 1, $schooljaar);
       if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1 . " </td>";
       } else {
@@ -5481,8 +5481,8 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h1_2 = "";
       $avg_h = 0;
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h9', $item['studentid'], 1);
-      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h9', $item['studentid'], 2);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h9', $item['studentid'], 1, $schooljaar);
+      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h9', $item['studentid'], 2, $schooljaar);
 
 
       if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
@@ -5514,10 +5514,10 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h1_3 = "";
       $avg_h = "";
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h9', $item['studentid'], 1);
-      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h9', $item['studentid'], 2);
-      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h9', $item['studentid'], 3);
-      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h9', $item['studentid'], 4);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h9', $item['studentid'], 1, $schooljaar);
+      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h9', $item['studentid'], 2, $schooljaar);
+      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h9', $item['studentid'], 3, $schooljaar);
+      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h9', $item['studentid'], 4, $schooljaar);
 
 
       if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
@@ -5540,7 +5540,7 @@ if($avg_h == 0.0){$avg_h = null;}
 
     if ($_GET["rap"] == '1') {
       $_h1 = "";
-      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h10', $item['studentid'], 1);
+      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h10', $item['studentid'], 1, $schooljaar);
       if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1 . " </td>";
       } else {
@@ -5558,8 +5558,8 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h1_2 = "";
       $avg_h = 0;
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h10', $item['studentid'], 1);
-      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h10', $item['studentid'], 2);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h10', $item['studentid'], 1, $schooljaar);
+      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h10', $item['studentid'], 2, $schooljaar);
 
 
       if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
@@ -5591,10 +5591,10 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h1_3 = "";
       $avg_h = "";
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h10', $item['studentid'], 1);
-      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h10', $item['studentid'], 2);
-      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h10', $item['studentid'], 3);
-      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h10', $item['studentid'], 4);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h10', $item['studentid'], 1, $schooljaar);
+      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h10', $item['studentid'], 2, $schooljaar);
+      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h10', $item['studentid'], 3, $schooljaar);
+      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h10', $item['studentid'], 4, $schooljaar);
 
 
       if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
@@ -5617,7 +5617,7 @@ if($avg_h == 0.0){$avg_h = null;}
 
     if ($_GET["rap"] == '1') {
       $_h1 = "";
-      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h11', $item['studentid'], 1);
+      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h11', $item['studentid'], 1, $schooljaar);
       if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
         $page_html .= "<td>" . $_h1 . " </td>";
       } else {
@@ -5635,8 +5635,8 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h1_2 = "";
       $avg_h = 0;
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h11', $item['studentid'], 1);
-      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h11', $item['studentid'], 2);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h11', $item['studentid'], 1, $schooljaar);
+      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h11', $item['studentid'], 2, $schooljaar);
 
 
       if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
@@ -5668,10 +5668,10 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h1_3 = "";
       $avg_h = "";
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h11', $item['studentid'], 1);
-      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h11', $item['studentid'], 2);
-      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h11', $item['studentid'], 3);
-      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h11', $item['studentid'], 4);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h11', $item['studentid'], 1, $schooljaar);
+      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h11', $item['studentid'], 2, $schooljaar);
+      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h11', $item['studentid'], 3, $schooljaar);
+      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h11', $item['studentid'], 4, $schooljaar);
 
 
       if ($klas != 1 && $item['studentid'] != 4966 && $item['studentid'] != 5017 && $item['studentid'] != 8702 && $item['studentid'] != 8701 && $item['studentid'] != 5711 && $item['studentid'] != 5708 && $item['studentid'] != 5712 && $item['studentid'] != 8656 && $item['studentid'] != 8656 && $item['studentid'] != 8693 && $item['studentid'] != 8692 && $item['studentid'] != 8696 && $item['studentid'] != 8674) {
@@ -6365,7 +6365,7 @@ if($avg_h == 0.0){$avg_h = null;}
       $page_html .= "<td></td>";
       if ($_GET["rap"] == '1') {
         $_h1 = "";
-        $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h9', $item['studentid'], 1);
+        $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h9', $item['studentid'], 1, $schooljaar);
         if ($klas != 1) {
           $page_html .= "<td>" . $_h1 . " </td>";
         } else {
@@ -6380,8 +6380,8 @@ if($avg_h == 0.0){$avg_h = null;}
         $_h1_2 = "";
         $avg_h = 0;
 
-        $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h9', $item['studentid'], 1);
-        $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h9', $item['studentid'], 2);
+        $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h9', $item['studentid'], 1, $schooljaar);
+        $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h9', $item['studentid'], 2, $schooljaar);
 
 
         if ($klas != 1) {
@@ -6399,10 +6399,10 @@ if($avg_h == 0.0){$avg_h = null;}
         $_h1_3 = "";
         $avg_h = "";
 
-        $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h9', $item['studentid'], 1);
-        $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h9', $item['studentid'], 2);
-        $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h9', $item['studentid'], 3);
-        $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h9', $item['studentid'], 4);
+        $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h9', $item['studentid'], 1, $schooljaar);
+        $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h9', $item['studentid'], 2, $schooljaar);
+        $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h9', $item['studentid'], 3, $schooljaar);
+        $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h9', $item['studentid'], 4, $schooljaar);
 
 
         if ($klas != 1) {
@@ -6498,7 +6498,7 @@ if($avg_h == 0.0){$avg_h = null;}
     $page_html .= "<td style='width: 75px;'></td>";
     if ($_GET["rap"] == '1') {
       $_h1 = "";
-      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 1);
+      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 1, $schooljaar);
       if ($klas != 1) {
         $page_html .= "<td>" . $_h1 . " </td>";
       } else {
@@ -6513,8 +6513,8 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h1_2 = "";
       $avg_h = 0;
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 1);
-      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 2);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 1, $schooljaar);
+      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 2, $schooljaar);
 
 
       if ($klas != 1) {
@@ -6532,10 +6532,10 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h1_3 = "";
       $avg_h = "";
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 1);
-      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 2);
-      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 3);
-      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 4);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 1, $schooljaar);
+      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 2, $schooljaar);
+      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 3, $schooljaar);
+      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h1', $item['studentid'], 4, $schooljaar);
 
 
       if ($klas != 1) {
@@ -6555,7 +6555,7 @@ if($avg_h == 0.0){$avg_h = null;}
     $page_html .= "<td></td>";
     if ($_GET["rap"] == '1') {
       $_h1 = "";
-      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 1);
+      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 1, $schooljaar);
       if ($klas != 1) {
         $page_html .= "<td>" . $_h1 . " </td>";
       } else {
@@ -6570,8 +6570,8 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h1_2 = "";
       $avg_h = 0;
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 1);
-      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 2);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 1, $schooljaar);
+      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 2, $schooljaar);
 
 
       if ($klas != 1) {
@@ -6589,10 +6589,10 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h1_3 = "";
       $avg_h = "";
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 1);
-      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 2);
-      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 3);
-      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 4);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 1, $schooljaar);
+      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 2, $schooljaar);
+      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 3, $schooljaar);
+      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h2', $item['studentid'], 4, $schooljaar);
 
 
       if ($klas != 1) {
@@ -6612,7 +6612,7 @@ if($avg_h == 0.0){$avg_h = null;}
     $page_html .= "<td></td>";
     if ($_GET["rap"] == '1') {
       $_h1 = "";
-      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 1);
+      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 1, $schooljaar);
       if ($klas != 1) {
         $page_html .= "<td>" . $_h1 . " </td>";
       } else {
@@ -6627,8 +6627,8 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h1_2 = "";
       $avg_h = 0;
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 1);
-      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 2);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 1, $schooljaar);
+      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 2, $schooljaar);
 
 
       if ($klas != 1) {
@@ -6646,10 +6646,10 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h1_3 = "";
       $avg_h = "";
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 1);
-      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 2);
-      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 3);
-      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 4);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 1, $schooljaar);
+      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 2, $schooljaar);
+      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 3, $schooljaar);
+      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h3', $item['studentid'], 4, $schooljaar);
 
 
       if ($klas != 1) {
@@ -6669,7 +6669,7 @@ if($avg_h == 0.0){$avg_h = null;}
     $page_html .= "<td></td>";
     if ($_GET["rap"] == '1') {
       $_h1 = "";
-      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 1);
+      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 1, $schooljaar);
       if ($klas != 1) {
         $page_html .= "<td>" . $_h1 . " </td>";
       } else {
@@ -6684,8 +6684,8 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h1_2 = "";
       $avg_h = 0;
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 1);
-      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 2);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 1, $schooljaar);
+      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 2, $schooljaar);
 
 
       if ($klas != 1) {
@@ -6703,10 +6703,10 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h1_3 = "";
       $avg_h = "";
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 1);
-      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 2);
-      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 3);
-      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 4);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 1, $schooljaar);
+      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 2, $schooljaar);
+      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 3, $schooljaar);
+      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 4, $schooljaar);
 
       if ($klas != 1) {
         $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
@@ -6725,7 +6725,7 @@ if($avg_h == 0.0){$avg_h = null;}
     $page_html .= "<td></td>";
     if ($_GET["rap"] == '1') {
       $_h1 = "";
-      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 1);
+      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 1, $schooljaar);
       if ($klas != 1) {
         $page_html .= "<td>" . $_h1 . " </td>";
       } else {
@@ -6740,8 +6740,8 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h1_2 = "";
       $avg_h = 0;
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 1);
-      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 2);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 1, $schooljaar);
+      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 2, $schooljaar);
 
 
       if ($klas != 1) {
@@ -6759,10 +6759,10 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h1_3 = "";
       $avg_h = "";
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 1);
-      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 2);
-      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 3);
-      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 4);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 1, $schooljaar);
+      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 2, $schooljaar);
+      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 3, $schooljaar);
+      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h5', $item['studentid'], 4, $schooljaar);
 
 
       if ($klas != 1) {
@@ -6782,7 +6782,7 @@ if($avg_h == 0.0){$avg_h = null;}
     $page_html .= "<td></td>";
     if ($_GET["rap"] == '1') {
       $_h1 = "";
-      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 1);
+      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 1, $schooljaar);
       if ($klas != 1) {
         $page_html .= "<td>" . $_h1 . " </td>";
       } else {
@@ -6797,8 +6797,8 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h1_2 = "";
       $avg_h = 0;
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 1);
-      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 2);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 1, $schooljaar);
+      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 2, $schooljaar);
 
 
       if ($klas != 1) {
@@ -6816,10 +6816,10 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h1_3 = "";
       $avg_h = "";
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 1);
-      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 2);
-      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 3);
-      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 4);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 1, $schooljaar);
+      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 2, $schooljaar);
+      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 3, $schooljaar);
+      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h6', $item['studentid'], 4, $schooljaar);
 
 
       if ($klas != 1) {
@@ -6839,7 +6839,7 @@ if($avg_h == 0.0){$avg_h = null;}
     $page_html .= "<td></td>";
     if ($_GET["rap"] == '1') {
       $_h1 = "";
-      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h7', $item['studentid'], 1);
+      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h7', $item['studentid'], 1, $schooljaar);
       if ($klas != 1) {
         $page_html .= "<td>" . $_h1 . " </td>";
       } else {
@@ -6854,8 +6854,8 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h1_2 = "";
       $avg_h = 0;
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h7', $item['studentid'], 1);
-      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h7', $item['studentid'], 2);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h7', $item['studentid'], 1, $schooljaar);
+      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h7', $item['studentid'], 2, $schooljaar);
 
 
       if ($klas != 1) {
@@ -6873,10 +6873,10 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h1_3 = "";
       $avg_h = "";
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h7', $item['studentid'], 1);
-      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h7', $item['studentid'], 2);
-      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h7', $item['studentid'], 3);
-      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h7', $item['studentid'], 4);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h7', $item['studentid'], 1, $schooljaar);
+      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h7', $item['studentid'], 2, $schooljaar);
+      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h7', $item['studentid'], 3, $schooljaar);
+      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h7', $item['studentid'], 4, $schooljaar);
 
 
       if ($klas != 1) {
@@ -6896,7 +6896,7 @@ if($avg_h == 0.0){$avg_h = null;}
     $page_html .= "<td></td>";
     if ($_GET["rap"] == '1') {
       $_h1 = "";
-      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h8', $item['studentid'], 1);
+      $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h8', $item['studentid'], 1, $schooljaar);
       if ($klas != 1) {
         $page_html .= "<td>" . $_h1 . " </td>";
       } else {
@@ -6911,8 +6911,8 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h1_2 = "";
       $avg_h = 0;
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h8', $item['studentid'], 1);
-      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h8', $item['studentid'], 2);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h8', $item['studentid'], 1, $schooljaar);
+      $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h8', $item['studentid'], 2, $schooljaar);
 
 
       if ($klas != 1) {
@@ -6930,10 +6930,10 @@ if($avg_h == 0.0){$avg_h = null;}
       $_h1_3 = "";
       $avg_h = "";
 
-      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h8', $item['studentid'], 1);
-      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h8', $item['studentid'], 2);
-      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h8', $item['studentid'], 3);
-      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h8', $item['studentid'], 4);
+      $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h8', $item['studentid'], 1, $schooljaar);
+      $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h8', $item['studentid'], 2, $schooljaar);
+      $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h8', $item['studentid'], 3, $schooljaar);
+      $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h8', $item['studentid'], 4, $schooljaar);
 
 
       if ($klas != 1) {
@@ -6955,7 +6955,7 @@ if($avg_h == 0.0){$avg_h = null;}
       $page_html .= "<td></td>";
       if ($_GET["rap"] == '1') {
         $_h1 = "";
-        $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h10', $item['studentid'], 1);
+        $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h10', $item['studentid'], 1, $schooljaar);
         if ($klas != 1) {
           $page_html .= "<td>" . $_h1 . " </td>";
         } else {
@@ -6970,8 +6970,8 @@ if($avg_h == 0.0){$avg_h = null;}
         $_h1_2 = "";
         $avg_h = 0;
 
-        $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h10', $item['studentid'], 1);
-        $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h10', $item['studentid'], 2);
+        $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h10', $item['studentid'], 1, $schooljaar);
+        $_h2_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h10', $item['studentid'], 2, $schooljaar);
 
 
         if ($klas != 1) {
@@ -6989,10 +6989,10 @@ if($avg_h == 0.0){$avg_h = null;}
         $_h1_3 = "";
         $avg_h = "";
 
-        $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h10', $item['studentid'], 1);
-        $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h10', $item['studentid'], 2);
-        $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h10', $item['studentid'], 3);
-        $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h10', $item['studentid'], 4);
+        $_h1_1 =  $c->_writerapportdata_houding($_GET["klas"], 'h10', $item['studentid'], 1, $schooljaar);
+        $_h1_2 =  $c->_writerapportdata_houding($_GET["klas"], 'h10', $item['studentid'], 2, $schooljaar);
+        $_h1_3 =  $c->_writerapportdata_houding($_GET["klas"], 'h10', $item['studentid'], 3, $schooljaar);
+        $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h10', $item['studentid'], 4, $schooljaar);
 
 
         if ($klas != 1) {

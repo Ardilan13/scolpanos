@@ -1037,7 +1037,7 @@ class spn_see_kaart
     }
   }
 
-  function _writerapportdata_houding($klas_in, $houding_in, $studentid_out, $rap_in)
+  function _writerapportdata_houding($klas_in, $houding_in, $studentid_out, $rap_in, $schooljaar)
   {
 
     $returnvalue = 0;
@@ -1052,8 +1052,6 @@ class spn_see_kaart
 
     $sql_query = "";
     $sum_average = 0;
-
-    $schooljaar = $_SESSION['SchoolJaar'];
 
     try {
       // print('sql_query de Houding: '.$sql_query);

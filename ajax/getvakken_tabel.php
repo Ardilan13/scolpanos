@@ -373,6 +373,7 @@ function print_vakken_table()
 			}, function(data) {
 				/* do something if needed */
 			}).done(function() {
+				console.log("update:" + data)
 				/*
 				 *** When updated is done, get the 'gemiddelde' from the back-end
 				 *** Update the 'gemiddelde' from the current row that is updated
@@ -393,6 +394,7 @@ function print_vakken_table()
 					// $('#vak').find('tr.active td:last-child').html(data);
 					$('#ge' + $row).text(data);
 					$('#vak').find('tr.active').removeClass('active');
+					console.log("gem:" + data)
 				}).fail(function() {
 					alert('Error, please contact developers.');
 				});
