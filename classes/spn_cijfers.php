@@ -5251,10 +5251,16 @@ AND lc.schooljaar = '$schooljaar'
                 $htmlcontrol .= "<tr class='student'><td>$x</td><td><input class=\"hidden\" studentidarray=\"$studentid\"></input>" . utf8_encode($lastname) . ', ' . utf8_encode($firstname) . "</td>";
 
                 if ($name_row == "lo") {
+                  $c1 = ($c1 == 0.0 ? "" : $c1);
+                  $_cijfer_number = $c1;
+
                   $y = 1;
                   if ($s->_setting_rapnumber_1 || $s->_setting_rapnumber_2 || $s->_setting_rapnumber_3) {
                     $cell = 'x' . $x . 'y' . $y;
-                    $htmlcontrol .= "<td class='se se" . $y . "'><select><option></option><option value='10'>Voldoende</option><option value='1'>Onvoldoende</option></select></td>";
+                    $voldoende = $_cijfer_number >= 5.5 ? "selected" : "";
+                    $onvoldoende = ($_cijfer_number < 5.5 && $_cijfer_number > 0) ? "selected" : "";
+                    $color = $_cijfer_number >= 5.5 ? " style='background-color: lawngreen;'" : (($_cijfer_number > 0) ? " style='background-color: red;'" : "");
+                    $htmlcontrol .= "<td class='vol'><select " . $color . " id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\" class='lo'><option></option><option " . $voldoende . " value='10'>Voldoende</option><option " . $onvoldoende . " value='1'>Onvoldoende</option></select><input type='text' hidden value='$_cijfer_number'></td>";
                   } else {
                     $cell = 'x' . $x . 'y' . $y;
                     $htmlcontrol .= "<td><span style='padding-top: 0 !important;' id=\"lblName1\" data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\">$_cijfer_number</span></td>";

@@ -101,6 +101,49 @@ function print_vakken_table()
 	$("#loader_spn").toggleClass('hidden');
 	/*$("#btn_submit_cijfers").prop('disabled', false);*/
 	$(document).ready(function() {
+		$(".lo").change(function() {
+			var $studentid = $(this).attr("data-student-id"),
+				$id_cijfer = $(this).attr("id_cijfer_table"),
+				$cijfername = $(this).attr("data-cijfer"),
+				$klas = $(this).attr("data-klas"),
+				$vak = $(this).attr("data-vak"),
+				$rapport = $(this).attr("data-rapport"),
+				$cijfervalue = $(this).val();
+			if ($(this).val() == 10) {
+				$(this).css('background-color', 'lawngreen');
+			} else if ($(this).val() == 1) {
+				$(this).css('background-color', 'red');
+			} else {
+				$(this).css('background-color', 'white');
+			}
+			// console.log($id_cijfer, $studentNr, $cijferName, $cijfer, $klas, $rapport, $vak);
+			$.ajax({
+				url: "ajax/update_cijfers.php",
+				data: "id_cijfer=" +
+					$id_cijfer +
+					"&studentid=" +
+					$studentid +
+					"&cijfername=" +
+					$cijfername +
+					"&cijfervalue=" +
+					$cijfervalue +
+					"&klas=" +
+					$klas +
+					"&rapport=" +
+					$rapport +
+					"&vak=" +
+					$vak,
+				type: "POST",
+				dataType: "HTML",
+				cache: false,
+				async: false,
+				success: function(data) {
+					check_ls_data = data;
+					console.log("esto es lo que tiene data " + check_ls_data);
+				},
+			});
+		})
+
 		function get_clase() {
 			$("td.se").each(function() {
 				const existe = $('td').hasClass('se11');
