@@ -77,8 +77,8 @@ echo utf8_decode("<table border='0'>
 							<td style='font-weight:bold; border:1px solid #000;border-bottom:none;padding:10px;'>Voertaal</td>
 							<td style='font-weight:bold; border:1px solid #000;border-bottom:none;padding:10px;'>Geb.</td>
 							<td style='font-weight:bold; border:1px solid #000;border-bottom:none;padding:10px;'>Instr.</td>
-							<td style='font-weight:bold; border:1px solid #000;padding:10px;'>Vader/voogd</td>
-							<td style='font-weight:bold; border:1px solid #000;padding:10px;'>Moeder/voogd</td>
+							<td style='font-weight:bold; border:1px solid #000;padding:10px;'>Tutor 1/voogd</td>
+							<td style='font-weight:bold; border:1px solid #000;padding:10px;'>Tutor 2/voogd</td>
 						</tr>
 						
 						<tr> 
@@ -109,14 +109,14 @@ $sql_query = "SELECT id,idnumber,studentnumber, lastname, firstname, sex,
 		enrollmentdate,
 		dob,
 		@id_family:= id_family as idfamily,
-		(select position_company from contact where id_family = @id_family and (type='Mother' or type='Moeder') limit 1) as mother,
-		(select position_company from contact where id_family = @id_family and (type='Father' or type='Vader') limit 1) as father,
-		(select mobile_phone from contact where id_family = @id_family and (type='Mother' or type='Moeder') limit 1) as mobiel_moeder,
-		(select home_phone from contact where id_family = @id_family and (type='Mother' or type='Moeder') limit 1) as Huis_Telefoon_moeder,
-		(select work_phone from contact where id_family = @id_family and (type='Mother' or type='Moeder') limit 1) as Work_tel_moeder,
-		(select mobile_phone from contact where id_family = @id_family and (type='Father' or type='Vader') limit 1) as mobiel_vader,
-		(select home_phone from contact where id_family = @id_family and (type='Father' or type='Vader') limit 1) as Huis_Telefoon_vader,
-		(select work_phone from contact where id_family = @id_family and (type='Father' or type='Vader') limit 1) as Work_tel_vader
+		(select position_company from contact where id_family = @id_family limit 1) as mother,
+		(select position_company from contact where id_family = @id_family limit 1,1) as father,
+		(select mobile_phone from contact where id_family = @id_family limit 1) as mobiel_moeder,
+		(select home_phone from contact where id_family = @id_family limit 1) as Huis_Telefoon_moeder,
+		(select work_phone from contact where id_family = @id_family limit 1) as Work_tel_moeder,
+		(select mobile_phone from contact where id_family = @id_family limit 1,1) as mobiel_vader,
+		(select home_phone from contact where id_family = @id_family limit 1,1) as Huis_Telefoon_vader,
+		(select work_phone from contact where id_family = @id_family limit 1,1) as Work_tel_vader
 		from students where schoolid = '$schoolid' and class = '$klas' ORDER BY sex ASC, lastname ASC, firstname ASC";
 $x = 1;
 $resultado1 = mysqli_query($mysqli, $sql_query);
