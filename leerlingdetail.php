@@ -508,6 +508,7 @@ if (isset($_GET["id"])) {
 
 																								<button type="submit" class="btn btn-primary btn-m-w pull-right mrg-left" id="btn-add-contact">OPSLAAN</button>
 																								<button type="reset" class="btn btn-danger btn-m-w pull-right mrg-left" id="btn-clear-contact">CLEAR</button>
+																								<button style="display:none;" type="reset" class="btn btn-m-w pull-right mrg-left" id="clear">CLEAR</button>
 
 																							</div>
 
@@ -1811,7 +1812,27 @@ if (isset($_GET["id"])) {
 			$('#observation').val($(this).find("[name='observations_contact']").val());
 			$('#id_number_contact').val($(this).find("[name='id_number_contact']").val());
 			$('#btn-clear-contact').text("DELETE");
+			$('#clear').css("display", "block");
 		});
+		$("#clear").click(() => {
+			$('#id_contact').val("");
+			$('#tutor').val(0);
+			$('#type').val("");
+			$('#full_name').val("");
+			$('#mobile_phone').val("");
+			$('#address').val("");
+			$('#id_number_contact').val("");
+			$('#company').val("");
+			$('#position_company').val("");
+			$('#email').val("");
+			$('#home_phone').val("");
+			$('#work_phone').val("");
+			$('#work_phone_ext').val("");
+			$('#observation').val("");
+			$('#id_number_contact').val("");
+			$("#clear").css("display", "none");
+			$('#btn-clear-contact').text("CLEAR");
+		})
 		/*Jquery Event Caribe Developer*/
 		$('#dataRequest-event tr').click(function() {
 			$(this).closest('tr').siblings().children('td, th').css('background-color', '');
