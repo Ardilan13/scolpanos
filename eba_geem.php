@@ -45,6 +45,39 @@
                                             $schooljaar = $_SESSION["SchoolJaar"];
                                             $s->getsetting_info($schoolid, false);
 
+                                            $currentYear = intval(substr($schooljaar, 0, 4)); // Obtenemos el año actual (2022)
+                                            $previousYear = $currentYear - 1; // Calculamos el año anterior (2021)
+                                            $previousSchooljaar = $previousYear . "-" . ($previousYear + 1);
+                                            $get_students = "SELECT studentid FROM personalia WHERE schoolid = $schoolid AND schooljaar = '$schooljaar'";
+                                            $result = mysqli_query($mysqli, $get_students);
+                                            while ($row = mysqli_fetch_assoc($result)) {
+                                                $id = $row["studentid"];
+                                                $get_cijfers = "SELECT
+                                                    CASE 
+                                                      WHEN AVG(CASE WHEN v.complete_name like '%CKV%' AND c.schooljaar = '$previousSchooljaar' THEN c.gemiddelde END) < 6 THEN 0
+                                                      WHEN AVG(CASE WHEN v.complete_name like '%CKV%' AND c.schooljaar = '$previousSchooljaar' THEN c.gemiddelde END) >= 6 THEN 1
+                                                    END AS ckv,
+                                                  
+                                                    CASE
+                                                      WHEN AVG(CASE WHEN v.volledigenaamvak = 'lo' AND c.schooljaar = '$schooljaar' THEN c.c1 END) < 6 THEN 0 
+                                                      WHEN AVG(CASE WHEN v.volledigenaamvak = 'lo' AND c.schooljaar = '$schooljaar' THEN c.c1 END) >= 6 THEN 1
+                                                    END AS lo
+                                                  
+                                                  FROM students s
+                                                  LEFT JOIN le_cijfers c 
+                                                    ON s.id = c.studentid 
+                                                    AND c.gemiddelde > 0
+                                                  LEFT JOIN le_vakken v
+                                                    ON c.vak = v.ID  AND v.schoolid = $schoolid AND (v.volledigenaamvak IN ('CKV', 'lo') || v.complete_name like '%CKV%')
+                                                                                                                      WHERE s.id = $id
+                                                                                                                      GROUP BY s.lastname, s.firstname";
+                                                $result1 = mysqli_query($mysqli, $get_cijfers);
+                                                while ($row1 = mysqli_fetch_assoc($result1)) {
+                                                    $update_result = "UPDATE personalia SET ckv = '" . $row1["ckv"] . "', lo = '" . $row1["lo"] . "' WHERE studentid = $id AND schoolid = $schoolid AND schooljaar = '$schooljaar';";
+                                                    mysqli_query($mysqli, $update_result);
+                                                }
+                                            }
+
                                             $get_personalia = "SELECT p.code,p.ckv,p.lo,s.lastname,s.firstname FROM personalia p INNER JOIN students s ON s.id = p.studentid WHERE p.schoolid = $schoolid AND p.schooljaar = '$schooljaar' AND (p.ckv IS NOT NULL OR p.lo IS NOT NULL) ORDER BY";
                                             $sql_order = " lastname , firstname";
                                             if ($s->_setting_mj) {
@@ -84,20 +117,25 @@
                                                 $result = mysqli_query($mysqli, $get_students);
                                                 while ($row = mysqli_fetch_assoc($result)) {
                                                     $id = $row["studentid"];
-                                                    $get_cijfers = "SELECT 
-                                                                      CASE 
-                                                                        WHEN AVG(CASE WHEN v.volledigenaamvak = 'CKV' THEN c.gemiddelde END) < 6 THEN 0
-                                                                        WHEN AVG(CASE WHEN v.volledigenaamvak = 'CKV' THEN c.gemiddelde END) >= 6 THEN 1
-                                                                      END AS ckv,
-                                                                      CASE 
-                                                                        WHEN AVG(CASE WHEN v.volledigenaamvak = 'lo' THEN c.gemiddelde END) < 6 THEN 0
-                                                                        WHEN AVG(CASE WHEN v.volledigenaamvak = 'lo' THEN c.gemiddelde END) >= 6 THEN 1
-                                                                      END AS lo
-                                                                    FROM students s
-                                                                    LEFT JOIN le_cijfers c ON s.id = c.studentid AND c.schooljaar = '$previousSchooljaar' AND c.gemiddelde > 0
-                                                                    LEFT JOIN le_vakken v ON c.vak = v.ID AND v.schoolid = $schoolid AND v.volledigenaamvak IN ('CKV', 'lo')
-                                                                    WHERE s.id = $id
-                                                                    GROUP BY s.lastname, s.firstname;";
+                                                    $get_cijfers = "SELECT
+                                                    CASE 
+                                                      WHEN AVG(CASE WHEN v.complete_name like '%CKV%' AND c.schooljaar = '$previousSchooljaar' THEN c.gemiddelde END) < 6 THEN 0
+                                                      WHEN AVG(CASE WHEN v.complete_name like '%CKV%' AND c.schooljaar = '$previousSchooljaar' THEN c.gemiddelde END) >= 6 THEN 1
+                                                    END AS ckv,
+                                                  
+                                                    CASE
+                                                      WHEN AVG(CASE WHEN v.volledigenaamvak = 'lo' AND c.schooljaar = '$schooljaar' THEN c.c1 END) < 6 THEN 0 
+                                                      WHEN AVG(CASE WHEN v.volledigenaamvak = 'lo' AND c.schooljaar = '$schooljaar' THEN c.c1 END) >= 6 THEN 1
+                                                    END AS lo
+                                                  
+                                                  FROM students s
+                                                  LEFT JOIN le_cijfers c 
+                                                    ON s.id = c.studentid 
+                                                    AND c.gemiddelde > 0
+                                                  LEFT JOIN le_vakken v
+                                                    ON c.vak = v.ID  AND v.schoolid = $schoolid AND v.volledigenaamvak IN ('CKV', 'lo')
+                                                                                                                      WHERE s.id = $id
+                                                                                                                      GROUP BY s.lastname, s.firstname";
                                                     $result1 = mysqli_query($mysqli, $get_cijfers);
                                                     while ($row1 = mysqli_fetch_assoc($result1)) {
                                                         $update_result = "UPDATE personalia SET ckv = '" . $row1["ckv"] . "', lo = '" . $row1["lo"] . "' WHERE studentid = $id AND schoolid = $schoolid AND schooljaar = '$schooljaar';";

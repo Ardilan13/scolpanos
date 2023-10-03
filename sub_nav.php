@@ -134,7 +134,7 @@ ob_flush();
 								<a class="nav-item" href="#" role="button">EBA<i class="fa fa-angle-left pull-right"></i></a>
 								<ul class="nav nav-second-level">
 									<li> <a href="eba_personalia.php">Personalia</a></li>
-									<li> <a href="eba_geem.php">Geem Deel-DAG</a></li>
+									<li> <a href="eba_geem.php">Gem Deel-DAG</a></li>
 									<li> <a href="eba_ex1.php">EX.1-M</a></li>
 									<li> <a href="eba_docentlist.php">Docenten lijst</a></li>
 									<li> <a href="eba_docenten.php">EBA DOCENTEN LIJST</a></li>
@@ -394,7 +394,7 @@ ob_flush();
 					<a class="nav-item" href="#" role="button">EBA<i class="fa fa-angle-left pull-right"></i></a>
 					<ul class="nav nav-second-level">
 						<li> <a href="eba_personalia.php">Personalia</a></li>
-						<li> <a href="eba_geem.php">Geem Deel-DAG</a></li>
+						<li> <a href="eba_geem.php">Gem Deel-DAG</a></li>
 						<li> <a href="eba_ex1.php">EX.1-M</a></li>
 						<li> <a href="eba_docentlist.php">Docenten lijst</a></li>
 						<li> <a href="eba_docenten.php">EBA DOCENTEN LIJST</a></li>
