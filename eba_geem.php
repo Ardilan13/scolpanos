@@ -78,7 +78,7 @@
                                                 }
                                             }
 
-                                            $get_personalia = "SELECT p.code,p.ckv,p.lo,s.lastname,s.firstname FROM personalia p INNER JOIN students s ON s.id = p.studentid WHERE p.schoolid = $schoolid AND p.schooljaar = '$schooljaar' AND (p.ckv IS NOT NULL OR p.lo IS NOT NULL) ORDER BY";
+                                            $get_personalia = "SELECT s.id,p.code,p.ckv,p.lo,p.her,s.lastname,s.firstname FROM personalia p INNER JOIN students s ON s.id = p.studentid WHERE p.schoolid = $schoolid AND p.schooljaar = '$schooljaar' AND (p.ckv IS NOT NULL OR p.lo IS NOT NULL) ORDER BY";
                                             $sql_order = " lastname , firstname";
                                             if ($s->_setting_mj) {
                                                 $get_personalia .= " sex " . $s->_setting_sort . ", " . $sql_order;
@@ -94,16 +94,20 @@
                                                             <th>Achternaam</th>
                                                             <th>Alle Voornamen</th>
                                                             <th>CKV</th>
+                                                            <th>HER CKV</th>
                                                             <th>LO</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+                                                        <?php while ($row = mysqli_fetch_assoc($result)) {
+                                                            $id = $row["id"];
+                                                            $her = ($row["her"] == 1 ? " selected" : "") ?>
                                                             <tr>
                                                                 <td><?php echo $row["code"]; ?></td>
                                                                 <td><?php echo $row["lastname"]; ?></td>
                                                                 <td><?php echo $row["firstname"]; ?></td>
                                                                 <td class="text-center"><?php echo $row["ckv"] == 1 ? "<b class='text-primary'>Voldoende</b>" : ($row["ckv"] == 0 ? "<b class='text-danger'>Onvoldoende</b>" : ""); ?></td>
+                                                                <td class="text-center"><?php echo $row["ckv"] == 1 ? "" : ($row["ckv"] == 0 ? "<select class='her' id='" . $id . "'><option></option><option " . $her . " value='10'>Voldoende</option></select>" : ""); ?></td>
                                                                 <td class="text-center"><?php echo $row["lo"] == 1 ? "<b class='text-primary'>Voldoende</b>" : ($row["lo"] == 0 ? "<b class='text-danger'>Onvoldoende</b>" : ""); ?></td>
                                                             </tr>
                                                         <?php } ?>
@@ -169,5 +173,35 @@
 <script>
     $("#btn_eba_export").click(function() {
         window.open("dev_tests\\export_eba_geem.php");
+    });
+
+    $(document).ready(() => {
+        $(".her").each(function() {
+            var value = $(this).val();
+            if (value == 10) {
+                $(this).css("background-color", "lawngreen");
+            }
+        });
+    })
+
+    $(".her").change(function() {
+        var value = $(this).val();
+        var id = $(this).attr("id");
+        if (value == null || value == "") {
+            $(this).css("background-color", "white");
+        } else if (value == 10) {
+            $(this).css("background-color", "lawngreen");
+        }
+        $.ajax({
+            url: "ajax/update_eba_geem.php",
+            type: "POST",
+            data: {
+                id: id,
+                value: value
+            },
+            success: function(data) {
+                console.log(data);
+            }
+        });
     });
 </script>
