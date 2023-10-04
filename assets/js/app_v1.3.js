@@ -2123,6 +2123,7 @@ vak.append($("<option />").val(this.id).text(this.vak));
                 function (data) {
                   $("#div_table_contact").empty();
                   $("#div_table_contact").append(data);
+                  console.log(data);
                 }
               );
               $("#id_contact").val("0");
