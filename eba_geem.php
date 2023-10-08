@@ -93,9 +93,9 @@
                                                             <th>Nr</th>
                                                             <th>Achternaam</th>
                                                             <th>Alle Voornamen</th>
-                                                            <th>CKV</th>
-                                                            <th>HER CKV</th>
-                                                            <th>LO</th>
+                                                            <th style="width: 7%;">CKV</th>
+                                                            <th style="width: 7%;">HER CKV</th>
+                                                            <th style="width: 7%;">LO</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>

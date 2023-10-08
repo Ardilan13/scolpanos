@@ -109,21 +109,48 @@
                                                     $ex = $row1["id"];
                                                     $id = $row1["studentid"];
                                                     $get_cijfers = "SELECT 
-                                                    ROUND(AVG(CASE WHEN v.volledigenaamvak = 'ne' THEN c.gemiddelde END), 1) AS ne,
-                                                    ROUND(AVG(CASE WHEN v.volledigenaamvak = 'en' THEN c.gemiddelde END), 1) AS en,
-                                                    ROUND(AVG(CASE WHEN v.volledigenaamvak = 'sp' THEN c.gemiddelde END), 1) AS sp,
-                                                    ROUND(AVG(CASE WHEN v.volledigenaamvak = 'pa' THEN c.gemiddelde END), 1) AS pa,
-                                                    ROUND(AVG(CASE WHEN v.volledigenaamvak = 'wi' THEN c.gemiddelde END), 1) AS wi,
-                                                    ROUND(AVG(CASE WHEN v.volledigenaamvak = 'na' THEN c.gemiddelde END), 1) AS na,
-                                                    ROUND(AVG(CASE WHEN v.volledigenaamvak = 'bi' THEN c.gemiddelde END), 1) AS bi,
-                                                    ROUND(AVG(CASE WHEN v.volledigenaamvak = 'ec' THEN c.gemiddelde END), 1) AS ec,
-                                                    ROUND(AVG(CASE WHEN v.volledigenaamvak = 'ak' THEN c.gemiddelde END), 1) AS ak,
-                                                    ROUND(AVG(CASE WHEN v.volledigenaamvak = 'gs' THEN c.gemiddelde END), 1) AS gs,
-                                                    ROUND(AVG(CASE WHEN v.volledigenaamvak = 're' THEN c.gemiddelde END), 1) AS re
-                                                  FROM students s
-                                                  LEFT JOIN le_cijfers c ON s.id = c.studentid AND c.schooljaar = '$schooljaar' AND c.gemiddelde > 0
-                                                  LEFT JOIN le_vakken v ON c.vak = v.ID AND v.schoolid = $schoolid AND v.volledigenaamvak IN ('ne', 'en', 'sp', 'pa', 'wi', 'na', 'bi', 'ec', 'ak', 'gs', 're')
-                                                  WHERE s.id = $id;";
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'ne' THEN subquery.avg_c END), 1) AS ne,
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'en' THEN subquery.avg_c END), 1) AS en,
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'sp' THEN subquery.avg_c END), 1) AS sp,
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'pa' THEN subquery.avg_c END), 1) AS pa,
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'wi' THEN subquery.avg_c END), 1) AS wi,
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'na' THEN subquery.avg_c END), 1) AS na,
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'bi' THEN subquery.avg_c END), 1) AS bi,
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'ec' THEN subquery.avg_c END), 1) AS ec,
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'ak' THEN subquery.avg_c END), 1) AS ak,
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'gs' THEN subquery.avg_c END), 1) AS gs,
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 're' THEN subquery.avg_c END), 1) AS re
+                                                  FROM (
+                                                    SELECT 
+                                                        v.volledigenaamvak,
+                                                        ROUND(
+                                                          AVG(
+                                                            (
+                                                              GREATEST(IFNULL(c.c1, 0), IFNULL(c.c2, 0)) + 
+                                                              GREATEST(IFNULL(c.c5, 0), IFNULL(c.c6, 0)) + 
+                                                              GREATEST(IFNULL(c.c9, 0), IFNULL(c.c10, 0)) +
+                                                              IFNULL((c.c11/2), 0)
+                                                            ) / 
+                                                            (
+                                                              GREATEST(IF(c.c1 IS NOT NULL, 1, 0), IF(c.c2 IS NOT NULL, 1, 0)) + 
+                                                              GREATEST(IF(c.c5 IS NOT NULL, 1, 0), IF(c.c6 IS NOT NULL, 1, 0)) + 
+                                                              GREATEST(IF(c.c9 IS NOT NULL, 1, 0), IF(c.c10 IS NOT NULL, 1, 0)) +
+                                                              IF(c.c11 IS NOT NULL, 0.5, 0)
+                                                            )
+                                                          ), 
+                                                          1
+                                                        ) AS avg_c
+                                                    FROM students s
+                                                    LEFT JOIN le_cijfers c ON s.id = c.studentid 
+                                                      AND c.schooljaar = '$schooljaar' 
+                                                      AND c.gemiddelde > 0
+                                                    LEFT JOIN le_vakken v ON c.vak = v.ID 
+                                                      AND v.schoolid = $schoolid 
+                                                      AND v.volledigenaamvak IN ('ne', 'en', 'sp', 'pa', 'wi', 'na', 'bi', 'ec', 'ak', 'gs', 're')
+                                                    WHERE s.id = $id
+                                                      AND v.volledigenaamvak IS NOT NULL
+                                                    GROUP BY v.volledigenaamvak
+                                                  ) AS subquery;";
                                                     $result2 = mysqli_query($mysqli, $get_cijfers);
                                                     while ($row2 = mysqli_fetch_assoc($result2)) {
                                                         if ($row1["e1"] != $row2["ne"] || $row1["e2"] != $row2["en"] || $row1["e3"] != $row2["sp"] || $row1["e4"] != $row2["pa"] || $row1["e5"] != $row2["wi"] || $row1["e6"] != $row2["na"] || $row1["e7"] != $row2["bi"] || $row1["e8"] != $row2["ec"] || $row1["e9"] != $row2["ak"] || $row1["e10"] != $row2["gs"] || $row1["e11"] != $row2["re"]) {
@@ -197,21 +224,49 @@
                                                     $id = $row["studentid"];
                                                     $personalia = $row["id"];
                                                     $get_cijfers = "SELECT 
-                                                    ROUND(AVG(CASE WHEN v.volledigenaamvak = 'ne' THEN c.gemiddelde END), 1) AS ne,
-                                                    ROUND(AVG(CASE WHEN v.volledigenaamvak = 'en' THEN c.gemiddelde END), 1) AS en,
-                                                    ROUND(AVG(CASE WHEN v.volledigenaamvak = 'sp' THEN c.gemiddelde END), 1) AS sp,
-                                                    ROUND(AVG(CASE WHEN v.volledigenaamvak = 'pa' THEN c.gemiddelde END), 1) AS pa,
-                                                    ROUND(AVG(CASE WHEN v.volledigenaamvak = 'wi' THEN c.gemiddelde END), 1) AS wi,
-                                                    ROUND(AVG(CASE WHEN v.volledigenaamvak = 'na' THEN c.gemiddelde END), 1) AS na,
-                                                    ROUND(AVG(CASE WHEN v.volledigenaamvak = 'bi' THEN c.gemiddelde END), 1) AS bi,
-                                                    ROUND(AVG(CASE WHEN v.volledigenaamvak = 'ec' THEN c.gemiddelde END), 1) AS ec,
-                                                    ROUND(AVG(CASE WHEN v.volledigenaamvak = 'ak' THEN c.gemiddelde END), 1) AS ak,
-                                                    ROUND(AVG(CASE WHEN v.volledigenaamvak = 'gs' THEN c.gemiddelde END), 1) AS gs,
-                                                    ROUND(AVG(CASE WHEN v.volledigenaamvak = 're' THEN c.gemiddelde END), 1) AS re
-                                                  FROM students s
-                                                  LEFT JOIN le_cijfers c ON s.id = c.studentid AND c.schooljaar = '$schooljaar' AND c.gemiddelde > 0
-                                                  LEFT JOIN le_vakken v ON c.vak = v.ID AND v.schoolid = $schoolid AND v.volledigenaamvak IN ('ne', 'en', 'sp', 'pa', 'wi', 'na', 'bi', 'ec', 'ak', 'gs', 're')
-                                                  WHERE s.id = $id;";
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'ne' THEN subquery.avg_c END), 1) AS ne,
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'en' THEN subquery.avg_c END), 1) AS en,
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'sp' THEN subquery.avg_c END), 1) AS sp,
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'pa' THEN subquery.avg_c END), 1) AS pa,
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'wi' THEN subquery.avg_c END), 1) AS wi,
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'na' THEN subquery.avg_c END), 1) AS na,
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'bi' THEN subquery.avg_c END), 1) AS bi,
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'ec' THEN subquery.avg_c END), 1) AS ec,
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'ak' THEN subquery.avg_c END), 1) AS ak,
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'gs' THEN subquery.avg_c END), 1) AS gs,
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 're' THEN subquery.avg_c END), 1) AS re
+                                                  FROM (
+                                                    SELECT 
+                                                        v.volledigenaamvak,
+                                                        ROUND(
+                                                          AVG(
+                                                            (
+                                                              GREATEST(IFNULL(c.c1, 0), IFNULL(c.c2, 0)) + 
+                                                              GREATEST(IFNULL(c.c5, 0), IFNULL(c.c6, 0)) + 
+                                                              GREATEST(IFNULL(c.c9, 0), IFNULL(c.c10, 0)) +
+                                                              IFNULL((c.c11/2), 0)
+                                                            ) / 
+                                                            (
+                                                              GREATEST(IF(c.c1 IS NOT NULL, 1, 0), IF(c.c2 IS NOT NULL, 1, 0)) + 
+                                                              GREATEST(IF(c.c5 IS NOT NULL, 1, 0), IF(c.c6 IS NOT NULL, 1, 0)) + 
+                                                              GREATEST(IF(c.c9 IS NOT NULL, 1, 0), IF(c.c10 IS NOT NULL, 1, 0)) +
+                                                              IF(c.c11 IS NOT NULL, 0.5, 0)
+                                                            )
+                                                          ), 
+                                                          1
+                                                        ) AS avg_c
+                                                    FROM students s
+                                                    LEFT JOIN le_cijfers c ON s.id = c.studentid 
+                                                      AND c.schooljaar = '$schooljaar' 
+                                                      AND c.gemiddelde > 0
+                                                    LEFT JOIN le_vakken v ON c.vak = v.ID 
+                                                      AND v.schoolid = $schoolid 
+                                                      AND v.volledigenaamvak IN ('ne', 'en', 'sp', 'pa', 'wi', 'na', 'bi', 'ec', 'ak', 'gs', 're')
+                                                    WHERE s.id = $id
+                                                      AND v.volledigenaamvak IS NOT NULL
+                                                    GROUP BY v.volledigenaamvak
+                                                  ) AS subquery;
+                                                  ";
                                                     $result1 = mysqli_query($mysqli, $get_cijfers);
                                                     while ($row1 = mysqli_fetch_assoc($result1)) {
                                                         $create_ex1 = "INSERT INTO eba_ex (type,schoolid,schooljaar,id_personalia,e1,e2,e3,e4,e5,e6,e7,e8,e9,e10,e11,e12) VALUES (2,$schoolid,'$schooljaar',$personalia,'" . $row1["ne"] . "','" . $row1["en"] . "','" . $row1["sp"] . "','" . $row1["pa"] . "','" . $row1["wi"] . "','" . $row1["na"] . "','" . $row1["na"] . "','" . $row1["bi"] . "','" . $row1["ec"] . "','" . $row1["ak"] . "','" . $row1["gs"] . "','" . $row1["re"] . "')";
