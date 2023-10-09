@@ -122,7 +122,7 @@ header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetm
 if ($type == 1) {
     header('Content-Disposition: attachment;filename="eba_exdocent_' . $schooljaar . '.xlsx"');
 } else {
-    header('Content-Disposition: attachment;filename="eba_ex2_' . $schooljaar . '.xlsx"');
+    header('Content-Disposition: attachment;filename="eba_' . $schooljaar . '.xlsx"');
 }
 
 $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');

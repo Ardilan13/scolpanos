@@ -331,6 +331,6 @@
     });
 
     $("#btn_eba_export").click(function() {
-        window.open("dev_tests\\export_eba_exdocent.php?type=2");
+        window.open("dev_tests\\export_eba_exdocent.php?type=4");
     });
 </script>

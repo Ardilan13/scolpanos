@@ -178,13 +178,14 @@
 				$(".vaken").addClass("hidden");
 				$(".group").removeClass("hidden");
 				$(".rapport").addClass("hidden");
-				$("#aviso").text("Belangrijk, vul eerst de norm in en dan de cijfers!")
+				$("#aviso").parent().hide()
 			} else {
 				$("#cijfers_vakken_lijst").attr('disabled', false);
 				$("#group").attr('disabled', true);
 				$(".group").addClass("hidden");
 				$(".vaken").removeClass("hidden");
 				$(".rapport").removeClass("hidden");
+				$("#aviso").parent().show()
 				$("#aviso").text("Belangrijk, vul eerst de norm in en dan de cijfers! Dit is alleen geldig voor klas 1, 2 en 3")
 			}
 		});
