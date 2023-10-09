@@ -126,16 +126,16 @@
                                                         ROUND(
                                                           AVG(
                                                             (
-                                                              GREATEST(IFNULL(c.c1, 0), IFNULL(c.c2, 0)) + 
-                                                              GREATEST(IFNULL(c.c5, 0), IFNULL(c.c6, 0)) + 
-                                                              GREATEST(IFNULL(c.c9, 0), IFNULL(c.c10, 0)) +
+                                                              IF(GREATEST(IFNULL(c.c1, 0), IFNULL(c.c2, 0)) = 0, NULL,GREATEST(IFNULL(c.c1, 0), IFNULL(c.c2, 0))) + 
+                                                              IF(GREATEST(IFNULL(c.c5, 0), IFNULL(c.c6, 0)) = 0, NULL, GREATEST(IFNULL(c.c5, 0), IFNULL(c.c6, 0))) + 
+                                                              IF(GREATEST(IFNULL(c.c9, 0), IFNULL(c.c10, 0)) = 0, NULL, GREATEST(IFNULL(c.c9, 0), IFNULL(c.c10, 0))) +
                                                               IFNULL((c.c11/2), 0)
                                                             ) / 
                                                             (
-                                                              GREATEST(IF(c.c1 IS NOT NULL, 1, 0), IF(c.c2 IS NOT NULL, 1, 0)) + 
-                                                              GREATEST(IF(c.c5 IS NOT NULL, 1, 0), IF(c.c6 IS NOT NULL, 1, 0)) + 
-                                                              GREATEST(IF(c.c9 IS NOT NULL, 1, 0), IF(c.c10 IS NOT NULL, 1, 0)) +
-                                                              IF(c.c11 IS NOT NULL, 0.5, 0)
+                                                              GREATEST(IF(c.c1 > 0.9, 1, 0), IF(c.c2 > 0.9, 1, 0)) + 
+                                                              GREATEST(IF(c.c5 > 0.9, 1, 0), IF(c.c6 > 0.9, 1, 0)) + 
+                                                              GREATEST(IF(c.c9 > 0.9, 1, 0), IF(c.c10 > 0.9, 1, 0)) +
+                                                              IF(c.c11 > 0.9, 0.5, 0)
                                                             )
                                                           ), 
                                                           1
@@ -241,16 +241,16 @@
                                                         ROUND(
                                                           AVG(
                                                             (
-                                                              GREATEST(IFNULL(c.c1, 0), IFNULL(c.c2, 0)) + 
-                                                              GREATEST(IFNULL(c.c5, 0), IFNULL(c.c6, 0)) + 
-                                                              GREATEST(IFNULL(c.c9, 0), IFNULL(c.c10, 0)) +
+                                                              IF(GREATEST(IFNULL(c.c1, 0), IFNULL(c.c2, 0)) = 0, NULL,GREATEST(IFNULL(c.c1, 0), IFNULL(c.c2, 0))) + 
+                                                              IF(GREATEST(IFNULL(c.c5, 0), IFNULL(c.c6, 0)) = 0, NULL, GREATEST(IFNULL(c.c5, 0), IFNULL(c.c6, 0))) + 
+                                                              IF(GREATEST(IFNULL(c.c9, 0), IFNULL(c.c10, 0)) = 0, NULL, GREATEST(IFNULL(c.c9, 0), IFNULL(c.c10, 0))) +
                                                               IFNULL((c.c11/2), 0)
                                                             ) / 
                                                             (
-                                                              GREATEST(IF(c.c1 IS NOT NULL, 1, 0), IF(c.c2 IS NOT NULL, 1, 0)) + 
-                                                              GREATEST(IF(c.c5 IS NOT NULL, 1, 0), IF(c.c6 IS NOT NULL, 1, 0)) + 
-                                                              GREATEST(IF(c.c9 IS NOT NULL, 1, 0), IF(c.c10 IS NOT NULL, 1, 0)) +
-                                                              IF(c.c11 IS NOT NULL, 0.5, 0)
+                                                              GREATEST(IF(c.c1 > 0.9, 1, 0), IF(c.c2 > 0.9, 1, 0)) + 
+                                                              GREATEST(IF(c.c5 > 0.9, 1, 0), IF(c.c6 > 0.9, 1, 0)) + 
+                                                              GREATEST(IF(c.c9 > 0.9, 1, 0), IF(c.c10 > 0.9, 1, 0)) +
+                                                              IF(c.c11 > 0.9, 0.5, 0)
                                                             )
                                                           ), 
                                                           1

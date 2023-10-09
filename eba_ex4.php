@@ -123,7 +123,7 @@
                                                   FROM (
                                                     SELECT 
                                                         v.volledigenaamvak,
-                                                        ROUND( IFNULL(c.c15, NULL), 1) AS avg_c
+                                                        ROUND( IF(c.c15 > 0.9,c.c15, NULL), 1) AS avg_c
                                                     FROM students s
                                                     LEFT JOIN le_cijfers c ON s.id = c.studentid 
                                                       AND c.schooljaar = '$schooljaar' 
@@ -222,7 +222,7 @@
                                                   FROM (
                                                     SELECT 
                                                         v.volledigenaamvak,
-                                                        ROUND( IFNULL(c.c15, 0), NULL) AS avg_c
+                                                        ROUND( IF(c.c15 > 0.9,c.c15, NULL), 1) AS avg_c
                                                     FROM students s
                                                     LEFT JOIN le_cijfers c ON s.id = c.studentid 
                                                       AND c.schooljaar = '$schooljaar' 
