@@ -333,6 +333,8 @@
     }
 
     $(document).ready(function() {
+        active_loader();
+
         $(".ex").each(function() {
             var value = $(this).attr("color");
             changeColor(value);
@@ -362,7 +364,15 @@
         countVaks()
     });
 
+    window.onload = function() {
+        active_loader();
+    }
+
     $("#btn_eba_export").click(function() {
         window.open("dev_tests\\export_eba_exdocent.php?type=2");
     });
+
+    function active_loader() {
+        $("#loader_spn").toggleClass('hidden');
+    }
 </script>

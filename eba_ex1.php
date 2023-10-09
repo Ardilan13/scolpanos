@@ -290,6 +290,7 @@
     }
 
     $(document).ready(function() {
+        active_loader();
         $(".profiel").each(function() {
             var value = $(this).attr("class").split(" ")[1];
             var id = $(this).attr("id");
@@ -304,6 +305,10 @@
         });
         countVaks()
     });
+
+    window.onload = function() {
+        active_loader();
+    }
 
     $(".ex").change(function() {
         var id = $(this).attr("id");
@@ -346,4 +351,8 @@
     $("#btn_eba_export").click(function() {
         window.open("dev_tests\\export_eba_ex1.php");
     });
+
+    function active_loader() {
+        $("#loader_spn").toggleClass('hidden');
+    }
 </script>

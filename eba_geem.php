@@ -176,6 +176,8 @@
     });
 
     $(document).ready(() => {
+        active_loader();
+
         $(".her").each(function() {
             var value = $(this).val();
             if (value == 10) {
@@ -183,6 +185,10 @@
             }
         });
     })
+
+    window.onload = function() {
+        active_loader();
+    }
 
     $(".her").change(function() {
         var value = $(this).val();
@@ -204,4 +210,8 @@
             }
         });
     });
+
+    function active_loader() {
+        $("#loader_spn").toggleClass('hidden');
+    }
 </script>

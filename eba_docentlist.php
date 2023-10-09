@@ -146,6 +146,8 @@
 
 <script>
     $(document).ready(function() {
+        active_loader();
+
         $.ajax({
             url: "ajax/getdocent.php",
             type: "POST",
@@ -160,6 +162,10 @@
             }
         });
     })
+
+    window.onload = function() {
+        active_loader();
+    }
 
     $("#btn_update").click(function(e) {
         e.preventDefault()
@@ -262,4 +268,8 @@
         var schooljaar = $("#schooljaar").val();
         window.open("dev_tests\\export_eba_docentlist.php");
     });
+
+    function active_loader() {
+        $("#loader_spn").toggleClass('hidden');
+    }
 </script>
