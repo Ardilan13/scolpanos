@@ -4451,7 +4451,7 @@ vak.append($("<option />").val(this.id).text(this.vak));
 
             var n = $(this).val();
 
-            if (n >= 0 && n <= 10) {
+            if ((n >= 1 && n <= 10) || n == "" || n == null) {
               $(this).closest("td").removeClass("error");
 
               $(this).closest("tr").addClass("active");
