@@ -86,7 +86,7 @@
                             <div class="sixth-bg-color brd-full">
                                 <div class="box box_form">
                                     <div class="box-content full-inset">
-                                        <div id="table" class="data-display  table-responsive">
+                                        <div id="table" class="data-display table-responsive">
                                             <?php
                                             require_once 'classes/DBCreds.php';
                                             require_once 'classes/spn_setting.php';
@@ -102,9 +102,48 @@
                                             $schooljaar = $_SESSION["SchoolJaar"];
                                             $s->getsetting_info($schoolid, false);
 
-                                            $get_personalia1 = "SELECT e.id,e.*,p.code,s.lastname,s.firstname,s.profiel,s.id as studentid FROM eba_ex e INNER JOIN personalia p ON e.id_personalia = p.id INNER JOIN students s ON p.studentid = s.id WHERE e.schoolid = $schoolid AND e.schooljaar = '$schooljaar' AND s.SchoolID = $schoolid AND e.type = 4;";
+                                            $get_personalia1 = "SELECT e.id,e.*,s.id as studentid FROM eba_ex e INNER JOIN personalia p ON e.id_personalia = p.id INNER JOIN students s ON p.studentid = s.id WHERE e.schoolid = $schoolid AND e.schooljaar = '$schooljaar' AND s.SchoolID = $schoolid AND e.type = 4;";
                                             $result1 = mysqli_query($mysqli, $get_personalia1);
                                             if ($result1->num_rows > 0) {
+                                                while ($row1 = mysqli_fetch_assoc($result1)) {
+                                                    $ex = $row1["id"];
+                                                    $id = $row1["studentid"];
+                                                    $get_cijfers = "SELECT 
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'ne' THEN subquery.avg_c END), 1) AS ne,
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'en' THEN subquery.avg_c END), 1) AS en,
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'sp' THEN subquery.avg_c END), 1) AS sp,
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'pa' THEN subquery.avg_c END), 1) AS pa,
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'wi' THEN subquery.avg_c END), 1) AS wi,
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'na' THEN subquery.avg_c END), 1) AS na,
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'bi' THEN subquery.avg_c END), 1) AS bi,
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'ec' THEN subquery.avg_c END), 1) AS ec,
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'ak' THEN subquery.avg_c END), 1) AS ak,
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'gs' THEN subquery.avg_c END), 1) AS gs,
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 're' THEN subquery.avg_c END), 1) AS re
+                                                  FROM (
+                                                    SELECT 
+                                                        v.volledigenaamvak,
+                                                        ROUND( IFNULL(c.c15, NULL), 1) AS avg_c
+                                                    FROM students s
+                                                    LEFT JOIN le_cijfers c ON s.id = c.studentid 
+                                                      AND c.schooljaar = '$schooljaar' 
+                                                      AND c.gemiddelde > 0
+                                                    LEFT JOIN le_vakken v ON c.vak = v.ID 
+                                                      AND v.schoolid = $schoolid 
+                                                      AND v.volledigenaamvak IN ('ne', 'en', 'sp', 'pa', 'wi', 'na', 'bi', 'ec', 'ak', 'gs', 're')
+                                                    WHERE s.id = $id
+                                                      AND v.volledigenaamvak IS NOT NULL
+                                                    GROUP BY v.volledigenaamvak
+                                                  ) AS subquery;";
+                                                    $result2 = mysqli_query($mysqli, $get_cijfers);
+                                                    while ($row2 = mysqli_fetch_assoc($result2)) {
+                                                        if ($row1["e1"] != $row2["ne"] || $row1["e2"] != $row2["en"] || $row1["e3"] != $row2["sp"] || $row1["e4"] != $row2["pa"] || $row1["e5"] != $row2["wi"] || $row1["e6"] != $row2["na"] || $row1["e7"] != $row2["bi"] || $row1["e8"] != $row2["ec"] || $row1["e9"] != $row2["ak"] || $row1["e10"] != $row2["gs"] || $row1["e11"] != $row2["re"]) {
+                                                            $create_ex1 = "UPDATE eba_ex SET e1 = '" . $row2["ne"] . "', e2 = '" . $row2["en"] . "', e3 ='" . $row2["sp"] . "',e4 ='" . $row2["pa"] . "',e5 ='" . $row2["wi"] . "',e6='" . $row2["na"] . "',e7='" . $row2["na"] . "',e8='" . $row2["bi"] . "',e9='" . $row2["ec"] . "',e10='" . $row2["ak"] . "',e11='" . $row2["gs"] . "',e12='" . $row2["re"] . "' WHERE id = $ex;";
+                                                            mysqli_query($mysqli, $create_ex1);
+                                                        }
+                                                    }
+                                                }
+
                                                 $get_personalia = "SELECT e.id,e.*,p.code,s.lastname,s.firstname,s.profiel,s.id as studentid FROM eba_ex e INNER JOIN personalia p ON e.id_personalia = p.id INNER JOIN students s ON p.studentid = s.id WHERE e.schoolid = $schoolid AND e.schooljaar = '$schooljaar' AND s.SchoolID = $schoolid AND e.type = 0 ORDER BY";
                                                 $sql_order = " lastname , firstname";
                                                 if ($s->_setting_mj) {
@@ -119,7 +158,7 @@
                                                             <th class="nr">Nr</th>
                                                             <th>Achternaam</th>
                                                             <th>Alle Voornamen</th>
-                                                            <th class="nr">#<br>Her</th>
+                                                            <th class="nr">#<br>Vak</th>
                                                             <th class="text-center min">ne</th>
                                                             <th class="text-center min">en</th>
                                                             <th class="text-center min">sp</th>
@@ -132,6 +171,7 @@
                                                             <th class="text-center min">ak</th>
                                                             <th class="text-center min">gs</th>
                                                             <th class="text-center min">re</th>
+                                                            <th class="paket">Paket</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -141,18 +181,19 @@
                                                                 <td><?php echo $row["lastname"]; ?></td>
                                                                 <td><?php echo $row["firstname"]; ?></td>
                                                                 <td id="vaks_<?php echo $x; ?>"></td>
-                                                                <td><input id="<?php echo $row['studentid']; ?>" maxlength="3" style="width: 100%;" class="text-center ex e1 i<?php echo $x; ?>" type="text" color="<?php echo $row["e1"]; ?>"></td>
-                                                                <td><input id="<?php echo $row['studentid']; ?>" maxlength="3" style="width: 100%;" class="text-center ex e2 i<?php echo $x; ?>" type="text" color="<?php echo $row["e2"]; ?>"></td>
-                                                                <td><input id="<?php echo $row['studentid']; ?>" maxlength="3" style="width: 100%;" class="text-center ex e3 i<?php echo $x; ?>" type="text" color="<?php echo $row["e3"]; ?>"></td>
-                                                                <td><input id="<?php echo $row['studentid']; ?>" maxlength="3" style="width: 100%;" class="text-center ex e4 i<?php echo $x; ?>" type="text" color="<?php echo $row["e4"]; ?>"></td>
-                                                                <td><input id="<?php echo $row['studentid']; ?>" maxlength="3" style="width: 100%;" class="text-center ex e5 i<?php echo $x; ?>" type="text" color="<?php echo $row["e5"]; ?>"></td>
-                                                                <td><input id="<?php echo $row['studentid']; ?>" maxlength="3" style="width: 100%;" class="text-center ex e6 i<?php echo $x; ?>" type="text" color="<?php echo $row["e6"]; ?>"></td>
-                                                                <td><input id="<?php echo $row['studentid']; ?>" maxlength="3" style="width: 100%;" class="text-center ex e7 i<?php echo $x; ?>" type="text" color="<?php echo $row["e7"]; ?>"></td>
-                                                                <td><input id="<?php echo $row['studentid']; ?>" maxlength="3" style="width: 100%;" class="text-center ex e8 i<?php echo $x; ?>" type="text" color="<?php echo $row["e8"]; ?>"></td>
-                                                                <td><input id="<?php echo $row['studentid']; ?>" maxlength="3" style="width: 100%;" class="text-center ex e9 i<?php echo $x; ?>" type="text" color="<?php echo $row["e9"]; ?>"></td>
-                                                                <td><input id="<?php echo $row['studentid']; ?>" maxlength="3" style="width: 100%;" class="text-center ex e10 i<?php echo $x; ?>" type="text" color="<?php echo $row["e10"]; ?>"></td>
-                                                                <td><input id="<?php echo $row['studentid']; ?>" maxlength="3" style="width: 100%;" class="text-center ex e11 i<?php echo $x; ?>" type="text" color="<?php echo $row["e11"]; ?>"></td>
-                                                                <td><input id="<?php echo $row['studentid']; ?>" maxlength="3" style="width: 100%;" class="text-center ex e12 i<?php echo $x; ?>" type="text" color="<?php echo $row["e12"]; ?>"></td>
+                                                                <td id="<?php echo $row['studentid']; ?>" class="text-center ex e1 i<?php echo $x; ?>" color="<?php echo $row["e1"]; ?>"></td>
+                                                                <td id="<?php echo $row['studentid']; ?>" class="text-center ex e2 i<?php echo $x; ?>" color="<?php echo $row["e2"]; ?>"></td>
+                                                                <td id="<?php echo $row['studentid']; ?>" class="text-center ex e3 i<?php echo $x; ?>" color="<?php echo $row["e3"]; ?>"></td>
+                                                                <td id="<?php echo $row['studentid']; ?>" class="text-center ex e4 i<?php echo $x; ?>" color="<?php echo $row["e4"]; ?>"></td>
+                                                                <td id="<?php echo $row['studentid']; ?>" class="text-center ex e5 i<?php echo $x; ?>" color="<?php echo $row["e5"]; ?>"></td>
+                                                                <td id="<?php echo $row['studentid']; ?>" class="text-center ex e6 i<?php echo $x; ?>" color="<?php echo $row["e6"]; ?>"></td>
+                                                                <td id="<?php echo $row['studentid']; ?>" class="text-center ex e7 i<?php echo $x; ?>" color="<?php echo $row["e7"]; ?>"></td>
+                                                                <td id="<?php echo $row['studentid']; ?>" class="text-center ex e8 i<?php echo $x; ?>" color="<?php echo $row["e8"]; ?>"></td>
+                                                                <td id="<?php echo $row['studentid']; ?>" class="text-center ex e9 i<?php echo $x; ?>" color="<?php echo $row["e9"]; ?>"></td>
+                                                                <td id="<?php echo $row['studentid']; ?>" class="text-center ex e10 i<?php echo $x; ?>" color="<?php echo $row["e10"]; ?>"></td>
+                                                                <td id="<?php echo $row['studentid']; ?>" class="text-center ex e11 i<?php echo $x; ?>" color="<?php echo $row["e11"]; ?>"></td>
+                                                                <td id="<?php echo $row['studentid']; ?>" class="text-center ex e12 i<?php echo $x; ?>" color="<?php echo $row["e12"]; ?>"></td>
+                                                                <td><?php echo $row["profiel"]; ?></td>
                                                             </tr>
                                                         <?php
                                                             $x++;
@@ -160,11 +201,45 @@
                                                     </tbody>
                                                 </table>
                                             <?php } else {
-                                                $get_students = "SELECT id FROM personalia WHERE schoolid = $schoolid AND schooljaar = '$schooljaar'";
+
+                                                $get_students = "SELECT studentid,id FROM personalia WHERE schoolid = $schoolid AND schooljaar = '$schooljaar'";
                                                 $result = mysqli_query($mysqli, $get_students);
                                                 while ($row = mysqli_fetch_assoc($result)) {
-                                                    $create_ex1 = "INSERT INTO eba_ex (type,schoolid,schooljaar,id_personalia) VALUES (4,$schoolid,'$schooljaar'," . $row["id"] . ")";
-                                                    mysqli_query($mysqli, $create_ex1);
+                                                    $id = $row["studentid"];
+                                                    $personalia = $row["id"];
+                                                    $get_cijfers = "SELECT 
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'ne' THEN subquery.avg_c END), 1) AS ne,
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'en' THEN subquery.avg_c END), 1) AS en,
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'sp' THEN subquery.avg_c END), 1) AS sp,
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'pa' THEN subquery.avg_c END), 1) AS pa,
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'wi' THEN subquery.avg_c END), 1) AS wi,
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'na' THEN subquery.avg_c END), 1) AS na,
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'bi' THEN subquery.avg_c END), 1) AS bi,
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'ec' THEN subquery.avg_c END), 1) AS ec,
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'ak' THEN subquery.avg_c END), 1) AS ak,
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'gs' THEN subquery.avg_c END), 1) AS gs,
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 're' THEN subquery.avg_c END), 1) AS re
+                                                  FROM (
+                                                    SELECT 
+                                                        v.volledigenaamvak,
+                                                        ROUND( IFNULL(c.c15, 0), NULL) AS avg_c
+                                                    FROM students s
+                                                    LEFT JOIN le_cijfers c ON s.id = c.studentid 
+                                                      AND c.schooljaar = '$schooljaar' 
+                                                      AND c.gemiddelde > 0
+                                                    LEFT JOIN le_vakken v ON c.vak = v.ID 
+                                                      AND v.schoolid = $schoolid 
+                                                      AND v.volledigenaamvak IN ('ne', 'en', 'sp', 'pa', 'wi', 'na', 'bi', 'ec', 'ak', 'gs', 're')
+                                                    WHERE s.id = $id
+                                                      AND v.volledigenaamvak IS NOT NULL
+                                                    GROUP BY v.volledigenaamvak
+                                                  ) AS subquery;
+                                                  ";
+                                                    $result1 = mysqli_query($mysqli, $get_cijfers);
+                                                    while ($row1 = mysqli_fetch_assoc($result1)) {
+                                                        $create_ex1 = "INSERT INTO eba_ex (type,schoolid,schooljaar,id_personalia,e1,e2,e3,e4,e5,e6,e7,e8,e9,e10,e11,e12) VALUES (4,$schoolid,'$schooljaar',$personalia,'" . $row1["ne"] . "','" . $row1["en"] . "','" . $row1["sp"] . "','" . $row1["pa"] . "','" . $row1["wi"] . "','" . $row1["na"] . "','" . $row1["na"] . "','" . $row1["bi"] . "','" . $row1["ec"] . "','" . $row1["ak"] . "','" . $row1["gs"] . "','" . $row1["re"] . "')";
+                                                        mysqli_query($mysqli, $create_ex1);
+                                                    }
                                                 }
                                                 header("Refresh:0");
                                             } ?>
@@ -195,7 +270,7 @@
             var numero = $(this).attr("class").split(" ")[1];
             var cont = 0;
             $(".i" + numero).each(function() {
-                var value = $(this).val();
+                var value = $(this).text();
                 if (value != null && value != "") {
                     cont++;
                 }
@@ -207,8 +282,17 @@
     function changeColor(value) {
         value = value.toUpperCase();
         switch (value) {
+            case "X":
+                $color = "white"
+                break;
+            case "V":
+                $color = "dodgerblue"
+                break;
             case "H":
                 $color = "#ccffff"
+                break;
+            case "NS":
+                $color = "deeppink"
                 break;
             default:
                 $color = "lightgray"
@@ -230,13 +314,13 @@
                     data: {
                         id: $(this).attr("id"),
                         ex: $(this).attr("class").split(" ")[2],
-                        type: 4
+                        type: 4,
                     },
                     success: function(data) {
                         if (data != null && data != "") {
                             data = JSON.parse(data);
-                            var input = $("input#" + data.id + ".ex." + data.ex);
-                            input.val(data.personalia);
+                            var input = $("td#" + data.id + ".ex." + data.ex);
+                            input.text(data.personalia);
                             countVaks()
                         }
                     }
@@ -246,27 +330,7 @@
         countVaks()
     });
 
-    $(".ex").change(function() {
-        var id = $(this).attr("id");
-        var code = $(this).val().toUpperCase();
-        var ex = $(this).attr("class").split(" ")[2];
-        $.ajax({
-            url: "ajax/save_eba_exdocent.php",
-            type: "POST",
-            data: {
-                id: id,
-                code: code,
-                ex: ex,
-                type: 4
-            },
-            success: function(data) {
-                console.log(data);
-            }
-        });
-        countVaks();
-    });
-
     $("#btn_eba_export").click(function() {
-        window.open("dev_tests\\export_eba_exdocent.php?type=4");
+        window.open("dev_tests\\export_eba_exdocent.php?type=2");
     });
 </script>
