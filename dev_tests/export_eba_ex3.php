@@ -47,7 +47,7 @@ ORDER BY e.id_personalia";
 $result = mysqli_query($mysqli, $get_students);
 if ($result->num_rows > 0) {
     $hojaActiva->setCellValue('D6', $name);
-    $hojaActiva->setCellValue('D7', $vak);
+    $hojaActiva->setCellValue('Z8', substr($vak, 0, 2));
     $hojaActiva->setCellValue('B5', $schoolname);
     $hojaActiva->setCellValue('C4', $schooljaar);
     while ($row = mysqli_fetch_assoc($result)) {

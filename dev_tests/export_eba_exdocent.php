@@ -63,6 +63,20 @@ ORDER BY s.lastname, s.firstname;
 ";
 $result = mysqli_query($mysqli, $get_personalia);
 if ($result->num_rows > 0) {
+    switch ($type) {
+        case 1:
+            $hojaActiva->setCellValue('C3', 'Docenten');
+            break;
+        case 2:
+            $hojaActiva->setCellValue('C3', 'EX2');
+            break;
+        case 3:
+            $hojaActiva->setCellValue('C3', 'EX3A');
+            break;
+        case 4:
+            $hojaActiva->setCellValue('C3', 'EX4');
+            break;
+    }
     $hojaActiva->setCellValue('B8', $schoolname);
     $hojaActiva->setCellValue('C7', $schooljaar);
     while ($row = mysqli_fetch_assoc($result)) {
