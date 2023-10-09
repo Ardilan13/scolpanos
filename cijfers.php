@@ -80,7 +80,7 @@
 									</div>
 									<?php if ($_SESSION["SchoolType"] == 2) { ?>
 										<div class="form-group" style="background-color: #ffdc66; border: 1px solid black; margin-left: 20px;">
-											<p>Belangrijk, vul eerst de norm in en dan de cijfers!</p>
+											<p id="aviso">Belangrijk, vul eerst de norm in en dan de cijfers! Dit is alleen geldig voor klas 1, 2 en 3</p>
 										</div>
 									<?php } ?>
 									<!-- <div class="form-group">
@@ -178,12 +178,14 @@
 				$(".vaken").addClass("hidden");
 				$(".group").removeClass("hidden");
 				$(".rapport").addClass("hidden");
+				$("#aviso").text("Belangrijk, vul eerst de norm in en dan de cijfers!")
 			} else {
 				$("#cijfers_vakken_lijst").attr('disabled', false);
 				$("#group").attr('disabled', true);
 				$(".group").addClass("hidden");
 				$(".vaken").removeClass("hidden");
 				$(".rapport").removeClass("hidden");
+				$("#aviso").text("Belangrijk, vul eerst de norm in en dan de cijfers! Dit is alleen geldig voor klas 1, 2 en 3")
 			}
 		});
 	})
