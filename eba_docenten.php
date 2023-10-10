@@ -273,6 +273,7 @@
                 id: id,
                 code: code,
                 ex: ex,
+                type: 1
             },
             success: function(data) {
                 console.log(data);

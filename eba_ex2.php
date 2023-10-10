@@ -341,6 +341,46 @@
             $(this).css("background-color", $color);
             if ($color == "lightgray") {
                 $(this).attr("disabled", true);
+            } else if ($color == "dodgerblue") {
+                $(this).append("<input type='text' class='h'>")
+                var input = $(this).find("input.h");
+                $.ajax({
+                    url: "ajax/get_eba_exdocent.php",
+                    type: "POST",
+                    data: {
+                        id: $(this).attr("id"),
+                        ex: $(this).attr("class").split(" ")[2],
+                        type: 2,
+                    },
+                    success: function(data) {
+                        if (data != null && data != "") {
+                            data = JSON.parse(data);
+                            input.val(data.personalia);
+                            console.log(data);
+                            countVaks()
+                        }
+                    }
+                });
+
+                input.change(function() {
+                    var id = input.parent().attr("id");
+                    var code = input.val().toUpperCase();
+                    var ex = input.parent().attr("class").split(" ")[2];
+                    $.ajax({
+                        url: "ajax/save_eba_exdocent.php",
+                        type: "POST",
+                        data: {
+                            id: id,
+                            code: code,
+                            ex: ex,
+                            type: 2
+                        },
+                        success: function(data) {
+                            console.log(data);
+                        }
+                    });
+                    countVaks();
+                });
             } else {
                 $.ajax({
                     url: "ajax/get_eba_exdocent.php",
