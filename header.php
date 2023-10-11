@@ -37,9 +37,9 @@ if (!empty($session_firstname) && !empty($session_lastname) && !empty($session_t
 						<li class="dropdown pull-right">
 							<a href="#" id="user-profile" class="nav-item dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> <?php print $fullname ?> <i class="fa fa-angle-down"></i></a>
 							<ul class="dropdown-menu" aria-labelledby="user-profile">
-								<li class="dropdown-header">Account settings</li>
+								<!-- <li class="dropdown-header">Account settings</li>
 								<li><a href="#"><i class="fa fa-user"></i> Edit profile</a></li>
-								<li><a href="#"><i class="fa fa-gear"></i> Change password</a></li>
+								<li><a href="#"><i class="fa fa-gear"></i> Change password</a></li> -->
 								<li role="separator" class="divider"></li>
 								<li class="dropdown-header">Extra info</li>
 
