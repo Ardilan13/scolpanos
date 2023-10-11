@@ -462,7 +462,8 @@ switch ($_GET['name']) {
         $c = new spn_cijfers();
         require_once("classes/spn_cijfers_mobile.php");
         $cm = new spn_cijfers_mobile();
-        if ($_GET["schoolJaar"] == "2022-2023" && $_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["SchoolID"] != 11) {
+        $jaar = substr($_GET["schoolJaar"], 0, 4);
+        if ($jaar >= 2022 && $_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["SchoolID"] != 11) {
             $print_table = $c->list_cijfers_by_student_ps($_GET["schoolJaar"], $_GET["id"], appconfig::GetDummy());
         } else {
             $print_table = $c->list_cijfers_by_student($_GET["schoolJaar"], $_GET["id"], appconfig::GetDummy());
