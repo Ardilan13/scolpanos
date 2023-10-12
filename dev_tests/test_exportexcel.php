@@ -71,7 +71,7 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 		AND c.klas = '$klas_in'
 		AND c.rapnummer = '$i'
 		ORDER BY";
-		$sql_order = " s.lastname " . $s->_setting_sort . ", s.firstname";
+		$sql_order = " s.lastname , s.firstname";
 		if ($s->_setting_mj) {
 			$sql_query .= " s.sex " . $s->_setting_sort . ", " . $sql_order;
 		} else {

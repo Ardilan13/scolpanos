@@ -13,8 +13,8 @@ $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $D
 $schoolid = $_SESSION["SchoolID"];
 $schooljaar = $_SESSION["SchoolJaar"];
 
-echo $returnhash = hash('sha512', '27qSiZxCqJSHSu0JNLX1zf7Ksvw=' . 'dilan');
-
+/* echo $returnhash = hash('sha512', '27qSiZxCqJSHSu0JNLX1zf7Ksvw=' . 'dilan');
+ */
 /* $id = 552917;
 $get_klas = "SELECT name_class FROM class WHERE schoolid = $schoolid AND level_class > 0 ORDER BY name_class ASC";
 $result = mysqli_query($mysqli, $get_klas);
