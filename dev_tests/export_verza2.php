@@ -51,15 +51,22 @@ switch ($level_klas) {
         break;
 
     case 3:
-    case 4:
         $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader("Xlsx");
         $spreadsheet = $reader->load("../templates/verza_v2-3-4.xlsx");
+        break;
+    case 4:
+        $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader("Xlsx");
+        $spreadsheet = $reader->load("../templates/verza_4.xlsx");
         break;
 }
 
 $i = 1;
 
-$spreadsheet->setActiveSheetIndex(6);
+if ($level_klas == 4) {
+    $spreadsheet->setActiveSheetIndex(5);
+} else {
+    $spreadsheet->setActiveSheetIndex(6);
+}
 $hojaActiva = $spreadsheet->getActiveSheet();
 $hojaActiva->setCellValue('B4', $img);
 
@@ -71,8 +78,58 @@ while ($i <= $rap_in) {
     $_while_counter = 0;
     $_currentstudent = null;
     $_laststudent = null;
-    $_current_student_start_row = 6;
-    $sql_query = "SELECT DISTINCT
+    if ($level_klas == 4) {
+        switch ($i) {
+            case 1:
+                $c = "IF(GREATEST(IFNULL(c.c1, 0), IFNULL(c.c2, 0)) = 0, NULL,GREATEST(IFNULL(c.c1, 0), IFNULL(c.c2, 0)))";
+                break;
+            case 2:
+                $c = "IF(GREATEST(IFNULL(c.c5, 0), IFNULL(c.c6, 0)) = 0, NULL,GREATEST(IFNULL(c.c5, 0), IFNULL(c.c6, 0)))";
+                break;
+            case 3:
+                $c = "IF(GREATEST(IFNULL(c.c9, 0), IFNULL(c.c10, 0)) = 0, NULL,GREATEST(IFNULL(c.c9, 0), IFNULL(c.c10, 0)))";
+                break;
+        }
+        $_current_student_start_row = 7;
+        $sql_query = "SELECT DISTINCT
+                    s.id as studentid,
+                    c.id as cijferid,
+                    v.id as vakid,
+                    st.year_period,
+                    s.class,
+                    s.firstname,
+                    s.lastname,
+                    s.sex,
+                    s.dob,
+                    s.profiel,
+                    $c as gemiddelde,
+                    IFNULL((c.c11), 0) as po,
+                    ROUND( IF(c.c14 > 0.9,c.c14, NULL), 1) as cex,
+                    ROUND( IF(c.c15 > 0.9,c.c15, NULL), 1) as her,
+                    v.volgorde,
+                    v.x_index,
+                    v.volledigenaamvak,
+                    CONCAT(app.firstname,' ',app.lastname) as docent_name
+                    FROM students s
+                    LEFT JOIN le_cijfers c ON s.id = c.studentid
+                    LEFT JOIN le_vakken v ON c.vak = v.id
+                    INNER JOIN setting st ON st.schoolid = s.schoolid
+                    INNER JOIN app_useraccounts app ON st.schoolid = app.SchoolID and app.UserGUID = '$user'
+                    WHERE
+                    s.schoolid = $schoolid
+                    AND v.SchoolID = $schoolid
+                    AND st.year_period = '$schooljaar'
+                    and c.gemiddelde >= 0
+                    AND c.schooljaar = '$schooljaar'
+                    AND s.class = '$klas_in'
+                    AND c.klas = '$klas_in'
+                    AND v.klas = '$klas_in'
+                    AND c.rapnummer = 4
+                    AND x_index is not null
+                    ORDER BY";
+    } else {
+        $_current_student_start_row = 6;
+        $sql_query = "SELECT DISTINCT
                 s.id as studentid,
                 c.id as cijferid,
                 v.id as vakid,
@@ -105,6 +162,7 @@ while ($i <= $rap_in) {
                 AND c.rapnummer = $i
                 AND x_index is not null
                 ORDER BY";
+    }
     $sql_order = " s.lastname " . $s->_setting_sort . ", s.firstname";
     if ($s->_setting_mj) {
         $sql_query .= " s.sex " . $s->_setting_sort . ", " . $sql_order;
@@ -141,14 +199,33 @@ while ($i <= $rap_in) {
     $cont = 0;
 
     while ($row = mysqli_fetch_assoc($resultado)) {
+        switch ($i) {
+            case 1:
+                $spreadsheet->setActiveSheetIndex(0);
+                break;
+
+            case 2:
+                $spreadsheet->setActiveSheetIndex(1);
+                break;
+
+            case 3:
+                $spreadsheet->setActiveSheetIndex(2);
+                break;
+        }
+        $hojaActiva = $spreadsheet->getActiveSheet();
         $cont = $cont + 1;
         $ultima = mysqli_num_rows($resultado);
         $hojaActiva->setCellValue('BX1', $ultima . " " . $cont);
         if ($_while_counter == 0) {
             $_laststudent = $row["studentid"];
-            $hojaActiva->setCellValue('B2', "Klas: " . $klas_in);
-            $hojaActiva->setCellValue('L2', $schooljaar);
-            $hojaActiva->setCellValue('B5', $row["docent_name"]);
+            if ($level_klas == 4) {
+                $hojaActiva->setCellValue('B3', $klas_in);
+                $hojaActiva->setCellValue('J2', $schooljaar);
+            } else {
+                $hojaActiva->setCellValue('B2', "Klas: " . $klas_in);
+                $hojaActiva->setCellValue('L2', $schooljaar);
+                $hojaActiva->setCellValue('B5', $row["docent_name"]);
+            }
         }
         $_currentstudent = $row["studentid"];
         $vakid_out = $row["vakid"];
@@ -184,12 +261,20 @@ while ($i <= $rap_in) {
             $hojaActiva->setCellValue('B' . (string)$_current_student_start_row, $row["lastname"] . ", " . $row["firstname"]);
             if ($level_klas == 3 && $i == 1) {
                 $hojaActiva->setCellValue('AB' . (string)$_current_student_start_row, $row["profiel"]);
+            } else if ($level_klas == 4 && $i == 3) {
+                $hojaActiva->setCellValue('R' . (string)$_current_student_start_row, $row["profiel"]);
+            } else if ($level_klas == 4) {
+                $hojaActiva->setCellValue('U' . (string)$_current_student_start_row, $row["profiel"]);
             }
         }
         if ($_while_counter == 0) {
             $hojaActiva->setCellValue('B' . (string)$_current_student_start_row, $row["lastname"] . ", " . $row["firstname"]);
             if ($level_klas == 3 && $i == 1) {
                 $hojaActiva->setCellValue('AB' . (string)$_current_student_start_row, $row["profiel"]);
+            } else if ($level_klas == 4 && $i == 3) {
+                $hojaActiva->setCellValue('R' . (string)$_current_student_start_row, $row["profiel"]);
+            } else if ($level_klas == 4) {
+                $hojaActiva->setCellValue('U' . (string)$_current_student_start_row, $row["profiel"]);
             }
         }
 
@@ -205,7 +290,6 @@ while ($i <= $rap_in) {
                     }
                     break;
                 case 3:
-                case 4:
                     if ($row["dob"] != "2000-00-00" && $row["dob"] != "0000-00-00") {
                         $spreadsheet->setActiveSheetIndex(3);
                         $hojaActiva = $spreadsheet->getActiveSheet();
@@ -257,7 +341,6 @@ while ($i <= $rap_in) {
                     }
                     break;
                 case 3:
-                case 4:
                     $spreadsheet->setActiveSheetIndex(3);
                     $hojaActiva = $spreadsheet->getActiveSheet();
                     $hojaActiva->setCellValue('B2', "Klas: " . $klas_in);
@@ -356,7 +439,6 @@ while ($i <= $rap_in) {
                 break;
 
             case 3:
-            case 4:
                 switch ($row["volledigenaamvak"]) {
 
                     case 'lo':
@@ -420,6 +502,69 @@ while ($i <= $rap_in) {
                         break;
                 }
                 break;
+            case 4:
+                switch ($row["volledigenaamvak"]) {
+                    case 'lo':
+                        $returnvalue = 'O';
+                        break;
+
+                    case 'pa':
+                        $returnvalue = 'F';
+                        break;
+
+                    case 'ne':
+                        $returnvalue = 'C';
+                        break;
+
+                    case 'en':
+                        $returnvalue = 'D';
+                        break;
+
+                    case 'sp':
+                        $returnvalue = 'E';
+                        break;
+
+                    case 'wi':
+                        $returnvalue = 'G';
+                        break;
+
+                    case 'ik':
+                        $returnvalue = 'N';
+                        break;
+
+                    case 'rk':
+                        $returnvalue = 'Q';
+                        break;
+
+                    case 'na':
+                        $returnvalue = 'H';
+                        break;
+
+                    case 'sk':
+                        $returnvalue = $i == 3 ? 'J' : 'I';
+                        break;
+
+                    case 'bi':
+                        $returnvalue = $i == 3 ? 'K' : 'J';
+                        break;
+
+                    case 'ec':
+                        $returnvalue = $i == 3 ? 'M' : 'K';
+                        break;
+
+                    case 'ak':
+                        $returnvalue = $i == 3 ? 'N' : 'L';
+                        break;
+
+                    case 'gs':
+                        $returnvalue = $i == 3 ? 'P' : 'T';
+                        break;
+
+                    default:
+                        $returnvalue = "XX";
+                        break;
+                }
+                break;
         }
         if ($cont == $ultima && ($schoolid != 12 || $level_klas < 3)) {
             if ($mu > 0 && $bv > 0)
@@ -450,6 +595,94 @@ while ($i <= $rap_in) {
         if ($row["gemiddelde"] > 0) {
             $colgemiddelde = (string)$returnvalue . (string)$_current_student_start_row;
             $hojaActiva->setCellValue($colgemiddelde, $row["gemiddelde"]);
+        }
+
+        if ($i == 3 && $level_klas == 4 && $row["po"] > 0) {
+            switch ($row["volledigenaamvak"]) {
+                case "na":
+                    $hojaActiva->setCellValue("I" . (string)$_current_student_start_row, $row["po"]);
+                    break;
+                case "bi":
+                    $hojaActiva->setCellValue("L" . (string)$_current_student_start_row, $row["po"]);
+                    break;
+                case "gs":
+                    $hojaActiva->setCellValue("Q" . (string)$_current_student_start_row, $row["po"]);
+                    break;
+                case "ak":
+                    $hojaActiva->setCellValue("O" . (string)$_current_student_start_row, $row["po"]);
+                    break;
+            }
+        }
+        if ($level_klas == 4) {
+            $spreadsheet->setActiveSheetIndex(4);
+            $hojaActiva = $spreadsheet->getActiveSheet();
+            switch ($row["volledigenaamvak"]) {
+                case 'pa':
+                    $cex = 'AB';
+                    $her = 'AC';
+                    break;
+
+                case 'ne':
+                    $cex = 'G';
+                    $her = 'H';
+                    break;
+
+                case 'en':
+                    $cex = 'N';
+                    $her = 'O';
+                    break;
+
+                case 'sp':
+                    $cex = 'U';
+                    $her = 'V';
+                    break;
+
+                case 'wi':
+                    $cex = 'AI';
+                    $her = 'AJ';
+                    break;
+
+                case 'na':
+                    $cex = 'AQ';
+                    $her = 'AR';
+                    break;
+
+                case 'sk':
+                    $cex = 'AX';
+                    $her = 'AY';
+                    break;
+
+                case 'bi':
+                    $cex = 'BF';
+                    $her = 'BG';
+                    break;
+
+                case 'ec':
+                    $cex = 'BM';
+                    $her = 'BN';
+                    break;
+
+                case 'ak':
+                    $cex = 'BU';
+                    $her = 'BV';
+                    break;
+
+                case 'gs':
+                    $cex = 'CC';
+                    $her = 'CD';
+                    break;
+
+                default:
+                    $cex = "XX";
+                    $her = 'YY';
+                    break;
+            }
+            if ($row["cex"] != NULL || $row["her"] != NULL) {
+                $colcex = (string)$cex . (string)$_current_student_start_row;
+                $colher = (string)$her . (string)$_current_student_start_row;
+                $hojaActiva->setCellValue($colcex, $row["cex"]);
+                $hojaActiva->setCellValue($colher, $row["her"]);
+            }
         }
         $_laststudent = $_currentstudent;
         $_while_counter++;
@@ -490,7 +723,7 @@ while ($i <= $rap_in) {
                 }
             }
         }
-        $query = "SELECT opmerking1, opmerking2, opmerking3 FROM opmerking WHERE klas = '$klas_in' AND SchoolID = $schoolid AND studentid = $id AND schooljaar = '$schooljaar'";
+        $query = "SELECT opmerking1, opmerking2, opmerking3 FROM opmerking WHERE klas = '$klas_in' AND SchoolID = $schoolid AND studentid = $id AND schooljaar = '$schooljaar' AND rapport = $i LIMIT 1";
         $resultado = mysqli_query($mysqli, $query);
         while ($row = mysqli_fetch_assoc($resultado)) {
             $opmerking1 = $row["opmerking1"];
@@ -519,10 +752,17 @@ while ($i <= $rap_in) {
                 break;
 
             case 3:
-            case 4:
                 $hojaActiva->setCellValue("W" . (string)$_current_student_start_row, $cont_laat);
                 $hojaActiva->setCellValue("X" . (string)$_current_student_start_row, $cont_verzuim);
                 $hojaActiva->setCellValue("AC" . (string)$_current_student_start_row, $opmerking);
+                break;
+
+            case 4:
+                if ($i == 3) {
+                    $hojaActiva->setCellValue("T" . (string)$_current_student_start_row, $opmerking1);
+                } else {
+                    $hojaActiva->setCellValue("W" . (string)$_current_student_start_row, $opmerking1);
+                }
                 break;
         }
         $cont_laat = 0;
