@@ -163,7 +163,7 @@ while ($i <= $rap_in) {
                 AND x_index is not null
                 ORDER BY";
     }
-    $sql_order = " s.lastname " . $s->_setting_sort . ", s.firstname";
+    $sql_order = " s.lastname , s.firstname";
     if ($s->_setting_mj) {
         $sql_query .= " s.sex " . $s->_setting_sort . ", " . $sql_order;
     } else {
@@ -540,9 +540,9 @@ while ($i <= $rap_in) {
                         $returnvalue = 'H';
                         break;
 
-                    case 'sk':
-                        $returnvalue = $i == 3 ? 'J' : 'I';
-                        break;
+                        // case 'sk':
+                        //     $returnvalue = $i == 3 ? 'J' : 'I';
+                        //     break;
 
                     case 'bi':
                         $returnvalue = $i == 3 ? 'K' : 'J';
@@ -647,10 +647,10 @@ while ($i <= $rap_in) {
                     $her = 'AR';
                     break;
 
-                case 'sk':
-                    $cex = 'AX';
-                    $her = 'AY';
-                    break;
+                    // case 'sk':
+                    //     $cex = 'AX';
+                    //     $her = 'AY';
+                    //     break;
 
                 case 'bi':
                     $cex = 'BF';
@@ -683,6 +683,20 @@ while ($i <= $rap_in) {
                 $hojaActiva->setCellValue($colcex, $row["cex"]);
                 $hojaActiva->setCellValue($colher, $row["her"]);
             }
+
+            switch ($row["volledigenaamvak"]) {
+                case 'lo':
+                    $cex = 'CG';
+                    break;
+
+                case 'ckv':
+                    $cex = 'CF';
+                    break;
+            }
+            if ($row["cex"] != NULL) {
+                $colcex = (string)$cex . (string)$_current_student_start_row;
+                $hojaActiva->setCellValue($colcex, $row["cex"]);
+            }
         }
         $_laststudent = $_currentstudent;
         $_while_counter++;
@@ -697,7 +711,7 @@ while ($i <= $rap_in) {
         $sql_query_student .=  $sql_order;
     }
 
-    $_current_student_start_row = 6;
+    $_current_student_start_row = $level_klas == 4 ? 7 : 6;
     $cont_laat = 0;
     $cont_verzuim = 0;
     $_laststudent = 0;
@@ -743,6 +757,20 @@ while ($i <= $rap_in) {
                 $opmerking = $opmerking3;
                 break;
         }
+        switch ($i) {
+            case 1:
+                $spreadsheet->setActiveSheetIndex(0);
+                break;
+
+            case 2:
+                $spreadsheet->setActiveSheetIndex(1);
+                break;
+
+            case 3:
+                $spreadsheet->setActiveSheetIndex(2);
+                break;
+        }
+        $hojaActiva = $spreadsheet->getActiveSheet();
         switch ($level_klas) {
             case 1:
             case 2:
