@@ -4553,7 +4553,11 @@ if($avg_h == 0.0){$avg_h = null;}
     $page_html .= "<div class='row'>";
     $page_html .= "<div class='card'>";
     $page_html .= "<div class='card-body' style='padding-bottom: 0px;'>";
-    $page_html .= "<h6 class='card-title'>Opmerking bij het eerste rapport</h6>";
+    if ($level_klas != 3 && $level_klas != 4) {
+      $page_html .= "<h6 class='card-title'>Opmerking bij het eerste rapport</h6>";
+    } else {
+      $page_html .= "<h6 class='card-title'>Opmerking bij het SE KAART</h6>";
+    }
     $page_html .= "<textarea style='width: 100%;'>" . $opmerking[1] . "</textarea>";
     $page_html .= "<div class='row' style='justify-content: space-evenly;'>";
     if ($defi[1] == 1) {
@@ -4579,7 +4583,11 @@ if($avg_h == 0.0){$avg_h = null;}
       $page_html .= "</div>";
     }
     $page_html .= "</div>";
-    $page_html .= "<h6 class='card-title'>Opmerking bij het tweede rapport</h6>";
+    if ($level_klas != 3 && $level_klas != 4) {
+      $page_html .= "<h6 class='card-title'>Opmerking bij het tweede rapport</h6>";
+    } else {
+      $page_html .= "<h6 class='card-title'>Opmerking bij het SE KAART</h6>";
+    }
     $page_html .= "<textarea style='width: 100%;'>" . $opmerking[2] . "</textarea>";
     $page_html .= "<div class='row' style='justify-content: space-evenly;'>";
     if ($defi[2] == 1 && $rapport >= 2) {
@@ -4605,7 +4613,11 @@ if($avg_h == 0.0){$avg_h = null;}
       $page_html .= "</div>";
     }
     $page_html .= "</div>";
-    $page_html .= "<h6 class='card-title'>Opmerking bij het eindrapport</h6>";
+    if ($level_klas != 3 && $level_klas != 4) {
+      $page_html .= "<h6 class='card-title'>Opmerking bij het eindrapport</h6>";
+    } else {
+      $page_html .= "<h6 class='card-title'>Opmerking bij het SE KAART</h6>";
+    }
     $page_html .= "<textarea style='width: 100%;'>" .  $opmerking[4] . "</textarea>";
     $page_html .= "<div class='row' style='justify-content: space-evenly;'>";
     if ($defi[4] == 1 && $rapport == 3) {
