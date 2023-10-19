@@ -1245,11 +1245,11 @@ class spn_houding
       $mysqli->set_charset('utf8');
       //update le_houding h inner join students s on h.studentid = s.id set h.h1 = 3 where s.id = 24 and s.class = "1A" and h.rapnummer = 1
 
-      $sql_query = "update" . chr(32) . $this->tablename_houding . chr(32) . "h join students s on h.studentid = s.id set" . chr(32) . "  h." . $houding_number_in . chr(32) . " = ? where s.id = ? and s.class = ? and h.rapnummer = ? and h.id = ?;";
+      $sql_query = "update" . chr(32) . $this->tablename_houding . chr(32) . "h join students s on h.studentid = s.id set" . chr(32) . "  h." . $houding_number_in . chr(32) . " = ? where s.id = ? and h.rapnummer = ? and h.id = ?;";
 
       if ($stmt = $mysqli->prepare($sql_query)) {
 
-        if ($stmt->bind_param("ssssi", $houding_value_in, $studentid_in, $klas_in, $rap_in, $houding_id)) {
+        if ($stmt->bind_param("sssi", $houding_value_in, $studentid_in, $rap_in, $houding_id)) {
 
           if ($stmt->execute()) {
             /*
@@ -2624,6 +2624,332 @@ class spn_houding
     return $returnvalue;
   }
 
+  function listhouding_hs_group($schooljaar, $schoolid, $klas_in, $rap_in, $vak_id)
+  {
+    $returnvalue = "";
+    $user_permission = "";
+    $sql_query = "";
+    $htmlcontrol = "";
+    $index_colum = 0;
+    $json_name_config = "";
+    $houding_name = array();
+
+    require_once("DBCreds.php");
+    require_once("spn_utils.php");
+    $DBCreds = new DBCreds();
+    $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
+    $mysqli->set_charset('utf8');
+
+    $get_vak = "SELECT vak FROM groups WHERE id = $vak_id";
+    $vak_result = $mysqli->query($get_vak);
+    $result = $vak_result->fetch_assoc();
+
+    $vak_row = $result['vak'];
+    $name_row = substr($result['name'], 0, 2);
+
+    mysqli_report(MYSQLI_REPORT_STRICT);
+
+    $s = new spn_setting();
+    $s->getsetting_info($schoolid, false);
+
+    $sql_query = "SELECT s.id, h.id, s.class, s.firstname, s.lastname, s.sex,
+    h.h1, h.h2, h.h3, h.h4, h.h5, h.h6, h.h7, h.h8, h.h9, h.h10, h.h11, h.h12, h.h13, h.h14, h.h15,
+    h.h16,h.h17,h.h18,h.h19,h.h20,h.h21,h.h22,h.h23,h.h24,h.h25
+    FROM students s LEFT JOIN le_houding_hs h ON s.id = h.studentid
+    WHERE h.rapnummer = ? AND s.schoolid = ? and h.schooljaar = ? and h.vakid= ?
+    ORDER BY ";
+
+    $sql_order = " s.lastname, s.firstname ";
+    if ($s->_setting_mj) {
+      $sql_query .= " s.sex " . $s->_setting_sort . ", " . $sql_order;
+    } else {
+      $sql_query .=  $sql_order;
+    }
+    // End change settings (laldana@caribedev)
+
+    try {
+      if ($select = $mysqli->prepare($sql_query)) {
+        if ($select->bind_param("iisi", $rap_in, $schoolid, $schooljaar, $vak_row)) {
+          if ($select->execute()) {
+            // Audit by Caribe Developers
+
+            $UserGUID = $_SESSION['UserGUID'];
+
+            $this->error = false;
+            $result = 1;
+            $select->store_result();
+            $select->bind_result($studentid, $houdingid, $klas, $firstname, $lastname, $sex, $h1, $h2, $h3, $h4, $h5, $h6, $h7, $h8, $h9, $h10, $h11, $h12, $h13, $h14, $h15, $h16, $h17, $h18, $h19, $h20, $h21, $h22, $h23, $h24, $h25);
+
+
+            if ($select->num_rows > 0) {
+              $json_name_config = appconfig::GetBaseURL() . "/assets/js/" . $_SESSION["SchoolID"] . "_houding_config.json";
+
+              $htmlcontrol .= "<table id=\"dataRequest-houding\" class=\"table table-bordered table-colored table-houding\" style=\"overflow-x:auto\" data-table=\"yes\">";
+              $htmlcontrol .= "<thead>";
+              $htmlcontrol .= "<tr class=\"text-align-center\"><th>ID</th><th class=\"btn-m-w\">Naam</th>";
+
+              //$json_string =file_get_contents($json_name_config, TRUE);
+              //$data = json_decode($json_string);
+              $columns = array();
+
+              $ch = curl_init();
+              curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+              curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+              curl_setopt($ch, CURLOPT_URL, $json_name_config);
+              $result = curl_exec($ch);
+              curl_close($ch);
+
+              $data = json_decode($result);
+
+              foreach ($data as $name => $values) {
+                foreach ($values as $k => $v) {
+
+                  $htmlcontrol .=  "<th>$v</th>";
+                  $columns[$k] = $k;
+                  array_push($houding_name, $v);
+                  $index_colum++;
+                }
+              }
+
+              $htmlcontrol .=  "</tr>";
+
+              // $htmlcontrol .= "<table id=\"dataRequest-houding\" class=\"table table-bordered table-colored table-houding\" data-table=\"yes\">";
+              // $htmlcontrol .= "<thead>";
+              // $htmlcontrol .= "<tr class=\"text-align-center\"><th>ID</th><th class=\"btn-m-w\">Naam</th><th>Gedrag</th><th>Concentratie</th><th>Werkverzorging</th><th>Motivatie</th><th>Godsdient</th><th>Huiswerk</th><th>Expr</th></tr>";
+              $htmlcontrol .= "</thead>";
+              $htmlcontrol .= "<tbody>";
+
+
+              /* initialize counter variable, this variable is used to display student count number */
+              $x = 1;
+
+              /* initialize counter variable, this variable is used to set the data-houding attribute */
+              $xx = 1;
+
+              //print $select->num_rows;
+
+              while ($select->fetch()) {
+                $htmlcontrol .= "<tr><td>$x</td><td>" . $firstname . chr(32) . $lastname . "</td>";
+
+
+
+                for ($y = 1; $y <= 6; $y++) {
+                  $htmlcontrol .= "<td class=\"text-center\">";
+
+                  if ($rap_in > 0) {
+                    $htmlcontrol .= "<select id=\"lblName$xx\" id_houding_table=\"$houdingid\"data-student-id=\"$studentid\" data-houding=\"h$y\" data-klas=\"$klas_in\" data-rapport=\"$rap_in\" class=\"form-control editable-select\" data-toggle=\"tooltip\"  title=\"Leerling: " . $firstname . chr(32) . $lastname . chr(13) . "Houding: " . $houding_name[$y - 1] . "\"  style=\"width: 60px\">";
+                  }
+
+
+                  $_houding_number = 0;
+                  /* check dimension of the dropdowns */
+                  switch ($y) {
+                    case 1:
+                      $_houding_number = $h1;
+                      break;
+
+                    case 2:
+                      $_houding_number = $h2;
+                      break;
+
+                    case 3:
+                      $_houding_number = $h3;
+                      break;
+
+                    case 4:
+                      $_houding_number = $h4;
+                      break;
+
+                    case 5:
+                      $_houding_number = $h5;
+                      break;
+
+                    case 6:
+                      $_houding_number = $h6;
+                      break;
+
+                    case 7:
+                      $_houding_number = $h7;
+                      break;
+                    case 8:
+                      $_houding_number = $h8;
+                      break;
+                    case 9:
+                      $_houding_number = $h9;
+                      break;
+                    case 10:
+                      $_houding_number = $h10;
+                      break;
+                    case 11:
+                      $_houding_number = $h11;
+                      break;
+                    case 12:
+                      $_houding_number = $h12;
+                      break;
+                    case 13:
+                      $_houding_number = $h13;
+                      break;
+                    case 14:
+                      $_houding_number = $h14;
+                      break;
+                    case 15:
+                      $_houding_number = $h15;
+                      break;
+                    case 16:
+                      $_houding_number = $h16;
+                      break;
+                    case 17:
+                      $_houding_number = $h17;
+                      break;
+                    case 18:
+                      $_houding_number = $h18;
+                      break;
+                    case 19:
+                      $_houding_number = $h19;
+                      break;
+                    case 20:
+                      $_houding_number = $h20;
+                      break;
+                    case 21:
+                      $_houding_number = $h21;
+                      break;
+                    case 22:
+                      $_houding_number = $h22;
+                      break;
+                    case 23:
+                      $_houding_number = $h23;
+                      break;
+                    case 24:
+                      $_houding_number = $h24;
+                      break;
+                    case 25:
+                      $_houding_number = $h25;
+                      break;
+
+
+                    default:
+                      $_houding_number = 0;
+                      break;
+                  }
+
+                  if ($rap_in > 0) {
+                    // Edit mode
+
+                    if (is_null($_houding_number) || $_houding_number == 0) {
+                      /*
+                      no data in table for this houding
+                      use the goed default
+                      */
+
+                      $htmlcontrol .= "<option value=\"\" selected></option>
+                      <option value=\"1\" >1</option>
+                      <option value=\"2\">2</option>
+                      <option value=\"3\">3</option>
+                      <option value=\"4\" selected>4</option>
+                      <option value=\"5\" >5</option>
+                      </select>
+                      </td> ";
+                    } else {
+                      $htmlcontrol .= "<option value=\"1\"" . ($_houding_number == 1 ? "selected" : "") . ">1</option><option value=\"2\"" . ($_houding_number == 2 ? "selected" : "") . ">2</option><option value=\"3\"" . ($_houding_number == 3 ? "selected" : "") . ">3</option><option value=\"4\"" . ($_houding_number == 4 ? "selected" : "") . ">4</option><option value=\"5\"" . ($_houding_number == 5 ? "selected" : "") . ">5</option></select></td> ";
+                    }
+                  } else {
+
+                    if (!is_null($_houding_number) || $_houding_number != 0 || $_houding_number != "") {
+                      // View mode
+                      // print('ENTRE EN VIEW MODEL');
+                      switch ($_houding_number) {
+                        case 1: {
+                            $htmlcontrol .= "<span align=\"center\" >A</span>";
+                            break;
+                          }
+                        case 2: {
+                            $htmlcontrol .= "<span align=\"center\" >B</span>";
+                            break;
+                          }
+                        case 3: {
+                            $htmlcontrol .= "<span align=\"center\" >C</span>";
+                            break;
+                          }
+                        case 4: {
+                            $htmlcontrol .= "<span align=\"center\" >D</span>";
+                            break;
+                          }
+                        case 5: {
+                            $htmlcontrol .= "<span align=\"center\" >E</span>";
+                            break;
+                          }
+                        case 6: {
+                            $htmlcontrol .= "<span align=\"center\" >F</span>";
+                            break;
+                          }
+                      }
+                    } else {
+                      $htmlcontrol .= "<span align=\"center\" >A</span>";
+                    }
+                    $htmlcontrol .= "</td>";
+                  }
+
+                  $xx++;
+                }
+                $htmlcontrol .= "<td width =\"300px\"><input id=\"lblName$xx\" id_houding_table=\"$houdingid\"data-student-id=\"$studentid\" data-houding=\"h7\" data-klas=\"$klas_in\" data-rapport=\"$rap_in\"  class = 'lblhouding form-control opmerking-input' type = 'text'   data-toggle=\"tooltip\"  title=\"Leerling: " . $firstname . chr(32) . $lastname . chr(13) . "Houding: Leerhouding toelichten\"  style = 'display:block' value='$h7'/></td>";
+                $htmlcontrol .= "<td width =\"300px\"><input id=\"lblName$xx\" id_houding_table=\"$houdingid\"data-student-id=\"$studentid\" data-houding=\"h8\" data-klas=\"$klas_in\" data-rapport=\"$rap_in\"  class = 'lblhouding form-control opmerking-input' type = 'text'   data-toggle=\"tooltip\"  title=\"Leerling: " . $firstname . chr(32) . $lastname . chr(13) . "Houding: Gedrag toelichten\"  style = 'display:block' value='$h8'/></td>";
+
+                /* increment variable with one */
+                $x++;
+              }
+
+              $htmlcontrol .= "</tbody>";
+              $htmlcontrol .= "</table>";
+            } else {
+              $htmlcontrol .= "No results to show";
+            }
+          } else {
+            /* error executing query */
+            $this->error = true;
+            $this->errormessage = $mysqli->error;
+            $result = 0;
+
+            if ($this->debug) {
+              print "error executing query" . "<br />";
+              print "error" . $mysqli->error;
+            }
+          }
+        } else {
+          /* error binding parameters */
+          $this->error = true;
+          $this->errormessage = $mysqli->error;
+          $result = 0;
+
+          if ($this->debug) {
+            print "error binding parameters";
+          }
+        }
+      } else {
+        /* error preparing query */
+        $this->error = true;
+        $this->errormessage = $mysqli->error;
+        $result = 0;
+
+        if ($this->debug) {
+          print "error preparing query";
+        }
+      }
+
+      $returnvalue = $htmlcontrol;
+      return $returnvalue;
+    } catch (Exception $e) {
+      $this->error = true;
+      $this->errormessage = $e->getMessage();
+      $result = 0;
+
+      if ($this->debug) {
+        print "exception: " . $e->getMessage();
+      }
+    }
+
+    return $returnvalue;
+  }
+
   function create_le_houding_student_hs($schoolID, $rapnummer, $klass, $schooljaar, $vak_id)
   {
     $result = 0;
@@ -2668,6 +2994,63 @@ class spn_houding
         $result = 0;
         echo $this->mysqlierror = $mysqli->error;
         echo "# " . $this->mysqlierrornumber = $mysqli->errno;
+      }
+    } catch (Exception $e) {
+      $result = -2;
+      $this->exceptionvalue = $e->getMessage();
+    }
+    return $result;
+  }
+  function create_le_houding_student_hs_group($schoolID, $rapnummer, $klass, $schooljaar, $group)
+  {
+    $result = 0;
+
+    require_once("DBCreds.php");
+    $DBCreds = new DBCreds();
+    date_default_timezone_set("America/Aruba");
+    $_DateTime = date("Y-m-d H:i:s");
+    $status = 1;
+
+    mysqli_report(MYSQLI_REPORT_STRICT);
+
+    try {
+      echo $schoolID;
+      echo $rapnummer;
+      echo $klass;
+      echo $schooljaar;
+      echo $group;
+      $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
+      $sql = "SELECT s.id,s.class,gr.vak FROM students s INNER JOIN group_student g ON s.id = g.student_id INNER JOIN groups gr ON g.group_id = gr.id WHERE s.schoolid = '$schoolID' AND g.group_id = $group AND g.schooljaar = '$schooljaar';";
+      $consult = mysqli_query($mysqli, $sql);
+      if ($consult->num_rows > 0) {
+        while ($row = $consult->fetch_assoc()) {
+          $id = $row['id'];
+          $klas = $row['class'];
+          $vakid = $row['vak'];
+          $sql1 = "SELECT lc.studentid
+                    FROM 
+                      le_houding_hs lc 
+                    INNER JOIN 
+                      students s on lc.studentid = s.id 
+                    WHERE s.schoolid = '$schoolID'
+                    AND lc.studentid = '$id'
+                    AND lc.schooljaar = '$schooljaar'
+                    AND lc.rapnummer = '$rapnummer'
+                    AND lc.klas = '$klas' AND lc.vakid = '$vakid';";
+          $consulta = mysqli_query($mysqli, $sql1);
+          if ($consulta->num_rows == 0) {
+            $sqlI = "INSERT INTO
+        le_houding_hs
+        (`studentid`,`lastchanged`,`created`,`schooljaar`,`rapnummer`,`vakid`,`klas`,`user`) values ($id,null,now(),'$schooljaar','$rapnummer','$vakid','$klas','SPN')";
+            $resultado123 = mysqli_query($mysqli, $sqlI);
+            if (!$resultado123) {
+              $mysqli->close();
+              $result = $sql1;
+            }
+          } else {
+            $result = 0;
+          }
+        }
       }
     } catch (Exception $e) {
       $result = -2;

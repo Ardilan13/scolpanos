@@ -211,10 +211,9 @@ foreach ($array_leerling as $item) {
     } else {
       $page_html .= "<div style='margin: 0px; display: flex; align-items: center; flex-direction: column; margin-left: 10%;' >";
     }
-  } else if (substr($_GET["klas"], 0, 1) != 1) {
+  } else if (substr($_GET["klas"], 0, 1) != 1 && $schoolId != 12) {
     $page_html .= "<div style='display: flex; justify-content: space-evenly;'>";
     $page_html .= "<div style=' display: flex; align-items: center; justify-content: space-evenly;'>";
-
     $page_html .= "<img  width='450px' height:'450px' src='" . appconfig::GetBaseURL() . "/assets/img/profiels.png' class='mx-auto d-block'>";
     $page_html .= "<div style='width: 35rem; margin: 0px; display: flex; align-items: center; flex-direction: column;' >";
   } else {
