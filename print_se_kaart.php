@@ -4461,7 +4461,7 @@ if($avg_h == 0.0){$avg_h = null;}
       AND klas = '$klas_o'
       AND studentid = '$id'
       AND schooljaar = '$schooljaar'
-      AND rapport = 4
+      AND rapport = $y
     LIMIT 1;
     ;";
       $result1 = mysqli_query($mysqli, $get_opmerking);

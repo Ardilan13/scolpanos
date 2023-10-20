@@ -23,6 +23,9 @@ use PhpOffice\PhpSpreadsheet\Reader\Xls;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 $schooljaar = $_SESSION['SchoolJaar'];
+$currentYear = intval(substr($schooljaar, 0, 4)); // Obtenemos el año actual (2022)
+$previousYear = $currentYear - 1; // Calculamos el año anterior (2021)
+$previousSchooljaar = $previousYear . "-" . ($previousYear + 1);
 $schoolid = $_SESSION['SchoolID'];
 $klas_in = $_GET["rapport_klassen_lijst"];
 $rap_in = $_GET["rapport"];
@@ -119,11 +122,10 @@ while ($i <= $rap_in) {
                     s.schoolid = $schoolid
                     AND v.SchoolID = $schoolid
                     AND st.year_period = '$schooljaar'
-                    and c.gemiddelde >= 0
                     AND c.schooljaar = '$schooljaar'
                     AND s.class = '$klas_in'
                     AND c.klas = '$klas_in'
-                    AND v.klas = '$klas_in'
+                    AND v.klas = '4A'
                     AND c.rapnummer = 4
                     AND x_index is not null
                     ORDER BY";
@@ -504,9 +506,9 @@ while ($i <= $rap_in) {
                 break;
             case 4:
                 switch ($row["volledigenaamvak"]) {
-                    case 'lo':
-                        $returnvalue = 'O';
-                        break;
+                        // case 'lo':
+                        //     $returnvalue = 'O';
+                        //     break;
 
                     case 'pa':
                         $returnvalue = 'F';
@@ -672,6 +674,7 @@ while ($i <= $rap_in) {
                     $her = 'CD';
                     break;
 
+
                 default:
                     $cex = "XX";
                     $her = 'YY';
@@ -688,14 +691,16 @@ while ($i <= $rap_in) {
                 case 'lo':
                     $cex = 'CG';
                     break;
-
-                case 'ckv':
-                    $cex = 'CF';
-                    break;
             }
-            if ($row["cex"] != NULL) {
+            if ($row["gemiddelde"] != NULL && ($cex == 'CF' || $cex == 'CG')) {
                 $colcex = (string)$cex . (string)$_current_student_start_row;
-                $hojaActiva->setCellValue($colcex, $row["cex"]);
+                $hojaActiva->setCellValue($colcex, $row["gemiddelde"] > 9 ? "Voldoende" : "Onvoldoende");
+            }
+            $get_ckv = "SELECT p.ckv FROM personalia p WHERE p.schoolid = $schoolid AND p.schooljaar = '$schooljaar' AND p.studentid = $_currentstudent;";
+            $resultado_ckv = mysqli_query($mysqli, $get_ckv);
+            $ckv_val = $resultado_ckv->fetch_assoc()["ckv"];
+            if ($ckv_val != null) {
+                $hojaActiva->setCellValue('CF' . (string)$_current_student_start_row, $ckv_val == 1 ? "Voldoende" : "Onvoldoende");
             }
         }
         $_laststudent = $_currentstudent;
@@ -704,7 +709,7 @@ while ($i <= $rap_in) {
 
     $sql_query_student = "SELECT id from students s where s.class = '$klas_in' and schoolid = $schoolid ORDER BY";
 
-    $sql_order = " s.lastname " . $s->_setting_sort . ", s.firstname";
+    $sql_order = " s.lastname , s.firstname";
     if ($s->_setting_mj) {
         $sql_query_student .= " s.sex " . $s->_setting_sort . ", " . $sql_order;
     } else {
@@ -787,9 +792,9 @@ while ($i <= $rap_in) {
 
             case 4:
                 if ($i == 3) {
-                    $hojaActiva->setCellValue("T" . (string)$_current_student_start_row, $opmerking1);
+                    $hojaActiva->setCellValue("T" . (string)$_current_student_start_row,  $opmerking1);
                 } else {
-                    $hojaActiva->setCellValue("W" . (string)$_current_student_start_row, $opmerking1);
+                    $hojaActiva->setCellValue("W" . (string)$_current_student_start_row,  $opmerking1);
                 }
                 break;
         }

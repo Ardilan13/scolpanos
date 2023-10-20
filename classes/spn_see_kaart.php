@@ -58,7 +58,9 @@ class spn_see_kaart
         $DBCreds = new DBCreds();
         $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort, $dummy);
         if ($_SESSION['SchoolID'] != 18) {
-          if ($stmt = $mysqli->prepare("CALL  sp_get_cijfers_by_student_see_kaart (?,?,?)")) {
+          $level_klas = substr($klas, 0, 1);
+          $get_cijfers = $level_klas == 4 ? "sp_get_cijfers_by_student_see_kaart_groups" : "sp_get_cijfers_by_student_see_kaart";
+          if ($stmt = $mysqli->prepare("CALL  " . $get_cijfers . " (?,?,?)")) {
             if ($stmt->bind_param("ssi", $schooljaar, $studentid, $rapnummer)) {
               if ($stmt->execute()) {
                 $result = 1;
