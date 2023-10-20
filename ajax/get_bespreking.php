@@ -6,6 +6,7 @@ $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $D
 $mysqli->set_charset('utf8');
 
 $klas = $_POST["houding_klassen_lijst"];
+$level_klas = substr($klas, 0, 1);
 $rapport = $_POST["cijfers_rapporten_lijst"];
 $schoolid = $_SESSION["SchoolID"];
 $datum = date('Y-m-d');
@@ -36,13 +37,17 @@ $i = 1;
         <tr>
             <th>ID</th>
             <th>Naam</th>
-            <th class="opmerking">Opmerking</th>
-            <?php if ($rapport == 4) { ?>
+            <?php if ($level_klas != 4 || $rapport != 4) { ?>
+                <th class="opmerking">Opmerking</th>
+            <?php } ?>
+            <?php if ($rapport == 4 && $level_klas != 4) { ?>
                 <th>Andere Schooltype</th>
                 <th>Over Naar Ciclo</th>
                 <th>Niet Over</th>
             <?php } ?>
-            <th class="definitiet">Systeem</th>
+            <?php if ($level_klas != 4) { ?>
+                <th class="definitiet">Systeem</th>
+            <?php } ?>
             <th class="definitiet">Definitief</th>
         </tr>
     </thead>
@@ -130,20 +135,23 @@ $i = 1;
                 }
 
                 ?>
-                <td><input <?php echo $disabled; ?> type="text" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ', ' . $rapport . ',' . $i; ?>)" id="opmerking_<?php echo $i; ?>" class="opmerking_input" value="<?php echo $opmerking1; ?>"></td>
-                <?php if ($rapport == 4) { ?>
+                <?php if ($level_klas != 4 || $rapport != 4) { ?>
+                    <td><input <?php echo $disabled; ?> type="text" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ', ' . $rapport . ',' . $i; ?>)" id="opmerking_<?php echo $i; ?>" class="opmerking_input" value="<?php echo $opmerking1; ?>"></td>
+                <?php } ?>
+                <?php if ($rapport == 4 && $level_klas != 4) { ?>
                     <td class="text-center"><input <?php echo $radio1; ?> type="checkbox" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ', ' . $rapport . ',' . $i; ?>)" id="radio1_<?php echo $i; ?>"></td>
                     <td class="text-center"><input <?php echo $radio2; ?> type="checkbox" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ', ' . $rapport . ',' . $i; ?>)" id="radio2_<?php echo $i; ?>"></td>
                     <td class="text-center"><input <?php echo $radio3; ?> type="checkbox" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ', ' . $rapport . ',' . $i; ?>)" id="radio3_<?php echo $i; ?>"></td>
                 <?php } ?>
-                <td class=" text-center">
-                    <?php if ($cijfers[$id] < 71 || $cuenta_pri > 2 || ($cuenta + $cuenta_pri) > 3) {
-                        echo "<label style='margin: 0;' class='text-danger'>O</label>";
-                    } else {
-                        echo "<label style='margin: 0;' class='text-primary'>V</label>";
-                    } ?>
-
-                </td>
+                <?php if ($level_klas != 4) { ?>
+                    <td class=" text-center">
+                        <?php if ($cijfers[$id] < 71 || $cuenta_pri > 2 || ($cuenta + $cuenta_pri) > 3) {
+                            echo "<label style='margin: 0;' class='text-danger'>O</label>";
+                        } else {
+                            echo "<label style='margin: 0;' class='text-primary'>V</label>";
+                        } ?>
+                    </td>
+                <?php } ?>
                 <td><input <?php echo $disabled; ?> type="text" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ', ' . $rapport . ',' . $i; ?>)" id="definitiet_<?php echo $i; ?>" class="definitiet_input" value="<?php echo strtoupper($opmerking3); ?>"></td>
             </tr>
         <?php $i++;
