@@ -793,8 +793,10 @@ while ($i <= $rap_in) {
             case 4:
                 if ($i == 3) {
                     $hojaActiva->setCellValue("T" . (string)$_current_student_start_row,  $opmerking1);
+                    $hojaActiva->setCellValue("S" . (string)$_current_student_start_row,  $opmerking3);
                 } else {
                     $hojaActiva->setCellValue("W" . (string)$_current_student_start_row,  $opmerking1);
+                    $hojaActiva->setCellValue("V" . (string)$_current_student_start_row,  $opmerking3);
                 }
                 break;
         }

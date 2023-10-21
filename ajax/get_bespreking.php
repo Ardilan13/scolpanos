@@ -48,7 +48,7 @@ $i = 1;
             <?php if ($level_klas != 4) { ?>
                 <th class="definitiet">Systeem</th>
             <?php } ?>
-            <th class="definitiet">Definitief</th>
+            <th class="definitiet">Beoordeling</th>
         </tr>
     </thead>
     <tbody>
