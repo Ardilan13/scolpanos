@@ -32,14 +32,16 @@ $i = 1;
         width: 5rem;
     }
 </style>
+<?php if ($level_klas == 4) { ?>
+    <label>O=Onvlodoende, V=Voldoende, G=Geslaagd, A=Afgewezen, T=Teruggetrokken</label>
+<?php } ?>
 <table class="table table-bordered table-colored table-houding">
+    <input id="level_klas" type="text" hidden value="<?php echo $level_klas; ?>">
     <thead>
         <tr>
             <th>ID</th>
             <th>Naam</th>
-            <?php if ($level_klas != 4 || $rapport != 4) { ?>
-                <th class="opmerking">Opmerking</th>
-            <?php } ?>
+            <th class="opmerking">Opmerking</th>
             <?php if ($rapport == 4 && $level_klas != 4) { ?>
                 <th>Andere Schooltype</th>
                 <th>Over Naar Ciclo</th>
@@ -135,9 +137,7 @@ $i = 1;
                 }
 
                 ?>
-                <?php if ($level_klas != 4 || $rapport != 4) { ?>
-                    <td><input <?php echo $disabled; ?> type="text" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ', ' . $rapport . ',' . $i; ?>)" id="opmerking_<?php echo $i; ?>" class="opmerking_input" value="<?php echo $opmerking1; ?>"></td>
-                <?php } ?>
+                <td><input <?php echo $disabled; ?> type="text" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ', ' . $rapport . ',' . $i; ?>)" id="opmerking_<?php echo $i; ?>" class="opmerking_input" value="<?php echo $opmerking1; ?>"></td>
                 <?php if ($rapport == 4 && $level_klas != 4) { ?>
                     <td class="text-center"><input <?php echo $radio1; ?> type="checkbox" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ', ' . $rapport . ',' . $i; ?>)" id="radio1_<?php echo $i; ?>"></td>
                     <td class="text-center"><input <?php echo $radio2; ?> type="checkbox" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ', ' . $rapport . ',' . $i; ?>)" id="radio2_<?php echo $i; ?>"></td>
@@ -161,18 +161,23 @@ $i = 1;
 </table>
 <script>
     function savebespreking(schooljaar, klas, student, rap, i) {
-        var opmerking = document.getElementById("opmerking_" + i).value;
-        var definitiet = document.getElementById("definitiet_" + i).value;
+        var level_klas = document.getElementById("level_klas").value;
+        var definitiet = document.getElementById("definitiet_" + i).value.toUpperCase();
         var radio1 = null;
         var radio2 = null;
         var radio3 = null;
-        if (rap == 4) {
+        var opmerking = document.getElementById("opmerking_" + i).value;
+
+
+        if (rap == 4 && level_klas != 4) {
             radio1 = document.getElementById("radio1_" + i).checked;
             radio2 = document.getElementById("radio2_" + i).checked;
             radio3 = document.getElementById("radio3_" + i).checked;
         }
 
-        if (definitiet != "v" && definitiet != "V" && definitiet != "o" && definitiet != "O") {
+        if (definitiet != "V" && definitiet != "O" && rap != 4) {
+            definitiet = "";
+        } else if (definitiet != "G" && definitiet != "A" && definitiet != "T" && rap == 4 && level_klas == 4) {
             definitiet = "";
         }
         var data = {
