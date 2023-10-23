@@ -794,6 +794,16 @@ while ($i <= $rap_in) {
                 if ($i == 3) {
                     $hojaActiva->setCellValue("T" . (string)$_current_student_start_row,  $opmerking1);
                     $hojaActiva->setCellValue("S" . (string)$_current_student_start_row,  $opmerking3);
+                    $query = "SELECT opmerking1, opmerking3 FROM opmerking WHERE klas = '$klas_in' AND SchoolID = $schoolid AND studentid = $id AND schooljaar = '$schooljaar' AND rapport = 4 LIMIT 1";
+                    $resultado = mysqli_query($mysqli, $query);
+                    while ($row = mysqli_fetch_assoc($resultado)) {
+                        $opmerking1 = $row["opmerking1"];
+                        $opmerking3 = $row["opmerking3"];
+                        $spreadsheet->setActiveSheetIndex(4);
+                        $hojaActiva = $spreadsheet->getActiveSheet();
+                        $hojaActiva->setCellValue("CQ" . (string)$_current_student_start_row,  $opmerking1);
+                        $hojaActiva->setCellValue("CP" . (string)$_current_student_start_row,  $opmerking3);
+                    }
                 } else {
                     $hojaActiva->setCellValue("W" . (string)$_current_student_start_row,  $opmerking1);
                     $hojaActiva->setCellValue("V" . (string)$_current_student_start_row,  $opmerking3);
