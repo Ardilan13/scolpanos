@@ -225,11 +225,30 @@ foreach ($data_leerling_array as $item) {
 
   $page_html .= "</div>";
 
-  $page_html .= "<h5 class='text-left'>User print by:" . $_SESSION['User'] . "</h5>";
-
   $page_html .= "<h5 class='text-left'><?php echo 'User Name: " . $_SESSION['FirstName'] . "' '" . $_SESSION['LastName'] . "</h5>";
 
   $page_html .= "</div>";
+
+  if ($_SESSION["SchoolType"] == 2) {
+
+    $page_html .= "<div style='display: flex; gap: 30px; justify-content:center;'>";
+
+    $page_html .= "<label style='border-top: 1px solid black; width: 150px; margin-top: 20px;'>Ouders / Voogd</label>";
+
+    $page_html .= "<label style='border-top: 1px solid black; width: 150px; margin-top: 20px;'>Mentor</label>";
+
+    $page_html .= "<div style='display: flex; flex-direction: column; width: 150px;'>";
+
+    $page_html .= "<div><input type='radio'><label style='margin-left: 10px; margin-bottom: 0;'>Voldoende</label></div>";
+
+    $page_html .= "<div><input type='radio'><label style='margin-left: 10px; margin-bottom: 0;'>Onvoldoende</label></div>";
+
+    $page_html .= "</div>";
+
+    $page_html .= "</div>";
+  }
+
+  $page_html .= "<h5 class='text-left'>User print by:" . $_SESSION['User'] . "</h5>";
 
   $page_html .= "</section>";
 

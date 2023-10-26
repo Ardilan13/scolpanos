@@ -290,7 +290,7 @@ function print_vakken_table()
 				Number.isNaN(se1) ? se1 = 0 : se1 = se1;
 				Number.isNaN(se2) ? se2 = 0 : se2 = se2;
 				Number.isNaN(se3) ? se3 = 0 : se3 = se3;
-				if (se2 == 0 || se3 == 0) {
+				if ((se1 == 0 && se2 == 0) || se3 == 0) {
 					se1 = 0;
 					se2 = 0;
 					se3 = 0;
