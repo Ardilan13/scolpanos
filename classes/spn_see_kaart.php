@@ -75,7 +75,7 @@ class spn_see_kaart
                     $table .= "<th>1</th>";
                     $table .= "<th>2</th>";
                     $table .= "<th>3</th>";
-                    $table .= "<th>Eind</th>";
+                    $table .= $level_klas == 4 ? "<th>GSE</th>" : "<th>Eind</th>";
                     $table .= "</thead>";
                   }
                   if ($rapnummer == 2) {
@@ -85,7 +85,7 @@ class spn_see_kaart
                     $table .= "<th>1</th>";
                     $table .= "<th>2</th>";
                     $table .= "<th>3</th>";
-                    $table .= "<th>Eind</th>";
+                    $table .= $level_klas == 4 ? "<th>GSE</th>" : "<th>Eind</th>";
                     $table .= "</thead>";
                   }
                   if ($rapnummer == 3) {
@@ -95,7 +95,7 @@ class spn_see_kaart
                     $table .= "<th>1</th>";
                     $table .= "<th>2</th>";
                     $table .= "<th>3</th>";
-                    $table .= "<th>Eind</th>";
+                    $table .= $level_klas == 4 ? "<th>GSE</th>" : "<th>Eind</th>";
                     $table .= "</thead>";
                   }
 

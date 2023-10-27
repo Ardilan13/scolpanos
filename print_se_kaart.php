@@ -406,19 +406,25 @@ foreach ($array_leerling as $item) {
       $page_html .= "<th>1</th>";
       $page_html .= "<th>2</th>";
       $page_html .= "<th>3</th>";
-      $page_html .= "<th>Eind</th>";
+      if ($klas != 4) {
+        $page_html .= "<th>Eind</th>";
+      }
     }
     if ($_GET["rap"] == '2') {
       $page_html .= "<th>1</th>";
       $page_html .= "<th>2</th>";
       $page_html .= "<th>3</th>";
-      $page_html .= "<th>Eind</th>";
+      if ($klas != 4) {
+        $page_html .= "<th>Eind</th>";
+      }
     }
     if ($_GET["rap"] == '3') {
       $page_html .= "<th>1</th>";
       $page_html .= "<th>2</th>";
       $page_html .= "<th>3</th>";
-      $page_html .= "<th>Eind</th>";
+      if ($klas != 4) {
+        $page_html .= "<th>Eind</th>";
+      }
     }
 
     $page_html .= "</thead>";
@@ -437,7 +443,10 @@ foreach ($array_leerling as $item) {
 
       $page_html .= "<td></td>";
       $page_html .= "<td></td>";
-      $page_html .= "<td>" . (int)$_h1  . " </td>";
+      if ($klas != 4) {
+
+        $page_html .= "<td>" . (int)$_h1  . " </td>";
+      }
     }
     if ($_GET["rap"] == '2') {
 
@@ -463,7 +472,9 @@ foreach ($array_leerling as $item) {
       if ($avg_h == 0.0) {
         $avg_h = null;
       }
-      $page_html .= "<td>" . number_format($avg_h, 0) . " </td>";
+      if ($klas != 4) {
+        $page_html .= "<td>" . number_format($avg_h, 0) . " </td>";
+      }
     }
     if ($_GET["rap"] == '3') {
 
@@ -481,7 +492,9 @@ foreach ($array_leerling as $item) {
 
       $page_html .= "<td>" . $_h1_2 . " </td>";
       $page_html .= "<td>" . $_h1_3 . " </td>";
-      $page_html .= "<td>" . number_format($avg_h, 0) . " </td>";
+      if ($klas != 4) {
+        $page_html .= "<td>" . number_format($avg_h, 0) . " </td>";
+      }
     }
 
     $page_html .= "</tr>";
@@ -500,7 +513,9 @@ foreach ($array_leerling as $item) {
 
       $page_html .= "<td></td>";
       $page_html .= "<td></td>";
-      $page_html .= "<td>" . (int)$_h1  . " </td>";
+      if ($klas != 4) {
+        $page_html .= "<td>" . (int)$_h1  . " </td>";
+      }
     }
     if ($_GET["rap"] == '2') {
 
@@ -525,7 +540,10 @@ foreach ($array_leerling as $item) {
       if ($avg_h == 0.0) {
         $avg_h = null;
       }
-      $page_html .= "<td>" . number_format($avg_h, 0) . " </td>";
+      if ($klas != 4) {
+
+        $page_html .= "<td>" . number_format($avg_h, 0) . " </td>";
+      }
     }
     if ($_GET["rap"] == '3') {
 
@@ -543,7 +561,10 @@ foreach ($array_leerling as $item) {
 
       $page_html .= "<td>" . $_h1_2 . " </td>";
       $page_html .= "<td>" . $_h1_3 . " </td>";
-      $page_html .= "<td>" . number_format($avg_h, 0) . " </td>";
+      if ($klas != 4) {
+
+        $page_html .= "<td>" . number_format($avg_h, 0) . " </td>";
+      }
     }
 
     $page_html .= "</tr>";
@@ -561,7 +582,10 @@ foreach ($array_leerling as $item) {
 
       $page_html .= "<td></td>";
       $page_html .= "<td></td>";
-      $page_html .= "<td>" . (int)$_h1  . " </td>";
+      if ($klas != 4) {
+
+        $page_html .= "<td>" . (int)$_h1  . " </td>";
+      }
     }
     if ($_GET["rap"] == '2') {
 
@@ -587,7 +611,10 @@ foreach ($array_leerling as $item) {
       if ($avg_h == 0.0) {
         $avg_h = null;
       }
-      $page_html .= "<td>" . number_format($avg_h, 0) . " </td>";
+      if ($klas != 4) {
+
+        $page_html .= "<td>" . number_format($avg_h, 0) . " </td>";
+      }
     }
     if ($_GET["rap"] == '3') {
 
@@ -605,7 +632,10 @@ foreach ($array_leerling as $item) {
 
       $page_html .= "<td>" . $_h1_2 . " </td>";
       $page_html .= "<td>" . $_h1_3 . " </td>";
-      $page_html .= "<td>" . number_format($avg_h, 0) . " </td>";
+      if ($klas != 4) {
+
+        $page_html .= "<td>" . number_format($avg_h, 0) . " </td>";
+      }
     }
 
 
@@ -625,7 +655,10 @@ foreach ($array_leerling as $item) {
 
       $page_html .= "<td></td>";
       $page_html .= "<td></td>";
-      $page_html .= "<td>" . (int)$_h1  . " </td>";
+      if ($klas != 4) {
+
+        $page_html .= "<td>" . (int)$_h1  . " </td>";
+      }
     }
     if ($_GET["rap"] == '2') {
 
@@ -689,7 +722,10 @@ foreach ($array_leerling as $item) {
 
       $page_html .= "<td></td>";
       $page_html .= "<td></td>";
-      $page_html .= "<td>" . (int)$_h1  . " </td>";
+      if ($klas != 4) {
+
+        $page_html .= "<td>" . (int)$_h1  . " </td>";
+      }
     }
     if ($_GET["rap"] == '2') {
 
@@ -752,7 +788,10 @@ foreach ($array_leerling as $item) {
 
       $page_html .= "<td></td>";
       $page_html .= "<td></td>";
-      $page_html .= "<td>" . (int)$_h1  . " </td>";
+      if ($klas != 4) {
+
+        $page_html .= "<td>" . (int)$_h1  . " </td>";
+      }
     }
     if ($_GET["rap"] == '2') {
 
@@ -856,7 +895,10 @@ foreach ($array_leerling as $item) {
     $page_html .= "<td>" . $cont_verzuim1 . " </td>";
     $page_html .= "<td>" . $cont_verzuim2 . " </td>";
     $page_html .= "<td>" . $cont_verzuim3 . "</td>";
-    $page_html .= "<td>" . ($cont_verzuim1 + $cont_verzuim2 + $cont_verzuim3) . "</td>";
+    if ($klas != 4) {
+
+      $page_html .= "<td>" . ($cont_verzuim1 + $cont_verzuim2 + $cont_verzuim3) . "</td>";
+    }
     $page_html .= "</tr>";
 
     $page_html .= "<tr>";
@@ -864,7 +906,10 @@ foreach ($array_leerling as $item) {
     $page_html .= "<td>" . $cont_laat1 . " </td>";
     $page_html .= "<td>" . $cont_laat2 . " </td>";
     $page_html .= "<td>" . $cont_laat3 . "</td>";
-    $page_html .= "<td>" . ($cont_laat1 + $cont_laat2 + $cont_laat3) . "</td>";
+    if ($klas != 4) {
+
+      $page_html .= "<td>" . ($cont_laat1 + $cont_laat2 + $cont_laat3) . "</td>";
+    }
     $page_html .= "</tr>";
   }
 
@@ -4556,7 +4601,7 @@ if($avg_h == 0.0){$avg_h = null;}
     if ($level_klas != 3 && $level_klas != 4) {
       $page_html .= "<h6 class='card-title'>Opmerking bij het eerste rapport</h6>";
     } else {
-      $page_html .= "<h6 class='card-title'>Opmerking bij het SE KAART</h6>";
+      $page_html .= "<h6 class='card-title'>Opmerking bij het SE KAART 1</h6>";
     }
     $page_html .= "<textarea style='width: 100%;'>" . $opmerking[1] . "</textarea>";
     $page_html .= "<div class='row' style='justify-content: space-evenly;'>";
@@ -4586,7 +4631,7 @@ if($avg_h == 0.0){$avg_h = null;}
     if ($level_klas != 3 && $level_klas != 4) {
       $page_html .= "<h6 class='card-title'>Opmerking bij het tweede rapport</h6>";
     } else {
-      $page_html .= "<h6 class='card-title'>Opmerking bij het SE KAART</h6>";
+      $page_html .= "<h6 class='card-title'>Opmerking bij het SE KAART 2</h6>";
     }
     $page_html .= "<textarea style='width: 100%;'>" . $opmerking[2] . "</textarea>";
     $page_html .= "<div class='row' style='justify-content: space-evenly;'>";
@@ -4615,10 +4660,11 @@ if($avg_h == 0.0){$avg_h = null;}
     $page_html .= "</div>";
     if ($level_klas != 3 && $level_klas != 4) {
       $page_html .= "<h6 class='card-title'>Opmerking bij het eindrapport</h6>";
+      $page_html .= "<textarea style='width: 100%;'>" .  $opmerking[4] . "</textarea>";
     } else {
-      $page_html .= "<h6 class='card-title'>Opmerking bij het SE KAART</h6>";
+      $page_html .= "<h6 class='card-title'>Opmerking bij het SE KAART 3</h6>";
+      $page_html .= "<textarea style='width: 100%;'>" .  $opmerking[3] . "</textarea>";
     }
-    $page_html .= "<textarea style='width: 100%;'>" .  $opmerking[4] . "</textarea>";
     $page_html .= "<div class='row' style='justify-content: space-evenly;'>";
     if ($defi[4] == 1 && $rapport == 3) {
       $page_html .= "<div>";
@@ -4654,20 +4700,26 @@ if($avg_h == 0.0){$avg_h = null;}
         $klas_var = "<label>Over naar ciclo avansa 1</label>";
         break;
       case 3:
-      case 4:
+        // case 4:
         $klas_var = "<label>Over naar ciclo avansa 2 met pakket</label>" . $paket;
+        break;
+      case 4:
+        $klas_var = $paket;
         break;
     }
     $page_html .= "<input " . $radio2 . " type='radio'>" . $klas_var;
     $page_html .= "</div>";
-    $page_html .= "<br>";
-    $page_html .= "<div>";
-    $page_html .= "<input " . $radio3 . " type='radio'><label>Niet over</label>";
-    $page_html .= "</div>";
-    $page_html .= "<br>";
-    $page_html .= "<div>";
-    $page_html .= "<input " . $radio1 . " type='radio'><label>Verwezen naar ander schooltype</label>";
-    $page_html .= "</div>";
+    if ($klas != 4) {
+      $page_html .= "<br>";
+      $page_html .= "<div>";
+      $page_html .= "<input " . $radio3 . " type='radio'><label>Niet over</label>";
+      $page_html .= "</div>";
+      $page_html .= "<br>";
+      $page_html .= "<div>";
+      $page_html .= "<input " . $radio1 . " type='radio'><label>Verwezen naar ander schooltype</label>";
+      $page_html .= "</div>";
+    }
+
     $page_html .= "</div>";
 
     $page_html .= "</div>";
