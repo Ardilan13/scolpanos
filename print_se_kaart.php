@@ -266,7 +266,11 @@ foreach ($array_leerling as $item) {
   if ($_SESSION["SchoolID"] == 18) {
     $page_html .= "<td width='50%' height='40'><b>Nomber Alumno: </b></td>";
   } else {
-    $page_html .= "<td width='50%' height='50'><b>Rapport van: </b></td>";
+    if ($level_klas == 4) {
+      $page_html .= "<td width='50%' height='50'><b>SE KAART: </b></td>";
+    } else {
+      $page_html .= "<td width='50%' height='50'><b>Rapport van: </b></td>";
+    }
   }
   $page_html .= "<td ><b><i>" . $item['voornamen'] . " " . $item['achternaam'] . "</i></b></td>";
   $page_html .= "</tr>";
@@ -7462,11 +7466,13 @@ if($avg_h == 0.0){$avg_h = null;}
     $page_html .= "<div class='col-6' style=''>";
     $page_html .= "<h6 class='card-title'>Handtekening Mentor:</h6>";
     $page_html .= "<br>";
+    $page_html .= "<br>";
     $page_html .= "<hr style='border-top: 2px solid rgba(0, 0, 0, 0.34); border-top-style: dotted;'>";
     $page_html .= "</div>";
 
     $page_html .= "<div class='col-6'style=''>";
     $page_html .= "<h6 class='card-title'>Handtekening Directeur:</h6>";
+    $page_html .= "<br>";
     $page_html .= "<br>";
     $page_html .= "<hr style='border-top: 2px solid rgba(0, 0, 0, 0.34); border-top-style: dotted;'>";
     $page_html .= "</div>";
