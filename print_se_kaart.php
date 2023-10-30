@@ -344,7 +344,11 @@ foreach ($array_leerling as $item) {
   }
   $page_html .= "<div class='row' style='margin-left: 5%; justify-content: space-between;'>";
   $page_html .= "<div>";
-  $page_html .= "<p style='margin-bottom: 0rem;'><b>Rapport van: </b><span>" . $item['voornamen'] . " " . $item['achternaam'] . "</span></p>";
+  if ($level_klas == 4) {
+    $page_html .= "<p style='margin-bottom: 0rem;'><b>SE KAART: </b><span>" . $item['voornamen'] . " " . $item['achternaam'] . "</span></p>";
+  } else {
+    $page_html .= "<p style='margin-bottom: 0rem;'><b>Rapport van: </b><span>" . $item['voornamen'] . " " . $item['achternaam'] . "</span></p>";
+  }
   $page_html .= "</div>";
   //$page_html .="<p style='margin-bottom: 0rem;'><b>Mentor: </b><span>".$tutor."</span></p>";
   if ($_SESSION['SchoolType'] == 2) {
@@ -444,7 +448,6 @@ foreach ($array_leerling as $item) {
       $page_html .= "<td></td>";
       $page_html .= "<td></td>";
       if ($klas != 4) {
-
         $page_html .= "<td>" . (int)$_h1  . " </td>";
       }
     }
@@ -684,7 +687,10 @@ foreach ($array_leerling as $item) {
       if ($avg_h == 0.0) {
         $avg_h = null;
       }
-      $page_html .= "<td>" . number_format($avg_h, 0) . " </td>";
+      if ($klas != 4) {
+
+        $page_html .= "<td>" . number_format($avg_h, 0) . " </td>";
+      }
     }
     if ($_GET["rap"] == '3') {
 
@@ -702,7 +708,10 @@ foreach ($array_leerling as $item) {
 
       $page_html .= "<td>" . $_h1_2 . " </td>";
       $page_html .= "<td>" . $_h1_3 . " </td>";
-      $page_html .= "<td>" . number_format($avg_h, 0) . " </td>";
+      if ($klas != 4) {
+
+        $page_html .= "<td>" . number_format($avg_h, 0) . " </td>";
+      }
     }
 
 
@@ -751,7 +760,10 @@ foreach ($array_leerling as $item) {
       if ($avg_h == 0.0) {
         $avg_h = null;
       }
-      $page_html .= "<td>" . number_format($avg_h, 0) . " </td>";
+      if ($klas != 4) {
+
+        $page_html .= "<td>" . number_format($avg_h, 0) . " </td>";
+      }
     }
     if ($_GET["rap"] == '3') {
 
@@ -769,7 +781,10 @@ foreach ($array_leerling as $item) {
 
       $page_html .= "<td>" . $_h1_2 . " </td>";
       $page_html .= "<td>" . $_h1_3 . " </td>";
-      $page_html .= "<td>" . number_format($avg_h, 0) . " </td>";
+      if ($klas != 4) {
+
+        $page_html .= "<td>" . number_format($avg_h, 0) . " </td>";
+      }
     }
 
 
@@ -817,7 +832,10 @@ foreach ($array_leerling as $item) {
       if ($avg_h == 0.0) {
         $avg_h = null;
       }
-      $page_html .= "<td>" . number_format($avg_h, 0) . " </td>";
+      if ($klas != 4) {
+
+        $page_html .= "<td>" . number_format($avg_h, 0) . " </td>";
+      }
     }
     if ($_GET["rap"] == '3') {
 
@@ -835,7 +853,10 @@ foreach ($array_leerling as $item) {
 
       $page_html .= "<td>" . $_h1_2 . " </td>";
       $page_html .= "<td>" . $_h1_3 . " </td>";
-      $page_html .= "<td>" . number_format($avg_h, 0) . " </td>";
+      if ($klas != 4) {
+
+        $page_html .= "<td>" . number_format($avg_h, 0) . " </td>";
+      }
     }
     $page_html .= "</tr>";
 
@@ -4707,9 +4728,10 @@ if($avg_h == 0.0){$avg_h = null;}
         $klas_var = $paket;
         break;
     }
-    $page_html .= "<input " . $radio2 . " type='radio'>" . $klas_var;
-    $page_html .= "</div>";
+
     if ($klas != 4) {
+      $page_html .= "<input " . $radio2 . " type='radio'>" . $klas_var;
+      $page_html .= "</div>";
       $page_html .= "<br>";
       $page_html .= "<div>";
       $page_html .= "<input " . $radio3 . " type='radio'><label>Niet over</label>";
@@ -4717,6 +4739,9 @@ if($avg_h == 0.0){$avg_h = null;}
       $page_html .= "<br>";
       $page_html .= "<div>";
       $page_html .= "<input " . $radio1 . " type='radio'><label>Verwezen naar ander schooltype</label>";
+      $page_html .= "</div>";
+    } else {
+      $page_html .= "Pakket: " . $klas_var;
       $page_html .= "</div>";
     }
 

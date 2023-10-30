@@ -2911,6 +2911,9 @@ class spn_leerling
   }
   function get_all_students_array_by_klas($klas, $schooljaar, $rapnumer)
   {
+    if ($_SESSION['SchoolType'] == 2 && substr($klas, 0, 1) == 4) {
+      $rapnumer = 4;
+    }
     $returnvalue = "";
     $user_permission = "";
     $sql_query = "";
