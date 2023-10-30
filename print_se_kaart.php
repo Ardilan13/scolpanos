@@ -4515,7 +4515,6 @@ if($avg_h == 0.0){$avg_h = null;}
     $id = $item['studentid'];
     $klas_o = $_GET["klas"];
     for ($y = 1; $rapport >= $y; $y++) {
-      $y = $y == 3 ? 4 : $y;
       $get_opmerking = "SELECT
       (SELECT opmerking1 FROM opmerking WHERE SchoolID = '$schoolid' AND klas = '$klas_o' AND studentid = '$id' AND rapport = $y AND schooljaar = '$schooljaar' LIMIT 1) as opmerking1,
       opmerking2,
@@ -4613,7 +4612,6 @@ if($avg_h == 0.0){$avg_h = null;}
           $defi[$y] = null;
         }
       }
-      $y = $y == 4 ? 3 : $y;
     }
 
     $page_html .= "<div class='row'>";

@@ -64,7 +64,11 @@ class spn_see_kaart
             if ($stmt->bind_param("ssi", $schooljaar, $studentid, $rapnummer)) {
               if ($stmt->execute()) {
                 $result = 1;
-                $stmt->bind_result($vak, $volledigenaamvak, $complete_name,  $gemmindele1, $gemmindele2, $gemmindele3);
+                if ($level_klas == 4) {
+                  $stmt->bind_result($vak, $volledigenaamvak, $complete_name,  $gemmindele1, $gemmindele2, $gemmindele3, $po);
+                } else {
+                  $stmt->bind_result($vak, $volledigenaamvak, $complete_name,  $gemmindele1, $gemmindele2, $gemmindele3);
+                }
                 $stmt->store_result();
                 if ($stmt->num_rows > 0) {
                   $table .= "<table align='center' cellpadding='1' cellspacing='1' class='table table-sm'>";
@@ -267,13 +271,22 @@ class spn_see_kaart
                         $average = ($gemmindele1 + $gemmindele2) / ($average_divisor == 0 ? 1 : $average_divisor);
                       }
                       if ($rapnummer == 3) {
+                        if ($level_klas == 4) {
+                          if ((float)$po > 0.0 && $po != '' && $po != null) {
+                            $average_divisor = $average_divisor + 0.5;
+                          }
+                        }
                         if ((float)$gemmindele3 > 0.0 && $gemmindele3 != null  && $gemmindele3 != "") {
                           $average_divisor++;
                         }
                         if ((float)$gemmindele2 > 0.0 && $gemmindele2 != '' && $gemmindele2 != null) {
                           $average_divisor++;
                         }
-                        $average = ($gemmindele1 + $gemmindele2 + $gemmindele3) / ($average_divisor == 0 ? 1 : $average_divisor);
+                        if ($level_klas == 4) {
+                          $average = ($gemmindele1 + $gemmindele2 + $gemmindele3 + ($po / 2)) / ($average_divisor == 0 ? 1 : $average_divisor);
+                        } else {
+                          $average = ($gemmindele1 + $gemmindele2 + $gemmindele3) / ($average_divisor == 0 ? 1 : $average_divisor);
+                        }
 
                         if ($_SESSION['SchoolID'] == 17 && $schooljaar == "2021-2022" && ($volledigenaamvak == "lo" || $volledigenaamvak == "LO")) {
                           $average = ($gemmindele1 + $gemmindele2 + $gemmindele3) / 2;
