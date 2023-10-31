@@ -5095,11 +5095,13 @@ AND lc.schooljaar = '$schooljaar'
   {
     $returnvalue = "";
     $po = ["na", "bi", "ak", "gs"];
+    $vrijstelling = ["e1" => 'ne', "e2" => 'en', "e3" => 'sp', "e4" => 'pa', "e5" => 'wi', "e6" => 'na', "e7" => 'na', "e8" => 'bi', "e9" => 'ec', "e10" => 'ak', "e11" => 'gs', "e12" => 're'];
     $cijfer = "";
     $extra = "";
     $user_permission = "";
     $sql_query = "";
     $htmlcontrol = "";
+    $blue = "";
     $htmlcijferswaarde = "";
 
     require_once("DBCreds.php");
@@ -5122,7 +5124,7 @@ AND lc.schooljaar = '$schooljaar'
     $s = new spn_setting();
     $s->getsetting_info($schoolid, false);
 
-    $sql_query = "SELECT distinct s.id, c.id, s.class, s.lastname,s.firstname, s.sex, c.c1, c.c2, c.c3, c.c4, c.c5, c.c6, c.c7, c.c8, c.c9, c.c10, c.c11, c.c12, c.c13, c.c14, c.c15, c.c16, c.c17, c.c18, c.c19, c.c20, c.gemiddelde FROM students s LEFT JOIN le_cijfers c ON s.id = c.studentid LEFT JOIN le_vakken v ON c.vak = v.id LEFT JOIN group_student g ON s.id = g.student_id WHERE v.id = ? AND g.group_id = ? AND c.rapnummer = ? AND c.schooljaar = ? AND g.schooljaar = ? AND s.schoolid = ? ORDER BY ";
+    $sql_query = "SELECT distinct s.id, c.id, s.class, s.lastname,s.firstname, s.sex, c.c1, c.c2, c.c3, c.c4, c.c5, c.c6, c.c7, c.c8, c.c9, c.c10, c.c11, c.c12, c.c13, c.c14, c.c15, c.c16, c.c17, c.c18, c.c19, c.c20, c.gemiddelde, e.e1,e.e2,e.e3,e.e4,e.e5,e.e6,e.e7,e.e8,e.e9,e.e10,e.e11,e.e12 FROM students s LEFT JOIN le_cijfers c ON s.id = c.studentid LEFT JOIN le_vakken v ON c.vak = v.id LEFT JOIN group_student g ON s.id = g.student_id LEFT JOIN personalia p ON p.studentid = s.id LEFT JOIN eba_ex e ON e.id_personalia = p.id WHERE v.id = ? AND g.group_id = ? AND c.rapnummer = ? AND c.schooljaar = ? AND g.schooljaar = ? AND s.schoolid = ? AND p.schooljaar = ? AND e.type = 0 ORDER BY ";
 
     $sql_order = " s.lastname, s.firstname ";
     if ($s->_setting_mj) {
@@ -5139,7 +5141,7 @@ AND lc.schooljaar = '$schooljaar'
     try {
 
       if ($select = $mysqli->prepare($sql_query)) {
-        if ($select->bind_param("iisssi", $vak_row, $vak_in, $rap_in, $schooljaar, $schooljaar, $schoolid)) {
+        if ($select->bind_param("iisssis", $vak_row, $vak_in, $rap_in, $schooljaar, $schooljaar, $schoolid, $schooljaar)) {
           if ($select->execute()) {
             $spn_audit = new spn_audit();
             $UserGUID = $_SESSION['UserGUID'];
@@ -5147,7 +5149,7 @@ AND lc.schooljaar = '$schooljaar'
             $this->error = false;
             $result = 1;
 
-            $select->bind_result($studentid, $cijferid, $klas, $lastname, $firstname, $sex, $c1, $c2, $c3, $c4, $c5, $c6, $c7, $c8, $c9, $c10, $c11, $c12, $c13, $c14, $c15, $c16, $c17, $c18, $c19, $c20, $gemiddelde);
+            $select->bind_result($studentid, $cijferid, $klas, $lastname, $firstname, $sex, $c1, $c2, $c3, $c4, $c5, $c6, $c7, $c8, $c9, $c10, $c11, $c12, $c13, $c14, $c15, $c16, $c17, $c18, $c19, $c20, $gemiddelde, $e1, $e2, $e3, $e4, $e5, $e6, $e7, $e8, $e9, $e10, $e11, $e12);
             $select->store_result();
 
             if ($select->num_rows > 0) {
@@ -5248,7 +5250,13 @@ AND lc.schooljaar = '$schooljaar'
 
               while ($select->fetch()) {
 
-                $htmlcontrol .= "<tr class='student'><td>$x</td><td><input class=\"hidden\" studentidarray=\"$studentid\"></input>" . utf8_encode($lastname) . ', ' . utf8_encode($firstname) . "</td>";
+                $eba = array_search($name_row, $vrijstelling);
+                if ($eba !== false) {
+                  $blue = ($$eba == "V" ? " blue" : "");
+                }
+
+
+                $htmlcontrol .= "<tr class='student'><td class='" . $blue . "'>$x</td><td class='" . $blue . "'><input class=\"hidden\" studentidarray=\"$studentid\"></input>" . utf8_encode($lastname) . ', ' . utf8_encode($firstname) . "</td>";
 
                 if ($name_row == "lo") {
                   $c1 = ($c1 == 0.0 ? "" : $c1);
@@ -5352,26 +5360,33 @@ AND lc.schooljaar = '$schooljaar'
                         $_cijfer_number = $c13;
                         break;
                     }
-
                     // Changes settings (ladalan@caribedev)
                     if ($y == 3 || $y == 7 || $y == 12) {
-                      $htmlcontrol .= "<td class=\"gec\"></td>";
-                    } else if ($y == 4 || $y == 8 || $y == 13) {
-                      $htmlcontrol .= "<td class='bg-light' style='background-color: white !important;'></td>";
+                      $htmlcontrol .= "<td class='\"gec\" " . $blue . "'></td>";
+                    } else if ($y == 4 || $y == 8 || $y == 13 || ($blue != '' && $y != 11)) {
+                      $htmlcontrol .= "<td class='bg-light" . $blue . "' style='background-color: white !important;'></td>";
                     } else {
                       if (($s->_setting_rapnumber_1 && ($y == 1 || $y == 2)) || ($s->_setting_rapnumber_2 && ($y == 5 || $y == 6)) || ($s->_setting_rapnumber_3 && ($y == 9 || $y == 10 || $y == 11))) {
                         $cell = 'x' . $x . 'y' . $y;
                         if ($y != 11) {
-                          $htmlcontrol .= "<td class='se se" . $y . "'><span id=\"lblName1\" disabled='true' data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\" class=\"editable\">$_cijfer_number</span></td>";
+                          $htmlcontrol .= "<td class='se se" . $y . $blue . "'><span id=\"lblName1\" disabled='true' data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\" class=\"editable\">$_cijfer_number</span></td>";
                         } else if (in_array($name_row, $po)) {
-                          $htmlcontrol .= "<td class='se se" . $y . "'><span id=\"lblName1\" disabled='true' data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\" class=\"editable\">$_cijfer_number</span></td>";
+                          if ($blue != '') {
+                            $htmlcontrol .= "<td class='bg-light" . $blue . "' style='background-color: white !important;'></td>";
+                          } else {
+                            $htmlcontrol .= "<td class='se se" . $y . $blue . "'><span id=\"lblName1\" disabled='true' data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\" class=\"editable\">$_cijfer_number</span></td>";
+                          }
                         }
                       } else {
                         $cell = 'x' . $x . 'y' . $y;
                         if ($y != 11) {
-                          $htmlcontrol .= "<td><span id=\"lblName1\" data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\">$_cijfer_number</span></td>";
+                          $htmlcontrol .= "<td><span class='" . $blue . "' id=\"lblName1\" data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\">$_cijfer_number</span></td>";
                         } else if (in_array($name_row, $po)) {
-                          $htmlcontrol .= "<td><span id=\"lblName1\" data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\">$_cijfer_number</span></td>";
+                          if ($blue != '') {
+                            $htmlcontrol .= "<td class='bg-light" . $blue . "' style='background-color: white !important;'></td>";
+                          } else {
+                            $htmlcontrol .= "<td><span class='" . $blue . "' id=\"lblName1\" data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\">$_cijfer_number</span></td>";
+                          }
                         }
                       }
                     }
@@ -5381,7 +5396,11 @@ AND lc.schooljaar = '$schooljaar'
                     $xx++;
                   }
 
-                  $htmlcontrol .= "<td class=\"gse\"></td>";
+                  if ($blue != '') {
+                    $htmlcontrol .= "<td><span class='" . $blue . "' id=\"lblName1\" data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\">$_cijfer_number</span></td>";
+                  } else {
+                    $htmlcontrol .= "<td class='\"gse\" " . $blue . "'></td>";
+                  }
 
                   for ($y = 14; $y <= 16; $y++) {
                     switch ($y) {
@@ -5407,11 +5426,15 @@ AND lc.schooljaar = '$schooljaar'
                     if ($s->_setting_rapnumber_1 || $s->_setting_rapnumber_2 || $s->_setting_rapnumber_3) {
                       $cell = 'x' . $x . 'y' . $y;
                       if ($s->_cijfer1 == 1 && $y == 14) {
-                        $htmlcontrol .= "<td class='se cex se" . $y . "'><span id=\"lblName1\" disabled='true' data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\" class=\"editable\">$_cijfer_number</span></td>";
+                        $htmlcontrol .= "<td class='se cex se" . $y .  $blue . "'><span id=\"lblName1\" disabled='true' data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\" class=\"editable\">$_cijfer_number</span></td>";
                       } else if ($s->_cijfer2 == 1 && $y == 15) {
-                        $htmlcontrol .= "<td class='se hercex se" . $y . "'><span id=\"lblName1\" disabled='true' data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\" class=\"editable\">$_cijfer_number</span></td>";
+                        if ($blue != '') {
+                          $htmlcontrol .= "<td class='bg-light" . $blue . "' style='background-color: white !important;'></td>";
+                        } else {
+                          $htmlcontrol .= "<td class='se hercex se" . $y .  $blue . "'><span id=\"lblName1\" disabled='true' data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\" class=\"editable\">$_cijfer_number</span></td>";
+                        }
                       } else if ($s->_cijfer3 == 1 && $y == 16) {
-                        $htmlcontrol .= "<td class='se ec se" . $y . "'></td>";
+                        $htmlcontrol .= "<td class='se ec se" . $y . $blue . "'></td>";
                       }
                     }
                   }
