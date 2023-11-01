@@ -5124,7 +5124,7 @@ AND lc.schooljaar = '$schooljaar'
     $s = new spn_setting();
     $s->getsetting_info($schoolid, false);
 
-    $sql_query = "SELECT distinct s.id, c.id, s.class, s.lastname,s.firstname, s.sex, c.c1, c.c2, c.c3, c.c4, c.c5, c.c6, c.c7, c.c8, c.c9, c.c10, c.c11, c.c12, c.c13, c.c14, c.c15, c.c16, c.c17, c.c18, c.c19, c.c20, c.gemiddelde, e.e1,e.e2,e.e3,e.e4,e.e5,e.e6,e.e7,e.e8,e.e9,e.e10,e.e11,e.e12 FROM students s LEFT JOIN le_cijfers c ON s.id = c.studentid LEFT JOIN le_vakken v ON c.vak = v.id LEFT JOIN group_student g ON s.id = g.student_id LEFT JOIN personalia p ON p.studentid = s.id LEFT JOIN eba_ex e ON e.id_personalia = p.id WHERE v.id = ? AND g.group_id = ? AND c.rapnummer = ? AND c.schooljaar = ? AND g.schooljaar = ? AND s.schoolid = ? AND p.schooljaar = ? AND e.type = 0 ORDER BY ";
+    $sql_query = "SELECT distinct s.id, c.id, s.class, s.lastname,s.firstname, s.sex, c.c1, c.c2, c.c3, c.c4, c.c5, c.c6, c.c7, c.c8, c.c9, c.c10, c.c11, c.c12, c.c13, c.c14, c.c15, c.c16, c.c17, c.c18, c.c19, c.c20, c.gemiddelde, e.e1,e.e2,e.e3,e.e4,e.e5,e.e6,e.e7,e.e8,e.e9,e.e10,e.e11,e.e12 FROM students s LEFT JOIN le_cijfers c ON s.id = c.studentid LEFT JOIN le_vakken v ON c.vak = v.id LEFT JOIN group_student g ON s.id = g.student_id LEFT JOIN personalia p ON p.studentid = s.id LEFT JOIN eba_ex e ON e.id_personalia = p.id WHERE v.id = ? AND g.group_id = ? AND c.rapnummer = ? AND c.schooljaar = ? AND g.schooljaar = ? AND s.schoolid = ? AND p.schooljaar = ? AND e.type = 0 AND e.schooljaar = ? ORDER BY ";
 
     $sql_order = " s.lastname, s.firstname ";
     if ($s->_setting_mj) {
@@ -5141,7 +5141,7 @@ AND lc.schooljaar = '$schooljaar'
     try {
 
       if ($select = $mysqli->prepare($sql_query)) {
-        if ($select->bind_param("iisssis", $vak_row, $vak_in, $rap_in, $schooljaar, $schooljaar, $schoolid, $schooljaar)) {
+        if ($select->bind_param("iisssiss", $vak_row, $vak_in, $rap_in, $schooljaar, $schooljaar, $schoolid, $schooljaar, $schooljaar)) {
           if ($select->execute()) {
             $spn_audit = new spn_audit();
             $UserGUID = $_SESSION['UserGUID'];

@@ -9,7 +9,7 @@ class spn_see_kaart
     $returnvalue = "";
 
     $sql_query = "";
-
+    $vrijstelling = ["e1" => 'ne', "e2" => 'en', "e3" => 'sp', "e4" => 'pa', "e5" => 'wi', "e6" => 'na', "e7" => 'na', "e8" => 'bi', "e9" => 'ec', "e10" => 'ak', "e11" => 'gs', "e12" => 're'];
     $table = "";
 
     $gemiddelde = "";
@@ -65,7 +65,7 @@ class spn_see_kaart
               if ($stmt->execute()) {
                 $result = 1;
                 if ($level_klas == 4) {
-                  $stmt->bind_result($vak, $volledigenaamvak, $complete_name,  $gemmindele1, $gemmindele2, $gemmindele3, $po);
+                  $stmt->bind_result($vak, $volledigenaamvak, $complete_name,  $gemmindele1, $gemmindele2, $gemmindele3, $po, $e1, $e2, $e3, $e4, $e5, $e6, $e7, $e8, $e9, $e10, $e11, $e12);
                 } else {
                   $stmt->bind_result($vak, $volledigenaamvak, $complete_name,  $gemmindele1, $gemmindele2, $gemmindele3);
                 }
@@ -309,8 +309,17 @@ class spn_see_kaart
                           }
                         }
                       }
+                      $blue = "";
+                      $eba = array_search(strtolower($vak_code), $vrijstelling);
+                      if ($level_klas == 4 && $eba !== false && $$eba == "V") {
+                        $gemmindele1 = "V";
+                        $gemmindele2 = "V";
+                        $gemmindele3 = "V";
+                        $blue = " style='color: dodgerblue;'";
+                      }
+
                       if ($rapnummer == 1) {
-                        $table .= "<td " . ((float)$gemmindele1 >= 1 && (float)$gemmindele1 <= 4.4  && (float)$gemmindele1 ? "class=\"bg-danger\"" : "") . ">" . ((float)$gemmindele1 > 0.0 && $gemmindele1 != null  && $gemmindele1 != "" ? $gemmindele1 : "") . "</td>";
+                        $table .= "<td " . $blue . ((float)$gemmindele1 >= 1 && (float)$gemmindele1 <= 4.4  && (float)$gemmindele1 ? "class=\"bg-danger\"" : "") . ">" . ((float)$gemmindele1 > 0.0 && $gemmindele1 != null  && $gemmindele1 != "" || $gemmindele1 == "V" ? $gemmindele1 : "") . "</td>";
                         $table .= "<td></td>";
                         $table .= "<td></td>";
                         if ($level_klas == 4) {
@@ -320,8 +329,8 @@ class spn_see_kaart
                       }
 
                       if ($rapnummer == 2) {
-                        $table .= "<td " . ((float)$gemmindele1 >= 1 && (float)$gemmindele1 <= 4.4  && (float)$gemmindele1 ? "class=\"bg-danger\"" : "") . ">" . ((float)$gemmindele1 > 0.0 && $gemmindele1 != null  && $gemmindele1 != "" ? $gemmindele1 : "") . "</td>";
-                        $table .= "<td " . ((float)$gemmindele2 >= 1 && (float)$gemmindele2 <= 4.4  && (float)$gemmindele2 ? "class=\"bg-danger\"" : "") . ">" . ((float)$gemmindele2 > 0.0 && $gemmindele2 != null  && $gemmindele2 != "" ? $gemmindele2 : "") . "</td>";
+                        $table .= "<td " . $blue . ((float)$gemmindele1 >= 1 && (float)$gemmindele1 <= 4.4  && (float)$gemmindele1 ? "class=\"bg-danger\"" : "") . ">" . ((float)$gemmindele1 > 0.0 && $gemmindele1 != null  && $gemmindele1 != "" || $gemmindele1 == "V" ? $gemmindele1 : "") . "</td>";
+                        $table .= "<td " . $blue . ((float)$gemmindele2 >= 1 && (float)$gemmindele2 <= 4.4  && (float)$gemmindele2 ? "class=\"bg-danger\"" : "") . ">" . ((float)$gemmindele2 > 0.0 && $gemmindele2 != null  && $gemmindele2 != "" || $gemmindele2 == "V" ? $gemmindele2 : "") . "</td>";
                         $table .= "<td></td>";
                         if ($level_klas == 4) {
                           $average = 0.0;
@@ -329,9 +338,9 @@ class spn_see_kaart
                         }
                       }
                       if ($rapnummer == 3) {
-                        $table .= "<td " . ((float)$gemmindele1 >= 1 && (float)$gemmindele1 <= 4.4  && (float)$gemmindele1 ? "class=\"bg-danger\"" : "") . ">" . ((float)$gemmindele1 > 0.0 && $gemmindele1 != null  && $gemmindele1 != "" ? $gemmindele1 : "") . "</td>";
-                        $table .= "<td " . ((float)$gemmindele2 >= 1 && (float)$gemmindele2 <= 4.4  && (float)$gemmindele2 ? "class=\"bg-danger\"" : "") . ">" . ((float)$gemmindele2 > 0.0 && $gemmindele2 != null  && $gemmindele2 != "" ? $gemmindele2 : "") . "</td>";
-                        $table .= "<td " . ((float)$gemmindele3 >= 1 && (float)$gemmindele3 <= 4.4  && (float)$gemmindele3 ? "class=\"bg-danger\"" : "") . ">" . ((float)$gemmindele3 > 0.0 && $gemmindele3 != null  && $gemmindele3 != "" ? $gemmindele3 : "") . "</td>";
+                        $table .= "<td " . $blue . ((float)$gemmindele1 >= 1 && (float)$gemmindele1 <= 4.4  && (float)$gemmindele1 ? "class=\"bg-danger\"" : "") . ">" . ((float)$gemmindele1 > 0.0 && $gemmindele1 != null  && $gemmindele1 != "" || $gemmindele1 == "V" ? $gemmindele1 : "") . "</td>";
+                        $table .= "<td " . $blue . ((float)$gemmindele2 >= 1 && (float)$gemmindele2 <= 4.4  && (float)$gemmindele2 ? "class=\"bg-danger\"" : "") . ">" . ((float)$gemmindele2 > 0.0 && $gemmindele2 != null  && $gemmindele2 != "" || $gemmindele2 == "V" ? $gemmindele2 : "") . "</td>";
+                        $table .= "<td " . $blue . ((float)$gemmindele3 >= 1 && (float)$gemmindele3 <= 4.4  && (float)$gemmindele3 ? "class=\"bg-danger\"" : "") . ">" . ((float)$gemmindele3 > 0.0 && $gemmindele3 != null  && $gemmindele3 != "" || $gemmindele3 == "V" ? $gemmindele3 : "") . "</td>";
                       }
 
                       if ($vak_code == "NE" || $vak_code == "EN" || $vak_code == "LO" || ($vak_code == "WI" && $profiel != "HU08")) {
@@ -342,62 +351,62 @@ class spn_see_kaart
                         switch ($vak_code) {
                           case 'EC':
                             if ($profiel != "MM10" && $profiel != "MM11" && $profiel != "MM12" && $profiel != "NW01" && $profiel != "NW02" && $profiel != "NW04" && $profiel != "NW07" && $profiel != "HU07") {
-                              $table .= "<td class='" . $color . "' " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? ($level_klas != 4 ? round($average) : round($average, 1)) : "") . "</td>";
+                              $table .= "<td" . $blue . " class='" . $color . "' " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? ($level_klas != 4 ? round($average) : round($average, 1)) : "") . "</td>";
                             } else {
-                              $table .= "<td " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? ($level_klas != 4 ? round($average) : round($average, 1)) : "") . "</td>";
+                              $table .= "<td" . $blue . " " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? ($level_klas != 4 ? round($average) : round($average, 1)) : "") . "</td>";
                             }
                             break;
                           case 'GS':
                             if ($profiel != "MM04" && $profiel != "MM05" && $profiel != "MM07" && $paket != "NW") {
-                              $table .= "<td class='" . $color . "' " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? ($level_klas != 4 ? round($average) : round($average, 1)) : "") . "</td>";
+                              $table .= "<td" . $blue . " class='" . $color . "' " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? ($level_klas != 4 ? round($average) : round($average, 1)) : "") . "</td>";
                             } else {
-                              $table .= "<td " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? ($level_klas != 4 ? round($average) : round($average, 1)) : "") . "</td>";
+                              $table .= "<td" . $blue . " " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? ($level_klas != 4 ? round($average) : round($average, 1)) : "") . "</td>";
                             }
                             break;
                           case 'SP':
                             if ($profiel != "MM03" && $profiel != "MM07" && $profiel != "MM08" && $profiel != "MM09" && $profiel != "MM12" && $profiel != "NW04" && $profiel != "NW05" && $profiel != "NW06" && $profiel != "NW09") {
-                              $table .= "<td class='" . $color . "' " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? ($level_klas != 4 ? round($average) : round($average, 1)) : "") . "</td>";
+                              $table .= "<td" . $blue . " class='" . $color . "' " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? ($level_klas != 4 ? round($average) : round($average, 1)) : "") . "</td>";
                             } else {
-                              $table .= "<td " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? ($level_klas != 4 ? round($average) : round($average, 1)) : "") . "</td>";
+                              $table .= "<td" . $blue . " " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? ($level_klas != 4 ? round($average) : round($average, 1)) : "") . "</td>";
                             }
                             break;
                           case 'PA':
                             if ($profiel != "MM02" && $profiel != "MM05" && $profiel != "MM06" && $profiel != "MM09" && $profiel != "MM11" && $profiel != "NW02" && $profiel != "NW03" && $profiel != "NW06" && $profiel != "NW08" && $profiel != "HU10") {
-                              $table .= "<td class='" . $color . "' " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? ($level_klas != 4 ? round($average) : round($average, 1)) : "") . "</td>";
+                              $table .= "<td" . $blue . " class='" . $color . "' " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? ($level_klas != 4 ? round($average) : round($average, 1)) : "") . "</td>";
                             } else {
-                              $table .= "<td " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? ($level_klas != 4 ? round($average) : round($average, 1)) : "") . "</td>";
+                              $table .= "<td" . $blue . " " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? ($level_klas != 4 ? round($average) : round($average, 1)) : "") . "</td>";
                             }
                             break;
                           case 'BI':
                             if ($profiel != "MM01" && $profiel != "MM04" && $profiel != "MM06" && $profiel != "MM08" && $profiel != "MM10" && $profiel != "NW01" && $profiel != "NW03" && $profiel != "NW05" && $paket != "HU") {
-                              $table .= "<td class='" . $color . "' " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? ($level_klas != 4 ? round($average) : round($average, 1)) : "") . "</td>";
+                              $table .= "<td" . $blue . " class='" . $color . "' " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? ($level_klas != 4 ? round($average) : round($average, 1)) : "") . "</td>";
                             } else {
-                              $table .= "<td " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? ($level_klas != 4 ? round($average) : round($average, 1)) : "") . "</td>";
+                              $table .= "<td" . $blue . " " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? ($level_klas != 4 ? round($average) : round($average, 1)) : "") . "</td>";
                             }
                             break;
                           case 'AK':
                             if ($profiel != "MM01" && $profiel != "MM02" && $profiel != "MM03" && $paket != "NW") {
-                              $table .= "<td class='" . $color . "' " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? ($level_klas != 4 ? round($average) : round($average, 1)) : "") . "</td>";
+                              $table .= "<td" . $blue . " class='" . $color . "' " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? ($level_klas != 4 ? round($average) : round($average, 1)) : "") . "</td>";
                             } else {
-                              $table .= "<td " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? ($level_klas != 4 ? round($average) : round($average, 1)) : "") . "</td>";
+                              $table .= "<td" . $blue . " " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? ($level_klas != 4 ? round($average) : round($average, 1)) : "") . "</td>";
                             }
                             break;
                           case 'NA':
                             if ($paket != "MM" && $profiel != "NW07" && $profiel != "NW08" && $profiel != "NW09" && $paket != "HU") {
-                              $table .= "<td class='" . $color . "' " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? ($level_klas != 4 ? round($average) : round($average, 1)) : "") . "</td>";
+                              $table .= "<td" . $blue . " class='" . $color . "' " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? ($level_klas != 4 ? round($average) : round($average, 1)) : "") . "</td>";
                             } else {
-                              $table .= "<td " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? ($level_klas != 4 ? round($average) : round($average, 1)) : "") . "</td>";
+                              $table .= "<td" . $blue . " " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? ($level_klas != 4 ? round($average) : round($average, 1)) : "") . "</td>";
                             }
                             break;
                           case 'SK':
                             if ($paket != "MM" && $paket != "HU") {
-                              $table .= "<td class='" . $color . "' " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? ($level_klas != 4 ? round($average) : round($average, 1)) : "") . "</td>";
+                              $table .= "<td" . $blue . " class='" . $color . "' " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? ($level_klas != 4 ? round($average) : round($average, 1)) : "") . "</td>";
                             } else {
-                              $table .= "<td " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? ($level_klas != 4 ? round($average) : round($average, 1)) : "") . "</td>";
+                              $table .= "<td" . $blue . " " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? ($level_klas != 4 ? round($average) : round($average, 1)) : "") . "</td>";
                             }
                             break;
                           default:
-                            $table .= "<td " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? ($level_klas != 4 ? round($average) : round($average, 1)) : "") . "</td>";
+                            $table .= "<td" . $blue . " " . ((float)$average >= 1 && (float)$average <= 4.4  && (float)$average ? "class=\"bg-danger\"" : "") . ">" . ((float)$average > 0.0 && $average != null  && $average != "" ? ($level_klas != 4 ? round($average) : round($average, 1)) : "") . "</td>";
                             break;
                         }
                       }
