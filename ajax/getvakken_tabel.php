@@ -101,7 +101,6 @@ function print_vakken_table()
 	$("#loader_spn").toggleClass('hidden');
 	/*$("#btn_submit_cijfers").prop('disabled', false);*/
 	$(document).ready(function() {
-		$(".blue").css("background-color", "dodgerblue");
 		$(".lo").change(function() {
 			var $studentid = $(this).attr("data-student-id"),
 				$id_cijfer = $(this).attr("id_cijfer_table"),
@@ -468,5 +467,6 @@ function print_vakken_table()
 		//CALCULATE FOOT GEMIDDELDE (ejaspe - caribeDevelopers)
 
 		calculate_gemiddelde();
+		$(".blue").css("background-color", "dodgerblue");
 	});
 </script>

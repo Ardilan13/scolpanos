@@ -110,6 +110,7 @@ class spn_see_kaart
 
 
                     $vak_code = strtoupper($volledigenaamvak);
+                    $eba = array_search(strtolower($vak_code), $vrijstelling);
                     $table .= "<tr>";
                     if (strpos($complete_name, 'CKV')) {
                       $result_cvk_array = array();
@@ -256,7 +257,7 @@ class spn_see_kaart
                         $table .= "<td class='" . $color . "' " . ((float)$final_avg_CKV >= 1 && (float)$final_avg_CKV <= 4.4  && (float)$final_avg_CKV ? "class=\"bg-danger\"" : "") . ">" . ((float)$final_avg_CKV > 0.0 && $final_avg_CKV != null  && $final_avg_CKV != "" ? ($final_avg_CKV >= 5.5 && $final_avg_CKV <= 6 ? 6 : round($final_avg_CKV)) : "") . "</td>";
                         $is_ckv = true;
                       }
-                    } else if ($complete_name != null && $complete_name != '' && ($level_klas == 4 && $vak_code != "LO")) {
+                    } else if ($complete_name != null && $complete_name != '' && ($level_klas == 4 && $vak_code != "LO" && $eba != false && $$eba != "")) {
                       $average_divisor = 0;
                       $average = 0;
                       $table .= "<td width='65%'>$complete_name ($vak_code)</td>";
@@ -310,7 +311,6 @@ class spn_see_kaart
                         }
                       }
                       $blue = "";
-                      $eba = array_search(strtolower($vak_code), $vrijstelling);
                       if ($level_klas == 4 && $eba !== false && $$eba == "V") {
                         $gemmindele1 = "V";
                         $gemmindele2 = "V";

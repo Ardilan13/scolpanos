@@ -5362,7 +5362,7 @@ AND lc.schooljaar = '$schooljaar'
                     }
                     // Changes settings (ladalan@caribedev)
                     if ($y == 3 || $y == 7 || $y == 12) {
-                      $htmlcontrol .= "<td class='\"gec\" " . $blue . "'></td>";
+                      $htmlcontrol .= "<td class='gec " . $blue . "'></td>";
                     } else if ($y == 4 || $y == 8 || $y == 13 || ($blue != '' && $y != 11)) {
                       $htmlcontrol .= "<td class='bg-light" . $blue . "' style='background-color: white !important;'></td>";
                     } else {
@@ -5397,9 +5397,9 @@ AND lc.schooljaar = '$schooljaar'
                   }
 
                   if ($blue != '') {
-                    $htmlcontrol .= "<td><span class='" . $blue . "' id=\"lblName1\" data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\">$_cijfer_number</span></td>";
+                    $htmlcontrol .= "<td class='" . $blue . "'></td>";
                   } else {
-                    $htmlcontrol .= "<td class='\"gse\" " . $blue . "'></td>";
+                    $htmlcontrol .= "<td class='gse" . $blue . "'></td>";
                   }
 
                   for ($y = 14; $y <= 16; $y++) {
