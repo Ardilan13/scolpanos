@@ -4551,7 +4551,8 @@ if($avg_h == 0.0){$avg_h = null;}
       $radio1 = $radio1 == 1 ? "checked" : "";
       $radio2 = $radio2 == 1 ? "checked" : "";
       $radio3 = $radio3 == 1 ? "checked" : "";
-      if ($opmerking3 == null || $opmerking3 == "") {
+      $defi[$y] = null;
+      if (($opmerking3 == null || $opmerking3 == "") && $level_klas != 4) {
         $cuenta_pri = 0;
         $cuenta = 0;
         $cijfers = 0;
@@ -4628,7 +4629,14 @@ if($avg_h == 0.0){$avg_h = null;}
     }
     $page_html .= "<textarea style='width: 100%;'>" . $opmerking[1] . "</textarea>";
     $page_html .= "<div class='row' style='justify-content: space-evenly;'>";
-    if ($defi[1] == 1) {
+    if ($defi[1] == null) {
+      $page_html .= "<div>";
+      $page_html .= "<input type='radio'><label>Voldoende</label>";
+      $page_html .= "</div>";
+      $page_html .= "<div>";
+      $page_html .= "<input type='radio'><label>Onvoldoende</label>";
+      $page_html .= "</div>";
+    } else if ($defi[1] == 1) {
       $page_html .= "<div>";
       $page_html .= "<input type='radio' checked><label>Voldoende</label>";
       $page_html .= "</div>";
@@ -4642,13 +4650,6 @@ if($avg_h == 0.0){$avg_h = null;}
       $page_html .= "<div>";
       $page_html .= "<input type='radio' checked><label>Onvoldoende</label>";
       $page_html .= "</div>";
-    } else {
-      $page_html .= "<div>";
-      $page_html .= "<input type='radio'><label>Voldoende</label>";
-      $page_html .= "</div>";
-      $page_html .= "<div>";
-      $page_html .= "<input type='radio'><label>Onvoldoende</label>";
-      $page_html .= "</div>";
     }
     $page_html .= "</div>";
     if ($level_klas != 3 && $level_klas != 4) {
@@ -4658,7 +4659,15 @@ if($avg_h == 0.0){$avg_h = null;}
     }
     $page_html .= "<textarea style='width: 100%;'>" . $opmerking[2] . "</textarea>";
     $page_html .= "<div class='row' style='justify-content: space-evenly;'>";
-    if ($defi[2] == 1 && $rapport >= 2) {
+
+    if ($defi[2] == null) {
+      $page_html .= "<div>";
+      $page_html .= "<input type='radio'><label>Voldoende</label>";
+      $page_html .= "</div>";
+      $page_html .= "<div>";
+      $page_html .= "<input type='radio'><label>Onvoldoende</label>";
+      $page_html .= "</div>";
+    } else if ($defi[2] == 1 && $rapport >= 2) {
       $page_html .= "<div>";
       $page_html .= "<input type='radio' checked><label>Voldoende</label>";
       $page_html .= "</div>";
@@ -4672,13 +4681,6 @@ if($avg_h == 0.0){$avg_h = null;}
       $page_html .= "<div>";
       $page_html .= "<input type='radio' checked><label>Onvoldoende</label>";
       $page_html .= "</div>";
-    } else {
-      $page_html .= "<div>";
-      $page_html .= "<input type='radio'><label>Voldoende</label>";
-      $page_html .= "</div>";
-      $page_html .= "<div>";
-      $page_html .= "<input type='radio'><label>Onvoldoende</label>";
-      $page_html .= "</div>";
     }
     $page_html .= "</div>";
     if ($level_klas != 3 && $level_klas != 4) {
@@ -4689,7 +4691,14 @@ if($avg_h == 0.0){$avg_h = null;}
       $page_html .= "<textarea style='width: 100%;'>" .  $opmerking[3] . "</textarea>";
     }
     $page_html .= "<div class='row' style='justify-content: space-evenly;'>";
-    if ($defi[4] == 1 && $rapport == 3) {
+    if ($defi[4] == null) {
+      $page_html .= "<div>";
+      $page_html .= "<input type='radio'><label>Voldoende</label>";
+      $page_html .= "</div>";
+      $page_html .= "<div>";
+      $page_html .= "<input type='radio'><label>Onvoldoende</label>";
+      $page_html .= "</div>";
+    } else if ($defi[4] == 1 && $rapport == 3) {
       $page_html .= "<div>";
       $page_html .= "<input type='radio' checked><label>Voldoende</label>";
       $page_html .= "</div>";
@@ -4702,13 +4711,6 @@ if($avg_h == 0.0){$avg_h = null;}
       $page_html .= "</div>";
       $page_html .= "<div>";
       $page_html .= "<input type='radio' checked><label>Onvoldoende</label>";
-      $page_html .= "</div>";
-    } else {
-      $page_html .= "<div>";
-      $page_html .= "<input type='radio'><label>Voldoende</label>";
-      $page_html .= "</div>";
-      $page_html .= "<div>";
-      $page_html .= "<input type='radio'><label>Onvoldoende</label>";
       $page_html .= "</div>";
     }
     $page_html .= "</div>";
