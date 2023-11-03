@@ -5095,7 +5095,7 @@ AND lc.schooljaar = '$schooljaar'
   {
     $returnvalue = "";
     $po = ["na", "bi", "ak", "gs"];
-    $vrijstelling = ["e1" => 'ne', "e2" => 'en', "e3" => 'sp', "e4" => 'pa', "e5" => 'wi', "e6" => 'na', "e7" => 'na', "e8" => 'bi', "e9" => 'ec', "e10" => 'ak', "e11" => 'gs', "e12" => 're'];
+    $vrijstelling = ["e1" => 'ne', "e2" => 'en', "e3" => 'sp', "e4" => 'pa', "e5" => 'wi', "e6" => 'na', "e7" => 'sk', "e8" => 'bi', "e9" => 'ec', "e10" => 'ak', "e11" => 'gs', "e12" => 're'];
     $cijfer = "";
     $extra = "";
     $user_permission = "";
