@@ -5398,7 +5398,7 @@ AND lc.schooljaar = '$schooljaar'
                   }
 
                   if ($blue != '') {
-                    $htmlcontrol .= "<td class='" . $blue . "'></td>";
+                    $htmlcontrol .= "<td class='gse" . $blue . "'><input class='gse_vrijstelling' value='" . $c1 . "' type='text' id='" . $cijferid . "' student='" . $studentid . "'></td>";
                   } else {
                     $htmlcontrol .= "<td class='gse" . $blue . "'></td>";
                   }

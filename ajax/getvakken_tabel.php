@@ -144,6 +144,33 @@ function print_vakken_table()
 			});
 		})
 
+		document.querySelectorAll('.gse_vrijstelling').forEach(function(element) {
+			element.addEventListener('change', function() {
+				var cijfer = this.id;
+				var studentid = this.getAttribute('student');
+				var value = parseFloat(this.value);
+
+				if ((!isNaN(value) && value > 0 && value <= 10.1) || (this.value == '' || this.value == null)) {
+					$.ajax({
+						url: "ajax/update_cijfers_vrijstelling.php",
+						data: "studentid=" +
+							studentid +
+							"&cijfer=" +
+							cijfer +
+							"&value=" +
+							value,
+						type: "POST",
+						success: function(data) {
+							console.log(data);
+						},
+					});
+				} else {
+					this.value = '';
+				}
+			});
+		});
+
+
 		function get_clase() {
 			$("td.se").each(function() {
 				const existe = $('td').hasClass('se11');
@@ -228,12 +255,18 @@ function print_vakken_table()
 
 				const promedio = suma / textos.length;
 
-				if (existe && textos.length == 7) {
-					$(this).find("td.gse").text(promedio.toFixed(1))
-				} else if (!existe && textos.length == 6) {
-					$(this).find("td.gse").text(promedio.toFixed(1))
+				var gse = $(this).find("td.gse");
+
+				if (gse.hasClass("blue")) {
+					// gse.find("input").val("test");
 				} else {
-					$(this).find("td.gse").text("")
+					if (existe && textos.length == 7) {
+						gse.text(promedio.toFixed(1))
+					} else if (!existe && textos.length == 6) {
+						gse.text(promedio.toFixed(1))
+					} else {
+						gse.text("")
+					}
 				}
 			});
 		}
