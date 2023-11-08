@@ -166,36 +166,7 @@
                                                                 <td><input id="<?php echo $row['id']; ?>" maxlength="2" style="width: 100%;" class="text-center ex e10 i<?php echo $x; ?>" type="text" value="<?php echo $row["e10"]; ?>"></td>
                                                                 <td><input id="<?php echo $row['id']; ?>" maxlength="2" style="width: 100%;" class="text-center ex e11 i<?php echo $x; ?>" type="text" value="<?php echo $row["e11"]; ?>"></td>
                                                                 <td><input id="<?php echo $row['id']; ?>" maxlength="2" style="width: 100%;" class="text-center ex e12 i<?php echo $x; ?>" type="text" value="<?php echo $row["e12"]; ?>"></td>
-                                                                <td>
-                                                                    <select class="profiel <?php echo $row["profiel"] . ' ' . $row['studentid']; ?>" name="profiel" class="form-control" id="p<?php echo $x; ?>">
-                                                                        <option value=""></option>
-                                                                        <option value="MM01">MM01</option>
-                                                                        <option value="MM02">MM02</option>
-                                                                        <option value="MM03">MM03</option>
-                                                                        <option value="MM04">MM04</option>
-                                                                        <option value="MM05">MM05</option>
-                                                                        <option value="MM06">MM06</option>
-                                                                        <option value="MM07">MM07</option>
-                                                                        <option value="MM08">MM08</option>
-                                                                        <option value="MM09">MM09</option>
-                                                                        <option value="MM10">MM10</option>
-                                                                        <option value="MM11">MM11</option>
-                                                                        <option value="MM12">MM12</option>
-                                                                        <option value="NW01">NW01</option>
-                                                                        <option value="NW02">NW02</option>
-                                                                        <option value="NW03">NW03</option>
-                                                                        <option value="NW04">NW04</option>
-                                                                        <option value="NW05">NW05</option>
-                                                                        <option value="NW06">NW06</option>
-                                                                        <option value="NW07">NW07</option>
-                                                                        <option value="NW08">NW08</option>
-                                                                        <option value="NW09">NW09</option>
-                                                                        <option value="HU07">HU07</option>
-                                                                        <option value="HU08">HU08</option>
-                                                                        <option value="HU09">HU09</option>
-                                                                        <option value="HU10">HU10</option>
-                                                                    </select>
-                                                                </td>
+                                                                <td><?php echo $row["profiel"] ?></td>
                                                                 <td id="x_<?php echo $x; ?>"></td>
                                                                 <td id="v_<?php echo $x; ?>"></td>
                                                                 <td id="h_<?php echo $x; ?>"></td>
@@ -302,6 +273,9 @@
             var value = $(this).val();
             changeColor(value);
             $(this).css("background-color", $color);
+            if ($color == "lightgray") {
+                $(this).attr("disabled", true);
+            }
         });
         countVaks()
     });

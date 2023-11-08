@@ -13,6 +13,40 @@ $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $D
 $schoolid = $_SESSION["SchoolID"];
 $schooljaar = $_SESSION["SchoolJaar"];
 
+// $get_klas = "SELECT id FROM students WHERE schoolid = 13 AND class like '4%'";
+// $result = mysqli_query($mysqli, $get_klas);
+// while ($row1 = mysqli_fetch_assoc($result)) {
+//     $id = $row1["id"];
+//     $paket = null;
+//     $student_group = [];
+//     $vaks_paket = [];
+//     $get = "SELECT SUBSTRING(gr.name, 1, 2) AS name FROM group_student g INNER JOIN groups gr ON gr.id = g.group_id WHERE g.student_id = " . $row1["id"] . " AND g.schooljaar = '$schooljaar' AND gr.schoolid = 13;";
+//     $result1 = mysqli_query($mysqli, $get);
+//     while ($row = mysqli_fetch_assoc($result1)) {
+//         $student_group[] = strtoupper($row["name"]);
+//     }
+//     sort($student_group);
+
+//     $get_paket = "SELECT * FROM paket";
+//     $result2 = mysqli_query($mysqli, $get_paket);
+//     while ($row2 = mysqli_fetch_assoc($result2)) {
+//         $vaks_paket = [$row2['g1'], $row2['g2'], $row2['g3'], $row2['g4'], $row2['p1'], $row2['p2'], $row2['p3'], $row2['k1'], $row2['k2'], $row2['k3']];
+//         $vaks_paket = array_filter($vaks_paket, function ($elemento) {
+//             return strpos($elemento, 'CKV') !== 0 && !empty($elemento);
+//         });
+//         sort($vaks_paket);
+//         $paket = ($vaks_paket == $student_group && $paket == null) ? $row2['paket'] : $paket;
+//         if ($paket !== null) {
+//             $profiel = "UPDATE students SET profiel = '$paket' WHERE id = " . $row1["id"] . ";";
+//             $result3 = mysqli_query($mysqli, $profiel);
+//             echo $profiel . "<br>";
+//             $paket = null;
+//             break;
+//         }
+//     }
+// }
+
+
 /* echo $returnhash = hash('sha512', '27qSiZxCqJSHSu0JNLX1zf7Ksvw=' . 'dilan');
  */
 /* $id = 552917;
