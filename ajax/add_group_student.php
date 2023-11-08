@@ -16,13 +16,38 @@ $id = $_POST["id"];
 $group = $_POST["group"];
 $schooljaar = $_SESSION["SchoolJaar"];
 $vak = $_POST["vak"];
+$name = $_POST["name"];
+$vrijstelling = ["e1" => 'NE', "e2" => 'EN', "e3" => 'SP', "e4" => 'PA', "e5" => 'WI', "e6" => 'NA', "e7" => 'SK', "e8" => 'BI', "e9" => 'EC', "e10" => 'AK', "e11" => 'GS', "e12" => 'RE'];
+$eba = array_search($name, $vrijstelling);
 
 if ($check == "true") {
     $sqli = "INSERT INTO group_student (group_id,student_id,schooljaar) VALUES ($group, '$id','$schooljaar');";
     $result = mysqli_query($mysqli, $sqli);
+    if ($result && $eba != false && $eba != "") {
+        $eba_update = "UPDATE eba_ex 
+        INNER JOIN personalia ON eba_ex.id_personalia = personalia.id
+        SET $eba = 'X'
+        WHERE 
+            eba_ex.schooljaar = '$schooljaar' 
+            AND eba_ex.type = 0 
+            AND personalia.studentid = $id
+            AND eba_ex.schoolid = " . $_SESSION["SchoolID"] . ";";
+        $result = mysqli_query($mysqli, $eba_update);
+    }
 } else {
     $sql = "DELETE FROM group_student WHERE student_id = $id AND group_id = $group AND schooljaar = '$schooljaar';";
     $result = mysqli_query($mysqli, $sql);
+    if ($result && $eba != false && $eba != "") {
+        $eba_update = "UPDATE eba_ex 
+        INNER JOIN personalia ON eba_ex.id_personalia = personalia.id
+        SET $eba = NULL
+        WHERE 
+            eba_ex.schooljaar = '$schooljaar' 
+            AND eba_ex.type = 0 
+            AND personalia.studentid = $id
+            AND eba_ex.schoolid = " . $_SESSION["SchoolID"] . ";";
+        $result = mysqli_query($mysqli, $eba_update);
+    }
 }
 
 //ACTUALIZACION PAKET

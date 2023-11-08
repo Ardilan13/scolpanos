@@ -158,7 +158,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                     $row2 = mysqli_fetch_assoc($result2);
                     $checked = $row2['id'] != "" ? "checked" : "";
                 ?>
-                    <td class="text-center"><input <?php echo $checked; ?> class="student" select="p<?php echo $s; ?>" id="<?php echo $row1['id'] ?>" type="checkbox" value="<?php echo $id ?>" vak="<?php echo $name ?>"></td>
+                    <td class="text-center"><input <?php echo $checked; ?> name="<?php echo $name; ?>" class="student" select="p<?php echo $s; ?>" id="<?php echo $row1['id'] ?>" type="checkbox" value="<?php echo $id ?>" vak="<?php echo $name ?>"></td>
                 <?php } ?>
             </tr>
         <?php $s++;
@@ -178,13 +178,16 @@ while ($row = mysqli_fetch_assoc($result)) {
             var check = $(this).prop('checked');
             var vak = $(this).attr("vak");
             var select = $(this).attr("select");
+            var name = $(this).attr("name").substring(0, 2).toUpperCase();
+
             $.ajax({
                 url: "ajax/add_group_student.php",
                 data: {
                     id: id,
                     group: group,
                     check: check,
-                    vak: vak
+                    vak: vak,
+                    name: name
                 },
                 type: "POST",
                 dataType: "text",
