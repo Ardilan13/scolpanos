@@ -542,9 +542,9 @@ while ($i <= $rap_in) {
                         $returnvalue = 'H';
                         break;
 
-                        // case 'sk':
-                        //     $returnvalue = $i == 3 ? 'J' : 'I';
-                        //     break;
+                    case 'sk':
+                        $returnvalue = $i == 3 ? 'J' : 'I';
+                        break;
 
                     case 'bi':
                         $returnvalue = $i == 3 ? 'K' : 'J';
@@ -649,10 +649,10 @@ while ($i <= $rap_in) {
                     $her = 'AR';
                     break;
 
-                    // case 'sk':
-                    //     $cex = 'AX';
-                    //     $her = 'AY';
-                    //     break;
+                case 'sk':
+                    $cex = 'AX';
+                    $her = 'AY';
+                    break;
 
                 case 'bi':
                     $cex = 'BF';

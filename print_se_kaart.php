@@ -397,7 +397,7 @@ foreach ($array_leerling as $item) {
 
   ////////////////////////////////////// NEW HOUDING ///////////////////////
 
-  $page_html .= "<div class='row'>";
+  $page_html .= "<div class='row mt-4'>";
   $page_html .= "<div class='col-md-12'>";
   $page_html .= "<table align='center'  cellpadding='1' cellspacing='1' class='table table-sm'>";
   $page_html .= "<thead>";
