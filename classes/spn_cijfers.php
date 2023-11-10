@@ -5365,7 +5365,7 @@ AND lc.schooljaar = '$schooljaar'
                     if ($y == 3 || $y == 7 || $y == 12) {
                       $htmlcontrol .= "<td class='gec " . $blue . "'></td>";
                     } else if ($y == 4 || $y == 8 || $y == 13 || ($blue != '' && $y != 11)) {
-                      $htmlcontrol .= "<td class='bg-light" . $blue . "' style='background-color: white !important;'></td>";
+                      $htmlcontrol .= "<td class='se se" . $y . $blue . "' style='background-color: white;'></td>";
                     } else {
                       if (($s->_setting_rapnumber_1 && ($y == 1 || $y == 2)) || ($s->_setting_rapnumber_2 && ($y == 5 || $y == 6)) || ($s->_setting_rapnumber_3 && ($y == 9 || $y == 10 || $y == 11))) {
                         $cell = 'x' . $x . 'y' . $y;
@@ -5373,7 +5373,7 @@ AND lc.schooljaar = '$schooljaar'
                           $htmlcontrol .= "<td class='se se" . $y . $blue . "'><span id=\"lblName1\" disabled='true' data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\" class=\"editable\">$_cijfer_number</span></td>";
                         } else if (in_array($name_row, $po)) {
                           if ($blue != '') {
-                            $htmlcontrol .= "<td class='bg-light" . $blue . "' style='background-color: white !important;'></td>";
+                            $htmlcontrol .= "<td class='se se" . $y . $blue . "'></td>";
                           } else {
                             $htmlcontrol .= "<td class='se se" . $y . $blue . "'><span id=\"lblName1\" disabled='true' data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\" class=\"editable\">$_cijfer_number</span></td>";
                           }
@@ -5384,7 +5384,7 @@ AND lc.schooljaar = '$schooljaar'
                           $htmlcontrol .= "<td><span class='" . $blue . "' id=\"lblName1\" data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\">$_cijfer_number</span></td>";
                         } else if (in_array($name_row, $po)) {
                           if ($blue != '') {
-                            $htmlcontrol .= "<td class='bg-light" . $blue . "' style='background-color: white !important;'></td>";
+                            $htmlcontrol .= "<td class='se se" . $y . $blue . "'></td>";
                           } else {
                             $htmlcontrol .= "<td><span class='" . $blue . "' id=\"lblName1\" data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\">$_cijfer_number</span></td>";
                           }
@@ -5400,7 +5400,7 @@ AND lc.schooljaar = '$schooljaar'
                   if ($blue != '') {
                     $htmlcontrol .= "<td class='gse" . $blue . "'><input class='gse_vrijstelling' value='" . $c1 . "' type='text' id='" . $cijferid . "' student='" . $studentid . "'></td>";
                   } else {
-                    $htmlcontrol .= "<td class='gse" . $blue . "'></td>";
+                    $htmlcontrol .= "<td class='gse'></td>";
                   }
 
                   for ($y = 14; $y <= 16; $y++) {
@@ -5430,7 +5430,7 @@ AND lc.schooljaar = '$schooljaar'
                         $htmlcontrol .= "<td class='se cex se" . $y .  $blue . "'><span id=\"lblName1\" disabled='true' data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\" class=\"editable\">$_cijfer_number</span></td>";
                       } else if ($s->_cijfer2 == 1 && $y == 15) {
                         if ($blue != '') {
-                          $htmlcontrol .= "<td class='bg-light" . $blue . "' style='background-color: white !important;'></td>";
+                          $htmlcontrol .= "<td class='se hercex se" . $y .  $blue . "'></td>";
                         } else {
                           $htmlcontrol .= "<td class='se hercex se" . $y .  $blue . "'><span id=\"lblName1\" disabled='true' data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\" class=\"editable\">$_cijfer_number</span></td>";
                         }

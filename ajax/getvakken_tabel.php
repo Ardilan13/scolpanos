@@ -175,7 +175,14 @@ function print_vakken_table()
 			$("td.se").each(function() {
 				const existe = $('td').hasClass('se11');
 				var total = 0;
+				var blue = false;
 				var clase = $(this).attr('class').split(' ').pop();
+				if (clase == "blue") {
+					blue = true;
+					clase = $(this).prev().attr('class').split(' ');
+					clase = clase[clase.length - 2];
+				}
+
 				if (clase.length == 3) {
 					clase = clase.slice(-1);
 				} else {
@@ -183,13 +190,13 @@ function print_vakken_table()
 				}
 				total = get_cijfers($(this), clase);
 				total = total == 0 ? '' : total;
-				if (clase < 9) {
+				if (clase < 9 && blue == false) {
 					if (clase % 2 == 0) {
 						$(this).next().text(total);
 					} else {
 						$(this).next().next().text(total);
 					}
-				} else if (clase < 12) {
+				} else if (clase < 12 && blue == false) {
 					if (existe) {
 						switch (clase) {
 							case '9':
@@ -212,14 +219,22 @@ function print_vakken_table()
 								break;
 						}
 					}
-				} else if (clase < 16) {
+				} else if (clase < 16 && clase > 13) {
 					if (total != 0 && total != '') {
 						switch (clase) {
 							case '14':
-								$(this).next().next().text(Math.round(total));
+								if (blue == true) {
+									$(this).next().text(Math.round(total));
+								} else {
+									$(this).next().next().text(Math.round(total));
+								}
 								break;
 							case '15':
-								$(this).next().text(Math.round(total));
+								if (blue == true) {
+									$(this).text(Math.round(total));
+								} else {
+									$(this).next().text(Math.round(total));
+								}
 								break;
 						}
 					} else {
@@ -257,7 +272,7 @@ function print_vakken_table()
 
 				var gse = $(this).find("td.gse");
 
-				if (gse.hasClass("blue")) {
+				if (gse.hasClass("blue") || $(this).hasClass("blue")) {
 					// gse.find("input").val("test");
 				} else {
 					if (existe && textos.length == 7) {
@@ -311,14 +326,15 @@ function print_vakken_table()
 				Number.isNaN(se1) ? se1 = 0 : se1 = se1;
 				Number.isNaN(se2) ? se2 = 0 : se2 = se2;
 			} else if (clase < 16) {
+				var blue = td.hasClass('blue');
 				if (clase % 2 == 0) {
-					se1 = parseFloat(td.children('span').text());
+					se1 = (blue == true ? parseFloat(td.prev().children('span').text()) : parseFloat(td.children('span').text()));;
 					se2 = parseFloat(td.next().children('span').text());
-					se3 = parseFloat(td.prev().text());
+					se3 = (blue == true ? parseFloat(td.prev().prev().children("input").val()) : parseFloat(td.prev().text()));
 				} else {
-					se1 = parseFloat(td.prev().children('span').text());
+					se1 = (blue == true ? parseFloat(td.prev().prev().children('span').text()) : parseFloat(td.prev().children('span').text()));;
 					se2 = parseFloat(td.children('span').text());
-					se3 = parseFloat(td.prev().prev().text());
+					se3 = (blue == true ? parseFloat(td.prev().prev().prev().children("input").val()) : parseFloat(td.prev().prev().text()));
 				}
 				Number.isNaN(se1) ? se1 = 0 : se1 = se1;
 				Number.isNaN(se2) ? se2 = 0 : se2 = se2;
@@ -500,6 +516,5 @@ function print_vakken_table()
 		//CALCULATE FOOT GEMIDDELDE (ejaspe - caribeDevelopers)
 
 		calculate_gemiddelde();
-		$(".blue").css("background-color", "dodgerblue");
 	});
 </script>

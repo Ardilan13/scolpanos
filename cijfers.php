@@ -11,6 +11,10 @@
 		height: 600px !important;
 		overflow: scroll !important;
 	}
+
+	.blue {
+		background-color: dodgerblue !important;
+	}
 </style>
 <div class="push-content-220">
 	<?php include 'header.php'; ?>
@@ -178,7 +182,8 @@
 				$(".vaken").addClass("hidden");
 				$(".group").removeClass("hidden");
 				$(".rapport").addClass("hidden");
-				$("#aviso").parent().hide()
+				// $("#aviso").parent().hide()
+				$("#aviso").text("Blauw geselecteerd leerling geeft aan dat de leerling vrijstelling heeft")
 			} else {
 				$("#cijfers_vakken_lijst").attr('disabled', false);
 				$("#group").attr('disabled', true);

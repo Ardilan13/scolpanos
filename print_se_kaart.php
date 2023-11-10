@@ -211,10 +211,10 @@ foreach ($array_leerling as $item) {
     } else {
       $page_html .= "<div style='margin: 0px; display: flex; align-items: center; flex-direction: column; margin-left: 10%;' >";
     }
-  } else if (substr($_GET["klas"], 0, 1) != 1 && $schoolId != 12) {
+  } else if (substr($_GET["klas"], 0, 1) != 1) {
     $page_html .= "<div style='display: flex; justify-content: space-evenly;'>";
     $page_html .= "<div style=' display: flex; align-items: center; justify-content: space-evenly;'>";
-    $page_html .= "<img  width='450px' height:'450px' src='" . appconfig::GetBaseURL() . "/assets/img/profiels.png' class='mx-auto d-block'>";
+    $page_html .= "<img style='margin-right: 100px !important;'  width='350px' height:'350px' src='" . appconfig::GetBaseURL() . "/assets/img/profiels.jpeg' class='mx-auto d-block'>";
     $page_html .= "<div style='width: 35rem; margin: 0px; display: flex; align-items: center; flex-direction: column;' >";
   } else {
     $page_html .= "<div class='row justify-content-end' style=''>";
@@ -916,10 +916,10 @@ foreach ($array_leerling as $item) {
       }
     }
     $page_html .= "<tr>";
-    $page_html .= "<td width='65%'>&nbsp;&nbsp;Verzuim</td>";
-    $page_html .= "<td>" . $cont_verzuim1 . " </td>";
-    $page_html .= "<td>" . $cont_verzuim2 . " </td>";
-    $page_html .= "<td>" . $cont_verzuim3 . "</td>";
+    $page_html .= "<td style='padding-top: 40px;' width='65%'>&nbsp;&nbsp;Verzuim</td>";
+    $page_html .= "<td style='padding-top: 40px;'>" . $cont_verzuim1 . " </td>";
+    $page_html .= "<td style='padding-top: 40px;'>" . $cont_verzuim2 . " </td>";
+    $page_html .= "<td style='padding-top: 40px;'>" . $cont_verzuim3 . "</td>";
     if ($klas != 4) {
 
       $page_html .= "<td>" . ($cont_verzuim1 + $cont_verzuim2 + $cont_verzuim3) . "</td>";
@@ -7410,11 +7410,11 @@ if($avg_h == 0.0){$avg_h = null;}
     $page_html .= "<h6 class='card-title'>Betekenis persoonlijke kwaliteiten:</h6>";
     $page_html .= "<div class='row'>";
     $page_html .= "<div class='row col-12' style='justify-content: center;'>";
-    $page_html .= "<p style='margin-bottom: 0.5rem; font-size: 0.75rem'>5 = Goed,</p>";
-    $page_html .= "<p style='margin-bottom: 0.1rem; font-size: 0.75rem'> 4 = voldoende,</li>";
-    $page_html .= "<p style='margin-bottom: 0.1rem; font-size: 0.75rem'> 3 = Matig,</p>";
-    $page_html .= "<p style='margin-bottom: 0.1rem; font-size: 0.75rem'> 2 = Onvoldoende,</p>";
-    $page_html .= "<p style='margin-bottom: 0.1rem; font-size: 0.75rem'> 1 = Slecht</p>";
+    $page_html .= "<p style='margin-bottom: 0.5rem; font-size: 0.75rem; margin-right: 1rem;'>5 = Goed,</p>";
+    $page_html .= "<p style='margin-bottom: 0.1rem; font-size: 0.75rem; margin-right: 1rem;'> 4 = voldoende,</li>";
+    $page_html .= "<p style='margin-bottom: 0.1rem; font-size: 0.75rem; margin-right: 1rem;'> 3 = Matig,</p>";
+    $page_html .= "<p style='margin-bottom: 0.1rem; font-size: 0.75rem; margin-right: 1rem;'> 2 = Onvoldoende,</p>";
+    $page_html .= "<p style='margin-bottom: 0.1rem; font-size: 0.75rem;'> 1 = Slecht</p>";
     $page_html .= "</div>";
     $page_html .= "</div>";
   } else if ($_SESSION['SchoolID'] != 18) {
