@@ -4659,8 +4659,7 @@ if($avg_h == 0.0){$avg_h = null;}
     }
     $page_html .= "<textarea style='width: 100%;'>" . $opmerking[2] . "</textarea>";
     $page_html .= "<div class='row' style='justify-content: space-evenly;'>";
-
-    if ($defi[2] == null) {
+    if ($defi[2] == null && $defi[2] != 0 && $defi[2] != 1 && $rapport >= 2) {
       $page_html .= "<div>";
       $page_html .= "<input type='radio'><label>Voldoende</label>";
       $page_html .= "</div>";
@@ -4691,7 +4690,7 @@ if($avg_h == 0.0){$avg_h = null;}
       $page_html .= "<textarea style='width: 100%;'>" .  $opmerking[3] . "</textarea>";
     }
     $page_html .= "<div class='row' style='justify-content: space-evenly;'>";
-    if ($defi[4] == null) {
+    if ($defi[4] == null && $defi[4] != 0 && $defi[4] != 1 && $rapport == 3) {
       $page_html .= "<div>";
       $page_html .= "<input type='radio'><label>Voldoende</label>";
       $page_html .= "</div>";
