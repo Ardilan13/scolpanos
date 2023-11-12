@@ -4609,9 +4609,10 @@ if($avg_h == 0.0){$avg_h = null;}
           $defi[$y] = 1;
         }
       } else {
-        if (strtoupper($opmerking3) == "O") {
+        $opmerking3 = strtoupper($opmerking3);
+        if ($opmerking3 == "O") {
           $defi[$y] = 0;
-        } else if (strtoupper($opmerking3) == "V") {
+        } else if ($opmerking3 == "V" || $opmerking3 == "G") {
           $defi[$y] = 1;
         } else {
           $defi[$y] = null;

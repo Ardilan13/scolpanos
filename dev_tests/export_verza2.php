@@ -33,6 +33,7 @@ $user = $_SESSION["UserGUID"];
 $s = new spn_setting();
 $u = new spn_utils();
 $s->getsetting_info($schoolid, false);
+$v = null;
 
 if ($schoolid == 12) {
     $img = 3;
@@ -74,6 +75,8 @@ $hojaActiva = $spreadsheet->getActiveSheet();
 $hojaActiva->setCellValue('B4', $img);
 
 while ($i <= $rap_in) {
+    $v = array();
+    $vri = null;
     $returnvalue = 0;
     $user_permission = "";
     $sql_query = "";
@@ -505,6 +508,23 @@ while ($i <= $rap_in) {
                 }
                 break;
             case 4:
+                $vrijstelling = ["e1" => 'ne', "e2" => 'en', "e3" => 'sp', "e4" => 'pa', "e5" => 'wi', "e6" => 'na', "e7" => 'sk', "e8" => 'bi', "e9" => 'ec', "e10" => 'ak', "e11" => 'gs', "e12" => 're'];
+                $vaks = "SELECT e.* FROM eba_ex e INNER JOIN personalia p ON e.id_personalia = p.id WHERE e.type = 0 AND  e.schooljaar = '$schooljaar' AND p.studentid = " . $row["studentid"] . " AND e.schoolid = $schoolid";
+                $vaks_result = mysqli_query($mysqli, $vaks);
+                while ($row1 = mysqli_fetch_assoc($vaks_result)) {
+                    $eba_ex = [$row1['e1'], $row1['e2'], $row1['e3'], $row1['e4'], $row1['e5'], $row1['e6'], $row1['e7'], $row1['e8'], $row1['e9'], $row1['e10'], $row1['e11'], $row1['e12']];
+                }
+                for ($in = 1; $in < 13; $in++) {
+                    if ($eba_ex[$in - 1] == 'V' && $vrijstelling["e$in"] == $row["volledigenaamvak"]) {
+                        $v[] = $vrijstelling["e$in"];
+                    }
+                }
+                if (in_array($row["volledigenaamvak"], $v)) {
+                    $vri = true;
+                } else {
+                    $vri = null;
+                }
+
                 switch ($row["volledigenaamvak"]) {
                         // case 'lo':
                         //     $returnvalue = 'O';
@@ -512,22 +532,27 @@ while ($i <= $rap_in) {
 
                     case 'pa':
                         $returnvalue = 'F';
+                        $returnvalue_v = "F";
                         break;
 
                     case 'ne':
                         $returnvalue = 'C';
+                        $returnvalue_v = "C";
                         break;
 
                     case 'en':
                         $returnvalue = 'D';
+                        $returnvalue_v = "D";
                         break;
 
                     case 'sp':
                         $returnvalue = 'E';
+                        $returnvalue_v = "E";
                         break;
 
                     case 'wi':
                         $returnvalue = 'G';
+                        $returnvalue_v = "G";
                         break;
 
                     case 'ik':
@@ -540,26 +565,32 @@ while ($i <= $rap_in) {
 
                     case 'na':
                         $returnvalue = 'H';
+                        $returnvalue_v = "H";
                         break;
 
                     case 'sk':
                         $returnvalue = $i == 3 ? 'J' : 'I';
+                        $returnvalue_v = "I";
                         break;
 
                     case 'bi':
                         $returnvalue = $i == 3 ? 'K' : 'J';
+                        $returnvalue_v = "J";
                         break;
 
                     case 'ec':
                         $returnvalue = $i == 3 ? 'M' : 'K';
+                        $returnvalue_v = "K";
                         break;
 
                     case 'ak':
                         $returnvalue = $i == 3 ? 'N' : 'L';
+                        $returnvalue_v = "L";
                         break;
 
                     case 'gs':
                         $returnvalue = $i == 3 ? 'P' : 'T';
+                        $returnvalue_v = "M";
                         break;
 
                     default:
@@ -596,7 +627,29 @@ while ($i <= $rap_in) {
 
         if ($row["gemiddelde"] > 0) {
             $colgemiddelde = (string)$returnvalue . (string)$_current_student_start_row;
-            $hojaActiva->setCellValue($colgemiddelde, $row["gemiddelde"]);
+            if ($vri == true && $level_klas == 4) {
+                $hojaActiva->setCellValue($colgemiddelde, "V");
+                $spreadsheet->setActiveSheetIndex(5);
+                $hojaActiva = $spreadsheet->getActiveSheet();
+                $colgemiddelde = (string)$returnvalue_v . (string)($_current_student_start_row + 4);
+                $hojaActiva->setCellValue($colgemiddelde, $row["gemiddelde"]);
+                switch ($i) {
+                    case 1:
+                        $spreadsheet->setActiveSheetIndex(0);
+                        break;
+
+                    case 2:
+                        $spreadsheet->setActiveSheetIndex(1);
+                        break;
+
+                    case 3:
+                        $spreadsheet->setActiveSheetIndex(2);
+                        break;
+                }
+                $hojaActiva = $spreadsheet->getActiveSheet();
+            } else {
+                $hojaActiva->setCellValue($colgemiddelde, $row["gemiddelde"]);
+            }
         }
 
         if ($i == 3 && $level_klas == 4 && $row["po"] > 0) {
