@@ -625,29 +625,32 @@ while ($i <= $rap_in) {
             $hojaActiva->setCellValue('P' . (string)$_current_student_start_row, $row["gemiddelde"]);
         }
 
+        if ($vri == true && $level_klas == 4) {
+            $colgemiddelde = (string)$returnvalue . (string)$_current_student_start_row;
+            $hojaActiva->setCellValue($colgemiddelde, "V");
+            $spreadsheet->setActiveSheetIndex(5);
+            $hojaActiva = $spreadsheet->getActiveSheet();
+            $colgemiddelde = (string)$returnvalue_v . (string)($_current_student_start_row + 4);
+            $hojaActiva->setCellValue($colgemiddelde, $row["gemiddelde"]);
+            switch ($i) {
+                case 1:
+                    $spreadsheet->setActiveSheetIndex(0);
+                    break;
+
+                case 2:
+                    $spreadsheet->setActiveSheetIndex(1);
+                    break;
+
+                case 3:
+                    $spreadsheet->setActiveSheetIndex(2);
+                    break;
+            }
+            $hojaActiva = $spreadsheet->getActiveSheet();
+        }
+
         if ($row["gemiddelde"] > 0) {
             $colgemiddelde = (string)$returnvalue . (string)$_current_student_start_row;
-            if ($vri == true && $level_klas == 4) {
-                $hojaActiva->setCellValue($colgemiddelde, "V");
-                $spreadsheet->setActiveSheetIndex(5);
-                $hojaActiva = $spreadsheet->getActiveSheet();
-                $colgemiddelde = (string)$returnvalue_v . (string)($_current_student_start_row + 4);
-                $hojaActiva->setCellValue($colgemiddelde, $row["gemiddelde"]);
-                switch ($i) {
-                    case 1:
-                        $spreadsheet->setActiveSheetIndex(0);
-                        break;
-
-                    case 2:
-                        $spreadsheet->setActiveSheetIndex(1);
-                        break;
-
-                    case 3:
-                        $spreadsheet->setActiveSheetIndex(2);
-                        break;
-                }
-                $hojaActiva = $spreadsheet->getActiveSheet();
-            } else {
+            if ($vri != true) {
                 $hojaActiva->setCellValue($colgemiddelde, $row["gemiddelde"]);
             }
         }
