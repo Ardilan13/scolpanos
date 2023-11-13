@@ -236,7 +236,7 @@ while ($i <= $rap_in) {
         $vakid_out = $row["vakid"];
         if ($_currentstudent != $_laststudent) {
 
-            if ($schoolid != 12 || $level_klas < 3) {
+            if (($schoolid != 12 && $schoolid != 13) || $level_klas < 3) {
                 if ($mu > 0 && $bv > 0)
                     $ckv = ($mu + $bv) / 2;
                 else if ($mu > 0)
@@ -626,6 +626,7 @@ while ($i <= $rap_in) {
         }
 
         if ($vri == true && $level_klas == 4) {
+            $row["po"] = "V";
             $colgemiddelde = (string)$returnvalue . (string)$_current_student_start_row;
             $hojaActiva->setCellValue($colgemiddelde, "V");
             $spreadsheet->setActiveSheetIndex(5);
@@ -655,19 +656,31 @@ while ($i <= $rap_in) {
             }
         }
 
-        if ($i == 3 && $level_klas == 4 && $row["po"] > 0) {
+        if ($i == 3 && $level_klas == 4 && ($row["po"] > 0 || $row["po"] == "V")) {
             switch ($row["volledigenaamvak"]) {
                 case "na":
                     $hojaActiva->setCellValue("I" . (string)$_current_student_start_row, $row["po"]);
+                    if ($row["po"] == "V") {
+                        $hojaActiva->setCellValue("H" . (string)$_current_student_start_row, "V");
+                    }
                     break;
                 case "bi":
                     $hojaActiva->setCellValue("L" . (string)$_current_student_start_row, $row["po"]);
+                    if ($row["po"] == "V") {
+                        $hojaActiva->setCellValue("K" . (string)$_current_student_start_row, "V");
+                    }
                     break;
                 case "gs":
                     $hojaActiva->setCellValue("Q" . (string)$_current_student_start_row, $row["po"]);
+                    if ($row["po"] == "V") {
+                        $hojaActiva->setCellValue("P" . (string)$_current_student_start_row, "V");
+                    }
                     break;
                 case "ak":
                     $hojaActiva->setCellValue("O" . (string)$_current_student_start_row, $row["po"]);
+                    if ($row["po"] == "V") {
+                        $hojaActiva->setCellValue("N" . (string)$_current_student_start_row, "V");
+                    }
                     break;
             }
         }
