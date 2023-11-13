@@ -4518,7 +4518,8 @@ if($avg_h == 0.0){$avg_h = null;}
     $rapport = $_GET["rap"];
     $id = $item['studentid'];
     $klas_o = $_GET["klas"];
-    for ($y = 1; $rapport >= $y; $y++) {
+    for ($y = 0; $rapport >= $y; $y++) {
+      $y++;
       $get_opmerking = "SELECT
       (SELECT opmerking1 FROM opmerking WHERE SchoolID = '$schoolid' AND klas = '$klas_o' AND studentid = '$id' AND rapport = $y AND schooljaar = '$schooljaar' LIMIT 1) as opmerking1,
       opmerking2,
@@ -4610,7 +4611,7 @@ if($avg_h == 0.0){$avg_h = null;}
         }
       } else {
         $opmerking3 = strtoupper($opmerking3);
-        if ($opmerking3 == "O") {
+        if ($opmerking3 == "O" || $opmerking3 == "A") {
           $defi[$y] = 0;
         } else if ($opmerking3 == "V" || $opmerking3 == "G") {
           $defi[$y] = 1;
@@ -4618,6 +4619,7 @@ if($avg_h == 0.0){$avg_h = null;}
           $defi[$y] = null;
         }
       }
+      $y--;
     }
 
     $page_html .= "<div class='row'>";
@@ -4660,7 +4662,7 @@ if($avg_h == 0.0){$avg_h = null;}
     }
     $page_html .= "<textarea style='width: 100%;'>" . $opmerking[2] . "</textarea>";
     $page_html .= "<div class='row' style='justify-content: space-evenly;'>";
-    if ($defi[2] == null && $defi[2] != 0 && $defi[2] != 1 && $rapport >= 2) {
+    if ($defi[2] == null && $rapport >= 2) {
       $page_html .= "<div>";
       $page_html .= "<input type='radio'><label>Voldoende</label>";
       $page_html .= "</div>";
@@ -4691,7 +4693,8 @@ if($avg_h == 0.0){$avg_h = null;}
       $page_html .= "<textarea style='width: 100%;'>" .  $opmerking[3] . "</textarea>";
     }
     $page_html .= "<div class='row' style='justify-content: space-evenly;'>";
-    if ($defi[4] == null && $defi[4] != 0 && $defi[4] != 1 && $rapport == 3) {
+    echo $defi[4];
+    if ($defi[4] === null && $rapport == 3) {
       $page_html .= "<div>";
       $page_html .= "<input type='radio'><label>Voldoende</label>";
       $page_html .= "</div>";
