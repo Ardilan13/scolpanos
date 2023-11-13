@@ -11,7 +11,7 @@
 				<div class="container container-fs">
 					<div class="row">
 						<div class="default-secondary-bg-color col-md-12 inset brd-bottom clearfix">
-							<h1 class="primary-color">Se Kaart:</h1>
+							<h1 class="primary-color">Se Kaart/Rapport:</h1>
 							<?php include 'breadcrumb.php'; ?>
 						</div>
 						<div class="default-secondary-bg-color col-md-12 inset filter-bar brd-bottom clearfix">

@@ -922,7 +922,7 @@ foreach ($array_leerling as $item) {
     $page_html .= "<td style='padding-top: 40px;'>" . $cont_verzuim3 . "</td>";
     if ($klas != 4) {
 
-      $page_html .= "<td>" . ($cont_verzuim1 + $cont_verzuim2 + $cont_verzuim3) . "</td>";
+      $page_html .= "<td style='padding-top: 40px;'>" . ($cont_verzuim1 + $cont_verzuim2 + $cont_verzuim3) . "</td>";
     }
     $page_html .= "</tr>";
 
@@ -4662,7 +4662,7 @@ if($avg_h == 0.0){$avg_h = null;}
     }
     $page_html .= "<textarea style='width: 100%;'>" . $opmerking[2] . "</textarea>";
     $page_html .= "<div class='row' style='justify-content: space-evenly;'>";
-    if ($defi[2] == null && $rapport >= 2) {
+    if ($defi[2] == null) {
       $page_html .= "<div>";
       $page_html .= "<input type='radio'><label>Voldoende</label>";
       $page_html .= "</div>";
@@ -4693,8 +4693,7 @@ if($avg_h == 0.0){$avg_h = null;}
       $page_html .= "<textarea style='width: 100%;'>" .  $opmerking[3] . "</textarea>";
     }
     $page_html .= "<div class='row' style='justify-content: space-evenly;'>";
-    echo $defi[4];
-    if ($defi[4] === null && $rapport == 3) {
+    if ($defi[4] === null) {
       $page_html .= "<div>";
       $page_html .= "<input type='radio'><label>Voldoende</label>";
       $page_html .= "</div>";
