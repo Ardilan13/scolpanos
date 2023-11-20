@@ -616,9 +616,9 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 		$u = new spn_utils();
 		while ($row = mysqli_fetch_assoc($resultado1)) {
 			$id = $row['id'];
-			$sql_query_verzuim = "SELECT s.id as studentid,v.telaat,v.absentie,v.huiswerk,s.lastname,s.firstname, v.created, v.datum
-					from students s inner join le_verzuim v
-					where s.class = '$klas_in'  and s.schoolid = $schoolid and v.schooljaar = '$schooljaar' and v.studentid = $id and s.id = $id ORDER BY v.created;";
+			$sql_query_verzuim = "SELECT s.id as studentid,v.telaat,v.absentie,v.huiswerk,s.lastname,s.firstname, v.created, v.datum, o.opmerking1, o.opmerking2, o.opmerking3
+					from students s inner join le_verzuim v inner join opmerking o ON s.id = o.studentid
+					where s.class = '$klas_in'  and s.schoolid = $schoolid and v.schooljaar = '$schooljaar' and v.studentid = $id and s.id = $id and o.schooljaar = '$schooljaar' ORDER BY v.created;";
 			$resultado = mysqli_query($mysqli, $sql_query_verzuim);
 			while ($row1 = mysqli_fetch_assoc($resultado)) {
 				$datum = $u->convertfrommysqldate_new($row1["datum"]);
@@ -633,9 +633,11 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 						$cont_huis++;
 					}
 				}
+				$opmerking = ($i == 1) ? $row1["opmerking1"] : ($i == 2 ? $row1["opmerking2"] : $row1["opmerking3"]);
 			}
 			$hojaActiva->setCellValue("AD" . (string)$_current_student_start_row, $cont_laat);
 			$hojaActiva->setCellValue("AE" . (string)$_current_student_start_row, $cont_verzuim);
+			$hojaActiva->setCellValue("AX" . (string)$_current_student_start_row, $opmerking);
 			$cont_laat = 0;
 			$cont_verzuim = 0;
 			$cont_huis = 0;

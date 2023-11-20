@@ -11,7 +11,7 @@ if (session_status() == PHP_SESSION_NONE) {
 	session_start();
 }
 
-if ($_SESSION["SchoolID"] == '4' || $_SESSION["SchoolID"] == '5' || $_SESSION["SchoolID"] == '6' || $_SESSION["SchoolID"] == '7' || $_SESSION["SchoolID"] == '8') {
+if ($_SESSION["SchoolID"] == '4' || $_SESSION["SchoolID"] == '5' || $_SESSION["SchoolID"] == '6' || $_SESSION["SchoolID"] == '7') {
 	require_once("../classes/spn_rapport_by_student.php");
 	$r = new spn_rapport_by_student();
 } else if ($_SESSION["SchoolID"] == '9') {
