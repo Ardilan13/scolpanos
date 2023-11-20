@@ -83,7 +83,7 @@
 										<button id="btn_submit_cijfers" name="btn_submit_cijfers" onclick="active_loader()" data-display="data-display" data-ajax-href="ajax/getvakken_tabel.php" type="submit" class="btn btn-primary btn-m-w btn-m-h">zoeken</button>
 									</div>
 									<?php if ($_SESSION["SchoolType"] == 2) { ?>
-										<div class="form-group" style="background-color: #ffdc66; border: 1px solid black; margin-left: 20px;">
+										<div class="form-group" style="background-color: #ffdc66; border: 1px solid black; margin-left: 20px; max-width: 400px;">
 											<p id="aviso">Belangrijk, vul eerst de norm in en dan de cijfers! Dit is alleen geldig voor klas 1, 2 en 3</p>
 										</div>
 									<?php } ?>

@@ -283,7 +283,7 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 
 					case 3:
 						$_h3 = "";
-						$colhouding = "AJ" . (string)$_current_student_start_row;
+						$colhouding = "AI" . (string)$_current_student_start_row;
 						if ($h3 == 1 || !isset($h3)) {
 							$_h3 = "A";
 						}
@@ -308,7 +308,7 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 
 					case 4:
 						$_h4 = "";
-						$colhouding = "AI" . (string)$_current_student_start_row;
+						$colhouding = "AJ" . (string)$_current_student_start_row;
 						if ($h4 == 1 || !isset($h4)) {
 							$_h4 = "A";
 						}
@@ -616,9 +616,9 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 		$u = new spn_utils();
 		while ($row = mysqli_fetch_assoc($resultado1)) {
 			$id = $row['id'];
-			$sql_query_verzuim = "SELECT s.id as studentid,v.telaat,v.absentie,v.huiswerk,s.lastname,s.firstname, v.created, v.datum, o.opmerking1, o.opmerking2, o.opmerking3
-					from students s inner join le_verzuim v inner join opmerking o ON s.id = o.studentid
-					where s.class = '$klas_in'  and s.schoolid = $schoolid and v.schooljaar = '$schooljaar' and v.studentid = $id and s.id = $id and o.schooljaar = '$schooljaar' ORDER BY v.created;";
+			$sql_query_verzuim = "SELECT s.id as studentid,v.telaat,v.absentie,v.huiswerk,s.lastname,s.firstname, v.created, v.datum,(SELECT opmerking1 FROM opmerking where studentid = s.id and schooljaar = '$schooljaar') as opmerking1,(SELECT opmerking2 FROM opmerking where studentid = s.id and schooljaar = '$schooljaar') as opmerking2,(SELECT opmerking3 FROM opmerking where studentid = s.id and schooljaar = '$schooljaar') as opmerking3
+					from students s inner join le_verzuim v
+					where s.class = '$klas_in'  and s.schoolid = $schoolid and v.schooljaar = '$schooljaar' and v.studentid = $id and s.id = $id ORDER BY v.created;";
 			$resultado = mysqli_query($mysqli, $sql_query_verzuim);
 			while ($row1 = mysqli_fetch_assoc($resultado)) {
 				$datum = $u->convertfrommysqldate_new($row1["datum"]);
