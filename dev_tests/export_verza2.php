@@ -508,6 +508,7 @@ while ($i <= $rap_in) {
                 }
                 break;
             case 4:
+                $v = array();
                 $vrijstelling = ["e1" => 'ne', "e2" => 'en', "e3" => 'sp', "e4" => 'pa', "e5" => 'wi', "e6" => 'na', "e7" => 'sk', "e8" => 'bi', "e9" => 'ec', "e10" => 'ak', "e11" => 'gs', "e12" => 're'];
                 $vaks = "SELECT e.* FROM eba_ex e INNER JOIN personalia p ON e.id_personalia = p.id WHERE e.type = 0 AND  e.schooljaar = '$schooljaar' AND p.studentid = " . $row["studentid"] . " AND e.schoolid = $schoolid";
                 $vaks_result = mysqli_query($mysqli, $vaks);
@@ -519,10 +520,9 @@ while ($i <= $rap_in) {
                         $v[] = $vrijstelling["e$in"];
                     }
                 }
+                $vri = null;
                 if (in_array($row["volledigenaamvak"], $v)) {
                     $vri = true;
-                } else {
-                    $vri = null;
                 }
 
                 switch ($row["volledigenaamvak"]) {
