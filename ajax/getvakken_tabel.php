@@ -189,7 +189,13 @@ function print_vakken_table()
 					clase = clase.slice(-2);
 				}
 				total = get_cijfers($(this), clase);
-				total = total == 0 ? '' : total;
+				if(total == 0){
+					total = '';
+				} else {
+					total = total.toFixed(1);
+				}
+				// total = total == 0 ? '' : total.toString();
+				// total = total.length < 2 ? total + '.0' : total;
 				if (clase < 9 && blue == false) {
 					if (clase % 2 == 0) {
 						$(this).next().text(total);
