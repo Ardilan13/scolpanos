@@ -718,6 +718,7 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 		AND v.klas = ?
 		AND c.rapnummer = ?
 		AND x_index is not null
+		AND c.gemiddelde > 0.0
 		ORDER BY";
 	$sql_order = " s.lastname " . $s->_setting_sort . ", s.firstname";
 	if ($s->_setting_mj) {
