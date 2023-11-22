@@ -104,7 +104,7 @@ ob_flush();
         $img = "kudawecha.png";
         break;
       case '6':
-        $img = "washington.png";
+        $img = "washington.jpg";
         break;
       case '9':
         $img = "reina.png";

@@ -38,7 +38,7 @@ switch ($schoolId) {
     $cabesante = "Xiomara Berkel";
     break;
   case 6:
-    $img = "washington.png";
+    $img = "washington.jpg";
     $titleP = "Scol&nbsp&nbsp&nbspPa&nbsp&nbsp&nbspNos";
     $titleD = $s->_setting_school_name;
     $cabesante = "Sharine Curiel";
