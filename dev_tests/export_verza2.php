@@ -236,31 +236,31 @@ while ($i <= $rap_in) {
         $vakid_out = $row["vakid"];
         if ($_currentstudent != $_laststudent) {
 
-            if (($schoolid != 12 && $schoolid != 13) || $level_klas < 3) {
-                if ($mu > 0 && $bv > 0)
-                    $ckv = ($mu + $bv) / 2;
-                else if ($mu > 0)
-                    $ckv = $mu;
-                else if ($bv > 0)
-                    $ckv = $bv;
+            // if (($schoolid != 12 && $schoolid == 13) && $level_klas < 3) {
+            //     if ($mu > 0 && $bv > 0)
+            //         $ckv = ($mu + $bv) / 2;
+            //     else if ($mu > 0)
+            //         $ckv = $mu;
+            //     else if ($bv > 0)
+            //         $ckv = $bv;
 
-                switch ($level_klas) {
-                    case 1:
-                    case 2:
-                        $hojaActiva->setCellValue('N' . (string)$_current_student_start_row, $ckv);
-                        break;
+            //     switch ($level_klas) {
+            //         case 1:
+            //         case 2:
+            //             $hojaActiva->setCellValue('N' . (string)$_current_student_start_row, $ckv);
+            //             break;
 
-                    case 3:
-                    case 4:
-                        $hojaActiva->setCellValue('P' . (string)$_current_student_start_row, $ckv);
-                        break;
-                }
-                $ckv = 0;
-                $mu = 0;
-                $bv = 0;
-            } else if ($row["volledigenaamvak"] == "CKV" && $schoolid == 12) {
-                $hojaActiva->setCellValue('P' . (string)$_current_student_start_row, $row["gemiddelde"]);
-            }
+            //         case 3:
+            //         case 4:
+            //             $hojaActiva->setCellValue('P' . (string)$_current_student_start_row, $ckv);
+            //             break;
+            //     }
+            //     $ckv = 0;
+            //     $mu = 0;
+            //     $bv = 0;
+            // } //else if ($row["volledigenaamvak"] == "CKV" && $schoolid == 12) {
+            //     $hojaActiva->setCellValue('P' . (string)$_current_student_start_row, $row["gemiddelde"]);
+            // }
 
             $_current_student_start_row++;
             $hojaActiva->setCellValue('B' . (string)$_current_student_start_row, $row["lastname"] . ", " . $row["firstname"]);
@@ -393,6 +393,10 @@ while ($i <= $rap_in) {
                         $returnvalue = 'M';
                         break;
 
+                    case 'CKV':
+                        $returnvalue = 'N';
+                        break;
+
                     case 'pv':
                         $returnvalue = 'I';
                         break;
@@ -448,6 +452,10 @@ while ($i <= $rap_in) {
 
                     case 'lo':
                         $returnvalue = 'O';
+                        break;
+
+                    case 'CKV':
+                        $returnvalue = 'P';
                         break;
 
                     case 'pa':
@@ -599,31 +607,31 @@ while ($i <= $rap_in) {
                 }
                 break;
         }
-        if ($cont == $ultima && ($schoolid != 12 || $level_klas < 3)) {
-            if ($mu > 0 && $bv > 0)
-                $ckv = ($mu + $bv) / 2;
-            else if ($mu > 0)
-                $ckv = $mu;
-            else if ($bv > 0)
-                $ckv = $bv;
+        // if ($cont == $ultima && ($schoolid != 12 || $level_klas < 3)) {
+        //     if ($mu > 0 && $bv > 0)
+        //         $ckv = ($mu + $bv) / 2;
+        //     else if ($mu > 0)
+        //         $ckv = $mu;
+        //     else if ($bv > 0)
+        //         $ckv = $bv;
 
-            switch ($level_klas) {
-                case 1:
-                case 2:
-                    $hojaActiva->setCellValue('N' . (string)$_current_student_start_row, $ckv);
-                    break;
+        //     switch ($level_klas) {
+        //         case 1:
+        //         case 2:
+        //             $hojaActiva->setCellValue('N' . (string)$_current_student_start_row, $ckv);
+        //             break;
 
-                case 3:
-                case 4:
-                    $hojaActiva->setCellValue('P' . (string)$_current_student_start_row, $ckv);
-                    break;
-            }
-            $ckv = 0;
-            $mu = 0;
-            $bv = 0;
-        } else if ($row["volledigenaamvak"] == "CKV" && $schoolid == 12) {
-            $hojaActiva->setCellValue('P' . (string)$_current_student_start_row, $row["gemiddelde"]);
-        }
+        //         case 3:
+        //         case 4:
+        //             $hojaActiva->setCellValue('P' . (string)$_current_student_start_row, $ckv);
+        //             break;
+        //     }
+        //     $ckv = 0;
+        //     $mu = 0;
+        //     $bv = 0;
+        // } //else if ($row["volledigenaamvak"] == "CKV" && $schoolid == 12) {
+        //     $hojaActiva->setCellValue('P' . (string)$_current_student_start_row, $row["gemiddelde"]);
+        // }
 
         if ($vri == true && $level_klas == 4) {
             $row["po"] = "V";
