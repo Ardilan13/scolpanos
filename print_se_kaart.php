@@ -346,7 +346,7 @@ foreach ($array_leerling as $item) {
   if ($_SESSION['SchoolType'] == 2) {
     $page_html .= "<hr>";
   }
-  $page_html .= "<div class='row' style='margin-left: 5%; justify-content: space-between;'>";
+  $page_html .= "<div class='row' style='margin-left: 1%; justify-content: space-between; flex-direction: column;'>";
   $page_html .= "<div>";
   if ($level_klas == 4) {
     $page_html .= "<p style='margin-bottom: 0rem;'><b>SE KAART: </b><span>" . $item['voornamen'] . " " . $item['achternaam'] . "</span></p>";
@@ -356,11 +356,11 @@ foreach ($array_leerling as $item) {
   $page_html .= "</div>";
   //$page_html .="<p style='margin-bottom: 0rem;'><b>Mentor: </b><span>".$tutor."</span></p>";
   if ($_SESSION['SchoolType'] == 2) {
-    $page_html .= "<div class='col-md-8' style='padding-right:0px;'>";
+    $page_html .= "<div style='padding-right:0px;'>";
     $page_html .= "<p style='margin-bottom: 0rem;'><b>Mentor: </b><span>" . $tutor . "</span></p>";
     $page_html .= "</div>";
   }
-  $page_html .= "<div class='col-md-4'>";
+  $page_html .= "<div>";
   $page_html .= "<p style='margin-bottom: 0rem;'><b>Klas: </b><span>" . $_GET["klas"] . "</span></p>";
   $page_html .= "</div>";
   $page_html .= "</div>";
@@ -397,7 +397,7 @@ foreach ($array_leerling as $item) {
 
   ////////////////////////////////////// NEW HOUDING ///////////////////////
 
-  $page_html .= "<div class='row mt-4'>";
+  $page_html .= "<div class='row mt-2'>";
   $page_html .= "<div class='col-md-12'>";
   $page_html .= "<table align='center'  cellpadding='1' cellspacing='1' class='table table-sm'>";
   $page_html .= "<thead>";
@@ -916,13 +916,13 @@ foreach ($array_leerling as $item) {
       }
     }
     $page_html .= "<tr>";
-    $page_html .= "<td style='padding-top: 40px;' width='65%'>&nbsp;&nbsp;Verzuim</td>";
-    $page_html .= "<td style='padding-top: 40px;'>" . $cont_verzuim1 . " </td>";
-    $page_html .= "<td style='padding-top: 40px;'>" . $cont_verzuim2 . " </td>";
-    $page_html .= "<td style='padding-top: 40px;'>" . $cont_verzuim3 . "</td>";
+    $page_html .= "<td style='padding-top: 20px;' width='65%'>&nbsp;&nbsp;Verzuim</td>";
+    $page_html .= "<td style='padding-top: 20px;'>" . $cont_verzuim1 . " </td>";
+    $page_html .= "<td style='padding-top: 20px;'>" . $cont_verzuim2 . " </td>";
+    $page_html .= "<td style='padding-top: 20px;'>" . $cont_verzuim3 . "</td>";
     if ($klas != 4) {
 
-      $page_html .= "<td style='padding-top: 40px;'>" . ($cont_verzuim1 + $cont_verzuim2 + $cont_verzuim3) . "</td>";
+      $page_html .= "<td style='padding-top: 20px;'>" . ($cont_verzuim1 + $cont_verzuim2 + $cont_verzuim3) . "</td>";
     }
     $page_html .= "</tr>";
 
@@ -4634,24 +4634,24 @@ if($avg_h == 0.0){$avg_h = null;}
     $page_html .= "<div class='row' style='justify-content: space-evenly;'>";
     if ($defi[1] == null) {
       $page_html .= "<div>";
-      $page_html .= "<input type='radio'><label>Voldoende</label>";
+      $page_html .= "<input type='radio' style='margin-right: 5px;'><label>Voldoende</label>";
       $page_html .= "</div>";
       $page_html .= "<div>";
-      $page_html .= "<input type='radio'><label>Onvoldoende</label>";
+      $page_html .= "<input type='radio' style='margin-right: 5px;'><label>Onvoldoende</label>";
       $page_html .= "</div>";
     } else if ($defi[1] == 1) {
       $page_html .= "<div>";
-      $page_html .= "<input type='radio' checked><label>Voldoende</label>";
+      $page_html .= "<input type='radio' checked style='margin-right: 5px;'><label>Voldoende</label>";
       $page_html .= "</div>";
       $page_html .= "<div>";
-      $page_html .= "<input type='radio'><label>Onvoldoende</label>";
+      $page_html .= "<input type='radio' style='margin-right: 5px;'><label>Onvoldoende</label>";
       $page_html .= "</div>";
     } else if ($defi[1] == 0) {
       $page_html .= "<div>";
-      $page_html .= "<input type='radio'><label>Voldoende</label>";
+      $page_html .= "<input type='radio' style='margin-right: 5px;'><label>Voldoende</label>";
       $page_html .= "</div>";
       $page_html .= "<div>";
-      $page_html .= "<input type='radio' checked><label>Onvoldoende</label>";
+      $page_html .= "<input type='radio' checked style='margin-right: 5px;'><label>Onvoldoende</label>";
       $page_html .= "</div>";
     }
     $page_html .= "</div>";
@@ -4664,24 +4664,24 @@ if($avg_h == 0.0){$avg_h = null;}
     $page_html .= "<div class='row' style='justify-content: space-evenly;'>";
     if ($defi[2] == null) {
       $page_html .= "<div>";
-      $page_html .= "<input type='radio'><label>Voldoende</label>";
+      $page_html .= "<input type='radio' style='margin-right: 5px;'><label>Voldoende</label>";
       $page_html .= "</div>";
       $page_html .= "<div>";
-      $page_html .= "<input type='radio'><label>Onvoldoende</label>";
+      $page_html .= "<input type='radio' style='margin-right: 5px;'><label>Onvoldoende</label>";
       $page_html .= "</div>";
     } else if ($defi[2] == 1 && $rapport >= 2) {
       $page_html .= "<div>";
-      $page_html .= "<input type='radio' checked><label>Voldoende</label>";
+      $page_html .= "<input type='radio' checked style='margin-right: 5px;'><label>Voldoende</label>";
       $page_html .= "</div>";
       $page_html .= "<div>";
-      $page_html .= "<input type='radio'><label>Onvoldoende</label>";
+      $page_html .= "<input type='radio' style='margin-right: 5px;'><label>Onvoldoende</label>";
       $page_html .= "</div>";
     } else if ($defi[2] == 0 && $rapport >= 2) {
       $page_html .= "<div>";
-      $page_html .= "<input type='radio'><label>Voldoende</label>";
+      $page_html .= "<input type='radio' style='margin-right: 5px;'><label>Voldoende</label>";
       $page_html .= "</div>";
       $page_html .= "<div>";
-      $page_html .= "<input type='radio' checked><label>Onvoldoende</label>";
+      $page_html .= "<input type='radio' checked style='margin-right: 5px;'><label>Onvoldoende</label>";
       $page_html .= "</div>";
     }
     $page_html .= "</div>";
@@ -4695,24 +4695,24 @@ if($avg_h == 0.0){$avg_h = null;}
     $page_html .= "<div class='row' style='justify-content: space-evenly;'>";
     if ($defi[4] === null) {
       $page_html .= "<div>";
-      $page_html .= "<input type='radio'><label>Voldoende</label>";
+      $page_html .= "<input type='radio' style='margin-right: 5px;'><label>Voldoende</label>";
       $page_html .= "</div>";
       $page_html .= "<div>";
-      $page_html .= "<input type='radio'><label>Onvoldoende</label>";
+      $page_html .= "<input type='radio' style='margin-right: 5px;'><label>Onvoldoende</label>";
       $page_html .= "</div>";
     } else if ($defi[4] == 1 && $rapport == 3) {
       $page_html .= "<div>";
-      $page_html .= "<input type='radio' checked><label>Voldoende</label>";
+      $page_html .= "<input type='radio' checked style='margin-right: 5px;'><label>Voldoende</label>";
       $page_html .= "</div>";
       $page_html .= "<div>";
-      $page_html .= "<input type='radio'><label>Onvoldoende</label>";
+      $page_html .= "<input type='radio' style='margin-right: 5px;'><label>Onvoldoende</label>";
       $page_html .= "</div>";
     } else if ($defi[4] == 0 && $rapport == 3) {
       $page_html .= "<div>";
-      $page_html .= "<input type='radio'><label>Voldoende</label>";
+      $page_html .= "<input type='radio' style='margin-right: 5px;'><label>Voldoende</label>";
       $page_html .= "</div>";
       $page_html .= "<div>";
-      $page_html .= "<input type='radio' checked><label>Onvoldoende</label>";
+      $page_html .= "<input type='radio' checked style='margin-right: 5px;'><label>Onvoldoende</label>";
       $page_html .= "</div>";
     }
     $page_html .= "</div>";
@@ -4736,15 +4736,15 @@ if($avg_h == 0.0){$avg_h = null;}
     }
 
     if ($klas != 4) {
-      $page_html .= "<input " . $radio2 . " type='radio'>" . $klas_var;
+      $page_html .= "<input " . $radio2 . " type='radio' style='margin-right: 5px;'>" . $klas_var;
       $page_html .= "</div>";
       $page_html .= "<br>";
       $page_html .= "<div>";
-      $page_html .= "<input " . $radio3 . " type='radio'><label>Niet over</label>";
+      $page_html .= "<input " . $radio3 . " type='radio' style='margin-right: 5px;'><label>Niet over</label>";
       $page_html .= "</div>";
       $page_html .= "<br>";
       $page_html .= "<div>";
-      $page_html .= "<input " . $radio1 . " type='radio'><label>Verwezen naar ander schooltype</label>";
+      $page_html .= "<input " . $radio1 . " type='radio' style='margin-right: 5px;'><label>Verwezen naar ander schooltype</label>";
       $page_html .= "</div>";
     } else {
       $page_html .= "Pakket: " . $klas_var;

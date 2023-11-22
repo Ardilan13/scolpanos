@@ -71,35 +71,35 @@ class spn_see_kaart
                 }
                 $stmt->store_result();
                 if ($stmt->num_rows > 0) {
-                  $table .= "<table align='center' cellpadding='1' cellspacing='1' class='table table-sm'>";
+                  $table .= "<table align='center' cellpadding='1' cellspacing='1' class='table table-sm' style='border: 1px solid black;'>";
                   if ($rapnummer == 1) {
 
                     $table .= "<thead>";
-                    $table .= "<th>Vakken</th>";
-                    $table .= "<th>1</th>";
-                    $table .= "<th>2</th>";
-                    $table .= "<th>3</th>";
-                    $table .= $level_klas == 4 ? "<th>GSE</th>" : "<th>Eind</th>";
+                    $table .= "<th style='border-top: 1px solid black;'>Vakken</th>";
+                    $table .= "<th style='border-top: 1px solid black;'>1</th>";
+                    $table .= "<th style='border-top: 1px solid black;'>2</th>";
+                    $table .= "<th style='border-top: 1px solid black;'>3</th>";
+                    $table .= $level_klas == 4 ? "<th style='border-top: 1px solid black;'>GSE</th>" : "<th style='border-top: 1px solid black;'>Eind</th>";
                     $table .= "</thead>";
                   }
                   if ($rapnummer == 2) {
 
                     $table .= "<thead>";
-                    $table .= "<th>Vakken</th>";
-                    $table .= "<th>1</th>";
-                    $table .= "<th>2</th>";
-                    $table .= "<th>3</th>";
-                    $table .= $level_klas == 4 ? "<th>GSE</th>" : "<th>Eind</th>";
+                    $table .= "<th style='border-top: 1px solid black;'>Vakken</th>";
+                    $table .= "<th style='border-top: 1px solid black;'>1</th>";
+                    $table .= "<th style='border-top: 1px solid black;'>2</th>";
+                    $table .= "<th style='border-top: 1px solid black;'>3</th>";
+                    $table .= $level_klas == 4 ? "<th style='border-top: 1px solid black;'>GSE</th>" : "<th style='border-top: 1px solid black;'>Eind</th>";
                     $table .= "</thead>";
                   }
                   if ($rapnummer == 3) {
 
                     $table .= "<thead>";
-                    $table .= "<th>Vakken</th>";
-                    $table .= "<th>1</th>";
-                    $table .= "<th>2</th>";
-                    $table .= "<th>3</th>";
-                    $table .= $level_klas == 4 ? "<th>GSE</th>" : "<th>Eind</th>";
+                    $table .= "<th style='border-top: 1px solid black;'>Vakken</th>";
+                    $table .= "<th style='border-top: 1px solid black;'>1</th>";
+                    $table .= "<th style='border-top: 1px solid black;'>2</th>";
+                    $table .= "<th style='border-top: 1px solid black;'>3</th>";
+                    $table .= $level_klas == 4 ? "<th style='border-top: 1px solid black;'>GSE</th>" : "<th style='border-top: 1px solid black;'>Eind</th>";
                     $table .= "</thead>";
                   }
 
