@@ -874,6 +874,9 @@ foreach ($array_leerling as $item) {
     $cont_laat1 = 0;
     $cont_laat2 = 0;
     $cont_laat3 = 0;
+    $cont_spi1 = 0;
+    $cont_spi2 = 0;
+    $cont_spi3 = 0;
     $fecha1 = $s->_setting_begin_rap_1;
     $fecha2 = $s->_setting_end_rap_1;
     $fecha3 = $s->_setting_begin_rap_2;
@@ -889,10 +892,14 @@ foreach ($array_leerling as $item) {
       if ($datum >= $fecha1 && $datum <= $fecha2) {
         if ($row1["p10"] == 'A') {
           $cont_verzuim1++;
+        } else {
         }
         for ($y = 1; $y <= 9; $y++) {
           if ($row1["p" . $y] == 'L') {
             $cont_laat1++;
+          }
+          if ($row1["p" . $y] == 'S') {
+            $cont_spi1++;
           }
         }
       } else if ($datum >= $fecha3 && $datum <= $fecha4 && $_GET["rap"] > 1) {
@@ -903,6 +910,9 @@ foreach ($array_leerling as $item) {
           if ($row1["p" . $y] == 'L') {
             $cont_laat2++;
           }
+          if ($row1["p" . $y] == 'S') {
+            $cont_spi2++;
+          }
         }
       } else if ($datum >= $fecha5 && $datum <= $fecha6 && $_GET["rap"] > 2) {
         if ($row1["p10"] == 'A') {
@@ -911,6 +921,9 @@ foreach ($array_leerling as $item) {
         for ($y = 1; $y <= 9; $y++) {
           if ($row1["p" . $y] == 'L') {
             $cont_laat3++;
+          }
+          if ($row1["p" . $y] == 'S') {
+            $cont_spi3++;
           }
         }
       }
@@ -934,6 +947,19 @@ foreach ($array_leerling as $item) {
     if ($klas != 4) {
 
       $page_html .= "<td>" . ($cont_laat1 + $cont_laat2 + $cont_laat3) . "</td>";
+    }
+    $page_html .= "</tr>";
+
+    $page_html .= "</tr>";
+
+    $page_html .= "<tr>";
+    $page_html .= "<td width='65%'>&nbsp;&nbsp;Ongeoorloofd verzuim (spijbelen)</td>";
+    $page_html .= "<td>" . $cont_spi1 . " </td>";
+    $page_html .= "<td>" . $cont_spi2 . " </td>";
+    $page_html .= "<td>" . $cont_spi3 . "</td>";
+    if ($klas != 4) {
+
+      $page_html .= "<td>" . ($cont_spi1 + $cont_spi2 + $cont_spi3) . "</td>";
     }
     $page_html .= "</tr>";
   }
