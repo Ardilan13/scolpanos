@@ -35,7 +35,7 @@ if (isset($_SESSION["UserRights"]) && isset($_SESSION["SchoolID"]) && isset($_PO
 	} else if ($_SESSION["UserRights"] == "BEHEER" || $_SESSION["UserRights"] == "ADMINISTRATIE" || $_SESSION["UserRights"] == "ONDERSTEUNING") {
 		$s = new spn_cijfers();
 		//function savecijfer($schoolid,$studentid_in,$cijfer_number_in,$cijfer_value_in,$klas_in,$rap_in,$vak_in)
-		if ($_SESSION["SchoolType"] == 1 && $_SESSION["ScoolID"] != 8 && $_SESSION["SchoolID"] != 18) {
+		if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["SchoolID"] != 18) {
 			print $s->_savecijfersgemiddelde_ps($_SESSION["SchoolJaar"], $_SESSION["SchoolID"], $_POST["studentid"], $_POST["klas"], $_POST["rapport"], $_POST["vak"]);
 		} else {
 			print $s->_savecijfersgemiddelde($_SESSION["SchoolJaar"], $_SESSION["SchoolID"], $_POST["studentid"], $_POST["klas"], $_POST["rapport"], $_POST["vak"]);

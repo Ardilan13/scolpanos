@@ -313,14 +313,13 @@
 						cache: false,
 						async: true,
 						success: function(data) {
-							console.log("gem:" + data)
+							// console.log("gem:" + data)
 						}
 					});
 				}
 				/* do something if needed */
 				//	console.log(data);
 			}).done(function(data) {
-			console.log("xd :" + data);
 			/* 			$('#btn_submit_cijfers').trigger('click');
 			 */
 			/* it's done */
