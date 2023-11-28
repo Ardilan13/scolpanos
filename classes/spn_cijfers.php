@@ -2010,25 +2010,25 @@ class spn_cijfers
     $samen  = 0;
 
     for ($i = 1; $i < 21; $i++) {
-      // if ($_SESSION["SchoolType"] == 2) {
-      $c = ${'c' . $i};
-      $w = ${'w' . $i};
+      if ($_SESSION["SchoolType"] == 2) {
+        $c = ${'c' . $i};
+        $w = ${'w' . $i};
 
-      if ($w > 0) {
+        if ($w > 0) {
 
-        if (empty($c) || $c === 0) {
-          $c = 0; // considerar 0 para nulos
+          if (empty($c) || $c === 0) {
+            $c = 0; // considerar 0 para nulos
+          }
+
+          $samen += ($c * $w);
+          $index += $w;
         }
-
-        $samen += ($c * $w);
-        $index += $w;
+      } else {
+        if (${'c' . $i} > 0 && ${'c' . $i} <= 10) {
+          $samen = $samen + (${'c' . $i} * ${'w' . $i});
+          $index = $index + ${'w' . $i};
+        }
       }
-      // } else {
-      //   if (${'c' . $i} > 0 && ${'c' . $i} <= 10) {
-      //     $samen = $samen + (${'c' . $i} * ${'w' . $i});
-      //     $index = $index + ${'w' . $i};
-      //   }
-      // }
     }
 
     if ($index > 0 && $samen > 0) {

@@ -1872,9 +1872,27 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 				$u = new spn_utils();
 				while ($row = mysqli_fetch_assoc($resultado1)) {
 					$id = $row['id'];
-					$sql_query_verzuim = "SELECT s.id as studentid,v.telaat,v.absentie,v.huiswerk,s.lastname,s.firstname,o.opmerking1, o.opmerking2, o.opmerking3, v.created, v.datum
-						from students s inner join le_verzuim v inner join opmerking o
-						where o.studentid = $id and o.schooljaar = '$schooljaar' and s.class = '$klas_in'  and s.schoolid = $schoolid and v.schooljaar = '$schooljaar' and v.studentid = $id and s.id = $id ORDER BY v.created;";
+					$sql_query_verzuim = "SELECT 
+					s.id AS studentid,
+					v.telaat,
+					v.absentie,
+					v.huiswerk,
+					s.lastname,
+					s.firstname,
+					o.opmerking1,
+					o.opmerking2,
+					o.opmerking3,
+					v.created,
+					v.datum
+				FROM students s 
+				INNER JOIN le_verzuim v ON s.id = v.studentid
+				LEFT JOIN opmerking o ON o.studentid = s.id AND o.schooljaar = v.schooljaar
+				WHERE s.class = '$klas_in' 
+					AND s.schoolid = $schoolid
+					AND v.schooljaar = '$schooljaar' 
+					AND v.studentid = $id 
+					AND s.id = $id 
+				ORDER BY v.created";
 					$resultado = mysqli_query($mysqli, $sql_query_verzuim);
 					while ($row1 = mysqli_fetch_assoc($resultado)) {
 						$datum = $u->convertfrommysqldate_new($row1["datum"]);
@@ -2992,9 +3010,27 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 				$resultado1 = mysqli_query($mysqli, $sql_query_student);
 				while ($row = mysqli_fetch_assoc($resultado1)) {
 					$id = $row['id'];
-					$sql_query_verzuim = "SELECT s.id as studentid,v.telaat,v.absentie,v.huiswerk,s.lastname,s.firstname,o.opmerking1, o.opmerking2, o.opmerking3, v.created, v.datum
-					from students s inner join le_verzuim v inner join opmerking o
-					where o.studentid = $id and o.schooljaar = '$schooljaar' and s.class = '$klas_in'  and s.schoolid = $schoolid and v.schooljaar = '$schooljaar' and v.studentid = $id and s.id = $id ORDER BY v.created;";
+					$sql_query_verzuim = "SELECT 
+					s.id AS studentid,
+					v.telaat,
+					v.absentie,
+					v.huiswerk,
+					s.lastname,
+					s.firstname,
+					o.opmerking1,
+					o.opmerking2,
+					o.opmerking3,
+					v.created,
+					v.datum
+				FROM students s 
+				INNER JOIN le_verzuim v ON s.id = v.studentid
+				LEFT JOIN opmerking o ON o.studentid = s.id AND o.schooljaar = v.schooljaar
+				WHERE s.class = '$klas_in' 
+					AND s.schoolid = $schoolid
+					AND v.schooljaar = '$schooljaar' 
+					AND v.studentid = $id 
+					AND s.id = $id 
+				ORDER BY v.created";
 					$resultado = mysqli_query($mysqli, $sql_query_verzuim);
 					while ($row1 = mysqli_fetch_assoc($resultado)) {
 						$datum = $u->convertfrommysqldate_new($row1["datum"]);

@@ -2927,7 +2927,7 @@ class spn_leerling
       $sql_query = "SELECT DISTINCT c.studentid,s.studentnumber,s.firstname,s.lastname,s.sex,s.dob,s.class FROM le_cijfers c LEFT JOIN students s ON c.studentid = s.id where c.klas = ? and c.schooljaar = '2017-2018' and s.schoolid = ? ORDER BY s.lastname,s.firstname";
     } else {
       $type = ($_SESSION['SchoolType'] == 2 || $_SESSION["SchoolID"] == 8 || $_SESSION['SchoolID'] == 18) ? "le_cijfers" : "le_cijfers_ps";
-      $sql_query = "SELECT DISTINCT s.id,s.studentnumber,s.firstname,s.lastname,s.sex,s.dob,c.klas as class,s.profiel FROM students s INNER JOIN " . $type . " c ON s.id = c.studentid where c.klas = ?  and s.schoolid = ? and s.status = 1 and c.rapnummer <= ? and c.schooljaar = ? ORDER BY";
+      $sql_query = "SELECT DISTINCT s.id,s.studentnumber,s.firstname,s.lastname,s.sex,s.dob,c.klas as class,s.profiel FROM students s INNER JOIN " . $type . " c ON s.id = c.studentid where c.klas = ?  and s.schoolid = ? and s.status = 1 and c.rapnummer <= ? and c.schooljaar = ? and s.class = ? ORDER BY";
       $sql_order = " lastname " . $s->_setting_sort . ", firstname";
       if ($s->_setting_mj) {
         $sql_query .= " sex " . $s->_setting_sort . ", " . $sql_order;
@@ -2941,7 +2941,7 @@ class spn_leerling
       $DBCreds = new DBCreds();
       $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
       if ($select = $mysqli->prepare($sql_query)) {
-        if ($select->bind_param("siis", $klas, $schoolId, $rapnumer, $schooljaar)) {
+        if ($select->bind_param("siiss", $klas, $schoolId, $rapnumer, $schooljaar, $klas)) {
           if ($select->execute()) {
             $this->error = false;
             $result = 1;

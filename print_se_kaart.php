@@ -53,7 +53,7 @@ switch ($schoolId) {
     $img = "xander.png";
     $titleP = "Scol&nbsp&nbsp&nbspPa&nbsp&nbsp&nbspNos";
     $titleD = $s->_setting_school_name;
-    $cabesante = "Ustelle Cornet";
+    $cabesante = "Nadia Maduro";
     break;
   case 11:
     $img = "angela.png";
@@ -266,7 +266,7 @@ foreach ($array_leerling as $item) {
   if ($_SESSION["SchoolID"] == 18) {
     $page_html .= "<td width='50%' height='40'><b>Nomber Alumno: </b></td>";
   } else {
-    if ($level_klas == 4) {
+    if ($level_klas == 4 && $_SESSION["SchoolType"] == 2) {
       $page_html .= "<td width='50%' height='50'><b>SE KAART: </b></td>";
     } else {
       $page_html .= "<td width='50%' height='50'><b>Rapport van: </b></td>";
@@ -348,7 +348,7 @@ foreach ($array_leerling as $item) {
   }
   $page_html .= "<div class='row' style='margin-left: 1%; justify-content: space-between; flex-direction: column;'>";
   $page_html .= "<div>";
-  if ($level_klas == 4) {
+  if ($level_klas == 4 && $_SESSION["SchoolType"] == 2) {
     $page_html .= "<p style='margin-bottom: 0rem;'><b>SE KAART: </b><span>" . $item['voornamen'] . " " . $item['achternaam'] . "</span></p>";
   } else {
     $page_html .= "<p style='margin-bottom: 0rem;'><b>Rapport van: </b><span>" . $item['voornamen'] . " " . $item['achternaam'] . "</span></p>";
@@ -4651,7 +4651,7 @@ if($avg_h == 0.0){$avg_h = null;}
     $page_html .= "<div class='row'>";
     $page_html .= "<div class='card'>";
     $page_html .= "<div class='card-body' style='padding-bottom: 0px;'>";
-    if ($level_klas != 3 && $level_klas != 4) {
+    if ($level_klas != 4) {
       $page_html .= "<h6 class='card-title'>Opmerking bij het eerste rapport</h6>";
     } else {
       $page_html .= "<h6 class='card-title'>Opmerking bij het SE KAART 1</h6>";
@@ -4681,7 +4681,7 @@ if($avg_h == 0.0){$avg_h = null;}
       $page_html .= "</div>";
     }
     $page_html .= "</div>";
-    if ($level_klas != 3 && $level_klas != 4) {
+    if ($level_klas != 4) {
       $page_html .= "<h6 class='card-title'>Opmerking bij het tweede rapport</h6>";
     } else {
       $page_html .= "<h6 class='card-title'>Opmerking bij het SE KAART 2</h6>";
@@ -4711,7 +4711,7 @@ if($avg_h == 0.0){$avg_h = null;}
       $page_html .= "</div>";
     }
     $page_html .= "</div>";
-    if ($level_klas != 3 && $level_klas != 4) {
+    if ($level_klas != 4) {
       $page_html .= "<h6 class='card-title'>Opmerking bij het eindrapport</h6>";
       $page_html .= "<textarea style='width: 100%;'>" .  $opmerking[4] . "</textarea>";
     } else {
