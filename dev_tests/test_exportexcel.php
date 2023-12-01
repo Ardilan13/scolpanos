@@ -641,7 +641,7 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 			$cont_laat = 0;
 			$cont_verzuim = 0;
 			$cont_huis = 0;
-			$opmerking = null;
+			$opmerking = "";
 			$_laststudent = 0;
 			$_current_student_start_row++;
 		}
@@ -1853,7 +1853,7 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 				$cont_laat = 0;
 				$cont_verzuim = 0;
 				$cont_huis = 0;
-				$opmerking = null;
+				$opmerking = "";
 				$_laststudent = 0;
 				$_while_counter = 0;
 				$klas_in = $_GET["rapport_klassen_lijst"];
@@ -1922,7 +1922,7 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 					$cont_laat = 0;
 					$cont_verzuim = 0;
 					$cont_huis = 0;
-					$opmerking = null;
+					$opmerking = "";
 					$_laststudent = 0;
 					$_current_student_start_row++;
 				}
