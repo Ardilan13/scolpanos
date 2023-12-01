@@ -1885,13 +1885,11 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 					v.created,
 					v.datum
 				FROM students s 
-				INNER JOIN le_verzuim v ON s.id = v.studentid
-				LEFT JOIN opmerking o ON o.studentid = s.id AND o.schooljaar = v.schooljaar
+				LEFT JOIN le_verzuim v ON s.id = v.studentid AND v.schooljaar = '$schooljaar' AND v.studentid = s.id
+				LEFT JOIN opmerking o ON o.studentid = s.id AND o.schooljaar = '$schooljaar'
 				WHERE s.class = '$klas_in' 
 					AND s.schoolid = $schoolid
-					AND v.schooljaar = '$schooljaar' 
-					AND v.studentid = $id 
-					AND s.id = $id 
+					AND s.id = $id
 				ORDER BY v.created";
 					$resultado = mysqli_query($mysqli, $sql_query_verzuim);
 					while ($row1 = mysqli_fetch_assoc($resultado)) {
@@ -3023,13 +3021,11 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 					v.created,
 					v.datum
 				FROM students s 
-				INNER JOIN le_verzuim v ON s.id = v.studentid
-				LEFT JOIN opmerking o ON o.studentid = s.id AND o.schooljaar = v.schooljaar
+				LEFT JOIN le_verzuim v ON s.id = v.studentid AND v.schooljaar = '$schooljaar' AND v.studentid = s.id
+				LEFT JOIN opmerking o ON o.studentid = s.id AND o.schooljaar = '$schooljaar'
 				WHERE s.class = '$klas_in' 
 					AND s.schoolid = $schoolid
-					AND v.schooljaar = '$schooljaar' 
-					AND v.studentid = $id 
-					AND s.id = $id 
+					AND s.id = $id
 				ORDER BY v.created";
 					$resultado = mysqli_query($mysqli, $sql_query_verzuim);
 					while ($row1 = mysqli_fetch_assoc($resultado)) {
