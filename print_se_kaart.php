@@ -179,30 +179,39 @@ foreach ($array_leerling as $item) {
 
     if ($_SESSION["SchoolID"] != 18) {
       $page_html .= "<label style='margin-right: 20px;'>R1</label>";
+      $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking1) . "</textarea>";
     } else {
       $page_html .= "<label style=' max-width: 100px;'>Comentario Rapport 1</label>";
+      $page_html .= "<div style='display: flex; flex-direction: column;'><div><input type='radio'><label style='margin-right: 15px;'>Suficiente</label>";
+      $page_html .= "<input type='radio'><label>Insuficiente</label></div>";
+      $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking1) . "</textarea></div>";
     }
-    $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking1) . "</textarea>";
 
     $page_html .= "</div>";
     $page_html .= "<div style='display: flex; align-items: center;'>";
 
     if ($_SESSION["SchoolID"] != 18) {
       $page_html .= "<label style='margin-right: 20px;'>R2</label>";
+      $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking2) . "</textarea>";
     } else {
       $page_html .= "<label style=' max-width: 100px;'>Comentario Rapport 2</label>";
+      $page_html .= "<div style='display: flex; flex-direction: column;'><div><input type='radio'><label style='margin-right: 15px;'>Suficiente</label>";
+      $page_html .= "<input type='radio'><label>Insuficiente</label></div>";
+      $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking2) . "</textarea></div>";
     }
-    $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking2) . "</textarea>";
 
     $page_html .= "</div>";
     $page_html .= "<div style='display: flex; align-items: center;'>";
 
     if ($_SESSION["SchoolID"] != 18) {
       $page_html .= "<label style='margin-right: 20px;'>R3</label>";
+      $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking3) . "</textarea>";
     } else {
       $page_html .= "<label style=' max-width: 100px;'>Comentario Rapport 3</label>";
+      $page_html .= "<div style='display: flex; flex-direction: column;'><div><input type='radio'><label style='margin-right: 15px;'>Suficiente</label>";
+      $page_html .= "<input type='radio'><label>Insuficiente</label></div>";
+      $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking3) . "</textarea></div>";
     }
-    $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking3) . "</textarea>";
 
     $page_html .= "</div>";
     $page_html .= "</div>";
@@ -350,6 +359,8 @@ foreach ($array_leerling as $item) {
   $page_html .= "<div>";
   if ($level_klas == 4 && $_SESSION["SchoolType"] == 2) {
     $page_html .= "<p style='margin-bottom: 0rem;'><b>SE KAART: </b><span>" . $item['voornamen'] . " " . $item['achternaam'] . "</span></p>";
+  } else if ($_SESSION["SchoolID"] == 18) {
+    $page_html .= "<p style='margin-bottom: 0rem;'><b>Rapport di: </b><span>" . $item['voornamen'] . " " . $item['achternaam'] . "</span></p>";
   } else {
     $page_html .= "<p style='margin-bottom: 0rem;'><b>Rapport van: </b><span>" . $item['voornamen'] . " " . $item['achternaam'] . "</span></p>";
   }
@@ -7553,13 +7564,6 @@ if($avg_h == 0.0){$avg_h = null;}
     $page_html .= "<p style='margin-bottom: 0.2rem; font-size: 0.75rem'>E = Insuficiente</p>";
     $page_html .= "<p style='margin-bottom: 0.2rem; font-size: 0.75rem'>F = Malo</p>";
     $page_html .= "</div>";
-    $page_html .= "<div style='display: flex; align-items: center;'>";
-    if ($advies == 0) {
-      $page_html .= "<b>A pasa e aña</b>";
-    } else if ($advies == 1) {
-      $page_html .= "<b>No a pasa e aña</b>";
-    }
-    $page_html .= "</div>";
     $page_html .= "</div>";
   }
   $page_html .= "</div>";
@@ -7569,6 +7573,17 @@ if($avg_h == 0.0){$avg_h = null;}
 
   if ($_SESSION['SchoolID'] == 18) {
     $page_html .= "<br>";
+    if ($advies == 0) {
+      $page_html .= "<div style='display:flex; flex-direction: column;'>";
+      $page_html .= "<div><input type='radio'><label>A pasa e aña</label></div>";
+      $page_html .= "<div><input type='radio'><label>No a pasa e aña</label></div>";
+      $page_html .= "</div>";
+    } else if ($advies == 1) {
+      $page_html .= "<div style='display:flex; flex-direction: column;'>";
+      $page_html .= "<div><input type='radio'><label>A pasa e aña</label></div>";
+      $page_html .= "<div><input type='radio'><label>No a pasa e aña</label></div>";
+      $page_html .= "</div>";
+    }
     $page_html .= "<br>";
     $page_html .= "<div class='row'>";
     $page_html .= "<div class='card'>";
