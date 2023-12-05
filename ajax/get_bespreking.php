@@ -70,11 +70,8 @@ $i = 1;
             $disabled = "disabled";
         }
 
-        if ($level_klas == 4) {
-            $get_students = "SELECT id,firstname,lastname FROM students WHERE schoolid = '$schoolid' AND class like '4%' ORDER BY lastname, firstname;";
-        } else {
-            $get_students = "SELECT id,firstname,lastname FROM students WHERE schoolid = '$schoolid' AND class = '$klas' ORDER BY lastname, firstname;";
-        }
+
+        $get_students = "SELECT id,firstname,lastname FROM students WHERE schoolid = '$schoolid' AND class = '$klas' ORDER BY lastname, firstname;";
         $result = mysqli_query($mysqli, $get_students);
         while ($row1 = mysqli_fetch_assoc($result)) { ?>
             <tr>

@@ -105,4 +105,20 @@
             },
         });
     })
+
+    $(document).ready(function() {
+        setTimeout(function() {
+            $("#houding_klassen_lijst option").each(function() {
+                if ($(this).val() === "4") {
+                    $(this).text("4A");
+                    $(this).val("4A");
+                    $("#houding_klassen_lijst").append("<option value='4B'>4B</option>");
+                    $("#houding_klassen_lijst").append("<option value='4C'>4C</option>");
+                    $("#houding_klassen_lijst").append("<option value='4D'>4D</option>");
+                } else if ($(this).val() === "SN") {
+                    $(this).remove();
+                }
+            });
+        }, 2000);
+    })
 </script>
