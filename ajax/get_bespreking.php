@@ -58,14 +58,23 @@ $i = 1;
         // $disabled = $_SESSION["UserRights"] == "BEHEER" ? "" : "disabled";
         $disabled = "disabled";
         $user = $_SESSION["UserGUID"];
-        $get_mentor = "SELECT id FROM user_hs WHERE SchoolID = '$schoolid' AND klas = '$klas' AND tutor = 'Yes' AND user_GUID = '$user' LIMIT 1;";
+        if ($level_klas == 4) {
+            $get_mentor = "SELECT id FROM user_hs WHERE SchoolID = '$schoolid' AND klas = '4' AND tutor = 'Yes' AND user_GUID = '$user' LIMIT 1;";
+        } else {
+            $get_mentor = "SELECT id FROM user_hs WHERE SchoolID = '$schoolid' AND klas = '$klas' AND tutor = 'Yes' AND user_GUID = '$user' LIMIT 1;";
+        }
         $result_mentor = mysqli_query($mysqli, $get_mentor);
         if ($result_mentor->num_rows > 0 || $_SESSION["UserRights"] == "BEHEER") {
             $disabled = "";
         } else {
             $disabled = "disabled";
         }
-        $get_students = "SELECT id,firstname,lastname FROM students WHERE schoolid = '$schoolid' AND class = '$klas' ORDER BY lastname, firstname;";
+
+        if ($level_klas == 4) {
+            $get_students = "SELECT id,firstname,lastname FROM students WHERE schoolid = '$schoolid' AND class like '4%' ORDER BY lastname, firstname;";
+        } else {
+            $get_students = "SELECT id,firstname,lastname FROM students WHERE schoolid = '$schoolid' AND class = '$klas' ORDER BY lastname, firstname;";
+        }
         $result = mysqli_query($mysqli, $get_students);
         while ($row1 = mysqli_fetch_assoc($result)) { ?>
             <tr>
@@ -97,54 +106,56 @@ $i = 1;
                 $cuenta_pri = 0;
                 $cuenta = 0;
                 $last_vak = "";
-                if ($rapport == 4) {
-                    $get_cijfers = "SELECT v.volledigenaamvak as vak,ROUND(SUM(c.gemiddelde)/COUNT(c.rapnummer)) as gemiddelde FROM le_cijfers c INNER JOIN le_vakken v ON v.ID = c.vak WHERE v.volgorde > 0 AND c.studentid = '$id' AND c.klas = '$klas' AND c.schooljaar = '$schooljaar' AND c.gemiddelde is not NULL GROUP BY vak ORDER BY c.studentid,vak;";
-                } else {
-                    $get_cijfers = "SELECT (SELECT volledigenaamvak FROM le_vakken WHERE ID = c.vak AND volgorde > 0) as vak,c.gemiddelde FROM le_cijfers c WHERE c.studentid = '$id' AND c.klas = '$klas' AND c.rapnummer = $rapport AND c.schooljaar = '$schooljaar' AND c.gemiddelde is not NULL;";
-                }
 
-                $result2 = mysqli_query($mysqli, $get_cijfers);
-                if ($result2->num_rows > 0) {
-                    while ($row3 = mysqli_fetch_assoc($result2)) {
-                        if ($row3["vak"] != "rk" && $row3["vak"] != NULL) {
-                            $cijfers[$id] = $cijfers[$id] + $row3["gemiddelde"];
-                        }
-                        if ($row3["vak"] == "ne" || $row3["vak"] == "en" || $row3["vak"] == "wi") {
-                            if ($row3["gemiddelde"] == 0 || $row3["gemiddelde"] >= 5.5 || $row3["gemiddelde"] == NULL) {
-                                $cuenta_pri = $cuenta_pri + 0;
-                            } else if ($row3["gemiddelde"] < 1) {
-                                $cuenta_pri = $cuenta_pri + 6;
-                            } else if ($row3["gemiddelde"] < 2) {
-                                $cuenta_pri = $cuenta_pri + 5;
-                            } else if ($row3["gemiddelde"] < 3) {
-                                $cuenta_pri = $cuenta_pri + 4;
-                            } else if ($row3["gemiddelde"] < 4) {
-                                $cuenta_pri = $cuenta_pri + 3;
-                            } else if ($row3["gemiddelde"] < 5) {
-                                $cuenta_pri = $cuenta_pri + 2;
-                            } else if ($row3["gemiddelde"] < 5.5) {
-                                $cuenta_pri = $cuenta_pri + 1;
+                if ($level_klas != 4) {
+                    if ($rapport == 4) {
+                        $get_cijfers = "SELECT v.volledigenaamvak as vak,ROUND(SUM(c.gemiddelde)/COUNT(c.rapnummer)) as gemiddelde FROM le_cijfers c INNER JOIN le_vakken v ON v.ID = c.vak WHERE v.volgorde > 0 AND c.studentid = '$id' AND c.klas = '$klas' AND c.schooljaar = '$schooljaar' AND c.gemiddelde is not NULL GROUP BY vak ORDER BY c.studentid,vak;";
+                    } else {
+                        $get_cijfers = "SELECT (SELECT volledigenaamvak FROM le_vakken WHERE ID = c.vak AND volgorde > 0) as vak,c.gemiddelde FROM le_cijfers c WHERE c.studentid = '$id' AND c.klas = '$klas' AND c.rapnummer = $rapport AND c.schooljaar = '$schooljaar' AND c.gemiddelde is not NULL;";
+                    }
+
+                    $result2 = mysqli_query($mysqli, $get_cijfers);
+                    if ($result2->num_rows > 0) {
+                        while ($row3 = mysqli_fetch_assoc($result2)) {
+                            if ($row3["vak"] != "rk" && $row3["vak"] != NULL) {
+                                $cijfers[$id] = $cijfers[$id] + $row3["gemiddelde"];
                             }
-                        } else if ($row3["vak"] != "rk" && $row3["vak"] != NULL) {
-                            if ($row3["gemiddelde"] == 0 || $row3["gemiddelde"] >= 5.5 || $row3["gemiddelde"] == NULL) {
-                                $cuenta = $cuenta + 0;
-                            } else if ($row3["gemiddelde"] < 1) {
-                                $cuenta = $cuenta + 6;
-                            } else if ($row3["gemiddelde"] < 2) {
-                                $cuenta = $cuenta + 5;
-                            } else if ($row3["gemiddelde"] < 3) {
-                                $cuenta = $cuenta + 4;
-                            } else if ($row3["gemiddelde"] < 4) {
-                                $cuenta = $cuenta + 3;
-                            } else if ($row3["gemiddelde"] < 5) {
-                                $cuenta = $cuenta + 2;
-                            } else if ($row3["gemiddelde"] < 5.5) {
-                                $cuenta = $cuenta + 1;
+                            if ($row3["vak"] == "ne" || $row3["vak"] == "en" || $row3["vak"] == "wi") {
+                                if ($row3["gemiddelde"] == 0 || $row3["gemiddelde"] >= 5.5 || $row3["gemiddelde"] == NULL) {
+                                    $cuenta_pri = $cuenta_pri + 0;
+                                } else if ($row3["gemiddelde"] < 1) {
+                                    $cuenta_pri = $cuenta_pri + 6;
+                                } else if ($row3["gemiddelde"] < 2) {
+                                    $cuenta_pri = $cuenta_pri + 5;
+                                } else if ($row3["gemiddelde"] < 3) {
+                                    $cuenta_pri = $cuenta_pri + 4;
+                                } else if ($row3["gemiddelde"] < 4) {
+                                    $cuenta_pri = $cuenta_pri + 3;
+                                } else if ($row3["gemiddelde"] < 5) {
+                                    $cuenta_pri = $cuenta_pri + 2;
+                                } else if ($row3["gemiddelde"] < 5.5) {
+                                    $cuenta_pri = $cuenta_pri + 1;
+                                }
+                            } else if ($row3["vak"] != "rk" && $row3["vak"] != NULL) {
+                                if ($row3["gemiddelde"] == 0 || $row3["gemiddelde"] >= 5.5 || $row3["gemiddelde"] == NULL) {
+                                    $cuenta = $cuenta + 0;
+                                } else if ($row3["gemiddelde"] < 1) {
+                                    $cuenta = $cuenta + 6;
+                                } else if ($row3["gemiddelde"] < 2) {
+                                    $cuenta = $cuenta + 5;
+                                } else if ($row3["gemiddelde"] < 3) {
+                                    $cuenta = $cuenta + 4;
+                                } else if ($row3["gemiddelde"] < 4) {
+                                    $cuenta = $cuenta + 3;
+                                } else if ($row3["gemiddelde"] < 5) {
+                                    $cuenta = $cuenta + 2;
+                                } else if ($row3["gemiddelde"] < 5.5) {
+                                    $cuenta = $cuenta + 1;
+                                }
                             }
                         }
                     }
                 }
-
                 ?>
                 <td><input <?php echo $disabled; ?> type="text" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ', ' . $rapport . ',' . $i; ?>)" id="opmerking_<?php echo $i; ?>" class="opmerking_input" value="<?php echo $opmerking1; ?>"></td>
                 <?php if ($rapport == 4 && $level_klas != 4) { ?>
