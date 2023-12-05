@@ -55,7 +55,16 @@ $i = 1;
     </thead>
     <tbody>
         <?php
-        $disabled = $_SESSION["UserRights"] == "BEHEER" ? "" : "disabled";
+        // $disabled = $_SESSION["UserRights"] == "BEHEER" ? "" : "disabled";
+        $disabled = "disabled";
+        $user = $_SESSION["UserGUID"];
+        $get_mentor = "SELECT id FROM user_hs WHERE SchoolID = '$schoolid' AND klas = '$klas' AND tutor = 'Yes' AND user_GUID = '$user' LIMIT 1;";
+        $result_mentor = mysqli_query($mysqli, $get_mentor);
+        if ($result_mentor->num_rows > 0 || $_SESSION["UserRights"] == "BEHEER") {
+            $disabled = "";
+        } else {
+            $disabled = "disabled";
+        }
         $get_students = "SELECT id,firstname,lastname FROM students WHERE schoolid = '$schoolid' AND class = '$klas' ORDER BY lastname, firstname;";
         $result = mysqli_query($mysqli, $get_students);
         while ($row1 = mysqli_fetch_assoc($result)) { ?>
