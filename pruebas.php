@@ -13,41 +13,41 @@ $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $D
 $schoolid = $_SESSION["SchoolID"];
 $schooljaar = $_SESSION["SchoolJaar"];
 
-require_once("./classes/spn_cijfers.php");
-$s = new spn_cijfers();
-$get_klas = "SELECT DISTINCT c.studentid, c.klas, GROUP_CONCAT(c.vak SEPARATOR ', ') AS vak FROM `le_cijfers` c INNER JOIN le_vakken v ON c.vak = v.ID where c.schooljaar = '2023-2024' and c.rapnummer = 1 AND v.SchoolID = 8 AND c.studentid =  GROUP BY studentid ORDER BY `c`.`klas` ASC";
-$result = mysqli_query($mysqli, $get_klas);
-$studets = [];
-$cont = 1;
-while ($row = mysqli_fetch_assoc($result)) {
-    $vaks = explode(", ", $row['vak']);
+// require_once("./classes/spn_cijfers.php");
+// $s = new spn_cijfers();
+// $get_klas = "SELECT DISTINCT c.studentid, c.klas, GROUP_CONCAT(c.vak SEPARATOR ', ') AS vak FROM `le_cijfers` c INNER JOIN le_vakken v ON c.vak = v.ID where c.schooljaar = '2023-2024' and c.rapnummer = 1 AND v.SchoolID = 8 AND c.studentid =  GROUP BY studentid ORDER BY `c`.`klas` ASC";
+// $result = mysqli_query($mysqli, $get_klas);
+// $studets = [];
+// $cont = 1;
+// while ($row = mysqli_fetch_assoc($result)) {
+//     $vaks = explode(", ", $row['vak']);
 
-    $students[] = [
-        "id" => $row["studentid"],
-        "klas" => $row["klas"],
-        "vak" => $vaks
-    ];
-    $cont++;
-}
-echo $cont;
-foreach ($students as $student) {
-    $id = $student["id"];
-    $klas = $student["klas"];
-    $vak = $student["vak"];
-    print_r($vak);
-    echo $id . " " . $klas . "<br>";
-    // $.ajax({
-    //     url: "ajax/getgemiddelde_by_cijferwarde.php",
-    //     data: "klas=" + $klas + "&rapport=" + $rapnummer + "&vak=" + $vak + "&studentid=" + student_id_array[z],
-    //     type: 'POST',
-    //     dataType: "HTML",
-    //     cache: false,
-    //     async: true,
-    //     success: function(data) {
-    //         // console.log("gem:" + data)
-    //     }
-    // });
-}
+//     $students[] = [
+//         "id" => $row["studentid"],
+//         "klas" => $row["klas"],
+//         "vak" => $vaks
+//     ];
+//     $cont++;
+// }
+// echo $cont;
+// foreach ($students as $student) {
+//     $id = $student["id"];
+//     $klas = $student["klas"];
+//     $vak = $student["vak"];
+//     print_r($vak);
+//     echo $id . " " . $klas . "<br>";
+//     // $.ajax({
+//     //     url: "ajax/getgemiddelde_by_cijferwarde.php",
+//     //     data: "klas=" + $klas + "&rapport=" + $rapnummer + "&vak=" + $vak + "&studentid=" + student_id_array[z],
+//     //     type: 'POST',
+//     //     dataType: "HTML",
+//     //     cache: false,
+//     //     async: true,
+//     //     success: function(data) {
+//     //         // console.log("gem:" + data)
+//     //     }
+//     // });
+// }
 
 // $get_klas = "SELECT id FROM students WHERE schoolid = 13 AND class like '4%'";
 // $result = mysqli_query($mysqli, $get_klas);
