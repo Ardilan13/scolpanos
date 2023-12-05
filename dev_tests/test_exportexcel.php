@@ -1859,7 +1859,7 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 				$klas_in = $_GET["rapport_klassen_lijst"];
 				$schooljaar = $_SESSION['SchoolJaar'];
 
-				$sql_query_student = "SELECT id from students s where s.class = '$klas_in' and schoolid = $schoolid ORDER BY";
+				$sql_query_student = "SELECT s.id from students s INNER JOIN le_cijfers c ON s.id = c.studentid and s.class = c.klas where s.class = '$klas_in' and schoolid = $schoolid and c.gemiddelde > 0 GROUP BY s.id ORDER BY";
 
 				$sql_order = " s.lastname " . $s->_setting_sort . ", s.firstname";
 				if ($s->_setting_mj) {

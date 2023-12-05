@@ -182,8 +182,8 @@ foreach ($array_leerling as $item) {
       $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking1) . "</textarea>";
     } else {
       $page_html .= "<label style=' max-width: 100px;'>Comentario Rapport 1</label>";
-      $page_html .= "<div style='display: flex; flex-direction: column;'><div><input type='radio'><label style='margin-right: 15px;'>Suficiente</label>";
-      $page_html .= "<input type='radio'><label>Insuficiente</label></div>";
+      $page_html .= "<div style='display: flex; flex-direction: column;'><div><input type='radio'><label style='margin-right: 15px; margin-left:10px;'>Suficiente</label>";
+      $page_html .= "<input type='radio'><label style='margin-left:10px;'>Insuficiente</label></div>";
       $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking1) . "</textarea></div>";
     }
 
@@ -195,8 +195,8 @@ foreach ($array_leerling as $item) {
       $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking2) . "</textarea>";
     } else {
       $page_html .= "<label style=' max-width: 100px;'>Comentario Rapport 2</label>";
-      $page_html .= "<div style='display: flex; flex-direction: column;'><div><input type='radio'><label style='margin-right: 15px;'>Suficiente</label>";
-      $page_html .= "<input type='radio'><label>Insuficiente</label></div>";
+      $page_html .= "<div style='display: flex; flex-direction: column;'><div><input type='radio'><label style='margin-right: 15px; margin-left:10px;'>Suficiente</label>";
+      $page_html .= "<input type='radio'><label style='margin-left:10px;'>Insuficiente</label></div>";
       $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking2) . "</textarea></div>";
     }
 
@@ -208,8 +208,8 @@ foreach ($array_leerling as $item) {
       $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking3) . "</textarea>";
     } else {
       $page_html .= "<label style=' max-width: 100px;'>Comentario Rapport 3</label>";
-      $page_html .= "<div style='display: flex; flex-direction: column;'><div><input type='radio'><label style='margin-right: 15px;'>Suficiente</label>";
-      $page_html .= "<input type='radio'><label>Insuficiente</label></div>";
+      $page_html .= "<div style='display: flex; flex-direction: column;'><div><input type='radio'><label style='margin-right: 15px; margin-left:10px;'>Suficiente</label>";
+      $page_html .= "<input type='radio'><label style='margin-left:10px;'>Insuficiente</label></div>";
       $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking3) . "</textarea></div>";
     }
 
@@ -7575,13 +7575,13 @@ if($avg_h == 0.0){$avg_h = null;}
     $page_html .= "<br>";
     if ($advies == 0) {
       $page_html .= "<div style='display:flex; flex-direction: column;'>";
-      $page_html .= "<div><input type='radio'><label>A pasa e aña</label></div>";
-      $page_html .= "<div><input type='radio'><label>No a pasa e aña</label></div>";
+      $page_html .= "<div><input type='radio'><label style='margin-left: 10px;'>A pasa e aña</label></div>";
+      $page_html .= "<div><input type='radio'><label style='margin-left: 10px;'>No a pasa e aña</label></div>";
       $page_html .= "</div>";
     } else if ($advies == 1) {
       $page_html .= "<div style='display:flex; flex-direction: column;'>";
-      $page_html .= "<div><input type='radio'><label>A pasa e aña</label></div>";
-      $page_html .= "<div><input type='radio'><label>No a pasa e aña</label></div>";
+      $page_html .= "<div><input type='radio'><label style='margin-left: 10px;'>A pasa e aña</label></div>";
+      $page_html .= "<div><input type='radio'><label style='margin-left: 10px;'>No a pasa e aña</label></div>";
       $page_html .= "</div>";
     }
     $page_html .= "<br>";
