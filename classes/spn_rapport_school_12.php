@@ -488,7 +488,7 @@ class spn_rapport_school_12
 			require_once("DBCreds.php");
 			$DBCreds = new DBCreds();
 			$mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
-			$sql_query = "select CONCAT(a.firstname,' ',a.lastname) as tutorname from app_useraccounts a inner join user_hs u on UserGUID = user_GUID where u.klas = '" . $klas_in . "' and tutor = 'yes' and u.SchoolID = " . $schoolId . " LIMIT 1;";
+			$sql_query = "select CONCAT(a.firstname,' ',a.lastname) as tutorname from app_useraccounts a inner join user_hs u on a.UserGUID = u.user_GUID where u.klas = '" . $klas_in . "' and u.tutor = 'Yes' and u.SchoolID = " . $schoolId . " LIMIT 1;";
 			// print('Este es el query de houding: '.$sql_query);
 
 			if ($select = $mysqli->prepare($sql_query)) {

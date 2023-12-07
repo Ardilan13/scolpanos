@@ -90,7 +90,28 @@ switch ($schoolId) {
 
 $page_html = "";
 $t = new spn_rapport_school_12();
-$tutor = $t->_writetutorName($_GET["klas"], $schoolId);
+if ($_SESSION["SchoolType"] == 2 && substr($_GET["klas"], 0, 1) == 4) {
+  if ($_SESSION["SchoolID"] == 13) {
+    switch ($_GET["klas"]) {
+      case "4A":
+        $tutor = "Minoushka Chin-Sie-Jen";
+        break;
+      case "4B":
+        $tutor = "Celio Vrolijk";
+        break;
+      case "4C":
+        $tutor = "Luwen Sam";
+        break;
+      case "4D":
+        $tutor = "Roy Broekman";
+        break;
+    }
+  } else {
+    $tutor = $t->_writetutorName(4, $schoolId);
+  }
+} else {
+  $tutor = $t->_writetutorName($_GET["klas"], $schoolId);
+}
 
 $array = array();
 $returnarr = array();
@@ -220,10 +241,10 @@ foreach ($array_leerling as $item) {
     } else {
       $page_html .= "<div style='margin: 0px; display: flex; align-items: center; flex-direction: column; margin-left: 10%;' >";
     }
-  } else if (substr($_GET["klas"], 0, 1) != 1) {
+  } else if (substr($_GET["klas"], 0, 1) > 2) {
     $page_html .= "<div style='display: flex; justify-content: space-evenly;'>";
     $page_html .= "<div style=' display: flex; align-items: center; justify-content: space-evenly;'>";
-    $page_html .= "<img style='margin-right: 100px !important;'  width='350px' height:'350px' src='" . appconfig::GetBaseURL() . "/assets/img/profiels.jpeg' class='mx-auto d-block'>";
+    $page_html .= "<img style='margin-right: 100px !important;'  width='450px' height:'400px' src='" . appconfig::GetBaseURL() . "/assets/img/profiels.jpeg' class='mx-auto d-block'>";
     $page_html .= "<div style='width: 35rem; margin: 0px; display: flex; align-items: center; flex-direction: column;' >";
   } else {
     $page_html .= "<div class='row justify-content-end' style=''>";
