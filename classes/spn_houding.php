@@ -2624,7 +2624,7 @@ class spn_houding
     return $returnvalue;
   }
 
-  function listhouding_hs_group($schooljaar, $schoolid, $klas_in, $rap_in, $vak_id)
+  function listhouding_hs_group($schooljaar, $schoolid, $klas_in, $rap_in, $vak_id, $klas_groep)
   {
     $returnvalue = "";
     $user_permission = "";
@@ -2646,6 +2646,7 @@ class spn_houding
 
     $vak_row = $result['vak'];
     $name_row = substr($result['name'], 0, 2);
+    $klas = $klas_in . $klas_groep;
 
     mysqli_report(MYSQLI_REPORT_STRICT);
 
@@ -2656,7 +2657,7 @@ class spn_houding
     h.h1, h.h2, h.h3, h.h4, h.h5, h.h6, h.h7, h.h8, h.h9, h.h10, h.h11, h.h12, h.h13, h.h14, h.h15,
     h.h16,h.h17,h.h18,h.h19,h.h20,h.h21,h.h22,h.h23,h.h24,h.h25
     FROM students s LEFT JOIN le_houding_hs h ON s.id = h.studentid
-    WHERE h.rapnummer = ? AND s.schoolid = ? and h.schooljaar = ? and h.vakid= ?
+    WHERE h.rapnummer = ? AND s.schoolid = ? and h.schooljaar = ? and h.vakid= ? and s.class like '$klas%'
     ORDER BY ";
 
     $sql_order = " s.lastname, s.firstname ";

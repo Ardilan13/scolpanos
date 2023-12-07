@@ -3984,6 +3984,8 @@ vak.append($("<option />").val(this.id).text(this.vak));
 
   // Submit a form, GET the data and return the data to the DOM
   $formDataRetriever.on("submit", function (e) {
+    $("#loader_spn").removeClass("hidden");
+
     var buttonLink = $(this).find("button").attr("data-ajax-href"),
       replaceDiv = $(this).find("button").attr("data-display");
 
@@ -4620,6 +4622,7 @@ vak.append($("<option />").val(this.id).text(this.vak));
             calculate_gemiddelde();
           });
         });
+        $("#loader_spn").addClass("hidden");
       })
       .fail(function () {
         alert("error");

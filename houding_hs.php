@@ -26,7 +26,17 @@
 										</select>
 									</div>
 									<div class="form-group group hidden">
-										<label for="group">Group</label>
+										<label for="klas">Groep</label>
+										<select class="form-control" name="klas_groep" id="houding_klas_groep">
+											<option value="">All</option>
+											<option value="A">A</option>
+											<option value="B">B</option>
+											<option value="C">C</option>
+											<option value="D">D</option>
+										</select>
+									</div>
+									<div class="form-group group hidden">
+										<label for="group">Vak</label>
 										<select class="form-control" name="group" id="group"></select>
 									</div>
 									<div class="form-group vaken">
@@ -45,7 +55,7 @@
 										</select>
 									</div>
 									<div class="form-group">
-										<button data-display="data-display" data-ajax-href="ajax/gethouding_tabel_hs.php" type="submit" class="btn btn-primary btn-m-w btn-m-h">zoeken</button>
+										<button data-display="data-display" data-ajax-href="ajax/gethouding_tabel_hs.php" type="submit" class="btn btn-primary btn-m-w btn-m-h" id="zoeken">zoeken</button>
 									</div>
 								</fieldset>
 							</form>
@@ -65,6 +75,13 @@
 							</div>
 							<br />
 							<a type="submit" name="btn_houding_print" id="btn_houding_print" class="btn btn-default btn-m-w pull-right mrg-left" target="_blank">PRINT</a>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12 full-inset">
+							<div id="loader_spn" class="hidden">
+								<div class="loader_spn"></div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -100,12 +117,14 @@
 					});
 				});
 				$("#group").attr('disabled', false);
+				$("#houding_klas_groep").attr('disabled', false);
 				$("#houding_vakken_lijst").attr('disabled', true);
 				$(".vaken").addClass("hidden");
 				$(".group").removeClass("hidden");
 				$(".rapport").addClass("hidden");
 			} else {
 				$("#houding_vakken_lijst").attr('disabled', false);
+				$("#houding_klas_groep").attr('disabled', true);
 				$("#group").attr('disabled', true);
 				$(".group").addClass("hidden");
 				$(".vaken").removeClass("hidden");
@@ -129,12 +148,14 @@
 				});
 			});
 			$("#group").attr('disabled', false);
+			$("#houding_klas_groep").attr('disabled', false);
 			$("#houding_vakken_lijst").attr('disabled', true);
 			$(".vaken").addClass("hidden");
 			$(".group").removeClass("hidden");
 			$(".rapport").addClass("hidden");
 		} else {
 			$("#houding_vakken_lijst").attr('disabled', false);
+			$("#houding_klas_groep").attr('disabled', true);
 			$("#group").attr('disabled', true);
 			$(".group").addClass("hidden");
 			$(".vaken").removeClass("hidden");

@@ -57,8 +57,9 @@ if (isset($_SESSION["UserRights"]) && isset($_SESSION["SchoolID"]) && isset($_GE
 
 		if (isset($_SESSION["Class"])) {
 			if ($_GET['klas'] == '4') {
+
 				$s->create_le_houding_student_hs_group($_SESSION["SchoolID"], $_GET["rapport"], $_GET["klas"], $_SESSION["SchoolJaar"], $_GET["group"]);
-				print $s->listhouding_hs_group($_SESSION["SchoolJaar"], $_SESSION["SchoolID"], $_GET["klas"], $_GET["rapport"], $_GET["group"]);
+				print $s->listhouding_hs_group($_SESSION["SchoolJaar"], $_SESSION["SchoolID"], $_GET["klas"], $_GET["rapport"], $_GET["group"], $_GET["klas_groep"]);
 			} else {
 				$s->create_le_houding_student_hs($_SESSION["SchoolID"], $_GET["rapport"], $_GET["klas"], $_SESSION["SchoolJaar"], $_GET["houding_vakken_lijst"]);
 
@@ -84,7 +85,7 @@ if (isset($_SESSION["UserRights"]) && isset($_SESSION["SchoolID"]) && isset($_GE
 	} else if ($_SESSION["UserRights"] == "BEHEER" || $_SESSION["UserRights"] == "ADMINISTRATIE" || $_SESSION["UserRights"] == "ONDERSTEUNING") {
 		if ($_GET['klas'] == '4') {
 			$s->create_le_houding_student_hs_group($_SESSION["SchoolID"], $_GET["rapport"], $_GET["klas"], $_SESSION["SchoolJaar"], $_GET["group"]);
-			print $s->listhouding_hs_group($_SESSION["SchoolJaar"], $_SESSION["SchoolID"], $_GET["klas"], $_GET["rapport"], $_GET["group"]);
+			print $s->listhouding_hs_group($_SESSION["SchoolJaar"], $_SESSION["SchoolID"], $_GET["klas"], $_GET["rapport"], $_GET["group"], $_GET["klas_groep"]);
 		} else {
 			$s->create_le_houding_student_hs($_SESSION["SchoolID"], $_GET["rapport"], $_GET["klas"], $_SESSION["SchoolJaar"], $_GET["houding_vakken_lijst"]);
 			print $s->listhouding_hs($_SESSION["SchoolJaar"], $_SESSION["SchoolID"], $_GET["klas"], $_GET["rapport"], $_GET["houding_vakken_lijst"]);
