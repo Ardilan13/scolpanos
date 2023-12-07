@@ -738,6 +738,7 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 
 		FROM students s
 		LEFT JOIN le_houding h on h.studentid = s.id
+		LEFT JOIN le_cijfers c on c.studentid = s.id
 		INNER JOIN setting st ON st.schoolid = s.schoolid
 		WHERE
 		s.schoolid = ?
@@ -746,6 +747,7 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 		AND s.class = ?
 		AND h.klas = ?
 		AND h.rapnummer = ?
+		AND c.gemiddelde > 0
 		ORDER BY";
 	$sql_order = " s.lastname " . $s->_setting_sort . ", s.firstname";
 	if ($s->_setting_mj) {
