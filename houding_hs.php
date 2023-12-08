@@ -47,7 +47,7 @@
 										</select>
 									</div>
 									<div class="form-group">
-										<label for="rapport">Raport</label>
+										<label for="rapport">Rapport</label>
 										<select class="form-control" id="rapport" name="rapport">
 											<option value=1>1</option>
 											<option value=2>2</option>
