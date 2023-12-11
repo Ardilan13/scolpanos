@@ -342,17 +342,39 @@ $created = date('d-m-Y H:i:s');
 $query_test = "SELECT id FROM montessori WHERE student_id = $id AND klas = '$klas' AND period = $periode AND schooljaar = '$schooljaar'";
 $resultado = mysqli_query($mysqli, $query_test);
 if (mysqli_num_rows($resultado) != 0 || $exist == '1') {
-    $query = "UPDATE montessori SET klas='$klas',zelf1=$zelf1,zelf2=$zelf2,zelf3=$zelf3,zelf4=$zelf4,zelf5=$zelf5,werk1=$werk1,werk2=$werk2,werk3=$werk3,werk4=$werk4,werk5=$werk5,werk6=$werk6,werk7=$werk7,werk8=$werk8,social1=$social1,social2=$social2,social3=$social3,social4=$social4,social5=$social5,social6=$social6,social7=$social7,social8=$social8,social9=$social9,social10=$social10,gedrag1=$gedrag1,gedrag2=$gedrag2,gedrag3=$gedrag3,gedrag4=$gedrag4,gedrag5=$gedrag5,gedrag6=$gedrag6,buit1=$buit1,buit2=$buit2,buit3=$buit3,motor1=$motor1,motor2=$motor2,motor3=$motor3,mondelinge='$mondelinge',taalgebruik='$taalgebruik',lezen='$lezen',schrijven='$schrijven',rekenen='$rekenen',wereldorientatie='$wereldorientatie',verkeer='$verkeer',muziek='$muziek',art='$art',gymnastiek='$gymnastiek',zwemmen='$zwemmen',laat='$laat',verzuim='$verzuim',sociale='$sociale',conclusie='$conclusie' WHERE student_id = $id AND klas = '$klas' AND period = $periode AND schooljaar = '$schooljaar'";
-} else {
-    $query = "INSERT INTO montessori (student_id,created,schooljaar, klas, period, zelf1, zelf2, zelf3, zelf4, zelf5, werk1, werk2, werk3, werk4, werk5, werk6, werk7, werk8, social1, social2, social3, social4, social5, social6, social7, social8, social9, social10, gedrag1, gedrag2, gedrag3, gedrag4, gedrag5, gedrag6, buit1, buit2, buit3, motor1, motor2, motor3, mondelinge, taalgebruik, lezen, schrijven, rekenen, wereldorientatie, verkeer, muziek, art, gymnastiek, zwemmen, laat, verzuim, sociale, conclusie) VALUES ($id,'$created','$schooljaar','$klas',$periode,$zelf1,$zelf2,$zelf3,$zelf4,$zelf5,$werk1,$werk2,$werk3,$werk4,$werk5,$werk6,$werk7,$werk8,$social1,$social2,$social3,$social4,$social5,$social6,$social7,$social8,$social9,$social10,$gedrag1,$gedrag2,$gedrag3,$gedrag4,$gedrag5,$gedrag6,$buit1,$buit2,$buit3,$motor1,$motor2,$motor3,'$mondelinge','$taalgebruik','$lezen','$schrijven','$rekenen','$wereldorientatie','$verkeer','$muziek','$art','$gymnastiek','$zwemmen','$laat','$verzuim','$sociale','$conclusie')";
-}
-$resultado = mysqli_query($mysqli, $query);
-if ($resultado) {
-    if ($exist == 1) {
-        print 2;
+    $query = "UPDATE montessori SET klas=?,zelf1=?,zelf2=?,zelf3=?,zelf4=?,zelf5=?,werk1=?,werk2=?,werk3=?,werk4=?,werk5=?,werk6=?,werk7=?,werk8=?,social1=?,social2=?,social3=?,social4=?,social5=?,social6=?,social7=?,social8=?,social9=?,social10=?,gedrag1=?,gedrag2=?,gedrag3=?,gedrag4=?,gedrag5=?,gedrag6=?,buit1=?,buit2=?,buit3=?,motor1=?,motor2=?,motor3=?,mondelinge=?,taalgebruik=?,lezen=?,schrijven=?,rekenen=?,wereldorientatie=?,verkeer=?,muziek=?,art=?,gymnastiek=?,zwemmen=?,laat=?,verzuim=?,sociale=?,conclusie=? WHERE student_id = ? AND klas = ? AND period = ? AND schooljaar = ?;";
+    $stmt = mysqli_prepare($mysqli, $query);
+    mysqli_stmt_bind_param($stmt, "sssssssssssssssssssssssssssssssssssssssssssssssssssssss", $klas, $zelf1, $zelf2, $zelf3, $zelf4, $zelf5, $werk1, $werk2, $werk3, $werk4, $werk5, $werk6, $werk7, $werk8, $social1, $social2, $social3, $social4, $social5, $social6, $social7, $social8, $social9, $social10, $gedrag1, $gedrag2, $gedrag3, $gedrag4, $gedrag5, $gedrag6, $buit1, $buit2, $buit3, $motor1, $motor2, $motor3, $mondelinge, $taalgebruik, $lezen, $schrijven, $rekenen, $wereldorientatie, $verkeer, $muziek, $art, $gymnastiek, $zwemmen, $laat, $verzuim, $sociale, $conclusie, $id, $klas, $periode, $schooljaar);
+    if (mysqli_stmt_execute($stmt)) {
+        if ($exist == 1) {
+            print 2;
+        } else {
+            print 1;
+        }
     } else {
-        print 1;
+        print 0;
     }
 } else {
-    print 0;
+    $query = "INSERT INTO montessori (student_id,created,schooljaar, klas, period, zelf1, zelf2, zelf3, zelf4, zelf5, werk1, werk2, werk3, werk4, werk5, werk6, werk7, werk8, social1, social2, social3, social4, social5, social6, social7, social8, social9, social10, gedrag1, gedrag2, gedrag3, gedrag4, gedrag5, gedrag6, buit1, buit2, buit3, motor1, motor2, motor3, mondelinge, taalgebruik, lezen, schrijven, rekenen, wereldorientatie, verkeer, muziek, art, gymnastiek, zwemmen, laat, verzuim, sociale, conclusie) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    $stmt = mysqli_prepare($mysqli, $query);
+    mysqli_stmt_bind_param($stmt, "sssssssssssssssssssssssssssssssssssssssssssssssssssssss", $id, $created, $schooljaar, $klas, $periode, $zelf1, $zelf2, $zelf3, $zelf4, $zelf5, $werk1, $werk2, $werk3, $werk4, $werk5, $werk6, $werk7, $werk8, $social1, $social2, $social3, $social4, $social5, $social6, $social7, $social8, $social9, $social10, $gedrag1, $gedrag2, $gedrag3, $gedrag4, $gedrag5, $gedrag6, $buit1, $buit2, $buit3, $motor1, $motor2, $motor3, $mondelinge, $taalgebruik, $lezen, $schrijven, $rekenen, $wereldorientatie, $verkeer, $muziek, $art, $gymnastiek, $zwemmen, $laat, $verzuim, $sociale, $conclusie);
+    if (mysqli_stmt_execute($stmt)) {
+        if ($exist == 1) {
+            print 2;
+        } else {
+            print 1;
+        }
+    } else {
+        print 0;
+    }
 }
+// $resultado = mysqli_query($mysqli, $query);
+// if ($resultado) {
+//     if ($exist == 1) {
+//         print 2;
+//     } else {
+//         print 1;
+//     }
+// } else {
+//     print 0;
+// }

@@ -786,6 +786,7 @@ if (mysqli_num_rows($resultado) != 0) {
                     alert("STUDENT FORM UPDATED")
                 } else {
                     alert("ERROR FORM")
+                    console.log(text)
                 }
             },
             error: function(xhr, status, errorThrown) {
