@@ -58,18 +58,15 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 		c.gemiddelde,
 		CONCAT(app.firstname,' ',app.lastname) as docent_name
 		FROM students s
-		LEFT JOIN le_cijfers_ps c ON s.id = c.studentid
+		LEFT JOIN le_cijfers_ps c ON s.id = c.studentid AND s.class = c.klas AND s.schoolid = c.school_id AND c.rapnummer = $i AND c.schooljaar = '$schooljaar'
 		LEFT JOIN le_vakken_ps v ON c.vak = v.id
 		INNER JOIN setting st ON st.schoolid = s.schoolid
 		INNER JOIN app_useraccounts app ON st.schoolid = app.SchoolID and app.UserGUID = '$user'
 		WHERE
 		s.schoolid = $schoolid
-		AND c.school_id = $schoolid
 		AND st.year_period = '$schooljaar'
-		AND c.schooljaar = '$schooljaar'
 		AND s.class = '$klas_in'
-		AND c.klas = '$klas_in'
-		AND c.rapnummer = '$i'
+		AND s.status = 1
 		ORDER BY";
 		$sql_order = " s.lastname , s.firstname";
 		if ($s->_setting_mj) {
@@ -183,17 +180,14 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 		h.h1,h.h2,h.h3,h.h4,h.h5,h.h6,h.h7,h.h8,h.h9,h.h10,
 		h.h11,h.h12,h.h13,h.h14
 		FROM students s
-		LEFT JOIN le_houding h on h.studentid = s.id
+		LEFT JOIN le_houding h on h.studentid = s.id and s.class = h.klas AND h.rapnummer = $i AND h.schooljaar = '$schooljaar'
 		INNER JOIN setting st ON st.schoolid = s.schoolid
 		WHERE
 		s.schoolid = $schoolid
 		AND st.year_period = '$schooljaar'
-		AND h.schooljaar = '$schooljaar'
 		AND s.class = '$klas_in'
-		AND h.klas = '$klas_in'
-		AND h.rapnummer = $i
 		ORDER BY";
-		$sql_order = " s.lastname " . $s->_setting_sort . ", s.firstname";
+		$sql_order = " s.lastname , s.firstname";
 		if ($s->_setting_mj) {
 			$sql_query_houding .= " s.sex " . $s->_setting_sort . ", " . $sql_order;
 		} else {
@@ -596,9 +590,9 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 
 			$_while_counter++;
 		}
-		$sql_query_student = "SELECT id from students s where s.class = '$klas_in' and schoolid = $schoolid ORDER BY";
+		$sql_query_student = "SELECT id from students s where s.class = '$klas_in' and s.schoolid = $schoolid ORDER BY";
 
-		$sql_order = " s.lastname " . $s->_setting_sort . ", s.firstname";
+		$sql_order = " s.lastname , s.firstname";
 		if ($s->_setting_mj) {
 			$sql_query_student .= " s.sex " . $s->_setting_sort . ", " . $sql_order;
 		} else {
@@ -616,9 +610,9 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 		$u = new spn_utils();
 		while ($row = mysqli_fetch_assoc($resultado1)) {
 			$id = $row['id'];
-			$sql_query_verzuim = "SELECT s.id as studentid,v.telaat,v.absentie,v.huiswerk,s.lastname,s.firstname, v.created, v.datum,(SELECT opmerking1 FROM opmerking where studentid = s.id and schooljaar = '$schooljaar') as opmerking1,(SELECT opmerking2 FROM opmerking where studentid = s.id and schooljaar = '$schooljaar') as opmerking2,(SELECT opmerking3 FROM opmerking where studentid = s.id and schooljaar = '$schooljaar') as opmerking3
-					from students s inner join le_verzuim v
-					where s.class = '$klas_in'  and s.schoolid = $schoolid and v.schooljaar = '$schooljaar' and v.studentid = $id and s.id = $id ORDER BY v.created;";
+			$sql_query_verzuim = "SELECT s.id as studentid,v.telaat,v.absentie,v.huiswerk,s.lastname,s.firstname, v.created, v.datum,op.opmerking1,op.opmerking2,op.opmerking3
+					from students s LEFT JOIN le_verzuim v ON v.studentid = s.id and v.schooljaar = '$schooljaar'
+					where s.class = '$klas_in' and s.schoolid = $schoolid and s.id = $id ORDER BY v.created;";
 			$resultado = mysqli_query($mysqli, $sql_query_verzuim);
 			while ($row1 = mysqli_fetch_assoc($resultado)) {
 				$datum = $u->convertfrommysqldate_new($row1["datum"]);
