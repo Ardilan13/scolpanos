@@ -1678,18 +1678,39 @@ class spn_leerling
       mysqli_report(MYSQLI_REPORT_STRICT);
       try {
         $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
-
-        if ($select = $mysqli->prepare("CALL " . $this->sp_change_class . " (?,?,?,?,?)")) {
-          if ($select->bind_param("issss", $id_student, $from_class, $to_class, $schooljaar, $comments)) {
-            if ($select->execute()) {
-              require_once("spn_audit.php");
-              $spn_audit = new spn_audit();
-              $UserGUID = $_SESSION['UserGUID'];
-              $spn_audit->create_audit($UserGUID, 'change class', 'change student class', appconfig::GetDummy());
-              /* Need to check for errors on database side for primary key errors etc.*/
+        $level_from = substr($from_class, 0, 1);
+        $level_to = substr($to_class, 0, 1);
+        if (($level_from == 4 || $level_to == 4) && $_SESSION["SchoolType"] == 2) {
+          $sql = "UPDATE students s SET s.class = '$to_class' WHERE s.id =  $id_student;";
+          if ($mysqli->query($sql)) {
+            $houding = "UPDATE le_houding h SET h.klas = '$to_class' WHERE h.studentid =  '$id_student' and h.schooljaar = '$schooljaar';";
+            if ($mysqli->query($houding)) {
               $result = 1;
-              $select->close();
-              $mysqli->close();
+            } else {
+              $result = 0;
+              $this->mysqlierror = $mysqli->error;
+              $this->mysqlierrornumber = $mysqli->errno;
+            }
+          } else {
+            $result = 0;
+          }
+        } else {
+          if ($select = $mysqli->prepare("CALL " . $this->sp_change_class . " (?,?,?,?,?)")) {
+            if ($select->bind_param("issss", $id_student, $from_class, $to_class, $schooljaar, $comments)) {
+              if ($select->execute()) {
+                require_once("spn_audit.php");
+                $spn_audit = new spn_audit();
+                $UserGUID = $_SESSION['UserGUID'];
+                $spn_audit->create_audit($UserGUID, 'change class', 'change student class', appconfig::GetDummy());
+                /* Need to check for errors on database side for primary key errors etc.*/
+                $result = 1;
+                $select->close();
+                $mysqli->close();
+              } else {
+                $result = 0;
+                $this->mysqlierror = $mysqli->error;
+                $this->mysqlierrornumber = $mysqli->errno;
+              }
             } else {
               $result = 0;
               $this->mysqlierror = $mysqli->error;
@@ -1700,10 +1721,6 @@ class spn_leerling
             $this->mysqlierror = $mysqli->error;
             $this->mysqlierrornumber = $mysqli->errno;
           }
-        } else {
-          $result = 0;
-          $this->mysqlierror = $mysqli->error;
-          $this->mysqlierrornumber = $mysqli->errno;
         }
       } catch (Exception $e) {
         $result = -2;
