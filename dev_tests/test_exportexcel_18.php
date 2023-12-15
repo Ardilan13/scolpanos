@@ -24,6 +24,7 @@ $_while_counter = 0;
 $schooljaar = $_SESSION['SchoolJaar'];
 $schoolid = $_SESSION['SchoolID'];
 $klas_in = $_GET["rapport_klassen_lijst"];
+$level_klas = substr($klas_in, 0, 1);
 $rap_in = $_GET["rapport"];
 $user = $_SESSION["UserGUID"];
 
@@ -67,7 +68,14 @@ if ($s->_setting_mj) {
     $sql_query .=  $sql_order;
 }
 $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader("Xlsx");
-$spreadsheet = $reader->load("../templates/verza_scol18.xlsx");
+switch ($level_klas) {
+    case "1":
+        $spreadsheet = $reader->load("../templates/verza_scol18_1.xlsx");
+        break;
+    default:
+        $spreadsheet = $reader->load("../templates/verza_scol18_2.xlsx");
+        break;
+}
 $spreadsheet->setActiveSheetIndex(0);
 $hojaActiva = $spreadsheet->getActiveSheet();
 

@@ -486,9 +486,9 @@ class verzamelstaten_export
                         while ($row1 = mysqli_fetch_assoc($resultado)) {
                             $datum = $u->convertfrommysqldate_new($row1["datum"]);
                             if ($datum >= $fecha1 && $datum <= $fecha2) {
-                                if ($row1['p1'] == 'L' || $row1['p2'] == 'L' || $row1['p3'] == 'L' || $row1['p4'] == 'L' || $row["p5"] == 'L' || $row["p6"] == 'L' || $row["p7"] == 'L' || $row["p8"] == 'L' || $row["p9"] == 'L' || $row["p10"] == 'L') {
+                                if ($row1['p1'] == 'L' || $row1['p2'] == 'L' || $row1['p3'] == 'L' || $row1['p4'] == 'L' || $row1["p5"] == 'L' || $row1["p6"] == 'L' || $row1["p7"] == 'L' || $row1["p8"] == 'L' || $row1["p9"] == 'L' || $row1["p10"] == 'L') {
                                     $cont_laat++;
-                                } else if ($row1['p1'] == 'A' || $row1['p2'] == 'A' || $row1['p3'] == 'A' || $row1['p4'] == 'A' || $row["p5"] == 'A' || $row["p6"] == 'A' || $row["p7"] == 'A' || $row["p8"] == 'A' || $row["p9"] == 'A' || $row["p10"] == 'A') {
+                                } else if ($row1['p1'] == 'A' || $row1['p2'] == 'A' || $row1['p3'] == 'A' || $row1['p4'] == 'A' || $row1["p5"] == 'A' || $row1["p6"] == 'A' || $row1["p7"] == 'A' || $row1["p8"] == 'A' || $row1["p9"] == 'A' || $row1["p10"] == 'A') {
                                     $cont_verzuim++;
                                 }
                             }
@@ -1071,9 +1071,9 @@ class verzamelstaten_export
                         while ($row1 = mysqli_fetch_assoc($resultado)) {
                             $datum = $u->convertfrommysqldate_new($row1["datum"]);
                             if ($datum >= $fecha1 && $datum <= $fecha2) {
-                                if ($row1['p1'] == 'L' || $row1['p2'] == 'L' || $row1['p3'] == 'L' || $row1['p4'] == 'L' || $row["p5"] == 'L' || $row["p6"] == 'L' || $row["p7"] == 'L' || $row["p8"] == 'L' || $row["p9"] == 'L' || $row["p10"] == 'L') {
+                                if ($row1['p1'] == 'L' || $row1['p2'] == 'L' || $row1['p3'] == 'L' || $row1['p4'] == 'L' || $row1["p5"] == 'L' || $row1["p6"] == 'L' || $row1["p7"] == 'L' || $row1["p8"] == 'L' || $row1["p9"] == 'L' || $row1["p10"] == 'L') {
                                     $cont_laat++;
-                                } else if ($row1['p1'] == 'A' || $row1['p2'] == 'A' || $row1['p3'] == 'A' || $row1['p4'] == 'A' || $row["p5"] == 'A' || $row["p6"] == 'A' || $row["p7"] == 'A' || $row["p8"] == 'A' || $row["p9"] == 'A' || $row["p10"] == 'A') {
+                                } else if ($row1['p1'] == 'A' || $row1['p2'] == 'A' || $row1['p3'] == 'A' || $row1['p4'] == 'A' || $row1["p5"] == 'A' || $row1["p6"] == 'A' || $row1["p7"] == 'A' || $row1["p8"] == 'A' || $row1["p9"] == 'A' || $row1["p10"] == 'A') {
                                     $cont_verzuim++;
                                 }
                             }

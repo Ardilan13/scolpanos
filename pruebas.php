@@ -13,6 +13,13 @@ $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $D
 $schoolid = $_SESSION["SchoolID"];
 $schooljaar = $_SESSION["SchoolJaar"];
 
+$fecha1 = $s->_setting_begin_rap_1;
+$fecha2 = $s->_setting_end_rap_1;
+$fecha1 = $u->converttomysqldate($fecha1);
+$fecha2 = $u->converttomysqldate($fecha2);
+
+echo $fecha1 . " - " . $fecha2;
+
 // require_once("./classes/spn_cijfers.php");
 // $s = new spn_cijfers();
 // $get_klas = "SELECT DISTINCT c.studentid, c.klas, GROUP_CONCAT(c.vak SEPARATOR ', ') AS vak FROM `le_cijfers` c INNER JOIN le_vakken v ON c.vak = v.ID where c.schooljaar = '2023-2024' and c.rapnummer = 1 AND v.SchoolID = 8 AND c.studentid =  GROUP BY studentid ORDER BY `c`.`klas` ASC";

@@ -1,5 +1,6 @@
 <?php
 ini_set('max_execution_time', 300);
+ini_set('memory_limit', '256M');
 ob_start();
 
 require_once("../classes/spn_rapport.php");
@@ -638,6 +639,271 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 			$opmerking = "";
 			$_laststudent = 0;
 			$_current_student_start_row++;
+		}
+		$i++;
+	}
+	header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+	header('Content-Disposition: attachment;filename="verzamelstaten_' . $_GET["rapport_klassen_lijst"] . '.xlsx"');
+	header('Cache-Control: max-age=0');
+
+	$writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+	$writer->save('php://output');
+} else if ($_SESSION["SchoolID"] == 18) {
+	require_once("../classes/spn_utils.php");
+	$u = new spn_utils();
+	$schooljaar = $_SESSION['SchoolJaar'];
+	$schoolid = $_SESSION['SchoolID'];
+	$klas_in = $_GET["rapport_klassen_lijst"];
+	$rap_in = $_GET["rapport"];
+	$user = $_SESSION["UserGUID"];
+	$s = new spn_setting();
+	$s->getsetting_info($schoolid, false);
+	$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader("Xlsx");
+	switch ($level_klas) {
+		case "1":
+			$spreadsheet->setActiveSheetIndex(8);
+			$hojaActiva = $spreadsheet->getActiveSheet();
+			$spreadsheet = $reader->load("../templates/verza_scol18_1.xlsx");
+			break;
+		default:
+			$spreadsheet->setActiveSheetIndex(3);
+			$hojaActiva = $spreadsheet->getActiveSheet();
+			$spreadsheet = $reader->load("../templates/verza_scol18_2.xlsx");
+			break;
+	}
+	$i = 1;
+
+	switch ($_SESSION["SchoolID"]) {
+		case 18:
+			$hojaActiva->setCellValue('B4', 2);
+			break;
+		default:
+			$hojaActiva->setCellValue('B4', 1);
+			break;
+	}
+
+	while ($i <= $rap_in) {
+		$_laststudent = 0;
+		$_current_student_start_row = 6;
+		$_while_counter = 0;
+		$sql_query = "SELECT DISTINCT
+		s.id as studentid,
+		c.id as cijferid,
+		v.id as vakid,
+		v.volledigenaamvak,
+		st.year_period,
+		s.class,
+		s.firstname,
+		s.lastname,
+		s.sex,
+		c.gemiddelde,
+		CONCAT(app.firstname,' ',app.lastname) as docent_name
+		FROM students s
+		LEFT JOIN le_cijfers c ON s.id = c.studentid AND s.class = c.klas AND c.rapnummer = $i AND c.schooljaar = '$schooljaar'
+		LEFT JOIN le_vakken v ON c.vak = v.id
+		INNER JOIN setting st ON st.schoolid = s.schoolid
+		INNER JOIN app_useraccounts app ON st.schoolid = app.SchoolID and app.UserGUID = '$user'
+		WHERE
+		s.schoolid = $schoolid
+		AND st.year_period = '$schooljaar'
+		AND s.class = '$klas_in'
+		AND s.status = 1
+		ORDER BY";
+		$sql_order = " s.lastname , s.firstname";
+		if ($s->_setting_mj) {
+			$sql_query .= " s.sex " . $s->_setting_sort . ", " . $sql_order;
+		} else {
+			$sql_query .=  $sql_order;
+		}
+		switch ($i) {
+			case 1:
+				$spreadsheet->setActiveSheetIndex(0);
+				$fecha1 = $s->_setting_begin_rap_1;
+				$fecha2 = $s->_setting_end_rap_1;
+				break;
+
+			case 2:
+				if ($klas_in == 1) {
+					$spreadsheet->setActiveSheetIndex(2);
+				} else {
+					$spreadsheet->setActiveSheetIndex(1);
+				}
+				$fecha1 = $s->_setting_begin_rap_2;
+				$fecha2 = $s->_setting_end_rap_2;
+				break;
+
+			case 3:
+				if ($klas_in == 1) {
+					$spreadsheet->setActiveSheetIndex(4);
+				} else {
+					$spreadsheet->setActiveSheetIndex(2);
+				}
+				$fecha1 = $s->_setting_begin_rap_3;
+				$fecha2 = $s->_setting_end_rap_3;
+				break;
+		}
+		$hojaActiva = $spreadsheet->getActiveSheet();
+		$DBCreds = new DBCreds();
+		$mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
+		$mysqli->set_charset('utf8');
+		$resultado = mysqli_query($mysqli, $sql_query);
+		while ($row = mysqli_fetch_assoc($resultado)) {
+			if ($_while_counter == 0) {
+				$_laststudent = $row["studentid"];
+				$hojaActiva->setCellValue('B3', $klas_in);
+				$hojaActiva->setCellValue('K2', $schooljaar);
+				$hojaActiva->setCellValue('B5', $row["docent_name"]);
+				$hojaActiva->setCellValue('B1', "Trimester " . $i);
+			}
+			$_currentstudent = $row["studentid"];
+			if ($_currentstudent != $_laststudent) {
+				$_current_student_start_row++;
+				$hojaActiva->setCellValue('B' . (string)$_current_student_start_row, $row["lastname"] . ", " . $row["firstname"]);
+			}
+			if ($_while_counter == 0) {
+				$hojaActiva->setCellValue('B' . (string)$_current_student_start_row, $row["lastname"] . ", " . $row["firstname"]);
+			}
+
+			switch ($row["volledigenaamvak"]) {
+				case "combersacion":
+					$returnvalue = "C";
+					break;
+				case "lesa comprension":
+					$returnvalue = "E";
+					break;
+				case "tecnica":
+					$returnvalue = "F";
+					break;
+				case "midi":
+					$returnvalue = "N";
+					break;
+				case "trafico":
+					$returnvalue = "AB";
+					break;
+				case "proyecto":
+					$returnvalue = "AC";
+					break;
+				case "obra di man":
+					$returnvalue = "AD";
+					break;
+				case "trabou cu tela":
+					$returnvalue = "AE";
+					break;
+				case "pinta":
+					$returnvalue = "AF";
+					break;
+				case "musica":
+					$returnvalue = "AG";
+					break;
+				case "educacion fisico":
+					$returnvalue = "AH";
+					break;
+				default:
+					$returnvalue = "XX";
+					break;
+			}
+
+			$colgemiddelde = (string)$returnvalue . (string)$_current_student_start_row;
+			if ($row["gemiddelde"] > 0.0) {
+				$hojaActiva->setCellValue($colgemiddelde, $row["gemiddelde"]);
+			}
+
+			//houding
+			$sql_query_houding = "SELECT h.h1,h.h2,h.h3,h.h4,h.h5,h.h6,h.h7,h.h8,h.h9,h.h10 FROM le_houding h WHERE h.studentid = $_currentstudent AND h.klas = '$klas_in' AND h.rapnummer = $i AND h.schooljaar = '$schooljaar'";
+			$resultado_houding = mysqli_query($mysqli, $sql_query_houding);
+			while ($row_houding = mysqli_fetch_assoc($resultado_houding)) {
+				$h1 = $row_houding["h1"];
+				$h2 = $row_houding["h2"];
+				$h3 = $row_houding["h3"];
+				$h4 = $row_houding["h4"];
+				$h5 = $row_houding["h5"];
+				$h6 = $row_houding["h6"];
+				$h7 = $row_houding["h7"];
+				$h8 = $row_houding["h8"];
+				$h9 = $row_houding["h9"];
+				$h10 = $row_houding["h10"];
+				for ($x = 1; $x <= 10; $x++) {
+					$pos = "h" . $x;
+					if ($$pos == 1 || !isset($$pos)) {
+						$$pos = "A";
+					}
+					if ($$pos == 2) {
+						$$pos = "B";
+					}
+					if ($$pos == 3) {
+						$$pos = "C";
+					}
+					if ($$pos == 4) {
+						$$pos = "D";
+					}
+					if ($$pos == 5) {
+						$$pos = "E";
+					}
+					if ($$pos == 6) {
+						$$pos = "F";
+					}
+					switch ($pos) {
+						case "h1":
+							$colhouding = "AI" . (string)$_current_student_start_row;
+							break;
+						case "h2":
+							$colhouding = "AJ" . (string)$_current_student_start_row;
+							break;
+						case "h3":
+							$colhouding = "AK" . (string)$_current_student_start_row;
+							break;
+						case "h4":
+							$colhouding = "AL" . (string)$_current_student_start_row;
+							break;
+						case "h5":
+							$colhouding = "AM" . (string)$_current_student_start_row;
+							break;
+						case "h6":
+							$colhouding = "AN" . (string)$_current_student_start_row;
+							break;
+						case "h7":
+							$colhouding = "AO" . (string)$_current_student_start_row;
+							break;
+						case "h8":
+							$colhouding = "AP" . (string)$_current_student_start_row;
+							break;
+						case "h10":
+							$colhouding = "AQ" . (string)$_current_student_start_row;
+							break;
+						default:
+							$colhouding = "XX" . (string)$_current_student_start_row;
+							break;
+					}
+					$hojaActiva->setCellValue($colhouding, $$pos);
+				}
+			}
+
+			//verzuim
+			$cont_laat = 0;
+			$cont_verzuim = 0;
+			$sql_query_verzuim = "SELECT v.telaat,v.absentie, v.created, v.datum,op.opmerking1,op.opmerking2,op.opmerking3
+					from students s LEFT JOIN le_verzuim v ON v.studentid = s.id and v.schooljaar = '$schooljaar'
+					LEFT JOIN opmerking op ON op.studentid = s.id and op.schooljaar = '$schooljaar'
+					where s.class = '$klas_in' and s.schoolid = $schoolid and s.id = $_currentstudent ORDER BY v.created;";
+			$resultado1 = mysqli_query($mysqli, $sql_query_verzuim);
+			while ($row1 = mysqli_fetch_assoc($resultado1)) {
+				$datum = $u->convertfrommysqldate_new($row1["datum"]);
+				if ($datum >= $fecha1 && $datum <= $fecha2) {
+					if ($row1['telaat'] > 0) {
+						$cont_laat++;
+					}
+					if ($row1['absentie'] > 0) {
+						$cont_verzuim++;
+					}
+				}
+				$opmerking = ($i == 1) ? $row1["opmerking1"] : ($i == 2 ? $row1["opmerking2"] : $row1["opmerking3"]);
+			}
+			$hojaActiva->setCellValue("AR" . (string)$_current_student_start_row, $cont_laat);
+			$hojaActiva->setCellValue("AS" . (string)$_current_student_start_row, $cont_verzuim);
+			$hojaActiva->setCellValue("AT" . (string)$_current_student_start_row, $opmerking);
+
+			$_laststudent = $_currentstudent;
+			$_while_counter++;
 		}
 		$i++;
 	}

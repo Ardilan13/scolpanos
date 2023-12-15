@@ -113,12 +113,7 @@
 
 					$('#popup_message_rapport').removeClass('hidden');
 
-					if (SchoolID != 18) {
-						window.open("dev_tests\\test_exportexcel.php?rapport_klassen_lijst=" + $("#rapport_klassen_lijst option:selected").val() + "&rapport=" + $("#cijfers_rapporten_lijst option:selected").val());
-					} else {
-						window.open("dev_tests\\test_exportexcel_18.php?rapport_klassen_lijst="+$("#rapport_klassen_lijst option:selected").val()+"&rapport="+$("#cijfers_rapporten_lijst option:selected").val());
-					}
-
+					window.open("dev_tests\\test_exportexcel.php?rapport_klassen_lijst=" + $("#rapport_klassen_lijst option:selected").val() + "&rapport=" + $("#cijfers_rapporten_lijst option:selected").val());
 
 					if (data === 1) {
 
