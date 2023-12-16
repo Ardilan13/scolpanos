@@ -3,22 +3,50 @@ session_start();
 require_once "classes/DBCreds.php";
 require_once("classes/spn_setting.php");
 require_once("classes/spn_utils.php");
+require_once("classes/spn_controls.php");
 require_once("classes/spn_authentication.php");
 $auth = new spn_authentication();
 $u = new spn_utils();
 $s = new spn_setting();
+$c = new spn_controls();
 $s->getsetting_info($_SESSION["SchoolID"], false);
 $DBCreds = new DBCreds();
-$mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort, $dummy);
+$mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
 $schoolid = $_SESSION["SchoolID"];
 $schooljaar = $_SESSION["SchoolJaar"];
 
-$fecha1 = $s->_setting_begin_rap_1;
-$fecha2 = $s->_setting_end_rap_1;
-$fecha1 = $u->converttomysqldate($fecha1);
-$fecha2 = $u->converttomysqldate($fecha2);
+// $date1 = $s->_setting_begin_rap_1;
+// $date2 = $s->_setting_end_rap_1;
+// echo $date1 . " - " . $date2;
 
-echo $fecha1 . " - " . $fecha2;
+// $get = "SELECT volledigenaamvak FROM le_vakken WHERE SchoolID = 18 AND Klas = 2";
+// $result = mysqli_query($mysqli, $get);
+// while ($row = mysqli_fetch_assoc($result)) {
+//     $vak = $row["volledigenaamvak"];
+//     echo $vak . "<br>";
+// }
+
+// $test = $c->getdistinctvakken_json(18, 1);
+// echo $test;
+
+//leer csv y usar los datos como un array
+// $file = fopen('vak.csv', 'r'); // Abre el archivo en modo lectura
+// $i = 552929;
+// $k = 0;
+// if ($file !== false) {
+//     while (($data = fgetcsv($file)) !== false) {
+//         foreach ($data as $v) {
+//             $k = $k + 1;
+//             $i = $i + 1;
+//             $insert = "INSERT INTO le_vakken (ID,SchoolID,Klas,volgorde,volledigenaamvak,complete_name) VALUES ($i,18,1,$k,'$v','$v');";
+//             $mysqli->query($insert);
+//         }
+//         echo '<br>';
+//     }
+
+//     fclose($file); // Cierra el archivo
+// }
+
 
 // require_once("./classes/spn_cijfers.php");
 // $s = new spn_cijfers();
