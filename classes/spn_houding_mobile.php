@@ -425,8 +425,8 @@ class spn_houding_mobile
       $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
       $sp_get_cijfers_by_student = "";
       $mysqli->set_charset('utf8');
-      if ($stmt = $mysqli->prepare("CALL sp_get_houding_by_student_parents (?,?)")) {
-        if ($stmt->bind_param("si", $schooljaar, $studentid)) {
+      if ($stmt = $mysqli->prepare("CALL sp_get_houding_by_student_parent (?,?)")) {
+        if ($stmt->bind_param("ss", $schooljaar, $studentid)) {
           if ($stmt->execute()) {
             // Audit by Caribe Developers
             $spn_audit = new spn_audit();
@@ -434,11 +434,17 @@ class spn_houding_mobile
             $spn_audit->create_audit($UserGUID, 'houding', 'list houding by student', appconfig::GetDummy());
 
             $result = 1;
-            $stmt->bind_result($houdingid, $studentid, $schooljaar, $klas, $rapnummer, $h1, $h2, $h3, $h4, $h5, $h6, $h7, $h8, $h9, $h10, $h11, $h12, $h13, $h14, $h15, $h16, $h17, $h18, $h19, $h20, $h21, $h22, $h23, $h24, $h25);
+            $stmt->bind_result($houdingid, $studentid, $schooljaar, $klas, $rapnummer, $h1, $h2, $h3, $h4, $h5, $h6, $h7, $h8, $h9, $h10, $h11, $h12, $h13, $h14, $h15, $h16, $h17, $h18, $h19, $h20, $h21, $h22, $h23, $h24, $h25, $uuid);
             $stmt->store_result();
 
             if ($stmt->num_rows > 0) {
-              $json_name_config = appconfig::GetBaseURL() . "/assets/js/" . $_SESSION["SchoolID"] . "_houding_config.json";
+              if ($_SESSION["SchoolID"] == 8) {
+                $json_name_config = appconfig::GetBaseURL() . "/assets/js/" . $_SESSION["SchoolID"] . "_houding_config_klas1-5.json";
+              } else if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 18) {
+                $json_name_config = appconfig::GetBaseURL() . "/assets/js/ps_houding_config.json";
+              } else {
+                $json_name_config = appconfig::GetBaseURL() . "/assets/js/" . $_SESSION["SchoolID"] . "_houding_config.json";
+              }
 
               $htmlcontrol .= "<div class=\"col-xs-11 table-responsive\">";
               $htmlcontrol .= "<table id=\"dataRequest-houding\" class=\"table table-bordered table-colored table-houding\" data-table=\"yes\">";

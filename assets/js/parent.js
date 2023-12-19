@@ -236,7 +236,7 @@ function GetHouding() {
     {},
     function (data) {
       $("#dataRequest-houding_detail").empty();
-      //$("#dataRequest-houding_detail").html(data);
+      $("#dataRequest-houding_detail").html(data);
     }
   );
 }
