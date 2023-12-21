@@ -1703,7 +1703,28 @@ class spn_leerling
                 $UserGUID = $_SESSION['UserGUID'];
                 $spn_audit->create_audit($UserGUID, 'change class', 'change student class', appconfig::GetDummy());
                 /* Need to check for errors on database side for primary key errors etc.*/
-                $result = 1;
+                if ($_SESSION["SchoolType"] == 2 && $level_from != 4 && $level_to != 4) {
+                  $schoolid = $_SESSION["SchoolID"];
+                  $change_vaks = "SELECT c.id,(SELECT ID FROM le_vakken WHERE volledigenaamvak = v.volledigenaamvak AND klas = '$to_class' and SchoolID = $schoolid) as ID FROM le_cijfers c INNER JOIN le_vakken v ON v.ID = c.vak WHERE c.schooljaar = '$schooljaar' and c.studentid = $id_student";
+                  $result_vaks = $mysqli->query($change_vaks);
+                  while ($row_vaks = $result_vaks->fetch_assoc()) {
+                    $ID = $row_vaks["ID"];
+                    $cijfer = $row_vaks["id"];
+                    if ($ID != null && $ID != "" && $ID != 0) {
+                      $update_vaks = "UPDATE le_cijfers SET vak = $ID WHERE id = $cijfer";
+                      if ($mysqli->query($update_vaks)) {
+                        $result = 1;
+                      } else {
+                        $result = 0;
+                        $this->mysqlierror = $mysqli->error;
+                      }
+                    } else {
+                      $result = 0;
+                    }
+                  }
+                } else {
+                  $result = 1;
+                }
                 $select->close();
                 $mysqli->close();
               } else {
