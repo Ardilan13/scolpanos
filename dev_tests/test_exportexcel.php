@@ -1198,7 +1198,7 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 			if ($level_klas == 1) {
 				$spreadsheet = $reader->load("../templates/8_conrado_klas_1.xlsx");
 			} else {
-				$spreadsheet = $reader->load("../templates/8_conrado_klas_2.xlsx");
+				$spreadsheet = $reader->load("../templates/8_conrado_klas_1.xlsx");
 			}
 			$s = new spn_setting();
 			$s->getsetting_info($schoolid, false);

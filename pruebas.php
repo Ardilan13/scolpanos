@@ -15,6 +15,13 @@ $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $D
 $schoolid = $_SESSION["SchoolID"];
 $schooljaar = $_SESSION["SchoolJaar"];
 
+$get = "SELECT * FROM app_useraccounts WHERE UserRights = 'BEHEER' and Email like 'schoo%' ORDER BY Email";
+$result = mysqli_query($mysqli, $get);
+while ($row = mysqli_fetch_assoc($result)) {
+    $vak = $row["Email"];
+    echo $vak . "<br>";
+}
+
 // $date1 = $s->_setting_begin_rap_1;
 // $date2 = $s->_setting_end_rap_1;
 // echo $date1 . " - " . $date2;
