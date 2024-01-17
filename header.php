@@ -98,9 +98,7 @@ if (!empty($session_firstname) && !empty($session_lastname) && !empty($session_t
 								</div>
 							</div>
 						</li>
-						<?php if ($_SESSION['SchoolType'] == 2) { ?>
-							<li class="pull-right" style="font-weight: bold; color: white;"><?php echo $_SESSION['schoolname']; ?></li>
-						<?php } ?>
+						<li class="pull-right" style="font-weight: bold; color: white;"><?php echo $_SESSION['schoolname']; ?></li>
 					</ul>
 				</nav>
 			</div>
