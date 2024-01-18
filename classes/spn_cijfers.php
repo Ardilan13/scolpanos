@@ -133,18 +133,7 @@ class spn_cijfers
     $htmlcontrol = "";
     $htmlcijferswaarde = "";
 
-    // if($this->debug)
-    // {
-    //   print "schoolid: " . $schoolid . "<br />";
-    //   print "klas_in: " . $klas_in . "<br />";
-    //   print "vak_in: " . $vak_in . "<br />";
-    //   print "rap_in: " . $rap_in . "<br />";
-    //   print "sort_order: " . $sort_order . "<br />";
-    // }
-
     mysqli_report(MYSQLI_REPORT_STRICT);
-
-    // Changes settings (ladalan@caribedev)
 
     $s = new spn_setting();
     $s->getsetting_info($schoolid, false);
@@ -161,11 +150,6 @@ class spn_cijfers
     } else {
       $sql_query .=  $sql_order;
     }
-    // End change settings (laldana@caribedev)
-
-
-    /* TODO: QUERY NEEDS TO BE FIXED , EL */
-
 
     try {
       require_once("DBCreds.php");
@@ -217,7 +201,11 @@ class spn_cijfers
                             $htmlcijferswaarde .= "<th><input id=\"cijferswaarde17\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde17) . "\"/></th>";
                             $htmlcijferswaarde .= "<th><input id=\"cijferswaarde18\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde18) . "\"/></th>";
                             $htmlcijferswaarde .= "<th><input id=\"cijferswaarde19\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde19) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde20\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde20) . "\"/></th>";
+                            if ($vak_in == 1 || $vak_in == 6) {
+                              $htmlcijferswaarde .= "<th></th>";
+                            } else {
+                              $htmlcijferswaarde .= "<th><input id=\"cijferswaarde20\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde20) . "\"/></th>";
+                            }
                           }
                         } else {
                           // View mode
@@ -241,7 +229,11 @@ class spn_cijfers
                             $htmlcijferswaarde .= "<th><input id=\"cijferswaarde17\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde17) . "\" disabled/></th>";
                             $htmlcijferswaarde .= "<th><input id=\"cijferswaarde18\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde18) . "\" disabled/></th>";
                             $htmlcijferswaarde .= "<th><input id=\"cijferswaarde19\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde19) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde20\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde20) . "\" disabled/></th>";
+                            if ($vak_in == 1 || $vak_in == 6) {
+                              $htmlcijferswaarde .= "<th></th>";
+                            } else {
+                              $htmlcijferswaarde .= "<th><input id=\"cijferswaarde20\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde20) . "\" disabled/></th>";
+                            }
                           }
                         }
                       } elseif ($rap_in == 2) {
@@ -267,7 +259,11 @@ class spn_cijfers
                             $htmlcijferswaarde .= "<th><input id=\"cijferswaarde17\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde17) . "\"/></th>";
                             $htmlcijferswaarde .= "<th><input id=\"cijferswaarde18\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde18) . "\"/></th>";
                             $htmlcijferswaarde .= "<th><input id=\"cijferswaarde19\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde19) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde20\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde20) . "\"/></th>";
+                            if ($vak_in == 1 || $vak_in == 6) {
+                              $htmlcijferswaarde .= "<th></th>";
+                            } else {
+                              $htmlcijferswaarde .= "<th><input id=\"cijferswaarde20\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde20) . "\"/></th>";
+                            }
                           }
                         } else {
                           // View mode
@@ -291,7 +287,11 @@ class spn_cijfers
                             $htmlcijferswaarde .= "<th><input id=\"cijferswaarde17\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde17) . "\" disabled/></th>";
                             $htmlcijferswaarde .= "<th><input id=\"cijferswaarde18\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde18) . "\" disabled/></th>";
                             $htmlcijferswaarde .= "<th><input id=\"cijferswaarde19\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde19) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde20\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde20) . "\" disabled/></th>";
+                            if ($vak_in == 1 || $vak_in == 6) {
+                              $htmlcijferswaarde .= "<th></th>";
+                            } else {
+                              $htmlcijferswaarde .= "<th><input id=\"cijferswaarde20\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde20) . "\" disabled/></th>";
+                            }
                           }
                         }
                       } elseif ($rap_in == 3) {
@@ -317,7 +317,11 @@ class spn_cijfers
                             $htmlcijferswaarde .= "<th><input id=\"cijferswaarde17\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde17) . "\"/></th>";
                             $htmlcijferswaarde .= "<th><input id=\"cijferswaarde18\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde18) . "\"/></th>";
                             $htmlcijferswaarde .= "<th><input id=\"cijferswaarde19\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde19) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde20\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde20) . "\"/></th>";
+                            if ($vak_in == 1 || $vak_in == 6) {
+                              $htmlcijferswaarde .= "<th></th>";
+                            } else {
+                              $htmlcijferswaarde .= "<th><input id=\"cijferswaarde20\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde20) . "\"/></th>";
+                            }
                           }
                         } else {
                           // View mode
@@ -341,7 +345,11 @@ class spn_cijfers
                             $htmlcijferswaarde .= "<th><input id=\"cijferswaarde17\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde17) . "\" disabled/></th>";
                             $htmlcijferswaarde .= "<th><input id=\"cijferswaarde18\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde18) . "\" disabled/></th>";
                             $htmlcijferswaarde .= "<th><input id=\"cijferswaarde19\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde19) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde20\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde20) . "\" disabled/></th>";
+                            if ($vak_in == 1 || $vak_in == 6) {
+                              $htmlcijferswaarde .= "<th></th>";
+                            } else {
+                              $htmlcijferswaarde .= "<th><input id=\"cijferswaarde20\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde20) . "\" disabled/></th>";
+                            }
                           }
                         }
                       }
@@ -369,7 +377,11 @@ class spn_cijfers
                         $htmlcijferswaarde .= "<th><input id=\"cijferswaarde17\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"\"/></th>";
                         $htmlcijferswaarde .= "<th><input id=\"cijferswaarde18\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"\"/></th>";
                         $htmlcijferswaarde .= "<th><input id=\"cijferswaarde19\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"\"/></th>";
-                        $htmlcijferswaarde .= "<th><input id=\"cijferswaarde20\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"\"/></th>";
+                        if ($vak_in == 1 || $vak_in == 6) {
+                          $htmlcijferswaarde .= "<th></th>";
+                        } else {
+                          $htmlcijferswaarde .= "<th><input id=\"cijferswaarde20\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"\"/></th>";
+                        }
                       } else {
                         //NO DATA FIELDS
                         $htmlcijferswaarde .= "<th><input id=\"cijferswaarde1\" type=\"text\" class=\"form-control\" value=\"\" disabled/></th>";
@@ -391,7 +403,11 @@ class spn_cijfers
                         $htmlcijferswaarde .= "<th><input id=\"cijferswaarde17\" type=\"text\" class=\"form-control\" value=\"\" disabled/></th>";
                         $htmlcijferswaarde .= "<th><input id=\"cijferswaarde18\" type=\"text\" class=\"form-control\" value=\"\" disabled/></th>";
                         $htmlcijferswaarde .= "<th><input id=\"cijferswaarde19\" type=\"text\" class=\"form-control\" value=\"\" disabled/></th>";
-                        $htmlcijferswaarde .= "<th><input id=\"cijferswaarde20\" type=\"text\" class=\"form-control\" value=\"\" disabled/></th>";
+                        if ($vak_in == 1 || $vak_in == 6) {
+                          $htmlcijferswaarde .= "<th></th>";
+                        } else {
+                          $htmlcijferswaarde .= "<th><input id=\"cijferswaarde20\" type=\"text\" class=\"form-control\" value=\"\" disabled/></th>";
+                        }
                       }
                     }
 
@@ -497,10 +513,17 @@ class spn_cijfers
                 </th>
                 <th>
                 <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{title}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"19\">19 <i class=\"fa fa-edit\"></i></a>
-                </th>
-                <th>
+                </th>";
+                if ($vak_in == 1) {
+                  $htmlcontrol .= "<th>In</th>";
+                } else if ($vak_in == 6) {
+                  $htmlcontrol .= "<th>Ta</th>";
+                } else {
+                  $htmlcontrol .= "<th>
                 <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{title}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"20\">20 <i class=\"fa fa-edit\"></i></a>
-                </th>
+                </th>";
+                }
+                $htmlcontrol .= "
                 <th>
                 Gemiddeld
                 </th>
@@ -596,10 +619,15 @@ class spn_cijfers
                 </th>
                 <th>
                 19
-                </th>
-                <th>
-                20
-                </th>
+                </th>";
+                if ($vak_in == 1) {
+                  $htmlcontrol .= "<th>In</th>";
+                } else if ($vak_in == 6) {
+                  $htmlcontrol .= "<th>Ta</th>";
+                } else {
+                  $htmlcontrol .= "<th>20</th>";
+                }
+                $htmlcontrol .= "
                 <th>
                 Gemiddeld
                 </th>
@@ -627,8 +655,14 @@ class spn_cijfers
                 <td><div id=\"gemiddeld_16\">0</div></td>
                 <td><div id=\"gemiddeld_17\">0</div></td>
                 <td><div id=\"gemiddeld_18\">0</div></td>
-                <td><div id=\"gemiddeld_19\">0</div></td>
-                <td><div id=\"gemiddeld_20\">0</div></td>
+                <td><div id=\"gemiddeld_19\">0</div></td>";
+                if ($vak_in == 1 || $vak_in == 6) {
+                  $htmlcontrol .= "<th></th>";
+                } else {
+                  $htmlcontrol .= "
+                <td><div id=\"gemiddeld_20\">0</div></td>";
+                }
+                $htmlcontrol .= "
                 <td><div id=\"gemiddeld_total\">0</div></td>
                 </tr>
                 </tfoot>
