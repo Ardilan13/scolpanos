@@ -218,6 +218,9 @@ class spn_cijfers
                             $htmlcijferswaarde .= "<th><input id=\"cijferswaarde18\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde18) . "\"/></th>";
                             $htmlcijferswaarde .= "<th><input id=\"cijferswaarde19\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde19) . "\"/></th>";
                             $htmlcijferswaarde .= "<th><input id=\"cijferswaarde20\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde20) . "\"/></th>";
+                            if ($vak_in == 1 || $vak_in == 6) {
+                              $htmlcijferswaarde .= "<th></th>";
+                            }
                           }
                         } else {
                           // View mode
@@ -242,6 +245,9 @@ class spn_cijfers
                             $htmlcijferswaarde .= "<th><input id=\"cijferswaarde18\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde18) . "\" disabled/></th>";
                             $htmlcijferswaarde .= "<th><input id=\"cijferswaarde19\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde19) . "\" disabled/></th>";
                             $htmlcijferswaarde .= "<th><input id=\"cijferswaarde20\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde20) . "\" disabled/></th>";
+                            if ($vak_in == 1 || $vak_in == 6) {
+                              $htmlcijferswaarde .= "<th></th>";
+                            }
                           }
                         }
                       } elseif ($rap_in == 2) {
@@ -268,6 +274,9 @@ class spn_cijfers
                             $htmlcijferswaarde .= "<th><input id=\"cijferswaarde18\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde18) . "\"/></th>";
                             $htmlcijferswaarde .= "<th><input id=\"cijferswaarde19\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde19) . "\"/></th>";
                             $htmlcijferswaarde .= "<th><input id=\"cijferswaarde20\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde20) . "\"/></th>";
+                            if ($vak_in == 1 || $vak_in == 6) {
+                              $htmlcijferswaarde .= "<th></th>";
+                            }
                           }
                         } else {
                           // View mode
@@ -292,6 +301,9 @@ class spn_cijfers
                             $htmlcijferswaarde .= "<th><input id=\"cijferswaarde18\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde18) . "\" disabled/></th>";
                             $htmlcijferswaarde .= "<th><input id=\"cijferswaarde19\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde19) . "\" disabled/></th>";
                             $htmlcijferswaarde .= "<th><input id=\"cijferswaarde20\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde20) . "\" disabled/></th>";
+                            if ($vak_in == 1 || $vak_in == 6) {
+                              $htmlcijferswaarde .= "<th></th>";
+                            }
                           }
                         }
                       } elseif ($rap_in == 3) {
@@ -318,6 +330,9 @@ class spn_cijfers
                             $htmlcijferswaarde .= "<th><input id=\"cijferswaarde18\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde18) . "\"/></th>";
                             $htmlcijferswaarde .= "<th><input id=\"cijferswaarde19\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde19) . "\"/></th>";
                             $htmlcijferswaarde .= "<th><input id=\"cijferswaarde20\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde20) . "\"/></th>";
+                            if ($vak_in == 1 || $vak_in == 6) {
+                              $htmlcijferswaarde .= "<th></th>";
+                            }
                           }
                         } else {
                           // View mode
@@ -342,6 +357,9 @@ class spn_cijfers
                             $htmlcijferswaarde .= "<th><input id=\"cijferswaarde18\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde18) . "\" disabled/></th>";
                             $htmlcijferswaarde .= "<th><input id=\"cijferswaarde19\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde19) . "\" disabled/></th>";
                             $htmlcijferswaarde .= "<th><input id=\"cijferswaarde20\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde20) . "\" disabled/></th>";
+                            if ($vak_in == 1 || $vak_in == 6) {
+                              $htmlcijferswaarde .= "<th></th>";
+                            }
                           }
                         }
                       }
@@ -370,6 +388,9 @@ class spn_cijfers
                         $htmlcijferswaarde .= "<th><input id=\"cijferswaarde18\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"\"/></th>";
                         $htmlcijferswaarde .= "<th><input id=\"cijferswaarde19\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"\"/></th>";
                         $htmlcijferswaarde .= "<th><input id=\"cijferswaarde20\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"\"/></th>";
+                        if ($vak_in == 1 || $vak_in == 6) {
+                          $htmlcijferswaarde .= "<th></th>";
+                        }
                       } else {
                         //NO DATA FIELDS
                         $htmlcijferswaarde .= "<th><input id=\"cijferswaarde1\" type=\"text\" class=\"form-control\" value=\"\" disabled/></th>";
@@ -392,6 +413,9 @@ class spn_cijfers
                         $htmlcijferswaarde .= "<th><input id=\"cijferswaarde18\" type=\"text\" class=\"form-control\" value=\"\" disabled/></th>";
                         $htmlcijferswaarde .= "<th><input id=\"cijferswaarde19\" type=\"text\" class=\"form-control\" value=\"\" disabled/></th>";
                         $htmlcijferswaarde .= "<th><input id=\"cijferswaarde20\" type=\"text\" class=\"form-control\" value=\"\" disabled/></th>";
+                        if ($vak_in == 1 || $vak_in == 6) {
+                          $htmlcijferswaarde .= "<th></th>";
+                        }
                       }
                     }
 
@@ -500,7 +524,11 @@ class spn_cijfers
                 </th>
                 <th>
                 <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{title}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"20\">20 <i class=\"fa fa-edit\"></i></a>
-                </th>
+                </th>";
+                if ($vak_in == 1 || $vak_in == 6) {
+                  $htmlcontrol .= "<th>RK</th>";
+                }
+                $htmlcontrol .= "
                 <th>
                 Gemiddeld
                 </th>
@@ -529,8 +557,11 @@ class spn_cijfers
                 <td><div id=\"gemiddeld_17\">0</div></td>
                 <td><div id=\"gemiddeld_18\">0</div></td>
                 <td><div id=\"gemiddeld_19\">0</div></td>
-                <td><div id=\"gemiddeld_20\">0</div></td>
-                <td><div id=\"gemiddeld_total\">0</div></td>
+                <td><div id=\"gemiddeld_20\">0</div></td>";
+                if ($vak_in == 1 || $vak_in == 6) {
+                  $htmlcontrol .= "<th></th>";
+                }
+                $htmlcontrol .= "<td><div id=\"gemiddeld_total\">0</div></td>
                 </tr>
                 </tfoot>
                 <tbody>";
@@ -599,8 +630,11 @@ class spn_cijfers
                 </th>
                 <th>
                 20
-                </th>
-                <th>
+                </th>";
+                if ($vak_in == 1 || $vak_in == 6) {
+                  $htmlcontrol .= "<th></th>";
+                }
+                $htmlcontrol .= "<th>
                 Gemiddeld
                 </th>
                 </tr>
@@ -763,9 +797,11 @@ class spn_cijfers
                   // Changes settings (ladalan@caribedev)
 
                   if (($rap_in == 1 && $_SESSION["UserRights"] != "ASSISTENT" && $s->_setting_rapnumber_1 == 1) || ($rap_in == 2 && $_SESSION["UserRights"] != "ASSISTENT" && $s->_setting_rapnumber_2 == 1) || ($rap_in == 3 && $_SESSION["UserRights"] != "ASSISTENT" && $s->_setting_rapnumber_3 == 1)) {
+                    $disa = "";
                     $cell = 'x' . $x . 'y' . $y;
                     $htmlcontrol .= "<td><span id=\"lblName1\" disabled='true' data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas_in\" data-vak=\"$vak_in\" data-rapport=\"$rap_in\" class=\"editable\">$_cijfer_number</span></td>";
                   } else {
+                    $disa = " disabled";
                     $cell = 'x' . $x . 'y' . $y;
                     $htmlcontrol .= "<td><span id=\"lblName1\" data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas_in\" data-vak=\"$vak_in\" data-rapport=\"$rap_in\">$_cijfer_number</span></td>";
                   }
@@ -774,7 +810,40 @@ class spn_cijfers
 
                   $xx++;
                 }
-
+                if ($vak_in == 1 || $vak_in == 6) {
+                  require_once("DBCreds.php");
+                  require_once("spn_utils.php");
+                  $DBCreds = new DBCreds();
+                  $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
+                  $y = $vak_in == 6 ? 13 : 12;
+                  $get_houding = "SELECT h.id,h.h12, h.h13
+                  FROM le_houding h WHERE h.rapnummer = $rap_in AND h.schooljaar = '$schooljaar' AND h.studentid = $studentid AND h.klas = '$klas_in' LIMIT 1";
+                  $select_houding = $mysqli->query($get_houding);
+                  if ($select_houding) {
+                    $houding = $select_houding->fetch_assoc();
+                    $houding_12 = $houding['h12'];
+                    $houding_13 = $houding['h13'];
+                    $houding_id = $houding['id'];
+                  } else {
+                    $houding_12 = null;
+                    $houding_13 = null;
+                    $houding_id = "";
+                  }
+                  $_houding_number = $vak_in == 6 ? $houding_13 : $houding_12;
+                  $htmlcontrol .= "<td style='padding: 0 !important;' class='" . $houding_12 . $houding13 . "'><select " . $disa . " style='width: 100% !important;' id=\"lblName$y\" id_houding_table=\"$houding_id\"data-student-id=\"$studentid\" data-houding=\"h$y\" data-klas=\"$klas_in\" data-rapport=\"$rap_in\" class=\"form-control editable-select\" data-toggle=\"tooltip\" style=\"width: 100%;\">";
+                  if (is_null($_houding_number) || $_houding_number == 0) {
+                    $htmlcontrol .= "<option value=\"1\" selected>A</option>
+                    <option value=\"2\">B</option>
+                    <option value=\"3\">C</option>
+                    <option value=\"4\">D</option>
+                    <option value=\"5\">E</option>
+                    <option value=\"5\">F</option>
+                    </select>
+                    </td> ";
+                  } else {
+                    $htmlcontrol .= "<option value=\"1\"" . ($_houding_number == 1 ? "selected" : "") . ">A</option><option value=\"2\"" . ($_houding_number == 2 ? "selected" : "") . ">B</option><option value=\"3\"" . ($_houding_number == 3 ? "selected" : "") . ">C</option><option value=\"4\"" . ($_houding_number == 4 ? "selected" : "") . ">D</option><option value=\"5\"" . ($_houding_number == 5 ? "selected" : "") . ">E</option><option value=\"6\"" . ($_houding_number == 6 ? "selected" : "") . ">F</option></select></td> ";
+                  }
+                }
                 $htmlcontrol .= "<td id=\"ge$x\">$gemiddelde</td></tr>";
 
                 /* increment variable with one */

@@ -1475,13 +1475,15 @@ class spn_houding
               foreach ($data as $name => $values) {
                 // $htmlcontrol .=  "<tr><th>LUIS</th>";
                 foreach ($values as $k => $v) {
-                  if ($sort_order == 1) {
-                    $v = substr($v, 0, 5);
+                  if ($k != "h12" && $k != "h13") {
+                    if ($sort_order == 1) {
+                      $v = substr($v, 0, 5);
+                    }
+                    $htmlcontrol .=  "<th>$v</th>";
+                    $columns[$k] = $k;
+                    array_push($houding_name, $v);
+                    $index_colum++;
                   }
-                  $htmlcontrol .=  "<th>$v</th>";
-                  $columns[$k] = $k;
-                  array_push($houding_name, $v);
-                  $index_colum++;
                 }
                 $htmlcontrol .=  "</tr>";
               }
@@ -1507,6 +1509,7 @@ class spn_houding
 
 
                 for ($y = 1; $y <= $index_colum; $y++) {
+                  $y = $y == 12 ? 14 : $y;
                   $htmlcontrol .= "<td class=\"text-center\">";
 
                   if (($rap_in == 1) || ($rap_in == 2) || ($rap_in == 3)) {

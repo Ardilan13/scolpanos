@@ -1,16 +1,18 @@
-[{
-	"h1": "leerkrac",
-	"h2": "leerling",
-	"h3": "sociaal gedrag",
-	"h4": "zelfvertrouwen",
-	"h5": "nauwkeurigheid",
-	"h6": "doorzettingsvermogen",
-	"h7": "zelfstandigheid",
-	"h8": "werktempo",
-	"h9": "werkverzorging",
-	"h10": "concentratie",
-	"h11": "huiswerk",
-	"h12": "inzicht",
-	"h13": "mondeling taalgebrui",
-	"h14": "zwem niveau"
-}]
+[
+  {
+    "h1": "leerkrac",
+    "h2": "leerling",
+    "h3": "sociaal gedrag",
+    "h4": "zelfvertrouwen",
+    "h5": "nauwkeurigheid",
+    "h6": "doorzettingsvermogen",
+    "h7": "zelfstandigheid",
+    "h8": "werktempo",
+    "h9": "werkverzorging",
+    "h10": "concentratie",
+    "h11": "huiswerk",
+    "h12": "inzicht",
+    "h13": "mondeling taalgebrui",
+    "h14": "zwem niveau"
+  }
+]
