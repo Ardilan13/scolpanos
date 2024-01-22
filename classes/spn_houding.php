@@ -1479,9 +1479,47 @@ class spn_houding
                     if ($sort_order == 1) {
                       $v = substr($v, 0, 5);
                     }
-                    $htmlcontrol .=  "<th>$v</th>";
                     $columns[$k] = $k;
                     array_push($houding_name, $v);
+                    switch ($k) {
+                      case "h1":
+                        $v = "CD";
+                        break;
+                      case "h2":
+                        $v = "CL";
+                        break;
+                      case "h3":
+                        $v = "SG";
+                        break;
+                      case "h4":
+                        $v = "ZN";
+                        break;
+                      case "h5":
+                        $v = "ND";
+                        break;
+                      case "h6":
+                        $v = "DN";
+                        break;
+                      case "h7":
+                        $v = "ZD";
+                        break;
+                      case "h8":
+                        $v = "WO";
+                        break;
+                      case "h9":
+                        $v = "WG";
+                        break;
+                      case "h10":
+                        $v = "CE";
+                        break;
+                      case "h11":
+                        $v = "HK";
+                        break;
+                      case "h14":
+                        $v = "ZU";
+                        break;
+                    }
+                    $htmlcontrol .=  "<th>$v</th>";
                     $index_colum++;
                   }
                 }
