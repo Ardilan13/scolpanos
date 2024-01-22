@@ -198,26 +198,26 @@ class spn_cijfers
                         if ($_SESSION["UserRights"] != "ASSISTENT" && $s->_setting_rapnumber_1) {
                           // Edit mode
                           while ($stmtcijferswaarde->fetch()) {
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde1\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde1) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde2\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde2) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde3\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde3) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde4\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde4) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde5\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde5) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde6\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde6) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde7\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde7) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde8\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde8) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde9\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde9) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde10\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde10) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde11\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde11) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde12\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde12) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde13\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde13) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde14\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde14) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde15\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde15) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde16\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde16) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde17\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde17) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde18\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde18) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde19\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde19) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde20\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde20) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde1\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde1) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde2\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde2) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde3\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde3) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde4\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde4) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde5\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde5) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde6\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde6) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde7\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde7) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde8\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde8) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde9\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde9) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde10\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde10) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde11\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde11) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde12\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde12) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde13\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde13) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde14\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde14) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde15\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde15) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde16\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde16) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde17\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde17) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde18\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde18) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde19\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde19) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde20\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde20) . "\"/></th>";
                             if ($vak_in == 1 || $vak_in == 6) {
                               $htmlcijferswaarde .= "<th></th>";
                             }
@@ -225,26 +225,26 @@ class spn_cijfers
                         } else {
                           // View mode
                           while ($stmtcijferswaarde->fetch()) {
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde1\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde1) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde2\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde2) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde3\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde3) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde4\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde4) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde5\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde5) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde6\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde6) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde7\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde7) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde8\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde8) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde9\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde9) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde10\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde10) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde11\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde11) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde12\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde12) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde13\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde13) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde14\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde14) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde15\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde15) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde16\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde16) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde17\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde17) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde18\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde18) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde19\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde19) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde20\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde20) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde1\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde1) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde2\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde2) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde3\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde3) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde4\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde4) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde5\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde5) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde6\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde6) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde7\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde7) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde8\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde8) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde9\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde9) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde10\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde10) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde11\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde11) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde12\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde12) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde13\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde13) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde14\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde14) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde15\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde15) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde16\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde16) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde17\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde17) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde18\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde18) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde19\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde19) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde20\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde20) . "\" disabled/></th>";
                             if ($vak_in == 1 || $vak_in == 6) {
                               $htmlcijferswaarde .= "<th></th>";
                             }
@@ -254,26 +254,26 @@ class spn_cijfers
                         if ($_SESSION["UserRights"] != "ASSISTENT" && $s->_setting_rapnumber_2) {
                           // Edit mode
                           while ($stmtcijferswaarde->fetch()) {
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde1\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde1) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde2\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde2) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde3\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde3) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde4\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde4) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde5\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde5) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde6\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde6) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde7\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde7) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde8\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde8) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde9\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde9) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde10\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde10) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde11\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde11) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde12\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde12) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde13\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde13) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde14\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde14) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde15\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde15) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde16\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde16) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde17\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde17) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde18\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde18) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde19\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde19) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde20\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde20) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde1\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde1) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde2\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde2) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde3\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde3) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde4\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde4) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde5\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde5) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde6\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde6) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde7\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde7) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde8\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde8) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde9\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde9) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde10\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde10) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde11\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde11) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde12\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde12) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde13\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde13) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde14\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde14) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde15\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde15) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde16\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde16) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde17\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde17) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde18\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde18) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde19\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde19) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde20\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde20) . "\"/></th>";
                             if ($vak_in == 1 || $vak_in == 6) {
                               $htmlcijferswaarde .= "<th></th>";
                             }
@@ -281,26 +281,26 @@ class spn_cijfers
                         } else {
                           // View mode
                           while ($stmtcijferswaarde->fetch()) {
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde1\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde1) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde2\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde2) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde3\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde3) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde4\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde4) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde5\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde5) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde6\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde6) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde7\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde7) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde8\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde8) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde9\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde9) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde10\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde10) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde11\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde11) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde12\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde12) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde13\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde13) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde14\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde14) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde15\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde15) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde16\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde16) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde17\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde17) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde18\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde18) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde19\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde19) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde20\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde20) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde1\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde1) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde2\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde2) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde3\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde3) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde4\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde4) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde5\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde5) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde6\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde6) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde7\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde7) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde8\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde8) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde9\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde9) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde10\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde10) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde11\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde11) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde12\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde12) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde13\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde13) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde14\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde14) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde15\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde15) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde16\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde16) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde17\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde17) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde18\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde18) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde19\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde19) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde20\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde20) . "\" disabled/></th>";
                             if ($vak_in == 1 || $vak_in == 6) {
                               $htmlcijferswaarde .= "<th></th>";
                             }
@@ -310,26 +310,26 @@ class spn_cijfers
                         if ($_SESSION["UserRights"] != "ASSISTENT" && $s->_setting_rapnumber_3) {
                           // Edit mode
                           while ($stmtcijferswaarde->fetch()) {
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde1\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde1) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde2\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde2) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde3\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde3) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde4\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde4) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde5\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde5) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde6\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde6) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde7\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde7) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde8\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde8) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde9\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde9) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde10\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde10) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde11\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde11) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde12\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde12) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde13\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde13) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde14\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde14) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde15\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde15) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde16\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde16) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde17\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde17) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde18\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde18) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde19\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde19) . "\"/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde20\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde20) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde1\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde1) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde2\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde2) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde3\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde3) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde4\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde4) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde5\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde5) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde6\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde6) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde7\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde7) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde8\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde8) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde9\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde9) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde10\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde10) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde11\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde11) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde12\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde12) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde13\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde13) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde14\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde14) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde15\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde15) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde16\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde16) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde17\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde17) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde18\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde18) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde19\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde19) . "\"/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde20\" type=\"text\" onblur=\"save_cijferswaarde();\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde20) . "\"/></th>";
                             if ($vak_in == 1 || $vak_in == 6) {
                               $htmlcijferswaarde .= "<th></th>";
                             }
@@ -337,26 +337,26 @@ class spn_cijfers
                         } else {
                           // View mode
                           while ($stmtcijferswaarde->fetch()) {
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde1\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde1) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde2\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde2) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde3\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde3) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde4\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde4) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde5\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde5) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde6\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde6) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde7\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde7) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde8\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde8) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde9\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde9) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde10\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde10) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde11\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde11) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde12\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde12) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde13\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde13) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde14\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde14) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde15\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde15) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde16\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde16) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde17\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde17) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde18\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde18) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde19\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde19) . "\" disabled/></th>";
-                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde20\" type=\"text\" class=\"form-control\" value=\"" . htmlentities($cijferswaarde20) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde1\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde1) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde2\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde2) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde3\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde3) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde4\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde4) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde5\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde5) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde6\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde6) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde7\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde7) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde8\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde8) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde9\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde9) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde10\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde10) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde11\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde11) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde12\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde12) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde13\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde13) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde14\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde14) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde15\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde15) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde16\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde16) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde17\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde17) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde18\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde18) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde19\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde19) . "\" disabled/></th>";
+                            $htmlcijferswaarde .= "<th><input id=\"cijferswaarde20\" type=\"text\" class=\"form-control \" value=\"" . htmlentities($cijferswaarde20) . "\" disabled/></th>";
                             if ($vak_in == 1 || $vak_in == 6) {
                               $htmlcijferswaarde .= "<th></th>";
                             }
@@ -525,8 +525,10 @@ class spn_cijfers
                 <th>
                 <a class=\"modal-btn\" href=\"#\" data-toggle-tooltip=\"tooltip\" data-placement=\"top\" title=\"{title}\" data-toggle=\"modal\" data-target=\"#modalinfo\" data-id=\"20\">20 <i class=\"fa fa-edit\"></i></a>
                 </th>";
-                if ($vak_in == 1 || $vak_in == 6) {
-                  $htmlcontrol .= "<th>RK</th>";
+                if ($vak_in == 1) {
+                  $htmlcontrol .= "<th>IT</th>";
+                } else if ($vak_in == 6) {
+                  $htmlcontrol .= "<th>MT</th>";
                 }
                 $htmlcontrol .= "
                 <th>
@@ -681,7 +683,7 @@ class spn_cijfers
 
               while ($select->fetch()) {
 
-                $htmlcontrol .= "<tr><td>$x</td><td><input class=\"hidden\" studentidarray=\"$studentid\"></input>" . utf8_encode($firstname) . chr(32) . utf8_encode($lastname) . "</td>";
+                $htmlcontrol .= "<tr><td>$x</td><td class='sticky'><input class=\"hidden\" studentidarray=\"$studentid\"></input>" . utf8_encode($firstname) . chr(32) . utf8_encode($lastname) . "</td>";
 
                 for ($y = 1; $y <= 20; $y++) {
                   $htmlcontrol .= "";

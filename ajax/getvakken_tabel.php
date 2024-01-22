@@ -17,6 +17,27 @@ if (session_status() == PHP_SESSION_NONE) {
 	session_start();
 }
 
+?>
+<style>
+	table {
+		overflow: scroll;
+	}
+
+	thead {
+		position: sticky;
+		top: 0;
+		z-index: 2;
+	}
+
+	.sticky {
+		position: sticky;
+		left: 0;
+		z-index: 1;
+		min-width: 250px !important;
+	}
+</style>
+<?php
+
 $u = new spn_user_hs_account;
 $IsTutor = $u->check_mentor_in_klas($_GET['cijfers_klassen_lijst'], $_SESSION["UserGUID"], "Klas", appconfig::GetDummy());
 $IsTutorinVak = $u->check_mentor_in_klas_and_vak($_GET['cijfers_klassen_lijst'], $_SESSION["UserGUID"], $_GET["cijfers_vakken_lijst"], appconfig::GetDummy());
@@ -189,7 +210,7 @@ function print_vakken_table()
 					clase = clase.slice(-2);
 				}
 				total = get_cijfers($(this), clase);
-				if(total == 0){
+				if (total == 0) {
 					total = '';
 				} else {
 					total = total.toFixed(1);
