@@ -74,7 +74,7 @@
 										<table border="1" style="background-color: #ffdc66 !important; border: 1px solid black; margin: 0 !important;">
 											<tbody>
 												<tr>
-													<td style="padding: 2px 6px;">contact met leerkrac = <b>CD</b></td>
+													<td style="padding: 2px 6px;">contact met leerkracht = <b>CD</b></td>
 													<td style="padding: 2px 6px;">contact met leerling = <b>CL</b></td>
 													<td style="padding: 2px 6px;">sociaal gedrag = <b>SG</b></td>
 													<td style="padding: 2px 6px;">zelfvertrouwen = <b>ZN</b></td>
