@@ -602,36 +602,36 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 						$hojaActiva->setCellValue($colhouding, $_h13);
 						break;
 
-					case 14:
-						$_h14 = "";
-						$colhouding = "U" . (string)$_current_student_start_row;
-						if ($h14 == 1 || !isset($h14)) {
-							$_h14 = "A";
-						}
-						if ($h14 == 2) {
-							$_h14 = "B";
-						}
-						if ($h14 == 3) {
-							$_h14 = "C";
-						}
-						if ($h14 == 4) {
-							$_h14 = "D";
-						}
-						if ($h14 == 5) {
-							$_h14 = "E";
-						}
-						if ($h14 == 6) {
-							$_h14 = "F";
-						}
-						if ($h14 == 7) {
-							$_h14 = "G";
-						}
-						if ($h14 == 8) {
-							$_h14 = "H";
-						}
+						// case 14:
+						// 	$_h14 = "";
+						// 	$colhouding = "U" . (string)$_current_student_start_row;
+						// 	if ($h14 == 1 || !isset($h14)) {
+						// 		$_h14 = "A";
+						// 	}
+						// 	if ($h14 == 2) {
+						// 		$_h14 = "B";
+						// 	}
+						// 	if ($h14 == 3) {
+						// 		$_h14 = "C";
+						// 	}
+						// 	if ($h14 == 4) {
+						// 		$_h14 = "D";
+						// 	}
+						// 	if ($h14 == 5) {
+						// 		$_h14 = "E";
+						// 	}
+						// 	if ($h14 == 6) {
+						// 		$_h14 = "F";
+						// 	}
+						// 	if ($h14 == 7) {
+						// 		$_h14 = "G";
+						// 	}
+						// 	if ($h14 == 8) {
+						// 		$_h14 = "H";
+						// 	}
 
-						$hojaActiva->setCellValue($colhouding, $_h14);
-						break;
+						// 	$hojaActiva->setCellValue($colhouding, $_h14);
+						// 	break;
 				}
 
 				$cont_houdin++;
