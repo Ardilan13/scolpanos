@@ -50,7 +50,7 @@ $i = 1;
             <?php if ($level_klas != 4) { ?>
                 <th class="definitiet">Systeem</th>
             <?php } ?>
-            <th class="definitiet">Beoordeling</th>
+            <th class="definitiet"><?php if ($level_klas == 6) { ?> Advies <?php } else { ?> Beoordeling <?php } ?></th>
         </tr>
     </thead>
     <tbody>

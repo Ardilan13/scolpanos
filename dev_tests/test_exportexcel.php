@@ -39,8 +39,59 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 	$s = new spn_setting();
 	$s->getsetting_info($schoolid, false);
 	$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader("Xlsx");
-	$spreadsheet = $reader->load("../templates/verza_ps_2022.xlsx");
+	switch ($level_klas) {
+		case "2":
+			$spreadsheet = $reader->load("../templates/verza_ps_2.xlsx");
+			$spreadsheet->setActiveSheetIndex(4);
+			$hojaActiva = $spreadsheet->getActiveSheet();
+			break;
+		case "3":
+			$spreadsheet = $reader->load("../templates/verza_ps_3.xlsx");
+			$spreadsheet->setActiveSheetIndex(4);
+			$hojaActiva = $spreadsheet->getActiveSheet();
+			break;
+		case "4":
+		case "5":
+			$spreadsheet = $reader->load("../templates/verza_ps_4-5.xlsx");
+			$spreadsheet->setActiveSheetIndex(4);
+			$hojaActiva = $spreadsheet->getActiveSheet();
+			break;
+		case "6":
+			$spreadsheet = $reader->load("../templates/verza_ps_6.xlsx");
+			$spreadsheet->setActiveSheetIndex(3);
+			$hojaActiva = $spreadsheet->getActiveSheet();
+			break;
+		default:
+			$spreadsheet = $reader->load("../templates/verza_ps_2022.xlsx");
+			$spreadsheet->setActiveSheetIndex(3);
+			$hojaActiva = $spreadsheet->getActiveSheet();
+			break;
+	}
 	$i = 1;
+	switch ($_SESSION["SchoolID"]) {
+		case 7:
+			$scol = 1;
+			break;
+		case 11:
+			$scol = 2;
+			break;
+		case 4:
+			$scol = 3;
+			break;
+		case 9:
+			$scol = 4;
+			break;
+		case 6:
+			$scol = 5;
+			break;
+		case 10:
+			$scol = 6;
+			break;
+		default:
+			$scol = 0;
+			break;
+	}
+	$hojaActiva->setCellValue('B8', $scol);
 
 	while ($i <= $rap_in) {
 		$_laststudent = 0;
@@ -103,8 +154,8 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 			if ($_while_counter == 0) {
 				$_laststudent = $row["studentid"];
 				$hojaActiva->setCellValue('O1', $_GET["rapport_klassen_lijst"]);
-				$hojaActiva->setCellValue('AC1', $_SESSION['SchoolJaar']);
-				$hojaActiva->setCellValue('R1', $row["docent_name"]);
+				$hojaActiva->setCellValue('AF1', $_SESSION['SchoolJaar']);
+				$hojaActiva->setCellValue('S1', $row["docent_name"]);
 				$hojaActiva->setCellValue('D1', "Rapport " . $i);
 			}
 			$_currentstudent = $row["studentid"];
@@ -145,15 +196,15 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 					break;
 
 				case 9:
-					$returnvalue = "S";
+					$returnvalue = "T";
 					break;
 
 				case 10:
-					$returnvalue = "W";
+					$returnvalue = "Z";
 					break;
 
 				case 11:
-					$returnvalue = "X";
+					$returnvalue = "AA";
 					break;
 
 				case 12:
@@ -161,11 +212,11 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 					break;
 
 				case 27:
-					$returnvalue = "U";
+					$returnvalue = "W";
 					break;
 
 				case 28:
-					$returnvalue = "R";
+					$returnvalue = "S";
 					break;
 			}
 			$colgemiddelde = (string)$returnvalue . (string)$_current_student_start_row;
@@ -228,7 +279,7 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 				switch ($cont_houdin) {
 					case 1:
 						$_h1 = "";
-						$colhouding = "AG" . (string)$_current_student_start_row;
+						$colhouding = "AJ" . (string)$_current_student_start_row;
 						if ($h1 == 1 || !isset($h1)) {
 							$_h1 = "A";
 						}
@@ -253,7 +304,7 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 
 					case 2:
 						$_h2 = "";
-						$colhouding = "AH" . (string)$_current_student_start_row;
+						$colhouding = "AK" . (string)$_current_student_start_row;
 						if ($h2 == 1 || !isset($h2)) {
 							$_h2 = "A";
 						}
@@ -278,7 +329,7 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 
 					case 3:
 						$_h3 = "";
-						$colhouding = "AI" . (string)$_current_student_start_row;
+						$colhouding = "AL" . (string)$_current_student_start_row;
 						if ($h3 == 1 || !isset($h3)) {
 							$_h3 = "A";
 						}
@@ -303,7 +354,7 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 
 					case 4:
 						$_h4 = "";
-						$colhouding = "AJ" . (string)$_current_student_start_row;
+						$colhouding = "AM" . (string)$_current_student_start_row;
 						if ($h4 == 1 || !isset($h4)) {
 							$_h4 = "A";
 						}
@@ -328,7 +379,7 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 
 					case 5:
 						$_h5 = "";
-						$colhouding = "AK" . (string)$_current_student_start_row;
+						$colhouding = "AN" . (string)$_current_student_start_row;
 						if ($h5 == 1 || !isset($h5)) {
 							$_h5 = "A";
 						}
@@ -353,7 +404,7 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 
 					case 6:
 						$_h6 = "";
-						$colhouding = "AL" . (string)$_current_student_start_row;
+						$colhouding = "AO" . (string)$_current_student_start_row;
 						if ($h6 == 1 || !isset($h6)) {
 							$_h6 = "A";
 						}
@@ -378,7 +429,7 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 
 					case 7:
 						$_h7 = "";
-						$colhouding = "AM" . (string)$_current_student_start_row;
+						$colhouding = "AP" . (string)$_current_student_start_row;
 						if ($h7 == 1 || !isset($h7)) {
 							$_h7 = "A";
 						}
@@ -403,7 +454,7 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 
 					case 8:
 						$_h8 = "";
-						$colhouding = "AN" . (string)$_current_student_start_row;
+						$colhouding = "AQ" . (string)$_current_student_start_row;
 						if ($h8 == 1 || !isset($h8)) {
 							$_h8 = "A";
 						}
@@ -428,7 +479,7 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 
 					case 9:
 						$_h9 = "";
-						$colhouding = "AO" . (string)$_current_student_start_row;
+						$colhouding = "AR" . (string)$_current_student_start_row;
 						if ($h9 == 1 || !isset($h9)) {
 							$_h9 = "A";
 						}
@@ -453,7 +504,7 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 
 					case 10:
 						$_h10 = "";
-						$colhouding = "AP" . (string)$_current_student_start_row;
+						$colhouding = "AS" . (string)$_current_student_start_row;
 						if ($h10 == 1 || !isset($h10)) {
 							$_h10 = "A";
 						}
@@ -478,7 +529,7 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 
 					case 11:
 						$_h11 = "";
-						$colhouding = "AQ" . (string)$_current_student_start_row;
+						$colhouding = "AT" . (string)$_current_student_start_row;
 						if ($h11 == 1 || !isset($h11)) {
 							$_h11 = "A";
 						}
@@ -551,36 +602,36 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 						$hojaActiva->setCellValue($colhouding, $_h13);
 						break;
 
-					case 14:
-						$_h14 = "";
-						$colhouding = "T" . (string)$_current_student_start_row;
-						if ($h14 == 1 || !isset($h14)) {
-							$_h14 = "A";
-						}
-						if ($h14 == 2) {
-							$_h14 = "B";
-						}
-						if ($h14 == 3) {
-							$_h14 = "C";
-						}
-						if ($h14 == 4) {
-							$_h14 = "D";
-						}
-						if ($h14 == 5) {
-							$_h14 = "E";
-						}
-						if ($h14 == 6) {
-							$_h14 = "F";
-						}
-						if ($h14 == 7) {
-							$_h14 = "G";
-						}
-						if ($h14 == 8) {
-							$_h14 = "H";
-						}
+						// case 14:
+						// 	$_h14 = "";
+						// 	$colhouding = "U" . (string)$_current_student_start_row;
+						// 	if ($h14 == 1 || !isset($h14)) {
+						// 		$_h14 = "A";
+						// 	}
+						// 	if ($h14 == 2) {
+						// 		$_h14 = "B";
+						// 	}
+						// 	if ($h14 == 3) {
+						// 		$_h14 = "C";
+						// 	}
+						// 	if ($h14 == 4) {
+						// 		$_h14 = "D";
+						// 	}
+						// 	if ($h14 == 5) {
+						// 		$_h14 = "E";
+						// 	}
+						// 	if ($h14 == 6) {
+						// 		$_h14 = "F";
+						// 	}
+						// 	if ($h14 == 7) {
+						// 		$_h14 = "G";
+						// 	}
+						// 	if ($h14 == 8) {
+						// 		$_h14 = "H";
+						// 	}
 
-						$hojaActiva->setCellValue($colhouding, $_h14);
-						break;
+						// 	$hojaActiva->setCellValue($colhouding, $_h14);
+						// 	break;
 				}
 
 				$cont_houdin++;
@@ -628,9 +679,9 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 				$opmerking = $row2["opmerking"];
 			}
 
-			$hojaActiva->setCellValue("AD" . (string)$_current_student_start_row, $cont_laat);
-			$hojaActiva->setCellValue("AE" . (string)$_current_student_start_row, $cont_verzuim);
-			$hojaActiva->setCellValue("AX" . (string)$_current_student_start_row, $opmerking);
+			$hojaActiva->setCellValue("AG" . (string)$_current_student_start_row, $cont_laat);
+			$hojaActiva->setCellValue("AH" . (string)$_current_student_start_row, $cont_verzuim);
+			$hojaActiva->setCellValue("AY" . (string)$_current_student_start_row, $opmerking);
 			$cont_laat = 0;
 			$cont_verzuim = 0;
 			$cont_huis = 0;
@@ -662,9 +713,7 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 			$spreadsheet = $reader->load("../templates/verza_scol18_1.xlsx");
 			$spreadsheet->setActiveSheetIndex(8);
 			$hojaActiva = $spreadsheet->getActiveSheet();
-			$laat = "AR";
-			$verzuim = "AS";
-			$p_opmerking = "AT";
+
 			break;
 		default:
 			$spreadsheet = $reader->load("../templates/verza_scol18_2.xlsx");
