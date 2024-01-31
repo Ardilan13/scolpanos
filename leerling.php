@@ -169,6 +169,7 @@
 															<option value="SINT MAARTEN">Sint Maarten</option>
 															<option value="SINT EUSTATIUS">Sint Eustatius</option>
 															<option value="SABA">Saba</option>
+															<option value="SPANJE">Spanje</option>
 															<option value="VERENIGDE STATEN">Verenigde Staten</option>
 														</select>
 													</div>

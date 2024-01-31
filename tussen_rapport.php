@@ -41,6 +41,18 @@
 											<option value="2016-2017">2016-2017</option>
 										</select>
 									</div>
+									<?php if ($_SESSION["SchoolType"] == 2) { ?>
+										<div class="form-group rapport">
+											<label for="cijfers_rapporten_lijst">Rapnr.</label>
+											<select class="form-control" name="cijfers_rapporten_lijst" id="cijfers_rapporten_lijst">
+												<!-- Options populated by AJAX get -->
+												<!-- TEMPORARY ENTERED MANUALLY -->
+												<option value="1">1</option>
+												<option value="2">2</option>
+												<option value="3">3</option>
+											</select>
+										</div>
+									<?php } ?>
 									<div class="form-group">
 										<!-- <button data-display="data-display" data-ajax-href="ajax/getvakken_tabel.php" type="submit" class="btn btn-primary btn-m-w btn-m-h">zoeken</button> -->
 										<button data-display="data-display" type="submit" id="btn_tussen_rapport" name="btn_tussen_rapport" class="btn btn-primary btn-m-w btn-m-h">Export</button>
@@ -87,9 +99,9 @@
 	$("#btn_tussen_rapport").click(function(e) {
 		e.preventDefault();
 		if ($('#idSchool').text() == 13) {
-			window.open("print_klas.php?schoolJaar=" + $('#schooljaar_rapport').val() + "&klas=" + $('#rapport_klassen_lijst').val());
+			window.open("print_klas.php?schoolJaar=" + $('#schooljaar_rapport').val() + "&klas=" + $('#rapport_klassen_lijst').val() + "&rapport=" + $('#cijfers_rapporten_lijst').val());
 		} else {
-			window.open("print_klas.php?schoolJaar=" + $('#schooljaar_rapport').val() + "&klas=" + $('#rapport_klassen_lijst').val());
+			window.open("print_klas.php?schoolJaar=" + $('#schooljaar_rapport').val() + "&klas=" + $('#rapport_klassen_lijst').val() + "&rapport=" + $('#cijfers_rapporten_lijst').val());
 		}
 
 	});

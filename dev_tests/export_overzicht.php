@@ -79,6 +79,10 @@ echo utf8_decode("<table border='0'>
 							<td style='font-weight:bold; border:1px solid #000;border-bottom:none;padding:10px;'>Instr.</td>
 							<td style='font-weight:bold; border:1px solid #000;padding:10px;'>Tutor 1/voogd</td>
 							<td style='font-weight:bold; border:1px solid #000;padding:10px;'>Tutor 2/voogd</td>
+							<td style='font-weight:bold; border:1px solid #000;border-bottom:none;padding:10px;'>Tel student</td>
+							<td style='font-weight:bold; border:1px solid #000;border-bottom:none;padding:10px;'>Tel moeder</td>
+							<td style='font-weight:bold; border:1px solid #000;border-bottom:none;padding:10px;'>Tel vader</td>
+
 						</tr>
 						
 						<tr> 
@@ -93,6 +97,9 @@ echo utf8_decode("<table border='0'>
 							<td style='font-weight:bold; border:1px solid #000;border-top:none;padding:10px;'>jaar*</td>
 							<td style='font-weight:bold; border:1px solid #000;padding:10px;'>huidig beroep</td>
 							<td style='font-weight:bold; border:1px solid #000;padding:10px;'>huidig beroep</td>
+							<td style='font-weight:bold; border:1px solid #000;border-top:none;padding:10px;'></td>
+							<td style='font-weight:bold; border:1px solid #000;border-top:none;padding:10px;'></td>
+							<td style='font-weight:bold; border:1px solid #000;border-top:none;padding:10px;'></td>
 						</tr>
 						");
 
@@ -102,6 +109,7 @@ $mysqli->set_charset('utf8');
 $sql_query = "SELECT id,idnumber,studentnumber, lastname, firstname, sex,
 		studentnumber,
 		address,
+		phone1,
 		enrollmentdate,
 		ne,en,sp,pa,voertaalanders,
 		birthplace,
@@ -135,6 +143,9 @@ while ($row = mysqli_fetch_assoc($resultado1)) {
 							<td style='border:1px solid #000;'>" . $year . "</td>
 							<td style='border:1px solid #000;'>" . $row["father"] . "</td>
 							<td style='border:1px solid #000;'>" . $row["mother"] . "</td>
+							<td style='border:1px solid #000;'>" . $row["phone1"] . "</td>
+							<td style='border:1px solid #000;'>" . $row["mobiel_moeder"] . "</td>
+							<td style='border:1px solid #000;'>" . $row["mobiel_vader"] . "</td>
 						</tr>");
 	$x++;
 }

@@ -58,7 +58,7 @@ foreach ($data_leerling_array as $item) {
   if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["SchoolID"] != 18) {
     $print_table = $c->list_cijfers_by_student_ps($_GET["schoolJaar"], $item['studentid'], appconfig::GetDummy());
   } else {
-    $print_table = $c->list_cijfers_by_student($_GET["schoolJaar"], $item['studentid'], appconfig::GetDummy());
+    $print_table = $c->list_cijfers_by_student($_GET["rapport"], $_GET["schoolJaar"], $item['studentid'], appconfig::GetDummy());
   }
 
 

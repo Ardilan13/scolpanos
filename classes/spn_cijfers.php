@@ -2656,7 +2656,7 @@ class spn_cijfers
   }
 
 
-  function list_cijfers_by_student($schooljaar, $studentid, $dummy)
+  function list_cijfers_by_student($rapport, $schooljaar, $studentid, $dummy)
   {
     $returnvalue = "";
     $sql_query = "";
@@ -2675,8 +2675,8 @@ class spn_cijfers
         $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort, $dummy);
         $sp_get_cijfers_by_student = "sp_get_cijfers_by_student";
 
-        if ($stmt = $mysqli->prepare("CALL " . $this->$sp_get_cijfers_by_student . "(?,?)")) {
-          if ($stmt->bind_param("ss", $schooljaar, $studentid)) {
+        if ($stmt = $mysqli->prepare("CALL " . $this->$sp_get_cijfers_by_student . "(?,?,?)")) {
+          if ($stmt->bind_param("ssi", $schooljaar, $studentid, $rapport)) {
             if ($stmt->execute()) {
               $spn_audit = new spn_audit();
               $UserGUID = $_SESSION['UserGUID'];
