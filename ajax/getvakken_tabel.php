@@ -218,9 +218,9 @@ function print_vakken_table()
 				// total = total == 0 ? '' : total.toString();
 				// total = total.length < 2 ? total + '.0' : total;
 				if (clase < 9 && blue == false) {
-					if (clase % 2 == 0) {
+					if (clase % 2 == 0 && clase != 4 && clase != 8) {
 						$(this).next().text(total);
-					} else {
+					} else if (clase != 3 && clase != 7) {
 						$(this).next().next().text(total);
 					}
 				} else if (clase < 12 && blue == false) {

@@ -5555,7 +5555,7 @@ AND lc.schooljaar = '$schooljaar'
                           $htmlcontrol .= "<td><span class='" . $blue . "' id=\"lblName1\" data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\">$_cijfer_number</span></td>";
                         } else if (in_array($name_row, $po)) {
                           if ($blue != '') {
-                            $htmlcontrol .= "<td class='se se" . $y . $blue . "'></td>";
+                            $htmlcontrol .= "<td class='se se" . $y . $blue . " no'></td>";
                           } else {
                             $htmlcontrol .= "<td><span class='" . $blue . "' id=\"lblName1\" data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\">$_cijfer_number</span></td>";
                           }
