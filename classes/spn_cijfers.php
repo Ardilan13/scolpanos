@@ -2656,8 +2656,9 @@ class spn_cijfers
   }
 
 
-  function list_cijfers_by_student($rapport, $schooljaar, $studentid, $dummy)
+  function list_cijfers_by_student($schooljaar, $studentid, $dummy)
   {
+
     $returnvalue = "";
     $sql_query = "";
     $htmlcontrol = "";
@@ -2675,15 +2676,15 @@ class spn_cijfers
         $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort, $dummy);
         $sp_get_cijfers_by_student = "sp_get_cijfers_by_student";
 
-        if ($stmt = $mysqli->prepare("CALL " . $this->$sp_get_cijfers_by_student . "(?,?,?)")) {
-          if ($stmt->bind_param("ssi", $schooljaar, $studentid, $rapport)) {
+        if ($stmt = $mysqli->prepare("CALL " . $this->$sp_get_cijfers_by_student . "(?,?)")) {
+          if ($stmt->bind_param("ss", $schooljaar, $studentid)) {
             if ($stmt->execute()) {
               $spn_audit = new spn_audit();
               $UserGUID = $_SESSION['UserGUID'];
               $spn_audit->create_audit($UserGUID, 'cijfers', 'list cijfers by student', appconfig::GetDummy());
               $this->error = false;
               $result = 1;
-              $stmt->bind_result($firstname, $lastname, $klas, $id_studente, $lastchanged, $schooljaar, $rapnummer, $vak, $volledigenaamvak, $c1, $c2, $c3, $c4, $c5, $c6, $c7, $c8, $c9, $c10, $c11, $c12, $c13, $c14, $c15, $c16, $c17, $c18, $c19, $c20, $gemiddelde, $hergemiddelde);
+              $stmt->bind_result($firstname, $lastname, $klas, $id_studente, $lastchanged, $schooljaar_e, $rapnummer, $vak, $volledigenaamvak, $c1, $c2, $c3, $c4, $c5, $c6, $c7, $c8, $c9, $c10, $c11, $c12, $c13, $c14, $c15, $c16, $c17, $c18, $c19, $c20, $gemiddelde, $hergemiddelde);
               $stmt->store_result();
 
 
@@ -2699,6 +2700,107 @@ class spn_cijfers
                   $htmlcontrol .= "<td>" . htmlentities($schooljaar) . "</td>";
                   $htmlcontrol .= "<td>" . htmlentities($klas) . "</td>";
                   $htmlcontrol .= "<td>" . htmlentities($rapnummer) . "</td>";
+                  $htmlcontrol .= "<td>" . htmlentities($volledigenaamvak) . "</td>";
+                  // $htmlcontrol .= "<td>". ($c1 >= 1 && $c1 <= 5.5 ? "class=\"bg-danger\"": "") ."</td>";
+
+                  $htmlcontrol .= "<td name =\"c1\"" . ($c1 >= 1 && $c1 <= 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c1 == 0.0 ? "" : htmlentities($c1)) . "</td>";
+                  $htmlcontrol .= "<td name =\"c1\"" . ($c2 >= 1 && $c2 <= 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c2 == 0.0 ? "" : htmlentities($c2)) . "</td>";
+                  $htmlcontrol .= "<td name =\"c1\"" . ($c3 >= 1 && $c3 <= 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c3 == 0.0 ? "" : htmlentities($c3)) . "</td>";
+                  $htmlcontrol .= "<td name =\"c1\"" . ($c4 >= 1 && $c4 <= 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c4 == 0.0 ? "" : htmlentities($c4)) . "</td>";
+                  $htmlcontrol .= "<td name =\"c1\"" . ($c5 >= 1 && $c5 <= 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c5 == 0.0 ? "" : htmlentities($c5)) . "</td>";
+                  $htmlcontrol .= "<td name =\"c1\"" . ($c6 >= 1 && $c6 <= 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c6 == 0.0 ? "" : htmlentities($c6)) . "</td>";
+                  $htmlcontrol .= "<td name =\"c1\"" . ($c7 >= 1 && $c7 <= 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c7 == 0.0 ? "" : htmlentities($c7)) . "</td>";
+                  $htmlcontrol .= "<td name =\"c1\"" . ($c8 >= 1 && $c8 <= 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c8 == 0.0 ? "" : htmlentities($c8)) . "</td>";
+                  $htmlcontrol .= "<td name =\"c1\"" . ($c9 >= 1 && $c9 <= 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c9 == 0.0 ? "" : htmlentities($c9)) . "</td>";
+                  $htmlcontrol .= "<td name =\"c1\"" . ($c10 >= 1 && $c10 <= 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c10 == 0.0 ? "" : htmlentities($c10)) . "</td>";
+                  $htmlcontrol .= "<td name =\"c1\"" . ($c11 >= 1 && $c11 <= 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c11 == 0.0 ? "" : htmlentities($c11)) . "</td>";
+                  $htmlcontrol .= "<td name =\"c1\"" . ($c12 >= 1 && $c12 <= 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c12 == 0.0 ? "" : htmlentities($c12)) . "</td>";
+                  $htmlcontrol .= "<td name =\"c1\"" . ($c13 >= 1 && $c13 <= 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c13 == 0.0 ? "" : htmlentities($c13)) . "</td>";
+                  $htmlcontrol .= "<td name =\"c1\"" . ($c14 >= 1 && $c14 <= 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c14 == 0.0 ? "" : htmlentities($c14)) . "</td>";
+                  $htmlcontrol .= "<td name =\"c1\"" . ($c15 >= 1 && $c15 <= 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c15 == 0.0 ? "" : htmlentities($c15)) . "</td>";
+                  $htmlcontrol .= "<td name =\"c1\"" . ($c16 >= 1 && $c16 <= 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c16 == 0.0 ? "" : htmlentities($c16)) . "</td>";
+                  $htmlcontrol .= "<td name =\"c1\"" . ($c17 >= 1 && $c17 <= 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c17 == 0.0 ? "" : htmlentities($c17)) . "</td>";
+                  $htmlcontrol .= "<td name =\"c1\"" . ($c18 >= 1 && $c18 <= 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c18 == 0.0 ? "" : htmlentities($c18)) . "</td>";;
+                  $htmlcontrol .= "<td name =\"c1\"" . ($c19 >= 1 && $c19 <= 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c19 == 0.0 ? "" : htmlentities($c19)) . "</td>";;
+                  $htmlcontrol .= "<td name =\"c1\"" . ($c20 >= 1 && $c20 <= 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c20 == 0.0 ? "" : htmlentities($c20)) . "</td>";
+
+                  $htmlcontrol .= "<td name =\"gemiddelde\"" . ($gemiddelde >= 1 && $gemiddelde <= 5.5 ?  "class=\"bg-danger\"" : "") . ">" . htmlentities($gemiddelde) . "</td>";
+                  // $htmlcontrol .= "<td>". htmlentities($gemiddelde) ."</td>";
+
+                }
+
+                $htmlcontrol .= "</tbody>";
+                $htmlcontrol .= "</table>";
+              } else {
+                $htmlcontrol .= "No results to show";
+              }
+            } else {
+              $result = 0;
+              $this->mysqlierror = $mysqli->error;
+              $this->mysqlierrornumber = $mysqli->errno;
+            }
+          } else {
+            $result = 0;
+            $this->mysqlierror = $mysqli->error;
+            $this->mysqlierrornumber = $mysqli->errno;
+          }
+        } else {
+          $result = 0;
+          $this->mysqlierror = $mysqli->error;
+          $this->mysqlierrornumber = $mysqli->errno;
+        }
+      } catch (Exception $e) {
+        $result = -2;
+        // $this->exceptionvalue = $e->getMessage();
+        //$result = $e->getMessage();
+      }
+      return $htmlcontrol;
+    }
+  }
+
+  function list_cijfers_by_student_rapport($rapport, $schooljaar, $studentid, $dummy)
+  {
+    $returnvalue = "";
+    $sql_query = "";
+    $htmlcontrol = "";
+
+    $result = 0;
+    if ($dummy)
+      $result = 1;
+    else {
+      mysqli_report(MYSQLI_REPORT_STRICT);
+      require_once("spn_utils.php");
+      $utils = new spn_utils();
+      try {
+        require_once("DBCreds.php");
+        $DBCreds = new DBCreds();
+        $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort, $dummy);
+        $sp_get_cijfers_by_student_rapport = "sp_get_cijfers_by_student_rapport";
+
+        if ($stmt = $mysqli->prepare("CALL " . $sp_get_cijfers_by_student_rapport . "(?,?,?)")) {
+          if ($stmt->bind_param("ssi", $schooljaar, $studentid, $rapport)) {
+            if ($stmt->execute()) {
+              $spn_audit = new spn_audit();
+              $UserGUID = $_SESSION['UserGUID'];
+              $spn_audit->create_audit($UserGUID, 'cijfers', 'list cijfers by student', appconfig::GetDummy());
+              $this->error = false;
+              $result = 1;
+              $stmt->bind_result($firstname, $lastname, $klas, $id_studente, $lastchanged, $schooljaar_e, $rapnummer, $vak, $volledigenaamvak, $c1, $c2, $c3, $c4, $c5, $c6, $c7, $c8, $c9, $c10, $c11, $c12, $c13, $c14, $c15, $c16, $c17, $c18, $c19, $c20, $gemiddelde, $hergemiddelde);
+              $stmt->store_result();
+
+
+
+              if ($stmt->num_rows > 0) {
+                $htmlcontrol .= "<table id=\"tbl_cijfers_by_student\" class=\"table table-bordered table-colored\" data-table=\"yes\">";
+
+                $htmlcontrol .= "<thead><tr><th>Schooljaar</th><th>Klass</th><th>Rapport#</th><th>Vak</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th>19</th><th>20</th><th>Gemiddeld</th></tr></thead>";
+                $htmlcontrol .= "<tbody>";
+
+                while ($stmt->fetch()) {
+                  $htmlcontrol .= "<tr>";
+                  $htmlcontrol .= "<td>" . htmlentities($schooljaar) . "</td>";
+                  $htmlcontrol .= "<td>" . htmlentities($klas) . "</td>";
+                  $htmlcontrol .= "<td>" . htmlentities($rapport) . "</td>";
                   $htmlcontrol .= "<td>" . htmlentities($volledigenaamvak) . "</td>";
                   // $htmlcontrol .= "<td>". ($c1 >= 1 && $c1 <= 5.5 ? "class=\"bg-danger\"": "") ."</td>";
 

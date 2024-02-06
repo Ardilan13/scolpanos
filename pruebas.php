@@ -1,7 +1,11 @@
 <?php
+
+use function PHPSTORM_META\type;
+
 session_start();
 require_once "classes/DBCreds.php";
 require_once("classes/spn_setting.php");
+require_once("classes/spn_cijfers.php");
 require_once("classes/spn_utils.php");
 require_once("classes/spn_controls.php");
 require_once("classes/spn_authentication.php");
@@ -9,18 +13,23 @@ $auth = new spn_authentication();
 $u = new spn_utils();
 $s = new spn_setting();
 $c = new spn_controls();
+$ci = new spn_cijfers();
 $s->getsetting_info($_SESSION["SchoolID"], false);
+$list = $ci->list_cijfers_by_student_rapport(1, "2023-2024", 7248, 0);
+print $list;
 $DBCreds = new DBCreds();
 $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
 $schoolid = $_SESSION["SchoolID"];
 $schooljaar = $_SESSION["SchoolJaar"];
 
-$get = "SELECT * FROM app_useraccounts WHERE UserRights = 'BEHEER' and Email like 'schoo%' ORDER BY Email";
-$result = mysqli_query($mysqli, $get);
-while ($row = mysqli_fetch_assoc($result)) {
-    $vak = $row["Email"];
-    echo $vak . "<br>";
-}
+// $get = "SELECT * FROM app_useraccounts WHERE UserRights = 'BEHEER' and Email like 'schoo%' ORDER BY Email";
+// $result = mysqli_query($mysqli, $get);
+// while ($row = mysqli_fetch_assoc($result)) {
+//     $vak = $row["Email"];
+//     echo $vak . "<br>";
+// }
+
+
 
 // $date1 = $s->_setting_begin_rap_1;
 // $date2 = $s->_setting_end_rap_1;
