@@ -70,29 +70,32 @@
 										<button data-display="data-display" data-ajax-href="ajax/gethouding_tabel.php" type="submit" class="btn btn-primary btn-m-w btn-m-h">zoeken</button>
 
 									</div>
-									<div class="form-group" style="margin-left: 15px;">
-										<table border="1" style="background-color: #ffdc66 !important; border: 1px solid black; margin: 0 !important;">
-											<tbody>
-												<tr>
-													<td style="padding: 2px 6px;">contact met leerkracht = <b>CD</b></td>
-													<td style="padding: 2px 6px;">contact met leerling = <b>CL</b></td>
-													<td style="padding: 2px 6px;">sociaal gedrag = <b>SG</b></td>
-													<td style="padding: 2px 6px;">zelfvertrouwen = <b>ZN</b></td>
-													<td style="padding: 2px 6px;">nauwkeurigheid = <b>ND</b></td>
-													<td style="padding: 2px 6px;">doorzettingsvermogen = <b>DN</b></td>
-												</tr>
-												<tr>
-													<td style="padding: 2px 6px;">zelfstandigheid = <b>ZD</b></td>
-													<td style="padding: 2px 6px;">werktempo = <b>WO</b></td>
-													<td style="padding: 2px 6px;">werkverzorging = <b>WG</b></td>
-													<td style="padding: 2px 6px;">concentratie = <b>CE</b></td>
-													<td style="padding: 2px 6px;">huiswerk = <b>HK</b></td>
-													<td style="padding: 2px 6px;">zwem niveau = <b>ZU</b></td>
-												</tr>
+									<?php if ($_SESSION["SchoolID"] != 8) { ?>
+										<div class="form-group" style="margin-left: 15px;">
+											<table border="1" style="background-color: #ffdc66 !important; border: 1px solid black; margin: 0 !important;">
+												<tbody>
+													<tr>
+														<td style="padding: 2px 6px;">contact met leerkracht = <b>CD</b></td>
+														<td style="padding: 2px 6px;">contact met leerling = <b>CL</b></td>
+														<td style="padding: 2px 6px;">sociaal gedrag = <b>SG</b></td>
+														<td style="padding: 2px 6px;">zelfvertrouwen = <b>ZN</b></td>
+														<td style="padding: 2px 6px;">nauwkeurigheid = <b>ND</b></td>
+														<td style="padding: 2px 6px;">doorzettingsvermogen = <b>DN</b></td>
+													</tr>
+													<tr>
+														<td style="padding: 2px 6px;">zelfstandigheid = <b>ZD</b></td>
+														<td style="padding: 2px 6px;">werktempo = <b>WO</b></td>
+														<td style="padding: 2px 6px;">werkverzorging = <b>WG</b></td>
+														<td style="padding: 2px 6px;">concentratie = <b>CE</b></td>
+														<td style="padding: 2px 6px;">huiswerk = <b>HK</b></td>
+														<td style="padding: 2px 6px;">zwem niveau = <b>ZU</b></td>
+													</tr>
 
-											</tbody>
-										</table>
-									</div>
+												</tbody>
+											</table>
+										</div>
+									<?php } ?>
+
 
 								</fieldset>
 
