@@ -657,6 +657,8 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 		$cont_verzuim = 0;
 		$_laststudent = 0;
 		$_while_counter = 0;
+		$schooljaar_array = explode("-", $schooljaar);
+		$schooljaar_pasado = $schooljaar_array[0] - 1 . "-" . $schooljaar_array[0];
 
 		$resultado1 = mysqli_query($mysqli, $sql_query_student);
 		require_once("../classes/spn_utils.php");
@@ -684,6 +686,16 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 			$hojaActiva->setCellValue("AH" . (string)$_current_student_start_row, $cont_verzuim);
 			if ($level_klas ==  6) {
 				$hojaActiva->setCellValue("BB" . (string)$_current_student_start_row, $opmerking);
+				$sql_query_k5 = "SELECT vak,gemiddelde FROM le_cijfers_ps WHERE studentid = $id AND schooljaar = '$schooljaar_pasado' AND school_id = $schoolid AND rapnummer = $i AND vak IN (1,6)";
+				$resultado_k5 = mysqli_query($mysqli, $sql_query_k5);
+				while ($row_k5 = mysqli_fetch_assoc($resultado_k5)) {
+					if ($row_k5["vak"] == 1) {
+						$hojaActiva->setCellValue("AV" . (string)$_current_student_start_row, $row_k5["gemiddelde"]);
+					}
+					if ($row_k5["vak"] == 6) {
+						$hojaActiva->setCellValue("AU" . (string)$_current_student_start_row, $row_k5["gemiddelde"]);
+					}
+				}
 			} else {
 				$hojaActiva->setCellValue("AY" . (string)$_current_student_start_row, $opmerking);
 			}
@@ -692,6 +704,9 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 			$cont_huis = 0;
 			$opmerking = "";
 			$_laststudent = 0;
+
+
+
 			$_current_student_start_row++;
 		}
 		$i++;
@@ -3321,7 +3336,7 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 
 
 											default:
-												echo "Error Houding";
+
 												break;
 										}
 
@@ -3347,6 +3362,8 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 				$klas_in = $_GET["rapport_klassen_lijst"];
 				$schooljaar = $_SESSION['SchoolJaar'];
 				$rap_in = $_GET["rapport"];
+				$schooljaar_array = explode("-", $schooljaar);
+				$schooljaar_pasado = $schooljaar_array[0] - 1 . "-" . $schooljaar_array[0];
 				require_once("../classes/spn_utils.php");
 				$u = new spn_utils();
 
@@ -3382,6 +3399,7 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 				ORDER BY v.created";
 					$resultado = mysqli_query($mysqli, $sql_query_verzuim);
 					while ($row1 = mysqli_fetch_assoc($resultado)) {
+						$id = $row1["studentid"];
 						$datum = $u->convertfrommysqldate_new($row1["datum"]);
 						if ($datum >= $fecha1 && $datum <= $fecha2) {
 							if ($row1['telaat'] > 0) {
@@ -3405,6 +3423,56 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 					$hojaActiva->setCellValue("AS" . (string)$_current_student_start_row, $cont_laat);
 					$hojaActiva->setCellValue("AT" . (string)$_current_student_start_row, $cont_verzuim);
 					$hojaActiva->setCellValue("AU" . (string)$_current_student_start_row, $opmerking);
+					if ($level_klas ==  6) {
+						$sql_query_k5 = "SELECT
+						c.gemiddelde,
+						v.volledigenaamvak
+						FROM le_cijfers c
+						INNER JOIN le_vakken v ON c.vak = v.id
+						WHERE
+						c.studentid = $id
+						AND v.SchoolID = $schoolid
+						AND c.schooljaar = '$schooljaar_pasado'
+						AND c.rapnummer = $i
+						AND c.gemiddelde IS NOT NULL  
+						AND v.volledigenaamvak IN ('Hul scucha y mira','Reflexion','Vocabulario','Dictado','PAP Scucha y papia','Tabel','Midi y geometria','Operacion basico y avansa','Nocion di number')";
+						$resultado_k5 = mysqli_query($mysqli, $sql_query_k5);
+						while ($row_k5 = mysqli_fetch_assoc($resultado_k5)) {
+							switch ($row_k5["volledigenaamvak"]) {
+								case "Reflexion":
+									$returnvalue = "CG";
+									break;
+								case "Vocabulario":
+									$returnvalue = "CH";
+									break;
+								case "Dictado":
+									$returnvalue = "CI";
+									break;
+								case "PAP Scucha y papia":
+									$returnvalue = "CJ";
+									break;
+								case "Hul scucha y mira":
+									$returnvalue = "AQ";
+									break;
+								case "Nocion di number":
+									$returnvalue = "CB";
+									break;
+								case "Operacion basico y avansa":
+									$returnvalue = "CC";
+									break;
+								case "Midi y geometria":
+									$returnvalue = "CD";
+									break;
+								case "Tabel":
+									$returnvalue = "CE";
+									break;
+								default:
+									$returnvalue = "XX";
+									break;
+							}
+							$hojaActiva->setCellValue($returnvalue . (string)$_current_student_start_row, $row_k5["gemiddelde"]);
+						}
+					}
 					$cont_laat = 0;
 					$cont_verzuim = 0;
 					$cont_huis = 0;
