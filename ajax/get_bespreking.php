@@ -32,7 +32,7 @@ $i = 1;
         width: 5rem;
     }
 </style>
-<?php if ($level_klas == 4) { ?>
+<?php if ($level_klas == 4 && $_SESSION["SchoolType"] != 1) { ?>
     <label>O=Onvlodoende, V=Voldoende, G=Geslaagd, A=Afgewezen, T=Teruggetrokken</label>
 <?php } ?>
 <table class="table table-bordered table-colored table-houding">
@@ -47,7 +47,7 @@ $i = 1;
                 <th>Over Naar Ciclo</th>
                 <th>Niet Over</th>
             <?php } ?>
-            <?php if ($level_klas != 4) { ?>
+            <?php if ($level_klas != 4 || $_SESSION["SchoolType"] == 1) { ?>
                 <th class="definitiet">Systeem</th>
             <?php } ?>
             <th class="definitiet"><?php if ($level_klas == 6) { ?> Advies <?php } else { ?> Beoordeling <?php } ?></th>
@@ -104,7 +104,7 @@ $i = 1;
                 $cuenta = 0;
                 $last_vak = "";
 
-                if ($level_klas != 4) {
+                if ($level_klas != 4 && $_SESSION["SchoolType"] != 1) {
                     if ($rapport == 4) {
                         $get_cijfers = "SELECT v.volledigenaamvak as vak,ROUND(SUM(c.gemiddelde)/COUNT(c.rapnummer)) as gemiddelde FROM le_cijfers c INNER JOIN le_vakken v ON v.ID = c.vak WHERE v.volgorde > 0 AND c.studentid = '$id' AND c.klas = '$klas' AND c.schooljaar = '$schooljaar' AND c.gemiddelde is not NULL GROUP BY vak ORDER BY c.studentid,vak;";
                     } else {
@@ -152,6 +152,38 @@ $i = 1;
                             }
                         }
                     }
+                } else if ($_SESSION["SchoolType"] == 1) {
+                    $reken = 0;
+                    $lezen = 0;
+                    $lezen_cont = 0;
+                    $neder = 0;
+                    $werel = 0;
+                    $prom = 0;
+                    $sum = 0;
+                    $get_cijfers = "SELECT c.schooljaar,c.vak,c.gemiddelde FROM le_cijfers_ps c WHERE c.studentid = '$id' AND c.rapnummer = $rapport AND c.schooljaar = '$schooljaar' AND c.vak IN (1,2,3,6,7) AND c.gemiddelde is not NULL;";
+                    $result2 = mysqli_query($mysqli, $get_cijfers);
+                    if ($result2->num_rows > 0) {
+                        while ($row3 = mysqli_fetch_assoc($result2)) {
+                            switch ($row3["vak"]) {
+                                case 1:
+                                    $reken = $row3["gemiddelde"];
+                                    break;
+                                case 2:
+                                case 3:
+                                    $lezen += $row3["gemiddelde"];
+                                    $lezen_cont++;
+                                    break;
+                                case 6:
+                                    $neder = $row3["gemiddelde"];
+                                    break;
+                                case 7:
+                                    $werel = $row3["gemiddelde"];
+                                    break;
+                            }
+                        }
+                        $prom = ($reken + ($lezen / $lezen_cont) + $neder + $werel) / 4;
+                        $sum = $reken + ($lezen / $lezen_cont) + $neder;
+                    }
                 }
                 ?>
                 <td><input <?php echo $disabled; ?> type="text" maxlength="180" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ', ' . $rapport . ',' . $i; ?>)" id="opmerking_<?php echo $i; ?>" class="opmerking_input" value="<?php echo $opmerking1; ?>"></td>
@@ -160,12 +192,83 @@ $i = 1;
                     <td class="text-center"><input <?php echo $radio2; ?> type="checkbox" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ', ' . $rapport . ',' . $i; ?>)" id="radio2_<?php echo $i; ?>"></td>
                     <td class="text-center"><input <?php echo $radio3; ?> type="checkbox" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ', ' . $rapport . ',' . $i; ?>)" id="radio3_<?php echo $i; ?>"></td>
                 <?php } ?>
-                <?php if ($level_klas != 4) { ?>
+                <?php if ($level_klas != 4 && $_SESSION["SchoolType"] != 1) { ?>
                     <td class=" text-center">
                         <?php if ($cijfers[$id] < 71 || $cuenta_pri > 2 || ($cuenta + $cuenta_pri) > 3) {
                             echo "<label style='margin: 0;' class='text-danger'>O</label>";
                         } else {
                             echo "<label style='margin: 0;' class='text-primary'>V</label>";
+                        } ?>
+                    </td>
+                <?php } else if ($_SESSION["SchoolType"] == 1) { ?>
+                    <td class=" text-center">
+                        <?php if ($_SESSION["SchoolID"] == 8) {
+                        } else {
+                            $volgorde = 0;
+                            switch ($level_klas) {
+                                case 2:
+                                    if ($reken >= 5 && ($lezen / $lezen_cont) >= 5 && $neder >= 5 && $sum >= 17) {
+                                        $volgorde = 1;
+                                    }
+                                    break;
+                                case 3:
+                                    if ($reken >= 5 && ($lezen / $lezen_cont) >= 5 && $neder >= 5 && $werel >= 5 && $prom >= 5.5 && $sum >= 17) {
+                                        $volgorde = 1;
+                                    }
+                                    break;
+                                case 4:
+                                case 5:
+                                    if ($reken >= 5 && ($lezen / $lezen_cont) >= 5 && $neder >= 5 && $werel >= 5.5 && $prom >= 5.6 && $sum >= 17) {
+                                        $volgorde = 1;
+                                    }
+                                    break;
+                                case 6:
+                                    $rek_pro = 0;
+                                    $rek_cont = 0;
+                                    $ned_pro = 0;
+                                    $ned_cont = 0;
+                                    $schooljaar_array = explode("-", $schooljaar);
+                                    $schooljaar_pasado = $schooljaar_array[0] - 1 . "-" . $schooljaar_array[0];
+                                    $get_cijfers = "SELECT c.vak,c.gemiddelde FROM le_cijfers_ps c WHERE c.studentid = '$id' AND c.schooljaar = '$schooljaar_pasado' AND c.vak IN (1,6) AND c.gemiddelde is not NULL;";
+                                    $result4 = mysqli_query($mysqli, $get_cijfers);
+                                    while ($row4 = mysqli_fetch_assoc($result4)) {
+                                        if ($row4["vak"] == 1) {
+                                            $rek_pro += $row4["gemiddelde"];
+                                            $rek_cont++;
+                                        }
+                                        if ($row4["vak"] == 6) {
+                                            $ned_pro += $row4["gemiddelde"];
+                                            $ned_cont++;
+                                        }
+                                    }
+                                    $rek_pro = $rek_pro / $rek_cont;
+                                    $ned_pro = $ned_pro / $ned_cont;
+                                    $prom = (($rek_pro + $reken) / 2) + (($ned_pro + $neder) / 2);
+                                    if ((($rek_pro + $reken) / 2) >= 7.5 && (($ned_pro + $neder) / 2) >= 7.5 && $werel >= 6) {
+                                        $volgorde = 2;
+                                    } else if (($rek_pro + $reken) / 2 >= 5 && ($ned_pro + $neder) / 2 >= 5 && $werel >= 5.5 && $prom >= 12) {
+                                        $volgorde = 3;
+                                    } else {
+                                        $volgorde = 4;
+                                    }
+                                    break;
+                            }
+                            switch ($volgorde) {
+                                case 1:
+                                    echo "<label style='margin: 0;' class='text-primary'>V</label>";
+                                    break;
+                                case 2:
+                                    echo "<label style='margin: 0;' class='text-primary'>HAVO</label>";
+                                    break;
+                                case 3:
+                                    echo "<label style='margin: 0;' class='text-primary'>MAVO</label>";
+                                    break;
+                                case 4:
+                                    echo "<label style='margin: 0;' class='text-danger'>EPB</label>";
+                                default:
+                                    echo "<label style='margin: 0;' class='text-danger'>O</label>";
+                                    break;
+                            }
                         } ?>
                     </td>
                 <?php } ?>

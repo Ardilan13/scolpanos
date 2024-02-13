@@ -683,7 +683,7 @@ class spn_cijfers
 
               while ($select->fetch()) {
 
-                $htmlcontrol .= "<tr><td>$x</td><td class='sticky'><input class=\"hidden\" studentidarray=\"$studentid\"></input>" . utf8_encode($firstname) . chr(32) . utf8_encode($lastname) . "</td>";
+                $htmlcontrol .= "<tr><td>$x</td><td class='sticky'><input class=\"hidden\" studentidarray=\"$studentid\"></input>" . utf8_encode($lastname) . chr(32) . utf8_encode($firstname) . "</td>";
 
                 for ($y = 1; $y <= 20; $y++) {
                   $htmlcontrol .= "";
