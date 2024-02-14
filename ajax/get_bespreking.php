@@ -37,12 +37,19 @@ $i = 1;
 <?php } ?>
 <table class="table table-bordered table-colored table-houding">
     <input id="level_klas" type="text" hidden value="<?php echo $level_klas; ?>">
+    <input id="schooltype" type="text" hidden value="<?php echo $_SESSION["SchoolType"]; ?>">
     <thead>
         <tr>
             <th>ID</th>
             <th>Naam</th>
             <th class="opmerking">Opmerking</th>
-            <?php if ($rapport == 4 && $level_klas != 4) { ?>
+            <?php if ($rapport == 4 && $_SESSION["SchoolType"] == 1) { ?>
+                <th>Bevorderd</th>
+                <?php if ($level_klas != 6) { ?>
+                    <th>Over wegens leeftijd</th>
+                <?php } ?>
+                <th>Niet bevorderd</th>
+            <?php } else if ($rapport == 4 && $level_klas != 4) { ?>
                 <th>Andere Schooltype</th>
                 <th>Over Naar Ciclo</th>
                 <th>Niet Over</th>
@@ -96,9 +103,9 @@ $i = 1;
                     $radio3 = "";
                 }
 
-                $radio1 = $radio1 == 1 ? "checked" : "";
-                $radio2 = $radio2 == 1 ? "checked" : "";
-                $radio3 = $radio3 == 1 ? "checked" : "";
+                $radio1 = $radio1 == "true" ? "checked" : "";
+                $radio2 = $radio2 == "true" ? "checked" : "";
+                $radio3 = $radio3 == "true" ? "checked" : "";
 
                 $cuenta_pri = 0;
                 $cuenta = 0;
@@ -160,13 +167,26 @@ $i = 1;
                     $werel = 0;
                     $prom = 0;
                     $sum = 0;
-                    $get_cijfers = "SELECT c.schooljaar,c.vak,c.gemiddelde FROM le_cijfers_ps c WHERE c.studentid = '$id' AND c.rapnummer = $rapport AND c.schooljaar = '$schooljaar' AND c.vak IN (1,2,3,6,7) AND c.gemiddelde is not NULL;";
+                    $cont = 0;
+                    $reken_cont = 0;
+                    $neder_cont = 0;
+                    $werel_cont = 0;
+                    if ($rapport == 4) {
+                        $get_cijfers = "SELECT c.schooljaar,c.vak,c.gemiddelde FROM le_cijfers_ps c WHERE c.studentid = '$id' AND c.schooljaar = '$schooljaar' AND c.vak IN (1,2,3,6,7) AND c.gemiddelde is not NULL;";
+                    } else {
+                        $get_cijfers = "SELECT c.schooljaar,c.vak,c.gemiddelde FROM le_cijfers_ps c WHERE c.studentid = '$id' AND c.rapnummer = $rapport AND c.schooljaar = '$schooljaar' AND c.vak IN (1,2,3,6,7) AND c.gemiddelde is not NULL;";
+                    }
                     $result2 = mysqli_query($mysqli, $get_cijfers);
                     if ($result2->num_rows > 0) {
                         while ($row3 = mysqli_fetch_assoc($result2)) {
                             switch ($row3["vak"]) {
                                 case 1:
-                                    $reken = $row3["gemiddelde"];
+                                    if ($rapport == 4) {
+                                        $reken += $row3["gemiddelde"];
+                                        $reken_cont++;
+                                    } else {
+                                        $reken = $row3["gemiddelde"];
+                                    }
                                     break;
                                 case 2:
                                 case 3:
@@ -174,23 +194,44 @@ $i = 1;
                                     $lezen_cont++;
                                     break;
                                 case 6:
-                                    $neder = $row3["gemiddelde"];
+                                    if ($rapport == 4) {
+                                        $neder += $row3["gemiddelde"];
+                                        $neder_cont++;
+                                    } else {
+                                        $neder = $row3["gemiddelde"];
+                                    }
                                     break;
                                 case 7:
-                                    $werel = $row3["gemiddelde"];
+                                    if ($rapport == 4) {
+                                        $werel += $row3["gemiddelde"];
+                                        $werel_cont++;
+                                    } else {
+                                        $werel = $row3["gemiddelde"];
+                                    }
                                     break;
                             }
+                            $cont++;
                         }
-                        $prom = ($reken + ($lezen / $lezen_cont) + $neder + $werel) / 4;
-                        $sum = $reken + ($lezen / $lezen_cont) + $neder;
+                        if ($rapport == 4) {
+                            if ($reken_cont > 0)
+                                $reken = round($reken / $reken_cont, 1);
+                            if ($neder_cont > 0)
+                                $neder = round($neder / $neder_cont, 1);
+                            if ($werel_cont > 0)
+                                $werel = round($werel / $werel_cont, 1);
+                        }
+                        $prom = round(($reken + ($lezen / $lezen_cont) + $neder + $werel) / 4, 1);
+                        $sum = round($reken + ($lezen / $lezen_cont) + $neder, 1);
                     }
                 }
                 ?>
-                <td><input <?php echo $disabled; ?> type="text" maxlength="180" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ', ' . $rapport . ',' . $i; ?>)" id="opmerking_<?php echo $i; ?>" class="opmerking_input" value="<?php echo $opmerking1; ?>"></td>
-                <?php if ($rapport == 4 && $level_klas != 4) { ?>
-                    <td class="text-center"><input <?php echo $radio1; ?> type="checkbox" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ', ' . $rapport . ',' . $i; ?>)" id="radio1_<?php echo $i; ?>"></td>
-                    <td class="text-center"><input <?php echo $radio2; ?> type="checkbox" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ', ' . $rapport . ',' . $i; ?>)" id="radio2_<?php echo $i; ?>"></td>
-                    <td class="text-center"><input <?php echo $radio3; ?> type="checkbox" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ', ' . $rapport . ',' . $i; ?>)" id="radio3_<?php echo $i; ?>"></td>
+                <td><input <?php echo $disabled; ?> type="text" maxlength="180" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ',' . $rapport . ',' . $i; ?>)" id="opmerking_<?php echo $i; ?>" class="opmerking_input" value="<?php echo $opmerking1; ?>"></td>
+                <?php if ($rapport == 4 && $level_klas != 4 || ($_SESSION["SchoolType"] == 1 && $rapport == 4)) { ?>
+                    <td class="text-center"><input <?php echo $radio1; ?> type="checkbox" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ',' . $rapport . ',' . $i; ?>)" id="radio1_<?php echo $i; ?>"></td>
+                    <?php if ($_SESSION["SchoolType"] == 1 && $level_klas != 6) { ?>
+                        <td class="text-center"><input <?php echo $radio2; ?> type="checkbox" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ',' . $rapport . ',' . $i; ?>)" id="radio2_<?php echo $i; ?>"></td>
+                    <?php } ?>
+                    <td class="text-center"><input <?php echo $radio3; ?> type="checkbox" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ',' . $rapport . ',' . $i; ?>)" id="radio3_<?php echo $i; ?>"></td>
                 <?php } ?>
                 <?php if ($level_klas != 4 && $_SESSION["SchoolType"] != 1) { ?>
                     <td class=" text-center">
@@ -261,18 +302,19 @@ $i = 1;
                                     echo "<label style='margin: 0;' class='text-primary'>HAVO</label>";
                                     break;
                                 case 3:
-                                    echo "<label style='margin: 0;' class='text-primary'>MAVO</label>";
+                                    echo "<label style='margin: 0; color: #36d339;'>MAVO</label>";
                                     break;
                                 case 4:
                                     echo "<label style='margin: 0;' class='text-danger'>EPB</label>";
-                                default:
+                                    break;
+                                case 0:
                                     echo "<label style='margin: 0;' class='text-danger'>O</label>";
                                     break;
                             }
                         } ?>
                     </td>
                 <?php } ?>
-                <td><input <?php echo $disabled; ?> type="text" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ', ' . $rapport . ',' . $i; ?>)" id="definitiet_<?php echo $i; ?>" class="definitiet_input" value="<?php echo strtoupper($opmerking3); ?>"></td>
+                <td><input <?php echo $disabled; ?> type="text" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ',' . $rapport . ',' . $i; ?>)" id="definitiet_<?php echo $i; ?>" class="definitiet_input" value="<?php echo strtoupper($opmerking3); ?>"></td>
             </tr>
         <?php $i++;
         }
@@ -282,6 +324,7 @@ $i = 1;
 <script>
     function savebespreking(schooljaar, klas, student, rap, i) {
         var level_klas = document.getElementById("level_klas").value;
+        var schooltype = document.getElementById("schooltype").value;
         var definitiet = document.getElementById("definitiet_" + i).value.toUpperCase();
         var radio1 = null;
         var radio2 = null;
@@ -289,9 +332,11 @@ $i = 1;
         var opmerking = document.getElementById("opmerking_" + i).value;
 
 
-        if (rap == 4 && level_klas != 4) {
+        if (rap == 4 && level_klas != 4 || schooltype == 1) {
             radio1 = document.getElementById("radio1_" + i).checked;
-            radio2 = document.getElementById("radio2_" + i).checked;
+            if (schooltype != 1 || level_klas != 6) {
+                radio2 = document.getElementById("radio2_" + i).checked;
+            }
             radio3 = document.getElementById("radio3_" + i).checked;
         }
 

@@ -643,7 +643,7 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 
 			$_while_counter++;
 		}
-		$sql_query_student = "SELECT id from students s where s.class = '$klas_in' and s.schoolid = $schoolid ORDER BY";
+		$sql_query_student = "SELECT id,dob from students s where s.class = '$klas_in' and s.schoolid = $schoolid ORDER BY";
 
 		$sql_order = " s.lastname , s.firstname";
 		if ($s->_setting_mj) {
@@ -676,7 +676,7 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 			//opmerking
 			$opmerking = "";
 			$filter_opmerking = "op.opmerking" . $i;
-			$sql_query_opmerking = "SELECT $filter_opmerking as opmerking FROM opmerking op WHERE op.studentid = $id AND op.schooljaar = '$schooljaar' LIMIT 1";
+			$sql_query_opmerking = "SELECT $filter_opmerking as opmerking FROM opmerking op WHERE op.studentid = $id AND op.schooljaar = '$schooljaar' and op.rapport = $i LIMIT 1";
 			$resultado2 = mysqli_query($mysqli, $sql_query_opmerking);
 			if ($row2 = mysqli_fetch_assoc($resultado2)) {
 				$opmerking = $row2["opmerking"];
@@ -693,6 +693,11 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 				$sql_query_k5 = "SELECT vak,gemiddelde FROM le_cijfers_ps WHERE studentid = $id AND schooljaar = '$schooljaar_pasado' AND school_id = $schoolid AND vak IN (1,6)";
 				$resultado_k5 = mysqli_query($mysqli, $sql_query_k5);
 				if ($i == 1) {
+					$spreadsheet->setActiveSheetIndex(3);
+					$hojaActiva = $spreadsheet->getActiveSheet();
+					$hojaActiva->setCellValue("AW" . (string)$_current_student_start_row, $u->convertfrommysqldate($row["dob"]));
+					$spreadsheet->setActiveSheetIndex(0);
+					$hojaActiva = $spreadsheet->getActiveSheet();
 					while ($row_k5 = mysqli_fetch_assoc($resultado_k5)) {
 						if ($row_k5["vak"] == 1) {
 							$rek_pro += $row_k5["gemiddelde"];
@@ -3379,7 +3384,7 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 				require_once("../classes/spn_utils.php");
 				$u = new spn_utils();
 
-				$sql_query_student = "SELECT id from students s where s.class = '$klas_in' and schoolid = $schoolid ORDER BY";
+				$sql_query_student = "SELECT id,dob from students s where s.class = '$klas_in' and schoolid = $schoolid ORDER BY";
 
 				$sql_order = " s.lastname " . $s->_setting_sort . ", s.firstname";
 				if ($s->_setting_mj) {
@@ -3449,6 +3454,11 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 						AND v.volledigenaamvak IN ('Hul scucha y mira','Reflexion','Vocabulario','Dictado','PAP Scucha y papia','Tabel','Midi y geometria','Operacion basico y avansa','Nocion di number')";
 						$resultado_k5 = mysqli_query($mysqli, $sql_query_k5);
 						if ($i == 1) {
+							$spreadsheet->setActiveSheetIndex(3);
+							$hojaActiva = $spreadsheet->getActiveSheet();
+							$hojaActiva->setCellValue("AO" . (string)$_current_student_start_row, $u->convertfrommysqldate($row["dob"]));
+							$spreadsheet->setActiveSheetIndex(0);
+							$hojaActiva = $spreadsheet->getActiveSheet();
 							while ($row_k5 = mysqli_fetch_assoc($resultado_k5)) {
 								switch ($row_k5["volledigenaamvak"]) {
 									case "Reflexion":
