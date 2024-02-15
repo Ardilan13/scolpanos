@@ -715,6 +715,36 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 				}
 			} else {
 				$hojaActiva->setCellValue("AY" . (string)$_current_student_start_row, $opmerking);
+				if ($i == 1) {
+					$spreadsheet->setActiveSheetIndex(3);
+					$hojaActiva = $spreadsheet->getActiveSheet();
+					switch ($level_klas) {
+						case 2:
+							$op1 = "AU";
+							$op2 = "AR";
+							$advies = "AS";
+							$ciclo = "AT";
+							break;
+						case 3:
+						case 4:
+							$op1 = "AV";
+							$op2 = "AS";
+							$advies = "AT";
+							$ciclo = "AU";
+							break;
+					}
+					$get_bespreking = "SELECT opmerking1,opmerking2,advies,ciclo FROM opmerking WHERE studentid = $id AND schooljaar = '$schooljaar' AND rapport = 4 LIMIT 1";
+					$result_bespreking = mysqli_query($mysqli, $get_bespreking);
+					while ($row_bespreking = mysqli_fetch_assoc($result_bespreking)) {
+						$hojaActiva->setCellValue($op1 . (string)$_current_student_start_row, $row_bespreking["opmerking1"]);
+						$hojaActiva->setCellValue($op2 . (string)$_current_student_start_row, $row_bespreking["opmerking2"] == "true" ? "X" : "");
+						$hojaActiva->setCellValue($advies . (string)$_current_student_start_row, $row_bespreking["advies"] == "true" ? "X" : "");
+						$hojaActiva->setCellValue($ciclo . (string)$_current_student_start_row, $row_bespreking["ciclo"] == "true" ? "X" : "");
+					}
+
+					$spreadsheet->setActiveSheetIndex(0);
+					$hojaActiva = $spreadsheet->getActiveSheet();
+				}
 			}
 			$cont_laat = 0;
 			$cont_verzuim = 0;
