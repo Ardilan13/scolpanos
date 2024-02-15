@@ -356,6 +356,70 @@ class spn_opmerking
       return $htmlcontrol;
     }
   }
+
+  function liststudentbyschooljaar($class, $schoolid, $schooltype, $schooljaar)
+  {
+    $returnvalue = "";
+    $sql_query = "";
+    $htmlcontrol = "";
+    $schooljaar_array = explode("-", $schooljaar);
+    $schooljaar_pasado = $schooljaar_array[0];
+    if ($schooltype == 1 && $schooljaar_pasado > "2021") {
+      $sql_query = "CALL sp_read_studentbyschooljaar_ps (?,?,?)";
+    } else {
+      $sql_query = "CALL sp_read_studentbyschooljaar (?,?,?)";
+    }
+
+    $result = 0;
+    mysqli_report(MYSQLI_REPORT_STRICT);
+    require_once("spn_utils.php");
+    $utils = new spn_utils();
+    try {
+      require_once("DBCreds.php");
+      $DBCreds = new DBCreds();
+      $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
+      $mysqli->set_charset('utf8');
+
+      if ($stmt = $mysqli->prepare($sql_query)) {
+        if ($stmt->bind_param("sis", $class, $schoolid, $schooljaar)) {
+          if ($stmt->execute()) {
+            $this->error = false;
+            $result = 1;
+            $stmt->bind_result($id_student, $id_family, $student_name);
+            $stmt->store_result();
+
+            if ($stmt->num_rows > 0) {
+              $htmlcontrol .= "<option value='all' id=\"all\"selected>All</option>";
+              while ($stmt->fetch()) {
+                if ($id_family != null && $id_family != 0 && $id_family != "") {
+                  $htmlcontrol .= "<option family=" . htmlentities($id_family) . " value=" . htmlentities($id_student) . ">" . htmlentities($student_name) . "</option>";
+                } else {
+                  $htmlcontrol .= "<option value=" . htmlentities($id_student) . ">" . htmlentities($student_name) . "</option>";
+                }
+              }
+            } else {
+              $htmlcontrol .= "<option>No results to show</option>";
+            }
+          } else {
+            $result = 0;
+            $this->mysqlierror = $mysqli->error;
+            $this->mysqlierrornumber = $mysqli->errno;
+          }
+        } else {
+          $result = 0;
+          $this->mysqlierror = $mysqli->error;
+          $this->mysqlierrornumber = $mysqli->errno;
+        }
+      } else {
+        $result = 0;
+        $this->mysqlierror = $mysqli->error;
+        $this->mysqlierrornumber = $mysqli->errno;
+      }
+    } catch (Exception $e) {
+      $result = -2;
+    }
+    return $htmlcontrol;
+  }
   function print_opmerking($SchoolJaar, $id_student, $SchoolID, $klas)
   {
     require_once("spn_utils.php");

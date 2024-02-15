@@ -9,5 +9,11 @@ if (session_status() == PHP_SESSION_NONE)
 
 $class = $_POST["class"];
 $SchoolID = $_SESSION["SchoolID"];
+$schooltype = $_SESSION["SchoolType"];
+$schooljaar = $_POST["schooljaar"];
 
-echo  $a->liststudentbyclass($class, $SchoolID, 1, appconfig::GetDummy());
+if ($schooljaar != null) {
+    echo $a->liststudentbyschooljaar($class, $SchoolID, $schooltype, $schooljaar);
+} else {
+    echo  $a->liststudentbyclass($class, $SchoolID, 1, appconfig::GetDummy());
+}

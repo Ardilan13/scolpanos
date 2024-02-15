@@ -114,6 +114,18 @@
 				$("#opmerking_student_name").html(data);
 			});
 	});
+	$("#schooljaar_rapport").change(function() {
+		var varCClass = $("#rapport_klassen_lijst option:selected").val();
+		var varSchooljaar = $("#schooljaar_rapport option:selected").val();
+		$.post("ajax/getstudentrap.php", {
+				class: varCClass,
+				schooljaar: varSchooljaar
+			},
+			function(data) {
+				console.log(data);
+				$("#opmerking_student_name").html(data);
+			});
+	});
 	$(document).ready(function(e) {
 		setTimeout(function() {
 			var varCClass = $("#rapport_klassen_lijst option:selected").val();

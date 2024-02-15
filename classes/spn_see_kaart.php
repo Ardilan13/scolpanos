@@ -1092,7 +1092,7 @@ class spn_see_kaart
       $DBCreds = new DBCreds();
       $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
       if ($_SESSION["SchoolType"] == 1) {
-        $sql_query = "SELECT avg($houding_in) FROM le_houding where klas = '$klas_in' and studentid = $studentid_out and schooljaar = '$schooljaar' and rapnummer = $rap_in";
+        $sql_query = "SELECT avg($houding_in) FROM le_houding where studentid = $studentid_out and schooljaar = '$schooljaar' and rapnummer = $rap_in LIMIT 1";
       } else if ($rap_in == 4) {
         $sql_query = "SELECT avg(coalesce($houding_in,4))  FROM le_houding_hs where klas = '$klas_in' and studentid = $studentid_out and schooljaar = '$schooljaar'";
       } else {

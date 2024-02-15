@@ -310,7 +310,7 @@ foreach ($array_leerling as $item) {
   } else {
     $page_html .= "<td width='40%' height='50'><b>Klas: </b></td>";
   }
-  $page_html .= "<td><b><i>" . $item["klas"] . "</i></b>";
+  $page_html .= "<td><b><i>" . $_GET["klas"] . "</i></b>";
   $page_html .= "</td>";
   $page_html .= "</tr>";
   $page_html .= "<tr>";
