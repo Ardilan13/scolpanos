@@ -282,13 +282,17 @@ $i = 1;
                                             $ned_cont++;
                                         }
                                     }
-                                    $rek_pro = $rek_pro / $rek_cont;
-                                    $ned_pro = $ned_pro / $ned_cont;
+                                    if ($rek_cont > 0)
+                                        $rek_pro = $rek_pro / $rek_cont;
+                                    if ($ned_cont > 0)
+                                        $ned_pro = $ned_pro / $ned_cont;
                                     $prom = (($rek_pro + $reken) / 2) + (($ned_pro + $neder) / 2);
                                     if ((($rek_pro + $reken) / 2) >= 7.5 && (($ned_pro + $neder) / 2) >= 7.5 && $werel >= 6) {
                                         $volgorde = 2;
                                     } else if (($rek_pro + $reken) / 2 >= 5 && ($ned_pro + $neder) / 2 >= 5 && $werel >= 5.5 && $prom >= 12) {
                                         $volgorde = 3;
+                                    } else if ($rek_pro <= 0 || $ned_pro <= 0) {
+                                        $volgorde = 5;
                                     } else {
                                         $volgorde = 4;
                                     }
@@ -306,6 +310,9 @@ $i = 1;
                                     break;
                                 case 4:
                                     echo "<label style='margin: 0;' class='text-danger'>EPB</label>";
+                                    break;
+                                case 5:
+                                    echo "<label style='margin: 0;' class='text-danger'></label>";
                                     break;
                                 case 0:
                                     echo "<label style='margin: 0;' class='text-danger'>O</label>";

@@ -122,11 +122,11 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 		AND s.status = 1
 		ORDER BY";
 		$sql_order = " s.lastname , s.firstname";
-		if ($s->_setting_mj) {
-			$sql_query .= " s.sex " . $s->_setting_sort . ", " . $sql_order;
-		} else {
-			$sql_query .=  $sql_order;
-		}
+		// if ($s->_setting_mj) {
+		// 	$sql_query .= " s.sex " . $s->_setting_sort . ", " . $sql_order;
+		// } else {
+		$sql_query .=  $sql_order;
+		// }
 		switch ($i) {
 			case 1:
 				$spreadsheet->setActiveSheetIndex(0);
@@ -241,11 +241,11 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 		AND s.class = '$klas_in'
 		ORDER BY";
 		$sql_order = " s.lastname , s.firstname";
-		if ($s->_setting_mj) {
-			$sql_query_houding .= " s.sex " . $s->_setting_sort . ", " . $sql_order;
-		} else {
-			$sql_query_houding .=  $sql_order;
-		}
+		// if ($s->_setting_mj) {
+		// 	$sql_query_houding .= " s.sex " . $s->_setting_sort . ", " . $sql_order;
+		// } else {
+		$sql_query_houding .=  $sql_order;
+		// }
 		$_while_counter = 0;
 		$_current_student_start_row = 4;
 		$_laststudent = 0;
@@ -646,11 +646,11 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 		$sql_query_student = "SELECT id,dob from students s where s.class = '$klas_in' and s.schoolid = $schoolid ORDER BY";
 
 		$sql_order = " s.lastname , s.firstname";
-		if ($s->_setting_mj) {
-			$sql_query_student .= " s.sex " . $s->_setting_sort . ", " . $sql_order;
-		} else {
-			$sql_query_student .=  $sql_order;
-		}
+		// if ($s->_setting_mj) {
+		// 	$sql_query_student .= " s.sex " . $s->_setting_sort . ", " . $sql_order;
+		// } else {
+		$sql_query_student .=  $sql_order;
+		// }
 
 		$_current_student_start_row = 4;
 		$cont_laat = 0;
