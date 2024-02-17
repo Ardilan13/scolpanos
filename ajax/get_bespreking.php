@@ -339,7 +339,7 @@ $i = 1;
         var opmerking = document.getElementById("opmerking_" + i).value;
 
 
-        if (rap == 4 && level_klas != 4 || schooltype == 1) {
+        if (rap == 4 && level_klas != 4 || schooltype == 1 && rap == 4) {
             radio1 = document.getElementById("radio1_" + i).checked;
             if (schooltype != 1 || level_klas != 6) {
                 radio2 = document.getElementById("radio2_" + i).checked;

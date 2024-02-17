@@ -149,17 +149,121 @@ foreach ($array_leerling as $item) {
   $advies = null;
   $student = $item['studentid'];
   $schooljaar = $_GET["schoolJaar"];
-  $query = "SELECT opmerking1, opmerking2, opmerking3, advies FROM opmerking WHERE klas = '$klas' AND SchoolID = $schoolId AND studentid = $student AND schooljaar = '$schooljaar'";
-  $resultado = mysqli_query($mysqli, $query);
-  if ($resultado->num_rows > 0) {
-    while ($row = mysqli_fetch_assoc($resultado)) {
-      $opmerking1 = $row["opmerking1"];
-      $opmerking2 = $row["opmerking2"];
-      $opmerking3 = $row["opmerking3"];
-      $advies = $row["advies"];
+  $rapport = $_GET['rap'];
+  for ($i = 1; $i <= $rapport; $i++) {
+    $op = "opmerking" . $i;
+    $radio1 = false;
+    $radio2 = false;
+    $radio3 = false;
+    if ($_SESSION["SchoolType"] == 1) {
+      $query = "SELECT opmerking1,advies FROM opmerking WHERE klas = '$klas' AND SchoolID = $schoolId AND studentid = $student AND schooljaar = '$schooljaar' AND rapport = $i LIMIT 1";
+      $resultado = mysqli_query($mysqli, $query);
+      if ($resultado->num_rows > 0) {
+        while ($row = mysqli_fetch_assoc($resultado)) {
+          $$op = $row["opmerking1"];
+        }
+      }
+      if ($i == 1) {
+        $query = "SELECT opmerking2,opmerking3,advies,ciclo FROM opmerking WHERE klas = '$klas' AND SchoolID = $schoolId AND studentid = $student AND schooljaar = '$schooljaar' AND rapport = 4 LIMIT 1";
+        $resultado = mysqli_query($mysqli, $query);
+        if ($resultado->num_rows > 0) {
+          while ($row = mysqli_fetch_assoc($resultado)) {
+            $radio1 = $row["opmerking2"];
+            $radio2 = $row["advies"];
+            $radio3 = $row["ciclo"];
+          }
+        }
+      }
+
+
+      $reken = 0;
+      $lezen = 0;
+      $lezen_cont = 0;
+      $neder = 0;
+      $werel = 0;
+      $prom = 0;
+      $sum = 0;
+      $get_cijfers = "SELECT c.schooljaar,c.vak,c.gemiddelde FROM le_cijfers_ps c WHERE c.studentid = '$student' AND c.rapnummer = $i AND c.schooljaar = '$schooljaar' AND c.vak IN (1,2,3,6,7) AND c.gemiddelde is not NULL;";
+      $result2 = mysqli_query($mysqli, $get_cijfers);
+      if ($result2->num_rows > 0) {
+        while ($row3 = mysqli_fetch_assoc($result2)) {
+          switch ($row3["vak"]) {
+            case 1:
+              $reken = $row3["gemiddelde"];
+              break;
+            case 2:
+            case 3:
+              $lezen += $row3["gemiddelde"];
+              $lezen_cont++;
+              break;
+            case 6:
+              $neder = $row3["gemiddelde"];
+              break;
+            case 7:
+              $werel = $row3["gemiddelde"];
+              break;
+          }
+        }
+        $prom = round(($reken + ($lezen / $lezen_cont) + $neder + $werel) / 4, 1);
+        $sum = round($reken + ($lezen / $lezen_cont) + $neder, 1);
+
+        $volgorde = array();
+        $volgorde[$i] = 0;
+        switch ($level_klas) {
+          case 2:
+            if ($reken >= 5 && ($lezen / $lezen_cont) >= 5 && $neder >= 5 && $sum >= 17) {
+              $volgorde[$i] = 1;
+            }
+            break;
+          case 3:
+            if ($reken >= 5 && ($lezen / $lezen_cont) >= 5 && $neder >= 5 && $werel >= 5 && $prom >= 5.5 && $sum >= 17) {
+              $volgorde[$i] = 1;
+            }
+            break;
+          case 4:
+          case 5:
+            if ($reken >= 5 && ($lezen / $lezen_cont) >= 5 && $neder >= 5 && $werel >= 5.5 && $prom >= 5.6 && $sum >= 17) {
+              $volgorde[$i] = 1;
+            }
+            break;
+          case 6:
+            $rek_pro = 0;
+            $rek_cont = 0;
+            $ned_pro = 0;
+            $ned_cont = 0;
+            $schooljaar_array = explode("-", $schooljaar);
+            $schooljaar_pasado = $schooljaar_array[0] - 1 . "-" . $schooljaar_array[0];
+            $get_cijfers = "SELECT c.vak,c.gemiddelde FROM le_cijfers_ps c WHERE c.studentid = '$student' AND c.schooljaar = '$schooljaar_pasado' AND c.vak IN (1,6) AND c.gemiddelde is not NULL;";
+            $result4 = mysqli_query($mysqli, $get_cijfers);
+            while ($row4 = mysqli_fetch_assoc($result4)) {
+              if ($row4["vak"] == 1) {
+                $rek_pro += $row4["gemiddelde"];
+                $rek_cont++;
+              }
+              if ($row4["vak"] == 6) {
+                $ned_pro += $row4["gemiddelde"];
+                $ned_cont++;
+              }
+            }
+            if ($rek_cont > 0)
+              $rek_pro = $rek_pro / $rek_cont;
+            if ($ned_cont > 0)
+              $ned_pro = $ned_pro / $ned_cont;
+            $prom = (($rek_pro + $reken) / 2) + (($ned_pro + $neder) / 2);
+            if ((($rek_pro + $reken) / 2) >= 7.5 && (($ned_pro + $neder) / 2) >= 7.5 && $werel >= 6) {
+              $volgorde[$i] = 2;
+            } else if (($rek_pro + $reken) / 2 >= 5 && ($ned_pro + $neder) / 2 >= 5 && $werel >= 5.5 && $prom >= 12) {
+              $volgorde[$i] = 3;
+            } else if ($rek_pro <= 0 || $ned_pro <= 0) {
+              $volgorde[$i] = 5;
+            } else {
+              $volgorde[$i] = 4;
+            }
+            break;
+        }
+      }
     }
   }
-
 
   switch (substr($item["profiel"], 0, 2)) {
     case 'MM':
@@ -200,7 +304,32 @@ foreach ($array_leerling as $item) {
 
     if ($_SESSION["SchoolID"] != 18) {
       $page_html .= "<label style='margin-right: 20px;'>R1</label>";
-      $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking1) . "</textarea>";
+      if ($level_klas != 6) {
+        $page_html .= "<div>";
+        $page_html .= "<div class='row' style='justify-content: space-evenly;'>";
+        $page_html .= "<div>";
+        $page_html .= "<input type='radio' " . ($advies1 === "V" || $volgorde[1] == 1 ? "checked" : "") . " style='margin-right: 5px;'><label>Voldoende</label>";
+        $page_html .= "</div>";
+        $page_html .= "<div>";
+        $page_html .= "<input type='radio' " . ($advies1 !== "V" && $volgorde[1] == 0 ? "checked" : "") . "  style='margin-right: 5px;'><label>Onvoldoende</label>";
+        $page_html .= "</div>";
+        $page_html .= "</div>";
+        $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking1) . "</textarea></div>";
+      } else {
+        $page_html .= "<div>";
+        $page_html .= "<div class='row' style='justify-content: space-evenly;'>";
+        $page_html .= "<div>";
+        $page_html .= "<input type='radio' " . ($advies1 === "HAVO" || $volgorde[1] == 2 ? "checked" : "") . " style='margin-right: 5px;'><label>HAVO</label>";
+        $page_html .= "</div>";
+        $page_html .= "<div>";
+        $page_html .= "<input type='radio' " . ($advies1 === "MAVO" || $volgorde[1] == 3 ? "checked" : "") . "  style='margin-right: 5px;'><label>MAVO</label>";
+        $page_html .= "</div>";
+        $page_html .= "<div>";
+        $page_html .= "<input type='radio' " . ($advies1 === "EPB" || $volgorde[1] == 4 ? "checked" : "") . "  style='margin-right: 5px;'><label>EPB</label>";
+        $page_html .= "</div>";
+        $page_html .= "</div>";
+        $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking1) . "</textarea></div>";
+      }
     } else {
       $page_html .= "<label style=' max-width: 100px;'>Comentario Rapport 1</label>";
       $page_html .= "<div style='display: flex; flex-direction: column;'><div><input type='radio'><label style='margin-right: 15px; margin-left:10px;'>Suficiente</label>";
@@ -213,7 +342,32 @@ foreach ($array_leerling as $item) {
 
     if ($_SESSION["SchoolID"] != 18) {
       $page_html .= "<label style='margin-right: 20px;'>R2</label>";
-      $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking2) . "</textarea>";
+      if ($level_klas != 6) {
+        $page_html .= "<div>";
+        $page_html .= "<div class='row' style='justify-content: space-evenly;'>";
+        $page_html .= "<div>";
+        $page_html .= "<input type='radio' " . ($advies2 === "V" || $volgorde[2] == 1 && $_GET["rap"] >= 2 ? "checked" : "") . " style='margin-right: 5px;'><label>Voldoende</label>";
+        $page_html .= "</div>";
+        $page_html .= "<div>";
+        $page_html .= "<input type='radio' " . ($advies2 !== "V" && $volgorde[2] == 0 && $_GET["rap"] >= 2 ? "checked" : "") . "  style='margin-right: 5px;'><label>Onvoldoende</label>";
+        $page_html .= "</div>";
+        $page_html .= "</div>";
+        $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking2) . "</textarea></div>";
+      } else {
+        $page_html .= "<div>";
+        $page_html .= "<div class='row' style='justify-content: space-evenly;'>";
+        $page_html .= "<div>";
+        $page_html .= "<input type='radio' " . ($advies2 === "HAVO" || $volgorde[2] == 2 && $_GET["rap"] >= 2 ? "checked" : "") . " style='margin-right: 5px;'><label>HAVO</label>";
+        $page_html .= "</div>";
+        $page_html .= "<div>";
+        $page_html .= "<input type='radio' " . ($advies2 === "MAVO" || $volgorde[2] == 3 && $_GET["rap"] >= 2 ? "checked" : "") . "  style='margin-right: 5px;'><label>MAVO</label>";
+        $page_html .= "</div>";
+        $page_html .= "<div>";
+        $page_html .= "<input type='radio' " . ($advies2 === "EPB" || $volgorde[2] == 4 && $_GET["rap"] >= 2 ? "checked" : "") . "  style='margin-right: 5px;'><label>EPB</label>";
+        $page_html .= "</div>";
+        $page_html .= "</div>";
+        $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking2) . "</textarea></div>";
+      }
     } else {
       $page_html .= "<label style=' max-width: 100px;'>Comentario Rapport 2</label>";
       $page_html .= "<div style='display: flex; flex-direction: column;'><div><input type='radio'><label style='margin-right: 15px; margin-left:10px;'>Suficiente</label>";
@@ -226,7 +380,32 @@ foreach ($array_leerling as $item) {
 
     if ($_SESSION["SchoolID"] != 18) {
       $page_html .= "<label style='margin-right: 20px;'>R3</label>";
-      $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking3) . "</textarea>";
+      if ($level_klas != 6) {
+        $page_html .= "<div>";
+        $page_html .= "<div class='row' style='justify-content: space-evenly;'>";
+        $page_html .= "<div>";
+        $page_html .= "<input type='radio' " . ($advies3 === "V" || $volgorde[3] == 1 && $_GET["rap"] >= 3 ? "checked" : "") . " style='margin-right: 5px;'><label>Voldoende</label>";
+        $page_html .= "</div>";
+        $page_html .= "<div>";
+        $page_html .= "<input type='radio' " . ($advies3 !== "V" && $volgorde[3] == 0 && $_GET["rap"] >= 3 ? "checked" : "") . "  style='margin-right: 5px;'><label>Onvoldoende</label>";
+        $page_html .= "</div>";
+        $page_html .= "</div>";
+        $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking3) . "</textarea></div>";
+      } else {
+        $page_html .= "<div>";
+        $page_html .= "<div class='row' style='justify-content: space-evenly;'>";
+        $page_html .= "<div>";
+        $page_html .= "<input type='radio' " . ($advies3 === "HAVO" || $volgorde[3] == 2  && $_GET["rap"] >= 3 ? "checked" : "") . " style='margin-right: 5px;'><label>HAVO</label>";
+        $page_html .= "</div>";
+        $page_html .= "<div>";
+        $page_html .= "<input type='radio' " . ($advies3 === "MAVO" || $volgorde[3] == 3 && $_GET["rap"] >= 3 ? "checked" : "") . "  style='margin-right: 5px;'><label>MAVO</label>";
+        $page_html .= "</div>";
+        $page_html .= "<div>";
+        $page_html .= "<input type='radio' " . ($advies3 === "EPB" || $volgorde[3] == 4 && $_GET["rap"] >= 3 ? "checked" : "") . "  style='margin-right: 5px;'><label>EPB</label>";
+        $page_html .= "</div>";
+        $page_html .= "</div>";
+        $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking3) . "</textarea></div>";
+      }
     } else {
       $page_html .= "<label style=' max-width: 100px;'>Comentario Rapport 3</label>";
       $page_html .= "<div style='display: flex; flex-direction: column;'><div><input type='radio'><label style='margin-right: 15px; margin-left:10px;'>Suficiente</label>";
@@ -7544,24 +7723,26 @@ if($avg_h == 0.0){$avg_h = null;}
     $klas_next = substr($klas, 0, 1);
     $klas_next = (int)$klas_next + 1;
     $klas_next = $klas_next > 6 ? null : $klas_next;
-    if ($advies == '0') {
-      if ($klas_next != null) {
-        $page_html .= "<b><p style='margin: .5rem !important; text-align: center; font-size: 14px;'>Bevorderd naar klas " . $klas_next . "</p></b>";
-      } else {
-        $page_html .= "<b><p style='margin: .5rem !important; text-align: center; font-size: 14px;'>Gaat naar het voortgezet onderwijs</p></b>";
-      }
-    } else if ($advies == '1') {
-      $page_html .= "<b><p style='margin: .5rem !important; text-align: center; font-size: 14px;'>Over wegens leeftijd naar klas " . $klas_next . ".</p></b>";
-    } else if ($advies == '2') {
-      $page_html .= "<b><p style='margin: .5rem !important; text-align: center; font-size: 14px;'>Niet bevorderd.</p></b>";
-    } else if ($advies == null || $advies == '') {
-      $page_html .= "<p style='margin-bottom: .5rem !important;'>Ο Bevorderd naar klas: ..............................................................</p>";
-      $page_html .= "<p style='margin-bottom: .5rem !important;'>Ο Over wegens leeftijd naar klas: ...............................................</p>";
-      $page_html .= "<p style='margin-bottom: .5rem !important;'>Ο Niet bevorderd: ..............................................................</p>";
-      $page_html .= "<p style='margin-bottom: .5rem !important;'>Ο Verwezen naar: ..............................................................</p>";
-    } else {
-      $page_html .= "<b><p style='margin: .5rem !important; text-align: center; font-size: 14px;'>Verwezen naar " . utf8_decode($advies) . "</p></b>";
+    // if ($advies == '0') {
+    //   if ($klas_next != null) {
+    //     $page_html .= "<b><p style='margin: .5rem !important; text-align: center; font-size: 14px;'>Bevorderd naar klas " . $klas_next . "</p></b>";
+    //   } else {
+    //     $page_html .= "<b><p style='margin: .5rem !important; text-align: center; font-size: 14px;'>Gaat naar het voortgezet onderwijs</p></b>";
+    //   }
+    // } else if ($advies == '1') {
+    //   $page_html .= "<b><p style='margin: .5rem !important; text-align: center; font-size: 14px;'>Over wegens leeftijd naar klas " . $klas_next . ".</p></b>";
+    // } else if ($advies == '2') {
+    //   $page_html .= "<b><p style='margin: .5rem !important; text-align: center; font-size: 14px;'>Niet bevorderd.</p></b>";
+    // } else if ($advies == null || $advies == '') {
+    $page_html .= "<div><input type='radio' " . ($radio1 === "true" ? "checked" : "") . "><label style='margin-bottom: .5rem !important;'>Bevorderd naar klas: ..............................................................</label></div>";
+    if ($level_klas != 6) {
+      $page_html .= "<div><input type='radio' " . ($radio2 === "true" ? "checked" : "") . "><label style='margin-bottom: .5rem !important;'>Over wegens leeftijd naar klas: ...............................................</label></div>";
     }
+    $page_html .= "<div><input type='radio' " . ($radio3 === "true" ? "checked" : "") . "><label style='margin-bottom: .5rem !important;'>Niet bevorderd: ..............................................................</label></div>";
+    // $page_html .= "<div><input type='radio'><label style='margin-bottom: .5rem !important;'>Verwezen naar: ..............................................................</label></div>";
+    // } else {
+    //   $page_html .= "<b><p style='margin: .5rem !important; text-align: center; font-size: 14px;'>Verwezen naar " . utf8_decode($advies) . "</p></b>";
+    // }
 
     $page_html .= "<div style='display:flex; flex-direction: row; justify-content: space-between; width: 100%;'>";
     $page_html .= "<p style='margin-bottom: .5rem !important;display: inline; '>Naam leerkracht: " . $teacher . "</p>";
