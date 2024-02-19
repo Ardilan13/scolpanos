@@ -2597,7 +2597,7 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 										/* Write Student Id */
 										#$hojaActiva->setCellValue("BU" . (string)$_current_student_start_row, $studentid_out);
 										if ($hul_cont > 0) {
-											$hojaActiva->setCellValue("I" . (string)($_current_student_start_row - 1), $hul_prom / $hul_cont);
+											$hojaActiva->setCellValue("I" . (string)($_current_student_start_row - 1), round($hul_prom / $hul_cont, 1));
 											$hul_prom = 0;
 											$hul_cont = 0;
 										}
