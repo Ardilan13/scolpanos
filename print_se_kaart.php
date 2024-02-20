@@ -183,7 +183,7 @@ foreach ($array_leerling as $item) {
       $werel = 0;
       $prom = 0;
       $sum = 0;
-      $get_cijfers = "SELECT c.schooljaar,c.vak,c.gemiddelde FROM le_cijfers_ps c WHERE c.studentid = '$student' AND c.rapnummer = $i AND c.schooljaar = '$schooljaar' AND c.vak IN (1,2,3,6,7) AND c.gemiddelde is not NULL;";
+      $get_cijfers = "SELECT c.schooljaar,c.vak,c.gemiddelde FROM le_cijfers_ps c WHERE c.studentid = '$student' AND c.rapnummer = $i AND c.schooljaar = '$schooljaar' AND c.schoolid = $schoolid AND c.vak IN (1,2,3,6,7) AND c.gemiddelde is not NULL;";
       $result2 = mysqli_query($mysqli, $get_cijfers);
       if ($result2->num_rows > 0) {
         while ($row3 = mysqli_fetch_assoc($result2)) {
@@ -204,25 +204,25 @@ foreach ($array_leerling as $item) {
               break;
           }
         }
-        $prom = round(($reken + ($lezen / $lezen_cont) + $neder + $werel) / 4, 1);
-        $sum = round($reken + ($lezen / $lezen_cont) + $neder, 1);
+        $prom = round(($reken + ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) + $neder + $werel) / 4, 1);
+        $sum = round($reken + ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) + $neder, 1);
 
         $volgorde = array();
         $volgorde[$i] = 0;
         switch ($level_klas) {
           case 2:
-            if ($reken >= 5 && ($lezen / $lezen_cont) >= 5 && $neder >= 5 && $sum >= 17) {
+            if ($reken >= 5 && ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) >= 5 && $neder >= 5 && $sum >= 17) {
               $volgorde[$i] = 1;
             }
             break;
           case 3:
-            if ($reken >= 5 && ($lezen / $lezen_cont) >= 5 && $neder >= 5 && $werel >= 5 && $prom >= 5.5 && $sum >= 17) {
+            if ($reken >= 5 && ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) >= 5 && $neder >= 5 && $werel >= 5 && $prom >= 5.5 && $sum >= 17) {
               $volgorde[$i] = 1;
             }
             break;
           case 4:
           case 5:
-            if ($reken >= 5 && ($lezen / $lezen_cont) >= 5 && $neder >= 5 && $werel >= 5.5 && $prom >= 5.6 && $sum >= 17) {
+            if ($reken >= 5 && ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) >= 5 && $neder >= 5 && $werel >= 5.5 && $prom >= 5.6 && $sum >= 17) {
               $volgorde[$i] = 1;
             }
             break;

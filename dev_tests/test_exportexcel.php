@@ -689,32 +689,42 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 				$rek_pro = 0;
 				$ned_cont = 0;
 				$rek_cont = 0;
-				$hojaActiva->setCellValue("BB" . (string)$_current_student_start_row, $opmerking);
-				$sql_query_k5 = "SELECT vak,gemiddelde FROM le_cijfers_ps WHERE studentid = $id AND schooljaar = '$schooljaar_pasado' AND school_id = $schoolid AND vak IN (1,6)";
+				$wer_pro = 0;
+				$wer_cont = 0;
+				$hojaActiva->setCellValue("BD" . (string)$_current_student_start_row, $opmerking);
+				$sql_query_k5 = "SELECT vak,gemiddelde FROM le_cijfers_ps WHERE studentid = $id AND schooljaar = '$schooljaar_pasado' AND school_id = $schoolid AND vak IN (1,6,7) AND gemiddelde is not NULL";
 				$resultado_k5 = mysqli_query($mysqli, $sql_query_k5);
 				if ($i == 1) {
 					$spreadsheet->setActiveSheetIndex(3);
 					$hojaActiva = $spreadsheet->getActiveSheet();
-					$hojaActiva->setCellValue("AW" . (string)$_current_student_start_row, $u->convertfrommysqldate($row["dob"]));
+					$hojaActiva->setCellValue("AZ" . (string)$_current_student_start_row, $u->convertfrommysqldate($row["dob"]));
 					$spreadsheet->setActiveSheetIndex(0);
 					$hojaActiva = $spreadsheet->getActiveSheet();
-					while ($row_k5 = mysqli_fetch_assoc($resultado_k5)) {
-						if ($row_k5["vak"] == 1) {
-							$rek_pro += $row_k5["gemiddelde"];
-							$rek_cont++;
+					if ($resultado_k5->num_rows > 0) {
+						while ($row_k5 = mysqli_fetch_assoc($resultado_k5)) {
+							if ($row_k5["vak"] == 1) {
+								$rek_pro += $row_k5["gemiddelde"];
+								$rek_cont++;
+							}
+							if ($row_k5["vak"] == 6) {
+								$ned_pro += $row_k5["gemiddelde"];
+								$ned_cont++;
+							}
+							if ($row_k5["vak"] == 7) {
+								$wer_pro += $row_k5["gemiddelde"];
+								$wer_cont++;
+							}
 						}
-						if ($row_k5["vak"] == 6) {
-							$ned_pro += $row_k5["gemiddelde"];
-							$ned_cont++;
-						}
+						if ($ned_cont > 0)
+							$hojaActiva->setCellValue("AU" . (string)$_current_student_start_row, round($ned_pro / $ned_cont, 1));
+						if ($rek_cont > 0)
+							$hojaActiva->setCellValue("AV" . (string)$_current_student_start_row, round($rek_pro / $rek_cont, 1));
+						if ($wer_cont > 0)
+							$hojaActiva->setCellValue("AW" . (string)$_current_student_start_row, round($wer_pro / $wer_cont, 1));
 					}
-					if ($ned_cont > 0)
-						$hojaActiva->setCellValue("AU" . (string)$_current_student_start_row, round($ned_pro / $ned_cont, 1));
-					if ($rek_cont > 0)
-						$hojaActiva->setCellValue("AV" . (string)$_current_student_start_row, round($rek_pro / $rek_cont, 1));
 				}
 			} else {
-				$hojaActiva->setCellValue("AY" . (string)$_current_student_start_row, $opmerking);
+				$hojaActiva->setCellValue("BD" . (string)$_current_student_start_row, $opmerking);
 				if ($i == 1) {
 					$spreadsheet->setActiveSheetIndex(3);
 					$hojaActiva = $spreadsheet->getActiveSheet();
@@ -733,14 +743,14 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 							$ciclo = "AU";
 							break;
 					}
-					$get_bespreking = "SELECT opmerking1,opmerking2,advies,ciclo FROM opmerking WHERE studentid = $id AND schooljaar = '$schooljaar' AND rapport = 4 LIMIT 1";
-					$result_bespreking = mysqli_query($mysqli, $get_bespreking);
-					while ($row_bespreking = mysqli_fetch_assoc($result_bespreking)) {
-						$hojaActiva->setCellValue($op1 . (string)$_current_student_start_row, $row_bespreking["opmerking1"]);
-						$hojaActiva->setCellValue($op2 . (string)$_current_student_start_row, $row_bespreking["opmerking2"] == "true" ? "X" : "");
-						$hojaActiva->setCellValue($advies . (string)$_current_student_start_row, $row_bespreking["advies"] == "true" ? "X" : "");
-						$hojaActiva->setCellValue($ciclo . (string)$_current_student_start_row, $row_bespreking["ciclo"] == "true" ? "X" : "");
-					}
+					// $get_bespreking = "SELECT opmerking1,opmerking2,advies,ciclo FROM opmerking WHERE studentid = $id AND schooljaar = '$schooljaar' AND rapport = 4 LIMIT 1";
+					// $result_bespreking = mysqli_query($mysqli, $get_bespreking);
+					// while ($row_bespreking = mysqli_fetch_assoc($result_bespreking)) {
+					// 	$hojaActiva->setCellValue($op1 . (string)$_current_student_start_row, $row_bespreking["opmerking1"]);
+					// 	$hojaActiva->setCellValue($op2 . (string)$_current_student_start_row, $row_bespreking["opmerking2"] == "true" ? "X" : "");
+					// 	$hojaActiva->setCellValue($advies . (string)$_current_student_start_row, $row_bespreking["advies"] == "true" ? "X" : "");
+					// 	$hojaActiva->setCellValue($ciclo . (string)$_current_student_start_row, $row_bespreking["ciclo"] == "true" ? "X" : "");
+					// }
 
 					$spreadsheet->setActiveSheetIndex(0);
 					$hojaActiva = $spreadsheet->getActiveSheet();
@@ -2582,7 +2592,6 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 								while ($select->fetch()) {									/* initialize last student id if whilecounter == 0 */
 									if ($_while_counter == 0) {
 										$_laststudent = $studentid_out;
-
 										/* Write Docent, Klas, Schooljaar fields */
 										$hojaActiva->setCellValue($_default_excel_klas, $_GET["rapport_klassen_lijst"]);
 										$hojaActiva->setCellValue($_default_excel_schooljaar, $_SESSION['SchoolJaar']);
@@ -3482,9 +3491,11 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 						$hul_cont = 0;
 						$mat_cont = 0;
 						$pap_cont = 0;
-						$hojaActiva->setCellValue("BA" . (string)$_current_student_start_row, $opmerking);
-						$hojaActiva->setCellValue("AY" . (string)$_current_student_start_row, $cont_laat);
-						$hojaActiva->setCellValue("AZ" . (string)$_current_student_start_row, $cont_verzuim);
+						$wer_pro = 0;
+						$wer_cont = 0;
+						$hojaActiva->setCellValue("BC" . (string)$_current_student_start_row, $opmerking);
+						$hojaActiva->setCellValue("BA" . (string)$_current_student_start_row, $cont_laat);
+						$hojaActiva->setCellValue("BB" . (string)$_current_student_start_row, $cont_verzuim);
 						$sql_query_k5 = "SELECT
 						c.gemiddelde,
 						v.volledigenaamvak
@@ -3495,28 +3506,19 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 						AND v.SchoolID = $schoolid
 						AND c.schooljaar = '$schooljaar_pasado'
 						AND c.gemiddelde IS NOT NULL  
-						AND v.volledigenaamvak IN ('Stellen','Woordenschat','Luistervaardigheid','Leesbegrip','Dictee','Taalbeschouwing','Reflexion','Vocabulario','Dictado','PAP Scucha y papia','Tabel','Midi y geometria','Operacion basico y avansa','Nocion di number')";
+						AND v.volledigenaamvak IN ('Stellen','Woordenschat','Luistervaardigheid','Leesbegrip','Dictee','Taalbeschouwing','Reflexion','Vocabulario','Dictado','PAP Scucha y papia','Tabel','Midi y geometria','Operacion basico y avansa','Nocion di number','Wereldorientatie')";
 						$resultado_k5 = mysqli_query($mysqli, $sql_query_k5);
 						if ($i == 1) {
 							$spreadsheet->setActiveSheetIndex(3);
 							$hojaActiva = $spreadsheet->getActiveSheet();
-							$hojaActiva->setCellValue("AO" . (string)$_current_student_start_row, $u->convertfrommysqldate($row["dob"]));
+							$hojaActiva->setCellValue("AR" . (string)$_current_student_start_row, $u->convertfrommysqldate($row["dob"]));
 							$spreadsheet->setActiveSheetIndex(0);
 							$hojaActiva = $spreadsheet->getActiveSheet();
 							while ($row_k5 = mysqli_fetch_assoc($resultado_k5)) {
 								switch ($row_k5["volledigenaamvak"]) {
 									case "Reflexion":
-										$pap_pro += $row_k5["gemiddelde"];
-										$pap_cont++;
-										break;
 									case "Vocabulario":
-										$pap_pro += $row_k5["gemiddelde"];
-										$pap_cont++;
-										break;
 									case "Dictado":
-										$pap_pro += $row_k5["gemiddelde"];
-										$pap_cont++;
-										break;
 									case "PAP Scucha y papia":
 										$pap_pro += $row_k5["gemiddelde"];
 										$pap_cont++;
@@ -3531,20 +3533,15 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 										$hul_cont++;
 										break;
 									case "Nocion di number":
-										$mat_pro += $row_k5["gemiddelde"];
-										$mat_cont++;
-										break;
 									case "Operacion basico y avansa":
-										$mat_pro += $row_k5["gemiddelde"];
-										$mat_cont++;
-										break;
 									case "Midi y geometria":
-										$mat_pro += $row_k5["gemiddelde"];
-										$mat_cont++;
-										break;
 									case "Tabel":
 										$mat_pro += $row_k5["gemiddelde"];
 										$mat_cont++;
+										break;
+									case "Wereldorientatie":
+										$wer_pro += $row_k5["gemiddelde"];
+										$wer_cont++;
 										break;
 									default:
 										$returnvalue = "XX";
@@ -3557,6 +3554,8 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 								$hojaActiva->setCellValue("AR" . (string)$_current_student_start_row, round($mat_pro / $mat_cont, 1));
 							if ($pap_cont > 0)
 								$hojaActiva->setCellValue("AS" . (string)$_current_student_start_row, round($pap_pro / $pap_cont, 1));
+							if ($wer_cont > 0)
+								$hojaActiva->setCellValue("AT" . (string)$_current_student_start_row, round($wer_pro / $wer_cont, 1));
 						}
 					} else {
 						$hojaActiva->setCellValue("AU" . (string)$_current_student_start_row, $opmerking);
