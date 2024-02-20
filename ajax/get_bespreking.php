@@ -220,8 +220,8 @@ $i = 1;
                             if ($werel_cont > 0)
                                 $werel = round($werel / $werel_cont, 1);
                         }
-                        $prom = round(($reken + ($lezen / $lezen_cont) + $neder + $werel) / 4, 1);
-                        $sum = round($reken + ($lezen / $lezen_cont) + $neder, 1);
+                        $prom = round(($reken + ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) + $neder + $werel) / 4, 1);
+                        $sum = round($reken + ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) + $neder, 1);
                     }
                 }
                 ?>
@@ -248,18 +248,18 @@ $i = 1;
                             $volgorde = 0;
                             switch ($level_klas) {
                                 case 2:
-                                    if ($reken >= 5 && ($lezen / $lezen_cont) >= 5 && $neder >= 5 && $sum >= 17) {
+                                    if ($reken >= 5 && ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) >= 5 && $neder >= 5 && $sum >= 17) {
                                         $volgorde = 1;
                                     }
                                     break;
                                 case 3:
-                                    if ($reken >= 5 && ($lezen / $lezen_cont) >= 5 && $neder >= 5 && $werel >= 5 && $prom >= 5.5 && $sum >= 17) {
+                                    if ($reken >= 5 && ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) >= 5 && $neder >= 5 && $werel >= 5 && $prom >= 5.5 && $sum >= 17) {
                                         $volgorde = 1;
                                     }
                                     break;
                                 case 4:
                                 case 5:
-                                    if ($reken >= 5 && ($lezen / $lezen_cont) >= 5 && $neder >= 5 && $werel >= 5.5 && $prom >= 5.6 && $sum >= 17) {
+                                    if ($reken >= 5 && ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) >= 5 && $neder >= 5 && $werel >= 5.5 && $prom >= 5.6 && $sum >= 17) {
                                         $volgorde = 1;
                                     }
                                     break;
