@@ -220,7 +220,7 @@ function print_vakken_table()
 				if (clase < 9 && blue == false) {
 					if (clase % 2 == 0 && clase != 4 && clase != 8) {
 						$(this).next().text(total);
-					} else if (clase != 3 && clase != 7) {
+					} else if (clase != 3 && clase != 7 && clase != 4 && clase != 8) {
 						$(this).next().next().text(total);
 					}
 				} else if (clase < 12 && blue == false) {
