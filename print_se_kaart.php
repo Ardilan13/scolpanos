@@ -32,25 +32,25 @@ while ($row = mysqli_fetch_assoc($resultado)) {
 }
 switch ($schoolId) {
   case 4:
-    $img = "kudawecha.png";
-    $titleP = "Scol&nbsp&nbsp&nbspPa&nbsp&nbsp&nbspNos";
+    $img = "kudawecha.jpeg";
+    $titleP = "Scol&nbsp&nbsp&nbspPa&nbsp&nbsp&nbspNos";F
     $titleD = $s->_setting_school_name;
     $cabesante = "Xiomara Berkel";
     break;
   case 6:
-    $img = "washington.jpg";
+    $img = "washington.jpeg";
     $titleP = "Scol&nbsp&nbsp&nbspPa&nbsp&nbsp&nbspNos";
     $titleD = $s->_setting_school_name;
     $cabesante = "Sharine Curiel";
     break;
   case 9:
-    $img = "reina.png";
+    $img = "reina.jpeg";
     $titleP = "Scol&nbsp&nbsp&nbspPa&nbsp&nbsp&nbspNos";
     $titleD = $s->_setting_school_name;
     $cabesante = "Rosalinda Granger";
     break;
   case 10:
-    $img = "xander.png";
+    $img = "xander.jpeg";
     $titleP = "Scol&nbsp&nbsp&nbspPa&nbsp&nbsp&nbspNos";
     $titleD = $s->_setting_school_name;
     $cabesante = "Nadia Maduro";
