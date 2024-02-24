@@ -163,17 +163,16 @@ foreach ($array_leerling as $item) {
           $$op = $row["opmerking1"];
         }
       }
-      if ($i == 1) {
-        $query = "SELECT opmerking2,opmerking3,advies,ciclo FROM opmerking WHERE klas = '$klas' AND SchoolID = $schoolId AND studentid = $student AND schooljaar = '$schooljaar' AND rapport = 4 LIMIT 1";
-        $resultado = mysqli_query($mysqli, $query);
-        if ($resultado->num_rows > 0) {
-          while ($row = mysqli_fetch_assoc($resultado)) {
-            $radio1 = $row["opmerking2"];
-            $radio2 = $row["advies"];
-            $radio3 = $row["ciclo"];
-          }
+      $query1 = "SELECT opmerking2,opmerking3,advies,ciclo FROM opmerking WHERE klas = '$klas' AND SchoolID = $schoolId AND studentid = $student AND schooljaar = '$schooljaar' AND rapport = 4 LIMIT 1";
+      $resultado2 = mysqli_query($mysqli, $query1);
+      if ($resultado2->num_rows > 0) {
+        while ($row1 = mysqli_fetch_assoc($resultado2)) {
+          $radio1 = $row1["opmerking2"];
+          $radio2 = $row1["advies"];
+          $radio3 = $row1["ciclo"];
         }
       }
+
 
 
       $reken = 0;
