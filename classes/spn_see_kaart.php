@@ -1175,10 +1175,56 @@ class spn_see_kaart
       require_once("DBCreds.php");
       $DBCreds = new DBCreds();
       $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
-      if ($_SESSION['SchoolID'] != 18) {
-        $sql_query = "SELECT gemiddelde FROM le_cijfers_ps where studentid = $studentid_out and schooljaar = '$schooljaar' and rapnummer = $rap_in and school_id = $schoolid and vak = $vak and gemiddelde > 0.0";
+      $schooljaar_array = explode("-", $schooljaar);
+      $schooljaar_pasado = $schooljaar_array[0];
+      if ($schooljaar_pasado <= "2021") {
+        switch ($vak) {
+          case 1:
+            $vak = 'Tekennen';
+            break;
+          case 2:
+            $vak = 'Technisch Lezen';
+            break;
+          case 3:
+            $vak = 'Begrijpend lezen';
+            break;
+            // case 4:
+            //   $vak = 'Spelling';
+            //   break;
+          case 5:
+            $vak = 'Schrijven';
+            break;
+          case 6:
+            $vak = 'Taaloefeningen';
+            break;
+            // case 7:
+            //   $vak = 'Spelling';
+            //   break;
+            // case 8:
+            //   $vak = 'Rekenen';
+            //   break;
+          case 9:
+            $vak = 'Lichamelijke Opvoeding';
+            break;
+          case 10:
+            $vak = 'Engels';
+            break;
+          case 11:
+            $vak = 'Spaans';
+            break;
+          case 12:
+            $vak = 'Verkeer';
+            break;
+          case 27:
+            $vak = 'Maatschappijleer';
+            break;
+          case 28:
+            $vak = 'Spreekbeurten/presentatie';
+            break;
+        }
+        $sql_query = "SELECT c.gemiddelde FROM le_cijfers c INNER JOIN le_vakken v ON c.vak = v.ID where c.studentid = $studentid_out and c.schooljaar = '$schooljaar' and c.rapnummer = $rap_in and v.volledigenaamvak = '$vak' and c.gemiddelde > 0.0 LIMIT 1";
       } else {
-        $sql_query = "SELECT gemiddelde FROM le_cijfers where studentid = $studentid_out and schooljaar = '$schooljaar' and rapnummer = $rap_in and vak = $vak and gemiddelde > 0.0";
+        $sql_query = "SELECT gemiddelde FROM le_cijfers_ps where studentid = $studentid_out and schooljaar = '$schooljaar' and rapnummer = $rap_in and school_id = $schoolid and vak = $vak and gemiddelde > 0.0";
       }
       if ($select = $mysqli->prepare($sql_query)) {
 

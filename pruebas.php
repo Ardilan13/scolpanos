@@ -14,13 +14,19 @@ $u = new spn_utils();
 $s = new spn_setting();
 $c = new spn_controls();
 $ci = new spn_cijfers();
-$s->getsetting_info($_SESSION["SchoolID"], false);
-$list = $ci->list_cijfers_by_student_rapport(1, "2023-2024", 7248, 0);
-print $list;
 $DBCreds = new DBCreds();
 $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
 $schoolid = $_SESSION["SchoolID"];
 $schooljaar = $_SESSION["SchoolJaar"];
+
+
+// $get = "SELECT DISTINCT volledigenaamvak FROM `le_vakken` where SchoolID IN (4,5,6,7,9,10,11)  
+// ORDER BY `le_vakken`.`volledigenaamvak` ASC";
+// $result = mysqli_query($mysqli, $get);
+// while ($row = mysqli_fetch_assoc($result)) {
+//     $vak = $row["volledigenaamvak"];
+//     echo $vak . ", ";
+// }
 
 // $get = "SELECT * FROM app_useraccounts WHERE UserRights = 'BEHEER' and Email like 'schoo%' ORDER BY Email";
 // $result = mysqli_query($mysqli, $get);

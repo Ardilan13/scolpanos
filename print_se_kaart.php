@@ -7734,11 +7734,11 @@ if($avg_h == 0.0){$avg_h = null;}
     // } else if ($advies == '2') {
     //   $page_html .= "<b><p style='margin: .5rem !important; text-align: center; font-size: 14px;'>Niet bevorderd.</p></b>";
     // } else if ($advies == null || $advies == '') {
-    $page_html .= "<div><input type='radio' " . ($radio1 === "true" ? "checked" : "") . "><label style='margin-bottom: .5rem !important;'>Bevorderd naar klas: ..............................................................</label></div>";
+    $page_html .= "<div><input type='radio' " . (($radio1 != "false" && $radio1 != null) ? "checked" : "") . "><label style='margin-bottom: .5rem !important;'>Bevorderd naar klas: <b>" . (($radio1 != "false" && $radio1 != "true") ? $radio1 : "") . "</b></label></div>";
     if ($level_klas != 6) {
-      $page_html .= "<div><input type='radio' " . ($radio2 === "true" ? "checked" : "") . "><label style='margin-bottom: .5rem !important;'>Over wegens leeftijd naar klas: ...............................................</label></div>";
+      $page_html .= "<div><input type='radio' " . (($radio2 != "false" && $radio2 != null) ? "checked" : "") . "><label style='margin-bottom: .5rem !important;'>Over wegens leeftijd naar klas: <b>" . (($radio2 != "false" && $radio2 != "true") ? $radio2 : "") . "</b></label></div>";
     }
-    $page_html .= "<div><input type='radio' " . ($radio3 === "true" ? "checked" : "") . "><label style='margin-bottom: .5rem !important;'>Niet bevorderd: ..............................................................</label></div>";
+    $page_html .= "<div><input type='radio' " . (($radio3 != "false" && $radio3 != null) ? "checked" : "") . "><label style='margin-bottom: .5rem !important;'>Niet bevorderd: <b>" . (($radio3 != "false" && $radio3 != "true") ? $radio3 : "") . "</b></label></div>";
     // $page_html .= "<div><input type='radio'><label style='margin-bottom: .5rem !important;'>Verwezen naar: ..............................................................</label></div>";
     // } else {
     //   $page_html .= "<b><p style='margin: .5rem !important; text-align: center; font-size: 14px;'>Verwezen naar " . utf8_decode($advies) . "</p></b>";
