@@ -33,7 +33,7 @@ while ($row = mysqli_fetch_assoc($resultado)) {
 switch ($schoolId) {
   case 4:
     $img = "kudawecha.jpeg";
-    $titleP = "Scol&nbsp&nbsp&nbspPa&nbsp&nbsp&nbspNos";F
+    $titleP = "Scol&nbsp&nbsp&nbspPa&nbsp&nbsp&nbspNos";
     $titleD = $s->_setting_school_name;
     $cabesante = "Xiomara Berkel";
     break;
