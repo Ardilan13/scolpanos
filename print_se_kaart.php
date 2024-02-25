@@ -173,8 +173,6 @@ foreach ($array_leerling as $item) {
         }
       }
 
-
-
       $reken = 0;
       $lezen = 0;
       $lezen_cont = 0;
@@ -182,7 +180,7 @@ foreach ($array_leerling as $item) {
       $werel = 0;
       $prom = 0;
       $sum = 0;
-      $get_cijfers = "SELECT c.schooljaar,c.vak,c.gemiddelde FROM le_cijfers_ps c WHERE c.studentid = '$student' AND c.rapnummer = $i AND c.schooljaar = '$schooljaar' AND c.schoolid = $schoolid AND c.vak IN (1,2,3,6,7) AND c.gemiddelde is not NULL;";
+      $get_cijfers = "SELECT c.schooljaar,c.vak,c.gemiddelde FROM le_cijfers_ps c WHERE c.studentid = '$student' AND c.rapnummer = $i AND c.schooljaar = '$schooljaar' AND c.school_id = $schoolId AND c.vak IN (1,2,3,6,7) AND c.gemiddelde is not NULL;";
       $result2 = mysqli_query($mysqli, $get_cijfers);
       if ($result2->num_rows > 0) {
         while ($row3 = mysqli_fetch_assoc($result2)) {
@@ -307,7 +305,7 @@ foreach ($array_leerling as $item) {
         $page_html .= "<div>";
         $page_html .= "<div class='row' style='justify-content: space-evenly;'>";
         $page_html .= "<div>";
-        $page_html .= "<input type='radio' " . ($advies1 === "V" || $volgorde[1] == 1 ? "checked" : "") . " style='margin-right: 5px;'><label>Voldoende</label>";
+        $page_html .= "<input type='radio' " . ($advies1 === "V" || $volgorde[1] == 1 ? "checked" : "") . " style='margin-right: 5px;'><label>Voldoende " . $volgorde[1] . $advies1 . "</label>";
         $page_html .= "</div>";
         $page_html .= "<div>";
         $page_html .= "<input type='radio' " . ($advies1 !== "V" && $volgorde[1] == 0 ? "checked" : "") . "  style='margin-right: 5px;'><label>Onvoldoende</label>";
