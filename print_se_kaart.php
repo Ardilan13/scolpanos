@@ -163,10 +163,11 @@ foreach ($array_leerling as $item) {
           $$op = $row["opmerking1"];
         }
       }
-      $query1 = "SELECT opmerking2,opmerking3,advies,ciclo FROM opmerking WHERE klas = '$klas' AND SchoolID = $schoolId AND studentid = $student AND schooljaar = '$schooljaar' AND rapport = 4 LIMIT 1";
+      $query1 = "SELECT opmerking1,opmerking2,opmerking3,advies,ciclo FROM opmerking WHERE klas = '$klas' AND SchoolID = $schoolId AND studentid = $student AND schooljaar = '$schooljaar' AND rapport = 4 LIMIT 1";
       $resultado2 = mysqli_query($mysqli, $query1);
       if ($resultado2->num_rows > 0) {
         while ($row1 = mysqli_fetch_assoc($resultado2)) {
+          $opmerking4 = $row1["opmerking1"];
           $radio1 = $row1["opmerking2"];
           $radio2 = $row1["advies"];
           $radio3 = $row1["ciclo"];
@@ -204,7 +205,7 @@ foreach ($array_leerling as $item) {
         $prom = round(($reken + ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) + $neder + $werel) / 4, 1);
         $sum = round($reken + ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) + $neder, 1);
 
-        if($i == 1){
+        if ($i == 1) {
           $volgorde = array();
         }
         $volgorde[$i] = 0;
@@ -1230,10 +1231,10 @@ foreach ($array_leerling as $item) {
         $h1_tec = $_h1;
 
         if ($klas != 1) {
-          $page_html .= "<td>" . $_h1 . " </td>";
+          $page_html .= "<td" . ((float)$_h1 <= 5.4 && $_h1 ? " class=\"bg-danger\"" : "") . ">" . $_h1 . " </td>";
           $page_html .= "<td> </td>";
           $page_html .= "<td> </td>";
-          $page_html .= "<td>" . $_h1  . " </td>";
+          $page_html .= "<td" . ((float)$_h1 <= 5.4 && $_h1 ? " class=\"bg-danger\"" : "") . ">" . $_h1  . " </td>";
         } else {
           $page_html .= "<td> </td>";
           $page_html .= "<td> </td>";
@@ -1409,8 +1410,8 @@ foreach ($array_leerling as $item) {
         } else {
           $page_html .= "<td> </td>";
         }
-        $page_html .= "<td>" . $_h1_2 . " </td>";
-        $page_html .= "<td>" . $_h1_3 . " </td>";
+        $page_html .= "<td" . ((float)$_h1_2 <= 5.4 && $_h1_2 ? " class=\"bg-danger\"" : "") . ">" . $_h1_2 . " </td>";
+        $page_html .= "<td" . ((float)$_h1_3 <= 5.4 && $_h1_3 ? " class=\"bg-danger\"" : "") . ">" . $_h1_3 . " </td>";
         if ($avg_h > 0.0) {
           if ($klas != 1) {
             $page_html .= "<td>" . number_format($avg_h, 1) . " </td>";
@@ -1529,8 +1530,8 @@ foreach ($array_leerling as $item) {
         } else {
           $page_html .= "<td> </td>";
         }
-        $page_html .= "<td>" . $_h1_2 . " </td>";
-        $page_html .= "<td>" . $_h1_3 . " </td>";
+        $page_html .= "<td" . ((float)$_h1_2 <= 5.4 && $_h1_2 ? " class=\"bg-danger\"" : "") . ">" . $_h1_2 . " </td>";
+        $page_html .= "<td" . ((float)$_h1_3 <= 5.4 && $_h1_3 ? " class=\"bg-danger\"" : "") . ">" . $_h1_3 . " </td>";
         if ($avg_h > 0.0) {
           if ($klas != 1) {
             $page_html .= "<td>" . number_format($avg_h, 1) . " </td>";
@@ -1627,12 +1628,12 @@ foreach ($array_leerling as $item) {
         }
 
         if ($klas != 1) {
-          $page_html .= "<td " . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
         } else {
           $page_html .= "<td> </td>";
         }
-        $page_html .= "<td>" . $_h1_2 . " </td>";
-        $page_html .= "<td>" . $_h1_3 . " </td>";
+        $page_html .= "<td" . ((float)$_h1_2 <= 5.4 && $_h1_2 ? " class=\"bg-danger\"" : "") . ">" . $_h1_2 . " </td>";
+        $page_html .= "<td" . ((float)$_h1_3 <= 5.4 && $_h1_3 ? " class=\"bg-danger\"" : "") . ">" . $_h1_3 . " </td>";
         if ($avg_h > 0.0) {
           if ($klas != 1) {
             $page_html .= "<td>" . number_format($avg_h, 1) . " </td>";
@@ -1760,12 +1761,12 @@ foreach ($array_leerling as $item) {
 
 
         if ($klas != 1) {
-          $page_html .= "<td " . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
         } else {
           $page_html .= "<td> </td>";
         }
-        $page_html .= "<td>" . $_h1_2 . " </td>";
-        $page_html .= "<td>" . $_h1_3 . " </td>";
+        $page_html .= "<td" . ((float)$_h1_2 <= 5.4 && $_h1_2 ? " class=\"bg-danger\"" : "") . ">" . $_h1_2 . " </td>";
+        $page_html .= "<td" . ((float)$_h1_3 <= 5.4 && $_h1_3 ? " class=\"bg-danger\"" : "") . ">" . $_h1_3 . " </td>";
         if ($avg_h > 0.0) {
           if ($klas != 1) {
             $page_html .= "<td>" . number_format($avg_h, 1) . " </td>";
@@ -1975,8 +1976,8 @@ foreach ($array_leerling as $item) {
         } else {
           $page_html .= "<td> </td>";
         }
-        $page_html .= "<td>" . $_h1_2 . " </td>";
-        $page_html .= "<td>" . $_h1_3 . " </td>";
+        $page_html .= "<td" . ((float)$_h1_2 <= 5.4 && $_h1_2 ? " class=\"bg-danger\"" : "") . ">" . $_h1_2 . " </td>";
+        $page_html .= "<td" . ((float)$_h1_3 <= 5.4 && $_h1_3 ? " class=\"bg-danger\"" : "") . ">" . $_h1_3 . " </td>";
         if ($avg_h > 0.0) {
           if ($klas != 1) {
             $page_html .= "<td>" . number_format($avg_h, 1) . " </td>";
@@ -2144,12 +2145,12 @@ foreach ($array_leerling as $item) {
         }
 
         if ($klas != 1) {
-          $page_html .= "<td " . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
         } else {
           $page_html .= "<td> </td>";
         }
-        $page_html .= "<td>" . $_h1_2 . " </td>";
-        $page_html .= "<td>" . $_h1_3 . " </td>";
+        $page_html .= "<td" . ((float)$_h1_2 <= 5.4 && $_h1_2 ? " class=\"bg-danger\"" : "") . ">" . $_h1_2 . " </td>";
+        $page_html .= "<td" . ((float)$_h1_3 <= 5.4 && $_h1_3 ? " class=\"bg-danger\"" : "") . ">" . $_h1_3 . " </td>";
         if ($avg_h > 0.0) {
           if ($klas != 1) {
             $page_html .= "<td>" . number_format($avg_h, 1) . " </td>";
@@ -2701,12 +2702,12 @@ if($avg_h == 0.0){$avg_h = null;}
         }
 
         if ($klas != 1) {
-          $page_html .= "<td " . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
         } else {
           $page_html .= "<td> </td>";
         }
-        $page_html .= "<td>" . $_h1_2 . " </td>";
-        $page_html .= "<td>" . $_h1_3 . " </td>";
+        $page_html .= "<td" . ((float)$_h1_2 <= 5.4 && $_h1_2 ? " class=\"bg-danger\"" : "") . ">" . $_h1_2 . " </td>";
+        $page_html .= "<td" . ((float)$_h1_3 <= 5.4 && $_h1_3 ? " class=\"bg-danger\"" : "") . ">" . $_h1_3 . " </td>";
         if ($avg_h > 0.0) {
           if ($klas != 1) {
             $page_html .= "<td>" . number_format($avg_h, 1) . " </td>";
@@ -2795,12 +2796,12 @@ if($avg_h == 0.0){$avg_h = null;}
         }
 
         if ($klas != 1) {
-          $page_html .= "<td " . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
         } else {
           $page_html .= "<td> </td>";
         }
-        $page_html .= "<td>" . $_h1_2 . " </td>";
-        $page_html .= "<td>" . $_h1_3 . " </td>";
+        $page_html .= "<td" . ((float)$_h1_2 <= 5.4 && $_h1_2 ? " class=\"bg-danger\"" : "") . ">" . $_h1_2 . " </td>";
+        $page_html .= "<td" . ((float)$_h1_3 <= 5.4 && $_h1_3 ? " class=\"bg-danger\"" : "") . ">" . $_h1_3 . " </td>";
         if ($avg_h > 0.0) {
           if ($klas != 1) {
             $page_html .= "<td>" . number_format($avg_h, 1) . " </td>";
@@ -3083,8 +3084,8 @@ if($avg_h == 0.0){$avg_h = null;}
         } else {
           $page_html .= "<td> </td>";
         }
-        $page_html .= "<td>" . $_h1_2 . " </td>";
-        $page_html .= "<td>" . $_h1_3 . " </td>";
+        $page_html .= "<td" . ((float)$_h1_2 <= 5.4 && $_h1_2 ? " class=\"bg-danger\"" : "") . ">" . $_h1_2 . " </td>";
+        $page_html .= "<td" . ((float)$_h1_3 <= 5.4 && $_h1_3 ? " class=\"bg-danger\"" : "") . ">" . $_h1_3 . " </td>";
         if ($avg_h > 0.0) {
           if ($klas != 1) {
             $page_html .= "<td>" . number_format($avg_h, 1) . " </td>";
@@ -7743,12 +7744,16 @@ if($avg_h == 0.0){$avg_h = null;}
     // }
 
     $page_html .= "<div style='display:flex; flex-direction: row; justify-content: space-between; width: 100%;'>";
-    $page_html .= "<p style='margin-bottom: .5rem !important;display: inline; '>Naam leerkracht: " . $teacher . "</p>";
+    $page_html .= "<p style='margin-bottom: .3rem !important;display: inline; '>Naam leerkracht: " . $teacher . "</p>";
     $page_html .= "<p>.................................................................</p>";
     $page_html .= "</div>";
     $page_html .= "<div style='display:flex; flex-direction: row; justify-content: space-between; width: 100%;'>";
-    $page_html .= "<p style='margin-bottom: .5rem !important;display: inline;'>Naam Schoolhoofd: " . $cabesante . "</p>";
+    $page_html .= "<p style='margin-bottom: .3rem !important;display: inline;'>Naam Schoolhoofd: " . $cabesante . "</p>";
     $page_html .= "<p style='margin-bottom: ;'>.................................................................</p>";
+    $page_html .= "</div>";
+    $page_html .= "<div style='display: flex; align-items: center;'>";
+    $page_html .= "<label style='margin-right: 20px;'>R4</label>";
+    $page_html .= "<textarea style='resize: none;overflow: hidden;width: 500px;height: 50px;font-size: 11px;'>" . utf8_decode($opmerking4) . "</textarea></div>";
     $page_html .= "</div>";
 
     $page_html .= "</div>";
