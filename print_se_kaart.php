@@ -204,7 +204,9 @@ foreach ($array_leerling as $item) {
         $prom = round(($reken + ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) + $neder + $werel) / 4, 1);
         $sum = round($reken + ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) + $neder, 1);
 
-        $volgorde = array();
+        if($i == 1){
+          $volgorde = array();
+        }
         $volgorde[$i] = 0;
         switch ($level_klas) {
           case 2:
@@ -261,7 +263,6 @@ foreach ($array_leerling as $item) {
       }
     }
   }
-
   switch (substr($item["profiel"], 0, 2)) {
     case 'MM':
       $paket = "<b class='p-1 ml-2 bg-warning text-white'>" . $item["profiel"] . "</b>";
@@ -305,10 +306,10 @@ foreach ($array_leerling as $item) {
         $page_html .= "<div>";
         $page_html .= "<div class='row' style='justify-content: space-evenly;'>";
         $page_html .= "<div>";
-        $page_html .= "<input type='radio' " . ($advies1 === "V" || $volgorde[1] == 1 ? "checked" : "") . " style='margin-right: 5px;'><label>Voldoende " . $volgorde[1] . $advies1 . "</label>";
+        $page_html .= "<input type='radio' " . ($advies1 === "V" || $volgorde[1] === 1 ? "checked" : "") . " style='margin-right: 5px;'><label>Voldoende</label>";
         $page_html .= "</div>";
         $page_html .= "<div>";
-        $page_html .= "<input type='radio' " . ($advies1 !== "V" && $volgorde[1] == 0 ? "checked" : "") . "  style='margin-right: 5px;'><label>Onvoldoende</label>";
+        $page_html .= "<input type='radio' " . ($advies1 !== "V" && $volgorde[1] === 0 ? "checked" : "") . "  style='margin-right: 5px;'><label>Onvoldoende</label>";
         $page_html .= "</div>";
         $page_html .= "</div>";
         $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking1) . "</textarea></div>";
@@ -316,13 +317,13 @@ foreach ($array_leerling as $item) {
         $page_html .= "<div>";
         $page_html .= "<div class='row' style='justify-content: space-evenly;'>";
         $page_html .= "<div>";
-        $page_html .= "<input type='radio' " . ($advies1 === "HAVO" || $volgorde[1] == 2 ? "checked" : "") . " style='margin-right: 5px;'><label>HAVO</label>";
+        $page_html .= "<input type='radio' " . ($advies1 === "HAVO" || $volgorde[1] === 2 ? "checked" : "") . " style='margin-right: 5px;'><label>HAVO</label>";
         $page_html .= "</div>";
         $page_html .= "<div>";
-        $page_html .= "<input type='radio' " . ($advies1 === "MAVO" || $volgorde[1] == 3 ? "checked" : "") . "  style='margin-right: 5px;'><label>MAVO</label>";
+        $page_html .= "<input type='radio' " . ($advies1 === "MAVO" || $volgorde[1] === 3 ? "checked" : "") . "  style='margin-right: 5px;'><label>MAVO</label>";
         $page_html .= "</div>";
         $page_html .= "<div>";
-        $page_html .= "<input type='radio' " . ($advies1 === "EPB" || $volgorde[1] == 4 ? "checked" : "") . "  style='margin-right: 5px;'><label>EPB</label>";
+        $page_html .= "<input type='radio' " . ($advies1 === "EPB" || $volgorde[1] === 4 ? "checked" : "") . "  style='margin-right: 5px;'><label>EPB</label>";
         $page_html .= "</div>";
         $page_html .= "</div>";
         $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking1) . "</textarea></div>";
@@ -343,10 +344,10 @@ foreach ($array_leerling as $item) {
         $page_html .= "<div>";
         $page_html .= "<div class='row' style='justify-content: space-evenly;'>";
         $page_html .= "<div>";
-        $page_html .= "<input type='radio' " . ($advies2 === "V" || $volgorde[2] == 1 && $_GET["rap"] >= 2 ? "checked" : "") . " style='margin-right: 5px;'><label>Voldoende</label>";
+        $page_html .= "<input type='radio' " . ($advies2 === "V" || $volgorde[2] === 1 && $_GET["rap"] >= 2 ? "checked" : "") . " style='margin-right: 5px;'><label>Voldoende</label>";
         $page_html .= "</div>";
         $page_html .= "<div>";
-        $page_html .= "<input type='radio' " . ($advies2 !== "V" && $volgorde[2] == 0 && $_GET["rap"] >= 2 ? "checked" : "") . "  style='margin-right: 5px;'><label>Onvoldoende</label>";
+        $page_html .= "<input type='radio' " . ($advies2 !== "V" && $volgorde[2] === 0 && $_GET["rap"] >= 2 ? "checked" : "") . "  style='margin-right: 5px;'><label>Onvoldoende</label>";
         $page_html .= "</div>";
         $page_html .= "</div>";
         $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking2) . "</textarea></div>";
@@ -354,13 +355,13 @@ foreach ($array_leerling as $item) {
         $page_html .= "<div>";
         $page_html .= "<div class='row' style='justify-content: space-evenly;'>";
         $page_html .= "<div>";
-        $page_html .= "<input type='radio' " . ($advies2 === "HAVO" || $volgorde[2] == 2 && $_GET["rap"] >= 2 ? "checked" : "") . " style='margin-right: 5px;'><label>HAVO</label>";
+        $page_html .= "<input type='radio' " . ($advies2 === "HAVO" || $volgorde[2] === 2 && $_GET["rap"] >= 2 ? "checked" : "") . " style='margin-right: 5px;'><label>HAVO</label>";
         $page_html .= "</div>";
         $page_html .= "<div>";
-        $page_html .= "<input type='radio' " . ($advies2 === "MAVO" || $volgorde[2] == 3 && $_GET["rap"] >= 2 ? "checked" : "") . "  style='margin-right: 5px;'><label>MAVO</label>";
+        $page_html .= "<input type='radio' " . ($advies2 === "MAVO" || $volgorde[2] === 3 && $_GET["rap"] >= 2 ? "checked" : "") . "  style='margin-right: 5px;'><label>MAVO</label>";
         $page_html .= "</div>";
         $page_html .= "<div>";
-        $page_html .= "<input type='radio' " . ($advies2 === "EPB" || $volgorde[2] == 4 && $_GET["rap"] >= 2 ? "checked" : "") . "  style='margin-right: 5px;'><label>EPB</label>";
+        $page_html .= "<input type='radio' " . ($advies2 === "EPB" || $volgorde[2] === 4 && $_GET["rap"] >= 2 ? "checked" : "") . "  style='margin-right: 5px;'><label>EPB</label>";
         $page_html .= "</div>";
         $page_html .= "</div>";
         $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking2) . "</textarea></div>";
@@ -381,10 +382,10 @@ foreach ($array_leerling as $item) {
         $page_html .= "<div>";
         $page_html .= "<div class='row' style='justify-content: space-evenly;'>";
         $page_html .= "<div>";
-        $page_html .= "<input type='radio' " . ($advies3 === "V" || $volgorde[3] == 1 && $_GET["rap"] >= 3 ? "checked" : "") . " style='margin-right: 5px;'><label>Voldoende</label>";
+        $page_html .= "<input type='radio' " . ($advies3 === "V" || $volgorde[3] === 1 && $_GET["rap"] >= 3 ? "checked" : "") . " style='margin-right: 5px;'><label>Voldoende</label>";
         $page_html .= "</div>";
         $page_html .= "<div>";
-        $page_html .= "<input type='radio' " . ($advies3 !== "V" && $volgorde[3] == 0 && $_GET["rap"] >= 3 ? "checked" : "") . "  style='margin-right: 5px;'><label>Onvoldoende</label>";
+        $page_html .= "<input type='radio' " . ($advies3 !== "V" && $volgorde[3] === 0 && $_GET["rap"] >= 3 ? "checked" : "") . "  style='margin-right: 5px;'><label>Onvoldoende</label>";
         $page_html .= "</div>";
         $page_html .= "</div>";
         $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking3) . "</textarea></div>";
@@ -392,13 +393,13 @@ foreach ($array_leerling as $item) {
         $page_html .= "<div>";
         $page_html .= "<div class='row' style='justify-content: space-evenly;'>";
         $page_html .= "<div>";
-        $page_html .= "<input type='radio' " . ($advies3 === "HAVO" || $volgorde[3] == 2  && $_GET["rap"] >= 3 ? "checked" : "") . " style='margin-right: 5px;'><label>HAVO</label>";
+        $page_html .= "<input type='radio' " . ($advies3 === "HAVO" || $volgorde[3] === 2  && $_GET["rap"] >= 3 ? "checked" : "") . " style='margin-right: 5px;'><label>HAVO</label>";
         $page_html .= "</div>";
         $page_html .= "<div>";
-        $page_html .= "<input type='radio' " . ($advies3 === "MAVO" || $volgorde[3] == 3 && $_GET["rap"] >= 3 ? "checked" : "") . "  style='margin-right: 5px;'><label>MAVO</label>";
+        $page_html .= "<input type='radio' " . ($advies3 === "MAVO" || $volgorde[3] === 3 && $_GET["rap"] >= 3 ? "checked" : "") . "  style='margin-right: 5px;'><label>MAVO</label>";
         $page_html .= "</div>";
         $page_html .= "<div>";
-        $page_html .= "<input type='radio' " . ($advies3 === "EPB" || $volgorde[3] == 4 && $_GET["rap"] >= 3 ? "checked" : "") . "  style='margin-right: 5px;'><label>EPB</label>";
+        $page_html .= "<input type='radio' " . ($advies3 === "EPB" || $volgorde[3] === 4 && $_GET["rap"] >= 3 ? "checked" : "") . "  style='margin-right: 5px;'><label>EPB</label>";
         $page_html .= "</div>";
         $page_html .= "</div>";
         $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking3) . "</textarea></div>";
