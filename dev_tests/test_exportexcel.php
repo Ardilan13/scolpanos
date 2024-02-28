@@ -120,13 +120,13 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 		AND st.year_period = '$schooljaar'
 		AND s.class = '$klas_in'
 		AND s.status = 1
-		ORDER BY";
+		ORDER BY ";
 		$sql_order = " s.lastname , s.firstname";
-		// if ($s->_setting_mj) {
-		// 	$sql_query .= " s.sex " . $s->_setting_sort . ", " . $sql_order;
-		// } else {
-		$sql_query .=  $sql_order;
-		// }
+		if ($s->_setting_mj) {
+			$sql_query .= " s.sex " . $s->_setting_sort . ", " . $sql_order;
+		} else {
+			$sql_query .=  $sql_order;
+		}
 		switch ($i) {
 			case 1:
 				$spreadsheet->setActiveSheetIndex(0);

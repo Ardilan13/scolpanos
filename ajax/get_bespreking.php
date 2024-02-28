@@ -1,5 +1,6 @@
 <?php
 require_once "../classes/DBCreds.php";
+require_once "../classes/spn_setting.php";
 session_start();
 $DBCreds = new DBCreds();
 $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
@@ -77,8 +78,15 @@ $i = 1;
             $disabled = "disabled";
         }
 
-
-        $get_students = "SELECT id,firstname,lastname FROM students WHERE schoolid = '$schoolid' AND class = '$klas' ORDER BY lastname, firstname;";
+        $s = new spn_setting();
+        $s->getsetting_info($schoolid, false);
+        $get_students = "SELECT s.id,s.firstname,s.lastname FROM students s WHERE s.schoolid = '$schoolid' AND s.class = '$klas' ORDER BY ";
+        $sql_order = " s.lastname, s.firstname ";
+        if ($s->_setting_mj) {
+            $get_students .= " s.sex " . $s->_setting_sort . ", " . $sql_order;
+        } else {
+            $get_students .=  $sql_order;
+        }
         $result = mysqli_query($mysqli, $get_students);
         while ($row1 = mysqli_fetch_assoc($result)) { ?>
             <tr>
