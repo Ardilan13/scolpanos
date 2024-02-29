@@ -211,7 +211,7 @@ class spn_verzuim
               while ($select->fetch()) {
 
                 if ($_SESSION["UserRights"] != "ASSISTENT") {
-                  $htmlcontrol .= "<tr data-student-id=\"$studentid\" data-klas=\"$klas_in\"  data-datum=\"$datum_in\"><td>$x</td><td>" . $firstname . chr(32) . $lastname . "</td>";
+                  $htmlcontrol .= "<tr data-student-id=\"$studentid\" data-klas=\"$klas_in\"  data-datum=\"$datum_in\"><td>$x</td><td>" . $lastname . chr(32) . $firstname . "</td>";
                   $htmlcontrol .= "<td><input verzuim=\"$verzuimid\" name =\"telaat\" type=\"checkbox\" style='margin-left:auto; margin-right:auto;' class=\"form-control telaat-field\"" . ($telaat == 1 ? "checked=\"checked\"" : "") . " ></td>";
                   $htmlcontrol .= "<td><input verzuim=\"$verzuimid\" name =\"absentie\" type=\"checkbox\" style='margin-left:auto; margin-right:auto;'  class=\"form-control absentie-field\"" . ($absent == 1 ? "checked=\"checked\"" : "") . " ></td>";
                   $htmlcontrol .= "<td><input verzuim=\"$verzuimid\" name =\"toetsinhalen\"  type=\"checkbox\" style='margin-left:auto; margin-right:auto;'  class=\"form-control toetsinhalen-field\"" . ($toetsinhalen == 1 ? "checked=\"checked\"" : "") . " ></td>";
@@ -226,7 +226,7 @@ class spn_verzuim
 
                   $xx++;
                 } else {
-                  $htmlcontrol .= "<tr data-student-id=\"$studentid\" data-klas=\"$klas_in\"  data-datum=\"$datum_in\"><td>$x</td><td>" . $firstname . chr(32) . $lastname . "</td>";
+                  $htmlcontrol .= "<tr data-student-id=\"$studentid\" data-klas=\"$klas_in\"  data-datum=\"$datum_in\"><td>$x</td><td>" . $lastname . chr(32) . $firstname . "</td>";
                   $htmlcontrol .= "<td><input verzuim=\"$verzuimid\" name =\"telaat\" type=\"checkbox\" style='margin-left:auto; margin-right:auto;' class=\"form-control telaat-field\"" . ($telaat == 1 ? "checked=\"checked\"" : "") . " disabled></td>";
                   $htmlcontrol .= "<td><input verzuim=\"$verzuimid\" name =\"absentie\" type=\"checkbox\" style='margin-left:auto; margin-right:auto;'  class=\"form-control absentie-field\"" . ($absent == 1 ? "checked=\"checked\"" : "") . " disabled></td>";
                   $htmlcontrol .= "<td><input verzuim=\"$verzuimid\" name =\"toetsinhalen\"  type=\"checkbox\" style='margin-left:auto; margin-right:auto;'  class=\"form-control toetsinhalen-field\"" . ($toetsinhalen == 1 ? "checked=\"checked\"" : "") . " disabled></td>";
