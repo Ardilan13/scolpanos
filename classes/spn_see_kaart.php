@@ -1,6 +1,7 @@
 <?php
 require_once("spn_audit.php");
 require_once("spn_setting.php");
+require_once("spn_utils.php");
 class spn_see_kaart
 {
   function list_cijfers_by_student_se_kaart_rapport($schooljaar, $studentid, $rapnummer, $klas, $profiel, $color, $dummy)
@@ -1323,6 +1324,88 @@ class spn_see_kaart
       return null;
     }
   }
+  function _writerapportdata_houding_8($klas, $vak, $studentid_out, $schooljaar, $schoolid, $rap_in)
+  {
+    mysqli_report(MYSQLI_REPORT_STRICT);
+    $sql_query = "";
+    $result = null;
+    try {
+      require_once("DBCreds.php");
+      $DBCreds = new DBCreds();
+      $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
+      $sql_query = "SELECT $vak FROM le_houding WHERE studentid = $studentid_out AND schooljaar = '$schooljaar' AND rapnummer = $rap_in and klas = '$klas'";
+      if ($select = $mysqli->prepare($sql_query)) {
+        if ($select->execute()) {
+          $select->store_result();
+          if ($select->num_rows > 0) {
+            $select->bind_result($avg);
+            while ($select->fetch()) {
+              if ($avg != null && $avg != "") {
+                switch ($avg) {
+                  case 10:
+                    $result = "B";
+                    break;
+                  case 11:
+                    $result = "S";
+                    break;
+                  case 12:
+                    $result = "I";
+                    break;
+                }
+              } else {
+                $result = "B";
+              }
+            }
+          }
+        }
+      }
+      return $result;
+    } catch (PHPExcel_Exception $excel) {
+      return null;
+    }
+  }
+
+  function _writerapportdata_verzuim_8($klas, $vak, $studentid_out, $schooljaar, $schoolid, $rap_in)
+  {
+    mysqli_report(MYSQLI_REPORT_STRICT);
+    $sql_query = "";
+    $result = 0;
+    try {
+      $u = new spn_utils();
+      $s = new spn_setting();
+      $s->getsetting_info($schoolid, false);
+      require_once("DBCreds.php");
+      $DBCreds = new DBCreds();
+      $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
+      $sql_query = "SELECT v.$vak,v.created,v.datum FROM students s 
+    LEFT JOIN le_verzuim v ON s.id = v.studentid AND v.schooljaar = '$schooljaar' AND v.studentid = s.id
+    LEFT JOIN opmerking o ON o.studentid = s.id AND o.schooljaar = '$schooljaar' AND o.rapport = $rap_in
+    WHERE s.class = '$klas' AND s.schoolid = $schoolid AND s.id = $studentid_out ORDER BY v.created";
+      if ($select = $mysqli->prepare($sql_query)) {
+        $begin = "_setting_begin_rap_" . $rap_in;
+        $end = "_setting_end_rap_" . $rap_in;
+        $fecha2 = $s->$end;
+        $fecha1 = $s->$begin;
+        if ($select->execute()) {
+          $select->store_result();
+          if ($select->num_rows > 0) {
+            $select->bind_result($verzuim, $created, $datum);
+            while ($select->fetch()) {
+              $datum = $u->convertfrommysqldate_new($datum);
+              if ($datum >= $fecha1 && $datum <= $fecha2) {
+                if ($verzuim > 0) {
+                  $result++;
+                }
+              }
+            }
+          }
+        }
+      }
+      return $result;
+    } catch (PHPExcel_Exception $excel) {
+      return null;
+    }
+  }
 
   function _calculate_gemiddelde($array)
   {
@@ -1341,7 +1424,7 @@ class spn_see_kaart
     }
   }
 
-  function _print_vaks_table_8($table, $vaks, $rap, $avg, $student, $schooljaar, $klas)
+  function _print_vaks_table_8($type, $table, $vaks, $rap, $avg, $student, $schooljaar, $klas, $head)
   {
     if ($avg) {
       $gem_r1 = array();
@@ -1350,16 +1433,29 @@ class spn_see_kaart
     }
     $schoolId = $_SESSION['SchoolID'];
 
-    $page_html = "<table align='center'  cellpadding='1' cellspacing='1' class='table table-sm'>";
-    if ($table != "") {
-      $page_html .= "<thead>";
+    $page_html = "<style>.table-sm td, .table th{padding: 0.1rem !important; }</style>";
+    $page_html .= "<table align='center'  cellpadding='1' cellspacing='1' class='table table-sm'>";
+    $page_html .= "<thead>";
+    if ($table != "" && $head) {
       $page_html .= "<th>" . $table . "</th>";
       $page_html .= "<th style='width: 75px;'>Rapport</th>";
       $page_html .= "<th>1</th>";
       $page_html .= "<th>2</th>";
       $page_html .= "<th>3</th>";
-      $page_html .= "</thead>";
+    } else if ($table != "" && !$head) {
+      $page_html .= "<th>" . $table . "</th>";
+      $page_html .= "<th style='width:14%;'></th>";
+      $page_html .= "<th></th>";
+      $page_html .= "<th></th>";
+      $page_html .= "<th></th>";
+    } else {
+      $page_html .= "<th style='border-bottom: none; padding: 0 !important;'></th>";
+      $page_html .= "<th style='border-bottom: none; padding: 0 !important;width:14%;'></th>";
+      $page_html .= "<th style='border-bottom: none; padding: 0 !important;'></th>";
+      $page_html .= "<th style='border-bottom: none; padding: 0 !important;'></th>";
+      $page_html .= "<th style='border-bottom: none; padding: 0 !important;'></th>";
     }
+    $page_html .= "</thead>";
     $page_html .= "<tbody>";
 
     foreach ($vaks as $key => $value) {
@@ -1367,26 +1463,40 @@ class spn_see_kaart
       $page_html .= "<td width='65%'>" . $key . "</td>";
       $page_html .= "<td></td>";
 
-      $_h1_1 =  $this->_writerapportdata_cijfers_8($klas, $value, $student, $schooljaar, $schoolId, 1);
-      $_h1_2 =  $rap >= 2 ? ($this->_writerapportdata_cijfers_8($klas, $value, $student, $schooljaar, $schoolId, 2)) : "";
-      $_h1_3 =  $rap >= 3 ? ($this->_writerapportdata_cijfers_8($klas, $value, $student, $schooljaar, $schoolId, 3)) : "";
+      switch ($type) {
+        case 1:
+          $_h1_1 =  $this->_writerapportdata_cijfers_8($klas, $value, $student, $schooljaar, $schoolId, 1);
+          $_h1_2 =  $rap >= 2 ? ($this->_writerapportdata_cijfers_8($klas, $value, $student, $schooljaar, $schoolId, 2)) : "";
+          $_h1_3 =  $rap >= 3 ? ($this->_writerapportdata_cijfers_8($klas, $value, $student, $schooljaar, $schoolId, 3)) : "";
+          break;
+        case 2:
+          $_h1_1 =  $this->_writerapportdata_houding_8($klas, $value, $student, $schooljaar, $schoolId, 1);
+          $_h1_2 =  $rap >= 2 ? ($this->_writerapportdata_houding_8($klas, $value, $student, $schooljaar, $schoolId, 2)) : "";
+          $_h1_3 =  $rap >= 3 ? ($this->_writerapportdata_houding_8($klas, $value, $student, $schooljaar, $schoolId, 3)) : "";
+          break;
+        case 3:
+          $_h1_1 =  $this->_writerapportdata_verzuim_8($klas, $value, $student, $schooljaar, $schoolId, 1);
+          $_h1_2 =  $rap >= 2 ? ($this->_writerapportdata_verzuim_8($klas, $value, $student, $schooljaar, $schoolId, 2)) : "";
+          $_h1_3 =  $rap >= 3 ? ($this->_writerapportdata_verzuim_8($klas, $value, $student, $schooljaar, $schoolId, 3)) : "";
+          break;
+      }
 
-      if ($avg) {
+      if ($avg && $type == 1) {
         array_push($gem_r1, $_h1_1);
         array_push($gem_r2, $_h1_2);
         array_push($gem_r3, $_h1_3);
       }
 
-      $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
-      $page_html .= "<td" . (((float)$_h1_2 <= 5.4 && $_h1_2 && $rap >= 2) ? " class=\bg-danger\"" : "") . ">" . ($rap >= 2 ? $_h1_2 : "") . " </td>";
-      $page_html .= "<td" . (((float)$_h1_3 <= 5.4 && $_h1_3 && $rap >= 3) ? " class=\bg-danger\"" : "") . ">" . ($rap >= 3 ? $_h1_3 : "") . " </td>";
+      $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 && $type == 1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+      $page_html .= "<td" . (((float)$_h1_2 <= 5.4 && $_h1_2 && $rap >= 2 && $type == 1) ? " class=\"bg-danger\"" : "") . ">" . ($rap >= 2 ? $_h1_2 : "") . " </td>";
+      $page_html .= "<td" . (((float)$_h1_3 <= 5.4 && $_h1_3 && $rap >= 3 && $type == 1) ? " class=\"bg-danger\"" : "") . ">" . ($rap >= 3 ? $_h1_3 : "") . " </td>";
 
       $page_html .= "</tr>";
     }
 
-    if ($avg) {
+    if ($avg && $type == 1) {
       $page_html .= "<tr>";
-      $page_html .= "<td width='65%'></td>";
+      $page_html .= "<td width='65%'>Averahe / Gemiddelde</td>";
       $page_html .= "<td></td>";
 
       $avg_h1 = $this->_calculate_gemiddelde($gem_r1);

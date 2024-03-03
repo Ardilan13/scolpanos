@@ -564,26 +564,33 @@ foreach ($array_leerling as $item) {
     $page_html .= "<hr>";
   }
   $page_html .= "<div class='row' style='margin-left: 1%; justify-content: space-between; flex-direction: column;'>";
-  $page_html .= "<div>";
-  if ($level_klas == 4 && $_SESSION["SchoolType"] == 2) {
+  if ($_SESSION["SchoolID"] != 8) {
+    $page_html .= "<div>";
     $page_html .= "<p style='margin-bottom: 0rem;'><b>SE KAART: </b><span>" . $item['voornamen'] . " " . $item['achternaam'] . "</span></p>";
-  } else if ($_SESSION["SchoolID"] == 18) {
-    $page_html .= "<p style='margin-bottom: 0rem;'><b>Rapport di: </b><span>" . $item['voornamen'] . " " . $item['achternaam'] . "</span></p>";
-  } else if ($_SESSION["SchoolID"] == 8) {
-    $page_html .= "<p style='margin-bottom: 0rem;'><b>Rapport di: </b><span>" . $item['voornamen'] . " " . $item['achternaam'] . "</span></p>";
+    $page_html .= "<div>";
+    if ($level_klas == 4 && $_SESSION["SchoolType"] == 2) {
+      $page_html .= "<p style='margin-bottom: 0rem;'><b>SE KAART: </b><span>" . $item['voornamen'] . " " . $item['achternaam'] . "</span></p>";
+    } else if ($_SESSION["SchoolID"] == 18) {
+      $page_html .= "<p style='margin-bottom: 0rem;'><b>Rapport di: </b><span>" . $item['voornamen'] . " " . $item['achternaam'] . "</span></p>";
+    } else {
+      $page_html .= "<p style='margin-bottom: 0rem;'><b>Rapport van: </b><span>" . $item['voornamen'] . " " . $item['achternaam'] . "</span></p>";
+    }
+    $page_html .= "</div>";
+    //$page_html .="<p style='margin-bottom: 0rem;'><b>Mentor: </b><span>".$tutor."</span></p>";
+    if ($_SESSION['SchoolType'] == 2) {
+      $page_html .= "<div style='padding-right:0px;'>";
+      $page_html .= "<p style='margin-bottom: 0rem;'><b>Mentor: </b><span>" . $tutor . "</span></p>";
+      $page_html .= "</div>";
+    }
+    $page_html .= "<div>";
+    $page_html .= "<p style='margin-bottom: 0rem;'><b>Klas: </b><span>" . $_GET["klas"] . "</span></p>";
+    $page_html .= "</div>";
   } else {
-    $page_html .= "<p style='margin-bottom: 0rem;'><b>Rapport van: </b><span>" . $item['voornamen'] . " " . $item['achternaam'] . "</span></p>";
-  }
-  $page_html .= "</div>";
-  //$page_html .="<p style='margin-bottom: 0rem;'><b>Mentor: </b><span>".$tutor."</span></p>";
-  if ($_SESSION['SchoolType'] == 2) {
-    $page_html .= "<div style='padding-right:0px;'>";
-    $page_html .= "<p style='margin-bottom: 0rem;'><b>Mentor: </b><span>" . $tutor . "</span></p>";
+    $page_html .= "<div style='display:flex; width: 95%; justify-content: space-between;'>";
+    $page_html .= "<label style='margin-bottom: 0rem;'><b>Rapport di: </b><span>" . $item['voornamen'] . " " . $item['achternaam'] . "</span></label>";
+    $page_html .= "<label style='margin-bottom: 0rem;'><b>Klas: </b><span>" . $_GET["klas"] . "</span></label>";
     $page_html .= "</div>";
   }
-  $page_html .= "<div>";
-  $page_html .= "<p style='margin-bottom: 0rem;'><b>Klas: </b><span>" . $_GET["klas"] . "</span></p>";
-  $page_html .= "</div>";
   $page_html .= "</div>";
   $page_html .= "<div class='row'>";
   $page_html .= "<div class='col-md-12'>";
@@ -596,8 +603,11 @@ foreach ($array_leerling as $item) {
   $page_html .= "</div>";
 
   ////////////////////////////////////// NEW HOUDING ///////////////////////
-
-  $page_html .= "<div class='row mt-2'>";
+  if ($_SESSION["SchoolID"] == 8) {
+    $page_html .= "<div class='row'>";
+  } else {
+    $page_html .= "<div class='row mt-2'>";
+  }
   $page_html .= "<div class='col-md-12'>";
   $page_html .= "<table align='center'  cellpadding='1' cellspacing='1' class='table table-sm'>";
   $page_html .= "<thead>";
@@ -3192,19 +3202,19 @@ if($avg_h == 0.0){$avg_h = null;}
       $page_html .= "<div class='col-md-12'>";
 
       $vaks_pap = ["Reflexion / Taalbeschouwing" => "Reflexion", "Vocabulario / Woordenschat" => "Vocabulario", "Dictado / Dictee" => "Dictado", "Scucha y Papia / Luisteren en Spreken" => "PAP Scucha y papia"];
-      $page_html .= $c->_print_vaks_table_8("Papiamento / Papiaments", $vaks_pap, $_GET['rap'], TRUE, $item['studentid'], $_GET["schoolJaar"], $_GET["klas"]);
+      $page_html .= $c->_print_vaks_table_8(1, "Papiamento / Papiaments", $vaks_pap, $_GET['rap'], TRUE, $item['studentid'], $_GET["schoolJaar"], $_GET["klas"], TRUE);
 
       $vaks_lesa = ["Lesa tecnico / Technisch lezen" => "Lesamento Tecnico", "Lesa comprensivo / Leesbegrip" => "Lesamento Comprensivo"];
-      $page_html .= $c->_print_vaks_table_8("Lesa / Lezen", $vaks_lesa, $_GET['rap'], TRUE, $item['studentid'], $_GET["schoolJaar"], $_GET["klas"]);
+      $page_html .= $c->_print_vaks_table_8(1, "Lesa / Lezen", $vaks_lesa, $_GET['rap'], TRUE, $item['studentid'], $_GET["schoolJaar"], $_GET["klas"], FALSE);
 
       $vaks_hul = ["Scucha y Papia / Luisteren en Spreken" => "Hul scucha y mira"];
-      $page_html .= $c->_print_vaks_table_8("Hulandes / Nederlands", $vaks_hul, $_GET['rap'], FALSE, $item['studentid'], $_GET["schoolJaar"], $_GET["klas"]);
+      $page_html .= $c->_print_vaks_table_8(1, "Hulandes / Nederlands", $vaks_hul, $_GET['rap'], FALSE, $item['studentid'], $_GET["schoolJaar"], $_GET["klas"], FALSE);
 
       $vaks_mat = ["Vision y comprension / Inzicht" => "", "Nocion di number / Getalbegrip" => "Nocion di number", "Operacion basico y avansa / Basisvaardigheden" => "Operacion basico y avansa", "Midi y Geometria / Meten en Meetkunde" => "Midi y geometria", "Tabel  y Grafico/ Tabel en Grafieken" => "Tabel"];
-      $page_html .= $c->_print_vaks_table_8("Matematica / Rekenen", $vaks_mat, $_GET['rap'], TRUE, $item['studentid'], $_GET["schoolJaar"], $_GET["klas"]);
+      $page_html .= $c->_print_vaks_table_8(1, "Matematica / Rekenen", $vaks_mat, $_GET['rap'], TRUE, $item['studentid'], $_GET["schoolJaar"], $_GET["klas"], TRUE);
 
       $vaks_ext = ["Orientacion riba mundo / Wereldoriëntatie" => "Orientacion riba Mundo", "Skirbi / Schrijven" => "Skirbi", "Ingles / Engels" => "Engels", "Spaño / Spaans" => "Spaans", "Trafico / Verkeer" => "Trafico", "Charla / Spreekbeurt" => "Charla"];
-      $page_html .= $c->_print_vaks_table_8("", $vaks_ext, $_GET['rap'], FALSE, $item['studentid'], $_GET["schoolJaar"], $_GET["klas"]);
+      $page_html .= $c->_print_vaks_table_8(1, "", $vaks_ext, $_GET['rap'], FALSE, $item['studentid'], $_GET["schoolJaar"], $_GET["klas"], FALSE);
     } else {
       $klas_1 = substr($_GET["klas"], 0, 1);
       $page_html .= "<style>th, tbody td{min-width: 35px;}</style>";
@@ -7495,23 +7505,27 @@ if($avg_h == 0.0){$avg_h = null;}
 
     $page_html .= "</table>";
   } else if ($_SESSION["SchoolID"] == 8) {
-    $vaks_mov = ["Movecion / Lichamelijk opvoeding" => "", "Actitud positivo / Sportiviteit" => "", "Arte / Beeldende vorming" => ""];
-    $page_html .= $c->_print_vaks_table_8("Movecion / Bewegingsonderwijs", $vaks_mov, $_GET['rap'], FALSE, $item['studentid'], $_GET["schoolJaar"], $_GET["klas"]);
+    //Houding
+    $vaks_mov = ["Movecion / Lichamelijk opvoeding" => "Movecion"];
+    $page_html .= $c->_print_vaks_table_8(1, "Movecion / Bewegingsonderwijs", $vaks_mov, $_GET['rap'], FALSE, $item['studentid'], $_GET["schoolJaar"], $_GET["klas"], TRUE);
 
-    $vaks_cop = ["Mantene palabracion / Zich aan afspraken houden" => "", "Disponilidad pa yuda / Hulpvaardigheid" => ""];
-    $page_html .= $c->_print_vaks_table_8("Cooperacion / Samenwerking", $vaks_cop, $_GET['rap'], FALSE, $item['studentid'], $_GET["schoolJaar"], $_GET["klas"]);
+    $vaks_mov = ["Actitud positivo / Sportiviteit" => "h3", "Arte / Beeldende vorming" => ""];
+    $page_html .= $c->_print_vaks_table_8(2, "", $vaks_mov, $_GET['rap'], FALSE, $item['studentid'], $_GET["schoolJaar"], $_GET["klas"], FALSE);
 
-    $vaks_com = ["Comunicacion social / Sociaal gedrag" => "", "Cortesia / Beleefdheid" => ""];
-    $page_html .= $c->_print_vaks_table_8("Comunicacion / Communicatie", $vaks_com, $_GET['rap'], FALSE, $item['studentid'], $_GET["schoolJaar"], $_GET["klas"]);
+    $vaks_cop = ["Mantene palabracion / Zich aan afspraken houden" => "h4", "Disponilidad pa yuda / Hulpvaardigheid" => "h5"];
+    $page_html .= $c->_print_vaks_table_8(2, "Cooperacion / Samenwerking", $vaks_cop, $_GET['rap'], FALSE, $item['studentid'], $_GET["schoolJaar"], $_GET["klas"], FALSE);
 
-    $vaks_com = ["Participacion activo / Actieve werkhouding" => "", "Confiansa propio / Zelfvertrouwen" => "", "Precision / Nauwkeurigheid" => "", "Independencia / Zelfstandigheid" => "", "Responsabilidad / Verantwoordelijkheid" => "", "Perseverancia / Doorzettingsvermogen" => ""];
-    $page_html .= $c->_print_vaks_table_8("Actitud pa siña / Leerhouding", $vaks_com, $_GET['rap'], FALSE, $item['studentid'], $_GET["schoolJaar"], $_GET["klas"]);
+    $vaks_com = ["Comunicacion social / Sociaal gedrag" => "h6", "Cortesia / Beleefdheid" => "h7"];
+    $page_html .= $c->_print_vaks_table_8(2, "Comunicacion / Communicatie", $vaks_com, $_GET['rap'], FALSE, $item['studentid'], $_GET["schoolJaar"], $_GET["klas"], FALSE);
 
-    $vaks_com = ["Liheresa / Werktempo" => "", "Concentracion / Concentratie" => "", "Tarea di cas / Huiswerk" => ""];
-    $page_html .= $c->_print_vaks_table_8("Actitud pa siña / Leerhouding", $vaks_com, $_GET['rap'], FALSE, $item['studentid'], $_GET["schoolJaar"], $_GET["klas"]);
+    $vaks_com = ["Participacion activo / Actieve werkhouding" => "h8", "Confiansa propio / Zelfvertrouwen" => "", "Precision / Nauwkeurigheid" => "h9", "Independencia / Zelfstandigheid" => "h10", "Responsabilidad / Verantwoordelijkheid" => "h11", "Perseverancia / Doorzettingsvermogen" => "h12"];
+    $page_html .= $c->_print_vaks_table_8(2, "Actitud pa siña / Leerhouding", $vaks_com, $_GET['rap'], FALSE, $item['studentid'], $_GET["schoolJaar"], $_GET["klas"], FALSE);
 
-    $vaks_com = ["Yega laat / Te laat" => "", "Ausencia / Verzuim" => ""];
-    $page_html .= $c->_print_vaks_table_8("", $vaks_com, $_GET['rap'], FALSE, $item['studentid'], $_GET["schoolJaar"], $_GET["klas"]);
+    $vaks_com = ["Liheresa / Werktempo" => "h13", "Concentracion / Concentratie" => "h14"];
+    $page_html .= $c->_print_vaks_table_8(2, "Actitud pa siña / Leerhouding", $vaks_com, $_GET['rap'], FALSE, $item['studentid'], $_GET["schoolJaar"], $_GET["klas"], FALSE);
+
+    $vaks_com = ["Tarea di cas / Huiswerk" => "huiswerk", "Yega laat / Te laat" => "telaat", "Ausencia / Verzuim" => "absentie"];
+    $page_html .= $c->_print_vaks_table_8(3, "", $vaks_com, $_GET['rap'], FALSE, $item['studentid'], $_GET["schoolJaar"], $_GET["klas"], FALSE);
   }
   if ($_SESSION["SchoolID"] != 8) {
     $page_html .= "<div class='card'>";
