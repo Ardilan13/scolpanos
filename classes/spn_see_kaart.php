@@ -1296,4 +1296,114 @@ class spn_see_kaart
       return null;
     }
   }
+
+  function _writerapportdata_cijfers_8($klas, $vak, $studentid_out, $schooljaar, $schoolid, $rap_in)
+  {
+    mysqli_report(MYSQLI_REPORT_STRICT);
+    $sql_query = "";
+    $result = null;
+    try {
+      require_once("DBCreds.php");
+      $DBCreds = new DBCreds();
+      $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
+      $sql_query = "SELECT gemiddelde FROM le_cijfers c INNER JOIN le_vakken v ON v.ID = c.vak where c.studentid = $studentid_out and c.schooljaar = '$schooljaar' and c.rapnummer = $rap_in and v.Klas = '$klas' and v.SchoolID = $schoolid and v.volledigenaamvak = '$vak'";
+      if ($select = $mysqli->prepare($sql_query)) {
+
+        if ($select->execute()) {
+          $select->store_result();
+          if ($select->num_rows > 0) {
+            $select->bind_result($avg);
+            while ($select->fetch()) {
+              if ($avg != null) {
+                $result = $avg;
+              } else {
+                $result = null;
+              }
+            }
+          }
+        }
+      }
+      return $result;
+    } catch (PHPExcel_Exception $excel) {
+      return null;
+    }
+  }
+
+  function _calculate_gemiddelde($array)
+  {
+    $sum = 0;
+    $count = 0;
+    foreach ($array as $value) {
+      if ($value != null && $value != "" && $value > 0) {
+        $sum += $value;
+        $count++;
+      }
+    }
+    if ($count > 0) {
+      return round($sum / $count, 1);
+    } else {
+      return null;
+    }
+  }
+
+  function _print_vaks_table_8($table, $vaks, $rap, $avg, $student, $schooljaar, $klas)
+  {
+    $gem_r1 = array();
+    $gem_r2 = array();
+    $gem_r3 = array();
+    $schoolId = $_SESSION['SchoolID'];
+
+    $page_html = "<table align='center'  cellpadding='1' cellspacing='1' class='table table-sm'>";
+    if ($table != "") {
+      $page_html .= "<thead>";
+      $page_html .= "<th>" . $table . "</th>";
+      $page_html .= "<th style='width: 75px;'>Rapport</th>";
+      $page_html .= "<th>1</th>";
+      $page_html .= "<th>2</th>";
+      $page_html .= "<th>3</th>";
+      $page_html .= "</thead>";
+    }
+    $page_html .= "<tbody>";
+
+    foreach ($vaks as $key => $value) {
+      $page_html .= "<tr>";
+      $page_html .= "<td width='65%'>" . $key . "</td>";
+      $page_html .= "<td></td>";
+
+      $_h1_1 =  $this->_writerapportdata_cijfers_8($klas, $value, $student, $schooljaar, $schoolId, 1);
+      $_h1_2 =  $rap >= 2 ? ($this->_writerapportdata_cijfers_8($klas, $value, $student, $schooljaar, $schoolId, 2)) : "";
+      $_h1_3 =  $rap >= 3 ? ($this->_writerapportdata_cijfers_8($klas, $value, $student, $schooljaar, $schoolId, 3)) : "";
+
+      if ($avg) {
+        array_push($gem_r1, $_h1_1);
+        array_push($gem_r2, $_h1_2);
+        array_push($gem_r3, $_h1_3);
+      }
+
+      $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+      $page_html .= "<td" . (((float)$_h1_2 <= 5.4 && $_h1_2 && $rap >= 2) ? " class=\bg-danger\"" : "") . ">" . ($rap >= 2 ? $_h1_2 : "") . " </td>";
+      $page_html .= "<td" . (((float)$_h1_3 <= 5.4 && $_h1_3 && $rap >= 3) ? " class=\bg-danger\"" : "") . ">" . ($rap >= 3 ? $_h1_3 : "") . " </td>";
+
+      $page_html .= "</tr>";
+    }
+
+    if ($avg) {
+      $page_html .= "<tr>";
+      $page_html .= "<td width='65%'></td>";
+      $page_html .= "<td></td>";
+
+      $avg_h1 = $this->_calculate_gemiddelde($gem_r1);
+      $avg_h2 = $this->_calculate_gemiddelde($gem_r2);
+      $avg_h3 = $this->_calculate_gemiddelde($gem_r3);
+
+      $page_html .= "<td" . ((float)$avg_h1 <= 5.4 && $avg_h1 ? " class=\"bg-danger\"" : "") . "><b>" . $avg_h1 . " </b></td>";
+      $page_html .= "<td" . (((float)$avg_h2 <= 5.4 && $avg_h2 && $rap >= 2) ? " class=\"bg-danger\"" : "") . "><b>" . ($rap >= 2 ? $avg_h2 : "") . " </b></td>";
+      $page_html .= "<td" . (((float)$avg_h3 <= 5.4 && $avg_h3 && $rap >= 3) ? " class=\"bg-danger\"" : "") . "><b>" . ($rap >= 3 ? $avg_h3 : "") . " </b></td>";
+      $page_html .= "</tr>";
+    }
+
+    $page_html .= "</tbody>";
+    $page_html .= "</table>";
+    return $page_html;
+  }
 }

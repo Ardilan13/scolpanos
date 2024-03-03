@@ -119,7 +119,7 @@ ob_flush();
 								<li><a href="tussen_rapport.php">Tussen Rapport</a></li>
 								<li><a href="login_parents_info.php">Pin Report</a></li>
 								<li><a href="leerling_export_basic_data.php">School Export</a></li>
-								<?php if ($_SESSION['SchoolID'] == 12 or $_SESSION['SchoolID'] == 13 or $_SESSION['SchoolID'] == 17 or ($_SESSION['SchoolType'] == 1 && $_SESSION['SchoolID'] != 8)) : ?>
+								<?php if ($_SESSION['SchoolID'] == 12 or $_SESSION['SchoolID'] == 13 or $_SESSION['SchoolID'] == 17 or ($_SESSION['SchoolType'] == 1)) : ?>
 									<li><a href="se_kaart.php">Rapport</a></li>
 								<?php endif; ?>
 
