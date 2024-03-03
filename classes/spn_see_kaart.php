@@ -1306,19 +1306,14 @@ class spn_see_kaart
       require_once("DBCreds.php");
       $DBCreds = new DBCreds();
       $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
-      $sql_query = "SELECT gemiddelde FROM le_cijfers c INNER JOIN le_vakken v ON v.ID = c.vak where c.studentid = $studentid_out and c.schooljaar = '$schooljaar' and c.rapnummer = $rap_in and v.Klas = '$klas' and v.SchoolID = $schoolid and v.volledigenaamvak = '$vak'";
+      $sql_query = "SELECT gemiddelde FROM le_cijfers c INNER JOIN le_vakken v ON v.ID = c.vak where c.studentid = $studentid_out and c.schooljaar = '$schooljaar' and c.rapnummer = $rap_in and v.Klas = '$klas' and v.SchoolID = $schoolid and v.volledigenaamvak = '$vak' AND c.gemiddelde > 0.0 AND c.gemiddelde IS NOT NULL LIMIT 1";
       if ($select = $mysqli->prepare($sql_query)) {
-
         if ($select->execute()) {
           $select->store_result();
           if ($select->num_rows > 0) {
             $select->bind_result($avg);
             while ($select->fetch()) {
-              if ($avg != null) {
-                $result = $avg;
-              } else {
-                $result = null;
-              }
+              $result = $avg;
             }
           }
         }
@@ -1348,9 +1343,11 @@ class spn_see_kaart
 
   function _print_vaks_table_8($table, $vaks, $rap, $avg, $student, $schooljaar, $klas)
   {
-    $gem_r1 = array();
-    $gem_r2 = array();
-    $gem_r3 = array();
+    if ($avg) {
+      $gem_r1 = array();
+      $gem_r2 = array();
+      $gem_r3 = array();
+    }
     $schoolId = $_SESSION['SchoolID'];
 
     $page_html = "<table align='center'  cellpadding='1' cellspacing='1' class='table table-sm'>";

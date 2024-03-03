@@ -4,7 +4,7 @@ ob_start();
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
-
+$inicio = microtime(true);
 require_once("config/app.config.php");
 require_once("classes/spn_authentication.php");
 require_once("classes/spn_rapport_school_12.php");
@@ -295,10 +295,9 @@ foreach ($array_leerling as $item) {
 
   if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["SchoolID"] != 18) {
     $table_cijfers = "";
-  } else if ($_SESSION["SchoolID"] != 18) {
+  } else if ($_SESSION["SchoolID"] != 18 && $_SESSION["SchoolType"] == 2) {
     $table_cijfers = $c->list_cijfers_by_student_se_kaart_rapport($_GET["schoolJaar"], $item['studentid'], $_GET["rap"], $klas, $profiel, $color, false);
   }
-  // $table_cijfers = $c->list_cijfers_by_student_se_kaart_rapport($_SESSION["SchoolJaar"], 5291,2,false);
 
   if ($_SESSION["SchoolType"] == 1) {
     if ($_SESSION["SchoolID"] != 18) {
@@ -443,7 +442,6 @@ foreach ($array_leerling as $item) {
     $page_html .= "</br>";
     $page_html .= "<div style='width: 50rem; margin: 0px; display: flex; align-items: center; flex-direction: column;' >";
   }
-
 
   if ($schoolId != 17 && $schoolId != 10) {
     if ($schoolId == 18) {
@@ -590,33 +588,12 @@ foreach ($array_leerling as $item) {
   $page_html .= "<div class='row'>";
   $page_html .= "<div class='col-md-12'>";
   if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 18) {
-  } else {
+  } else if ($_SESSION["SchoolType"] == 2) {
     $page_html .= $table_cijfers;
   }
 
-  // $page_html .="<table align='center' cellpadding='1' cellspacing='1' class='table'>";
-  // $page_html .="<thead>";
-  // $page_html .="<th>Vakken</th>";
-  // $page_html .="<th>1</th>";
-  // $page_html .="<th>2</th>";
-  // $page_html .="<th>3</th>";
-  // $page_html .="<th>Eind</th>";
-  // $page_html .="</thead>";
-  // $page_html .="<tbody>";
-  // $page_html .="<tr>";
-  // $page_html .="<td width='65%'>&nbsp;&nbsp;Kennis van het Geestelijk Leven (KGL)</td>";
-  // $page_html .="<td>0.5</td>";
-  // $page_html .="<td>2</td>";
-  // $page_html .="<td>3</td>";
-  // $page_html .="<td>4</td>";
-  // $page_html .="</tr>";
-  // $page_html .="</tbody>";
-  // $page_html .="</table>";
   $page_html .= "</div>";
   $page_html .= "</div>";
-  //$page_html .="<br>";
-
-
 
   ////////////////////////////////////// NEW HOUDING ///////////////////////
 
@@ -7518,12 +7495,27 @@ if($avg_h == 0.0){$avg_h = null;}
 
     $page_html .= "</table>";
   } else if ($_SESSION["SchoolID"] == 8) {
-    $vaks_hul = ["Scucha y Papia / Luisteren en Spreken" => "Hul scucha y mira"];
-    $page_html .= $c->_print_vaks_table_8("Hulandes / Nederlands", $vaks_hul, $_GET['rap'], FALSE, $item['studentid'], $_GET["schoolJaar"], $_GET["klas"]);
-    $vaks_hul = ["Scucha y Papia / Luisteren en Spreken" => "Hul scucha y mira"];
-    $page_html .= $c->_print_vaks_table_8("Hulandes / Nederlands", $vaks_hul, $_GET['rap'], FALSE, $item['studentid'], $_GET["schoolJaar"], $_GET["klas"]);
+    $vaks_mov = ["Movecion / Lichamelijk opvoeding" => "", "Actitud positivo / Sportiviteit" => "", "Arte / Beeldende vorming" => ""];
+    $page_html .= $c->_print_vaks_table_8("Movecion / Bewegingsonderwijs", $vaks_mov, $_GET['rap'], FALSE, $item['studentid'], $_GET["schoolJaar"], $_GET["klas"]);
+
+    $vaks_cop = ["Mantene palabracion / Zich aan afspraken houden" => "", "Disponilidad pa yuda / Hulpvaardigheid" => ""];
+    $page_html .= $c->_print_vaks_table_8("Cooperacion / Samenwerking", $vaks_cop, $_GET['rap'], FALSE, $item['studentid'], $_GET["schoolJaar"], $_GET["klas"]);
+
+    $vaks_com = ["Comunicacion social / Sociaal gedrag" => "", "Cortesia / Beleefdheid" => ""];
+    $page_html .= $c->_print_vaks_table_8("Comunicacion / Communicatie", $vaks_com, $_GET['rap'], FALSE, $item['studentid'], $_GET["schoolJaar"], $_GET["klas"]);
+
+    $vaks_com = ["Participacion activo / Actieve werkhouding" => "", "Confiansa propio / Zelfvertrouwen" => "", "Precision / Nauwkeurigheid" => "", "Independencia / Zelfstandigheid" => "", "Responsabilidad / Verantwoordelijkheid" => "", "Perseverancia / Doorzettingsvermogen" => ""];
+    $page_html .= $c->_print_vaks_table_8("Actitud pa siña / Leerhouding", $vaks_com, $_GET['rap'], FALSE, $item['studentid'], $_GET["schoolJaar"], $_GET["klas"]);
+
+    $vaks_com = ["Liheresa / Werktempo" => "", "Concentracion / Concentratie" => "", "Tarea di cas / Huiswerk" => ""];
+    $page_html .= $c->_print_vaks_table_8("Actitud pa siña / Leerhouding", $vaks_com, $_GET['rap'], FALSE, $item['studentid'], $_GET["schoolJaar"], $_GET["klas"]);
+
+    $vaks_com = ["Yega laat / Te laat" => "", "Ausencia / Verzuim" => ""];
+    $page_html .= $c->_print_vaks_table_8("", $vaks_com, $_GET['rap'], FALSE, $item['studentid'], $_GET["schoolJaar"], $_GET["klas"]);
   }
-  $page_html .= "<div class='card'>";
+  if ($_SESSION["SchoolID"] != 8) {
+    $page_html .= "<div class='card'>";
+  }
   if ($_SESSION['SchoolID'] == 18) {
     $page_html .= "<div class='card-body' style='padding-bottom: 0px; padding-top: 0px;'>";
   } else {
@@ -7540,7 +7532,7 @@ if($avg_h == 0.0){$avg_h = null;}
     $page_html .= "<p style='margin-bottom: 0.1rem; font-size: 0.75rem;'> 1 = Slecht</p>";
     $page_html .= "</div>";
     $page_html .= "</div>";
-  } else if ($_SESSION['SchoolID'] != 18) {
+  } else if ($_SESSION['SchoolID'] != 18 && $_SESSION['SchoolID'] != 8) {
     $page_html .= "<h6>Betekenis cijfers/letters:</h6>";
     $page_html .= "<div class='row' style='height: 110px; justify-content: space-around;'>";
     $page_html .= "<div style='height: fit-content;'>";
@@ -7576,7 +7568,9 @@ if($avg_h == 0.0){$avg_h = null;}
     $page_html .= "<label style='margin-right: 20px;'>Comentario Rapport 3</label>";
     $page_html .= "<textarea style='resize: none;overflow: hidden;width: 250px;height: auto;'>" . $opmerking3 . "</textarea>";
   } */
-  $page_html .= "</div>";
+  if ($_SESSION["SchoolID"] != 8) {
+    $page_html .= "</div>";
+  }
   $page_html .= "</div>";
   $page_html .= "</div>";
 
@@ -7712,10 +7706,6 @@ if($avg_h == 0.0){$avg_h = null;}
   $page_html .= "</div>";
   $page_html .= "<div class='page-break'></div>";
 }
-
-
-
-
 
 //if(appconfig::GetHTTPMode() == "HTTPS")
 //{
