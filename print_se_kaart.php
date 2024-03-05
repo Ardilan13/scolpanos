@@ -566,8 +566,6 @@ foreach ($array_leerling as $item) {
   $page_html .= "<div class='row' style='margin-left: 1%; justify-content: space-between; flex-direction: column;'>";
   if ($_SESSION["SchoolID"] != 8) {
     $page_html .= "<div>";
-    $page_html .= "<p style='margin-bottom: 0rem;'><b>SE KAART: </b><span>" . $item['voornamen'] . " " . $item['achternaam'] . "</span></p>";
-    $page_html .= "<div>";
     if ($level_klas == 4 && $_SESSION["SchoolType"] == 2) {
       $page_html .= "<p style='margin-bottom: 0rem;'><b>SE KAART: </b><span>" . $item['voornamen'] . " " . $item['achternaam'] . "</span></p>";
     } else if ($_SESSION["SchoolID"] == 18) {
