@@ -1437,20 +1437,32 @@ class spn_see_kaart
     $page_html .= "<table align='center'  cellpadding='1' cellspacing='1' class='table table-sm'>";
     $page_html .= "<thead>";
     if ($table != "" && $head) {
-      $page_html .= "<th>" . $table . "</th>";
-      $page_html .= "<th style='width: 75px;'>Rapport</th>";
-      $page_html .= "<th>1</th>";
-      $page_html .= "<th>2</th>";
-      $page_html .= "<th>3</th>";
+      if ($type == 1) {
+        $page_html .= "<th>" . $table . "</th>";
+        $page_html .= "<th style='width: 75px;'>Rapport</th>";
+        $page_html .= "<th style='text-align: center;'>1</th>";
+        $page_html .= "<th style='text-align: center;'>2</th>";
+        $page_html .= "<th style='text-align: center;'>3</th>";
+        $page_html .= "<th style='text-align: center;'>4</th>";
+      } else {
+        $page_html .= "<th>" . $table . "</th>";
+        $page_html .= "<th style='width: 75px;'>Rapport</th>";
+        $page_html .= "<th style='text-align: center;'>1</th>";
+        $page_html .= "<th style='text-align: center;'>2</th>";
+        $page_html .= "<th style='text-align: center;'>3</th>";
+        $page_html .= "<th style='text-align: center;'>4</th>";
+      }
     } else if ($table != "" && !$head) {
       $page_html .= "<th>" . $table . "</th>";
       $page_html .= "<th style='width:14%;'></th>";
       $page_html .= "<th></th>";
       $page_html .= "<th></th>";
       $page_html .= "<th></th>";
+      $page_html .= "<th></th>";
     } else {
       $page_html .= "<th style='border-bottom: none; padding: 0 !important;'></th>";
       $page_html .= "<th style='border-bottom: none; padding: 0 !important;width:14%;'></th>";
+      $page_html .= "<th style='border-bottom: none; padding: 0 !important;'></th>";
       $page_html .= "<th style='border-bottom: none; padding: 0 !important;'></th>";
       $page_html .= "<th style='border-bottom: none; padding: 0 !important;'></th>";
       $page_html .= "<th style='border-bottom: none; padding: 0 !important;'></th>";
@@ -1490,6 +1502,12 @@ class spn_see_kaart
       $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 && $type == 1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
       $page_html .= "<td" . (((float)$_h1_2 <= 5.4 && $_h1_2 && $rap >= 2 && $type == 1) ? " class=\"bg-danger\"" : "") . ">" . ($rap >= 2 ? $_h1_2 : "") . " </td>";
       $page_html .= "<td" . (((float)$_h1_3 <= 5.4 && $_h1_3 && $rap >= 3 && $type == 1) ? " class=\"bg-danger\"" : "") . ">" . ($rap >= 3 ? $_h1_3 : "") . " </td>";
+      if ($type == 3) {
+        $avg_r4 = ((float)$_h1_1 + (float)$_h1_2 + (float)$_h1_3);
+        $page_html .= "<td><b>" . ($avg_r4) . " </b></td>";
+      } else {
+        $page_html .= "<td></td>";
+      }
 
       $page_html .= "</tr>";
     }
@@ -1506,6 +1524,14 @@ class spn_see_kaart
       $page_html .= "<td" . ((float)$avg_h1 <= 5.4 && $avg_h1 ? " class=\"bg-danger\"" : "") . "><b>" . $avg_h1 . " </b></td>";
       $page_html .= "<td" . (((float)$avg_h2 <= 5.4 && $avg_h2 && $rap >= 2) ? " class=\"bg-danger\"" : "") . "><b>" . ($rap >= 2 ? $avg_h2 : "") . " </b></td>";
       $page_html .= "<td" . (((float)$avg_h3 <= 5.4 && $avg_h3 && $rap >= 3) ? " class=\"bg-danger\"" : "") . "><b>" . ($rap >= 3 ? $avg_h3 : "") . " </b></td>";
+      if ($type == 1) {
+        $num_r4 = ((float)$avg_h1 + (float)$avg_h2 + (float)$avg_h3);
+        $den_r4 = (($avg_h1 > 0 ? 1 : 0) + ($avg_h2 > 0 ? 1 : 0) + ($avg_h3 > 0 ? 1 : 0));
+        $avg_r4 = $den_r4 > 0 ? round((float)$num_r4 / (float)$den_r4, 1) : "";
+        $page_html .= "<td" . ((float)$avg_r4 <= 5.4 && $avg_r4 ? " class=\"bg-danger\"" : "") . "><b>" . ($avg_r4) . " </b></td>";
+      } else {
+        $page_html .= "<td></td>";
+      }
       $page_html .= "</tr>";
     }
 
