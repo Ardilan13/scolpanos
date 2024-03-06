@@ -43,7 +43,9 @@ $i = 1;
         <tr>
             <th>ID</th>
             <th>Naam</th>
-            <th class="opmerking">Opmerking</th>
+            <?php if ($rapport != 4 || $_SESSION["SchoolType"] != 1) { ?>
+                <th class="opmerking">Opmerking</th>
+            <?php } ?>
             <?php if ($rapport == 4 && $_SESSION["SchoolType"] == 1) { ?>
                 <th>Bevorderd</th>
                 <?php if ($level_klas != 6) { ?>
@@ -233,7 +235,9 @@ $i = 1;
                     }
                 }
                 ?>
-                <td><input <?php echo $disabled; ?> type="text" maxlength="180" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ',' . $rapport . ',' . $i; ?>)" id="opmerking_<?php echo $i; ?>" class="opmerking_input" value="<?php echo $opmerking1; ?>"></td>
+                <?php if ($rapport != 4 || $_SESSION["SchoolType"] != 1) { ?>
+                    <td><input <?php echo $disabled; ?> type="text" maxlength="180" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ',' . $rapport . ',' . $i; ?>)" id="opmerking_<?php echo $i; ?>" class="opmerking_input" value="<?php echo $opmerking1; ?>"></td>
+                <?php } ?>
                 <?php if ($rapport == 4 && $level_klas != 4 || ($_SESSION["SchoolType"] == 1 && $rapport == 4)) { ?>
                     <td class="text-center">
                         <input <?php echo ($radio1 != "false" && $radio1 != null) ? "checked" : ""; ?> type="checkbox" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ',' . $rapport . ',' . $i; ?>)" id="radio1_<?php echo $i; ?>">

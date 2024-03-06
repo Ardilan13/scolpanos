@@ -2,6 +2,7 @@
 require_once("spn_audit.php");
 require_once("spn_setting.php");
 require_once("spn_utils.php");
+require_once("DBCreds.php");
 class spn_see_kaart
 {
   function list_cijfers_by_student_se_kaart_rapport($schooljaar, $studentid, $rapnummer, $klas, $profiel, $color, $dummy)
@@ -1251,17 +1252,15 @@ class spn_see_kaart
     $sql_query = "";
     $result = null;
     try {
-      // print('sql_query de Houding: '.$sql_query);
-      require_once("DBCreds.php");
+      if ($vak == 50) {
+        $sql_query = "SELECT gemiddelde FROM le_cijfers c INNER JOIN le_vakken v ON v.ID = c.vak where c.studentid = $studentid_out and c.schooljaar = '$schooljaar' and c.rapnummer = $rap_in and v.Klas = '$klas' and v.SchoolID = $schoolid and v.volledigenaamvak = 'lesa comprension' limit 1";
+      } else if ($vak == 2) {
+        $sql_query = "SELECT gemiddelde FROM le_cijfers c INNER JOIN le_vakken v ON v.ID = c.vak where c.studentid = $studentid_out and c.schooljaar = '$schooljaar' and c.rapnummer = $rap_in and v.Klas = '$klas' and v.SchoolID = $schoolid and v.volledigenaamvak = 'idioma comprension' limit 1";
+      } else {
+        $sql_query = "SELECT gemiddelde FROM le_cijfers c INNER JOIN le_vakken v ON v.ID = c.vak where c.studentid = $studentid_out and c.schooljaar = '$schooljaar' and c.rapnummer = $rap_in and v.Klas = '$klas' and v.SchoolID = $schoolid and v.volgorde = $vak limit 1";
+      }
       $DBCreds = new DBCreds();
       $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
-      if ($vak == 50) {
-        $sql_query = "SELECT gemiddelde FROM le_cijfers c INNER JOIN le_vakken v ON v.ID = c.vak where c.studentid = $studentid_out and c.schooljaar = '$schooljaar' and c.rapnummer = $rap_in and v.Klas = '$klas' and v.SchoolID = $schoolid and v.volledigenaamvak = 'lesa comprension'";
-      } else if ($vak == 2) {
-        $sql_query = "SELECT gemiddelde FROM le_cijfers c INNER JOIN le_vakken v ON v.ID = c.vak where c.studentid = $studentid_out and c.schooljaar = '$schooljaar' and c.rapnummer = $rap_in and v.Klas = '$klas' and v.SchoolID = $schoolid and v.volledigenaamvak = 'idioma comprension'";
-      } else {
-        $sql_query = "SELECT gemiddelde FROM le_cijfers c INNER JOIN le_vakken v ON v.ID = c.vak where c.studentid = $studentid_out and c.schooljaar = '$schooljaar' and c.rapnummer = $rap_in and v.Klas = '$klas' and v.SchoolID = $schoolid and v.volgorde = $vak";
-      }
       if ($select = $mysqli->prepare($sql_query)) {
 
         if ($select->execute()) {

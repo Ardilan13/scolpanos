@@ -830,6 +830,7 @@ class spn_cijfers
                     $houding_12 = null;
                     $houding_13 = null;
                     $houding_id = "";
+                    $disa = " disabled";
                   }
                   $_houding_number = $vak_in == 6 ? $houding_13 : $houding_12;
                   $htmlcontrol .= "<td style='padding: 0 !important;' class='" . $houding_12 . $houding13 . "'><select " . $disa . " style='width: 100% !important; min-width: 32px;' id=\"lblName$y\" id_houding_table=\"$houding_id\"data-student-id=\"$studentid\" data-houding=\"h$y\" data-klas=\"$klas_in\" data-rapport=\"$rap_in\" class=\"form-control editable-select\" data-toggle=\"tooltip\" style=\"width: 100%;\">";

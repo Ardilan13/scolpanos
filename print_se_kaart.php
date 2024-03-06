@@ -157,6 +157,7 @@ foreach ($array_leerling as $item) {
   $rapport = $_GET['rap'];
   for ($i = 1; $i <= $rapport; $i++) {
     $op = "opmerking" . $i;
+    $advies = "advies" . $i;
     $radio1 = false;
     $radio2 = false;
     $radio3 = false;
@@ -166,6 +167,7 @@ foreach ($array_leerling as $item) {
       if ($resultado->num_rows > 0) {
         while ($row = mysqli_fetch_assoc($resultado)) {
           $$op = $row["opmerking1"];
+          $$advies = $row["advies"];
         }
       }
       $query1 = "SELECT opmerking1,opmerking2,opmerking3,advies,ciclo FROM opmerking WHERE klas = '$klas' AND SchoolID = $schoolId AND studentid = $student AND schooljaar = '$schooljaar' AND rapport = 4 LIMIT 1";
@@ -186,7 +188,7 @@ foreach ($array_leerling as $item) {
       $werel = 0;
       $prom = 0;
       $sum = 0;
-      if ($_SESSION["SchoolID"] != 8) {
+      if ($_SESSION["SchoolID"] != 8 && $_SESSION["SchoolID"] != 18) {
         $get_cijfers = "SELECT c.schooljaar,c.vak,c.gemiddelde FROM le_cijfers_ps c WHERE c.studentid = '$student' AND c.rapnummer = $i AND c.schooljaar = '$schooljaar' AND c.school_id = $schoolId AND c.vak IN (1,2,3,6,7) AND c.gemiddelde is not NULL;";
         $result2 = mysqli_query($mysqli, $get_cijfers);
         if ($result2->num_rows > 0) {
@@ -7237,7 +7239,7 @@ if($avg_h == 0.0){$avg_h = null;}
       $schooljaar = $_GET["schoolJaar"];
       $fecha1 = $s->_setting_begin_rap_1;
       $fecha2 = $s->_setting_end_rap_1;
-      $sql_query_verzuim = "SELECT s.id as studentid,v.telaat,v.absentie,v.huiswerk, v.datum
+      $sql_query_verzuim = "SELECT v.telaat, v.datum
 					from students s inner join le_verzuim v
 					where s.class = '$klas'  and s.schoolid = $schoolid and v.schooljaar = '$schooljaar' and v.studentid = $id and s.id = $id ORDER BY v.created;";
       $resultado = mysqli_query($mysqli, $sql_query_verzuim);
@@ -7261,7 +7263,7 @@ if($avg_h == 0.0){$avg_h = null;}
       $fecha2 = $s->_setting_end_rap_1;
       $fecha3 = $s->_setting_begin_rap_2;
       $fecha4 = $s->_setting_end_rap_2;
-      $sql_query_verzuim = "SELECT s.id as studentid,v.telaat,v.absentie,v.huiswerk, v.datum
+      $sql_query_verzuim = "SELECT v.telaat, v.datum
 					from students s inner join le_verzuim v
 					where s.class = '$klas'  and s.schoolid = $schoolid and v.schooljaar = '$schooljaar' and v.studentid = $id and s.id = $id ORDER BY v.created;";
       $resultado = mysqli_query($mysqli, $sql_query_verzuim);
@@ -7293,7 +7295,7 @@ if($avg_h == 0.0){$avg_h = null;}
       $fecha4 = $s->_setting_end_rap_2;
       $fecha5 = $s->_setting_begin_rap_3;
       $fecha6 = $s->_setting_end_rap_3;
-      $sql_query_verzuim = "SELECT s.id as studentid,v.telaat,v.absentie,v.huiswerk, v.datum
+      $sql_query_verzuim = "SELECT v.telaat, v.datum
 					from students s inner join le_verzuim v
 					where s.class = '$klas'  and s.schoolid = $schoolid and v.schooljaar = '$schooljaar' and v.studentid = $id and s.id = $id ORDER BY v.created;";
       $resultado = mysqli_query($mysqli, $sql_query_verzuim);
@@ -7657,17 +7659,17 @@ if($avg_h == 0.0){$avg_h = null;}
     // }
 
     $page_html .= "<div style='display:flex; flex-direction: row; justify-content: space-between; width: 100%;'>";
-    $page_html .= "<p style='margin-bottom: .3rem !important;display: inline; '>Naam leerkracht: " . $teacher . "</p>";
+    $page_html .= "<p style='margin-bottom: .6rem !important;display: inline; '>Naam leerkracht: " . $teacher . "</p>";
     $page_html .= "<p>.................................................................</p>";
     $page_html .= "</div>";
     $page_html .= "<div style='display:flex; flex-direction: row; justify-content: space-between; width: 100%;'>";
-    $page_html .= "<p style='margin-bottom: .3rem !important;display: inline;'>Naam Schoolhoofd: " . $cabesante . "</p>";
+    $page_html .= "<p style='margin-bottom: .6rem !important;display: inline;'>Naam Schoolhoofd: " . $cabesante . "</p>";
     $page_html .= "<p style='margin-bottom: ;'>.................................................................</p>";
     $page_html .= "</div>";
-    $page_html .= "<div style='display: flex; align-items: center;'>";
-    $page_html .= "<label style='margin-right: 20px;'>R4</label>";
-    $page_html .= "<textarea style='resize: none;overflow: hidden;width: 500px;height: 50px;font-size: 11px;'>" . utf8_decode($opmerking4) . "</textarea></div>";
-    $page_html .= "</div>";
+    // $page_html .= "<div style='display: flex; align-items: center;'>";
+    // $page_html .= "<label style='margin-right: 20px;'>R4</label>";
+    // $page_html .= "<textarea style='resize: none;overflow: hidden;width: 500px;height: 50px;font-size: 11px;'>" . utf8_decode($opmerking4) . "</textarea></div>";
+    // $page_html .= "</div>";
 
     $page_html .= "</div>";
   } else {
