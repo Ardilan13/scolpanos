@@ -39,6 +39,7 @@ $i = 1;
 <table class="table table-bordered table-colored table-houding">
     <input id="level_klas" type="text" hidden value="<?php echo $level_klas; ?>">
     <input id="schooltype" type="text" hidden value="<?php echo $_SESSION["SchoolType"]; ?>">
+    <input id="schoolid" type="text" hidden value="<?php echo $_SESSION["SchoolID"]; ?>">
     <thead>
         <tr>
             <th>ID</th>
@@ -47,20 +48,22 @@ $i = 1;
                 <th class="opmerking">Opmerking</th>
             <?php } ?>
             <?php if ($rapport == 4 && $_SESSION["SchoolType"] == 1) { ?>
-                <th>Bevorderd</th>
-                <?php if ($level_klas != 6) { ?>
+                <th><?php if ($_SESSION["SchoolID"] == 18) { ?>Pasa<?php } else { ?> Bevorderd <?php } ?></th>
+                <?php if ($level_klas != 6 && $_SESSION["SchoolID"] != 18) { ?>
                     <th>Over wegens leeftijd</th>
                 <?php } ?>
-                <th>Niet bevorderd</th>
+                <th><?php if ($_SESSION["SchoolID"] == 18) { ?>No Pasa<?php } else { ?> Niet bevorderd <?php } ?></th>
             <?php } else if ($rapport == 4 && $level_klas != 4) { ?>
                 <th>Andere Schooltype</th>
                 <th>Over Naar Ciclo</th>
                 <th>Niet Over</th>
             <?php } ?>
-            <?php if ($level_klas != 4 || $_SESSION["SchoolType"] == 1) { ?>
+            <?php if (($level_klas != 4 || $_SESSION["SchoolType"] == 1) && $_SESSION["SchoolID"] != 18) { ?>
                 <th class="definitiet">Systeem</th>
+            <?php }
+            if ($_SESSION["SchoolID"] != 18 || ($_SESSION["SchoolID"] == 18 && $rapport != 4)) { ?>
+                <th class="definitiet"><?php if ($level_klas == 6) { ?> Advies <?php } else { ?> Beoordeling <?php } ?></th>
             <?php } ?>
-            <th class="definitiet"><?php if ($level_klas == 6) { ?> Advies <?php } else { ?> Beoordeling <?php } ?></th>
         </tr>
     </thead>
     <tbody>
@@ -241,9 +244,11 @@ $i = 1;
                 <?php if ($rapport == 4 && $level_klas != 4 || ($_SESSION["SchoolType"] == 1 && $rapport == 4)) { ?>
                     <td class="text-center">
                         <input <?php echo ($radio1 != "false" && $radio1 != null) ? "checked" : ""; ?> type="checkbox" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ',' . $rapport . ',' . $i; ?>)" id="radio1_<?php echo $i; ?>">
-                        <input style="max-width: 40px;" value="<?php echo ($radio1 != 'checked' && $radio1 != "false") ? $radio1 : ''; ?>" type="text" maxlength="3" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ',' . $rapport . ',' . $i; ?>)" id="radio1.1_<?php echo $i; ?>">
+                        <?php if ($_SESSION["SchoolID"] != 18) { ?>
+                            <input style="max-width: 40px;" value="<?php echo ($radio1 != 'checked' && $radio1 != "false") ? $radio1 : ''; ?>" type="text" maxlength="3" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ',' . $rapport . ',' . $i; ?>)" id="radio1.1_<?php echo $i; ?>">
+                        <?php } ?>
                     </td>
-                    <?php if (($_SESSION["SchoolType"] == 1 && $level_klas != 6) || $_SESSION["SchoolType"] == 2) { ?>
+                    <?php if ((($_SESSION["SchoolType"] == 1 && $level_klas != 6) || $_SESSION["SchoolType"] == 2) && $_SESSION["SchoolID"] != 18) { ?>
                         <td class="text-center">
                             <input <?php echo ($radio2 != "false" && $radio2 != null) ? "checked" : ""; ?> type="checkbox" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ',' . $rapport . ',' . $i; ?>)" id="radio2_<?php echo $i; ?>">
                             <input style="max-width: 40px;" value="<?php echo ($radio2 != 'checked' && $radio2 != "false") ? $radio2 : ''; ?>" type="text" maxlength="3" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ',' . $rapport . ',' . $i; ?>)" id="radio2.1_<?php echo $i; ?>">
@@ -251,7 +256,9 @@ $i = 1;
                     <?php } ?>
                     <td class="text-center">
                         <input <?php echo ($radio3 != "false" && $radio3 != null) ? "checked" : ""; ?> type="checkbox" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ',' . $rapport . ',' . $i; ?>)" id="radio3_<?php echo $i; ?>">
-                        <input style="max-width: 40px;" value="<?php echo ($radio3 != 'checked' && $radio3 != "false") ? $radio3 : ''; ?>" type="text" maxlength="3" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ',' . $rapport . ',' . $i; ?>)" id="radio3.1_<?php echo $i; ?>">
+                        <?php if ($_SESSION["SchoolID"] != 18) { ?>
+                            <input style="max-width: 40px;" value="<?php echo ($radio3 != 'checked' && $radio3 != "false") ? $radio3 : ''; ?>" type="text" maxlength="3" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ',' . $rapport . ',' . $i; ?>)" id="radio3.1_<?php echo $i; ?>">
+                        <?php } ?>
                     </td>
                 <?php } ?>
                 <?php if ($level_klas != 4 && $_SESSION["SchoolType"] != 1) { ?>
@@ -262,7 +269,7 @@ $i = 1;
                             echo "<label style='margin: 0;' class='text-primary'>V</label>";
                         } ?>
                     </td>
-                <?php } else if ($_SESSION["SchoolType"] == 1) { ?>
+                <?php } else if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 18) { ?>
                     <td class=" text-center">
                         <?php if ($_SESSION["SchoolID"] == 8) {
                         } else {
@@ -349,8 +356,10 @@ $i = 1;
                             }
                         } ?>
                     </td>
+                <?php }
+                if ($_SESSION["SchoolID"] != 18 || ($_SESSION["SchoolID"] == 18 && $rapport != 4)) { ?>
+                    <td><input <?php echo $disabled; ?> type="text" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ',' . $rapport . ',' . $i; ?>)" id="definitiet_<?php echo $i; ?>" class="definitiet_input" value="<?php echo strtoupper($opmerking3); ?>"></td>
                 <?php } ?>
-                <td><input <?php echo $disabled; ?> type="text" onchange="savebespreking(&#39;<?php echo $schooljaar . '&#39;,&#39;' . $klas . '&#39;,' . $id . ',' . $rapport . ',' . $i; ?>)" id="definitiet_<?php echo $i; ?>" class="definitiet_input" value="<?php echo strtoupper($opmerking3); ?>"></td>
             </tr>
         <?php $i++;
         }
@@ -361,24 +370,27 @@ $i = 1;
     function savebespreking(schooljaar, klas, student, rap, i) {
         var level_klas = document.getElementById("level_klas").value;
         var schooltype = document.getElementById("schooltype").value;
-        var definitiet = document.getElementById("definitiet_" + i).value.toUpperCase();
+        var schoolid = document.getElementById("schoolid").value;
+        if (schoolid != 18 || rap != 4)
+            var definitiet = document.getElementById("definitiet_" + i).value.toUpperCase();
         var radio1 = null;
         var radio2 = null;
         var radio3 = null;
         var radio1_1 = null;
         var radio2_1 = null;
         var radio3_1 = null;
-        var opmerking = document.getElementById("opmerking_" + i).value;
-
+        if (schooltype != 1 || rap != 4)
+            var opmerking = document.getElementById("opmerking_" + i).value;
 
         if (rap == 4 && level_klas != 4 || schooltype == 1 && rap == 4) {
             radio1 = document.getElementById("radio1_" + i).checked;
-            radio1_1 = document.getElementById("radio1.1_" + i).value;
+            if (schoolid != 18)
+                radio1_1 = document.getElementById("radio1.1_" + i).value;
             if (radio1_1 != "" && radio1_1 != null && radio1 != false) {
                 radio1 = radio1_1;
             }
 
-            if (schooltype != 1 || level_klas != 6) {
+            if (schooltype != 1 || level_klas != 6 && schoolid != 18) {
                 radio2 = document.getElementById("radio2_" + i).checked;
                 radio2_1 = document.getElementById("radio2.1_" + i).value;
                 if (radio2_1 != "" && radio2_1 != null && radio2 != false) {
@@ -386,13 +398,14 @@ $i = 1;
                 }
             }
             radio3 = document.getElementById("radio3_" + i).checked;
-            radio3_1 = document.getElementById("radio3.1_" + i).value;
+            if (schoolid != 18)
+                radio3_1 = document.getElementById("radio3.1_" + i).value;
             if (radio3_1 != "" && radio3_1 != null && radio3 != false) {
                 radio3 = radio3_1;
             }
         }
 
-        if (definitiet != "V" && definitiet != "O" && rap != 4) {
+        if (definitiet != "V" && definitiet != "O" && definitiet != "S" && definitiet != "I" && rap != 4) {
             definitiet = "";
         } else if (definitiet != "G" && definitiet != "A" && definitiet != "T" && rap == 4 && level_klas == 4) {
             definitiet = "";

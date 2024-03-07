@@ -162,12 +162,12 @@ foreach ($array_leerling as $item) {
     $radio2 = false;
     $radio3 = false;
     if ($_SESSION["SchoolType"] == 1) {
-      $query = "SELECT opmerking1,advies FROM opmerking WHERE klas = '$klas' AND SchoolID = $schoolId AND studentid = $student AND schooljaar = '$schooljaar' AND rapport = $i LIMIT 1";
+      $query = "SELECT opmerking1,opmerking3 FROM opmerking WHERE klas = '$klas' AND SchoolID = $schoolId AND studentid = $student AND schooljaar = '$schooljaar' AND rapport = $i LIMIT 1";
       $resultado = mysqli_query($mysqli, $query);
       if ($resultado->num_rows > 0) {
         while ($row = mysqli_fetch_assoc($resultado)) {
           $$op = $row["opmerking1"];
-          $$advies = $row["advies"];
+          $$advies = $row["opmerking3"];
         }
       }
       $query1 = "SELECT opmerking1,opmerking2,opmerking3,advies,ciclo FROM opmerking WHERE klas = '$klas' AND SchoolID = $schoolId AND studentid = $student AND schooljaar = '$schooljaar' AND rapport = 4 LIMIT 1";
@@ -341,9 +341,10 @@ foreach ($array_leerling as $item) {
       }
     } else {
       $page_html .= "<label style=' max-width: 100px;'>Comentario Rapport 1</label>";
-      $page_html .= "<div style='display: flex; flex-direction: column;'><div><input type='radio'><label style='margin-right: 15px; margin-left:10px;'>Suficiente</label>";
-      $page_html .= "<input type='radio'><label style='margin-left:10px;'>Insuficiente</label></div>";
-      $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking1) . "</textarea></div>";
+      $page_html .= "<div style='display: flex; flex-direction: column;'><div>";
+      $page_html .= "<input type='radio' " . ($advies1 === "S" ? "checked" : "") . "><label style='margin-right: 15px; margin-left:10px;'>Suficiente</label>";
+      $page_html .= "<input type='radio' " . ($advies1 === "I" ? "checked" : "") . "><label style='margin-left:10px;'>Insuficiente</label>";
+      $page_html .= "</div><textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking1) . "</textarea></div>";
     }
 
     $page_html .= "</div>";
@@ -379,9 +380,10 @@ foreach ($array_leerling as $item) {
       }
     } else {
       $page_html .= "<label style=' max-width: 100px;'>Comentario Rapport 2</label>";
-      $page_html .= "<div style='display: flex; flex-direction: column;'><div><input type='radio'><label style='margin-right: 15px; margin-left:10px;'>Suficiente</label>";
-      $page_html .= "<input type='radio'><label style='margin-left:10px;'>Insuficiente</label></div>";
-      $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking2) . "</textarea></div>";
+      $page_html .= "<div style='display: flex; flex-direction: column;'><div>";
+      $page_html .= "<input type='radio' " . ($advies2 === "S" && $_GET["rap"] >= 2 ? "checked" : "") . "><label style='margin-right: 15px; margin-left:10px;'>Suficiente</label>";
+      $page_html .= "<input type='radio' " . ($advies2 === "I" && $_GET["rap"] >= 2 ? "checked" : "") . "><label style='margin-left:10px;'>Insuficiente</label>";
+      $page_html .= "</div><textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking2) . "</textarea></div>";
     }
 
     $page_html .= "</div>";
@@ -417,9 +419,10 @@ foreach ($array_leerling as $item) {
       }
     } else {
       $page_html .= "<label style=' max-width: 100px;'>Comentario Rapport 3</label>";
-      $page_html .= "<div style='display: flex; flex-direction: column;'><div><input type='radio'><label style='margin-right: 15px; margin-left:10px;'>Suficiente</label>";
-      $page_html .= "<input type='radio'><label style='margin-left:10px;'>Insuficiente</label></div>";
-      $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking3) . "</textarea></div>";
+      $page_html .= "<div style='display: flex; flex-direction: column;'><div>";
+      $page_html .= "<input type='radio' " . ($advies3 === "S" && $_GET["rap"] >= 3 ? "checked" : "") . "><label style='margin-right: 15px; margin-left:10px;'>Suficiente</label>";
+      $page_html .= "<input type='radio' " . ($advies3 === "I" && $_GET["rap"] >= 3 ? "checked" : "") . "><label style='margin-left:10px;'>Insuficiente</label>";
+      $page_html .= "</div><textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking3) . "</textarea></div>";
     }
 
     $page_html .= "</div>";
@@ -1537,7 +1540,7 @@ foreach ($array_leerling as $item) {
         }
         $page_html .= "<td" . ((float)$_h1_2 <= 5.4 && $_h1_2 ? " class=\"bg-danger\"" : "") . ">" . $_h1_2 . " </td>";
         $page_html .= "<td" . ((float)$_h1_3 <= 5.4 && $_h1_3 ? " class=\"bg-danger\"" : "") . ">" . $_h1_3 . " </td>";
-        if ($avg_h > 0.0) {
+        if ($avg_h > 0.0 && $rapport == 3) {
           if ($klas != 1) {
             $page_html .= "<td>" . number_format($avg_h, 1) . " </td>";
           }
@@ -6737,11 +6740,11 @@ if($avg_h == 0.0){$avg_h = null;}
 
 
       if ($klas != 1) {
-        $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+        $page_html .= "<td>" . $_h1_1 . " </td>";
       } else {
         $page_html .= "<td></td>";
       }
-      $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
+      $page_html .= "<td>" . $_h2_1 . " </td>";
       $page_html .= "<td></td>";
     }
     if ($_GET["rap"] == '3') {
@@ -6758,7 +6761,7 @@ if($avg_h == 0.0){$avg_h = null;}
 
 
       if ($klas != 1) {
-        $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+        $page_html .= "<td>" . $_h1_1 . " </td>";
       } else {
         $page_html .= "<td></td>";
       }
@@ -6794,11 +6797,11 @@ if($avg_h == 0.0){$avg_h = null;}
 
 
       if ($klas != 1) {
-        $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+        $page_html .= "<td>" . $_h1_1 . " </td>";
       } else {
         $page_html .= "<td></td>";
       }
-      $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
+      $page_html .= "<td>" . $_h2_1 . " </td>";
       $page_html .= "<td></td>";
     }
     if ($_GET["rap"] == '3') {
@@ -6815,7 +6818,7 @@ if($avg_h == 0.0){$avg_h = null;}
 
 
       if ($klas != 1) {
-        $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+        $page_html .= "<td>" . $_h1_1 . " </td>";
       } else {
         $page_html .= "<td></td>";
       }
@@ -6851,11 +6854,11 @@ if($avg_h == 0.0){$avg_h = null;}
 
 
       if ($klas != 1) {
-        $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+        $page_html .= "<td>" . $_h1_1 . " </td>";
       } else {
         $page_html .= "<td></td>";
       }
-      $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
+      $page_html .= "<td>" . $_h2_1 . " </td>";
       $page_html .= "<td></td>";
     }
     if ($_GET["rap"] == '3') {
@@ -6872,7 +6875,7 @@ if($avg_h == 0.0){$avg_h = null;}
 
 
       if ($klas != 1) {
-        $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+        $page_html .= "<td>" . $_h1_1 . " </td>";
       } else {
         $page_html .= "<td></td>";
       }
@@ -6908,11 +6911,11 @@ if($avg_h == 0.0){$avg_h = null;}
 
 
       if ($klas != 1) {
-        $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+        $page_html .= "<td>" . $_h1_1 . " </td>";
       } else {
         $page_html .= "<td></td>";
       }
-      $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
+      $page_html .= "<td>" . $_h2_1 . " </td>";
       $page_html .= "<td></td>";
     }
     if ($_GET["rap"] == '3') {
@@ -6928,7 +6931,7 @@ if($avg_h == 0.0){$avg_h = null;}
       $avg_h =  $c->_writerapportdata_houding($_GET["klas"], 'h4', $item['studentid'], 4, $schooljaar);
 
       if ($klas != 1) {
-        $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+        $page_html .= "<td>" . $_h1_1 . " </td>";
       } else {
         $page_html .= "<td></td>";
       }
@@ -6964,11 +6967,11 @@ if($avg_h == 0.0){$avg_h = null;}
 
 
       if ($klas != 1) {
-        $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+        $page_html .= "<td>" . $_h1_1 . " </td>";
       } else {
         $page_html .= "<td></td>";
       }
-      $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
+      $page_html .= "<td>" . $_h2_1 . " </td>";
       $page_html .= "<td></td>";
     }
     if ($_GET["rap"] == '3') {
@@ -6985,7 +6988,7 @@ if($avg_h == 0.0){$avg_h = null;}
 
 
       if ($klas != 1) {
-        $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+        $page_html .= "<td>" . $_h1_1 . " </td>";
       } else {
         $page_html .= "<td></td>";
       }
@@ -7021,11 +7024,11 @@ if($avg_h == 0.0){$avg_h = null;}
 
 
       if ($klas != 1) {
-        $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+        $page_html .= "<td>" . $_h1_1 . " </td>";
       } else {
         $page_html .= "<td></td>";
       }
-      $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
+      $page_html .= "<td>" . $_h2_1 . " </td>";
       $page_html .= "<td></td>";
     }
     if ($_GET["rap"] == '3') {
@@ -7042,7 +7045,7 @@ if($avg_h == 0.0){$avg_h = null;}
 
 
       if ($klas != 1) {
-        $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+        $page_html .= "<td>" . $_h1_1 . " </td>";
       } else {
         $page_html .= "<td></td>";
       }
@@ -7078,11 +7081,11 @@ if($avg_h == 0.0){$avg_h = null;}
 
 
       if ($klas != 1) {
-        $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+        $page_html .= "<td>" . $_h1_1 . " </td>";
       } else {
         $page_html .= "<td></td>";
       }
-      $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
+      $page_html .= "<td>" . $_h2_1 . " </td>";
       $page_html .= "<td></td>";
     }
     if ($_GET["rap"] == '3') {
@@ -7099,7 +7102,7 @@ if($avg_h == 0.0){$avg_h = null;}
 
 
       if ($klas != 1) {
-        $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+        $page_html .= "<td>" . $_h1_1 . " </td>";
       } else {
         $page_html .= "<td></td>";
       }
@@ -7135,11 +7138,11 @@ if($avg_h == 0.0){$avg_h = null;}
 
 
       if ($klas != 1) {
-        $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+        $page_html .= "<td>" . $_h1_1 . " </td>";
       } else {
         $page_html .= "<td></td>";
       }
-      $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
+      $page_html .= "<td>" . $_h2_1 . " </td>";
       $page_html .= "<td></td>";
     }
     if ($_GET["rap"] == '3') {
@@ -7156,7 +7159,7 @@ if($avg_h == 0.0){$avg_h = null;}
 
 
       if ($klas != 1) {
-        $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+        $page_html .= "<td>" . $_h1_1 . " </td>";
       } else {
         $page_html .= "<td></td>";
       }
@@ -7194,11 +7197,11 @@ if($avg_h == 0.0){$avg_h = null;}
 
 
         if ($klas != 1) {
-          $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td>" . $_h1_1 . " </td>";
         } else {
           $page_html .= "<td></td>";
         }
-        $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
+        $page_html .= "<td>" . $_h2_1 . " </td>";
         $page_html .= "<td></td>";
       }
       if ($_GET["rap"] == '3') {
@@ -7215,7 +7218,7 @@ if($avg_h == 0.0){$avg_h = null;}
 
 
         if ($klas != 1) {
-          $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td>" . $_h1_1 . " </td>";
         } else {
           $page_html .= "<td></td>";
         }
@@ -7648,11 +7651,11 @@ if($avg_h == 0.0){$avg_h = null;}
     // } else if ($advies == '2') {
     //   $page_html .= "<b><p style='margin: .5rem !important; text-align: center; font-size: 14px;'>Niet bevorderd.</p></b>";
     // } else if ($advies == null || $advies == '') {
-    $page_html .= "<div><input type='radio' " . (($radio1 != "false" && $radio1 != null) ? "checked" : "") . "><label style='margin-bottom: .5rem !important;'>Bevorderd naar klas: <b>" . (($radio1 != "false" && $radio1 != "true") ? $radio1 : "") . "</b></label></div>";
+    $page_html .= "<div><input type='radio' " . (($radio1 != "false" && $radio1 != null) ? "checked" : "") . "><label style='margin-bottom: .5rem; margin-left: 0.5rem; !important;'>Bevorderd naar klas: <b>" . (($radio1 != "false" && $radio1 != "true") ? $radio1 : "") . "</b></label></div>";
     if ($level_klas != 6) {
-      $page_html .= "<div><input type='radio' " . (($radio2 != "false" && $radio2 != null) ? "checked" : "") . "><label style='margin-bottom: .5rem !important;'>Over wegens leeftijd naar klas: <b>" . (($radio2 != "false" && $radio2 != "true") ? $radio2 : "") . "</b></label></div>";
+      $page_html .= "<div><input type='radio' " . (($radio2 != "false" && $radio2 != null) ? "checked" : "") . "><label style='margin-bottom: .5rem; margin-left: 0.5rem; !important;'>Over wegens leeftijd naar klas: <b>" . (($radio2 != "false" && $radio2 != "true") ? $radio2 : "") . "</b></label></div>";
     }
-    $page_html .= "<div><input type='radio' " . (($radio3 != "false" && $radio3 != null) ? "checked" : "") . "><label style='margin-bottom: .5rem !important;'>Niet bevorderd: <b>" . (($radio3 != "false" && $radio3 != "true") ? $radio3 : "") . "</b></label></div>";
+    $page_html .= "<div><input type='radio' " . (($radio3 != "false" && $radio3 != null) ? "checked" : "") . "><label style='margin-bottom: .5rem; margin-left: 0.5rem; !important;'>Niet bevorderd: <b>" . (($radio3 != "false" && $radio3 != "true") ? $radio3 : "") . "</b></label></div>";
     // $page_html .= "<div><input type='radio'><label style='margin-bottom: .5rem !important;'>Verwezen naar: ..............................................................</label></div>";
     // } else {
     //   $page_html .= "<b><p style='margin: .5rem !important; text-align: center; font-size: 14px;'>Verwezen naar " . utf8_decode($advies) . "</p></b>";
@@ -7692,19 +7695,22 @@ if($avg_h == 0.0){$avg_h = null;}
   $page_html .= "</div>";
 
   if ($_SESSION['SchoolID'] == 18) {
-    $page_html .= "<br>";
-    if ($advies == 0) {
-      $page_html .= "<div style='display:flex; flex-direction: column;'>";
-      $page_html .= "<div><input type='radio'><label style='margin-left: 10px;'>A pasa e aña</label></div>";
-      $page_html .= "<div><input type='radio'><label style='margin-left: 10px;'>No a pasa e aña</label></div>";
+    if ($radio1 == "true") {
+      $page_html .= "<div style='display:flex; flex-direction: row; justify-content: space-around; margin: 10px 0;'>";
+      $page_html .= "<div style='display: flex; align-items: center;'><input checked type='radio'><label style='margin: 0; margin-left: 5px;'>A pasa e aña</label></div>";
+      $page_html .= "<div style='display: flex; align-items: center;'><input type='radio'><label style='margin: 0; margin-left: 5px;'>No a pasa e aña</label></div>";
       $page_html .= "</div>";
-    } else if ($advies == 1) {
-      $page_html .= "<div style='display:flex; flex-direction: column;'>";
-      $page_html .= "<div><input type='radio'><label style='margin-left: 10px;'>A pasa e aña</label></div>";
-      $page_html .= "<div><input type='radio'><label style='margin-left: 10px;'>No a pasa e aña</label></div>";
+    } else if ($radio3 == "true") {
+      $page_html .= "<div style='display:flex; flex-direction: row; justify-content: space-around; margin: 10px 0;'>";
+      $page_html .= "<div style='display: flex; align-items: center;'><input type='radio'><label style='margin: 0; margin-left: 5px;'>A pasa e aña</label></div>";
+      $page_html .= "<div style='display: flex; align-items: center;'><input checked type='radio'><label style='margin: 0; margin-left: 5px;'>No a pasa e aña</label></div>";
+      $page_html .= "</div>";
+    } else {
+      $page_html .= "<div style='display:flex; flex-direction: row; justify-content: space-around; margin: 10px 0;'>";
+      $page_html .= "<div style='display: flex; align-items: center;'><input type='radio'><label style='margin: 0; margin-left: 5px;'>A pasa e aña</label></div>";
+      $page_html .= "<div style='display: flex; align-items: center;'><input type='radio'><label style='margin: 0; margin-left: 5px;'>No a pasa e aña</label></div>";
       $page_html .= "</div>";
     }
-    $page_html .= "<br>";
     $page_html .= "<div class='row'>";
     $page_html .= "<div class='card'>";
     $page_html .= "<div class='card-body' style='padding-bottom: 1%; padding-top: 1%;display:flex;justify-content:center; '>";
@@ -7719,7 +7725,7 @@ if($avg_h == 0.0){$avg_h = null;}
     $page_html .= "<td>Mayor</td>";
     $page_html .= "</tr>";
     $page_html .= "<tr>";
-    $page_html .= "<td style='height: 2rem;'></td>";
+    $page_html .= "<td style='height: 3rem;'></td>";
     $page_html .= "<td></td>";
     $page_html .= "<td></td>";
     $page_html .= "</tr>";
