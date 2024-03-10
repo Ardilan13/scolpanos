@@ -1323,46 +1323,168 @@ class spn_see_kaart
       return null;
     }
   }
-  function _writerapportdata_houding_8($klas, $vak, $studentid_out, $schooljaar, $schoolid, $rap_in)
+
+  function _getstudent_cijfers_8($vaks, $studentid_out, $schooljaar, $rap_in)
   {
     mysqli_report(MYSQLI_REPORT_STRICT);
     $sql_query = "";
+    $list = "";
     $result = null;
-    try {
-      require_once("DBCreds.php");
-      $DBCreds = new DBCreds();
-      $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
-      $sql_query = "SELECT $vak FROM le_houding WHERE studentid = $studentid_out AND schooljaar = '$schooljaar' AND rapnummer = $rap_in and klas = '$klas'";
-      if ($select = $mysqli->prepare($sql_query)) {
-        if ($select->execute()) {
-          $select->store_result();
-          if ($select->num_rows > 0) {
-            $select->bind_result($avg);
-            while ($select->fetch()) {
-              if ($avg != null && $avg != "") {
-                switch ($avg) {
-                  case 10:
-                    $result = "B";
-                    break;
-                  case 11:
-                    $result = "S";
-                    break;
-                  case 12:
-                    $result = "I";
-                    break;
-                }
-              } else {
-                $result = "B";
-              }
-            }
-          }
+    $hul = array();
+    $length = count($vaks);
+    $i = 1;
+    $hul_avg_1 = "";
+    $hul_avg_2 = "";
+    $hul_avg_3 = "";
+    foreach ($vaks as $name => $vak) {
+      if ($name == "HUL Scucha y Papia / Luisteren en Spreken") {
+        foreach ($vak as $key => $value) {
+          $list = $list . "'" . $value . "',";
+        }
+      } else {
+        $list = $list . "'" . $vak . "'";
+        if ($i < $length) {
+          $list = $list . ",";
         }
       }
-      return $result;
-    } catch (PHPExcel_Exception $excel) {
+      $i++;
+    }
+    require_once("DBCreds.php");
+    $DBCreds = new DBCreds();
+    $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
+    $sql_query = "SELECT v.volledigenaamvak,c.rapnummer,c.gemiddelde FROM le_cijfers c INNER JOIN le_vakken v ON c.vak = v.ID WHERE c.studentid = $studentid_out AND c.rapnummer <= $rap_in AND c.gemiddelde > 0 AND c.schooljaar = '$schooljaar' AND v.volledigenaamvak IN ($list) ORDER BY c.rapnummer";
+    if ($select = $mysqli->prepare($sql_query)) {
+      if ($select->execute()) {
+        $select->store_result();
+        if ($select->num_rows > 0) {
+          $select->bind_result($vak, $rap, $avg);
+          while ($select->fetch()) {
+            switch ($vak) {
+              case "Stellen":
+              case "Woordenschat":
+              case "Luistervaardigheid":
+              case "Leesbegrip":
+              case "Dictee":
+              case "Taalbeschouwing":
+                $hul[$rap][$vak] = $avg;
+                break;
+              default:
+                $result[$vak][$rap] = $avg;
+                break;
+            }
+          }
+          for ($i = 1; $i <= $rap_in; $i++) {
+            $hul_avg = "";
+            if (!empty($hul[$i]) && is_array($hul[$i])) {
+              $filtered = array_filter($hul[$i], function ($value) {
+                return ($value !== "" && $value !== null && $value !== 0);
+              });
+              $hul_avg = round(array_sum($filtered) / count($filtered), 1);
+            }
+            $result["HUL Scucha y Papia / Luisteren en Spreken"][$i] = $hul_avg;
+          }
+        }
+      } else {
+        return null;
+      }
+    }
+    return $result;
+  }
+
+  function _getstudent_houding_8($vaks, $studentid_out, $schooljaar, $rap_in)
+  {
+    mysqli_report(MYSQLI_REPORT_STRICT);
+    $sql_query = "";
+    $list = "";
+    $result = null;
+    $length = count($vaks);
+    $i = 1;
+    foreach ($vaks as $name => $vak) {
+      if ($vak != "") {
+        $list = $list . $vak;
+        if ($i < $length) {
+          $list = $list . ",";
+        }
+      }
+      $i++;
+    }
+    require_once("DBCreds.php");
+    $DBCreds = new DBCreds();
+    $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
+    $sql_query = "SELECT rapnummer,$list FROM le_houding WHERE studentid = $studentid_out AND schooljaar = '$schooljaar' AND rapnummer <= $rap_in";
+    $result = $mysqli->query($sql_query);
+    if ($result->num_rows > 0) {
+      while ($row = $result->fetch_assoc()) {
+        $houding = array();
+        foreach ($vaks as $name => $vak) {
+          $avg = $row[$vak];
+          if ($avg != null && $avg != "") {
+            switch ($avg) {
+              case 10:
+                $avg = "B";
+                break;
+              case 11:
+                $avg = "S";
+                break;
+              case 12:
+                $avg = "I";
+                break;
+            }
+          } else {
+            $avg = "B";
+          }
+          if ($vak != "") {
+            $houding[$vak] = $avg;
+          }
+        }
+        $return[$row["rapnummer"]] = $houding;
+      }
+      return $return;
+    } else {
       return null;
     }
   }
+
+  // function _writerapportdata_houding_8($klas, $vak, $studentid_out, $schooljaar, $schoolid, $rap_in)
+  // {
+  //   mysqli_report(MYSQLI_REPORT_STRICT);
+  //   $sql_query = "";
+  //   $result = null;
+  //   try {
+  //     require_once("DBCreds.php");
+  //     $DBCreds = new DBCreds();
+  //     $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
+  //     $sql_query = "SELECT $vak FROM le_houding WHERE studentid = $studentid_out AND schooljaar = '$schooljaar' AND rapnummer = $rap_in and klas = '$klas'";
+  //     if ($select = $mysqli->prepare($sql_query)) {
+  //       if ($select->execute()) {
+  //         $select->store_result();
+  //         if ($select->num_rows > 0) {
+  //           $select->bind_result($avg);
+  //           while ($select->fetch()) {
+  //             if ($avg != null && $avg != "") {
+  //               switch ($avg) {
+  //                 case 10:
+  //                   $result = "B";
+  //                   break;
+  //                 case 11:
+  //                   $result = "S";
+  //                   break;
+  //                 case 12:
+  //                   $result = "I";
+  //                   break;
+  //               }
+  //             } else {
+  //               $result = "B";
+  //             }
+  //           }
+  //         }
+  //       }
+  //     }
+  //     return $result;
+  //   } catch (PHPExcel_Exception $excel) {
+  //     return null;
+  //   }
+  // }
 
   function _writerapportdata_verzuim_8($klas, $vak, $studentid_out, $schooljaar, $schoolid, $rap_in)
   {
@@ -1406,6 +1528,62 @@ class spn_see_kaart
     }
   }
 
+  function _getstudent_verzuim_8($vak, $studentid_out, $schooljaar, $rap_in, $schoolid)
+  {
+    $u = new spn_utils();
+    $s = new spn_setting();
+    $s->getsetting_info($schoolid, false);
+    require_once("DBCreds.php");
+    $DBCreds = new DBCreds();
+    $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
+    mysqli_report(MYSQLI_REPORT_STRICT);
+    $sql_query = "";
+    $result = 0;
+    $verzuim = array();
+
+    for ($i = 1; $i <= $rap_in; $i++) {
+      $begin = "_setting_begin_rap_" . $i;
+      $end = "_setting_end_rap_" . $i;
+      $fecha1 = "fecha1_" . $i;
+      $fecha2 = "fecha2_" . $i;
+      $$fecha2 = $s->$end;
+      $$fecha1 = $s->$begin;
+      !isset($verzuim[$i]) ? $verzuim[$i] = array('absentie' => 0, 'telaat' => 0, 'huiswerk' => 0) : null;
+    }
+
+    try {
+      $sql_query = "SELECT v.absentie,v.telaat,v.huiswerk,v.datum FROM students s 
+    LEFT JOIN le_verzuim v ON s.id = v.studentid AND v.schooljaar = '$schooljaar' AND v.studentid = s.id
+    WHERE  s.id = $studentid_out AND (v.absentie > 0 OR v.telaat > 0 OR v.huiswerk > 0) ORDER BY v.created";
+      if ($select = $mysqli->prepare($sql_query)) {
+        if ($select->execute()) {
+          $select->store_result();
+          if ($select->num_rows > 0) {
+            $select->bind_result($absentie, $telaat, $huiswerk, $datum);
+            while ($select->fetch()) {
+              $datum = $u->convertfrommysqldate_new($datum);
+              if ($datum >= $fecha1_1 && $datum <= $fecha2_1) {
+                $absentie > 0 ? $verzuim[1]['absentie']++ : null;
+                $telaat > 0 ? $verzuim[1]['telaat']++ : null;
+                $huiswerk > 0 ? $verzuim[1]['huiswerk']++ : null;
+              } else if ($datum >= $fecha1_2 && $datum <= $fecha2_2) {
+                $absentie > 0 ? $verzuim[2]['absentie']++ : null;
+                $telaat > 0 ? $verzuim[2]['telaat']++ : null;
+                $huiswerk > 0 ? $verzuim[2]['huiswerk']++ : null;
+              } else if ($datum >= $fecha1_3 && $datum <= $fecha2_3) {
+                $absentie > 0 ? $verzuim[3]['absentie']++ : null;
+                $telaat > 0 ? $verzuim[3]['telaat']++ : null;
+                $huiswerk > 0 ? $verzuim[3]['huiswerk']++ : null;
+              }
+            }
+          }
+        }
+      }
+      return $verzuim;
+    } catch (PHPExcel_Exception $excel) {
+      return null;
+    }
+  }
   function _calculate_gemiddelde($array)
   {
     $sum = 0;
@@ -1423,14 +1601,13 @@ class spn_see_kaart
     }
   }
 
-  function _print_vaks_table_8($type, $table, $vaks, $rap, $avg, $student, $schooljaar, $klas, $head)
+  function _print_vaks_table_8($type, $table, $vaks, $rap, $avg, $head, $cijfers)
   {
     if ($avg) {
       $gem_r1 = array();
       $gem_r2 = array();
       $gem_r3 = array();
     }
-    $schoolId = $_SESSION['SchoolID'];
 
     $page_html = "<style>.table-sm td, .table th{padding: 0.1rem !important; }</style>";
     $page_html .= "<table align='center'  cellpadding='1' cellspacing='1' class='table table-sm'>";
@@ -1476,19 +1653,34 @@ class spn_see_kaart
 
       switch ($type) {
         case 1:
-          $_h1_1 =  $this->_writerapportdata_cijfers_8($klas, $value, $student, $schooljaar, $schoolId, 1);
-          $_h1_2 =  $rap >= 2 ? ($this->_writerapportdata_cijfers_8($klas, $value, $student, $schooljaar, $schoolId, 2)) : "";
-          $_h1_3 =  $rap >= 3 ? ($this->_writerapportdata_cijfers_8($klas, $value, $student, $schooljaar, $schoolId, 3)) : "";
+          // $_h1_1 =  $this->_writerapportdata_cijfers_8($klas, $value, $student, $schooljaar, $schoolId, 1);
+          // $_h1_2 =  $rap >= 2 ? ($this->_writerapportdata_cijfers_8($klas, $value, $student, $schooljaar, $schoolId, 2)) : "";
+          // $_h1_3 =  $rap >= 3 ? ($this->_writerapportdata_cijfers_8($klas, $value, $student, $schooljaar, $schoolId, 3)) : "";
+          if ($key == "HUL Scucha y Papia / Luisteren en Spreken") {
+            $_h1_1 =  $cijfers[$key][1];
+            $_h1_2 =  $rap >= 2 ? ($cijfers[$key][2]) : "";
+            $_h1_3 =  $rap >= 3 ? ($cijfers[$key][3]) : "";
+          } else {
+            $_h1_1 =  $cijfers[$value][1];
+            $_h1_2 =  $rap >= 2 ? ($cijfers[$value][2]) : "";
+            $_h1_3 =  $rap >= 3 ? ($cijfers[$value][3]) : "";
+          }
           break;
         case 2:
-          $_h1_1 =  $this->_writerapportdata_houding_8($klas, $value, $student, $schooljaar, $schoolId, 1);
-          $_h1_2 =  $rap >= 2 ? ($this->_writerapportdata_houding_8($klas, $value, $student, $schooljaar, $schoolId, 2)) : "";
-          $_h1_3 =  $rap >= 3 ? ($this->_writerapportdata_houding_8($klas, $value, $student, $schooljaar, $schoolId, 3)) : "";
+          // $_h1_1 =  $this->_writerapportdata_houding_8($klas, $value, $student, $schooljaar, $schoolId, 1);
+          // $_h1_2 =  $rap >= 2 ? ($this->_writerapportdata_houding_8($klas, $value, $student, $schooljaar, $schoolId, 2)) : "";
+          // $_h1_3 =  $rap >= 3 ? ($this->_writerapportdata_houding_8($klas, $value, $student, $schooljaar, $schoolId, 3)) : "";
+          $_h1_1 =  $cijfers[1][$value];
+          $_h1_2 =  $rap >= 2 ? ($cijfers[2][$value]) : "";
+          $_h1_3 =  $rap >= 3 ? ($cijfers[3][$value]) : "";
           break;
         case 3:
-          $_h1_1 =  $this->_writerapportdata_verzuim_8($klas, $value, $student, $schooljaar, $schoolId, 1);
-          $_h1_2 =  $rap >= 2 ? ($this->_writerapportdata_verzuim_8($klas, $value, $student, $schooljaar, $schoolId, 2)) : "";
-          $_h1_3 =  $rap >= 3 ? ($this->_writerapportdata_verzuim_8($klas, $value, $student, $schooljaar, $schoolId, 3)) : "";
+          // $_h1_1 =  $this->_writerapportdata_verzuim_8($klas, $value, $student, $schooljaar, $schoolId, 1);
+          // $_h1_2 =  $rap >= 2 ? ($this->_writerapportdata_verzuim_8($klas, $value, $student, $schooljaar, $schoolId, 2)) : "";
+          // $_h1_3 =  $rap >= 3 ? ($this->_writerapportdata_verzuim_8($klas, $value, $student, $schooljaar, $schoolId, 3)) : "";
+          $_h1_1 =  $cijfers[1][$value];
+          $_h1_2 =  $rap >= 2 ? ($cijfers[2][$value]) : "";
+          $_h1_3 =  $rap >= 3 ? ($cijfers[3][$value]) : "";
           break;
       }
 

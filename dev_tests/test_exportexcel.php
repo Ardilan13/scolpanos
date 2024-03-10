@@ -3453,12 +3453,7 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 					v.telaat,
 					v.absentie,
 					v.huiswerk,
-					s.lastname,
-					s.firstname,
 					o.opmerking1,
-					o.opmerking2,
-					o.opmerking3,
-					v.created,
 					v.datum
 				FROM students s 
 				LEFT JOIN le_verzuim v ON s.id = v.studentid AND v.schooljaar = '$schooljaar' AND v.studentid = s.id
