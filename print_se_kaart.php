@@ -148,9 +148,9 @@ $c = new spn_see_kaart();
 
 //
 foreach ($array_leerling as $item) {
-  $opmerking1 = null;
-  $opmerking2 = null;
-  $opmerking3 = null;
+  $opmerking1 = "";
+  $opmerking2 = "";
+  $opmerking3 = "";
   $advies1 = null;
   $advies2 = null;
   $advies3 = null;
@@ -164,7 +164,7 @@ foreach ($array_leerling as $item) {
     $radio2 = false;
     $radio3 = false;
     if ($_SESSION["SchoolType"] == 1) {
-      $query = "SELECT opmerking1,opmerking3 FROM opmerking WHERE klas = '$klas' AND SchoolID = $schoolId AND studentid = $student AND schooljaar = '$schooljaar' AND rapport = $i LIMIT 1";
+      $query = "SELECT opmerking1,opmerking3 FROM opmerking WHERE klas = '" . $_GET["klas"] . "' AND SchoolID = $schoolId AND studentid = $student AND schooljaar = '$schooljaar' AND rapport = $i LIMIT 1";
       $resultado = mysqli_query($mysqli, $query);
       if ($resultado->num_rows > 0) {
         while ($row = mysqli_fetch_assoc($resultado)) {
@@ -172,7 +172,7 @@ foreach ($array_leerling as $item) {
           $$advies = $row["opmerking3"];
         }
       }
-      $query1 = "SELECT opmerking1,opmerking2,opmerking3,advies,ciclo FROM opmerking WHERE klas = '$klas' AND SchoolID = $schoolId AND studentid = $student AND schooljaar = '$schooljaar' AND rapport = 4 LIMIT 1";
+      $query1 = "SELECT opmerking1,opmerking2,opmerking3,advies,ciclo FROM opmerking WHERE klas = '" . $_GET["klas"] . "' AND SchoolID = $schoolId AND studentid = $student AND schooljaar = '$schooljaar' AND rapport = 4 LIMIT 1";
       $resultado2 = mysqli_query($mysqli, $query1);
       if ($resultado2->num_rows > 0) {
         while ($row1 = mysqli_fetch_assoc($resultado2)) {
@@ -344,11 +344,10 @@ foreach ($array_leerling as $item) {
     } else {
       $page_html .= "<label style=' max-width: 100px;'>Comentario Rapport 1</label>";
       $page_html .= "<div>";
-
-      // $page_html .= "<div style='display: flex; flex-direction: column;'><div>";
-      // $page_html .= "<input type='radio' " . ($advies1 === "S" ? "checked" : "") . "><label style='margin-right: 15px; margin-left:10px;'>Suficiente</label>";
-      // $page_html .= "<input type='radio' " . ($advies1 === "I" ? "checked" : "") . "><label style='margin-left:10px;'>Insuficiente</label>";
-      // $page_html .= "</div>";
+      $page_html .= "<div style='display: flex; flex-direction: row; justify-content: space-around;'>";
+      $page_html .= "<div><input type='radio' " . ($advies1 == "S" ? "checked" : "") . "><label style='margin-right: 15px; margin-left:10px;'>Suficiente</label></div>";
+      $page_html .= "<div><input type='radio' " . ($advies1 == "I" ? "checked" : "") . "><label style='margin-left:10px;'>Insuficiente</label></div>";
+      $page_html .= "</div>";
       $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking1) . "</textarea></div>";
     }
 
@@ -386,11 +385,10 @@ foreach ($array_leerling as $item) {
     } else {
       $page_html .= "<label style=' max-width: 100px;'>Comentario Rapport 2</label>";
       $page_html .= "<div>";
-
-      // $page_html .= "<div style='display: flex; flex-direction: column;'><div>";
-      // $page_html .= "<input type='radio' " . ($advies2 === "S" && $_GET["rap"] >= 2 ? "checked" : "") . "><label style='margin-right: 15px; margin-left:10px;'>Suficiente</label>";
-      // $page_html .= "<input type='radio' " . ($advies2 === "I" && $_GET["rap"] >= 2 ? "checked" : "") . "><label style='margin-left:10px;'>Insuficiente</label>";
-      // $page_html .= "</div>";
+      $page_html .= "<div style='display: flex; flex-direction: row; justify-content: space-around;'>";
+      $page_html .= "<div><input type='radio' " . ($advies2 == "S" && $_GET["rap"] >= 2 ? "checked" : "") . "><label style='margin-right: 15px; margin-left:10px;'>Suficiente</label></div>";
+      $page_html .= "<div><input type='radio' " . ($advies2 == "I" && $_GET["rap"] >= 2 ? "checked" : "") . "><label style='margin-left:10px;'>Insuficiente</label></div>";
+      $page_html .= "</div>";
       $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking2) . "</textarea></div>";
     }
 
@@ -423,15 +421,15 @@ foreach ($array_leerling as $item) {
         // $page_html .= "<input type='radio' " . ($advies3 === "EPB" || $volgorde[3] === 4 && $_GET["rap"] >= 3 ? "checked" : "") . "  style='margin-right: 5px;'><label>EPB</label>";
         // $page_html .= "</div>";
         // $page_html .= "</div>";
-        $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking3) . "</textarea></div>";
+        $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking3) . "</textarea>";
       }
     } else {
       $page_html .= "<label style=' max-width: 100px;'>Comentario Rapport 3</label>";
       $page_html .= "<div>";
-      // $page_html .= "<div style='display: flex; flex-direction: column;'><div>";
-      // $page_html .= "<input type='radio' " . ($advies3 === "S" && $_GET["rap"] >= 3 ? "checked" : "") . "><label style='margin-right: 15px; margin-left:10px;'>Suficiente</label>";
-      // $page_html .= "<input type='radio' " . ($advies3 === "I" && $_GET["rap"] >= 3 ? "checked" : "") . "><label style='margin-left:10px;'>Insuficiente</label>";
-      // $page_html .= "</div>";
+      $page_html .= "<div style='display: flex; flex-direction: row; justify-content: space-around;'>";
+      $page_html .= "<div><input type='radio' " . ($advies3 == "S" && $_GET["rap"] >= 3 ? "checked" : "") . "><label style='margin-right: 15px; margin-left:10px;'>Suficiente</label></div>";
+      $page_html .= "<div><input type='radio' " . ($advies3 == "I" && $_GET["rap"] >= 3 ? "checked" : "") . "><label style='margin-left:10px;'>Insuficiente</label></div>";
+      $page_html .= "</div>";
       $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking3) . "</textarea></div>";
     }
 
