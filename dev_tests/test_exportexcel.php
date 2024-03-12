@@ -2692,6 +2692,7 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 											break;
 
 										case "Wereldorientatie":
+										case "Orientacion riba Mundo":
 											$returnvalue = "O";
 											break;
 
@@ -2729,7 +2730,7 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 									}
 
 									$colgemiddelde = (string)$returnvalue . (string)$_current_student_start_row;
-									if ($gemiddelde_out > 0.1 && $returnvalue != "I" && $returnvalue != "XX") {
+									if ($gemiddelde_out > 0.0 && $returnvalue != "I" && $returnvalue != "XX") {
 										$hojaActiva->setCellValue($colgemiddelde, $gemiddelde_out);
 									}
 									$_laststudent = $_currentstudent;
