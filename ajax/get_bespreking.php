@@ -172,7 +172,7 @@ $i = 1;
                             }
                         }
                     }
-                } else if ($_SESSION["SchoolType"] == 1) {
+                } else if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 18 && $_SESSION["SchoolID"] != 8) {
                     $reken = 0;
                     $lezen = 0;
                     $lezen_cont = 0;
@@ -188,6 +188,59 @@ $i = 1;
                         $get_cijfers = "SELECT c.schooljaar,c.vak,c.gemiddelde FROM le_cijfers_ps c WHERE c.studentid = '$id' AND c.schooljaar = '$schooljaar' AND c.vak IN (1,2,3,6,7) AND c.gemiddelde is not NULL;";
                     } else {
                         $get_cijfers = "SELECT c.schooljaar,c.vak,c.gemiddelde FROM le_cijfers_ps c WHERE c.studentid = '$id' AND c.rapnummer = $rapport AND c.schooljaar = '$schooljaar' AND c.vak IN (1,2,3,6,7) AND c.gemiddelde is not NULL;";
+                    }
+                    $result2 = mysqli_query($mysqli, $get_cijfers);
+                    if ($result2->num_rows > 0) {
+                        while ($row3 = mysqli_fetch_assoc($result2)) {
+                            switch ($row3["vak"]) {
+                                case 1:
+                                    if ($rapport == 4) {
+                                        $reken += $row3["gemiddelde"];
+                                        $reken_cont++;
+                                    } else {
+                                        $reken = $row3["gemiddelde"];
+                                    }
+                                    break;
+                                case 2:
+                                case 3:
+                                    $lezen += $row3["gemiddelde"];
+                                    $lezen_cont++;
+                                    break;
+                                case 6:
+                                    if ($rapport == 4) {
+                                        $neder += $row3["gemiddelde"];
+                                        $neder_cont++;
+                                    } else {
+                                        $neder = $row3["gemiddelde"];
+                                    }
+                                    break;
+                                case 7:
+                                    if ($rapport == 4) {
+                                        $werel += $row3["gemiddelde"];
+                                        $werel_cont++;
+                                    } else {
+                                        $werel = $row3["gemiddelde"];
+                                    }
+                                    break;
+                            }
+                            $cont++;
+                        }
+                        if ($rapport == 4) {
+                            if ($reken_cont > 0)
+                                $reken = round($reken / $reken_cont, 1);
+                            if ($neder_cont > 0)
+                                $neder = round($neder / $neder_cont, 1);
+                            if ($werel_cont > 0)
+                                $werel = round($werel / $werel_cont, 1);
+                        }
+                        $prom = round(($reken + ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) + $neder + $werel) / 4, 1);
+                        $sum = round($reken + ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) + $neder, 1);
+                    }
+                } else if($_SESSION["SchoolID"] == 8){
+                    if ($rapport == 4) {
+                        $get_cijfers = "SELECT c.rapnummer,v.volledigenaamvak,c.gemiddelde FROM le_cijfers c INNER JOIN le_vakken v ON v.ID = c.vak WHERE c.studentid = '$id' AND c.schooljaar = '$schooljaar' AND c.vak IN (1,2,3,6,7) AND c.gemiddelde is not NULL;";
+                    } else {
+                        $get_cijfers = "SELECT c.rapnummer,v.volledigenaamvak,c.gemiddelde FROM le_cijfers c INNER JOIN le_vakken v ON v.ID = c.vak WHERE c.studentid = '$id' AND c.rapnummer = $rapport AND c.schooljaar = '$schooljaar' AND v.volledigenaamvak IN () AND c.gemiddelde is not NULL;";
                     }
                     $result2 = mysqli_query($mysqli, $get_cijfers);
                     if ($result2->num_rows > 0) {
