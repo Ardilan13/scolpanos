@@ -1246,55 +1246,158 @@ class spn_see_kaart
     }
   }
 
-  function _writerapportdata_cijfers_18($klas, $vak, $studentid_out, $schooljaar, $schoolid, $rap_in)
+  function _getstudent_cijfers_18($vaks, $studentid_out, $schooljaar, $rap_in)
+  {
+    mysqli_report(MYSQLI_REPORT_STRICT);
+    $sql_query = "";
+    $list = "";
+    $result = null;
+    $length = count($vaks);
+    $i = 1;
+    foreach ($vaks as $vak) {
+      $list = $list . $vak;
+      if ($i < $length) {
+        $list = $list . ",";
+      }
+      $i++;
+    }
+    require_once("DBCreds.php");
+    $DBCreds = new DBCreds();
+    $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
+    $sql_query = "SELECT v.volledigenaamvak,v.volgorde,c.rapnummer,c.gemiddelde FROM le_cijfers c INNER JOIN le_vakken v ON c.vak = v.ID WHERE c.studentid = $studentid_out AND c.rapnummer <= $rap_in AND c.gemiddelde > 0 AND c.schooljaar = '$schooljaar' AND v.volgorde IN ($list) ORDER BY c.rapnummer,v.volgorde";
+    if ($select = $mysqli->prepare($sql_query)) {
+      if ($select->execute()) {
+        $select->store_result();
+        if ($select->num_rows > 0) {
+          $select->bind_result($vak, $vol, $rap, $avg);
+          while ($select->fetch()) {
+            if ($vol == 2) {
+              $vak == "lesa comprension" ? $vol = 50 : $vol = 2;
+            }
+            $result[$vol][$rap] = $avg;
+          }
+        }
+      } else {
+        return null;
+      }
+    }
+    return $result;
+  }
+
+  function _getstudent_houding_18($vaks, $studentid_out, $schooljaar, $rap_in)
+  {
+    mysqli_report(MYSQLI_REPORT_STRICT);
+    $sql_query = "";
+    $list = "";
+    $result = null;
+    $length = count($vaks);
+    $i = 1;
+    foreach ($vaks as $vak) {
+      if ($vak != "") {
+        $list = $list . "h" . $vak;
+        if ($i < $length) {
+          $list = $list . ",";
+        }
+      }
+      $i++;
+    }
+    require_once("DBCreds.php");
+    $DBCreds = new DBCreds();
+    $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
+    $sql_query = "SELECT rapnummer,$list FROM le_houding WHERE studentid = $studentid_out AND schooljaar = '$schooljaar' AND rapnummer <= $rap_in";
+    $result = $mysqli->query($sql_query);
+    if ($result->num_rows > 0) {
+      while ($row = $result->fetch_assoc()) {
+        $houding = array();
+        foreach ($vaks as $vak) {
+          $avg = $row["h" . $vak];
+          if ($avg != null && $avg != "") {
+            switch ($avg) {
+              case 2:
+                $avg = "B";
+                break;
+              case 3:
+                $avg = "C";
+                break;
+              case 4:
+                $avg = "D";
+                break;
+              case 5:
+                $avg = "E";
+                break;
+              case 6:
+                $avg = "F";
+                break;
+              case 7:
+                $avg = "G";
+                break;
+              case 8:
+                $avg = "H";
+                break;
+              default:
+                $avg = "A";
+                break;
+            }
+          } else {
+            $avg = "A";
+          }
+          if ($vak != "") {
+            $houding["h" . $vak] = $avg;
+          }
+        }
+        $return[$row["rapnummer"]] = $houding;
+      }
+      return $return;
+    } else {
+      return null;
+    }
+  }
+
+  function _writerapportdata_cijfers_18($klas, $vak, $studentid_out, $schooljaar, $schoolid, $rap_in, $cijfers)
   {
     mysqli_report(MYSQLI_REPORT_STRICT);
     $sql_query = "";
     $result = null;
-    try {
-      if ($vak == 50) {
-        $sql_query = "SELECT gemiddelde FROM le_cijfers c INNER JOIN le_vakken v ON v.ID = c.vak where c.studentid = $studentid_out and c.schooljaar = '$schooljaar' and c.rapnummer = $rap_in and v.Klas = '$klas' and v.SchoolID = $schoolid and v.volledigenaamvak = 'lesa comprension' limit 1";
-      } else if ($vak == 2) {
-        $sql_query = "SELECT gemiddelde FROM le_cijfers c INNER JOIN le_vakken v ON v.ID = c.vak where c.studentid = $studentid_out and c.schooljaar = '$schooljaar' and c.rapnummer = $rap_in and v.Klas = '$klas' and v.SchoolID = $schoolid and v.volledigenaamvak = 'idioma comprension' limit 1";
-      } else {
-        $sql_query = "SELECT gemiddelde FROM le_cijfers c INNER JOIN le_vakken v ON v.ID = c.vak where c.studentid = $studentid_out and c.schooljaar = '$schooljaar' and c.rapnummer = $rap_in and v.Klas = '$klas' and v.SchoolID = $schoolid and v.volgorde = $vak limit 1";
-      }
-      $DBCreds = new DBCreds();
-      $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
-      if ($select = $mysqli->prepare($sql_query)) {
 
-        if ($select->execute()) {
-          $select->store_result();
-          if ($select->num_rows > 0) {
-            $select->bind_result($avg);
-            while ($select->fetch()) {
-              if ($avg != null) {
-                if ($avg > 0 && $avg < 4.5) {
-                  $result = 4;
-                } else if ($avg >= 4.5 && $avg < 5.5) {
-                  $result = 5;
-                } else if ($avg >= 5.5 && $avg < 6.5) {
-                  $result = 6;
-                } else if ($avg >= 6.5 && $avg < 7.5) {
-                  $result = 7;
-                } else if ($avg >= 7.5 && $avg < 8.5) {
-                  $result = 8;
-                } else if ($avg >= 8.5) {
-                  $result = 9;
-                } else {
-                  $result = null;
-                }
-              } else {
-                $result = null;
-              }
-            }
-          }
-        }
+    if (!empty($cijfers[$vak][$rap_in])) {
+      $avg = $cijfers[$vak][$rap_in];
+      if ($avg > 0 && $avg < 4.5) {
+        $result = 4;
+      } else if ($avg >= 4.5 && $avg < 5.5) {
+        $result = 5;
+      } else if ($avg >= 5.5 && $avg < 6.5) {
+        $result = 6;
+      } else if ($avg >= 6.5 && $avg < 7.5) {
+        $result = 7;
+      } else if ($avg >= 7.5 && $avg < 8.5) {
+        $result = 8;
+      } else if ($avg >= 8.5) {
+        $result = 9;
       }
-      return $result;
-    } catch (PHPExcel_Exception $excel) {
-      return null;
     }
+
+    return $result;
+  }
+
+  function _writerapportdata_houding_18($vak, $rap_in, $houdings)
+  {
+    $avg = $houdings[$rap_in][$vak];
+    return $avg;
+  }
+
+  function _writerapportdata_verzuim_18($vaks, $rap_in, $verzuim)
+  {
+    $page = "";
+    foreach ($vaks as $vak) {
+      $page .= "<tr>";
+      $page .= "<td width='65%'>" . $vak . "</td>";
+      $page .= "<td></td>";
+      $page .= "<td>" . $verzuim[1][$vak] . " </td>";
+      $page .= "<td>" . ($rap_in >= 2 ? $verzuim[2][$vak] : "") . " </td>";
+      $page .= "<td>" . ($rap_in >= 3 ? $verzuim[3][$vak] : "") . " </td>";
+      $page .= "</tr>";
+    }
+    return $page;
   }
 
   function _writerapportdata_cijfers_8($klas, $vak, $studentid_out, $schooljaar, $schoolid, $rap_in)
