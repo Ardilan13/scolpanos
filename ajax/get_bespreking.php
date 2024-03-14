@@ -77,7 +77,7 @@ $i = 1;
             $get_mentor = "SELECT id FROM user_hs WHERE SchoolID = '$schoolid' AND klas = '$klas' AND tutor = 'Yes' AND user_GUID = '$user' LIMIT 1;";
         }
         $result_mentor = mysqli_query($mysqli, $get_mentor);
-        if ($result_mentor->num_rows > 0 || $_SESSION["UserRights"] == "BEHEER") {
+        if ($result_mentor->num_rows > 0 || $_SESSION["UserRights"] == "BEHEER" || ($_SESSION["SchoolID"] == 18 && $_SESSION["UserRights"] == "DOCENT")) {
             $disabled = "";
         } else {
             $disabled = "disabled";
@@ -236,7 +236,7 @@ $i = 1;
                         $prom = round(($reken + ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) + $neder + $werel) / 4, 1);
                         $sum = round($reken + ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) + $neder, 1);
                     }
-                } else if($_SESSION["SchoolID"] == 8){
+                } else if ($_SESSION["SchoolID"] == 8) {
                     if ($rapport == 4) {
                         $get_cijfers = "SELECT c.rapnummer,v.volledigenaamvak,c.gemiddelde FROM le_cijfers c INNER JOIN le_vakken v ON v.ID = c.vak WHERE c.studentid = '$id' AND c.schooljaar = '$schooljaar' AND c.vak IN (1,2,3,6,7) AND c.gemiddelde is not NULL;";
                     } else {

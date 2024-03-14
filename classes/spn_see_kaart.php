@@ -1427,7 +1427,7 @@ class spn_see_kaart
     }
   }
 
-  function _getstudent_cijfers_8($vaks, $studentid_out, $schooljaar, $rap_in)
+  function _getstudent_cijfers_8($vaks, $studentid_out, $schooljaar, $rap_in, $level_klas)
   {
     mysqli_report(MYSQLI_REPORT_STRICT);
     $sql_query = "";
@@ -1462,29 +1462,35 @@ class spn_see_kaart
         if ($select->num_rows > 0) {
           $select->bind_result($vak, $rap, $avg);
           while ($select->fetch()) {
-            switch ($vak) {
-              case "Stellen":
-              case "Woordenschat":
-              case "Luistervaardigheid":
-              case "Leesbegrip":
-              case "Dictee":
-              case "Taalbeschouwing":
-                $hul[$rap][$vak] = $avg;
-                break;
-              default:
-                $result[$vak][$rap] = $avg;
-                break;
+            if ($level_klas != 6) {
+              switch ($vak) {
+                case "Stellen":
+                case "Woordenschat":
+                case "Luistervaardigheid":
+                case "Leesbegrip":
+                case "Dictee":
+                case "Taalbeschouwing":
+                  $hul[$rap][$vak] = $avg;
+                  break;
+                default:
+                  $result[$vak][$rap] = $avg;
+                  break;
+              }
+            } else {
+              $result[$vak][$rap] = $avg;
             }
           }
-          for ($i = 1; $i <= $rap_in; $i++) {
-            $hul_avg = "";
-            if (!empty($hul[$i]) && is_array($hul[$i])) {
-              $filtered = array_filter($hul[$i], function ($value) {
-                return ($value !== "" && $value !== null && $value !== 0);
-              });
-              $hul_avg = round(array_sum($filtered) / count($filtered), 1);
+          if ($level_klas != 6) {
+            for ($i = 1; $i <= $rap_in; $i++) {
+              $hul_avg = "";
+              if (!empty($hul[$i]) && is_array($hul[$i])) {
+                $filtered = array_filter($hul[$i], function ($value) {
+                  return ($value !== "" && $value !== null && $value !== 0);
+                });
+                $hul_avg = round(array_sum($filtered) / count($filtered), 1);
+              }
+              $result["HUL Scucha y Papia / Luisteren en Spreken"][$i] = $hul_avg;
             }
-            $result["HUL Scucha y Papia / Luisteren en Spreken"][$i] = $hul_avg;
           }
         }
       } else {

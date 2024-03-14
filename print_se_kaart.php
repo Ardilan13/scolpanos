@@ -306,11 +306,12 @@ foreach ($array_leerling as $item) {
   if ($_SESSION["SchoolType"] == 1) {
     if ($_SESSION["SchoolID"] != 18) {
       $page_html .= "<div style='display: flex; justify-content: space-evenly;'>";
-      $page_html .= "<div style=' display: flex; align-items: center; justify-content: space-evenly; flex-direction: column;'>";
+      $page_html .= "<div style=' display: flex; align-items: center; justify-content: space-evenly; flex-direction: row;'>";
     } else {
       $page_html .= "<div style='margin-top:5%;display: flex; justify-content: space-evenly;'>";
       $page_html .= "<div style='display: flex; align-items: center; justify-content: space-evenly; flex-direction: column;'>";
     }
+    $page_html .= "<div style='display: flex; flex-direction: column;'>";
     $page_html .= "<div style='display: flex; align-items: center;'>";
 
     if ($_SESSION["SchoolID"] != 18) {
@@ -435,6 +436,7 @@ foreach ($array_leerling as $item) {
 
     $page_html .= "</div>";
     $page_html .= "</div>";
+    $page_html .= "</div>";
     if ($schoolId == 10) {
       $page_html .= "<div style='margin: 0px; margin-top:3%; display: flex; align-items: center; flex-direction: column;' >";
     } else {
@@ -543,7 +545,11 @@ foreach ($array_leerling as $item) {
 
 
   $page_html .= "<div class='page-break'></div>";
-  $page_html .= "<div class='card-deck border-5 printable' style='font-size: 0.70rem; margin-top: 3rem;  margin-left:auto; margin-right:auto; max-width:1140px; width: 100%;' >";
+  if ($_SESSION["SchoolID"] == 8) {
+    $page_html .= "<div class='card-deck border-5 printable' style='font-size: 0.70rem; margin-left:auto; margin-right:auto; max-width:1140px; width: 100%;' >";
+  } else {
+    $page_html .= "<div class='card-deck border-5 printable' style='font-size: 0.70rem; margin-top: 3rem;  margin-left:auto; margin-right:auto; max-width:1140px; width: 100%;' >";
+  }
   if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8) {
     $page_html .= "<div class='card border-0' style='margin-left: 0; margin-right: 40px;'>";
   } else {
@@ -3234,21 +3240,50 @@ if($avg_h == 0.0){$avg_h = null;}
       $page_html .= "<div class='row'>";
       $page_html .= "<div class='col-md-12'>";
 
-      $vaks_pap = ["Reflexion / Taalbeschouwing" => "Reflexion", "Vocabulario / Woordenschat" => "Vocabulario", "Dictado / Dictee" => "Dictado", "Scucha y Papia / Luisteren en Spreken" => "PAP Scucha y papia"];
-      $vaks_lesa = ["Lesa tecnico / Technisch lezen" => "Lesamento Tecnico", "Lesa comprensivo / Leesbegrip" => "Lesamento Comprensivo"];
-      $vaks_hul = ["HUL Scucha y Papia / Luisteren en Spreken" => ["Stellen", "Woordenschat", "Luistervaardigheid", "Leesbegrip", "Dictee", "Taalbeschouwing"]];
-      $vaks_mat = ["Vision y comprension / Inzicht" => "", "Nocion di number / Getalbegrip" => "Nocion di number", "Operacion basico y avansa / Basisvaardigheden" => "Operacion basico y avansa", "Midi y Geometria / Meten en Meetkunde" => "Midi y geometria", "Tabel  y Grafico/ Tabel en Grafieken" => "Tabel"];
-      $vaks_ext = ["Orientacion riba mundo / Wereldoriëntatie" => "Wereldorientatie", "Skirbi / Schrijven" => "Skirbi", "Ingles / Engels" => "Engels", "Spaño / Spaans" => "Spaans", "Trafico / Verkeer" => "Trafico", "Charla / Spreekbeurt" => "Charla"];
+      switch ($level_klas) {
+        case 6:
+          $vaks_pap = ["Reflexion / Taalbeschouwing" => "Reflexion", "Vocabulario / Woordenschat" => "Vocabulario", "Dictado / Dictee" => "Dictado", "Scucha y Papia / Luisteren en Spreken" => "Scucha y papia", "Lesa comprensivo / Leesbegrip" => "Lesamento Comprensivo"];
+          $vaks_hul = ["Reflexion / Taalbeschouwing " => "Taalbeschouwing", "Vocabulario / Woordenschat " => "Woordenschat", "Dictado / Dictee " => "Dictee", "Scucha y Papia / Luisteren en Spreken " => "Luisteren en spreken", "Lesamento Comprensivo / Leesbegrip" => "Leesbegrip"];
+          $vaks_mat = ["Vision y comprension / Inzicht" => "h14"];
+          $vaks_mat1 = ["Nocion di number / Getalbegrip" => "Nocion di number", "Operacion basico y avansa / Basisvaardigheden" => "Operacion basico y avansa", "Midi y Geometria / Meten en Meetkunde" => "Midi y Geometria", "Tabel  y Grafico/ Tabel en Grafieken" => "Tabel y grafico"];
+          $vaks_ext = ["Orientacion riba mundo / Wereldoriëntatie" => "Wereldorientatie", "Skirbi / Schrijven" => "Skirbi", "Ingles / Engels" => "Engels", "Spaño / Spaans" => "Spaans", "Trafico / Verkeer" => "Trafico", "Charla / Spreekbeurt" => "Charla"];
 
-      $vaks_mov = ["Movecion / Lichamelijk opvoeding" => "Movecion",  "Arte / Beeldende vorming" => "Arte"]; // derecha fila
-      $vaks = $vaks_mov + $vaks_pap + $vaks_lesa + $vaks_hul + $vaks_mat + $vaks_ext;
-      $student_cijfers =  $c->_getstudent_cijfers_8($vaks, $item['studentid'], $_GET["schoolJaar"], $_GET['rap']);
+          $vaks_mov = ["Movecion / Lichamelijk opvoeding" => "Movecion",  "Arte / Beeldende vorming" => "Arte"]; // derecha fila
+          $vaks = $vaks_mov + $vaks_pap + $vaks_hul + $vaks_mat1 + $vaks_ext;
 
-      $page_html .= $c->_print_vaks_table_8(1, "Papiamento / Papiaments", $vaks_pap, $_GET['rap'], TRUE, TRUE, $student_cijfers);
-      $page_html .= $c->_print_vaks_table_8(1, "Lesa / Lezen", $vaks_lesa, $_GET['rap'], TRUE, FALSE, $student_cijfers);
-      $page_html .= $c->_print_vaks_table_8(1, "Hulandes / Nederlands", $vaks_hul, $_GET['rap'], FALSE, FALSE, $student_cijfers);
-      $page_html .= $c->_print_vaks_table_8(1, "Matematica / Rekenen", $vaks_mat, $_GET['rap'], TRUE, TRUE, $student_cijfers);
-      $page_html .= $c->_print_vaks_table_8(1, "", $vaks_ext, $_GET['rap'], FALSE, FALSE, $student_cijfers);
+          break;
+        default:
+          $vaks_pap = ["Reflexion / Taalbeschouwing" => "Reflexion", "Vocabulario / Woordenschat" => "Vocabulario", "Dictado / Dictee" => "Dictado", "Scucha y Papia / Luisteren en Spreken" => "Scucha y papia"];
+          $vaks_lesa = ["Lesa tecnico / Technisch lezen" => "Lesamento Tecnico", "Lesa comprensivo / Leesbegrip" => "Lesamento Comprensivo"];
+          $vaks_hul = ["HUL Scucha y Papia / Luisteren en Spreken" => ["Stellen", "Woordenschat", "Luistervaardigheid", "Leesbegrip", "Dictee", "Taalbeschouwing"]];
+          $vaks_mat = ["Vision y comprension / Inzicht" => "", "Nocion di number / Getalbegrip" => "Nocion di number", "Operacion basico y avansa / Basisvaardigheden" => "Operacion basico y avansa", "Midi y Geometria / Meten en Meetkunde" => "Midi y geometria", "Tabel  y Grafico/ Tabel en Grafieken" => "Tabel"];
+          $vaks_ext = ["Orientacion riba mundo / Wereldoriëntatie" => "Wereldorientatie", "Skirbi / Schrijven" => "Skirbi", "Ingles / Engels" => "Engels", "Spaño / Spaans" => "Spaans", "Trafico / Verkeer" => "Trafico", "Charla / Spreekbeurt" => "Charla"];
+
+          $vaks_mov = ["Movecion / Lichamelijk opvoeding" => "Movecion",  "Arte / Beeldende vorming" => "Arte"]; // derecha fila
+          $vaks = $vaks_mov + $vaks_pap + $vaks_lesa + $vaks_hul + $vaks_mat + $vaks_ext;
+
+          break;
+      }
+
+      $student_cijfers =  $c->_getstudent_cijfers_8($vaks, $item['studentid'], $_GET["schoolJaar"], $_GET['rap'], $level_klas);
+      $student_houding_in = $c->_getstudent_houding_8($vaks_mat, $item['studentid'], $schooljaar, $_GET['rap']);
+
+      switch ($level_klas) {
+        case 6:
+          $page_html .= $c->_print_vaks_table_8(1, "Papiamento / Papiaments", $vaks_pap, $_GET['rap'], TRUE, TRUE, $student_cijfers);
+          $page_html .= $c->_print_vaks_table_8(1, "Hulandes / Nederlands", $vaks_hul, $_GET['rap'], TRUE, TRUE, $student_cijfers);
+          $page_html .= $c->_print_vaks_table_8(2, "Matematica / Rekenen", $vaks_mat, $_GET['rap'], FALSE, TRUE, $student_houding_in);
+          $page_html .= $c->_print_vaks_table_8(1, "", $vaks_mat1, $_GET['rap'], TRUE, FALSE, $student_cijfers);
+          $page_html .= $c->_print_vaks_table_8(1, "", $vaks_ext, $_GET['rap'], FALSE, FALSE, $student_cijfers);
+          break;
+        default:
+          $page_html .= $c->_print_vaks_table_8(1, "Papiamento / Papiaments", $vaks_pap, $_GET['rap'], TRUE, TRUE, $student_cijfers);
+          $page_html .= $c->_print_vaks_table_8(1, "Lesa / Lezen", $vaks_lesa, $_GET['rap'], TRUE, FALSE, $student_cijfers);
+          $page_html .= $c->_print_vaks_table_8(1, "Hulandes / Nederlands", $vaks_hul, $_GET['rap'], FALSE, FALSE, $student_cijfers);
+          $page_html .= $c->_print_vaks_table_8(1, "Matematica / Rekenen", $vaks_mat, $_GET['rap'], TRUE, TRUE, $student_cijfers);
+          $page_html .= $c->_print_vaks_table_8(1, "", $vaks_ext, $_GET['rap'], FALSE, FALSE, $student_cijfers);
+          break;
+      }
     } else {
       $vaks_r_18 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 25, 26, 50];
       $cijfers_18 = $c->_getstudent_cijfers_18($vaks_r_18, $item['studentid'], $_GET["schoolJaar"], $_GET['rap']);
