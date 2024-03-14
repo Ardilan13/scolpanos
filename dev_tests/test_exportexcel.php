@@ -241,11 +241,11 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 		AND s.class = '$klas_in'
 		ORDER BY";
 		$sql_order = " s.lastname , s.firstname";
-		// if ($s->_setting_mj) {
-		// 	$sql_query_houding .= " s.sex " . $s->_setting_sort . ", " . $sql_order;
-		// } else {
-		$sql_query_houding .=  $sql_order;
-		// }
+		if ($s->_setting_mj) {
+			$sql_query_houding .= " s.sex " . $s->_setting_sort . ", " . $sql_order;
+		} else {
+			$sql_query_houding .=  $sql_order;
+		}
 		$_while_counter = 0;
 		$_current_student_start_row = 4;
 		$_laststudent = 0;
@@ -646,11 +646,11 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 		$sql_query_student = "SELECT id,dob from students s where s.class = '$klas_in' and s.schoolid = $schoolid ORDER BY";
 
 		$sql_order = " s.lastname , s.firstname";
-		// if ($s->_setting_mj) {
-		// 	$sql_query_student .= " s.sex " . $s->_setting_sort . ", " . $sql_order;
-		// } else {
-		$sql_query_student .=  $sql_order;
-		// }
+		if ($s->_setting_mj) {
+			$sql_query_student .= " s.sex " . $s->_setting_sort . ", " . $sql_order;
+		} else {
+			$sql_query_student .=  $sql_order;
+		}
 
 		$_current_student_start_row = 4;
 		$cont_laat = 0;
@@ -665,13 +665,28 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 		$u = new spn_utils();
 		while ($row = mysqli_fetch_assoc($resultado1)) {
 			$id = $row['id'];
-			$sql_query_verzuim = "SELECT SUM(v.telaat) as telaat, SUM(v.absentie) as absentie
-			FROM le_verzuim v WHERE v.studentid = $id AND v.schooljaar = '$schooljaar' AND DATE(v.datum) BETWEEN '$fecha1' AND '$fecha2' AND (v.telaat != 0 OR v.absentie != 0) LIMIT 1";
-			$resultado3 = mysqli_query($mysqli, $sql_query_verzuim);
-			if ($row1 = mysqli_fetch_assoc($resultado3)) {
-				$cont_laat = $row1["telaat"];
-				$cont_verzuim = $row1["absentie"];
+			$sql_query_verzuim = "SELECT s.id as studentid,v.telaat,v.absentie,v.huiswerk, v.datum
+					from students s inner join le_verzuim v
+					where s.class = '$klas_in'  and s.schoolid = $schoolid and v.schooljaar = '$schooljaar' and v.studentid = $id and s.id = $id ORDER BY v.created;";
+			$resultado = mysqli_query($mysqli, $sql_query_verzuim);
+			while ($row1 = mysqli_fetch_assoc($resultado)) {
+				$datum = $u->convertfrommysqldate_new($row1["datum"]);
+				if ($datum >= $fecha1 && $datum <= $fecha2) {
+					if ($row1['telaat'] > 0) {
+						$cont_laat++;
+					}
+					if ($row1['absentie'] > 0) {
+						$cont_verzuim++;
+					}
+				}
 			}
+			// $sql_query_verzuim = "SELECT SUM(v.telaat) as telaat, SUM(v.absentie) as absentie
+			// FROM le_verzuim v WHERE v.studentid = $id AND v.schooljaar = '$schooljaar' AND DATE(v.datum) BETWEEN '$fecha1' AND '$fecha2' AND (v.telaat != 0 OR v.absentie != 0) LIMIT 1";
+			// $resultado3 = mysqli_query($mysqli, $sql_query_verzuim);
+			// if ($row1 = mysqli_fetch_assoc($resultado3)) {
+			// 	$cont_laat = $row1["telaat"];
+			// 	$cont_verzuim = $row1["absentie"];
+			// }
 
 			//opmerking
 			$opmerking = "";
