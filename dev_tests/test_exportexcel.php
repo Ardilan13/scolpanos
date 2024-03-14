@@ -4467,7 +4467,7 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 						AND v.SchoolID = $schoolid
 						AND c.schooljaar = '$schooljaar_pasado'
 						AND c.gemiddelde IS NOT NULL  
-						AND v.volledigenaamvak IN ('Stellen','Woordenschat','Luistervaardigheid','Leesbegrip','Dictee','Taalbeschouwing','Reflexion','Vocabulario','Dictado','PAP Scucha y papia','Tabel','Midi y geometria','Operacion basico y avansa','Nocion di number','Wereldorientatie')";
+						AND v.volledigenaamvak IN ('Stellen','Woordenschat','Luistervaardigheid','Leesbegrip','Dictee','Taalbeschouwing','Reflexion','Vocabulario','Dictado','Scucha bon','Tabel','Meten en Meetkunde','Basisvaardigheden','Getalbegrip','Wereldorientatie','Lesamento Comprensivo')";
 					$resultado_k5 = mysqli_query($mysqli, $sql_query_k5);
 					if ($i == 1) {
 						$spreadsheet->setActiveSheetIndex(3);
@@ -4480,7 +4480,8 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 								case "Reflexion":
 								case "Vocabulario":
 								case "Dictado":
-								case "Scucha y papia":
+								case "Scucha bon":
+								case "Lesamento Comprensivo":
 									$pap_pro += $row_k5["gemiddelde"];
 									$pap_cont++;
 									break;
@@ -4493,9 +4494,9 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 									$hul_pro += $row_k5["gemiddelde"];
 									$hul_cont++;
 									break;
-								case "Nocion di number":
-								case "Operacion basico y avansa":
-								case "Midi y geometria":
+								case "Getalbegrip":
+								case "Basisvaardigheden":
+								case "Meten en Meetkunde":
 								case "Tabel":
 									$mat_pro += $row_k5["gemiddelde"];
 									$mat_cont++;

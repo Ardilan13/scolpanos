@@ -76,8 +76,9 @@ $i = 1;
         } else {
             $get_mentor = "SELECT id FROM user_hs WHERE SchoolID = '$schoolid' AND klas = '$klas' AND tutor = 'Yes' AND user_GUID = '$user' LIMIT 1;";
         }
+
         $result_mentor = mysqli_query($mysqli, $get_mentor);
-        if ($result_mentor->num_rows > 0 || $_SESSION["UserRights"] == "BEHEER" || ($_SESSION["SchoolID"] == 18 && $_SESSION["UserRights"] == "DOCENT")) {
+        if ($result_mentor->num_rows > 0 || $_SESSION["UserRights"] == "BEHEER" || ($_SESSION["SchoolType"] == 1 && $_SESSION["UserRights"] == "DOCENT")) {
             $disabled = "";
         } else {
             $disabled = "disabled";
