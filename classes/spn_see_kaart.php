@@ -1440,15 +1440,9 @@ class spn_see_kaart
     $hul_avg_2 = "";
     $hul_avg_3 = "";
     foreach ($vaks as $name => $vak) {
-      if ($name == "HUL Scucha y Papia / Luisteren en Spreken") {
-        foreach ($vak as $key => $value) {
-          $list = $list . "'" . $value . "',";
-        }
-      } else {
-        $list = $list . "'" . $vak . "'";
-        if ($i < $length) {
-          $list = $list . ",";
-        }
+      $list = $list . "'" . $vak . "'";
+      if ($i < $length) {
+        $list = $list . ",";
       }
       $i++;
     }
@@ -1462,34 +1456,11 @@ class spn_see_kaart
         if ($select->num_rows > 0) {
           $select->bind_result($vak, $rap, $avg);
           while ($select->fetch()) {
-            if ($level_klas != 6) {
-              switch ($vak) {
-                case "Stellen":
-                case "Woordenschat":
-                case "Luistervaardigheid":
-                case "Leesbegrip":
-                case "Dictee":
-                case "Taalbeschouwing":
-                  $hul[$rap][$vak] = $avg;
-                  break;
-                default:
-                  $result[$vak][$rap] = $avg;
-                  break;
-              }
+            if ($level_klas == 1 && $rap < 3) {
+              $avg = $avg >= 8.0 ? "B" : ($avg >= 5.5 ? "S" : "I");
+              $result[$vak][$rap] = $avg;
             } else {
               $result[$vak][$rap] = $avg;
-            }
-          }
-          if ($level_klas != 6) {
-            for ($i = 1; $i <= $rap_in; $i++) {
-              $hul_avg = "";
-              if (!empty($hul[$i]) && is_array($hul[$i])) {
-                $filtered = array_filter($hul[$i], function ($value) {
-                  return ($value !== "" && $value !== null && $value !== 0);
-                });
-                $hul_avg = round(array_sum($filtered) / count($filtered), 1);
-              }
-              $result["HUL Scucha y Papia / Luisteren en Spreken"][$i] = $hul_avg;
             }
           }
         }
@@ -1500,7 +1471,7 @@ class spn_see_kaart
     return $result;
   }
 
-  function _getstudent_houding_8($vaks, $studentid_out, $schooljaar, $rap_in)
+  function _getstudent_houding_8($vaks, $studentid_out, $schooljaar, $rap_in, $level_klas)
   {
     mysqli_report(MYSQLI_REPORT_STRICT);
     $sql_query = "";
@@ -1527,20 +1498,24 @@ class spn_see_kaart
         $houding = array();
         foreach ($vaks as $name => $vak) {
           $avg = $row[$vak];
-          if ($avg != null && $avg != "") {
-            switch ($avg) {
-              case 10:
-                $avg = "B";
-                break;
-              case 11:
-                $avg = "S";
-                break;
-              case 12:
-                $avg = "I";
-                break;
+          if ($vak != "h14" || $level_klas > 1 || $row["rapnummer"] > 2) {
+            if ($avg != null && $avg != "") {
+              switch ($avg) {
+                case 10:
+                  $avg = "B";
+                  break;
+                case 11:
+                  $avg = "S";
+                  break;
+                case 12:
+                  $avg = "I";
+                  break;
+              }
+            } else {
+              $avg = "B";
             }
           } else {
-            $avg = "B";
+            $avg = "X";
           }
           if ($vak != "") {
             $houding[$vak] = $avg;
@@ -1553,47 +1528,6 @@ class spn_see_kaart
       return null;
     }
   }
-
-  // function _writerapportdata_houding_8($klas, $vak, $studentid_out, $schooljaar, $schoolid, $rap_in)
-  // {
-  //   mysqli_report(MYSQLI_REPORT_STRICT);
-  //   $sql_query = "";
-  //   $result = null;
-  //   try {
-  //     require_once("DBCreds.php");
-  //     $DBCreds = new DBCreds();
-  //     $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
-  //     $sql_query = "SELECT $vak FROM le_houding WHERE studentid = $studentid_out AND schooljaar = '$schooljaar' AND rapnummer = $rap_in and klas = '$klas'";
-  //     if ($select = $mysqli->prepare($sql_query)) {
-  //       if ($select->execute()) {
-  //         $select->store_result();
-  //         if ($select->num_rows > 0) {
-  //           $select->bind_result($avg);
-  //           while ($select->fetch()) {
-  //             if ($avg != null && $avg != "") {
-  //               switch ($avg) {
-  //                 case 10:
-  //                   $result = "B";
-  //                   break;
-  //                 case 11:
-  //                   $result = "S";
-  //                   break;
-  //                 case 12:
-  //                   $result = "I";
-  //                   break;
-  //               }
-  //             } else {
-  //               $result = "B";
-  //             }
-  //           }
-  //         }
-  //       }
-  //     }
-  //     return $result;
-  //   } catch (PHPExcel_Exception $excel) {
-  //     return null;
-  //   }
-  // }
 
   function _writerapportdata_verzuim_8($klas, $vak, $studentid_out, $schooljaar, $schoolid, $rap_in)
   {
@@ -1710,7 +1644,7 @@ class spn_see_kaart
     }
   }
 
-  function _print_vaks_table_8($type, $table, $vaks, $rap, $avg, $head, $cijfers)
+  function _print_vaks_table_8($type, $table, $vaks, $rap, $avg, $head, $cijfers, $level_klas)
   {
     if ($avg) {
       $gem_r1 = array();
@@ -1799,9 +1733,9 @@ class spn_see_kaart
         array_push($gem_r3, $_h1_3);
       }
 
-      $page_html .= "<td style='text-align: center;' " . ((float)$_h1_1 <= 5.4 && $_h1_1 && $type == 1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
-      $page_html .= "<td style='text-align: center;' " . (((float)$_h1_2 <= 5.4 && $_h1_2 && $rap >= 2 && $type == 1) ? " class=\"bg-danger\"" : "") . ">" . ($rap >= 2 ? $_h1_2 : "") . " </td>";
-      $page_html .= "<td style='text-align: center;' " . (((float)$_h1_3 <= 5.4 && $_h1_3 && $rap >= 3 && $type == 1) ? " class=\"bg-danger\"" : "") . ">" . ($rap >= 3 ? $_h1_3 : "") . " </td>";
+      $page_html .= "<td style='text-align: center;' " . ((float)$_h1_1 <= 5.4 && $_h1_1 && $type == 1 && $level_klas != 1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+      $page_html .= "<td style='text-align: center;' " . (((float)$_h1_2 <= 5.4 && $_h1_2 && $rap >= 2 && $type == 1 && $level_klas != 1) ? " class=\"bg-danger\"" : "") . ">" . ($rap >= 2 ? $_h1_2 : "") . " </td>";
+      $page_html .= "<td style='text-align: center;' " . (((float)$_h1_3 <= 5.4 && $_h1_3 && $rap >= 3 && $type == 1 && $level_klas != 1) ? " class=\"bg-danger\"" : "") . ">" . ($rap >= 3 ? $_h1_3 : "") . " </td>";
       if ($type == 3) {
         $avg_r4 = ((float)$_h1_1 + (float)$_h1_2 + (float)$_h1_3);
         $page_html .= "<td style='text-align: center;' ><b>" . ($avg_r4) . " </b></td>";
@@ -1821,14 +1755,14 @@ class spn_see_kaart
       $avg_h2 = $this->_calculate_gemiddelde($gem_r2);
       $avg_h3 = $this->_calculate_gemiddelde($gem_r3);
 
-      $page_html .= "<td style='text-align: center;' " . ((float)$avg_h1 <= 5.4 && $avg_h1 ? " class=\"bg-danger\"" : "") . "><b>" . $avg_h1 . " </b></td>";
-      $page_html .= "<td style='text-align: center;' " . (((float)$avg_h2 <= 5.4 && $avg_h2 && $rap >= 2) ? " class=\"bg-danger\"" : "") . "><b>" . ($rap >= 2 ? $avg_h2 : "") . " </b></td>";
-      $page_html .= "<td style='text-align: center;' " . (((float)$avg_h3 <= 5.4 && $avg_h3 && $rap >= 3) ? " class=\"bg-danger\"" : "") . "><b>" . ($rap >= 3 ? $avg_h3 : "") . " </b></td>";
+      $page_html .= "<td style='text-align: center;' " . ((float)$avg_h1 <= 5.4 && $avg_h1 && $level_klas != 1 ? " class=\"bg-danger\"" : "") . "><b>" . $avg_h1 . " </b></td>";
+      $page_html .= "<td style='text-align: center;' " . (((float)$avg_h2 <= 5.4 && $avg_h2 && $rap >= 2 && $level_klas != 1) ? " class=\"bg-danger\"" : "") . "><b>" . ($rap >= 2 ? $avg_h2 : "") . " </b></td>";
+      $page_html .= "<td style='text-align: center;' " . (((float)$avg_h3 <= 5.4 && $avg_h3 && $rap >= 3 && $level_klas != 1) ? " class=\"bg-danger\"" : "") . "><b>" . ($rap >= 3 ? $avg_h3 : "") . " </b></td>";
       if ($type == 1) {
         $num_r4 = ((float)$avg_h1 + (float)$avg_h2 + (float)$avg_h3);
         $den_r4 = (($avg_h1 > 0 ? 1 : 0) + ($avg_h2 > 0 ? 1 : 0) + ($avg_h3 > 0 ? 1 : 0));
         $avg_r4 = $den_r4 >= 3 ? round((float)$num_r4 / (float)$den_r4, 1) : "";
-        $page_html .= "<td style='text-align: center;' " . ((float)$avg_r4 <= 5.4 && $avg_r4 ? " class=\"bg-danger\"" : "") . "><b>" . ($avg_r4) . " </b></td>";
+        $page_html .= "<td style='text-align: center;' " . ((float)$avg_r4 <= 5.4 && $avg_r4 && $level_klas != 1 ? " class=\"bg-danger\"" : "") . "><b>" . ($avg_r4) . " </b></td>";
       } else {
         $page_html .= "<td></td>";
       }

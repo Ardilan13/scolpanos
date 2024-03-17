@@ -319,12 +319,22 @@ foreach ($array_leerling as $item) {
       if ($level_klas != 6) {
         $page_html .= "<div>";
         $page_html .= "<div class='row' style='justify-content: space-evenly;'>";
-        $page_html .= "<div>";
-        $page_html .= "<input type='radio' " . ($advies1 === "V" || $volgorde[1] === 1 ? "checked" : "") . " style='margin-right: 5px;'><label>Voldoende</label>";
-        $page_html .= "</div>";
-        $page_html .= "<div>";
-        $page_html .= "<input type='radio' " . ($advies1 !== "V" && $volgorde[1] === 0 ? "checked" : "") . "  style='margin-right: 5px;'><label>Onvoldoende</label>";
-        $page_html .= "</div>";
+        if ($_SESSION["SchoolID"] == 8) {
+          $page_html .= "<div>";
+          $page_html .= "<input type='radio' " . ($advies1 === "S" || $volgorde[1] === 1 ? "checked" : "") . " style='margin-right: 5px;'><label>Suficiente</label>";
+          $page_html .= "</div>";
+          $page_html .= "<div>";
+          $page_html .= "<input type='radio' " . ($advies1 === "I" || $volgorde[1] === 0 ? "checked" : "") . "  style='margin-right: 5px;'><label>Insuficiente</label>";
+          $page_html .= "</div>";
+        } else {
+          $page_html .= "<div>";
+          $page_html .= "<input type='radio' " . ($advies1 === "V" || $volgorde[1] === 1 ? "checked" : "") . " style='margin-right: 5px;'><label>Voldoende</label>";
+          $page_html .= "</div>";
+          $page_html .= "<div>";
+          $page_html .= "<input type='radio' " . ($advies1 !== "V" && $volgorde[1] === 0 ? "checked" : "") . "  style='margin-right: 5px;'><label>Onvoldoende</label>";
+          $page_html .= "</div>";
+        }
+
         $page_html .= "</div>";
         $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking1) . "</textarea></div>";
       } else {
@@ -360,12 +370,21 @@ foreach ($array_leerling as $item) {
       if ($level_klas != 6) {
         $page_html .= "<div>";
         $page_html .= "<div class='row' style='justify-content: space-evenly;'>";
-        $page_html .= "<div>";
-        $page_html .= "<input type='radio' " . ($advies2 === "V" || $volgorde[2] === 1 && $_GET["rap"] >= 2 ? "checked" : "") . " style='margin-right: 5px;'><label>Voldoende</label>";
-        $page_html .= "</div>";
-        $page_html .= "<div>";
-        $page_html .= "<input type='radio' " . ($advies2 !== "V" && $volgorde[2] === 0 && $_GET["rap"] >= 2 ? "checked" : "") . "  style='margin-right: 5px;'><label>Onvoldoende</label>";
-        $page_html .= "</div>";
+        if ($_SESSION["SchoolID"] == 8) {
+          $page_html .= "<div>";
+          $page_html .= "<input type='radio' " . ($advies2 === "S" || $volgorde[2] === 1 && $_GET["rap"] >= 2 ? "checked" : "") . " style='margin-right: 5px;'><label>Suficiente</label>";
+          $page_html .= "</div>";
+          $page_html .= "<div>";
+          $page_html .= "<input type='radio' " . ($advies2 === "I" || $volgorde[2] === 0 && $_GET["rap"] >= 2 ? "checked" : "") . "  style='margin-right: 5px;'><label>Insuficiente</label>";
+          $page_html .= "</div>";
+        } else {
+          $page_html .= "<div>";
+          $page_html .= "<input type='radio' " . ($advies2 === "V" || $volgorde[2] === 1 && $_GET["rap"] >= 2 ? "checked" : "") . " style='margin-right: 5px;'><label>Voldoende</label>";
+          $page_html .= "</div>";
+          $page_html .= "<div>";
+          $page_html .= "<input type='radio' " . ($advies2 !== "V" && $volgorde[2] === 0 && $_GET["rap"] >= 2 ? "checked" : "") . "  style='margin-right: 5px;'><label>Onvoldoende</label>";
+          $page_html .= "</div>";
+        }
         $page_html .= "</div>";
         $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking2) . "</textarea></div>";
       } else {
@@ -401,12 +420,21 @@ foreach ($array_leerling as $item) {
       if ($level_klas != 6) {
         $page_html .= "<div>";
         $page_html .= "<div class='row' style='justify-content: space-evenly;'>";
-        $page_html .= "<div>";
-        $page_html .= "<input type='radio' " . ($advies3 === "V" || $volgorde[3] === 1 && $_GET["rap"] >= 3 ? "checked" : "") . " style='margin-right: 5px;'><label>Voldoende</label>";
-        $page_html .= "</div>";
-        $page_html .= "<div>";
-        $page_html .= "<input type='radio' " . ($advies3 !== "V" && $volgorde[3] === 0 && $_GET["rap"] >= 3 ? "checked" : "") . "  style='margin-right: 5px;'><label>Onvoldoende</label>";
-        $page_html .= "</div>";
+        if ($_SESSION["SchoolID"] == 8) {
+          $page_html .= "<div>";
+          $page_html .= "<input type='radio' " . ($advies2 === "S" || $volgorde[3] === 1 && $_GET["rap"] >= 3 ? "checked" : "") . " style='margin-right: 5px;'><label>Suficiente</label>";
+          $page_html .= "</div>";
+          $page_html .= "<div>";
+          $page_html .= "<input type='radio' " . ($advies2 === "I" || $volgorde[3] === 0 && $_GET["rap"] >= 3 ? "checked" : "") . "  style='margin-right: 5px;'><label>Insuficiente</label>";
+          $page_html .= "</div>";
+        } else {
+          $page_html .= "<div>";
+          $page_html .= "<input type='radio' " . ($advies2 === "V" || $volgorde[3] === 1 && $_GET["rap"] >= 3 ? "checked" : "") . " style='margin-right: 5px;'><label>Voldoende</label>";
+          $page_html .= "</div>";
+          $page_html .= "<div>";
+          $page_html .= "<input type='radio' " . ($advies2 !== "V" && $volgorde[3] === 0 && $_GET["rap"] >= 3 ? "checked" : "") . "  style='margin-right: 5px;'><label>Onvoldoende</label>";
+          $page_html .= "</div>";
+        }
         $page_html .= "</div>";
         $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking3) . "</textarea></div>";
       } else {
@@ -3241,6 +3269,40 @@ if($avg_h == 0.0){$avg_h = null;}
       $page_html .= "<div class='col-md-12'>";
 
       switch ($level_klas) {
+        case 1:
+          $vaks_pap = ["Reflexion / Taalbeschouwing" => "Reflexion", "Dictado / Dictee" => "Dictado", "Scucha y Papia / Luisteren en Spreken" => "Scucha y mira"];
+          $vaks_lesa = ["Lesa tecnico / Technisch lezen" => "Lesamento Tecnico", "Lesa comprensivo / Leesbegrip" => "Lesamento Comprensivo"];
+          $vaks_hul = ["Hulandes / Nederlands" => "Hul scucha y mira"];
+          $vaks_mat = ["Vision y comprension / Inzicht" => "h14"];
+          $vaks_mat1 = ["Nocion di number / Getalbegrip" => "Nocion di number", "Operacion basico y avansa / Basisvaardigheden" => "Operacion basico y avansa", "Midi y Geometria / Meten en Meetkunde" => "Midi y Geometria"];
+          $vaks_ext = ["Orientacion riba mundo / Wereldoriëntatie" => "Orientacion riba Mundo", "Skirbi / Schrijven" => "Skirbi", "Trafico / Verkeer" => "Trafico", "Charla / Spreekbeurt" => "Charla"];
+
+          $vaks_mov = ["Movecion / Lichamelijk opvoeding" => "Movecion",  "Arte / Beeldende vorming" => "Arte"]; // derecha fila
+          $vaks = $vaks_mov + $vaks_lesa + $vaks_pap + $vaks_hul + $vaks_mat1 + $vaks_ext;
+          break;
+        case 2:
+          $vaks_pap = ["Reflexion / Taalbeschouwing" => "Reflexion", "Vocabulario / Woordenschat" => "Vocabulario", "Dictado / Dictee" => "Dictado", "Scucha y Papia / Luisteren en Spreken" => "Scucha y papia"];
+          $vaks_lesa = ["Lesa tecnico / Technisch lezen" => "Lesamento Tecnico", "Lesa comprensivo / Leesbegrip" => "Lesamento Comprensivo"];
+          $vaks_hul = ["Hulandes / Nederlands" => "Hul scucha y mira"];
+          $vaks_mat = ["Vision y comprension / Inzicht" => "h14"];
+          $vaks_mat1 = ["Nocion di number / Getalbegrip" => "Nocion di number", "Operacion basico y avansa / Basisvaardigheden" => "Operacion basico y avansa", "Midi y Geometria / Meten en Meetkunde" => "Midi y Geometria", "Tabel  y Grafico/ Tabel en Grafieken" => "Tabel"];
+          $vaks_ext = ["Orientacion riba mundo / Wereldoriëntatie" => "Orientacion riba Mundo", "Skirbi / Schrijven" => "Skirbi", "Ingles / Engels" => "Engels", "Spaño / Spaans" => "Spaans", "Trafico / Verkeer" => "Trafico", "Charla / Spreekbeurt" => "Charla"];
+
+          $vaks_mov = ["Movecion / Lichamelijk opvoeding" => "Movecion",  "Arte / Beeldende vorming" => "Arte"]; // derecha fila
+          $vaks = $vaks_mov + $vaks_lesa + $vaks_pap + $vaks_hul + $vaks_mat1 + $vaks_ext;
+          break;
+        case 3:
+          $vaks_pap = ["Reflexion / Taalbeschouwing" => "Reflexion", "Vocabulario / Woordenschat" => "Vocabulario", "Dictado / Dictee" => "Dictado", "Scucha y Papia / Luisteren en Spreken" => "Scucha y papia", "Lesa comprensivo / Leesbegrip" => "Lesamento Comprensivo"];
+          $vaks_hul = ["Hulandes / Nederlands" => "Hul scucha y mira"];
+          $vaks_mat = ["Vision y comprension / Inzicht" => "h14"];
+          $vaks_mat1 = ["Nocion di number / Getalbegrip" => "Nocion di number", "Operacion basico y avansa / Basisvaardigheden" => "Operacion basico y avansa", "Midi y Geometria / Meten en Meetkunde" => "Midi y Geometria", "Tabel  y Grafico/ Tabel en Grafieken" => "Tabel"];
+          $vaks_ext = ["Orientacion riba mundo / Wereldoriëntatie" => "Orientacion riba Mundo", "Skirbi / Schrijven" => "Skirbi", "Ingles / Engels" => "Engels", "Spaño / Spaans" => "Spaans", "Trafico / Verkeer" => "Trafico", "Charla / Spreekbeurt" => "Charla"];
+
+          $vaks_mov = ["Movecion / Lichamelijk opvoeding" => "Movecion",  "Arte / Beeldende vorming" => "Arte"]; // derecha fila
+          $vaks = $vaks_mov + $vaks_pap + $vaks_hul + $vaks_mat1 + $vaks_ext;
+          break;
+        case 4:
+        case 5:
         case 6:
           $vaks_pap = ["Reflexion / Taalbeschouwing" => "Reflexion", "Vocabulario / Woordenschat" => "Vocabulario", "Dictado / Dictee" => "Dictado", "Scucha y Papia / Luisteren en Spreken" => "Scucha y papia", "Lesa comprensivo / Leesbegrip" => "Lesamento Comprensivo"];
           $vaks_hul = ["Reflexion / Taalbeschouwing " => "Taalbeschouwing", "Vocabulario / Woordenschat " => "Woordenschat", "Dictado / Dictee " => "Dictee", "Scucha y Papia / Luisteren en Spreken " => "Luisteren en spreken", "Lesamento Comprensivo / Leesbegrip" => "Leesbegrip"];
@@ -3252,36 +3314,43 @@ if($avg_h == 0.0){$avg_h = null;}
           $vaks = $vaks_mov + $vaks_pap + $vaks_hul + $vaks_mat1 + $vaks_ext;
 
           break;
-        default:
-          $vaks_pap = ["Reflexion / Taalbeschouwing" => "Reflexion", "Vocabulario / Woordenschat" => "Vocabulario", "Dictado / Dictee" => "Dictado", "Scucha y Papia / Luisteren en Spreken" => "Scucha y papia"];
-          $vaks_lesa = ["Lesa tecnico / Technisch lezen" => "Lesamento Tecnico", "Lesa comprensivo / Leesbegrip" => "Lesamento Comprensivo"];
-          $vaks_hul = ["HUL Scucha y Papia / Luisteren en Spreken" => ["Stellen", "Woordenschat", "Luistervaardigheid", "Leesbegrip", "Dictee", "Taalbeschouwing"]];
-          $vaks_mat = ["Vision y comprension / Inzicht" => "", "Nocion di number / Getalbegrip" => "Nocion di number", "Operacion basico y avansa / Basisvaardigheden" => "Operacion basico y avansa", "Midi y Geometria / Meten en Meetkunde" => "Midi y geometria", "Tabel  y Grafico/ Tabel en Grafieken" => "Tabel"];
-          $vaks_ext = ["Orientacion riba mundo / Wereldoriëntatie" => "Wereldorientatie", "Skirbi / Schrijven" => "Skirbi", "Ingles / Engels" => "Engels", "Spaño / Spaans" => "Spaans", "Trafico / Verkeer" => "Trafico", "Charla / Spreekbeurt" => "Charla"];
-
-          $vaks_mov = ["Movecion / Lichamelijk opvoeding" => "Movecion",  "Arte / Beeldende vorming" => "Arte"]; // derecha fila
-          $vaks = $vaks_mov + $vaks_pap + $vaks_lesa + $vaks_hul + $vaks_mat + $vaks_ext;
-
-          break;
       }
 
       $student_cijfers =  $c->_getstudent_cijfers_8($vaks, $item['studentid'], $_GET["schoolJaar"], $_GET['rap'], $level_klas);
-      $student_houding_in = $c->_getstudent_houding_8($vaks_mat, $item['studentid'], $schooljaar, $_GET['rap']);
+      $student_houding_in = $c->_getstudent_houding_8($vaks_mat, $item['studentid'], $schooljaar, $_GET['rap'], $level_klas);
 
       switch ($level_klas) {
-        case 6:
-          $page_html .= $c->_print_vaks_table_8(1, "Papiamento / Papiaments", $vaks_pap, $_GET['rap'], TRUE, TRUE, $student_cijfers);
-          $page_html .= $c->_print_vaks_table_8(1, "Hulandes / Nederlands", $vaks_hul, $_GET['rap'], TRUE, TRUE, $student_cijfers);
-          $page_html .= $c->_print_vaks_table_8(2, "Matematica / Rekenen", $vaks_mat, $_GET['rap'], FALSE, TRUE, $student_houding_in);
-          $page_html .= $c->_print_vaks_table_8(1, "", $vaks_mat1, $_GET['rap'], TRUE, FALSE, $student_cijfers);
-          $page_html .= $c->_print_vaks_table_8(1, "", $vaks_ext, $_GET['rap'], FALSE, FALSE, $student_cijfers);
+        case 1:
+          $page_html .= $c->_print_vaks_table_8(1, "Papiamento / Papiaments", $vaks_pap, $_GET['rap'], TRUE, TRUE, $student_cijfers, $level_klas);
+          $page_html .= $c->_print_vaks_table_8(1, "Lesa / Lezen", $vaks_lesa, $_GET['rap'], TRUE, FALSE, $student_cijfers, $level_klas);
+          $page_html .= $c->_print_vaks_table_8(1, "Hulandes / Nederlands", $vaks_hul, $_GET['rap'], FALSE, FALSE, $student_cijfers, $level_klas);
+          $page_html .= $c->_print_vaks_table_8(2, "Matematica / Rekenen", $vaks_mat, $_GET['rap'], FALSE, TRUE, $student_houding_in, $level_klas);
+          $page_html .= $c->_print_vaks_table_8(1, "", $vaks_mat1, $_GET['rap'], TRUE, FALSE, $student_cijfers, $level_klas);
+          $page_html .= $c->_print_vaks_table_8(1, "", $vaks_ext, $_GET['rap'], FALSE, FALSE, $student_cijfers, $level_klas);
           break;
-        default:
-          $page_html .= $c->_print_vaks_table_8(1, "Papiamento / Papiaments", $vaks_pap, $_GET['rap'], TRUE, TRUE, $student_cijfers);
-          $page_html .= $c->_print_vaks_table_8(1, "Lesa / Lezen", $vaks_lesa, $_GET['rap'], TRUE, FALSE, $student_cijfers);
-          $page_html .= $c->_print_vaks_table_8(1, "Hulandes / Nederlands", $vaks_hul, $_GET['rap'], FALSE, FALSE, $student_cijfers);
-          $page_html .= $c->_print_vaks_table_8(1, "Matematica / Rekenen", $vaks_mat, $_GET['rap'], TRUE, TRUE, $student_cijfers);
-          $page_html .= $c->_print_vaks_table_8(1, "", $vaks_ext, $_GET['rap'], FALSE, FALSE, $student_cijfers);
+        case 2:
+          $page_html .= $c->_print_vaks_table_8(1, "Papiamento / Papiaments", $vaks_pap, $_GET['rap'], TRUE, TRUE, $student_cijfers, $level_klas);
+          $page_html .= $c->_print_vaks_table_8(1, "Lesa / Lezen", $vaks_lesa, $_GET['rap'], TRUE, FALSE, $student_cijfers, $level_klas);
+          $page_html .= $c->_print_vaks_table_8(1, "Hulandes / Nederlands", $vaks_hul, $_GET['rap'], FALSE, FALSE, $student_cijfers, $level_klas);
+          $page_html .= $c->_print_vaks_table_8(2, "Matematica / Rekenen", $vaks_mat, $_GET['rap'], FALSE, TRUE, $student_houding_in, $level_klas);
+          $page_html .= $c->_print_vaks_table_8(1, "", $vaks_mat1, $_GET['rap'], TRUE, FALSE, $student_cijfers, $level_klas);
+          $page_html .= $c->_print_vaks_table_8(1, "", $vaks_ext, $_GET['rap'], FALSE, FALSE, $student_cijfers, $level_klas);
+          break;
+        case 3:
+          $page_html .= $c->_print_vaks_table_8(1, "Papiamento / Papiaments", $vaks_pap, $_GET['rap'], TRUE, TRUE, $student_cijfers, $level_klas);
+          $page_html .= $c->_print_vaks_table_8(1, "Hulandes / Nederlands", $vaks_hul, $_GET['rap'], FALSE, FALSE, $student_cijfers, $level_klas);
+          $page_html .= $c->_print_vaks_table_8(2, "Matematica / Rekenen", $vaks_mat, $_GET['rap'], FALSE, TRUE, $student_houding_in, $level_klas);
+          $page_html .= $c->_print_vaks_table_8(1, "", $vaks_mat1, $_GET['rap'], TRUE, FALSE, $student_cijfers, $level_klas);
+          $page_html .= $c->_print_vaks_table_8(1, "", $vaks_ext, $_GET['rap'], FALSE, FALSE, $student_cijfers, $level_klas);
+          break;
+        case 4:
+        case 5:
+        case 6:
+          $page_html .= $c->_print_vaks_table_8(1, "Papiamento / Papiaments", $vaks_pap, $_GET['rap'], TRUE, TRUE, $student_cijfers, $level_klas);
+          $page_html .= $c->_print_vaks_table_8(1, "Hulandes / Nederlands", $vaks_hul, $_GET['rap'], TRUE, TRUE, $student_cijfers, $level_klas);
+          $page_html .= $c->_print_vaks_table_8(2, "Matematica / Rekenen", $vaks_mat, $_GET['rap'], FALSE, TRUE, $student_houding_in, $level_klas);
+          $page_html .= $c->_print_vaks_table_8(1, "", $vaks_mat1, $_GET['rap'], TRUE, FALSE, $student_cijfers, $level_klas);
+          $page_html .= $c->_print_vaks_table_8(1, "", $vaks_ext, $_GET['rap'], FALSE, FALSE, $student_cijfers, $level_klas);
           break;
       }
     } else {
@@ -7578,7 +7647,7 @@ if($avg_h == 0.0){$avg_h = null;}
   } else if ($_SESSION["SchoolID"] == 8) {
     //Houding
     $vaks_mov = ["Movecion / Lichamelijk opvoeding" => "Movecion",  "Arte / Beeldende vorming" => "Arte"];
-    $page_html .= $c->_print_vaks_table_8(1, "Movecion / Bewegingsonderwijs", $vaks_mov, $_GET['rap'], FALSE, TRUE, $student_cijfers);
+    $page_html .= $c->_print_vaks_table_8(1, "Movecion / Bewegingsonderwijs", $vaks_mov, $_GET['rap'], FALSE, TRUE, $student_cijfers, $level_klas);
 
     $vaks_mov = ["Actitud positivo / Sportiviteit" => "h3"];
     $vaks_cop = ["Mantene palabracion / Zich aan afspraken houden" => "h4", "Disponilidad pa yuda / Hulpvaardigheid" => "h5"];
@@ -7587,15 +7656,15 @@ if($avg_h == 0.0){$avg_h = null;}
     $vaks_lih = ["Liheresa / Werktempo" => "h13", "Concentracion / Concentratie" => "h14"];
     $vaks_ver = ["Tarea di cas / Huiswerk" => "huiswerk", "Yega laat / Te laat" => "telaat", "Ausencia / Verzuim" => "absentie"];
     $vaks_houding =  $vaks_mov + $vaks_cop + $vaks_com + $vaks_par + $vaks_lih;
-    $student_houding = $c->_getstudent_houding_8($vaks_houding, $item['studentid'], $schooljaar, $_GET['rap']);
+    $student_houding = $c->_getstudent_houding_8($vaks_houding, $item['studentid'], $schooljaar, $_GET['rap'], $level_klas);
     $student_verzuim = $c->_getstudent_verzuim_8($vaks_ver, $item['studentid'], $schooljaar, $_GET['rap'], $_SESSION["SchoolID"]);
 
-    $page_html .= $c->_print_vaks_table_8(2, "", $vaks_mov, $_GET['rap'], FALSE, FALSE, $student_houding);
-    $page_html .= $c->_print_vaks_table_8(2, "Cooperacion / Samenwerking", $vaks_cop, $_GET['rap'], FALSE, FALSE, $student_houding);
-    $page_html .= $c->_print_vaks_table_8(2, "Comunicacion / Communicatie", $vaks_com, $_GET['rap'], FALSE, FALSE, $student_houding);
-    $page_html .= $c->_print_vaks_table_8(2, "Actitud pa siña / Leerhouding", $vaks_par, $_GET['rap'], FALSE, FALSE, $student_houding);
-    $page_html .= $c->_print_vaks_table_8(2, "Actitud pa siña / Leerhouding", $vaks_lih, $_GET['rap'], FALSE, FALSE, $student_houding);
-    $page_html .= $c->_print_vaks_table_8(3, "", $vaks_ver, $_GET['rap'], FALSE, FALSE, $student_verzuim);
+    $page_html .= $c->_print_vaks_table_8(2, "", $vaks_mov, $_GET['rap'], FALSE, FALSE, $student_houding, $level_klas);
+    $page_html .= $c->_print_vaks_table_8(2, "Cooperacion / Samenwerking", $vaks_cop, $_GET['rap'], FALSE, FALSE, $student_houding, $level_klas);
+    $page_html .= $c->_print_vaks_table_8(2, "Comunicacion / Communicatie", $vaks_com, $_GET['rap'], FALSE, FALSE, $student_houding, $level_klas);
+    $page_html .= $c->_print_vaks_table_8(2, "Actitud pa siña / Leerhouding", $vaks_par, $_GET['rap'], FALSE, FALSE, $student_houding, $level_klas);
+    $page_html .= $c->_print_vaks_table_8(2, "Actitud pa siña / Leerhouding", $vaks_lih, $_GET['rap'], FALSE, FALSE, $student_houding, $level_klas);
+    $page_html .= $c->_print_vaks_table_8(3, "", $vaks_ver, $_GET['rap'], FALSE, FALSE, $student_verzuim, $level_klas);
   }
   if ($_SESSION["SchoolID"] != 8) {
     $page_html .= "<div class='card'>";
@@ -7696,17 +7765,18 @@ if($avg_h == 0.0){$avg_h = null;}
     // } else if ($advies == '2') {
     //   $page_html .= "<b><p style='margin: .5rem !important; text-align: center; font-size: 14px;'>Niet bevorderd.</p></b>";
     // } else if ($advies == null || $advies == '') {
-    $page_html .= "<div><input type='radio' " . (($radio1 != "false" && $radio1 != null) ? "checked" : "") . "><label style='margin-bottom: .5rem; margin-left: 0.5rem; !important;'>Bevorderd naar klas: <b>" . (($radio1 != "false" && $radio1 != "true") ? $radio1 : "") . "</b></label></div>";
-    if ($level_klas != 6) {
-      $page_html .= "<div><input type='radio' " . (($radio2 != "false" && $radio2 != null) ? "checked" : "") . "><label style='margin-bottom: .5rem; margin-left: 0.5rem; !important;'>Over wegens leeftijd naar klas: <b>" . (($radio2 != "false" && $radio2 != "true") ? $radio2 : "") . "</b></label></div>";
-    }
-    $page_html .= "<div><input type='radio' " . (($radio3 != "false" && $radio3 != null) ? "checked" : "") . "><label style='margin-bottom: .5rem; margin-left: 0.5rem; !important;'>Niet bevorderd: <b>" . (($radio3 != "false" && $radio3 != "true") ? $radio3 : "") . "</b></label></div>";
-    // $page_html .= "<div><input type='radio'><label style='margin-bottom: .5rem !important;'>Verwezen naar: ..............................................................</label></div>";
+    if ($_SESSION["SchoolID"] != 8) {
+      $page_html .= "<div><input type='radio' " . (($radio1 != "false" && $radio1 != null) ? "checked" : "") . "><label style='margin-bottom: .5rem; margin-left: 0.5rem; !important;'>Bevorderd naar klas: <b>" . (($radio1 != "false" && $radio1 != "true") ? $radio1 : "") . "</b></label></div>";
+      if ($level_klas != 6) {
+        $page_html .= "<div><input type='radio' " . (($radio2 != "false" && $radio2 != null) ? "checked" : "") . "><label style='margin-bottom: .5rem; margin-left: 0.5rem; !important;'>Over wegens leeftijd naar klas: <b>" . (($radio2 != "false" && $radio2 != "true") ? $radio2 : "") . "</b></label></div>";
+      }
+      $page_html .= "<div><input type='radio' " . (($radio3 != "false" && $radio3 != null) ? "checked" : "") . "><label style='margin-bottom: .5rem; margin-left: 0.5rem; !important;'>Niet bevorderd: <b>" . (($radio3 != "false" && $radio3 != "true") ? $radio3 : "") . "</b></label></div>";
+    } // $page_html .= "<div><input type='radio'><label style='margin-bottom: .5rem !important;'>Verwezen naar: ..............................................................</label></div>";
     // } else {
     //   $page_html .= "<b><p style='margin: .5rem !important; text-align: center; font-size: 14px;'>Verwezen naar " . utf8_decode($advies) . "</p></b>";
     // }
 
-    $page_html .= "<div style='display:flex; flex-direction: row; justify-content: space-between; width: 100%;'>";
+    $page_html .= "<div style='display:flex; margin-top: 1rem !important; flex-direction: row; justify-content: space-between; width: 100%;'>";
     $page_html .= "<p style='margin-bottom: .6rem !important;display: inline; '>Naam leerkracht: " . $teacher . "</p>";
     $page_html .= "<p>.................................................................</p>";
     $page_html .= "</div>";
