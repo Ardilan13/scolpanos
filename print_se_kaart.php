@@ -422,17 +422,17 @@ foreach ($array_leerling as $item) {
         $page_html .= "<div class='row' style='justify-content: space-evenly;'>";
         if ($_SESSION["SchoolID"] == 8) {
           $page_html .= "<div>";
-          $page_html .= "<input type='radio' " . ($advies2 === "S" || $volgorde[3] === 1 && $_GET["rap"] >= 3 ? "checked" : "") . " style='margin-right: 5px;'><label>Suficiente</label>";
+          $page_html .= "<input type='radio' " . ($advies3 === "S" || $volgorde[3] === 1 && $_GET["rap"] >= 3 ? "checked" : "") . " style='margin-right: 5px;'><label>Suficiente</label>";
           $page_html .= "</div>";
           $page_html .= "<div>";
-          $page_html .= "<input type='radio' " . ($advies2 === "I" || $volgorde[3] === 0 && $_GET["rap"] >= 3 ? "checked" : "") . "  style='margin-right: 5px;'><label>Insuficiente</label>";
+          $page_html .= "<input type='radio' " . ($advies3 === "I" || $volgorde[3] === 0 && $_GET["rap"] >= 3 ? "checked" : "") . "  style='margin-right: 5px;'><label>Insuficiente</label>";
           $page_html .= "</div>";
         } else {
           $page_html .= "<div>";
-          $page_html .= "<input type='radio' " . ($advies2 === "V" || $volgorde[3] === 1 && $_GET["rap"] >= 3 ? "checked" : "") . " style='margin-right: 5px;'><label>Voldoende</label>";
+          $page_html .= "<input type='radio' " . ($advies3 === "V" || $volgorde[3] === 1 && $_GET["rap"] >= 3 ? "checked" : "") . " style='margin-right: 5px;'><label>Voldoende</label>";
           $page_html .= "</div>";
           $page_html .= "<div>";
-          $page_html .= "<input type='radio' " . ($advies2 !== "V" && $volgorde[3] === 0 && $_GET["rap"] >= 3 ? "checked" : "") . "  style='margin-right: 5px;'><label>Onvoldoende</label>";
+          $page_html .= "<input type='radio' " . ($advies3 !== "V" && $volgorde[3] === 0 && $_GET["rap"] >= 3 ? "checked" : "") . "  style='margin-right: 5px;'><label>Onvoldoende</label>";
           $page_html .= "</div>";
         }
         $page_html .= "</div>";
@@ -3270,7 +3270,7 @@ if($avg_h == 0.0){$avg_h = null;}
 
       switch ($level_klas) {
         case 1:
-          $vaks_pap = ["Reflexion / Taalbeschouwing" => "Reflexion", "Dictado / Dictee" => "Dictado", "Scucha y Papia / Luisteren en Spreken" => "Scucha y mira"];
+          $vaks_pap = ["Reflexion / Taalbeschouwing" => "Reflexion", "Dictado / Dictee" => "Dictado", "Scucha y Papia / Luisteren en Spreken" => "Scucha y papia"];
           $vaks_lesa = ["Lesa tecnico / Technisch lezen" => "Lesamento Tecnico", "Lesa comprensivo / Leesbegrip" => "Lesamento Comprensivo"];
           $vaks_hul = ["Hulandes / Nederlands" => "Hul scucha y mira"];
           $vaks_mat = ["Vision y comprension / Inzicht" => "h14"];
