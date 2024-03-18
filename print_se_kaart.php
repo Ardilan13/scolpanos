@@ -3422,11 +3422,13 @@ if($avg_h == 0.0){$avg_h = null;}
 
         if ($klas_1 != 1) {
           $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
+          $page_html .= "<td></td>";
         } else {
           $page_html .= "<td>" . $_h1_1 . "</td>";
+          $page_html .= "<td>" . $_h2_1 . "</td>";
+          $page_html .= "<td></td>";
         }
-        $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
-        $page_html .= "<td></td>";
       }
       if ($_GET["rap"] == '3') {
 
@@ -3445,11 +3447,13 @@ if($avg_h == 0.0){$avg_h = null;}
 
         if ($klas_1 != 1) {
           $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td" . ((float)$_h1_2 <= 5.4 && $_h1_2 ? " class=\"bg-danger\"" : "") . ">" . $_h1_2 . " </td>";
+          $page_html .= "<td" . ((float)$_h1_3 <= 5.4 && $_h1_3 ? " class=\"bg-danger\"" : "") . ">" . $_h1_3 . " </td>";
         } else {
           $page_html .= "<td>" . $_h1_1 . "</td>";
+          $page_html .= "<td>" . $_h1_2 . "</td>";
+          $page_html .= "<td>" . $_h1_3 . "</td>";
         }
-        $page_html .= "<td>" . $_h1_2 . " </td>";
-        $page_html .= "<td>" . $_h1_3 . " </td>";
       }
 
       $page_html .= "</tr>";
@@ -3486,11 +3490,13 @@ if($avg_h == 0.0){$avg_h = null;}
 
         if ($klas_1 != 1) {
           $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
+          $page_html .= "<td></td>";
         } else {
           $page_html .= "<td>" . $_h1_1 . "</td>";
+          $page_html .= "<td>" . $_h2_1 . "</td>";
+          $page_html .= "<td></td>";
         }
-        $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
-        $page_html .= "<td></td>";
 
 
         if ($avg_h > 0.0) {
@@ -3517,11 +3523,13 @@ if($avg_h == 0.0){$avg_h = null;}
 
         if ($klas_1 != 1) {
           $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td" . ((float)$_h1_2 <= 5.4 && $_h1_2 ? " class=\"bg-danger\"" : "") . ">" . $_h1_2 . " </td>";
+          $page_html .= "<td" . ((float)$_h1_3 <= 5.4 && $_h1_3 ? " class=\"bg-danger\"" : "") . ">" . $_h1_3 . " </td>";
         } else {
           $page_html .= "<td>" . $_h1_1 . "</td>";
+          $page_html .= "<td>" . $_h1_2 . "</td>";
+          $page_html .= "<td>" . $_h1_3 . "</td>";
         }
-        $page_html .= "<td>" . $_h1_2 . " </td>";
-        $page_html .= "<td>" . $_h1_3 . " </td>";
       }
 
       $page_html .= "</tr>";
@@ -3591,11 +3599,13 @@ if($avg_h == 0.0){$avg_h = null;}
 
         if ($klas_1 != 1) {
           $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
+          $page_html .= "<td></td>";
         } else {
           $page_html .= "<td>" . $_h1_1 . "</td>";
+          $page_html .= "<td>" . $_h2_1 . "</td>";
+          $page_html .= "<td></td>";
         }
-        $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
-        $page_html .= "<td></td>";
       }
       if ($_GET["rap"] == '3') {
 
@@ -3614,11 +3624,13 @@ if($avg_h == 0.0){$avg_h = null;}
 
         if ($klas_1 != 1) {
           $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td" . ((float)$_h1_2 <= 5.4 && $_h1_2 ? " class=\"bg-danger\"" : "") . ">" . $_h1_2 . " </td>";
+          $page_html .= "<td" . ((float)$_h1_3 <= 5.4 && $_h1_3 ? " class=\"bg-danger\"" : "") . ">" . $_h1_3 . " </td>";
         } else {
           $page_html .= "<td>" . $_h1_1 . "</td>";
+          $page_html .= "<td>" . $_h1_2 . "</td>";
+          $page_html .= "<td>" . $_h1_3 . "</td>";
         }
-        $page_html .= "<td>" . $_h1_2 . " </td>";
-        $page_html .= "<td>" . $_h1_3 . " </td>";
       }
 
       $page_html .= "</tr>";
@@ -3655,11 +3667,13 @@ if($avg_h == 0.0){$avg_h = null;}
 
         if ($klas_1 != 1) {
           $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
+          $page_html .= "<td></td>";
         } else {
           $page_html .= "<td>" . $_h1_1 . "</td>";
+          $page_html .= "<td>" . $_h2_1 . "</td>";
+          $page_html .= "<td></td>";
         }
-        $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
-        $page_html .= "<td></td>";
       }
       if ($_GET["rap"] == '3') {
 
@@ -3679,11 +3693,13 @@ if($avg_h == 0.0){$avg_h = null;}
 
         if ($klas_1 != 1) {
           $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td" . ((float)$_h1_2 <= 5.4 && $_h1_2 ? " class=\"bg-danger\"" : "") . ">" . $_h1_2 . " </td>";
+          $page_html .= "<td" . ((float)$_h1_3 <= 5.4 && $_h1_3 ? " class=\"bg-danger\"" : "") . ">" . $_h1_3 . " </td>";
         } else {
           $page_html .= "<td>" . $_h1_1 . "</td>";
+          $page_html .= "<td>" . $_h1_2 . "</td>";
+          $page_html .= "<td>" . $_h1_3 . "</td>";
         }
-        $page_html .= "<td>" . $_h1_2 . " </td>";
-        $page_html .= "<td>" . $_h1_3 . " </td>";
       }
 
       $page_html .= "</tr>";
@@ -3720,11 +3736,13 @@ if($avg_h == 0.0){$avg_h = null;}
 
         if ($klas_1 != 1) {
           $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
+          $page_html .= "<td></td>";
         } else {
           $page_html .= "<td>" . $_h1_1 . "</td>";
+          $page_html .= "<td>" . $_h2_1 . "</td>";
+          $page_html .= "<td></td>";
         }
-        $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
-        $page_html .= "<td></td>";
       }
       if ($_GET["rap"] == '3') {
 
@@ -3744,11 +3762,13 @@ if($avg_h == 0.0){$avg_h = null;}
 
         if ($klas_1 != 1) {
           $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td" . ((float)$_h1_2 <= 5.4 && $_h1_2 ? " class=\"bg-danger\"" : "") . ">" . $_h1_2 . " </td>";
+          $page_html .= "<td" . ((float)$_h1_3 <= 5.4 && $_h1_3 ? " class=\"bg-danger\"" : "") . ">" . $_h1_3 . " </td>";
         } else {
           $page_html .= "<td>" . $_h1_1 . "</td>";
+          $page_html .= "<td>" . $_h1_2 . "</td>";
+          $page_html .= "<td>" . $_h1_3 . "</td>";
         }
-        $page_html .= "<td>" . $_h1_2 . " </td>";
-        $page_html .= "<td>" . $_h1_3 . " </td>";
       }
 
       $page_html .= "</tr>";
@@ -3819,11 +3839,13 @@ if($avg_h == 0.0){$avg_h = null;}
 
         if ($klas_1 != 1) {
           $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
+          $page_html .= "<td></td>";
         } else {
           $page_html .= "<td>" . $_h1_1 . "</td>";
+          $page_html .= "<td>" . $_h2_1 . "</td>";
+          $page_html .= "<td></td>";
         }
-        $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
-        $page_html .= "<td></td>";
       }
       if ($_GET["rap"] == '3') {
 
@@ -3842,11 +3864,13 @@ if($avg_h == 0.0){$avg_h = null;}
 
         if ($klas_1 != 1) {
           $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td" . ((float)$_h1_2 <= 5.4 && $_h1_2 ? " class=\"bg-danger\"" : "") . ">" . $_h1_2 . " </td>";
+          $page_html .= "<td" . ((float)$_h1_3 <= 5.4 && $_h1_3 ? " class=\"bg-danger\"" : "") . ">" . $_h1_3 . " </td>";
         } else {
           $page_html .= "<td>" . $_h1_1 . "</td>";
+          $page_html .= "<td>" . $_h1_2 . "</td>";
+          $page_html .= "<td>" . $_h1_3 . "</td>";
         }
-        $page_html .= "<td>" . $_h1_2 . " </td>";
-        $page_html .= "<td>" . $_h1_3 . " </td>";
       }
 
       $page_html .= "</tr>";
@@ -3883,11 +3907,13 @@ if($avg_h == 0.0){$avg_h = null;}
 
         if ($klas_1 != 1) {
           $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
+          $page_html .= "<td></td>";
         } else {
           $page_html .= "<td>" . $_h1_1 . "</td>";
+          $page_html .= "<td>" . $_h2_1 . "</td>";
+          $page_html .= "<td></td>";
         }
-        $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
-        $page_html .= "<td></td>";
       }
       if ($_GET["rap"] == '3') {
 
@@ -3907,11 +3933,13 @@ if($avg_h == 0.0){$avg_h = null;}
 
         if ($klas_1 != 1) {
           $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td" . ((float)$_h1_2 <= 5.4 && $_h1_2 ? " class=\"bg-danger\"" : "") . ">" . $_h1_2 . " </td>";
+          $page_html .= "<td" . ((float)$_h1_3 <= 5.4 && $_h1_3 ? " class=\"bg-danger\"" : "") . ">" . $_h1_3 . " </td>";
         } else {
           $page_html .= "<td>" . $_h1_1 . "</td>";
+          $page_html .= "<td>" . $_h1_2 . "</td>";
+          $page_html .= "<td>" . $_h1_3 . "</td>";
         }
-        $page_html .= "<td>" . $_h1_2 . " </td>";
-        $page_html .= "<td>" . $_h1_3 . " </td>";
       }
 
       $page_html .= "</tr>";
@@ -3948,11 +3976,13 @@ if($avg_h == 0.0){$avg_h = null;}
 
         if ($klas_1 != 1) {
           $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
+          $page_html .= "<td></td>";
         } else {
           $page_html .= "<td>" . $_h1_1 . "</td>";
+          $page_html .= "<td>" . $_h2_1 . "</td>";
+          $page_html .= "<td></td>";
         }
-        $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
-        $page_html .= "<td></td>";
       }
       if ($_GET["rap"] == '3') {
 
@@ -3972,11 +4002,13 @@ if($avg_h == 0.0){$avg_h = null;}
 
         if ($klas_1 != 1) {
           $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td" . ((float)$_h1_2 <= 5.4 && $_h1_2 ? " class=\"bg-danger\"" : "") . ">" . $_h1_2 . " </td>";
+          $page_html .= "<td" . ((float)$_h1_3 <= 5.4 && $_h1_3 ? " class=\"bg-danger\"" : "") . ">" . $_h1_3 . " </td>";
         } else {
           $page_html .= "<td>" . $_h1_1 . "</td>";
+          $page_html .= "<td>" . $_h1_2 . "</td>";
+          $page_html .= "<td>" . $_h1_3 . "</td>";
         }
-        $page_html .= "<td>" . $_h1_2 . " </td>";
-        $page_html .= "<td>" . $_h1_3 . " </td>";
       }
 
       $page_html .= "</tr>";
@@ -4047,11 +4079,13 @@ if($avg_h == 0.0){$avg_h = null;}
 
         if ($klas_1 != 1) {
           $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
+          $page_html .= "<td></td>";
         } else {
           $page_html .= "<td>" . $_h1_1 . "</td>";
+          $page_html .= "<td>" . $_h2_1 . "</td>";
+          $page_html .= "<td></td>";
         }
-        $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
-        $page_html .= "<td></td>";
       }
       if ($_GET["rap"] == '3') {
 
@@ -4070,11 +4104,13 @@ if($avg_h == 0.0){$avg_h = null;}
 
         if ($klas_1 != 1) {
           $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td" . ((float)$_h1_2 <= 5.4 && $_h1_2 ? " class=\"bg-danger\"" : "") . ">" . $_h1_2 . " </td>";
+          $page_html .= "<td" . ((float)$_h1_3 <= 5.4 && $_h1_3 ? " class=\"bg-danger\"" : "") . ">" . $_h1_3 . " </td>";
         } else {
           $page_html .= "<td>" . $_h1_1 . "</td>";
+          $page_html .= "<td>" . $_h1_2 . "</td>";
+          $page_html .= "<td>" . $_h1_3 . "</td>";
         }
-        $page_html .= "<td>" . $_h1_2 . " </td>";
-        $page_html .= "<td>" . $_h1_3 . " </td>";
       }
 
       $page_html .= "</tr>";
@@ -4111,11 +4147,13 @@ if($avg_h == 0.0){$avg_h = null;}
 
         if ($klas_1 != 1) {
           $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
+          $page_html .= "<td></td>";
         } else {
           $page_html .= "<td>" . $_h1_1 . "</td>";
+          $page_html .= "<td>" . $_h2_1 . "</td>";
+          $page_html .= "<td></td>";
         }
-        $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
-        $page_html .= "<td></td>";
       }
       if ($_GET["rap"] == '3') {
 
@@ -4135,11 +4173,13 @@ if($avg_h == 0.0){$avg_h = null;}
 
         if ($klas_1 != 1) {
           $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td" . ((float)$_h1_2 <= 5.4 && $_h1_2 ? " class=\"bg-danger\"" : "") . ">" . $_h1_2 . " </td>";
+          $page_html .= "<td" . ((float)$_h1_3 <= 5.4 && $_h1_3 ? " class=\"bg-danger\"" : "") . ">" . $_h1_3 . " </td>";
         } else {
           $page_html .= "<td>" . $_h1_1 . "</td>";
+          $page_html .= "<td>" . $_h1_2 . "</td>";
+          $page_html .= "<td>" . $_h1_3 . "</td>";
         }
-        $page_html .= "<td>" . $_h1_2 . " </td>";
-        $page_html .= "<td>" . $_h1_3 . " </td>";
       }
 
       $page_html .= "</tr>";
@@ -4176,11 +4216,13 @@ if($avg_h == 0.0){$avg_h = null;}
 
         if ($klas_1 != 1) {
           $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
+          $page_html .= "<td></td>";
         } else {
           $page_html .= "<td>" . $_h1_1 . "</td>";
+          $page_html .= "<td>" . $_h2_1 . "</td>";
+          $page_html .= "<td></td>";
         }
-        $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
-        $page_html .= "<td></td>";
       }
       if ($_GET["rap"] == '3') {
 
@@ -4200,11 +4242,13 @@ if($avg_h == 0.0){$avg_h = null;}
 
         if ($klas_1 != 1) {
           $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td" . ((float)$_h1_2 <= 5.4 && $_h1_2 ? " class=\"bg-danger\"" : "") . ">" . $_h1_2 . " </td>";
+          $page_html .= "<td" . ((float)$_h1_3 <= 5.4 && $_h1_3 ? " class=\"bg-danger\"" : "") . ">" . $_h1_3 . " </td>";
         } else {
           $page_html .= "<td>" . $_h1_1 . "</td>";
+          $page_html .= "<td>" . $_h1_2 . "</td>";
+          $page_html .= "<td>" . $_h1_3 . "</td>";
         }
-        $page_html .= "<td>" . $_h1_2 . " </td>";
-        $page_html .= "<td>" . $_h1_3 . " </td>";
       }
 
       $page_html .= "</tr>";
@@ -4241,11 +4285,13 @@ if($avg_h == 0.0){$avg_h = null;}
 
         if ($klas_1 != 1) {
           $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
+          $page_html .= "<td></td>";
         } else {
           $page_html .= "<td>" . $_h1_1 . "</td>";
+          $page_html .= "<td>" . $_h2_1 . "</td>";
+          $page_html .= "<td></td>";
         }
-        $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
-        $page_html .= "<td></td>";
       }
       if ($_GET["rap"] == '3') {
 
@@ -4265,11 +4311,13 @@ if($avg_h == 0.0){$avg_h = null;}
 
         if ($klas_1 != 1) {
           $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td" . ((float)$_h1_2 <= 5.4 && $_h1_2 ? " class=\"bg-danger\"" : "") . ">" . $_h1_2 . " </td>";
+          $page_html .= "<td" . ((float)$_h1_3 <= 5.4 && $_h1_3 ? " class=\"bg-danger\"" : "") . ">" . $_h1_3 . " </td>";
         } else {
           $page_html .= "<td>" . $_h1_1 . "</td>";
+          $page_html .= "<td>" . $_h1_2 . "</td>";
+          $page_html .= "<td>" . $_h1_3 . "</td>";
         }
-        $page_html .= "<td>" . $_h1_2 . " </td>";
-        $page_html .= "<td>" . $_h1_3 . " </td>";
       }
 
       $page_html .= "</tr>";
@@ -4306,11 +4354,13 @@ if($avg_h == 0.0){$avg_h = null;}
 
         if ($klas_1 != 1) {
           $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
+          $page_html .= "<td></td>";
         } else {
           $page_html .= "<td>" . $_h1_1 . "</td>";
+          $page_html .= "<td>" . $_h2_1 . "</td>";
+          $page_html .= "<td></td>";
         }
-        $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
-        $page_html .= "<td></td>";
       }
       if ($_GET["rap"] == '3') {
 
@@ -4330,11 +4380,13 @@ if($avg_h == 0.0){$avg_h = null;}
 
         if ($klas_1 != 1) {
           $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td" . ((float)$_h1_2 <= 5.4 && $_h1_2 ? " class=\"bg-danger\"" : "") . ">" . $_h1_2 . " </td>";
+          $page_html .= "<td" . ((float)$_h1_3 <= 5.4 && $_h1_3 ? " class=\"bg-danger\"" : "") . ">" . $_h1_3 . " </td>";
         } else {
           $page_html .= "<td>" . $_h1_1 . "</td>";
+          $page_html .= "<td>" . $_h1_2 . "</td>";
+          $page_html .= "<td>" . $_h1_3 . "</td>";
         }
-        $page_html .= "<td>" . $_h1_2 . " </td>";
-        $page_html .= "<td>" . $_h1_3 . " </td>";
       }
 
       $page_html .= "</tr>";
@@ -4371,11 +4423,13 @@ if($avg_h == 0.0){$avg_h = null;}
 
         if ($klas_1 != 1) {
           $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
+          $page_html .= "<td></td>";
         } else {
           $page_html .= "<td>" . $_h1_1 . "</td>";
+          $page_html .= "<td>" . $_h2_1 . "</td>";
+          $page_html .= "<td></td>";
         }
-        $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
-        $page_html .= "<td></td>";
       }
       if ($_GET["rap"] == '3') {
 
@@ -4395,11 +4449,13 @@ if($avg_h == 0.0){$avg_h = null;}
 
         if ($klas_1 != 1) {
           $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td" . ((float)$_h1_2 <= 5.4 && $_h1_2 ? " class=\"bg-danger\"" : "") . ">" . $_h1_2 . " </td>";
+          $page_html .= "<td" . ((float)$_h1_3 <= 5.4 && $_h1_3 ? " class=\"bg-danger\"" : "") . ">" . $_h1_3 . " </td>";
         } else {
           $page_html .= "<td>" . $_h1_1 . "</td>";
+          $page_html .= "<td>" . $_h1_2 . "</td>";
+          $page_html .= "<td>" . $_h1_3 . "</td>";
         }
-        $page_html .= "<td>" . $_h1_2 . " </td>";
-        $page_html .= "<td>" . $_h1_3 . " </td>";
       }
 
       $page_html .= "</tr>";
@@ -4436,11 +4492,13 @@ if($avg_h == 0.0){$avg_h = null;}
 
         if ($klas_1 != 1) {
           $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
+          $page_html .= "<td></td>";
         } else {
           $page_html .= "<td>" . $_h1_1 . "</td>";
+          $page_html .= "<td>" . $_h2_1 . "</td>";
+          $page_html .= "<td></td>";
         }
-        $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
-        $page_html .= "<td></td>";
       }
       if ($_GET["rap"] == '3') {
 
@@ -4460,11 +4518,13 @@ if($avg_h == 0.0){$avg_h = null;}
 
         if ($klas_1 != 1) {
           $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td" . ((float)$_h1_2 <= 5.4 && $_h1_2 ? " class=\"bg-danger\"" : "") . ">" . $_h1_2 . " </td>";
+          $page_html .= "<td" . ((float)$_h1_3 <= 5.4 && $_h1_3 ? " class=\"bg-danger\"" : "") . ">" . $_h1_3 . " </td>";
         } else {
           $page_html .= "<td>" . $_h1_1 . "</td>";
+          $page_html .= "<td>" . $_h1_2 . "</td>";
+          $page_html .= "<td>" . $_h1_3 . "</td>";
         }
-        $page_html .= "<td>" . $_h1_2 . " </td>";
-        $page_html .= "<td>" . $_h1_3 . " </td>";
       }
 
       $page_html .= "</tr>";
@@ -4501,11 +4561,13 @@ if($avg_h == 0.0){$avg_h = null;}
 
         if ($klas_1 != 1) {
           $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
+          $page_html .= "<td></td>";
         } else {
           $page_html .= "<td>" . $_h1_1 . "</td>";
+          $page_html .= "<td>" . $_h2_1 . "</td>";
+          $page_html .= "<td></td>";
         }
-        $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
-        $page_html .= "<td></td>";
       }
       if ($_GET["rap"] == '3') {
 
@@ -4525,11 +4587,13 @@ if($avg_h == 0.0){$avg_h = null;}
 
         if ($klas_1 != 1) {
           $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td" . ((float)$_h1_2 <= 5.4 && $_h1_2 ? " class=\"bg-danger\"" : "") . ">" . $_h1_2 . " </td>";
+          $page_html .= "<td" . ((float)$_h1_3 <= 5.4 && $_h1_3 ? " class=\"bg-danger\"" : "") . ">" . $_h1_3 . " </td>";
         } else {
           $page_html .= "<td>" . $_h1_1 . "</td>";
+          $page_html .= "<td>" . $_h1_2 . "</td>";
+          $page_html .= "<td>" . $_h1_3 . "</td>";
         }
-        $page_html .= "<td>" . $_h1_2 . " </td>";
-        $page_html .= "<td>" . $_h1_3 . " </td>";
       }
 
       $page_html .= "</tr>";
@@ -4576,11 +4640,13 @@ if($avg_h == 0.0){$avg_h = null;}
 
         if ($klas_1 != 1) {
           $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
+          $page_html .= "<td></td>";
         } else {
           $page_html .= "<td>" . $_h1_1 . "</td>";
+          $page_html .= "<td>" . $_h2_1 . "</td>";
+          $page_html .= "<td></td>";
         }
-        $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
-        $page_html .= "<td></td>";
       }
       if ($_GET["rap"] == '3') {
 
@@ -4599,11 +4665,13 @@ if($avg_h == 0.0){$avg_h = null;}
 
         if ($klas_1 != 1) {
           $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td" . ((float)$_h1_2 <= 5.4 && $_h1_2 ? " class=\"bg-danger\"" : "") . ">" . $_h1_2 . " </td>";
+          $page_html .= "<td" . ((float)$_h1_3 <= 5.4 && $_h1_3 ? " class=\"bg-danger\"" : "") . ">" . $_h1_3 . " </td>";
         } else {
           $page_html .= "<td>" . $_h1_1 . "</td>";
+          $page_html .= "<td>" . $_h1_2 . "</td>";
+          $page_html .= "<td>" . $_h1_3 . "</td>";
         }
-        $page_html .= "<td>" . $_h1_2 . " </td>";
-        $page_html .= "<td>" . $_h1_3 . " </td>";
       }
 
       $page_html .= "</tr>";
@@ -4641,11 +4709,13 @@ if($avg_h == 0.0){$avg_h = null;}
 
         if ($klas_1 != 1) {
           $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
+          $page_html .= "<td></td>";
         } else {
           $page_html .= "<td>" . $_h1_1 . "</td>";
+          $page_html .= "<td>" . $_h2_1 . "</td>";
+          $page_html .= "<td></td>";
         }
-        $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
-        $page_html .= "<td></td>";
       }
       if ($_GET["rap"] == '3') {
 
@@ -4664,11 +4734,13 @@ if($avg_h == 0.0){$avg_h = null;}
 
         if ($klas_1 != 1) {
           $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td" . ((float)$_h1_2 <= 5.4 && $_h1_2 ? " class=\"bg-danger\"" : "") . ">" . $_h1_2 . " </td>";
+          $page_html .= "<td" . ((float)$_h1_3 <= 5.4 && $_h1_3 ? " class=\"bg-danger\"" : "") . ">" . $_h1_3 . " </td>";
         } else {
           $page_html .= "<td>" . $_h1_1 . "</td>";
+          $page_html .= "<td>" . $_h1_2 . "</td>";
+          $page_html .= "<td>" . $_h1_3 . "</td>";
         }
-        $page_html .= "<td>" . $_h1_2 . " </td>";
-        $page_html .= "<td>" . $_h1_3 . " </td>";
       }
 
       $page_html .= "</tr>";
@@ -4705,11 +4777,13 @@ if($avg_h == 0.0){$avg_h = null;}
 
         if ($klas_1 != 1) {
           $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
+          $page_html .= "<td></td>";
         } else {
           $page_html .= "<td>" . $_h1_1 . "</td>";
+          $page_html .= "<td>" . $_h2_1 . "</td>";
+          $page_html .= "<td></td>";
         }
-        $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
-        $page_html .= "<td></td>";
       }
       if ($_GET["rap"] == '3') {
 
@@ -4729,11 +4803,13 @@ if($avg_h == 0.0){$avg_h = null;}
 
         if ($klas_1 != 1) {
           $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+          $page_html .= "<td" . ((float)$_h1_2 <= 5.4 && $_h1_2 ? " class=\"bg-danger\"" : "") . ">" . $_h1_2 . " </td>";
+          $page_html .= "<td" . ((float)$_h1_3 <= 5.4 && $_h1_3 ? " class=\"bg-danger\"" : "") . ">" . $_h1_3 . " </td>";
         } else {
           $page_html .= "<td>" . $_h1_1 . "</td>";
+          $page_html .= "<td>" . $_h1_2 . "</td>";
+          $page_html .= "<td>" . $_h1_3 . "</td>";
         }
-        $page_html .= "<td>" . $_h1_2 . " </td>";
-        $page_html .= "<td>" . $_h1_3 . " </td>";
       }
 
       $page_html .= "</tr>";
@@ -6318,10 +6394,10 @@ if($avg_h == 0.0){$avg_h = null;}
       $h1_tec = $_h1;
 
 
-      if ($klas != 1) {
-        $page_html .= "<td>" . $_h1 . " </td>";
+      if ($klas_1 != 1) {
+        $page_html .= "<td " . ((float)$_h1 <= 5.4 && $_h1 ? " class=\"bg-danger\"" : "") . ">" . $_h1 . " </td>";
       } else {
-        $page_html .= "<td></td>";
+        $page_html .= "<td>" . $_h1 . "</td>";
       }
       $page_html .= "<td></td>";
       $page_html .= "<td></td>";
@@ -6338,13 +6414,15 @@ if($avg_h == 0.0){$avg_h = null;}
       $h1_tec = $_h1_1;
       $h2_tec = $_h2_1;
 
-      if ($klas != 1) {
+      if ($klas_1 != 1) {
         $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+        $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
+        $page_html .= "<td></td>";
       } else {
+        $page_html .= "<td>" . $_h1_1 . "</td>";
+        $page_html .= "<td>" . $_h2_1 . "</td>";
         $page_html .= "<td></td>";
       }
-      $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
-      $page_html .= "<td></td>";
     }
     if ($_GET["rap"] == '3') {
 
@@ -6360,13 +6438,15 @@ if($avg_h == 0.0){$avg_h = null;}
       $h2_tec = $_h1_2;
       $h3_tec = $_h1_3;
 
-      if ($klas != 1) {
+      if ($klas_1 != 1) {
         $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+        $page_html .= "<td" . ((float)$_h1_2 <= 5.4 && $_h1_2 ? " class=\"bg-danger\"" : "") . ">" . $_h1_2 . " </td>";
+        $page_html .= "<td" . ((float)$_h1_3 <= 5.4 && $_h1_3 ? " class=\"bg-danger\"" : "") . ">" . $_h1_3 . " </td>";
       } else {
-        $page_html .= "<td></td>";
+        $page_html .= "<td>" . $_h1_1 . "</td>";
+        $page_html .= "<td>" . $_h1_2 . "</td>";
+        $page_html .= "<td>" . $_h1_3 . "</td>";
       }
-      $page_html .= "<td>" . $_h1_2 . " </td>";
-      $page_html .= "<td>" . $_h1_3 . " </td>";
     }
 
     $page_html .= "</tr>";
@@ -6381,10 +6461,10 @@ if($avg_h == 0.0){$avg_h = null;}
 
       $h1_beg = $_h1;
 
-      if ($klas != 1) {
-        $page_html .= "<td>" . $_h1 . " </td>";
+      if ($klas_1 != 1) {
+        $page_html .= "<td " . ((float)$_h1 <= 5.4 && $_h1 ? " class=\"bg-danger\"" : "") . ">" . $_h1 . " </td>";
       } else {
-        $page_html .= "<td></td>";
+        $page_html .= "<td>" . $_h1 . "</td>";
       }
       $page_html .= "<td></td>";
       $page_html .= "<td></td>";
@@ -6401,13 +6481,15 @@ if($avg_h == 0.0){$avg_h = null;}
       $h1_beg = $_h1_1;
       $h2_beg = $_h2_1;
 
-      if ($klas != 1) {
+      if ($klas_1 != 1) {
         $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+        $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
+        $page_html .= "<td></td>";
       } else {
+        $page_html .= "<td>" . $_h1_1 . "</td>";
+        $page_html .= "<td>" . $_h2_1 . "</td>";
         $page_html .= "<td></td>";
       }
-      $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
-      $page_html .= "<td></td>";
     }
     if ($_GET["rap"] == '3') {
 
@@ -6425,13 +6507,15 @@ if($avg_h == 0.0){$avg_h = null;}
 
 
 
-      if ($klas != 1) {
+      if ($klas_1 != 1) {
         $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+        $page_html .= "<td" . ((float)$_h1_2 <= 5.4 && $_h1_2 ? " class=\"bg-danger\"" : "") . ">" . $_h1_2 . " </td>";
+        $page_html .= "<td" . ((float)$_h1_3 <= 5.4 && $_h1_3 ? " class=\"bg-danger\"" : "") . ">" . $_h1_3 . " </td>";
       } else {
-        $page_html .= "<td></td>";
+        $page_html .= "<td>" . $_h1_1 . "</td>";
+        $page_html .= "<td>" . $_h1_2 . "</td>";
+        $page_html .= "<td>" . $_h1_3 . "</td>";
       }
-      $page_html .= "<td>" . $_h1_2 . " </td>";
-      $page_html .= "<td>" . $_h1_3 . " </td>";
     }
 
     $page_html .= "</tr>";
@@ -6446,10 +6530,10 @@ if($avg_h == 0.0){$avg_h = null;}
 
       $h1_beg = $_h1;
 
-      if ($klas != 1) {
-        $page_html .= "<td>" . $_h1 . " </td>";
+      if ($klas_1 != 1) {
+        $page_html .= "<td " . ((float)$_h1 <= 5.4 && $_h1 ? " class=\"bg-danger\"" : "") . ">" . $_h1 . " </td>";
       } else {
-        $page_html .= "<td></td>";
+        $page_html .= "<td>" . $_h1 . "</td>";
       }
       $page_html .= "<td></td>";
       $page_html .= "<td></td>";
@@ -6466,13 +6550,15 @@ if($avg_h == 0.0){$avg_h = null;}
       $h1_beg = $_h1_1;
       $h2_beg = $_h2_1;
 
-      if ($klas != 1) {
+      if ($klas_1 != 1) {
         $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+        $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
+        $page_html .= "<td></td>";
       } else {
+        $page_html .= "<td>" . $_h1_1 . "</td>";
+        $page_html .= "<td>" . $_h2_1 . "</td>";
         $page_html .= "<td></td>";
       }
-      $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
-      $page_html .= "<td></td>";
     }
     if ($_GET["rap"] == '3') {
 
@@ -6490,13 +6576,15 @@ if($avg_h == 0.0){$avg_h = null;}
 
 
 
-      if ($klas != 1) {
+      if ($klas_1 != 1) {
         $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+        $page_html .= "<td" . ((float)$_h1_2 <= 5.4 && $_h1_2 ? " class=\"bg-danger\"" : "") . ">" . $_h1_2 . " </td>";
+        $page_html .= "<td" . ((float)$_h1_3 <= 5.4 && $_h1_3 ? " class=\"bg-danger\"" : "") . ">" . $_h1_3 . " </td>";
       } else {
-        $page_html .= "<td></td>";
+        $page_html .= "<td>" . $_h1_1 . "</td>";
+        $page_html .= "<td>" . $_h1_2 . "</td>";
+        $page_html .= "<td>" . $_h1_3 . "</td>";
       }
-      $page_html .= "<td>" . $_h1_2 . " </td>";
-      $page_html .= "<td>" . $_h1_3 . " </td>";
     }
 
     $page_html .= "</tr>";
@@ -6511,10 +6599,10 @@ if($avg_h == 0.0){$avg_h = null;}
 
       $h1_beg = $_h1;
 
-      if ($klas != 1) {
-        $page_html .= "<td>" . $_h1 . " </td>";
+      if ($klas_1 != 1) {
+        $page_html .= "<td " . ((float)$_h1 <= 5.4 && $_h1 ? " class=\"bg-danger\"" : "") . ">" . $_h1 . " </td>";
       } else {
-        $page_html .= "<td></td>";
+        $page_html .= "<td>" . $_h1 . "</td>";
       }
       $page_html .= "<td></td>";
       $page_html .= "<td></td>";
@@ -6531,13 +6619,15 @@ if($avg_h == 0.0){$avg_h = null;}
       $h1_beg = $_h1_1;
       $h2_beg = $_h2_1;
 
-      if ($klas != 1) {
+      if ($klas_1 != 1) {
         $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+        $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
+        $page_html .= "<td></td>";
       } else {
+        $page_html .= "<td>" . $_h1_1 . "</td>";
+        $page_html .= "<td>" . $_h2_1 . "</td>";
         $page_html .= "<td></td>";
       }
-      $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
-      $page_html .= "<td></td>";
     }
     if ($_GET["rap"] == '3') {
 
@@ -6555,13 +6645,15 @@ if($avg_h == 0.0){$avg_h = null;}
 
 
 
-      if ($klas != 1) {
+      if ($klas_1 != 1) {
         $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+        $page_html .= "<td" . ((float)$_h1_2 <= 5.4 && $_h1_2 ? " class=\"bg-danger\"" : "") . ">" . $_h1_2 . " </td>";
+        $page_html .= "<td" . ((float)$_h1_3 <= 5.4 && $_h1_3 ? " class=\"bg-danger\"" : "") . ">" . $_h1_3 . " </td>";
       } else {
-        $page_html .= "<td></td>";
+        $page_html .= "<td>" . $_h1_1 . "</td>";
+        $page_html .= "<td>" . $_h1_2 . "</td>";
+        $page_html .= "<td>" . $_h1_3 . "</td>";
       }
-      $page_html .= "<td>" . $_h1_2 . " </td>";
-      $page_html .= "<td>" . $_h1_3 . " </td>";
     }
 
     $page_html .= "</tr>";
@@ -6576,10 +6668,10 @@ if($avg_h == 0.0){$avg_h = null;}
 
       $h1_beg = $_h1;
 
-      if ($klas != 1) {
-        $page_html .= "<td>" . $_h1 . " </td>";
+      if ($klas_1 != 1) {
+        $page_html .= "<td " . ((float)$_h1 <= 5.4 && $_h1 ? " class=\"bg-danger\"" : "") . ">" . $_h1 . " </td>";
       } else {
-        $page_html .= "<td></td>";
+        $page_html .= "<td>" . $_h1 . "</td>";
       }
       $page_html .= "<td></td>";
       $page_html .= "<td></td>";
@@ -6596,13 +6688,15 @@ if($avg_h == 0.0){$avg_h = null;}
       $h1_beg = $_h1_1;
       $h2_beg = $_h2_1;
 
-      if ($klas != 1) {
+      if ($klas_1 != 1) {
         $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+        $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
+        $page_html .= "<td></td>";
       } else {
+        $page_html .= "<td>" . $_h1_1 . "</td>";
+        $page_html .= "<td>" . $_h2_1 . "</td>";
         $page_html .= "<td></td>";
       }
-      $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
-      $page_html .= "<td></td>";
     }
     if ($_GET["rap"] == '3') {
 
@@ -6620,13 +6714,15 @@ if($avg_h == 0.0){$avg_h = null;}
 
 
 
-      if ($klas != 1) {
+      if ($klas_1 != 1) {
         $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+        $page_html .= "<td" . ((float)$_h1_2 <= 5.4 && $_h1_2 ? " class=\"bg-danger\"" : "") . ">" . $_h1_2 . " </td>";
+        $page_html .= "<td" . ((float)$_h1_3 <= 5.4 && $_h1_3 ? " class=\"bg-danger\"" : "") . ">" . $_h1_3 . " </td>";
       } else {
-        $page_html .= "<td></td>";
+        $page_html .= "<td>" . $_h1_1 . "</td>";
+        $page_html .= "<td>" . $_h1_2 . "</td>";
+        $page_html .= "<td>" . $_h1_3 . "</td>";
       }
-      $page_html .= "<td>" . $_h1_2 . " </td>";
-      $page_html .= "<td>" . $_h1_3 . " </td>";
     }
 
     $page_html .= "</tr>";
@@ -6641,10 +6737,10 @@ if($avg_h == 0.0){$avg_h = null;}
 
       $h1_beg = $_h1;
 
-      if ($klas != 1) {
-        $page_html .= "<td>" . $_h1 . " </td>";
+      if ($klas_1 != 1) {
+        $page_html .= "<td " . ((float)$_h1 <= 5.4 && $_h1 ? " class=\"bg-danger\"" : "") . ">" . $_h1 . " </td>";
       } else {
-        $page_html .= "<td></td>";
+        $page_html .= "<td>" . $_h1 . "</td>";
       }
       $page_html .= "<td></td>";
       $page_html .= "<td></td>";
@@ -6661,13 +6757,15 @@ if($avg_h == 0.0){$avg_h = null;}
       $h1_beg = $_h1_1;
       $h2_beg = $_h2_1;
 
-      if ($klas != 1) {
+      if ($klas_1 != 1) {
         $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+        $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
+        $page_html .= "<td></td>";
       } else {
+        $page_html .= "<td>" . $_h1_1 . "</td>";
+        $page_html .= "<td>" . $_h2_1 . "</td>";
         $page_html .= "<td></td>";
       }
-      $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
-      $page_html .= "<td></td>";
     }
     if ($_GET["rap"] == '3') {
 
@@ -6685,13 +6783,15 @@ if($avg_h == 0.0){$avg_h = null;}
 
 
 
-      if ($klas != 1) {
+      if ($klas_1 != 1) {
         $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+        $page_html .= "<td" . ((float)$_h1_2 <= 5.4 && $_h1_2 ? " class=\"bg-danger\"" : "") . ">" . $_h1_2 . " </td>";
+        $page_html .= "<td" . ((float)$_h1_3 <= 5.4 && $_h1_3 ? " class=\"bg-danger\"" : "") . ">" . $_h1_3 . " </td>";
       } else {
-        $page_html .= "<td></td>";
+        $page_html .= "<td>" . $_h1_1 . "</td>";
+        $page_html .= "<td>" . $_h1_2 . "</td>";
+        $page_html .= "<td>" . $_h1_3 . "</td>";
       }
-      $page_html .= "<td>" . $_h1_2 . " </td>";
-      $page_html .= "<td>" . $_h1_3 . " </td>";
     }
 
     $page_html .= "</tr>";
@@ -6766,10 +6866,10 @@ if($avg_h == 0.0){$avg_h = null;}
 
       $h1_beg = $_h1;
 
-      if ($klas != 1) {
-        $page_html .= "<td>" . $_h1 . " </td>";
+      if ($klas_1 != 1) {
+        $page_html .= "<td " . ((float)$_h1 <= 5.4 && $_h1 ? " class=\"bg-danger\"" : "") . ">" . $_h1 . " </td>";
       } else {
-        $page_html .= "<td></td>";
+        $page_html .= "<td>" . $_h1 . "</td>";
       }
       $page_html .= "<td></td>";
       $page_html .= "<td></td>";
@@ -6786,13 +6886,15 @@ if($avg_h == 0.0){$avg_h = null;}
       $h1_beg = $_h1_1;
       $h2_beg = $_h2_1;
 
-      if ($klas != 1) {
+      if ($klas_1 != 1) {
         $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+        $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
+        $page_html .= "<td></td>";
       } else {
+        $page_html .= "<td>" . $_h1_1 . "</td>";
+        $page_html .= "<td>" . $_h2_1 . "</td>";
         $page_html .= "<td></td>";
       }
-      $page_html .= "<td" . ((float)$_h2_1 <= 5.4 && $_h2_1 ? " class=\"bg-danger\"" : "") . ">" . $_h2_1 . " </td>";
-      $page_html .= "<td></td>";
     }
     if ($_GET["rap"] == '3') {
 
@@ -6810,13 +6912,15 @@ if($avg_h == 0.0){$avg_h = null;}
 
 
 
-      if ($klas != 1) {
+      if ($klas_1 != 1) {
         $page_html .= "<td" . ((float)$_h1_1 <= 5.4 && $_h1_1 ? " class=\"bg-danger\"" : "") . ">" . $_h1_1 . " </td>";
+        $page_html .= "<td" . ((float)$_h1_2 <= 5.4 && $_h1_2 ? " class=\"bg-danger\"" : "") . ">" . $_h1_2 . " </td>";
+        $page_html .= "<td" . ((float)$_h1_3 <= 5.4 && $_h1_3 ? " class=\"bg-danger\"" : "") . ">" . $_h1_3 . " </td>";
       } else {
-        $page_html .= "<td></td>";
+        $page_html .= "<td>" . $_h1_1 . "</td>";
+        $page_html .= "<td>" . $_h1_2 . "</td>";
+        $page_html .= "<td>" . $_h1_3 . "</td>";
       }
-      $page_html .= "<td>" . $_h1_2 . " </td>";
-      $page_html .= "<td>" . $_h1_3 . " </td>";
     }
 
     $page_html .= "</tr>";
