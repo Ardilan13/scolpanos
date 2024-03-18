@@ -1358,21 +1358,38 @@ class spn_see_kaart
     mysqli_report(MYSQLI_REPORT_STRICT);
     $sql_query = "";
     $result = null;
+    $level_klas = substr($klas, 0, 1);
 
     if (!empty($cijfers[$vak][$rap_in])) {
       $avg = $cijfers[$vak][$rap_in];
-      if ($avg > 0 && $avg < 4.5) {
-        $result = 4;
-      } else if ($avg >= 4.5 && $avg < 5.5) {
-        $result = 5;
-      } else if ($avg >= 5.5 && $avg < 6.5) {
-        $result = 6;
-      } else if ($avg >= 6.5 && $avg < 7.5) {
-        $result = 7;
-      } else if ($avg >= 7.5 && $avg < 8.5) {
-        $result = 8;
-      } else if ($avg >= 8.5) {
-        $result = 9;
+      if ($level_klas != 1) {
+        if ($avg > 0 && $avg < 4.5) {
+          $result = 4;
+        } else if ($avg >= 4.5 && $avg < 5.5) {
+          $result = 5;
+        } else if ($avg >= 5.5 && $avg < 6.5) {
+          $result = 6;
+        } else if ($avg >= 6.5 && $avg < 7.5) {
+          $result = 7;
+        } else if ($avg >= 7.5 && $avg < 8.5) {
+          $result = 8;
+        } else if ($avg >= 8.5) {
+          $result = 9;
+        }
+      } else {
+        if ($avg > 0 && $avg < 4.5) {
+          $result = "F";
+        } else if ($avg >= 4.5 && $avg < 5.5) {
+          $result = "E";
+        } else if ($avg >= 5.5 && $avg < 6.5) {
+          $result = "D";
+        } else if ($avg >= 6.5 && $avg < 7.5) {
+          $result = "C";
+        } else if ($avg >= 7.5 && $avg < 9.5) {
+          $result = "B";
+        } else {
+          $result = "A";
+        }
       }
     }
 

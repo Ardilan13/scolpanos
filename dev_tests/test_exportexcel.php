@@ -805,6 +805,9 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 			$spreadsheet = $reader->load("../templates/verza_scol18_1.xlsx");
 			$spreadsheet->setActiveSheetIndex(8);
 			$hojaActiva = $spreadsheet->getActiveSheet();
+			$laat = "AR";
+			$verzuim = "AS";
+			$p_opmerking = "AT";
 
 			break;
 		default:
@@ -1183,21 +1186,31 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 				//verzuim
 				$cont_laat = 0;
 				$cont_verzuim = 0;
-				$sql_query_verzuim = "SELECT SUM(v.telaat) as telaat, SUM(v.absentie) as absentie
-				FROM le_verzuim v WHERE v.studentid = $_currentstudent AND v.schooljaar = '$schooljaar' AND DATE(v.datum) BETWEEN '$fecha1' AND '$fecha2' AND (v.telaat != 0 OR v.absentie != 0) LIMIT 1";
-				$resultado1 = mysqli_query($mysqli, $sql_query_verzuim);
-				if ($row1 = mysqli_fetch_assoc($resultado1)) {
-					$cont_laat = $row1["telaat"];
-					$cont_verzuim = $row1["absentie"];
-				}
-
-				//opmerking
 				$opmerking = "";
-				$filter_opmerking = "op.opmerking" . $i;
-				$sql_query_opmerking = "SELECT $filter_opmerking as opmerking FROM opmerking op WHERE op.studentid = $_currentstudent AND op.schooljaar = '$schooljaar' LIMIT 1";
-				$resultado2 = mysqli_query($mysqli, $sql_query_opmerking);
-				if ($row2 = mysqli_fetch_assoc($resultado2)) {
-					$opmerking = $row2["opmerking"];
+				$sql_query_verzuim = "SELECT 
+				o.opmerking1,
+				v.telaat,
+				v.absentie,
+				v.datum
+					FROM students s 
+					LEFT JOIN le_verzuim v ON s.id = v.studentid AND v.schooljaar = '$schooljaar' AND v.studentid = s.id
+					LEFT JOIN opmerking o ON o.studentid = s.id AND o.schooljaar = '$schooljaar' AND o.rapport = $i
+					WHERE s.class = '$klas_in' 
+						AND s.schoolid = $schoolid
+						AND s.id = $_currentstudent
+					ORDER BY v.created";
+				$resultado1 = mysqli_query($mysqli, $sql_query_verzuim);
+				while ($row1 = mysqli_fetch_assoc($resultado1)) {
+					$datum = $u->convertfrommysqldate_new($row1["datum"]);
+					if ($datum >= $fecha1 && $datum <= $fecha2) {
+						if ($row1['telaat'] > 0) {
+							$cont_laat++;
+						}
+						if ($row1['absentie'] > 0) {
+							$cont_verzuim++;
+						}
+					}
+					$opmerking = $row1["opmerking1"];
 				}
 				$hojaActiva->setCellValue($laat . (string)$_current_student_start_row, $cont_laat);
 				$hojaActiva->setCellValue($verzuim . (string)$_current_student_start_row, $cont_verzuim);
