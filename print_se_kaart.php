@@ -468,7 +468,7 @@ foreach ($array_leerling as $item) {
     if ($schoolId == 10) {
       $page_html .= "<div style='margin: 0px; margin-top:3%; display: flex; align-items: center; flex-direction: column;' >";
     } else {
-      $page_html .= "<div style='margin: 0px; display: flex; align-items: center; flex-direction: column; margin-left: 10%;' >";
+      $page_html .= "<div style='margin: 0px; display: flex; align-items: center; flex-direction: column; margin-left: 20%;' >";
     }
   } else if (substr($_GET["klas"], 0, 1) > 2) {
     $page_html .= "<div style='display: flex; justify-content: space-evenly;'>";
@@ -536,7 +536,7 @@ foreach ($array_leerling as $item) {
   $page_html .= "</tr>";
   $page_html .= "<tr>";
   if ($_SESSION["SchoolID"] == 18) {
-    $page_html .= "<style>.table-sm td,.table-sm th{padding: 0 !important;} .table{padding-bottom: 0 !important;}</style>";
+    $page_html .= "<style>.table-sm td,.table-sm th{padding: 0 !important;} .table{padding-bottom: 0 !important;} .table-sm{margin-left: .5rem !important;}</style>";
     $page_html .= "<td width='40%' height='40'><b>Grupo: </b></td>";
   } else {
     $page_html .= "<td width='40%' height='50'><b>Klas: </b></td>";
