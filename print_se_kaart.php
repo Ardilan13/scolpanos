@@ -82,7 +82,7 @@ switch ($schoolId) {
     $titleD = "Mon Plaisir College HAVO";
     break;
   case 18:
-    $img = $level_klas == 1 ? "paso_pa_futuro.png" : "futuro.jpg";
+    $img = "futuro.jpg";
     $titleP = "Scol&nbsp&nbsp&nbspPa&nbsp&nbsp&nbspNos";
     $titleD = "Scol Paso Pa Futuro";
     $cabesante = "Doris Franken";
@@ -467,8 +467,10 @@ foreach ($array_leerling as $item) {
     $page_html .= "</div>";
     if ($schoolId == 10) {
       $page_html .= "<div style='margin: 0px; margin-top:3%; display: flex; align-items: center; flex-direction: column;' >";
+    } else if ($schoolId == 8) {
+      $page_html .= "<div style='margin: 0px; display: flex; align-items: center; flex-direction: column; margin-left: 23%;' >";
     } else {
-      $page_html .= "<div style='margin: 0px; display: flex; align-items: center; flex-direction: column; margin-left: 20%;' >";
+      $page_html .= "<div style='margin: 0px; display: flex; align-items: center; flex-direction: column; margin-left: 15%;' >";
     }
   } else if (substr($_GET["klas"], 0, 1) > 2) {
     $page_html .= "<div style='display: flex; justify-content: space-evenly;'>";
