@@ -163,7 +163,7 @@ foreach ($array_leerling as $item) {
     $radio1 = false;
     $radio2 = false;
     $radio3 = false;
-    if ($_SESSION["SchoolType"] == 1) {
+    if ($_SESSION["SchoolType"] == 1 && ($level_klas != 1 || $i != 1)) {
       $query = "SELECT opmerking1,opmerking3 FROM opmerking WHERE klas = '" . $_GET["klas"] . "' AND SchoolID = $schoolId AND studentid = $student AND schooljaar = '$schooljaar' AND rapport = $i LIMIT 1";
       $resultado = mysqli_query($mysqli, $query);
       if ($resultado->num_rows > 0) {
@@ -1322,12 +1322,11 @@ foreach ($array_leerling as $item) {
           $avg_h = $_h2_1;
         }
 
-        // if ($avg_h > 0.0) {
-        //   if ($klas != 1) {
-        //     $page_html .= "<td>" . number_format($avg_h, 1) . " </td>";
-        //   }
-        // }
-        $page_html .= "<td></td>";
+        if ($avg_h > 0.0) {
+          if ($klas != 1) {
+            $page_html .= "<td></td>";
+          }
+        }
       }
       if ($_GET["rap"] == '3') {
 
@@ -1365,12 +1364,11 @@ foreach ($array_leerling as $item) {
         }
         $page_html .= "<td" . ((float)$_h1_2 <= 5.4 && $_h1_2 ? " class=\"bg-danger\"" : "") . ">" . $_h1_2 . " </td>";
         $page_html .= "<td" . ((float)$_h1_3 <= 5.4 && $_h1_3 ? " class=\"bg-danger\"" : "") . ">" . $_h1_3 . " </td>";
-        // if ($avg_h > 0.0) {
-        //   if ($klas != 1) {
-        //     $page_html .= "<td>" . number_format($avg_h, 1) . " </td>";
-        //   }
-        // }
-        $page_html .= "<td></td>";
+        if ($avg_h > 0.0) {
+          if ($klas != 1) {
+            $page_html .= "<td>" . number_format($avg_h, 1) . " </td>";
+          }
+        }
       }
 
       $page_html .= "</tr>";
@@ -1424,12 +1422,11 @@ foreach ($array_leerling as $item) {
         } else if ($_h2_1 > 0) {
           $avg_h = $_h2_1;
         }
-        // if ($avg_h > 0.0) {
-        //   if ($klas != 1) {
-        //     $page_html .= "<td>" . number_format($avg_h, 1) . " </td>";
-        //   }
-        // }
-        $page_html .= "<td></td>";
+        if ($avg_h > 0.0) {
+          if ($klas != 1) {
+            $page_html .= "<td></td>";
+          }
+        }
       }
       if ($_GET["rap"] == '3') {
 
@@ -1468,12 +1465,9 @@ foreach ($array_leerling as $item) {
         }
         $page_html .= "<td" . ((float)$_h1_2 <= 5.4 && $_h1_2 ? " class=\"bg-danger\"" : "") . ">" . $_h1_2 . " </td>";
         $page_html .= "<td" . ((float)$_h1_3 <= 5.4 && $_h1_3 ? " class=\"bg-danger\"" : "") . ">" . $_h1_3 . " </td>";
-        // if ($avg_h > 0.0) {
-        //   if ($klas != 1) {
-        //     $page_html .= "<td>" . number_format($avg_h, 1) . " </td>";
-        //   }
-        // }
-        $page_html .= "<td></td>";
+        if ($klas != 1) {
+          $page_html .= "<td></td>";
+        }
       }
 
       $page_html .= "</tr>";
@@ -1624,7 +1618,6 @@ foreach ($array_leerling as $item) {
           $page_html .= "<td> </td>";
           $page_html .= "<td> </td>";
           $page_html .= "<td> </td>";
-          $page_html .= "<td> </td>";
         }
       }
       if ($_GET["rap"] == '2') {
@@ -1652,12 +1645,9 @@ foreach ($array_leerling as $item) {
         } else if ($_h2_1 > 0) {
           $avg_h = $_h2_1;
         }
-        // if ($avg_h > 0.0) {
-        //   if ($klas != 1) {
-        //     $page_html .= "<td>" . number_format($avg_h, 1) . " </td>";
-        //   }
-        // }
-        $page_html .= "<td></td>";
+        if ($klas != 1) {
+          $page_html .= "<td></td>";
+        }
       }
       if ($_GET["rap"] == '3') {
 
@@ -1692,12 +1682,9 @@ foreach ($array_leerling as $item) {
         }
         $page_html .= "<td" . ((float)$_h1_2 <= 5.4 && $_h1_2 ? " class=\"bg-danger\"" : "") . ">" . $_h1_2 . " </td>";
         $page_html .= "<td" . ((float)$_h1_3 <= 5.4 && $_h1_3 ? " class=\"bg-danger\"" : "") . ">" . $_h1_3 . " </td>";
-        // if ($avg_h > 0.0) {
-        //   if ($klas != 1) {
-        //     $page_html .= "<td>" . number_format($avg_h, 1) . " </td>";
-        //   }
-        // }
-        $page_html .= "<td></td>";
+        if ($klas != 1) {
+          $page_html .= "<td></td>";
+        }
       }
 
       $page_html .= "</tr>";
@@ -1787,12 +1774,9 @@ foreach ($array_leerling as $item) {
         } else if ($_h2_1 > 0) {
           $avg_h = $_h2_1;
         }
-        // if ($avg_h > 0.0) {
-        //   if ($klas != 1) {
-        //     $page_html .= "<td>" . number_format($avg_h, 1) . " </td>";
-        //   }
-        // }
-        $page_html .= "<td></td>";
+        if ($klas != 1) {
+          $page_html .= "<td></td>";
+        }
       }
       if ($_GET["rap"] == '3') {
 
@@ -1827,12 +1811,9 @@ foreach ($array_leerling as $item) {
         }
         $page_html .= "<td" . ((float)$_h1_2 <= 5.4 && $_h1_2 ? " class=\"bg-danger\"" : "") . ">" . $_h1_2 . " </td>";
         $page_html .= "<td" . ((float)$_h1_3 <= 5.4 && $_h1_3 ? " class=\"bg-danger\"" : "") . ">" . $_h1_3 . " </td>";
-        // if ($avg_h > 0.0) {
-        //   if ($klas != 1) {
-        //     $page_html .= "<td>" . number_format($avg_h, 1) . " </td>";
-        //   }
-        // }
-        $page_html .= "<td></td>";
+        if ($klas != 1) {
+          $page_html .= "<td></td>";
+        }
       }
 
       $page_html .= "</tr>";
@@ -2001,12 +1982,9 @@ foreach ($array_leerling as $item) {
         } else if ($_h2_1 > 0) {
           $avg_h = $_h2_1;
         }
-        // if ($avg_h > 0.0) {
-        //   if ($klas != 1) {
-        //     $page_html .= "<td>" . number_format($avg_h, 1) . " </td>";
-        //   }
-        // }
-        $page_html .= "<td></td>";
+        if ($klas != 1) {
+          $page_html .= "<td></td>";
+        }
       }
       if ($_GET["rap"] == '3') {
 
@@ -2040,12 +2018,9 @@ foreach ($array_leerling as $item) {
         }
         $page_html .= "<td" . ((float)$_h1_2 <= 5.4 && $_h1_2 ? " class=\"bg-danger\"" : "") . ">" . $_h1_2 . " </td>";
         $page_html .= "<td" . ((float)$_h1_3 <= 5.4 && $_h1_3 ? " class=\"bg-danger\"" : "") . ">" . $_h1_3 . " </td>";
-        // if ($avg_h > 0.0) {
-        //   if ($klas != 1) {
-        //     $page_html .= "<td>" . number_format($avg_h, 1) . " </td>";
-        //   }
-        // }
-        $page_html .= "<td></td>";
+        if ($klas != 1) {
+          $page_html .= "<td></td>";
+        }
       }
 
       $page_html .= "</tr>";
@@ -2148,10 +2123,9 @@ foreach ($array_leerling as $item) {
         }
         $page_html .= "<td> </td>";
         $page_html .= "<td> </td>";
-        $page_html .= "<td> </td>";
-        // if ($klas != 1) {
-        //   $page_html .= "<td>" . $_h1  . " </td>";
-        // }
+        if ($klas != 1) {
+          $page_html .= "<td></td>";
+        }
       }
       if ($_GET["rap"] == '2') {
 
@@ -2177,12 +2151,9 @@ foreach ($array_leerling as $item) {
         } else if ($_h2_1 > 0) {
           $avg_h = $_h2_1;
         }
-        // if ($avg_h > 0.0) {
-        //   if ($klas != 1) {
-        //     $page_html .= "<td>" . number_format($avg_h, 1) . " </td>";
-        //   }
-        // }
-        $page_html .= "<td></td>";
+        if ($klas != 1) {
+          $page_html .= "<td></td>";
+        }
       }
       if ($_GET["rap"] == '3') {
 
@@ -2216,12 +2187,9 @@ foreach ($array_leerling as $item) {
         }
         $page_html .= "<td" . ((float)$_h1_2 <= 5.4 && $_h1_2 ? " class=\"bg-danger\"" : "") . ">" . $_h1_2 . " </td>";
         $page_html .= "<td" . ((float)$_h1_3 <= 5.4 && $_h1_3 ? " class=\"bg-danger\"" : "") . ">" . $_h1_3 . " </td>";
-        // if ($avg_h > 0.0) {
-        //   if ($klas != 1) {
-        //     $page_html .= "<td>" . number_format($avg_h, 1) . " </td>";
-        //   }
-        // }
-        $page_html .= "<td></td>";
+        if ($klas != 1) {
+          $page_html .= "<td></td>";
+        }
       }
 
       $page_html .= "</tr>";
@@ -9469,6 +9437,7 @@ if($avg_h == 0.0){$avg_h = null;}
     $(document).ready(function() {
 
       var SchoolID = '<?php echo $_SESSION["SchoolID"]; ?>';
+      var user = '<?php echo $_SESSION["UserRights"]; ?>';
       var Klass = '<?php echo $_GET["klas"]; ?>';
       var pattern = /3/;
       var pattern2 = /2/;
@@ -9492,7 +9461,9 @@ if($avg_h == 0.0){$avg_h = null;}
       }
 
       setTimeout(function() {
-        window.print();
+        if (user != "DOCENT" && user != "TEACHER") {
+          window.print();
+        }
       }, 1000);
     });
   </script>

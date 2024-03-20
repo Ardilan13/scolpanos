@@ -21,6 +21,7 @@
             <section>
                 <div class="container container-fs">
                     <input type="text" hidden value="<?php echo $_SESSION["SchoolID"]; ?>" id="schoolid">
+                    <input type="text" hidden value="<?php echo $_SESSION["SchoolType"]; ?>" id="type">
 
                     <div class="row">
                         <div class="default-secondary-bg-color col-md-12 full-inset brd-bottom clearfix">
@@ -105,6 +106,20 @@
             },
         });
     })
+
+    $("#houding_klassen_lijst").change(function() {
+        var klas = $("#houding_klassen_lijst").val();
+        var type = $("#type").val();
+        var level_klas = klas.substr(0, 1);
+        if (level_klas == "1" && type == "1") {
+            $("#cijfers_rapporten_lijst option[value='1']").hide();
+            $("#cijfers_rapporten_lijst").val("2");
+        } else {
+            $("#cijfers_rapporten_lijst option[value='1']").show();
+            $("#cijfers_rapporten_lijst").val("1");
+        }
+    });
+
 
     $(document).ready(function() {
         setTimeout(function() {

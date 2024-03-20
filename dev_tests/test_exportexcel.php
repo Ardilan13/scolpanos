@@ -739,7 +739,7 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 					}
 				}
 			} else {
-				$hojaActiva->setCellValue((($level_klas == 1) ? "AX" : "BD") . (string)$_current_student_start_row, $opmerking);
+				$hojaActiva->setCellValue((($level_klas == 1 || $level_klas == 2) ? "AX" : ($level_klas == 6 ? "BD" : "AY")) . (string)$_current_student_start_row, $opmerking);
 				if ($i == 1) {
 					$spreadsheet->setActiveSheetIndex(3);
 					$hojaActiva = $spreadsheet->getActiveSheet();
