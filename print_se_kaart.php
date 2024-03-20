@@ -94,6 +94,7 @@ switch ($schoolId) {
 }
 
 $page_html = "";
+$c = new spn_see_kaart();
 $t = new spn_rapport_school_12();
 if ($_SESSION["SchoolType"] == 2 && substr($_GET["klas"], 0, 1) == 4) {
   if ($_SESSION["SchoolID"] == 13) {
@@ -115,7 +116,7 @@ if ($_SESSION["SchoolType"] == 2 && substr($_GET["klas"], 0, 1) == 4) {
     $tutor = $t->_writetutorName(4, $schoolId);
   }
 } else {
-  $tutor = $t->_writetutorName($_GET["klas"], $schoolId);
+  $tutor = $c->_write_tutor_name_ps($_GET["klas"], $schoolId);
 }
 
 $array = array();
@@ -141,7 +142,6 @@ if ($studentid == 'all') {
   $array_leerling = $array;
 }
 $table_cijfers = "";
-$c = new spn_see_kaart();
 // $table_cijfers = $c->list_cijfers_by_student_se_kaart_rapport($_SESSION["SchoolJaar"], 5307,1,false);
 // echo($table_cijfers);
 
@@ -523,10 +523,14 @@ foreach ($array_leerling as $item) {
   $page_html .= "<table style='text-align: center;'>";
   $page_html .= "<tbody>";
   $page_html .= "<tr>";
+  $page_html .= "<td width='50%' height='40'><b>Leerkracht: </b></td>";
+  $page_html .= "<td><b><i>" . $tutor . "</i></b></td>";
+  $page_html .= "</tr>";
+  $page_html .= "<tr>";
   if ($_SESSION["SchoolID"] == 18) {
     $page_html .= "<td width='50%' height='40'><b>Nomber Alumno: </b></td>";
   } else if ($_SESSION["SchoolID"] == 8) {
-    $page_html .= "<td width='50%' height='40'><b>Leerkracht: </b></td>";
+    $page_html .= "<td width='50%' height='40'><b>Leerling: </b></td>";
   } else {
     if ($level_klas == 4 && $_SESSION["SchoolType"] == 2) {
       $page_html .= "<td width='50%' height='50'><b>SE KAART: </b></td>";

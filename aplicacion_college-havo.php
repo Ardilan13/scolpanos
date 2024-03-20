@@ -304,7 +304,7 @@
 				</h1>
 			</div>
 			<form action="ajax/college_mail.php" method="POST" id="formulario" enctype="multipart/form-data">
-				<h1>Aanmeldingsformulier Schooljaar 2023-2024</h1>
+				<h1>Aanmeldingsformulier Schooljaar 2024-2025</h1>
                 <h3>Mon Plaisir College HAVO-VWO</h3>
 				<h4>CB2 - Havo 3 - Vwo 3 - Havo 4</h4>
 

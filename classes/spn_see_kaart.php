@@ -1802,4 +1802,25 @@ class spn_see_kaart
     $page_html .= "</table>";
     return $page_html;
   }
+
+  function _write_tutor_name_ps($klas, $schoolid)
+  {
+    require_once("DBCreds.php");
+    $DBCreds = new DBCreds();
+    $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
+    try {
+      $sql_query = "select CONCAT(a.firstname,' ',a.lastname) as tutorname from app_useraccounts a where a.class = '" . $klas . "' and a.SchoolID = " . $schoolid . " LIMIT 1;";
+      $result = $mysqli->query($sql_query);
+      if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+          $tutorname = $row["tutorname"];
+        }
+      } else {
+        $tutorname = "";
+      }
+      return $tutorname;
+    } catch (PHPExcel_Exception $excel) {
+      return null;
+    }
+  }
 }
