@@ -151,7 +151,7 @@ if (!isset($_SESSION['already_refreshed'])) {
 				</h1>
 			</div>
             <h1>Mon Plaisir</h1>
-            <h2>Aplicacion College 2023-2024:</h2>
+            <h2>Aplicacion College 2024-2025:</h2>
             <?php $DBCreds = new DBCreds();
             $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
             $mysqli->set_charset('utf8');
