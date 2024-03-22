@@ -1515,25 +1515,25 @@ class spn_see_kaart
         $houding = array();
         foreach ($vaks as $name => $vak) {
           $avg = $row[$vak];
-          // if ($vak != "h14" || $level_klas > 1 || $row["rapnummer"] > 2) {
-          if ($avg != null && $avg != "") {
-            switch ($avg) {
-              case 10:
-                $avg = "B";
-                break;
-              case 11:
-                $avg = "S";
-                break;
-              case 12:
-                $avg = "I";
-                break;
+          if ($vak != "h15" || $level_klas > 1 || $row["rapnummer"] > 2) {
+            if ($avg != null && $avg != "") {
+              switch ($avg) {
+                case 10:
+                  $avg = "B";
+                  break;
+                case 11:
+                  $avg = "S";
+                  break;
+                case 12:
+                  $avg = "I";
+                  break;
+              }
+            } else {
+              $avg = "B";
             }
           } else {
-            $avg = "B";
+            $avg = "X";
           }
-          // } else {
-          //   $avg = "X";
-          // }
           if ($vak != "") {
             $houding[$vak] = $avg;
           }

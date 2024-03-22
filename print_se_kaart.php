@@ -3277,7 +3277,7 @@ if($avg_h == 0.0){$avg_h = null;}
           $vaks_pap = ["Reflexion / Taalbeschouwing" => "Reflexion", "Dictado / Dictee" => "Dictado", "Scucha y Papia / Luisteren en Spreken" => "Scucha y papia"];
           $vaks_lesa = ["Lesa tecnico / Technisch lezen" => "Lesamento Tecnico", "Lesa comprensivo / Leesbegrip" => "Lesamento Comprensivo"];
           $vaks_hul = ["Hulandes / Nederlands" => "Hul scucha y mira"];
-          $vaks_mat = ["Vision y comprension / Inzicht" => "h14"];
+          $vaks_mat = ["Vision y comprension / Inzicht" => "h15"];
           $vaks_mat1 = ["Nocion di number / Getalbegrip" => "Nocion di number", "Operacion basico y avansa / Basisvaardigheden" => "Operacion basico y avansa", "Midi y Geometria / Meten en Meetkunde" => "Midi y Geometria"];
           $vaks_ext = ["Orientacion riba mundo / Wereldoriëntatie" => "Orientacion riba Mundo", "Skirbi / Schrijven" => "Skirbi", "Trafico / Verkeer" => "Trafico", "Charla / Spreekbeurt" => "Charla"];
 
@@ -3288,7 +3288,7 @@ if($avg_h == 0.0){$avg_h = null;}
           $vaks_pap = ["Reflexion / Taalbeschouwing" => "Reflexion", "Vocabulario / Woordenschat" => "Vocabulario", "Dictado / Dictee" => "Dictado", "Scucha y Papia / Luisteren en Spreken" => "Scucha y papia"];
           $vaks_lesa = ["Lesa tecnico / Technisch lezen" => "Lesamento Tecnico", "Lesa comprensivo / Leesbegrip" => "Lesamento Comprensivo"];
           $vaks_hul = ["Hulandes / Nederlands" => "Hul scucha y mira"];
-          $vaks_mat = ["Vision y comprension / Inzicht" => "h14"];
+          $vaks_mat = ["Vision y comprension / Inzicht" => "h15"];
           $vaks_mat1 = ["Nocion di number / Getalbegrip" => "Nocion di number", "Operacion basico y avansa / Basisvaardigheden" => "Operacion basico y avansa", "Midi y Geometria / Meten en Meetkunde" => "Midi y Geometria", "Tabel  y Grafico/ Tabel en Grafieken" => "Tabel"];
           $vaks_ext = ["Orientacion riba mundo / Wereldoriëntatie" => "Orientacion riba Mundo", "Skirbi / Schrijven" => "Skirbi", "Ingles / Engels" => "Engels", "Spaño / Spaans" => "Spaans", "Trafico / Verkeer" => "Trafico", "Charla / Spreekbeurt" => "Charla"];
 
@@ -3298,7 +3298,7 @@ if($avg_h == 0.0){$avg_h = null;}
         case 3:
           $vaks_pap = ["Reflexion / Taalbeschouwing" => "Reflexion", "Vocabulario / Woordenschat" => "Vocabulario", "Dictado / Dictee" => "Dictado", "Scucha y Papia / Luisteren en Spreken" => "Scucha y papia", "Lesa comprensivo / Leesbegrip" => "Lesamento Comprensivo"];
           $vaks_hul = ["Hulandes / Nederlands" => "Hul scucha y mira"];
-          $vaks_mat = ["Vision y comprension / Inzicht" => "h14"];
+          $vaks_mat = ["Vision y comprension / Inzicht" => "h15"];
           $vaks_mat1 = ["Nocion di number / Getalbegrip" => "Nocion di number", "Operacion basico y avansa / Basisvaardigheden" => "Operacion basico y avansa", "Midi y Geometria / Meten en Meetkunde" => "Midi y Geometria", "Tabel  y Grafico/ Tabel en Grafieken" => "Tabel"];
           $vaks_ext = ["Orientacion riba mundo / Wereldoriëntatie" => "Orientacion riba Mundo", "Skirbi / Schrijven" => "Skirbi", "Ingles / Engels" => "Engels", "Spaño / Spaans" => "Spaans", "Trafico / Verkeer" => "Trafico", "Charla / Spreekbeurt" => "Charla"];
 
@@ -3310,7 +3310,7 @@ if($avg_h == 0.0){$avg_h = null;}
         case 6:
           $vaks_pap = ["Reflexion / Taalbeschouwing" => "Reflexion", "Vocabulario / Woordenschat" => "Vocabulario", "Dictado / Dictee" => "Dictado", "Scucha y Papia / Luisteren en Spreken" => "Scucha y papia", "Lesa comprensivo / Leesbegrip" => "Lesamento Comprensivo"];
           $vaks_hul = ["Reflexion / Taalbeschouwing " => "Taalbeschouwing", "Vocabulario / Woordenschat " => "Woordenschat", "Dictado / Dictee " => "Dictee", "Scucha y Papia / Luisteren en Spreken " => "Luisteren en spreken", "Lesamento Comprensivo / Leesbegrip" => "Leesbegrip"];
-          $vaks_mat = ["Vision y comprension / Inzicht" => "h14"];
+          $vaks_mat = ["Vision y comprension / Inzicht" => "h15"];
           $vaks_mat1 = ["Nocion di number / Getalbegrip" => "Nocion di number", "Operacion basico y avansa / Basisvaardigheden" => "Operacion basico y avansa", "Midi y Geometria / Meten en Meetkunde" => "Midi y Geometria", "Tabel  y Grafico/ Tabel en Grafieken" => "Tabel y grafico"];
           $vaks_ext = ["Orientacion riba mundo / Wereldoriëntatie" => "Wereldorientatie", "Skirbi / Schrijven" => "Skirbi", "Ingles / Engels" => "Engels", "Spaño / Spaans" => "Spaans", "Trafico / Verkeer" => "Trafico", "Charla / Spreekbeurt" => "Charla"];
 
