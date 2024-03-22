@@ -1405,9 +1405,9 @@ class spn_see_kaart
   function _writerapportdata_verzuim_18($vaks, $rap_in, $verzuim)
   {
     $page = "";
-    foreach ($vaks as $vak) {
+    foreach ($vaks as $name => $vak) {
       $page .= "<tr>";
-      $page .= "<td width='65%'>" . $vak . "</td>";
+      $page .= "<td width='65%'>" . $name . "</td>";
       $page .= "<td></td>";
       $page .= "<td>" . $verzuim[1][$vak] . " </td>";
       $page .= "<td>" . ($rap_in >= 2 ? $verzuim[2][$vak] : "") . " </td>";

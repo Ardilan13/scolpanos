@@ -47,6 +47,7 @@ switch ($schoolId) {
     $img = "coco.png";
     $titleP = "Scol&nbsp&nbsp&nbspPa&nbsp&nbsp&nbspNos";
     $titleD = $s->_setting_school_name;
+    $cabesante = "Lourdes Vries";
     break;
   case 9:
     $img = "reina.jpeg";
@@ -66,15 +67,15 @@ switch ($schoolId) {
     $titleD = $s->_setting_school_name;
     $cabesante = "Cornelia Aventurin Connor";
     break;
-  case 13:
-    $img = "Abrahamdeveer.jpeg";
-    $titleP = "Commandant&nbsp&nbsp&nbspGeneraal&nbsp&nbsp&nbspAbraham&nbsp&nbsp&nbspde&nbsp&nbsp&nbspVeer School";
-    $titleD = "Commandant Generaal Abraham de Veer School";
-    break;
   case 12:
     $img = "ceque_logo.png";
     $titleP = "Ceque&nbsp&nbsp&nbsp&nbspCollege";
     $titleD = "Ceque College";
+    break;
+  case 13:
+    $img = "Abrahamdeveer.jpeg";
+    $titleP = "Commandant&nbsp&nbsp&nbspGeneraal&nbsp&nbsp&nbspAbraham&nbsp&nbsp&nbspde&nbsp&nbsp&nbspVeer School";
+    $titleD = "Commandant Generaal Abraham de Veer School";
     break;
   case 17:
     $img = "monplaisir.png";
@@ -455,7 +456,7 @@ foreach ($array_leerling as $item) {
         // $page_html .= "<input type='radio' " . ($advies3 === "EPB" || $volgorde[3] === 4 && $_GET["rap"] >= 3 ? "checked" : "") . "  style='margin-right: 5px;'><label>EPB</label>";
         // $page_html .= "</div>";
         // $page_html .= "</div>";
-        $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px; border: 2px solid black;'>" . utf8_decode($opmerking3) . "</textarea>";
+        $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px; border: 2px solid black;'>" . utf8_decode($opmerking3) . "</textarea></div>";
       }
     } else {
       $page_html .= "<label style=' max-width: 100px;'>Comentario Rapport 3</label>";
@@ -8801,7 +8802,11 @@ if($avg_h == 0.0){$avg_h = null;}
       $page_html .= "</tr>";
     }
 
-    $vaks_ver = ["Yega laat / Te laat" => "telaat", "Ausencia / Verzuim" => "absentie"];
+    if ($schoolId == 18) {
+      $vaks_ver = ["Laat" => "telaat", "Ausencia" => "absentie"];
+    } else {
+      $vaks_ver = ["Yega laat / Te laat" => "telaat", "Ausencia / Verzuim" => "absentie"];
+    }
     $student_verzuim = $c->_getstudent_verzuim_8($vaks_ver, $item['studentid'], $schooljaar, $_GET['rap'], $_SESSION["SchoolID"]);
     $page_html .= $c->_writerapportdata_verzuim_18($vaks_ver, $_GET['rap'], $student_verzuim);
 
@@ -9147,7 +9152,6 @@ if($avg_h == 0.0){$avg_h = null;}
     $page_html .= "</div>";
     $page_html .= "</div>";
   } else if ($_SESSION['SchoolID'] != 18 && $_SESSION['SchoolID'] != 8) {
-    
   }/*  else {
     $page_html .= "<label style='margin-right: 20px;'>Comentario Rapport 1</label>";
     $page_html .= "<textarea style='resize: none;overflow: hidden;width: 250px;height: auto;'>" . $opmerking1 . "</textarea>";
@@ -9303,7 +9307,7 @@ if($avg_h == 0.0){$avg_h = null;}
       $page_html .= "</div>";
     }
     $page_html .= "<div class='row'>";
-    $page_html .= "<div class='card'>";
+    $page_html .= "<div class='card' style='border:none;'>";
     $page_html .= "<div class='card-body' style='padding-bottom: 1%; padding-top: 1%;display:flex;justify-content:center; '>";
 
     $page_html .= "<table style='width:90%;' border='1'>";
