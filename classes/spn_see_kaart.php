@@ -1473,7 +1473,7 @@ class spn_see_kaart
         if ($select->num_rows > 0) {
           $select->bind_result($vak, $rap, $avg);
           while ($select->fetch()) {
-            if ($level_klas == 1 && $rap < 3) {
+            if ($level_klas == 1 && $rap < 2) {
               $avg = $avg >= 8.0 ? "B" : ($avg >= 5.5 ? "S" : "I");
               $result[$vak][$rap] = $avg;
             } else {
@@ -1515,25 +1515,25 @@ class spn_see_kaart
         $houding = array();
         foreach ($vaks as $name => $vak) {
           $avg = $row[$vak];
-          if ($vak != "h14" || $level_klas > 1 || $row["rapnummer"] > 2) {
-            if ($avg != null && $avg != "") {
-              switch ($avg) {
-                case 10:
-                  $avg = "B";
-                  break;
-                case 11:
-                  $avg = "S";
-                  break;
-                case 12:
-                  $avg = "I";
-                  break;
-              }
-            } else {
-              $avg = "B";
+          // if ($vak != "h14" || $level_klas > 1 || $row["rapnummer"] > 2) {
+          if ($avg != null && $avg != "") {
+            switch ($avg) {
+              case 10:
+                $avg = "B";
+                break;
+              case 11:
+                $avg = "S";
+                break;
+              case 12:
+                $avg = "I";
+                break;
             }
           } else {
-            $avg = "X";
+            $avg = "B";
           }
+          // } else {
+          //   $avg = "X";
+          // }
           if ($vak != "") {
             $houding[$vak] = $avg;
           }

@@ -181,6 +181,7 @@ $i = 1;
                     $werel = 0;
                     $prom = 0;
                     $sum = 0;
+                    $con = 0;
                     $cont = 0;
                     $reken_cont = 0;
                     $neder_cont = 0;
@@ -236,6 +237,7 @@ $i = 1;
                         }
                         $prom = round(($reken + ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) + $neder + $werel) / 4, 1);
                         $sum = round($reken + ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) + $neder, 1);
+                        // $con = ($reken < 5.5 ? 1 : 0) + (($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) < 5.5 ? 1 : 0) + ($neder < 5.5 ? 1 : 0);
                     }
                 } else if ($_SESSION["SchoolID"] == 8) {
                     if ($rapport == 4) {
@@ -329,19 +331,32 @@ $i = 1;
                         } else {
                             $volgorde = 0;
                             switch ($level_klas) {
+                                case 1:
+                                    if ($reken == 0 || $lezen == 0 || $neder == 0) {
+                                        $volgorde = 5;
+                                    } else if ($reken >= 5 && ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) >= 5 && $neder >= 5 && $sum >= 17) {
+                                        $volgorde = 1;
+                                    }
+                                    break;
                                 case 2:
-                                    if ($reken >= 5 && ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) >= 5 && $neder >= 5 && $sum >= 17) {
+                                    if ($reken == 0 || $lezen == 0 || $neder == 0) {
+                                        $volgorde = 5;
+                                    } else if ($reken >= 5 && ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) >= 5 && $neder >= 5 && $sum >= 17) {
                                         $volgorde = 1;
                                     }
                                     break;
                                 case 3:
-                                    if ($reken >= 5 && ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) >= 5 && $neder >= 5 && $werel >= 5 && $prom >= 5.5 && $sum >= 17) {
+                                    if ($reken == 0 || $lezen == 0 || $neder == 0) {
+                                        $volgorde = 5;
+                                    } else if ($reken >= 5 && ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) >= 5 && $neder >= 5 && $werel >= 5 && $prom >= 5.5 && $sum >= 17) {
                                         $volgorde = 1;
                                     }
                                     break;
                                 case 4:
                                 case 5:
-                                    if ($reken >= 5 && ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) >= 5 && $neder >= 5 && $werel >= 5.5 && $prom >= 5.6 && $sum >= 17) {
+                                    if ($reken == 0 || $lezen == 0 || $neder == 0) {
+                                        $volgorde = 5;
+                                    } else if ($reken >= 5 && ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) >= 5 && $neder >= 5 && $prom > 5.5 && $sum >= 17) {
                                         $volgorde = 1;
                                     }
                                     break;
@@ -376,7 +391,7 @@ $i = 1;
                                         $ned_pro = $ned_pro / $ned_cont;
                                     if ($wer_cont > 0)
                                         $wer_pro = $wer_pro / $wer_cont;
-                                    $prom = (($rek_pro + $reken) / 2) + (($ned_pro + $neder) / 2);
+                                    $prom = round(($rek_pro + $reken) / 2, 1) + round(($ned_pro + $neder) / 2, 1);
                                     if ((($rek_pro + $reken) / 2) >= 7.5 && (($ned_pro + $neder) / 2) >= 7.5 && ($werel + $wer_pro) / 2 >= 6) {
                                         $volgorde = 2;
                                     } else if (($rek_pro + $reken) / 2 >= 5 && ($ned_pro + $neder) / 2 >= 5 && ($werel + $wer_pro) / 2 >= 5.5 && $prom >= 12) {

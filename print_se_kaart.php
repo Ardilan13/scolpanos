@@ -522,10 +522,12 @@ foreach ($array_leerling as $item) {
   $page_html .= "<div style='width:25rem;' class='col-10 float-right'>";
   $page_html .= "<table style='text-align: center;'>";
   $page_html .= "<tbody>";
-  $page_html .= "<tr>";
-  $page_html .= "<td width='50%' height='40'><b>Leerkracht: </b></td>";
-  $page_html .= "<td><b><i>" . $tutor . "</i></b></td>";
-  $page_html .= "</tr>";
+  if ($schoolId == 8) {
+    $page_html .= "<tr>";
+    $page_html .= "<td width='50%' height='40'><b>Leerkracht: </b></td>";
+    $page_html .= "<td><b><i>" . $tutor . "</i></b></td>";
+    $page_html .= "</tr>";
+  }
   $page_html .= "<tr>";
   if ($_SESSION["SchoolID"] == 18) {
     $page_html .= "<td width='50%' height='40'><b>Nomber Alumno: </b></td>";
@@ -9208,8 +9210,11 @@ if($avg_h == 0.0){$avg_h = null;}
     // } else {
     //   $page_html .= "<b><p style='margin: .5rem !important; text-align: center; font-size: 14px;'>Verwezen naar " . utf8_decode($advies) . "</p></b>";
     // }
-
     $page_html .= "<div style='display:flex; margin-top: 1rem !important; flex-direction: row; justify-content: space-between; width: 100%;'>";
+    $page_html .= "<p style='margin-bottom: .6rem !important;display: inline; '>Mayor:</p>";
+    $page_html .= "<p>.................................................................</p>";
+    $page_html .= "</div>";
+    $page_html .= "<div style='display:flex;flex-direction: row; justify-content: space-between; width: 100%;'>";
     $page_html .= "<p style='margin-bottom: .6rem !important;display: inline; '>Naam leerkracht: " . $teacher . "</p>";
     $page_html .= "<p>.................................................................</p>";
     $page_html .= "</div>";
