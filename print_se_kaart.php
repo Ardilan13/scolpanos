@@ -163,7 +163,7 @@ foreach ($array_leerling as $item) {
     $radio1 = false;
     $radio2 = false;
     $radio3 = false;
-    if ($_SESSION["SchoolType"] == 1 && ($level_klas != 1 || $i != 1)) {
+    if ($_SESSION["SchoolType"] == 1 && ($level_klas != 1 || $i != 1 || $_SESSION["SchoolID"] == 18)) {
       $query = "SELECT opmerking1,opmerking3 FROM opmerking WHERE klas = '" . $_GET["klas"] . "' AND SchoolID = $schoolId AND studentid = $student AND schooljaar = '$schooljaar' AND rapport = $i LIMIT 1";
       $resultado = mysqli_query($mysqli, $query);
       if ($resultado->num_rows > 0) {
@@ -220,6 +220,11 @@ foreach ($array_leerling as $item) {
           }
           $volgorde[$i] = 0;
           switch ($level_klas) {
+            case 1:
+              if ($reken >= 5 && ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) >= 5 && $neder >= 5 && $sum >= 17) {
+                $volgorde[$i] = 1;
+              }
+              break;
             case 2:
               if ($reken >= 5 && ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) >= 5 && $neder >= 5 && $sum >= 17) {
                 $volgorde[$i] = 1;
@@ -232,7 +237,7 @@ foreach ($array_leerling as $item) {
               break;
             case 4:
             case 5:
-              if ($reken >= 5 && ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) >= 5 && $neder >= 5 && $werel >= 5.5 && $prom >= 5.6 && $sum >= 17) {
+              if ($reken >= 5 && ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) >= 5 && $neder >= 5 && $prom > 5.5 && $sum >= 17) {
                 $volgorde[$i] = 1;
               }
               break;
@@ -336,7 +341,7 @@ foreach ($array_leerling as $item) {
         }
 
         $page_html .= "</div>";
-        $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking1) . "</textarea></div>";
+        $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px; border: 2px solid black;'>" . utf8_decode($opmerking1) . "</textarea></div>";
       } else {
         $page_html .= "<div>";
         // $page_html .= "<div class='row' style='justify-content: space-evenly;'>";
@@ -350,7 +355,7 @@ foreach ($array_leerling as $item) {
         // $page_html .= "<input type='radio' " . ($advies1 === "EPB" || $volgorde[1] === 4 ? "checked" : "") . "  style='margin-right: 5px;'><label>EPB</label>";
         // $page_html .= "</div>";
         // $page_html .= "</div>";
-        $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking1) . "</textarea></div>";
+        $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px; border: 2px solid black;'>" . utf8_decode($opmerking1) . "</textarea></div>";
       }
     } else {
       $page_html .= "<label style=' max-width: 100px;'>Comentario Rapport 1</label>";
@@ -359,7 +364,7 @@ foreach ($array_leerling as $item) {
       $page_html .= "<div><input type='radio' " . ($advies1 == "S" ? "checked" : "") . "><label style='margin-right: 15px; margin-left:10px;'>Suficiente</label></div>";
       $page_html .= "<div><input type='radio' " . ($advies1 == "I" ? "checked" : "") . "><label style='margin-left:10px;'>Insuficiente</label></div>";
       $page_html .= "</div>";
-      $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking1) . "</textarea></div>";
+      $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px; border: 2px solid black;'>" . utf8_decode($opmerking1) . "</textarea></div>";
     }
 
     $page_html .= "</div>";
@@ -386,7 +391,7 @@ foreach ($array_leerling as $item) {
           $page_html .= "</div>";
         }
         $page_html .= "</div>";
-        $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking2) . "</textarea></div>";
+        $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px; border: 2px solid black;'>" . utf8_decode($opmerking2) . "</textarea></div>";
       } else {
         $page_html .= "<div>";
         // $page_html .= "<div class='row' style='justify-content: space-evenly;'>";
@@ -400,7 +405,7 @@ foreach ($array_leerling as $item) {
         // $page_html .= "<input type='radio' " . ($advies2 === "EPB" || $volgorde[2] === 4 && $_GET["rap"] >= 2 ? "checked" : "") . "  style='margin-right: 5px;'><label>EPB</label>";
         // $page_html .= "</div>";
         // $page_html .= "</div>";
-        $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking2) . "</textarea></div>";
+        $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px; border: 2px solid black;'>" . utf8_decode($opmerking2) . "</textarea></div>";
       }
     } else {
       $page_html .= "<label style=' max-width: 100px;'>Comentario Rapport 2</label>";
@@ -409,7 +414,7 @@ foreach ($array_leerling as $item) {
       $page_html .= "<div><input type='radio' " . ($advies2 == "S" && $_GET["rap"] >= 2 ? "checked" : "") . "><label style='margin-right: 15px; margin-left:10px;'>Suficiente</label></div>";
       $page_html .= "<div><input type='radio' " . ($advies2 == "I" && $_GET["rap"] >= 2 ? "checked" : "") . "><label style='margin-left:10px;'>Insuficiente</label></div>";
       $page_html .= "</div>";
-      $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking2) . "</textarea></div>";
+      $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px; border: 2px solid black;'>" . utf8_decode($opmerking2) . "</textarea></div>";
     }
 
     $page_html .= "</div>";
@@ -436,7 +441,7 @@ foreach ($array_leerling as $item) {
           $page_html .= "</div>";
         }
         $page_html .= "</div>";
-        $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking3) . "</textarea></div>";
+        $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px; border: 2px solid black;'>" . utf8_decode($opmerking3) . "</textarea></div>";
       } else {
         $page_html .= "<div>";
         // $page_html .= "<div class='row' style='justify-content: space-evenly;'>";
@@ -450,7 +455,7 @@ foreach ($array_leerling as $item) {
         // $page_html .= "<input type='radio' " . ($advies3 === "EPB" || $volgorde[3] === 4 && $_GET["rap"] >= 3 ? "checked" : "") . "  style='margin-right: 5px;'><label>EPB</label>";
         // $page_html .= "</div>";
         // $page_html .= "</div>";
-        $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking3) . "</textarea>";
+        $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px; border: 2px solid black;'>" . utf8_decode($opmerking3) . "</textarea>";
       }
     } else {
       $page_html .= "<label style=' max-width: 100px;'>Comentario Rapport 3</label>";
@@ -459,10 +464,31 @@ foreach ($array_leerling as $item) {
       $page_html .= "<div><input type='radio' " . ($advies3 == "S" && $_GET["rap"] >= 3 ? "checked" : "") . "><label style='margin-right: 15px; margin-left:10px;'>Suficiente</label></div>";
       $page_html .= "<div><input type='radio' " . ($advies3 == "I" && $_GET["rap"] >= 3 ? "checked" : "") . "><label style='margin-left:10px;'>Insuficiente</label></div>";
       $page_html .= "</div>";
-      $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;'>" . utf8_decode($opmerking3) . "</textarea></div>";
+      $page_html .= "<textarea style='resize: none;overflow: hidden;width: 300px;height: 100px;font-size: 11px;border: 2px solid black;'>" . utf8_decode($opmerking3) . "</textarea></div>";
     }
 
     $page_html .= "</div>";
+    if ($schoolId == 8) {
+      $page_html .= "<div style='display: flex; flex-direction: column; align-items: center;'>";
+
+      $page_html .= "<p style='text-align: center;'>Nificacion di letter</b>";
+      $page_html .= "<div>";
+      $page_html .= "<b style='margin-right: 20px;'>B = Bon</b>";
+      $page_html .= "<label style='margin-right: 20px;'>(8.0 - 10)</label>";
+      $page_html .= "</div>";
+      $page_html .= "<div>";
+      $page_html .= "<b style='margin-right: 20px;'>S = Suficiente</b>";
+      $page_html .= "<label style='margin-right: 20px;'>(5.5 - 7.9)</label>";
+      $page_html .= "</div>";
+      $page_html .= "<div>";
+      $page_html .= "<b style='margin-right: 20px;'>I = Insuficiente</b>";
+      $page_html .= "<label style='margin-right: 20px;'>(5.4 OF MENOS)</label>";
+      $page_html .= "</div>";
+
+
+      $page_html .= "</div>";
+    }
+
     $page_html .= "</div>";
     $page_html .= "</div>";
     if ($schoolId == 10) {
@@ -594,8 +620,8 @@ foreach ($array_leerling as $item) {
   }
   $page_html .= "<div class='row'>";
   if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["SchoolID"] != 18) {
-    $page_html .= "<div style='display: flex; flex-direction: row; align-items: center;' class='card'>";
-    $page_html .= "<img  width='100px' style='padding:0 20px; flex: 1.5;' src='" . appconfig::GetBaseURL() . "/assets/img/" . $img . "' class='mx-auto d-block'>";
+    $page_html .= "<div style='display: flex; flex-direction: row; align-items: center; border-color: black;' class='card'>";
+    $page_html .= "<img  width='100px' style='padding:2px 20px; flex: 1.5;' src='" . appconfig::GetBaseURL() . "/assets/img/" . $img . "' class='mx-auto d-block'>";
     $page_html .= "<div style='flex: 8.5;'>";
     if ($schoolId != 10) {
       $page_html .= "<h5 class='card-title text-center'>" . $titleD . "</h5>";
@@ -1491,7 +1517,7 @@ foreach ($array_leerling as $item) {
           $page_html .= "<td>" . $_h1 . " </td>";
           $page_html .= "<td> </td>";
           $page_html .= "<td> </td>";
-          $page_html .= "<td>" . $_h1  . " </td>";
+          $page_html .= "<td> </td>";
         } else {
           $page_html .= "<td> </td>";
           $page_html .= "<td> </td>";
@@ -1532,7 +1558,7 @@ foreach ($array_leerling as $item) {
         }
         if ($avg_h > 0.0) {
           if ($klas != 1) {
-            $page_html .= "<td>" . number_format($avg_h, 1) . " </td>";
+            $page_html .= "<td> </td>";
           }
         }
       }
@@ -7009,7 +7035,7 @@ if($avg_h == 0.0){$avg_h = null;}
       $page_html .= "<td></td>";
       $page_html .= "<td></td>";
       if ($klas != 1) {
-        $page_html .= "<td>" . $cont_laat . " </td>";
+        $page_html .= "<td> </td>";
       }
     }
     if ($_GET["rap"] == '2') {
@@ -7046,7 +7072,7 @@ if($avg_h == 0.0){$avg_h = null;}
       $promedio = $cont_laat1 + $cont_laat;
       $page_html .= "<td></td>";
       if ($klas != 1) {
-        $page_html .= "<td>" . $promedio . " </td>";
+        $page_html .= "<td> </td>";
       }
     }
     if ($_GET["rap"] == '3') {
@@ -7127,7 +7153,7 @@ if($avg_h == 0.0){$avg_h = null;}
       $page_html .= "<td></td>";
       $page_html .= "<td></td>";
       if ($klas != 1) {
-        $page_html .= "<td>" . $cont_laat . " </td>";
+        $page_html .= "<td> </td>";
       }
     }
     if ($_GET["rap"] == '2') {
@@ -7165,7 +7191,7 @@ if($avg_h == 0.0){$avg_h = null;}
       $page_html .= "<td></td>";
       $promedio = $cont_laat1 + $cont_laat;
       if ($klas != 1) {
-        $page_html .= "<td>" . $promedio . " </td>";
+        $page_html .= "<td> </td>";
       }
     }
     if ($_GET["rap"] == '3') {
@@ -9102,7 +9128,7 @@ if($avg_h == 0.0){$avg_h = null;}
     $page_html .= $c->_print_vaks_table_8(3, "", $vaks_ver, $_GET['rap'], FALSE, FALSE, $student_verzuim, $level_klas);
   }
   if ($_SESSION["SchoolID"] != 8) {
-    $page_html .= "<div class='card'>";
+    $page_html .= "<div class='card' style='border-color: white;'>";
   }
   if ($_SESSION['SchoolID'] == 18) {
     $page_html .= "<div class='card-body' style='padding-bottom: 0px; padding-top: 0px;'>";
@@ -9121,6 +9147,45 @@ if($avg_h == 0.0){$avg_h = null;}
     $page_html .= "</div>";
     $page_html .= "</div>";
   } else if ($_SESSION['SchoolID'] != 18 && $_SESSION['SchoolID'] != 8) {
+    
+  }/*  else {
+    $page_html .= "<label style='margin-right: 20px;'>Comentario Rapport 1</label>";
+    $page_html .= "<textarea style='resize: none;overflow: hidden;width: 250px;height: auto;'>" . $opmerking1 . "</textarea>";
+
+    $page_html .= "<label style='margin-right: 20px;'>Comentario Rapport 2</label>";
+    $page_html .= "<textarea style='resize: none;overflow: hidden;width: 250px;height: auto;'>" . $opmerking2 . "</textarea>";
+
+    $page_html .= "<label style='margin-right: 20px;'>Comentario Rapport 3</label>";
+    $page_html .= "<textarea style='resize: none;overflow: hidden;width: 250px;height: auto;'>" . $opmerking3 . "</textarea>";
+  } */
+  if ($_SESSION["SchoolID"] != 8) {
+    $page_html .= "</div>";
+  }
+  $page_html .= "</div>";
+  $page_html .= "</div>";
+
+
+  $page_html .= "<div class='row'>";
+  $page_html .= "<div class='card' style='border-color: black;'>";
+  $page_html .= "<div class='card-body' style='padding-bottom: 0px; padding-top: 0px;'>";
+
+
+  if ($_SESSION['SchoolType'] == 2) {
+    $page_html .= "<div class='row'>";
+    $page_html .= "<div class='col-6' style=''>";
+    $page_html .= "<h6 class='card-title'>Handtekening Mentor:</h6>";
+    $page_html .= "<br>";
+    $page_html .= "<br>";
+    $page_html .= "<hr style='border-top: 2px solid rgba(0, 0, 0, 0.34); border-top-style: dotted;'>";
+    $page_html .= "</div>";
+
+    $page_html .= "<div class='col-6'style=''>";
+    $page_html .= "<h6 class='card-title'>Handtekening Directeur:</h6>";
+    $page_html .= "<br>";
+    $page_html .= "<br>";
+    $page_html .= "<hr style='border-top: 2px solid rgba(0, 0, 0, 0.34); border-top-style: dotted;'>";
+    $page_html .= "</div>";
+  } else if ($_SESSION['SchoolID'] != 18) {
     $page_html .= "<h6>Betekenis cijfers/letters:</h6>";
     $page_html .= "<div class='row' style='height: 110px; justify-content: space-around;'>";
     $page_html .= "<div style='height: fit-content;'>";
@@ -9146,44 +9211,6 @@ if($avg_h == 0.0){$avg_h = null;}
     $page_html .= "<p style='margin-bottom: 0.1rem; font-size: 0.7rem'>F = Slecht</p>";
     $page_html .= "</div>";
     $page_html .= "</div>";
-  }/*  else {
-    $page_html .= "<label style='margin-right: 20px;'>Comentario Rapport 1</label>";
-    $page_html .= "<textarea style='resize: none;overflow: hidden;width: 250px;height: auto;'>" . $opmerking1 . "</textarea>";
-
-    $page_html .= "<label style='margin-right: 20px;'>Comentario Rapport 2</label>";
-    $page_html .= "<textarea style='resize: none;overflow: hidden;width: 250px;height: auto;'>" . $opmerking2 . "</textarea>";
-
-    $page_html .= "<label style='margin-right: 20px;'>Comentario Rapport 3</label>";
-    $page_html .= "<textarea style='resize: none;overflow: hidden;width: 250px;height: auto;'>" . $opmerking3 . "</textarea>";
-  } */
-  if ($_SESSION["SchoolID"] != 8) {
-    $page_html .= "</div>";
-  }
-  $page_html .= "</div>";
-  $page_html .= "</div>";
-
-
-  $page_html .= "<div class='row'>";
-  $page_html .= "<div class='card'>";
-  $page_html .= "<div class='card-body' style='padding-bottom: 0px; padding-top: 0px;'>";
-
-
-  if ($_SESSION['SchoolType'] == 2) {
-    $page_html .= "<div class='row'>";
-    $page_html .= "<div class='col-6' style=''>";
-    $page_html .= "<h6 class='card-title'>Handtekening Mentor:</h6>";
-    $page_html .= "<br>";
-    $page_html .= "<br>";
-    $page_html .= "<hr style='border-top: 2px solid rgba(0, 0, 0, 0.34); border-top-style: dotted;'>";
-    $page_html .= "</div>";
-
-    $page_html .= "<div class='col-6'style=''>";
-    $page_html .= "<h6 class='card-title'>Handtekening Directeur:</h6>";
-    $page_html .= "<br>";
-    $page_html .= "<br>";
-    $page_html .= "<hr style='border-top: 2px solid rgba(0, 0, 0, 0.34); border-top-style: dotted;'>";
-    $page_html .= "</div>";
-  } else if ($_SESSION['SchoolID'] != 18) {
     $page_html .= "<div class='row' style='margin: 0 !important;'>";
     $page_html .= "<div style='width: 100%;'>";
     $klas_next = substr($klas, 0, 1);
@@ -9210,16 +9237,27 @@ if($avg_h == 0.0){$avg_h = null;}
     // } else {
     //   $page_html .= "<b><p style='margin: .5rem !important; text-align: center; font-size: 14px;'>Verwezen naar " . utf8_decode($advies) . "</p></b>";
     // }
-    $page_html .= "<div style='display:flex; margin-top: 1rem !important; flex-direction: row; justify-content: space-between; width: 100%;'>";
-    $page_html .= "<p style='margin-bottom: .6rem !important;display: inline; '>Mayor:</p>";
-    $page_html .= "<p>.................................................................</p>";
-    $page_html .= "</div>";
-    $page_html .= "<div style='display:flex;flex-direction: row; justify-content: space-between; width: 100%;'>";
-    $page_html .= "<p style='margin-bottom: .6rem !important;display: inline; '>Naam leerkracht: " . $teacher . "</p>";
+    if ($_SESSION["SchoolID"] == 8) {
+      $page_html .= "<div style='display:flex; margin-top: 1rem !important; flex-direction: row; justify-content: space-between; width: 100%;'>";
+      $page_html .= "<p style='margin-bottom: .6rem !important;display: inline; '>Mayor:</p>";
+      $page_html .= "<p>.................................................................</p>";
+      $page_html .= "</div>";
+    }
+    if ($_SESSION["SchoolID"] == 8) {
+      $page_html .= "<div style='display:flex;flex-direction: row; justify-content: space-between; width: 100%;'>";
+      $page_html .= "<p style='margin-bottom: .6rem !important;display: inline; '>Nomber leerkracht: " . $teacher . "</p>";
+    } else {
+      $page_html .= "<div style='display:flex;flex-direction: row; justify-content: space-between; width: 100%; margin-top: 1rem !important;'>";
+      $page_html .= "<p style='margin-bottom: 1.5rem !important;display: inline; '>Naam leerkracht: " . $teacher . "</p>";
+    }
     $page_html .= "<p>.................................................................</p>";
     $page_html .= "</div>";
     $page_html .= "<div style='display:flex; flex-direction: row; justify-content: space-between; width: 100%;'>";
-    $page_html .= "<p style='margin-bottom: .6rem !important;display: inline;'>Naam Schoolhoofd: " . $cabesante . "</p>";
+    if ($_SESSION["SchoolID"] == 8) {
+      $page_html .= "<p style='margin-bottom: .6rem !important;display: inline;'>Nomber Schoolhoofd: " . $cabesante . "</p>";
+    } else {
+      $page_html .= "<p style='margin-bottom: 1.5rem !important;display: inline;'>Naam Schoolhoofd: " . $cabesante . "</p>";
+    }
     $page_html .= "<p style='margin-bottom: ;'>.................................................................</p>";
     $page_html .= "</div>";
     // $page_html .= "<div style='display: flex; align-items: center;'>";

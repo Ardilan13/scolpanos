@@ -110,8 +110,9 @@
     $("#houding_klassen_lijst").change(function() {
         var klas = $("#houding_klassen_lijst").val();
         var type = $("#type").val();
+        var schoolid = $("#schoolid").val();
         var level_klas = klas.substr(0, 1);
-        if (level_klas == "1" && type == "1") {
+        if (level_klas == "1" && type == "1" && schoolid != "18") {
             $("#cijfers_rapporten_lijst option[value='1']").hide();
             $("#cijfers_rapporten_lijst").val("2");
         } else {
