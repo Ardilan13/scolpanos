@@ -232,7 +232,7 @@ foreach ($array_leerling as $item) {
               }
               break;
             case 3:
-              if ($reken >= 5 && ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) >= 5 && $neder >= 5 && $werel >= 5 && $prom >= 5.5 && $sum >= 17) {
+              if ($reken >= 5.5 && ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) >= 5.5 && $neder >= 5.5 && $prom > 5.5 && $sum >= 17) {
                 $volgorde[$i] = 1;
               }
               break;
@@ -265,10 +265,10 @@ foreach ($array_leerling as $item) {
                 $rek_pro = $rek_pro / $rek_cont;
               if ($ned_cont > 0)
                 $ned_pro = $ned_pro / $ned_cont;
-              $prom = (($rek_pro + $reken) / 2) + (($ned_pro + $neder) / 2);
-              if ((($rek_pro + $reken) / 2) >= 7.5 && (($ned_pro + $neder) / 2) >= 7.5 && $werel >= 6) {
+              $prom = round(($rek_pro + $reken) / 2, 1) + round(($ned_pro + $neder) / 2, 1);
+              if (round(($rek_pro + $reken) / 2, 1) >= 7.5 && round(($ned_pro + $neder) / 2, 1) >= 7.5 && $werel >= 6) {
                 $volgorde[$i] = 2;
-              } else if (($rek_pro + $reken) / 2 >= 5 && ($ned_pro + $neder) / 2 >= 5 && $werel >= 5.5 && $prom >= 12) {
+              } else if (round(($rek_pro + $reken) / 2, 1) >= 5 && round(($ned_pro + $neder) / 2, 1) >= 5 && $werel >= 5.5 && $prom >= 12) {
                 $volgorde[$i] = 3;
               } else if ($rek_pro <= 0 || $ned_pro <= 0) {
                 $volgorde[$i] = 5;
@@ -3290,20 +3290,26 @@ if($avg_h == 0.0){$avg_h = null;}
           $vaks_hul = ["Hulandes / Nederlands" => "Hul scucha y mira"];
           $vaks_mat = ["Vision y comprension / Inzicht" => "h15"];
           $vaks_mat1 = ["Nocion di number / Getalbegrip" => "Nocion di number", "Operacion basico y avansa / Basisvaardigheden" => "Operacion basico y avansa", "Midi y Geometria / Meten en Meetkunde" => "Midi y Geometria", "Tabel  y Grafico/ Tabel en Grafieken" => "Tabel"];
-          $vaks_ext = ["Orientacion riba mundo / Wereldoriëntatie" => "Orientacion riba Mundo", "Skirbi / Schrijven" => "Skirbi", "Ingles / Engels" => "Engels", "Spaño / Spaans" => "Spaans", "Trafico / Verkeer" => "Trafico", "Charla / Spreekbeurt" => "Charla"];
+          $vaks_ext = ["Orientacion riba mundo / Wereldoriëntatie" => "Orientacion riba Mundo", "Skirbi / Schrijven" => "Skirbi", "Trafico / Verkeer" => "Trafico", "Charla / Spreekbeurt" => "Charla"];
+          $vaks_eng = ["Ingles / Engels" => "h1", "Spaño / Spaans" => "h2"];
+
 
           $vaks_mov = ["Movecion / Lichamelijk opvoeding" => "Movecion",  "Arte / Beeldende vorming" => "Arte"]; // derecha fila
           $vaks = $vaks_mov + $vaks_lesa + $vaks_pap + $vaks_hul + $vaks_mat1 + $vaks_ext;
+          $vaks_mat = $vaks_mat + $vaks_eng;
           break;
         case 3:
           $vaks_pap = ["Reflexion / Taalbeschouwing" => "Reflexion", "Vocabulario / Woordenschat" => "Vocabulario", "Dictado / Dictee" => "Dictado", "Scucha y Papia / Luisteren en Spreken" => "Scucha y papia", "Lesa comprensivo / Leesbegrip" => "Lesamento Comprensivo"];
           $vaks_hul = ["Hulandes / Nederlands" => "Hul scucha y mira"];
           $vaks_mat = ["Vision y comprension / Inzicht" => "h15"];
           $vaks_mat1 = ["Nocion di number / Getalbegrip" => "Nocion di number", "Operacion basico y avansa / Basisvaardigheden" => "Operacion basico y avansa", "Midi y Geometria / Meten en Meetkunde" => "Midi y Geometria", "Tabel  y Grafico/ Tabel en Grafieken" => "Tabel"];
-          $vaks_ext = ["Orientacion riba mundo / Wereldoriëntatie" => "Orientacion riba Mundo", "Skirbi / Schrijven" => "Skirbi", "Ingles / Engels" => "Engels", "Spaño / Spaans" => "Spaans", "Trafico / Verkeer" => "Trafico", "Charla / Spreekbeurt" => "Charla"];
+          $vaks_ext = ["Orientacion riba mundo / Wereldoriëntatie" => "Orientacion riba Mundo", "Skirbi / Schrijven" => "Skirbi", "Trafico / Verkeer" => "Trafico", "Charla / Spreekbeurt" => "Charla"];
+          $vaks_eng = ["Ingles / Engels" => "h1", "Spaño / Spaans" => "h2"];
+
 
           $vaks_mov = ["Movecion / Lichamelijk opvoeding" => "Movecion",  "Arte / Beeldende vorming" => "Arte"]; // derecha fila
           $vaks = $vaks_mov + $vaks_pap + $vaks_hul + $vaks_mat1 + $vaks_ext;
+          $vaks_mat = $vaks_mat + $vaks_eng;
           break;
         case 4:
         case 5:
@@ -3339,6 +3345,7 @@ if($avg_h == 0.0){$avg_h = null;}
           $page_html .= $c->_print_vaks_table_8(2, "Matematica / Rekenen", $vaks_mat, $_GET['rap'], FALSE, TRUE, $student_houding_in, $level_klas);
           $page_html .= $c->_print_vaks_table_8(1, "", $vaks_mat1, $_GET['rap'], TRUE, FALSE, $student_cijfers, $level_klas);
           $page_html .= $c->_print_vaks_table_8(1, "", $vaks_ext, $_GET['rap'], FALSE, FALSE, $student_cijfers, $level_klas);
+          $page_html .= $c->_print_vaks_table_8(2, "", $vaks_eng, $_GET['rap'], FALSE, TRUE, $student_houding_in, $level_klas);
           break;
         case 3:
           $page_html .= $c->_print_vaks_table_8(1, "Papiamento / Papiaments", $vaks_pap, $_GET['rap'], TRUE, TRUE, $student_cijfers, $level_klas);
@@ -3346,6 +3353,7 @@ if($avg_h == 0.0){$avg_h = null;}
           $page_html .= $c->_print_vaks_table_8(2, "Matematica / Rekenen", $vaks_mat, $_GET['rap'], FALSE, TRUE, $student_houding_in, $level_klas);
           $page_html .= $c->_print_vaks_table_8(1, "", $vaks_mat1, $_GET['rap'], TRUE, FALSE, $student_cijfers, $level_klas);
           $page_html .= $c->_print_vaks_table_8(1, "", $vaks_ext, $_GET['rap'], FALSE, FALSE, $student_cijfers, $level_klas);
+          $page_html .= $c->_print_vaks_table_8(2, "", $vaks_eng, $_GET['rap'], FALSE, TRUE, $student_houding_in, $level_klas);
           break;
         case 4:
         case 5:
@@ -8802,310 +8810,9 @@ if($avg_h == 0.0){$avg_h = null;}
       $page_html .= "</tr>";
     }
 
-    if ($schoolId == 18) {
-      $vaks_ver = ["Laat" => "telaat", "Ausencia" => "absentie"];
-    } else {
-      $vaks_ver = ["Yega laat / Te laat" => "telaat", "Ausencia / Verzuim" => "absentie"];
-    }
+    $vaks_ver = ["Laat" => "telaat", "Absentismo" => "absentie"];
     $student_verzuim = $c->_getstudent_verzuim_8($vaks_ver, $item['studentid'], $schooljaar, $_GET['rap'], $_SESSION["SchoolID"]);
     $page_html .= $c->_writerapportdata_verzuim_18($vaks_ver, $_GET['rap'], $student_verzuim);
-
-    // $page_html .= "<tr>";
-
-    // $page_html .= "<td width='65%'>Laat</td>";
-    // $page_html .= "<td></td>";
-    // $cont_laat = 0;
-    // $cont_verzuim = 0;
-    // $klas = $_GET["klas"];
-    // $schoolid = $_SESSION["SchoolID"];
-    // if ($_GET["rap"] == '1') {
-    //   $id = $item['studentid'];
-    //   $schooljaar = $_GET["schoolJaar"];
-    //   $fecha1 = $s->_setting_begin_rap_1;
-    //   $fecha2 = $s->_setting_end_rap_1;
-    //   $sql_query_verzuim = "SELECT v.telaat, v.datum
-    // 			from students s inner join le_verzuim v
-    // 			where s.class = '$klas'  and s.schoolid = $schoolid and v.schooljaar = '$schooljaar' and v.studentid = $id and s.id = $id ORDER BY v.created;";
-    //   $resultado = mysqli_query($mysqli, $sql_query_verzuim);
-    //   while ($row1 = mysqli_fetch_assoc($resultado)) {
-    //     $datum = $u->convertfrommysqldate_new($row1["datum"]);
-    //     if ($datum >= $fecha1 && $datum <= $fecha2) {
-    //       if ($row1['telaat'] > 0) {
-    //         $cont_laat++;
-    //       }
-    //     }
-    //   }
-    //   $page_html .= "<td>" . $cont_laat . " </td>";
-    //   $page_html .= "<td></td>";
-    //   $page_html .= "<td></td>";
-    // }
-    // if ($_GET["rap"] == '2') {
-    //   $cont_laat1 = 0;
-    //   $id = $item['studentid'];
-    //   $schooljaar = $_GET["schoolJaar"];
-    //   $fecha1 = $s->_setting_begin_rap_1;
-    //   $fecha2 = $s->_setting_end_rap_1;
-    //   $fecha3 = $s->_setting_begin_rap_2;
-    //   $fecha4 = $s->_setting_end_rap_2;
-    //   $sql_query_verzuim = "SELECT v.telaat, v.datum
-    // 			from students s inner join le_verzuim v
-    // 			where s.class = '$klas'  and s.schoolid = $schoolid and v.schooljaar = '$schooljaar' and v.studentid = $id and s.id = $id ORDER BY v.created;";
-    //   $resultado = mysqli_query($mysqli, $sql_query_verzuim);
-    //   while ($row1 = mysqli_fetch_assoc($resultado)) {
-    //     $datum = $u->convertfrommysqldate_new($row1["datum"]);
-    //     if ($datum >= $fecha1 && $datum <= $fecha2) {
-    //       if ($row1['telaat'] > 0) {
-    //         $cont_laat++;
-    //       }
-    //     }
-    //     if ($datum >= $fecha3 && $datum <= $fecha4) {
-    //       if ($row1['telaat'] > 0) {
-    //         $cont_laat1++;
-    //       }
-    //     }
-    //   }
-    //   $page_html .= "<td>" . $cont_laat . " </td>";
-    //   $page_html .= "<td>" . $cont_laat1 . " </td>";
-    //   $page_html .= "<td></td>";
-    // }
-    // if ($_GET["rap"] == '3') {
-    //   $cont_laat1 = 0;
-    //   $cont_laat2 = 0;
-    //   $id = $item['studentid'];
-    //   $schooljaar = $_GET["schoolJaar"];
-    //   $fecha1 = $s->_setting_begin_rap_1;
-    //   $fecha2 = $s->_setting_end_rap_1;
-    //   $fecha3 = $s->_setting_begin_rap_2;
-    //   $fecha4 = $s->_setting_end_rap_2;
-    //   $fecha5 = $s->_setting_begin_rap_3;
-    //   $fecha6 = $s->_setting_end_rap_3;
-    //   $sql_query_verzuim = "SELECT v.telaat, v.datum
-    // 			from students s inner join le_verzuim v
-    // 			where s.class = '$klas'  and s.schoolid = $schoolid and v.schooljaar = '$schooljaar' and v.studentid = $id and s.id = $id ORDER BY v.created;";
-    //   $resultado = mysqli_query($mysqli, $sql_query_verzuim);
-    //   while ($row1 = mysqli_fetch_assoc($resultado)) {
-    //     $datum = $u->convertfrommysqldate_new($row1["datum"]);
-    //     if ($datum >= $fecha1 && $datum <= $fecha2) {
-    //       if ($row1['telaat'] > 0) {
-    //         $cont_laat++;
-    //       }
-    //     }
-    //     if ($datum >= $fecha3 && $datum <= $fecha4) {
-    //       if ($row1['telaat'] > 0) {
-    //         $cont_laat1++;
-    //       }
-    //     }
-    //     if ($datum >= $fecha5 && $datum <= $fecha6) {
-    //       if ($row1['telaat'] > 0) {
-    //         $cont_laat2++;
-    //       }
-    //     }
-    //   }
-    //   $page_html .= "<td>" . $cont_laat . " </td>";
-    //   $page_html .= "<td>" . $cont_laat1 . " </td>";
-    //   $page_html .= "<td>" . $cont_laat2 . " </td>";
-    // }
-
-    // $page_html .= "</tr>";
-
-    // $page_html .= "<tr>";
-
-    // $page_html .= "<td width='65%'>Ausencia</td>";
-    // $page_html .= "<td></td>";
-    // if ($_GET["rap"] == '1') {
-    //   $cont_laat = 0;
-    //   $id = $item['studentid'];
-    //   $schooljaar = $_GET["schoolJaar"];
-    //   $fecha1 = $s->_setting_begin_rap_1;
-    //   $fecha2 = $s->_setting_end_rap_1;
-    //   $sql_query_verzuim = "SELECT s.id as studentid,v.telaat,v.absentie,v.huiswerk, v.datum
-    // 			from students s inner join le_verzuim v
-    // 			where s.class = '$klas'  and s.schoolid = $schoolid and v.schooljaar = '$schooljaar' and v.studentid = $id and s.id = $id ORDER BY v.created;";
-    //   $resultado = mysqli_query($mysqli, $sql_query_verzuim);
-    //   while ($row1 = mysqli_fetch_assoc($resultado)) {
-    //     $datum = $u->convertfrommysqldate_new($row1["datum"]);
-    //     if ($datum >= $fecha1 && $datum <= $fecha2) {
-    //       if ($row1['absentie'] > 0) {
-    //         $cont_laat++;
-    //       }
-    //     }
-    //   }
-    //   $page_html .= "<td>" . $cont_laat . " </td>";
-    //   $page_html .= "<td></td>";
-    //   $page_html .= "<td></td>";
-    // }
-    // if ($_GET["rap"] == '2') {
-    //   $cont_laat = 0;
-    //   $cont_laat1 = 0;
-    //   $id = $item['studentid'];
-    //   $schooljaar = $_GET["schoolJaar"];
-    //   $fecha1 = $s->_setting_begin_rap_1;
-    //   $fecha2 = $s->_setting_end_rap_1;
-    //   $fecha3 = $s->_setting_begin_rap_2;
-    //   $fecha4 = $s->_setting_end_rap_2;
-    //   $sql_query_verzuim = "SELECT s.id as studentid,v.telaat,v.absentie,v.huiswerk, v.datum
-    // 			from students s inner join le_verzuim v
-    // 			where s.class = '$klas'  and s.schoolid = $schoolid and v.schooljaar = '$schooljaar' and v.studentid = $id and s.id = $id ORDER BY v.created;";
-    //   $resultado = mysqli_query($mysqli, $sql_query_verzuim);
-    //   while ($row1 = mysqli_fetch_assoc($resultado)) {
-    //     $datum = $u->convertfrommysqldate_new($row1["datum"]);
-    //     if ($datum >= $fecha1 && $datum <= $fecha2) {
-    //       if ($row1['absentie'] > 0) {
-    //         $cont_laat++;
-    //       }
-    //     }
-    //     if ($datum >= $fecha3 && $datum <= $fecha4) {
-    //       if ($row1['absentie'] > 0) {
-    //         $cont_laat1++;
-    //       }
-    //     }
-    //   }
-    //   $page_html .= "<td>" . $cont_laat . " </td>";
-    //   $page_html .= "<td>" . $cont_laat1 . " </td>";
-    //   $page_html .= "<td></td>";
-    // }
-    // if ($_GET["rap"] == '3') {
-    //   $cont_laat = 0;
-    //   $cont_laat1 = 0;
-    //   $cont_laat2 = 0;
-    //   $id = $item['studentid'];
-    //   $schooljaar = $_GET["schoolJaar"];
-    //   $fecha1 = $s->_setting_begin_rap_1;
-    //   $fecha2 = $s->_setting_end_rap_1;
-    //   $fecha3 = $s->_setting_begin_rap_2;
-    //   $fecha4 = $s->_setting_end_rap_2;
-    //   $fecha5 = $s->_setting_begin_rap_3;
-    //   $fecha6 = $s->_setting_end_rap_3;
-    //   $sql_query_verzuim = "SELECT s.id as studentid,v.telaat,v.absentie,v.huiswerk, v.datum
-    // 			from students s inner join le_verzuim v
-    // 			where s.class = '$klas'  and s.schoolid = $schoolid and v.schooljaar = '$schooljaar' and v.studentid = $id and s.id = $id ORDER BY v.created;";
-    //   $resultado = mysqli_query($mysqli, $sql_query_verzuim);
-    //   while ($row1 = mysqli_fetch_assoc($resultado)) {
-    //     $datum = $u->convertfrommysqldate_new($row1["datum"]);
-    //     if ($datum >= $fecha1 && $datum <= $fecha2) {
-    //       if ($row1['absentie'] > 0) {
-    //         $cont_laat++;
-    //       }
-    //     }
-    //     if ($datum >= $fecha3 && $datum <= $fecha4) {
-    //       if ($row1['absentie'] > 0) {
-    //         $cont_laat1++;
-    //       }
-    //     }
-    //     if ($datum >= $fecha5 && $datum <= $fecha6) {
-    //       if ($row1['absentie'] > 0) {
-    //         $cont_laat2++;
-    //       }
-    //     }
-    //   }
-    //   $page_html .= "<td>" . $cont_laat . " </td>";
-    //   $page_html .= "<td>" . $cont_laat1 . " </td>";
-    //   $page_html .= "<td>" . $cont_laat2 . " </td>";
-    // }
-
-    // $page_html .= "</tr>";
-
-    if ($_SESSION["SchoolID"] != 18) {
-
-      $page_html .= "<tr>";
-
-      $page_html .= "<td width='65%'>Tarea pa cas</td>";
-      $page_html .= "<td></td>";
-      if ($_GET["rap"] == '1') {
-        $cont_laat = 0;
-
-        $id = $item['studentid'];
-        $schooljaar = $_GET["schoolJaar"];
-        $fecha1 = $s->_setting_begin_rap_1;
-        $fecha2 = $s->_setting_end_rap_1;
-        $sql_query_verzuim = "SELECT s.id as studentid,v.telaat,v.absentie,v.huiswerk, v.datum
-					from students s inner join le_verzuim v
-					where s.class = '$klas'  and s.schoolid = $schoolid and v.schooljaar = '$schooljaar' and v.studentid = $id and s.id = $id ORDER BY v.created;";
-        $resultado = mysqli_query($mysqli, $sql_query_verzuim);
-        while ($row1 = mysqli_fetch_assoc($resultado)) {
-          $datum = $u->convertfrommysqldate_new($row1["datum"]);
-          if ($datum >= $fecha1 && $datum <= $fecha2) {
-            if ($row1['huiswerk'] > 0) {
-              $cont_laat++;
-            }
-          }
-        }
-        $page_html .= "<td>" . $cont_laat . " </td>";
-        $page_html .= "<td>" . $cont_laat . " </td>";
-      }
-      if ($_GET["rap"] == '2') {
-        $cont_laat1 = 0;
-        $id = $item['studentid'];
-        $schooljaar = $_GET["schoolJaar"];
-        $fecha1 = $s->_setting_begin_rap_1;
-        $fecha2 = $s->_setting_end_rap_1;
-        $fecha3 = $s->_setting_begin_rap_2;
-        $fecha4 = $s->_setting_end_rap_2;
-        $sql_query_verzuim = "SELECT s.id as studentid,v.telaat,v.absentie,v.huiswerk, v.datum
-					from students s inner join le_verzuim v
-					where s.class = '$klas'  and s.schoolid = $schoolid and v.schooljaar = '$schooljaar' and v.studentid = $id and s.id = $id ORDER BY v.created;";
-        $resultado = mysqli_query($mysqli, $sql_query_verzuim);
-        while ($row1 = mysqli_fetch_assoc($resultado)) {
-          $datum = $u->convertfrommysqldate_new($row1["datum"]);
-          if ($datum >= $fecha1 && $datum <= $fecha2) {
-            if ($row1['huiswerk'] > 0) {
-              $cont_laat++;
-            }
-          }
-          if ($datum >= $fecha3 && $datum <= $fecha4) {
-            if ($row1['huiswerk'] > 0) {
-              $cont_laat1++;
-            }
-          }
-        }
-        $page_html .= "<td>" . $cont_laat . " </td>";
-        $page_html .= "<td>" . $cont_laat1 . " </td>";
-        $promedio = $cont_laat1 + $cont_laat;
-        $page_html .= "<td>" . $promedio . " </td>";
-      }
-      if ($_GET["rap"] == '3') {
-        $cont_laat1 = 0;
-        $cont_laat2 = 0;
-        $id = $item['studentid'];
-        $schooljaar = $_GET["schoolJaar"];
-        $fecha1 = $s->_setting_begin_rap_1;
-        $fecha2 = $s->_setting_end_rap_1;
-        $fecha3 = $s->_setting_begin_rap_2;
-        $fecha4 = $s->_setting_end_rap_2;
-        $fecha5 = $s->_setting_begin_rap_3;
-        $fecha6 = $s->_setting_end_rap_3;
-        $sql_query_verzuim = "SELECT s.id as studentid,v.telaat,v.absentie,v.huiswerk, v.datum
-					from students s inner join le_verzuim v
-					where s.class = '$klas'  and s.schoolid = $schoolid and v.schooljaar = '$schooljaar' and v.studentid = $id and s.id = $id ORDER BY v.created;";
-        $resultado = mysqli_query($mysqli, $sql_query_verzuim);
-        while ($row1 = mysqli_fetch_assoc($resultado)) {
-          $datum = $u->convertfrommysqldate_new($row1["datum"]);
-          if ($datum >= $fecha1 && $datum <= $fecha2) {
-            if ($row1['huiswerk'] > 0) {
-              $cont_laat++;
-            }
-          }
-          if ($datum >= $fecha3 && $datum <= $fecha4) {
-            if ($row1['huiswerk'] > 0) {
-              $cont_laat1++;
-            }
-          }
-          if ($datum >= $fecha5 && $datum <= $fecha6) {
-            if ($row1['huiswerk'] > 0) {
-              $cont_laat2++;
-            }
-          }
-        }
-        $page_html .= "<td>" . $cont_laat . " </td>";
-        $page_html .= "<td>" . $cont_laat1 . " </td>";
-        $page_html .= "<td>" . $cont_laat2 . " </td>";
-        $promedio = $cont_laat + $cont_laat1 + $cont_laat2;
-        $page_html .= "<td>" . $promedio . " </td>";
-      }
-
-      $page_html .= "</tr>";
-    }
-
 
     $page_html .= "</tbody>";
 
@@ -9249,18 +8956,18 @@ if($avg_h == 0.0){$avg_h = null;}
     }
     if ($_SESSION["SchoolID"] == 8) {
       $page_html .= "<div style='display:flex;flex-direction: row; justify-content: space-between; width: 100%;'>";
-      $page_html .= "<p style='margin-bottom: .6rem !important;display: inline; '>Nomber leerkracht: " . $teacher . "</p>";
+      $page_html .= "<p style='margin-bottom: .6rem !important;display: inline; '>Nomber leerkracht: " . utf8_decode($teacher) . "</p>";
     } else {
       $page_html .= "<div style='display:flex;flex-direction: row; justify-content: space-between; width: 100%; margin-top: 1rem !important;'>";
-      $page_html .= "<p style='margin-bottom: 1.5rem !important;display: inline; '>Naam leerkracht: " . $teacher . "</p>";
+      $page_html .= "<p style='margin-bottom: 1.5rem !important;display: inline; '>Naam leerkracht: " . utf8_decode($teacher) . "</p>";
     }
     $page_html .= "<p>.................................................................</p>";
     $page_html .= "</div>";
     $page_html .= "<div style='display:flex; flex-direction: row; justify-content: space-between; width: 100%;'>";
     if ($_SESSION["SchoolID"] == 8) {
-      $page_html .= "<p style='margin-bottom: .6rem !important;display: inline;'>Nomber Schoolhoofd: " . $cabesante . "</p>";
+      $page_html .= "<p style='margin-bottom: .6rem !important;display: inline;'>Nomber Schoolhoofd: " . utf8_decode($cabesante) . "</p>";
     } else {
-      $page_html .= "<p style='margin-bottom: 1.5rem !important;display: inline;'>Naam Schoolhoofd: " . $cabesante . "</p>";
+      $page_html .= "<p style='margin-bottom: 1.5rem !important;display: inline;'>Naam Schoolhoofd: " . utf8_decode($cabesante) . "</p>";
     }
     $page_html .= "<p style='margin-bottom: ;'>.................................................................</p>";
     $page_html .= "</div>";
@@ -9307,7 +9014,7 @@ if($avg_h == 0.0){$avg_h = null;}
       $page_html .= "</div>";
     }
     $page_html .= "<div class='row'>";
-    $page_html .= "<div class='card' style='border:none;'>";
+    $page_html .= "<div class='card' style='border:none; border-color:white;'>";
     $page_html .= "<div class='card-body' style='padding-bottom: 1%; padding-top: 1%;display:flex;justify-content:center; '>";
 
     $page_html .= "<table style='width:90%;' border='1'>";
