@@ -332,31 +332,21 @@ $i = 1;
                             $volgorde = 0;
                             switch ($level_klas) {
                                 case 1:
-                                    if ($reken == 0 || $lezen == 0 || $neder == 0) {
-                                        $volgorde = 5;
-                                    } else if ($reken >= 5 && ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) >= 5 && $neder >= 5 && $sum >= 17) {
-                                        $volgorde = 1;
-                                    }
-                                    break;
                                 case 2:
+                                    $cont_5 = ($reken < 5.5 ? 1 : 0) + (round($lezen / ($lezen_cont > 0 ? $lezen_cont : 1), 1) < 5.5 ? 1 : 0) + ($neder < 5.5 ? 1: 0);
                                     if ($reken == 0 || $lezen == 0 || $neder == 0) {
                                         $volgorde = 5;
-                                    } else if ($reken >= 5 && ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) >= 5 && $neder >= 5 && $sum >= 17) {
+                                    } else if ($reken >= 5 && round($lezen / ($lezen_cont > 0 ? $lezen_cont : 1), 1) >= 5 && $neder >= 5 && $sum >= 17 && $cont_5 < 2) {
                                         $volgorde = 1;
                                     }
                                     break;
                                 case 3:
-                                    if ($reken == 0 || $lezen == 0 || $neder == 0) {
-                                        $volgorde = 5;
-                                    } else if ($reken >= 5.5 && ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) >= 5.5 && $neder >= 5.5 && $prom > 5.5 && $sum >= 17) {
-                                        $volgorde = 1;
-                                    }
-                                    break;
                                 case 4:
                                 case 5:
+                                    $cont_5 = ($reken < 5.5 ? 1 : 0) + (round($lezen / ($lezen_cont > 0 ? $lezen_cont : 1), 1) < 5.5 ? 1 : 0) + ($neder < 5.5 ? 1: 0);
                                     if ($reken == 0 || $lezen == 0 || $neder == 0) {
                                         $volgorde = 5;
-                                    } else if ($reken >= 5 && ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) >= 5 && $neder >= 5 && $prom > 5.5 && $sum >= 17) {
+                                    } else if ($reken >= 5 && round($lezen / ($lezen_cont > 0 ? $lezen_cont : 1), 1) >= 5 && $neder >= 5 && $prom > 5.5 && $sum >= 17 && $cont_5 < 2) {
                                         $volgorde = 1;
                                     }
                                     break;
@@ -392,9 +382,9 @@ $i = 1;
                                     if ($wer_cont > 0)
                                         $wer_pro = $wer_pro / $wer_cont;
                                     $prom = round(($rek_pro + $reken) / 2, 1) + round(($ned_pro + $neder) / 2, 1);
-                                    if (round(($rek_pro + $reken) / 2, 1) >= 7.5 && round(($ned_pro + $neder) / 2,1) >= 7.5 && round(($werel + $wer_pro) / 2, 1) >= 6) {
+                                    if (round(($rek_pro + $reken) / 2, 1) >= 7.5 && round(($ned_pro + $neder) / 2, 1) >= 7.5 && round(($werel + $wer_pro) / 2, 1) >= 6) {
                                         $volgorde = 2;
-                                    } else if (round(($rek_pro + $reken) / 2,1) >= 5 && round(($ned_pro + $neder) / 2,1) >= 5 && round(($werel + $wer_pro) / 2, 1) >= 5.5 && $prom >= 12) {
+                                    } else if (round(($rek_pro + $reken) / 2, 1) >= 5 && round(($ned_pro + $neder) / 2, 1) >= 5 && round(($werel + $wer_pro) / 2, 1) >= 5.5 && $prom >= 12) {
                                         $volgorde = 3;
                                     } else if ($rek_pro <= 0 || $ned_pro <= 0) {
                                         $volgorde = 5;

@@ -215,6 +215,7 @@ foreach ($array_leerling as $item) {
           }
           $prom = round(($reken + ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) + $neder + $werel) / 4, 1);
           $sum = round($reken + ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) + $neder, 1);
+          $cont_5 = 0;
 
           if ($i == 1) {
             $volgorde = array();
@@ -222,23 +223,17 @@ foreach ($array_leerling as $item) {
           $volgorde[$i] = 0;
           switch ($level_klas) {
             case 1:
-              if ($reken >= 5 && ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) >= 5 && $neder >= 5 && $sum >= 17) {
-                $volgorde[$i] = 1;
-              }
-              break;
             case 2:
-              if ($reken >= 5 && ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) >= 5 && $neder >= 5 && $sum >= 17) {
+              $cont_5 = ($reken < 5.5 ? 1 : 0) + (round($lezen / ($lezen_cont > 0 ? $lezen_cont : 1), 1) < 5.5 ? 1 : 0) + ($neder < 5.5 ? 1: 0);
+              if ($reken >= 5 && round($lezen / ($lezen_cont > 0 ? $lezen_cont : 1), 1) >= 5 && $neder >= 5 && $sum >= 17 && $cont_5 < 2) {
                 $volgorde[$i] = 1;
               }
               break;
             case 3:
-              if ($reken >= 5.5 && ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) >= 5.5 && $neder >= 5.5 && $prom > 5.5 && $sum >= 17) {
-                $volgorde[$i] = 1;
-              }
-              break;
             case 4:
             case 5:
-              if ($reken >= 5 && ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) >= 5 && $neder >= 5 && $prom > 5.5 && $sum >= 17) {
+              $cont_5 = ($reken < 5.5 ? 1 : 0) + (round($lezen / ($lezen_cont > 0 ? $lezen_cont : 1), 1) < 5.5 ? 1 : 0) + ($neder < 5.5 ? 1: 0);
+              if ($reken >= 5 && round($lezen / ($lezen_cont > 0 ? $lezen_cont : 1), 1) >= 5 && $neder >= 5 && $prom > 5.5 && $sum >= 17 && $cont_5 < 2) {
                 $volgorde[$i] = 1;
               }
               break;
@@ -1855,11 +1850,7 @@ foreach ($array_leerling as $item) {
         $_h1 = "";
         $_h1 =  $c->_writerapportdata_houding($_GET["klas"], 'h12', $item['studentid'], 1, $schooljaar);
         if ($klas != 1) {
-          if ($item['studentid'] != 4966 && $item['studentid'] != 5017) {
-            $page_html .= "<td>" . $_h1 . " </td>";
-          } else {
-            $page_html .= "<td> </td>";
-          }
+          $page_html .= "<td>" . $_h1 . " </td>";
           $page_html .= "<td> </td>";
           $page_html .= "<td> </td>";
           $page_html .= "<td> </td>";

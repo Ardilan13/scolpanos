@@ -327,14 +327,24 @@ class spn_houding
                     // Edit mode
 
                     if ($y == 9) {
-                      $htmlcontrol .= "<option value=\"1\"" . ($_houding_number == 1 ? "selected" : "") . ">A</option><option value=\"2\"" . ($_houding_number == 2 ? "selected" : "") . ">B</option><option value=\"3\"" . ($_houding_number == 3 ? "selected" : "") . ">C</option><option value=\"4\"" . ($_houding_number == 4 ? "selected" : "") . ">D</option><option value=\"5\"" . ($_houding_number == 5 ? "selected" : "") . ">E</option><option value=\"6\"" . ($_houding_number == 6 ? "selected" : "") . ">F</option><option value=\"7\"" . ($_houding_number == 7 ? "selected" : "") . ">G</option><option value=\"8\"" . ($_houding_number == 8 ? "selected" : "") . ">H</option></select></td> ";
+                      $htmlcontrol .= "<option value=\"NULL\" " . (($_houding_number == NULL || $houding_number == 0)  ? "selected" : "") . "></option><option value=\"1\"" . ($_houding_number == 1 ? "selected" : "") . ">A</option><option value=\"2\"" . ($_houding_number == 2 ? "selected" : "") . ">B</option><option value=\"3\"" . ($_houding_number == 3 ? "selected" : "") . ">C</option><option value=\"4\"" . ($_houding_number == 4 ? "selected" : "") . ">D</option><option value=\"5\"" . ($_houding_number == 5 ? "selected" : "") . ">E</option><option value=\"6\"" . ($_houding_number == 6 ? "selected" : "") . ">F</option><option value=\"7\"" . ($_houding_number == 7 ? "selected" : "") . ">G</option><option value=\"8\"" . ($_houding_number == 8 ? "selected" : "") . ">H</option></select></td> ";
                     } else if (is_null($_houding_number) || $_houding_number == 0) {
                       /*
                       no data in table for this houding
                       use the goed default
                       */
-
-                      $htmlcontrol .= "<option value=\"1\" selected>A</option>
+                      if ($rap_in == 3) {
+                        $htmlcontrol .= "<option value=\"NULL\" selected></option>
+                        <option value=\"1\">A</option>
+                        <option value=\"2\">B</option>
+                        <option value=\"3\">C</option>
+                        <option value=\"4\">D</option>
+                        <option value=\"5\">E</option>
+                        <option value=\"6\">F</option>
+                        </select>
+                        </td> ";
+                      } else {
+                        $htmlcontrol .= "<option value=\"1\" selected>A</option>
                       <option value=\"2\">B</option>
                       <option value=\"3\">C</option>
                       <option value=\"4\">D</option>
@@ -342,7 +352,9 @@ class spn_houding
                       <option value=\"6\">F</option>
                       </select>
                       </td> ";
+                      }
                     } else {
+                      // <option value=\"NULL\" " . (($_houding_number == NULL || $houding_number == 0)  ? "selected" : "") . "></option>
                       $htmlcontrol .= "<option value=\"1\"" . ($_houding_number == 1 ? "selected" : "") . ">A</option><option value=\"2\"" . ($_houding_number == 2 ? "selected" : "") . ">B</option><option value=\"3\"" . ($_houding_number == 3 ? "selected" : "") . ">C</option><option value=\"4\"" . ($_houding_number == 4 ? "selected" : "") . ">D</option><option value=\"5\"" . ($_houding_number == 5 ? "selected" : "") . ">E</option><option value=\"6\"" . ($_houding_number == 6 ? "selected" : "") . ">F</option></select></td> ";
                     }
                   } else {
@@ -1773,6 +1785,7 @@ class spn_houding
     $index_colum = 0;
     $json_name_config = "";
     $houding_name = array();
+    $level_klas = substr($klas_in,0,1);
 
     mysqli_report(MYSQLI_REPORT_STRICT);
 
@@ -1978,13 +1991,22 @@ class spn_houding
                       use the goed default
                       */
 
-                      $htmlcontrol .= "<option value=\"10\" selected>B</option>
-                      <option value=\"11\">S</option>
-                      <option value=\"12\">I</option>
-                      </select>
-                      </td> ";
+                      if ($rap_in == 3) {
+                        $htmlcontrol .= "<option value=\"NULL\" selected></option>
+                        <option value=\"10\">B</option>
+                        <option value=\"11\">S</option>
+                        <option value=\"12\">I</option>
+                        </select>
+                        </td> ";
+                      } else {
+                        $htmlcontrol .= "<option value=\"10\" selected>B</option>
+                        <option value=\"11\">S</option>
+                        <option value=\"12\">I</option>
+                        </select>
+                        </td> ";
+                      }
                     } else {
-                      $htmlcontrol .= "<option value=\"10\"" . ($_houding_number == 10 ? "selected" : "") . ">B</option><option value=\"11\"" . ($_houding_number == 11 ? "selected" : "") . ">S</option><option value=\"12\"" . ($_houding_number == 12 ? "selected" : "") . ">I</option></select></td> ";
+                      $htmlcontrol .= "<option value=\"NULL\"></option><option value=\"10\"" . ($_houding_number == 10 ? "selected" : "") . ">B</option><option value=\"11\"" . ($_houding_number == 11 ? "selected" : "") . ">S</option><option value=\"12\"" . ($_houding_number == 12 ? "selected" : "") . ">I</option></select></td> ";
                     }
                   } else {
                     if (!is_null($_houding_number) || $_houding_number != 0) {
