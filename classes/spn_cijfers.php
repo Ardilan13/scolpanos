@@ -835,7 +835,8 @@ class spn_cijfers
                   $_houding_number = $vak_in == 6 ? $houding_13 : $houding_12;
                   $htmlcontrol .= "<td style='padding: 0 !important;' class='" . $houding_12 . $houding13 . "'><select " . $disa . " style='width: 100% !important; min-width: 32px;' id=\"lblName$y\" id_houding_table=\"$houding_id\"data-student-id=\"$studentid\" data-houding=\"h$y\" data-klas=\"$klas_in\" data-rapport=\"$rap_in\" class=\"form-control editable-select\" data-toggle=\"tooltip\" style=\"width: 100%;\">";
                   if (is_null($_houding_number) || $_houding_number == 0) {
-                    $htmlcontrol .= "<option value=\"1\" selected>A</option>
+                    if($rap_in == 3){
+                      $htmlcontrol .= "<option></option><option value=\"1\">A</option>
                     <option value=\"2\">B</option>
                     <option value=\"3\">C</option>
                     <option value=\"4\">D</option>
@@ -843,6 +844,16 @@ class spn_cijfers
                     <option value=\"5\">F</option>
                     </select>
                     </td> ";
+                    } else {
+                      $htmlcontrol .= "<option value=\"1\" selected>A</option>
+                    <option value=\"2\">B</option>
+                    <option value=\"3\">C</option>
+                    <option value=\"4\">D</option>
+                    <option value=\"5\">E</option>
+                    <option value=\"5\">F</option>
+                    </select>
+                    </td> ";
+                    }
                   } else {
                     $htmlcontrol .= "<option value=\"1\"" . ($_houding_number == 1 ? "selected" : "") . ">A</option><option value=\"2\"" . ($_houding_number == 2 ? "selected" : "") . ">B</option><option value=\"3\"" . ($_houding_number == 3 ? "selected" : "") . ">C</option><option value=\"4\"" . ($_houding_number == 4 ? "selected" : "") . ">D</option><option value=\"5\"" . ($_houding_number == 5 ? "selected" : "") . ">E</option><option value=\"6\"" . ($_houding_number == 6 ? "selected" : "") . ">F</option></select></td> ";
                   }

@@ -235,8 +235,8 @@ $i = 1;
                             if ($werel_cont > 0)
                                 $werel = round($werel / $werel_cont, 1);
                         }
-                        $prom = round(($reken + ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) + $neder + $werel) / 4, 1);
-                        $sum = round($reken + ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) + $neder, 1);
+                        $prom = round(($reken + round($lezen / ($lezen_cont > 0 ? $lezen_cont : 1), 1) + $neder + $werel) / 4, 1);
+                        $sum = round($reken + round($lezen / ($lezen_cont > 0 ? $lezen_cont : 1), 1) + $neder, 1);
                         // $con = ($reken < 5.5 ? 1 : 0) + (($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) < 5.5 ? 1 : 0) + ($neder < 5.5 ? 1 : 0);
                     }
                 } else if ($_SESSION["SchoolID"] == 8) {

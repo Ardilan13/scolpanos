@@ -213,8 +213,8 @@ foreach ($array_leerling as $item) {
                 break;
             }
           }
-          $prom = round(($reken + ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) + $neder + $werel) / 4, 1);
-          $sum = round($reken + ($lezen / ($lezen_cont > 0 ? $lezen_cont : 1)) + $neder, 1);
+          $prom = round(($reken + round($lezen / ($lezen_cont > 0 ? $lezen_cont : 1), 1) + $neder + $werel) / 4, 1);
+          $sum = round($reken + round($lezen / ($lezen_cont > 0 ? $lezen_cont : 1), 1) + $neder, 1);
           $cont_5 = 0;
 
           if ($i == 1) {

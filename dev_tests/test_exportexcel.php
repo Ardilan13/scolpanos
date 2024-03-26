@@ -580,7 +580,9 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 							if ($h12 == 6) {
 								$_h12 = "F";
 							}
-
+							if ($h12 == NULL) {
+								$_h12 = "A";
+							}
 							$hojaActiva->setCellValue($colhouding, $_h12);
 							break;
 
@@ -604,6 +606,9 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 							}
 							if ($h13 == 6) {
 								$_h13 = "F";
+							}
+							if ($h13 == NULL) {
+								$_h13 = "A";
 							}
 
 							$hojaActiva->setCellValue($colhouding, $_h13);
