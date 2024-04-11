@@ -835,7 +835,7 @@ class spn_cijfers
                   $_houding_number = $vak_in == 6 ? $houding_13 : $houding_12;
                   $htmlcontrol .= "<td style='padding: 0 !important;' class='" . $houding_12 . $houding13 . "'><select " . $disa . " style='width: 100% !important; min-width: 32px;' id=\"lblName$y\" id_houding_table=\"$houding_id\"data-student-id=\"$studentid\" data-houding=\"h$y\" data-klas=\"$klas_in\" data-rapport=\"$rap_in\" class=\"form-control editable-select\" data-toggle=\"tooltip\" style=\"width: 100%;\">";
                   if (is_null($_houding_number) || $_houding_number == 0) {
-                    if($rap_in == 3){
+                    if ($rap_in == 3) {
                       $htmlcontrol .= "<option></option><option value=\"1\">A</option>
                     <option value=\"2\">B</option>
                     <option value=\"3\">C</option>
@@ -5564,12 +5564,12 @@ AND lc.schooljaar = '$schooljaar'
                       } else {
                         $cell = 'x' . $x . 'y' . $y;
                         if ($y != 11) {
-                          $htmlcontrol .= "<td><span class='" . $blue . "' id=\"lblName1\" data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\">$_cijfer_number</span></td>";
+                          $htmlcontrol .= "<td class='se se" . $y . $blue . "'><span id=\"lblName1\" data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\">$_cijfer_number</span></td>";
                         } else if (in_array($name_row, $po)) {
                           if ($blue != '') {
-                            $htmlcontrol .= "<td class='se se" . $y . $blue . " no'></td>";
+                            $htmlcontrol .= "<td class='se se" . $y . $blue . "'></td>";
                           } else {
-                            $htmlcontrol .= "<td><span class='" . $blue . "' id=\"lblName1\" data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\">$_cijfer_number</span></td>";
+                            $htmlcontrol .= "<td class='" . $blue . "'><span id=\"lblName1\" data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\">$_cijfer_number</span></td>";
                           }
                         }
                       }
