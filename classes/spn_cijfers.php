@@ -2715,28 +2715,28 @@ class spn_cijfers
                   $htmlcontrol .= "<td>" . htmlentities($volledigenaamvak) . "</td>";
                   // $htmlcontrol .= "<td>". ($c1 >= 1 && $c1 <= 5.5 ? "class=\"bg-danger\"": "") ."</td>";
 
-                  $htmlcontrol .= "<td name =\"c1\"" . ($c1 >= 1 && $c1 <= 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c1 == 0.0 ? "" : htmlentities($c1)) . "</td>";
-                  $htmlcontrol .= "<td name =\"c1\"" . ($c2 >= 1 && $c2 <= 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c2 == 0.0 ? "" : htmlentities($c2)) . "</td>";
-                  $htmlcontrol .= "<td name =\"c1\"" . ($c3 >= 1 && $c3 <= 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c3 == 0.0 ? "" : htmlentities($c3)) . "</td>";
-                  $htmlcontrol .= "<td name =\"c1\"" . ($c4 >= 1 && $c4 <= 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c4 == 0.0 ? "" : htmlentities($c4)) . "</td>";
-                  $htmlcontrol .= "<td name =\"c1\"" . ($c5 >= 1 && $c5 <= 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c5 == 0.0 ? "" : htmlentities($c5)) . "</td>";
-                  $htmlcontrol .= "<td name =\"c1\"" . ($c6 >= 1 && $c6 <= 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c6 == 0.0 ? "" : htmlentities($c6)) . "</td>";
-                  $htmlcontrol .= "<td name =\"c1\"" . ($c7 >= 1 && $c7 <= 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c7 == 0.0 ? "" : htmlentities($c7)) . "</td>";
-                  $htmlcontrol .= "<td name =\"c1\"" . ($c8 >= 1 && $c8 <= 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c8 == 0.0 ? "" : htmlentities($c8)) . "</td>";
-                  $htmlcontrol .= "<td name =\"c1\"" . ($c9 >= 1 && $c9 <= 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c9 == 0.0 ? "" : htmlentities($c9)) . "</td>";
-                  $htmlcontrol .= "<td name =\"c1\"" . ($c10 >= 1 && $c10 <= 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c10 == 0.0 ? "" : htmlentities($c10)) . "</td>";
-                  $htmlcontrol .= "<td name =\"c1\"" . ($c11 >= 1 && $c11 <= 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c11 == 0.0 ? "" : htmlentities($c11)) . "</td>";
-                  $htmlcontrol .= "<td name =\"c1\"" . ($c12 >= 1 && $c12 <= 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c12 == 0.0 ? "" : htmlentities($c12)) . "</td>";
-                  $htmlcontrol .= "<td name =\"c1\"" . ($c13 >= 1 && $c13 <= 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c13 == 0.0 ? "" : htmlentities($c13)) . "</td>";
-                  $htmlcontrol .= "<td name =\"c1\"" . ($c14 >= 1 && $c14 <= 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c14 == 0.0 ? "" : htmlentities($c14)) . "</td>";
-                  $htmlcontrol .= "<td name =\"c1\"" . ($c15 >= 1 && $c15 <= 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c15 == 0.0 ? "" : htmlentities($c15)) . "</td>";
-                  $htmlcontrol .= "<td name =\"c1\"" . ($c16 >= 1 && $c16 <= 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c16 == 0.0 ? "" : htmlentities($c16)) . "</td>";
-                  $htmlcontrol .= "<td name =\"c1\"" . ($c17 >= 1 && $c17 <= 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c17 == 0.0 ? "" : htmlentities($c17)) . "</td>";
-                  $htmlcontrol .= "<td name =\"c1\"" . ($c18 >= 1 && $c18 <= 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c18 == 0.0 ? "" : htmlentities($c18)) . "</td>";;
-                  $htmlcontrol .= "<td name =\"c1\"" . ($c19 >= 1 && $c19 <= 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c19 == 0.0 ? "" : htmlentities($c19)) . "</td>";;
-                  $htmlcontrol .= "<td name =\"c1\"" . ($c20 >= 1 && $c20 <= 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c20 == 0.0 ? "" : htmlentities($c20)) . "</td>";
+                  $htmlcontrol .= "<td name =\"c1\"" . ($c1 >= 1 && $c1 < 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c1 == 0.0 ? "" : htmlentities($c1)) . "</td>";
+                  $htmlcontrol .= "<td name =\"c1\"" . ($c2 >= 1 && $c2 < 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c2 == 0.0 ? "" : htmlentities($c2)) . "</td>";
+                  $htmlcontrol .= "<td name =\"c1\"" . ($c3 >= 1 && $c3 < 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c3 == 0.0 ? "" : htmlentities($c3)) . "</td>";
+                  $htmlcontrol .= "<td name =\"c1\"" . ($c4 >= 1 && $c4 < 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c4 == 0.0 ? "" : htmlentities($c4)) . "</td>";
+                  $htmlcontrol .= "<td name =\"c1\"" . ($c5 >= 1 && $c5 < 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c5 == 0.0 ? "" : htmlentities($c5)) . "</td>";
+                  $htmlcontrol .= "<td name =\"c1\"" . ($c6 >= 1 && $c6 < 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c6 == 0.0 ? "" : htmlentities($c6)) . "</td>";
+                  $htmlcontrol .= "<td name =\"c1\"" . ($c7 >= 1 && $c7 < 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c7 == 0.0 ? "" : htmlentities($c7)) . "</td>";
+                  $htmlcontrol .= "<td name =\"c1\"" . ($c8 >= 1 && $c8 < 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c8 == 0.0 ? "" : htmlentities($c8)) . "</td>";
+                  $htmlcontrol .= "<td name =\"c1\"" . ($c9 >= 1 && $c9 < 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c9 == 0.0 ? "" : htmlentities($c9)) . "</td>";
+                  $htmlcontrol .= "<td name =\"c1\"" . ($c10 >= 1 && $c10 < 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c10 == 0.0 ? "" : htmlentities($c10)) . "</td>";
+                  $htmlcontrol .= "<td name =\"c1\"" . ($c11 >= 1 && $c11 < 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c11 == 0.0 ? "" : htmlentities($c11)) . "</td>";
+                  $htmlcontrol .= "<td name =\"c1\"" . ($c12 >= 1 && $c12 < 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c12 == 0.0 ? "" : htmlentities($c12)) . "</td>";
+                  $htmlcontrol .= "<td name =\"c1\"" . ($c13 >= 1 && $c13 < 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c13 == 0.0 ? "" : htmlentities($c13)) . "</td>";
+                  $htmlcontrol .= "<td name =\"c1\"" . ($c14 >= 1 && $c14 < 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c14 == 0.0 ? "" : htmlentities($c14)) . "</td>";
+                  $htmlcontrol .= "<td name =\"c1\"" . ($c15 >= 1 && $c15 < 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c15 == 0.0 ? "" : htmlentities($c15)) . "</td>";
+                  $htmlcontrol .= "<td name =\"c1\"" . ($c16 >= 1 && $c16 < 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c16 == 0.0 ? "" : htmlentities($c16)) . "</td>";
+                  $htmlcontrol .= "<td name =\"c1\"" . ($c17 >= 1 && $c17 < 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c17 == 0.0 ? "" : htmlentities($c17)) . "</td>";
+                  $htmlcontrol .= "<td name =\"c1\"" . ($c18 >= 1 && $c18 < 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c18 == 0.0 ? "" : htmlentities($c18)) . "</td>";;
+                  $htmlcontrol .= "<td name =\"c1\"" . ($c19 >= 1 && $c19 < 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c19 == 0.0 ? "" : htmlentities($c19)) . "</td>";;
+                  $htmlcontrol .= "<td name =\"c1\"" . ($c20 >= 1 && $c20 < 5.5 ?  "class=\"bg-danger\"" : "") . ">" . ($c20 == 0.0 ? "" : htmlentities($c20)) . "</td>";
 
-                  $htmlcontrol .= "<td name =\"gemiddelde\"" . ($gemiddelde >= 1 && $gemiddelde <= 5.5 ?  "class=\"bg-danger\"" : "") . ">" . htmlentities($gemiddelde) . "</td>";
+                  $htmlcontrol .= "<td name =\"gemiddelde\"" . ($gemiddelde >= 1 && $gemiddelde < 5.5 ?  "class=\"bg-danger\"" : "") . ">" . htmlentities($gemiddelde) . "</td>";
                   // $htmlcontrol .= "<td>". htmlentities($gemiddelde) ."</td>";
 
                 }

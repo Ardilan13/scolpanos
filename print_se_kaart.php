@@ -116,6 +116,8 @@ if ($_SESSION["SchoolType"] == 2 && substr($_GET["klas"], 0, 1) == 4) {
   } else {
     $tutor = $t->_writetutorName(4, $schoolId);
   }
+} else if($_SESSION["SchoolType"] == 2){
+  $tutor = $t->_writetutorName($_GET["klas"], $schoolId);
 } else {
   $tutor = $c->_write_tutor_name_ps($_GET["klas"], $schoolId);
 }
@@ -224,7 +226,7 @@ foreach ($array_leerling as $item) {
           switch ($level_klas) {
             case 1:
             case 2:
-              $cont_5 = ($reken < 5.5 ? 1 : 0) + (round($lezen / ($lezen_cont > 0 ? $lezen_cont : 1), 1) < 5.5 ? 1 : 0) + ($neder < 5.5 ? 1: 0);
+              $cont_5 = ($reken < 5.5 ? 1 : 0) + (round($lezen / ($lezen_cont > 0 ? $lezen_cont : 1), 1) < 5.5 ? 1 : 0) + ($neder < 5.5 ? 1 : 0);
               if ($reken >= 5 && round($lezen / ($lezen_cont > 0 ? $lezen_cont : 1), 1) >= 5 && $neder >= 5 && $sum >= 17 && $cont_5 < 2) {
                 $volgorde[$i] = 1;
               }
@@ -232,7 +234,7 @@ foreach ($array_leerling as $item) {
             case 3:
             case 4:
             case 5:
-              $cont_5 = ($reken < 5.5 ? 1 : 0) + (round($lezen / ($lezen_cont > 0 ? $lezen_cont : 1), 1) < 5.5 ? 1 : 0) + ($neder < 5.5 ? 1: 0);
+              $cont_5 = ($reken < 5.5 ? 1 : 0) + (round($lezen / ($lezen_cont > 0 ? $lezen_cont : 1), 1) < 5.5 ? 1 : 0) + ($neder < 5.5 ? 1 : 0);
               if ($reken >= 5 && round($lezen / ($lezen_cont > 0 ? $lezen_cont : 1), 1) >= 5 && $neder >= 5 && $prom > 5.5 && $sum >= 17 && $cont_5 < 2) {
                 $volgorde[$i] = 1;
               }
@@ -5787,15 +5789,15 @@ if($avg_h == 0.0){$avg_h = null;}
             if ($row3["vak"] == "ne" || $row3["vak"] == "en" || $row3["vak"] == "wi") {
               if ($row3["gemiddelde"] == 0 || $row3["gemiddelde"] >= 5.5 || $row3["gemiddelde"] == NULL) {
                 $cuenta_pri = $cuenta_pri + 0;
-              } else if ($row3["gemiddelde"] < 1) {
+              } else if ($row3["gemiddelde"] <= 1) {
                 $cuenta_pri = $cuenta_pri + 6;
-              } else if ($row3["gemiddelde"] < 2) {
+              } else if ($row3["gemiddelde"] < 1.5) {
                 $cuenta_pri = $cuenta_pri + 5;
-              } else if ($row3["gemiddelde"] < 3) {
+              } else if ($row3["gemiddelde"] < 2.5) {
                 $cuenta_pri = $cuenta_pri + 4;
-              } else if ($row3["gemiddelde"] < 4) {
+              } else if ($row3["gemiddelde"] < 3.5) {
                 $cuenta_pri = $cuenta_pri + 3;
-              } else if ($row3["gemiddelde"] < 5) {
+              } else if ($row3["gemiddelde"] < 4.5) {
                 $cuenta_pri = $cuenta_pri + 2;
               } else if ($row3["gemiddelde"] < 5.5) {
                 $cuenta_pri = $cuenta_pri + 1;
@@ -5803,15 +5805,15 @@ if($avg_h == 0.0){$avg_h = null;}
             } else if ($row3["vak"] != "rk" && $row3["vak"] != NULL) {
               if ($row3["gemiddelde"] == 0 || $row3["gemiddelde"] >= 5.5 || $row3["gemiddelde"] == NULL) {
                 $cuenta = $cuenta + 0;
-              } else if ($row3["gemiddelde"] < 1) {
+              } else if ($row3["gemiddelde"] <= 1) {
                 $cuenta = $cuenta + 6;
-              } else if ($row3["gemiddelde"] < 2) {
+              } else if ($row3["gemiddelde"] < 1.5) {
                 $cuenta = $cuenta + 5;
-              } else if ($row3["gemiddelde"] < 3) {
+              } else if ($row3["gemiddelde"] < 2.5) {
                 $cuenta = $cuenta + 4;
-              } else if ($row3["gemiddelde"] < 4) {
+              } else if ($row3["gemiddelde"] < 3.5) {
                 $cuenta = $cuenta + 3;
-              } else if ($row3["gemiddelde"] < 5) {
+              } else if ($row3["gemiddelde"] < 4.5) {
                 $cuenta = $cuenta + 2;
               } else if ($row3["gemiddelde"] < 5.5) {
                 $cuenta = $cuenta + 1;
@@ -5834,6 +5836,12 @@ if($avg_h == 0.0){$avg_h = null;}
         } else {
           $defi[$y] = null;
         }
+      }
+      $opmerking3 = strtoupper($opmerking3);
+      if ($opmerking3 == "O" || $opmerking3 == "A") {
+        $defi[$y] = 0;
+      } else if ($opmerking3 == "V" || $opmerking3 == "G") {
+        $defi[$y] = 1;
       }
       $y--;
     }

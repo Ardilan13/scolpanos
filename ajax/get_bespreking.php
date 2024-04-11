@@ -141,15 +141,15 @@ $i = 1;
                             if ($row3["vak"] == "ne" || $row3["vak"] == "en" || $row3["vak"] == "wi") {
                                 if ($row3["gemiddelde"] == 0 || $row3["gemiddelde"] >= 5.5 || $row3["gemiddelde"] == NULL) {
                                     $cuenta_pri = $cuenta_pri + 0;
-                                } else if ($row3["gemiddelde"] < 1) {
+                                } else if ($row3["gemiddelde"] <= 1) {
                                     $cuenta_pri = $cuenta_pri + 6;
-                                } else if ($row3["gemiddelde"] < 2) {
+                                } else if ($row3["gemiddelde"] < 1.5) {
                                     $cuenta_pri = $cuenta_pri + 5;
-                                } else if ($row3["gemiddelde"] < 3) {
-                                    $cuenta_pri = $cuenta_pri + 4;
-                                } else if ($row3["gemiddelde"] < 4) {
+                                } else if ($row3["gemiddelde"] < 2.5) {
+                                    $cuenta_pri = $cuenta_pri + 4;  
+                                } else if ($row3["gemiddelde"] < 3.5) {
                                     $cuenta_pri = $cuenta_pri + 3;
-                                } else if ($row3["gemiddelde"] < 5) {
+                                } else if ($row3["gemiddelde"] < 4.5) {
                                     $cuenta_pri = $cuenta_pri + 2;
                                 } else if ($row3["gemiddelde"] < 5.5) {
                                     $cuenta_pri = $cuenta_pri + 1;
@@ -157,15 +157,15 @@ $i = 1;
                             } else if ($row3["vak"] != "rk" && $row3["vak"] != NULL) {
                                 if ($row3["gemiddelde"] == 0 || $row3["gemiddelde"] >= 5.5 || $row3["gemiddelde"] == NULL) {
                                     $cuenta = $cuenta + 0;
-                                } else if ($row3["gemiddelde"] < 1) {
+                                } else if ($row3["gemiddelde"] <= 1) {
                                     $cuenta = $cuenta + 6;
-                                } else if ($row3["gemiddelde"] < 2) {
+                                } else if ($row3["gemiddelde"] < 1.5) {
                                     $cuenta = $cuenta + 5;
-                                } else if ($row3["gemiddelde"] < 3) {
+                                } else if ($row3["gemiddelde"] < 2.5) {
                                     $cuenta = $cuenta + 4;
-                                } else if ($row3["gemiddelde"] < 4) {
+                                } else if ($row3["gemiddelde"] < 3.5) {
                                     $cuenta = $cuenta + 3;
-                                } else if ($row3["gemiddelde"] < 5) {
+                                } else if ($row3["gemiddelde"] < 4.5) {
                                     $cuenta = $cuenta + 2;
                                 } else if ($row3["gemiddelde"] < 5.5) {
                                     $cuenta = $cuenta + 1;
