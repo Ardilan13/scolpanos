@@ -139,6 +139,7 @@ ob_flush();
 									<li> <a href="eba_ex3.php">EX.3-M</a></li>
 									<li> <a href="eba_ex3a.php">EX.3a-M</a></li>
 									<li> <a href="eba_ex4.php">EX.4-M</a></li>
+									<li> <a href="eba_ex5.php">EX.5</a></li>
 								</ul>
 							</li>
 						<?php } ?>
@@ -391,6 +392,7 @@ ob_flush();
 						<li> <a href="eba_ex3.php">EX.3-M</a></li>
 						<li> <a href="eba_ex3a.php">EX.3a-M</a></li>
 						<li> <a href="eba_ex4.php">EX.4-M</a></li>
+						<li> <a href="eba_ex5.php">EX.5</a></li>
 					</ul>
 				</li>
 			<?php } ?>

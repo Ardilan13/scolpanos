@@ -1444,10 +1444,11 @@ class spn_see_kaart
     }
   }
 
-  function _getstudent_cijfers_8($vaks, $studentid_out, $schooljaar, $rap_in, $level_klas)
+  function _getstudent_cijfers_8($vaks, $studentid_out, $schooljaar, $rap_in, $klas)
   {
     mysqli_report(MYSQLI_REPORT_STRICT);
     $sql_query = "";
+    $level_klas = substr($klas, 0, 1);
     $list = "";
     $result = null;
     $hul = array();
@@ -1466,7 +1467,7 @@ class spn_see_kaart
     require_once("DBCreds.php");
     $DBCreds = new DBCreds();
     $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
-    $sql_query = "SELECT v.volledigenaamvak,c.rapnummer,c.gemiddelde FROM le_cijfers c INNER JOIN le_vakken v ON c.vak = v.ID WHERE c.studentid = $studentid_out AND c.rapnummer <= $rap_in AND c.gemiddelde > 0 AND c.schooljaar = '$schooljaar' AND v.volledigenaamvak IN ($list) ORDER BY c.rapnummer";
+    $sql_query = "SELECT v.volledigenaamvak,c.rapnummer,c.gemiddelde FROM le_cijfers c INNER JOIN le_vakken v ON c.vak = v.ID WHERE c.studentid = $studentid_out AND c.rapnummer <= $rap_in AND c.gemiddelde > 0 AND c.schooljaar = '$schooljaar' AND v.volledigenaamvak IN ($list) AND v.Klas = '$klas' ORDER BY c.rapnummer";
     if ($select = $mysqli->prepare($sql_query)) {
       if ($select->execute()) {
         $select->store_result();

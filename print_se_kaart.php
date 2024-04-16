@@ -3319,7 +3319,7 @@ if($avg_h == 0.0){$avg_h = null;}
           break;
       }
 
-      $student_cijfers =  $c->_getstudent_cijfers_8($vaks, $item['studentid'], $_GET["schoolJaar"], $_GET['rap'], $level_klas);
+      $student_cijfers =  $c->_getstudent_cijfers_8($vaks, $item['studentid'], $_GET["schoolJaar"], $_GET['rap'], $klas);
       $student_houding_in = $c->_getstudent_houding_8($vaks_mat, $item['studentid'], $schooljaar, $_GET['rap'], $level_klas);
 
       switch ($level_klas) {
