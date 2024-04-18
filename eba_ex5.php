@@ -180,8 +180,8 @@
                                                             <th class="text-center min">gs</th>
                                                             <th class="text-center min">re</th>
                                                             <th class="paket">Paket</th>
-                                                            <th class="text-center min">Uits 1</th>
-                                                            <th class="text-center min">Uits 2</th>
+                                                            <th class="text-center min">TV1</th>
+                                                            <th class="text-center min">TV2</th>
                                                             <th>Opmerking</th>
                                                         </tr>
                                                     </thead>
@@ -206,20 +206,20 @@
                                                                 <td id="<?php echo $row['studentid']; ?>" class="text-center ex e12 i<?php echo $x; ?>" color="<?php echo $row["e12"]; ?>"></td>
                                                                 <td><?php echo $row["profiel"]; ?></td>
                                                                 <td>
-                                                                    <select id="uits_1">
+                                                                    <select id="<?php echo $row['studentid']; ?>" class="add ex tv1 tv">
                                                                         <option></option>
                                                                         <option value="G">G</option>
                                                                         <option value="A">A</option>
                                                                     </select>
                                                                 </td>
                                                                 <td>
-                                                                    <select id="uits_2">
+                                                                    <select id="<?php echo $row['studentid']; ?>" class="add ex tv2 tv">
                                                                         <option></option>
                                                                         <option value="G">G</option>
                                                                         <option value="A">A</option>
                                                                     </select>
                                                                 </td>
-                                                                <td><input type="text" value="<?php echo $row['opmerking'] ?>"></td>
+                                                                <td><input type="text" id="<?php echo $row['studentid']; ?>" class="add ex opmerking"></td>
                                                             </tr>
                                                         <?php
                                                             $x++;
@@ -330,12 +330,7 @@
         active_loader();
 
         $(".ex").each(function() {
-            var value = $(this).attr("color");
-            changeColor(value);
-            $(this).css("background-color", $color);
-            if ($color == "lightgray") {
-                $(this).attr("disabled", true);
-            } else {
+            if ($(this).attr("class").split(" ")[0] == "add") {
                 $.ajax({
                     url: "ajax/get_eba_exdocent.php",
                     type: "POST",
@@ -347,12 +342,40 @@
                     success: function(data) {
                         if (data != null && data != "") {
                             data = JSON.parse(data);
-                            var input = $("td#" + data.id + ".ex." + data.ex);
-                            input.text(data.personalia);
-                            countVaks()
+                            xd = data.ex == "opmerking" ? "input" : "select"
+                            var input = $(xd + "#" + data.id + ".ex." + data.ex);
+                            var optionValue = data.personalia;
+
+                            // Seleccionar la opción correspondiente en el select
+                            input.val(optionValue);
                         }
                     }
                 });
+            } else {
+                var value = $(this).attr("color");
+                changeColor(value);
+                $(this).css("background-color", $color);
+                if ($color == "lightgray") {
+                    $(this).attr("disabled", true);
+                } else {
+                    $.ajax({
+                        url: "ajax/get_eba_exdocent.php",
+                        type: "POST",
+                        data: {
+                            id: $(this).attr("id"),
+                            ex: $(this).attr("class").split(" ")[2],
+                            type: 5,
+                        },
+                        success: function(data) {
+                            if (data != null && data != "") {
+                                data = JSON.parse(data);
+                                var input = $("td#" + data.id + ".ex." + data.ex);
+                                input.text(data.personalia);
+                                countVaks()
+                            }
+                        }
+                    });
+                }
             }
         });
         countVaks()
@@ -364,6 +387,24 @@
 
     $("#btn_eba_export").click(function() {
         window.open("dev_tests\\export_eba_ex5.php");
+    });
+
+    $(".tv,.opmerking").change(function() {
+        var student = $(this).attr("id");
+        var value = $(this).val();
+        var ex = $(this).attr("class").split(" ")[2];
+        $.ajax({
+            url: "ajax/set_eba_ex5.php",
+            type: "POST",
+            data: {
+                student: student,
+                ex: ex,
+                value: value,
+            },
+            success: function(data) {
+                console.log(data);
+            }
+        });
     });
 
     function active_loader() {

@@ -68,15 +68,18 @@ WHERE e.schoolid = '$schoolid'
 AND e.schooljaar = '$schooljaar'
 AND s.SchoolID = '$schoolid'
 AND (e.type = '2' OR e.type = '3' OR e.type = '4' OR e.type = '5')
-ORDER BY s.lastname, s.firstname;";
+ORDER BY s.lastname, s.firstname,e.type;";
 $result = mysqli_query($mysqli, $get_personalia);
 if ($result->num_rows > 0) {
+    $hojaActiva->setCellValue('BX2', $get_personalia);
     $hojaActiva->setCellValue('D1', $schoolname);
     $hojaActiva->setCellValue('AF1', "Schooljaar: " . $schooljaar);
     while ($row = mysqli_fetch_assoc($result)) {
         $personalia = $row["id_personalia"];
         if ($last_personalia != $personalia && $last_personalia != "") {
             $i = $i + 3;
+            $her = 0;
+            $mem = 0;
         }
         $hojaActiva->setCellValue('A' . $i, $row["id_personalia"]);
         $hojaActiva->setCellValue('B' . $i, $row["lastname"]);
@@ -89,35 +92,12 @@ if ($result->num_rows > 0) {
 
         if ($row["type"] != 5) {
             $k = ($row["type"] == 2) ? $i : ($i + 1);
-            if ($row["type"] != 4) {
-                $hojaActiva->setCellValue('J' . $k, $row["e1"]);
-                $hojaActiva->setCellValue('K' . $k, $row["e2"]);
-                $hojaActiva->setCellValue('L' . $k, $row["e3"]);
-                $hojaActiva->setCellValue('M' . $k, $row["e4"]);
-                $hojaActiva->setCellValue('N' . $k, $row["e5"]);
-                $hojaActiva->setCellValue('O' . $k, $row["e6"]);
-                $hojaActiva->setCellValue('P' . $k, $row["e7"]);
-                $hojaActiva->setCellValue('Q' . $k, $row["e8"]);
-                $hojaActiva->setCellValue('R' . $k, $row["e9"]);
-                $hojaActiva->setCellValue('S' . $k, $row["e10"]);
-                $hojaActiva->setCellValue('T' . $k, $row["e11"]);
-                $hojaActiva->setCellValue('U' . $k, $row["e12"]);
-
-                $get_vold = "SELECT code,ckv,lo,her FROM personalia WHERE id = $personalia LIMIT 1";
-                $result3 = mysqli_query($mysqli, $get_vold);
-                if ($result3->num_rows > 0) {
-                    while ($row2 = mysqli_fetch_assoc($result3)) {
-                        $hojaActiva->setCellValue('A' . $i, $row2["code"]);
-                        $hojaActiva->setCellValue('F' . $i, $row2["lo"] == 1 ? "V" : "O");
-                        $hojaActiva->setCellValue('G' . $i, $row2["her"] == 1 ? "V" : ($row2["ckv"] == 1 ? "V" : "O"));
-                    }
-                }
-            }
 
             $get_colors = "SELECT e.* FROM eba_ex e WHERE e.schoolid = $schoolid AND e.schooljaar = '$schooljaar' AND e.type = 0 AND id_personalia = $personalia LIMIT 1;";
             $result2 = mysqli_query($mysqli, $get_colors);
             if ($result2->num_rows > 0) {
                 while ($row1 = mysqli_fetch_assoc($result2)) {
+                    $array = array();
                     $hojaActiva->setCellValue('BA' . ($i + 1), $row1["e1"]);
                     $hojaActiva->setCellValue('BB' . ($i + 1), $row1["e2"]);
                     $hojaActiva->setCellValue('BC' . ($i + 1), $row1["e3"]);
@@ -169,27 +149,72 @@ if ($result->num_rows > 0) {
                                 $vaken = "re";
                                 break;
                         }
-                        if ($row1["e" . $j] == "H" && $row["type"] != 3) {
-                            $mem++;
-                            if ($her == 0) {
-                                $hojaActiva->setCellValue('AA' . $k, $row["e" . $j]);
-                                $hojaActiva->setCellValue("Z" . ($i + 2), $vaken);
-                            } else if ($her == 1) {
-                                $hojaActiva->setCellValue('AC' . $k, $row["e" . $j]);
-                                $hojaActiva->setCellValue("AB" . ($i + 2), $vaken);
-                            } else if ($her == 2) {
-                                $hojaActiva->setCellValue('AE' . $k, $row["e" . $j]);
-                                $hojaActiva->setCellValue("AD" . ($i + 2), $vaken);
-                            }
-
-                            if ($mem == 2) {
-                                $her++;
-                                $mem = 0;
-                            }
+                        if ($row1["e" . $j] == "H") {
+                            $array[] = [$j => $vaken];
                         }
                     }
                 }
             }
+            $her = 0;
+            foreach ($array as $value) {
+                foreach ($value as $key => $vak) {
+                    if ($row["type"] == 2 || $row["type"] == 4) {
+                        if (isset($row["e" . $key]) && $row["e" . $key] !== NULL && $row["e" . $key] > 0.0) {
+                            $columna = '';
+                            $col_vak = '';
+                            switch ($her) {
+                                case 0:
+                                    $columna = 'AA';
+                                    $col_vak = 'Z';
+                                    break;
+                                case 1:
+                                    $columna = 'AC';
+                                    $col_vak = 'AB';
+                                    break;
+                                case 2:
+                                    $columna = 'AE';
+                                    $col_vak = 'AD';
+                                    break;
+                                default:
+                                    $columna = 'BX';
+                                    break;
+                            }
+                            $hojaActiva->setCellValue($columna . $k, $row["e" . $key]);
+                            $hojaActiva->setCellValue($col_vak . ($i + 2), $vak);
+                            $her++;
+                        }
+                    }
+                }
+            }
+
+            if ($row["type"] != 4) {
+                $hojaActiva->setCellValue('J' . $k, $row["e1"]);
+                $hojaActiva->setCellValue('K' . $k, $row["e2"]);
+                $hojaActiva->setCellValue('L' . $k, $row["e3"]);
+                $hojaActiva->setCellValue('M' . $k, $row["e4"]);
+                $hojaActiva->setCellValue('N' . $k, $row["e5"]);
+                $hojaActiva->setCellValue('O' . $k, $row["e6"]);
+                $hojaActiva->setCellValue('P' . $k, $row["e7"]);
+                $hojaActiva->setCellValue('Q' . $k, $row["e8"]);
+                $hojaActiva->setCellValue('R' . $k, $row["e9"]);
+                $hojaActiva->setCellValue('S' . $k, $row["e10"]);
+                $hojaActiva->setCellValue('T' . $k, $row["e11"]);
+                $hojaActiva->setCellValue('U' . $k, $row["e12"]);
+
+                $get_vold = "SELECT code,ckv,lo,her FROM personalia WHERE id = $personalia LIMIT 1";
+                $result3 = mysqli_query($mysqli, $get_vold);
+                if ($result3->num_rows > 0) {
+                    while ($row2 = mysqli_fetch_assoc($result3)) {
+                        $hojaActiva->setCellValue('A' . $i, $row2["code"]);
+                        $hojaActiva->setCellValue('F' . $i, $row2["lo"] == 1 ? "V" : "O");
+                        $hojaActiva->setCellValue('G' . $i, $row2["her"] == 1 ? "V" : ($row2["ckv"] == 1 ? "V" : "O"));
+                    }
+                }
+            }
+        } else {
+            $hojaActiva->setCellValue('X' . ($i + 2), $row["tv1"]);
+            $hojaActiva->setCellValue('AG' . ($i + 2), $row["tv2"]);
+            $hojaActiva->setCellValue('AH' . ($i + 2), $row["opmerking"]);
         }
         $last_personalia = $personalia;
     }
