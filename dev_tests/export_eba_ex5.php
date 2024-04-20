@@ -98,60 +98,81 @@ if ($result->num_rows > 0) {
             if ($result2->num_rows > 0) {
                 while ($row1 = mysqli_fetch_assoc($result2)) {
                     $array = array();
-                    $hojaActiva->setCellValue('BA' . ($i + 1), $row1["e1"]);
-                    $hojaActiva->setCellValue('BB' . ($i + 1), $row1["e2"]);
-                    $hojaActiva->setCellValue('BC' . ($i + 1), $row1["e3"]);
-                    $hojaActiva->setCellValue('BD' . ($i + 1), $row1["e4"]);
-                    $hojaActiva->setCellValue('BE' . ($i + 1), $row1["e5"]);
-                    $hojaActiva->setCellValue('BF' . ($i + 1), $row1["e6"]);
-                    $hojaActiva->setCellValue('BG' . ($i + 1), $row1["e7"]);
-                    $hojaActiva->setCellValue('BH' . ($i + 1), $row1["e8"]);
-                    $hojaActiva->setCellValue('BI' . ($i + 1), $row1["e9"]);
-                    $hojaActiva->setCellValue('BJ' . ($i + 1), $row1["e10"]);
-                    $hojaActiva->setCellValue('BK' . ($i + 1), $row1["e11"]);
-                    $hojaActiva->setCellValue('BL' . ($i + 1), $row1["e12"]);
                     for ($j = 1; $j <= 12; $j++) {
                         switch ($j) {
                             case 1:
                                 $vaken = "ne";
+                                $pos = "J";
                                 break;
                             case 2:
                                 $vaken = "en";
+                                $pos = "K";
                                 break;
                             case 3:
                                 $vaken = "sp";
+                                $pos = "L";
                                 break;
                             case 4:
                                 $vaken = "pa";
+                                $pos = "M";
                                 break;
                             case 5:
                                 $vaken = "wi";
+                                $pos = "N";
                                 break;
                             case 6:
                                 $vaken = "sk1";
+                                $pos = "O";
                                 break;
                             case 7:
                                 $vaken = "sk2";
+                                $pos = "P";
                                 break;
                             case 8:
                                 $vaken = "bi";
+                                $pos = "Q";
                                 break;
                             case 9:
                                 $vaken = "ec";
+                                $pos = "R";
                                 break;
                             case 10:
                                 $vaken = "ak";
+                                $pos = "S";
                                 break;
                             case 11:
                                 $vaken = "gs";
+                                $pos = "T";
                                 break;
                             case 12:
                                 $vaken = "re";
+                                $pos = "U";
                                 break;
                         }
                         if ($row1["e" . $j] == "H") {
                             $array[] = [$j => $vaken];
                         }
+
+                        switch ($row1["e" . $j]) {
+                            case "X":
+                                $color = "FFFFFF";
+                                break;
+                            case "V":
+                                $color = "1E90FF";
+                                break;
+                            case "H":
+                                $color = "CCFFFF";
+                                break;
+                            case "NS":
+                                $color = "FF1493";
+                                break;
+                            default:
+                                $color = "D3D3D3";
+                                break;
+                        }
+                        $hojaActiva->getStyle($pos . $i)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB($color);
+                        $hojaActiva->getStyle($pos . ($i + 1))->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB($color);
+                        $hojaActiva->getStyle($pos . ($i + 2))->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB($color);
                     }
                 }
             }
