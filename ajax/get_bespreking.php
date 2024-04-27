@@ -146,7 +146,7 @@ $i = 1;
                                 } else if ($row3["gemiddelde"] < 1.5) {
                                     $cuenta_pri = $cuenta_pri + 5;
                                 } else if ($row3["gemiddelde"] < 2.5) {
-                                    $cuenta_pri = $cuenta_pri + 4;  
+                                    $cuenta_pri = $cuenta_pri + 4;
                                 } else if ($row3["gemiddelde"] < 3.5) {
                                     $cuenta_pri = $cuenta_pri + 3;
                                 } else if ($row3["gemiddelde"] < 4.5) {
@@ -333,7 +333,7 @@ $i = 1;
                             switch ($level_klas) {
                                 case 1:
                                 case 2:
-                                    $cont_5 = ($reken < 5.5 ? 1 : 0) + (round($lezen / ($lezen_cont > 0 ? $lezen_cont : 1), 1) < 5.5 ? 1 : 0) + ($neder < 5.5 ? 1: 0);
+                                    $cont_5 = ($reken < 5.5 ? 1 : 0) + (round($lezen / ($lezen_cont > 0 ? $lezen_cont : 1), 1) < 5.5 ? 1 : 0) + ($neder < 5.5 ? 1 : 0);
                                     if ($reken == 0 || $lezen == 0 || $neder == 0) {
                                         $volgorde = 5;
                                     } else if ($reken >= 5 && round($lezen / ($lezen_cont > 0 ? $lezen_cont : 1), 1) >= 5 && $neder >= 5 && $sum >= 17 && $cont_5 < 2) {
@@ -343,7 +343,7 @@ $i = 1;
                                 case 3:
                                 case 4:
                                 case 5:
-                                    $cont_5 = ($reken < 5.5 ? 1 : 0) + (round($lezen / ($lezen_cont > 0 ? $lezen_cont : 1), 1) < 5.5 ? 1 : 0) + ($neder < 5.5 ? 1: 0);
+                                    $cont_5 = ($reken < 5.5 ? 1 : 0) + (round($lezen / ($lezen_cont > 0 ? $lezen_cont : 1), 1) < 5.5 ? 1 : 0) + ($neder < 5.5 ? 1 : 0);
                                     if ($reken == 0 || $lezen == 0 || $neder == 0) {
                                         $volgorde = 5;
                                     } else if ($reken >= 5 && round($lezen / ($lezen_cont > 0 ? $lezen_cont : 1), 1) >= 5 && $neder >= 5 && $prom > 5.5 && $sum >= 17 && $cont_5 < 2) {
@@ -466,7 +466,7 @@ $i = 1;
 
         if (definitiet != "V" && definitiet != "O" && definitiet != "S" && definitiet != "I" && rap != 4) {
             definitiet = "";
-        } else if (definitiet != "G" && definitiet != "A" && definitiet != "T" && rap == 4 && level_klas == 4) {
+        } else if (definitiet != "V" && definitiet != "O" && rap == 4 && level_klas == 4) {
             definitiet = "";
         }
         var data = {

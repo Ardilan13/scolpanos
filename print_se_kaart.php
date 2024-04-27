@@ -116,7 +116,7 @@ if ($_SESSION["SchoolType"] == 2 && substr($_GET["klas"], 0, 1) == 4) {
   } else {
     $tutor = $t->_writetutorName(4, $schoolId);
   }
-} else if($_SESSION["SchoolType"] == 2){
+} else if ($_SESSION["SchoolType"] == 2) {
   $tutor = $t->_writetutorName($_GET["klas"], $schoolId);
 } else {
   $tutor = $c->_write_tutor_name_ps($_GET["klas"], $schoolId);
@@ -5911,27 +5911,27 @@ if($avg_h == 0.0){$avg_h = null;}
     $page_html .= "</div>";
     if ($level_klas != 4) {
       $page_html .= "<h6 class='card-title'>Opmerking bij het eindrapport</h6>";
-      $page_html .= "<textarea style='width: 100%;'>" .  $opmerking[4] . "</textarea>";
+      $page_html .= "<textarea style='width: 100%;'>" .  $opmerking[3] . "</textarea>";
     } else {
       $page_html .= "<h6 class='card-title'>Opmerking bij het SE KAART 3</h6>";
       $page_html .= "<textarea style='width: 100%;'>" .  $opmerking[3] . "</textarea>";
     }
     $page_html .= "<div class='row' style='justify-content: space-evenly;'>";
-    if ($defi[4] === null) {
+    if ($defi[3] === null) {
       $page_html .= "<div>";
       $page_html .= "<input type='radio' style='margin-right: 5px;'><label>Voldoende</label>";
       $page_html .= "</div>";
       $page_html .= "<div>";
       $page_html .= "<input type='radio' style='margin-right: 5px;'><label>Onvoldoende</label>";
       $page_html .= "</div>";
-    } else if ($defi[4] == 1 && $rapport == 3) {
+    } else if ($defi[3] == 1 && $rapport == 3) {
       $page_html .= "<div>";
       $page_html .= "<input type='radio' checked style='margin-right: 5px;'><label>Voldoende</label>";
       $page_html .= "</div>";
       $page_html .= "<div>";
       $page_html .= "<input type='radio' style='margin-right: 5px;'><label>Onvoldoende</label>";
       $page_html .= "</div>";
-    } else if ($defi[4] == 0 && $rapport == 3) {
+    } else if ($defi[3] == 0 && $rapport == 3) {
       $page_html .= "<div>";
       $page_html .= "<input type='radio' style='margin-right: 5px;'><label>Voldoende</label>";
       $page_html .= "</div>";
@@ -5940,6 +5940,37 @@ if($avg_h == 0.0){$avg_h = null;}
       $page_html .= "</div>";
     }
     $page_html .= "</div>";
+
+    if ($level_klas == 4) {
+
+      $page_html .= "<h6 class='card-title'>Opmerking bij het GSE</h6>";
+      $page_html .= "<textarea style='width: 100%;'>" .  $opmerking[4] . "</textarea>";
+      $page_html .= "<div class='row' style='justify-content: space-evenly;'>";
+      if ($defi[4] === null) {
+        $page_html .= "<div>";
+        $page_html .= "<input type='radio' style='margin-right: 5px;'><label>Voldoende</label>";
+        $page_html .= "</div>";
+        $page_html .= "<div>";
+        $page_html .= "<input type='radio' style='margin-right: 5px;'><label>Onvoldoende</label>";
+        $page_html .= "</div>";
+      } else if ($defi[4] == 1 && $rapport == 3) {
+        $page_html .= "<div>";
+        $page_html .= "<input type='radio' checked style='margin-right: 5px;'><label>Voldoende</label>";
+        $page_html .= "</div>";
+        $page_html .= "<div>";
+        $page_html .= "<input type='radio' style='margin-right: 5px;'><label>Onvoldoende</label>";
+        $page_html .= "</div>";
+      } else if ($defi[4] == 0 && $rapport == 3) {
+        $page_html .= "<div>";
+        $page_html .= "<input type='radio' style='margin-right: 5px;'><label>Voldoende</label>";
+        $page_html .= "</div>";
+        $page_html .= "<div>";
+        $page_html .= "<input type='radio' checked style='margin-right: 5px;'><label>Onvoldoende</label>";
+        $page_html .= "</div>";
+      }
+      $page_html .= "</div>";
+    }
+
     $page_html .= "<br>";
     $page_html .= "<div class='column'>";
     $page_html .= "<div>";

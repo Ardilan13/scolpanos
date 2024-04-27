@@ -81,6 +81,7 @@ class spn_see_kaart
                     $table .= "<th style='border-top: 1px solid black;'>1</th>";
                     $table .= "<th style='border-top: 1px solid black;'>2</th>";
                     $table .= "<th style='border-top: 1px solid black;'>3</th>";
+                    $table .= $level_klas == 4 ? "<th style='border-top: 1px solid black;'>PO</th>" : "";
                     $table .= $level_klas == 4 ? "<th style='border-top: 1px solid black;'>GSE</th>" : "<th style='border-top: 1px solid black;'>Eind</th>";
                     $table .= "</thead>";
                   }
@@ -91,6 +92,7 @@ class spn_see_kaart
                     $table .= "<th style='border-top: 1px solid black;'>1</th>";
                     $table .= "<th style='border-top: 1px solid black;'>2</th>";
                     $table .= "<th style='border-top: 1px solid black;'>3</th>";
+                    $table .= $level_klas == 4 ? "<th style='border-top: 1px solid black;'>PO</th>" : "";
                     $table .= $level_klas == 4 ? "<th style='border-top: 1px solid black;'>GSE</th>" : "<th style='border-top: 1px solid black;'>Eind</th>";
                     $table .= "</thead>";
                   }
@@ -101,6 +103,7 @@ class spn_see_kaart
                     $table .= "<th style='border-top: 1px solid black;'>1</th>";
                     $table .= "<th style='border-top: 1px solid black;'>2</th>";
                     $table .= "<th style='border-top: 1px solid black;'>3</th>";
+                    $table .= $level_klas == 4 ? "<th style='border-top: 1px solid black;'>PO</th>" : "";
                     $table .= $level_klas == 4 ? "<th style='border-top: 1px solid black;'>GSE</th>" : "<th style='border-top: 1px solid black;'>Eind</th>";
                     $table .= "</thead>";
                   }
@@ -323,6 +326,7 @@ class spn_see_kaart
                         $table .= "<td></td>";
                         $table .= "<td></td>";
                         if ($level_klas == 4) {
+                          $table .= "<td>" . ($po != 0.0 ? $po : "") . "</td>";
                           $average = 0.0;
                           $color = "";
                         }
@@ -333,6 +337,7 @@ class spn_see_kaart
                         $table .= "<td " . $blue . ((float)$gemmindele2 >= 0 && (float)$gemmindele2 < 5.5  && (float)$gemmindele2 ? "class=\"bg-danger\"" : "") . ">" . ((float)$gemmindele2 > 0.0 && $gemmindele2 != null  && $gemmindele2 != "" || $gemmindele2 == "V" ? $gemmindele2 : "") . "</td>";
                         $table .= "<td></td>";
                         if ($level_klas == 4) {
+                          $table .= "<td>" . ($po != 0.0 ? $po : "") . "</td>";
                           $average = 0.0;
                           $color = "";
                         }
@@ -342,6 +347,7 @@ class spn_see_kaart
                         $table .= "<td " . $blue . ((float)$gemmindele2 >= 0 && (float)$gemmindele2 < 5.5  && (float)$gemmindele2 ? "class=\"bg-danger\"" : "") . ">" . ((float)$gemmindele2 > 0.0 && $gemmindele2 != null  && $gemmindele2 != "" || $gemmindele2 == "V" ? $gemmindele2 : "") . "</td>";
                         $table .= "<td " . $blue . ((float)$gemmindele3 >= 0 && (float)$gemmindele3 < 5.5  && (float)$gemmindele3 ? "class=\"bg-danger\"" : "") . ">" . ((float)$gemmindele3 > 0.0 && $gemmindele3 != null  && $gemmindele3 != "" || $gemmindele3 == "V" ? $gemmindele3 : "") . "</td>";
                         if ($level_klas == 4) {
+                          $table .= "<td>" . ($po != 0.0 ? $po : "") . "</td>";
                           $color = "";
                         }
                       }

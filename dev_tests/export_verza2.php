@@ -773,11 +773,14 @@ while ($i <= $rap_in) {
                 $colcex = (string)$cex . (string)$_current_student_start_row;
                 $hojaActiva->setCellValue($colcex, $row["gemiddelde"] > 9 ? "Voldoende" : "Onvoldoende");
             }
-            $get_ckv = "SELECT p.ckv FROM personalia p WHERE p.schoolid = $schoolid AND p.schooljaar = '$schooljaar' AND p.studentid = $_currentstudent;";
+            $get_ckv = "SELECT p.ckv,p.her FROM personalia p WHERE p.schoolid = $schoolid AND p.schooljaar = '$schooljaar' AND p.studentid = $_currentstudent LIMIT 1;";
             $resultado_ckv = mysqli_query($mysqli, $get_ckv);
-            $ckv_val = $resultado_ckv->fetch_assoc()["ckv"];
-            if ($ckv_val != null) {
-                $hojaActiva->setCellValue('CF' . (string)$_current_student_start_row, $ckv_val == 1 ? "Voldoende" : "Onvoldoende");
+            while ($row_ckv = mysqli_fetch_assoc($resultado_ckv)) {
+                $ckv_val = $row_ckv["ckv"];
+                $her_val = $row_ckv["her"];
+                if ($her_val != null || $ckv_val != null) {
+                    $hojaActiva->setCellValue('CF' . (string)$_current_student_start_row, $her_val == 1 ? "Voldoende" : ($ckv_val == 1 ? "Voldoende" : "Onvoldoende"));
+                }
             }
         }
         $_laststudent = $_currentstudent;

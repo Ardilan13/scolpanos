@@ -203,8 +203,10 @@
 	}
 
 	$("#form-vak").submit(function() {
+		var vak = $(".cijfers_vakken_lijst option:selected").text();
+		vak = (vak != "" && vak != null) ? vak : $("#group option:selected").text();
 		$("#lbl_cijfers_klassen_lijst").text($('#cijfers_klassen_lijst option:selected').html());
-		$("#lbl_cijfers_vakken_lijst").text($('.cijfers_vakken_lijst option:selected').html());
+		$("#lbl_cijfers_vakken_lijst").text(vak);
 		$("#lbl_cijfers_rapporten_lijst").text($('#cijfers_rapporten_lijst option:selected').html());
 	});
 	$("#btn_cijfers_print").click(function() {

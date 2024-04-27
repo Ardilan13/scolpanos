@@ -302,7 +302,7 @@ function print_vakken_table()
 				if (gse.hasClass("blue") || $(this).hasClass("blue")) {
 					// gse.find("input").val("test");
 				} else {
-					if (existe && textos.length == 7) {
+					if (existe && (textos.length == 7 || ($(this).find('td.se11 span').text() == '' && textos.length == 6))) {
 						gse.text(promedio.toFixed(1))
 					} else if (!existe && textos.length == 6) {
 						gse.text(promedio.toFixed(1))
