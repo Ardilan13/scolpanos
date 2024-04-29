@@ -78,7 +78,10 @@
                 <div class="row">
                     <div class="default-secondary-bg-color col-md-12 full-inset brd-bottom clearfix">
                         <h1 class="primary-color">EX. 2-M</h1>
-                        <button id="btn_eba_export" class="btn btn-primary btn-m-w btn-s-h">Export</button>
+                        <div style="display: flex; gap: 30rem;">
+                            <button id="btn_eba_export" class="btn btn-primary btn-m-w btn-s-h">Export</button>
+                            <p id="aviso" style="background-color: #ffdc66; border: 1px solid black; max-width: 400px;">SE GEMIDDELD</p>
+                        </div>
                         <?php include 'breadcrumb.php'; ?>
                     </div>
                     <div class="row">
