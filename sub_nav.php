@@ -122,6 +122,9 @@ ob_flush();
 								<?php if ($_SESSION['SchoolID'] == 12 or $_SESSION['SchoolID'] == 13 or $_SESSION['SchoolID'] == 17 or ($_SESSION['SchoolType'] == 1)) : ?>
 									<li><a href="se_kaart.php">Rapport</a></li>
 								<?php endif; ?>
+								<?php if ($_SESSION['SchoolType'] == 2) : ?>
+									<li><a href="cijferlist.php">Cijferlist</a></li>
+								<?php endif; ?>
 
 							</ul>
 						</li>

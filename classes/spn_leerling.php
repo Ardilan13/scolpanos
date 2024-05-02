@@ -2967,7 +2967,7 @@ class spn_leerling
       $schooljaar_array = explode("-", $schooljaar);
       $schooljaar_pasado = $schooljaar_array[0];
       $type = ($_SESSION['SchoolType'] == 2 || $_SESSION["SchoolID"] == 8 || $_SESSION['SchoolID'] == 18 || $schooljaar_pasado <= 2021) ? "le_cijfers" : "le_cijfers_ps";
-      $sql_query = "SELECT DISTINCT s.id,s.studentnumber,s.firstname,s.lastname,s.sex,s.dob,c.klas as class,s.profiel FROM students s INNER JOIN " . $type . " c ON s.id = c.studentid where c.klas = ? and s.schoolid = ? and s.status = 1 and c.rapnummer <= ? and c.schooljaar = ? ORDER BY";
+      $sql_query = "SELECT DISTINCT s.id,s.studentnumber,s.firstname,s.lastname,s.sex,s.dob,c.klas as class,s.profiel,s.birthplace FROM students s INNER JOIN " . $type . " c ON s.id = c.studentid where c.klas = ? and s.schoolid = ? and s.status = 1 and c.rapnummer <= ? and c.schooljaar = ? ORDER BY";
       $sql_order = " lastname " . $s->_setting_sort . ", firstname";
       if ($s->_setting_mj) {
         $sql_query .= " sex " . $s->_setting_sort . ", " . $sql_order;
@@ -2985,7 +2985,7 @@ class spn_leerling
           if ($select->execute()) {
             $this->error = false;
             $result = 1;
-            $select->bind_result($studentid, $studentnumber, $voornamen, $achternaam, $geslacht, $geboortedatum, $klas, $profiel);
+            $select->bind_result($studentid, $studentnumber, $voornamen, $achternaam, $geslacht, $geboortedatum, $klas, $profiel, $birthplace);
             $select->store_result();
 
             if ($select->num_rows > 0) {
@@ -2998,6 +2998,7 @@ class spn_leerling
                 $returnarr["geboortedatum"] = $geboortedatum;
                 $returnarr["klas"] = $klas;
                 $returnarr["profiel"] = $profiel;
+                $returnarr["birthplace"] = $birthplace;
 
                 array_push($studentlist, $returnarr);
               }
