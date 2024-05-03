@@ -5569,7 +5569,7 @@ AND lc.schooljaar = '$schooljaar'
                           if ($blue != '') {
                             $htmlcontrol .= "<td class='se se" . $y . $blue . "'></td>";
                           } else {
-                            $htmlcontrol .= "<td class='" . $blue . "'><span id=\"lblName1\" data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\">$_cijfer_number</span></td>";
+                            $htmlcontrol .= "<td class='se se" . $y . $blue . "'><span id=\"lblName1\" data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\">$_cijfer_number</span></td>";
                           }
                         }
                       }
