@@ -60,7 +60,7 @@ if ($studentid == 'all') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cijferlist</title>
+    <title>Cijferlijst</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lugrasimo&family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
@@ -137,40 +137,40 @@ if ($studentid == 'all') {
         $mes = date("n", $timestamp);
         switch ($mes) {
             case 1:
-                $mes = "Januari";
+                $mes = "januari";
                 break;
             case 2:
-                $mes = "Februari";
+                $mes = "februari";
                 break;
             case 3:
-                $mes = "Maart";
+                $mes = "maart";
                 break;
             case 4:
-                $mes = "April";
+                $mes = "april";
                 break;
             case 5:
-                $mes = "Mei";
+                $mes = "mei";
                 break;
             case 6:
-                $mes = "Juni";
+                $mes = "juni";
                 break;
             case 7:
-                $mes = "Juli";
+                $mes = "juli";
                 break;
             case 8:
-                $mes = "Augustus";
+                $mes = "augustus";
                 break;
             case 9:
-                $mes = "September";
+                $mes = "september";
                 break;
             case 10:
-                $mes = "Oktober";
+                $mes = "oktober";
                 break;
             case 11:
-                $mes = "November";
+                $mes = "november";
                 break;
             case 12:
-                $mes = "December";
+                $mes = "december";
                 break;
         }
         $ano = date("Y", $timestamp);
@@ -203,8 +203,8 @@ if ($studentid == 'all') {
         <main>
             <div class="header">
                 <img width='150px' style='flex-basis: 15%;' height='100px' src='<?php echo appconfig::GetBaseURL() . "/assets/img/" . $img; ?>'>
-                <div>
-                    <h2>CIJFERLIST</h2>
+                <div style="margin-left: -40px;">
+                    <h2>CIJFERLIJST</h2>
                     <h4>MIDDELBAAR ALGEMEEN VOORTGEZET ONDERWIJS</h4>
                 </div>
             </div>
@@ -516,7 +516,7 @@ if ($studentid == 'all') {
             </table>
 
             <p style="text-align: right;">Aruba, 1 juli <?php echo date("Y"); ?></p>
-            <p style="margin-top: 5rem;">De directeur, _____________________ Secretaris van het eindexamen, _____________________</p>
+            <p style="margin-top: 5rem;">De directeur, _____________________ <label style="margin-left: 40px;">Secretaris van het eindexamen, _____________________</label></p>
             <p style="font-size: 10px;">Doorhalen en/of wijzigingen, maken deze lijst ongeldig.</p>
             <p style="font-size: 10px;">Niet gebruikte regels en vakken in de tabel zijn ongeldig gemaakt</p>
         </main>

@@ -5360,19 +5360,19 @@ AND lc.schooljaar = '$schooljaar'
                 $htmlcontrol .= "</tr></thead><tbody>";
               } else {
                 // Changes settings (ladalan@caribedev)
-                if ($s->_setting_rapnumber_1 || $s->_setting_rapnumber_2 || $s->_setting_rapnumber_3) {
-                  if ($s->_cijfer1 == 1) {
-                    $cijfer .= "<th style='width: 4% !important;'>CEX</th>";
-                  }
-
-                  if ($s->_cijfer2 == 1) {
-                    $cijfer .= "<th style='width: 4% !important;'>HER CEX</th>";
-                  }
-
-                  if ($s->_cijfer3 == 1) {
-                    $cijfer .= "<th style='width: 4% !important;'>EC</th>";
-                  }
+                // if ($s->_setting_rapnumber_1 || $s->_setting_rapnumber_2 || $s->_setting_rapnumber_3) {
+                if ($s->_cijfer1 == 1) {
+                  $cijfer .= "<th style='width: 4% !important;'>CEX</th>";
                 }
+
+                if ($s->_cijfer2 == 1) {
+                  $cijfer .= "<th style='width: 4% !important;'>HER CEX</th>";
+                }
+
+                if ($s->_cijfer3 == 1) {
+                  $cijfer .= "<th style='width: 4% !important;'>EC</th>";
+                }
+                // }
 
                 $cijfer .= "</tr></thead><tbody>";
 
@@ -5607,20 +5607,20 @@ AND lc.schooljaar = '$schooljaar'
                         $_cijfer_number = 0;
                         break;
                     }
-                    if ($s->_setting_rapnumber_1 || $s->_setting_rapnumber_2 || $s->_setting_rapnumber_3) {
-                      $cell = 'x' . $x . 'y' . $y;
-                      if ($s->_cijfer1 == 1 && $y == 14) {
-                        $htmlcontrol .= "<td class='se cex se" . $y .  $blue . "'><span id=\"lblName1\" disabled='true' data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\" class=\"editable\">$_cijfer_number</span></td>";
-                      } else if ($s->_cijfer2 == 1 && $y == 15) {
-                        if ($blue != '') {
-                          $htmlcontrol .= "<td class='se hercex se" . $y .  $blue . "'></td>";
-                        } else {
-                          $htmlcontrol .= "<td class='se hercex se" . $y .  $blue . "'><span id=\"lblName1\" disabled='true' data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\" class=\"editable\">$_cijfer_number</span></td>";
-                        }
-                      } else if ($s->_cijfer3 == 1 && $y == 16) {
-                        $htmlcontrol .= "<td class='se ec se" . $y . $blue . "'></td>";
+                    // if ($s->_setting_rapnumber_1 || $s->_setting_rapnumber_2 || $s->_setting_rapnumber_3) {
+                    $cell = 'x' . $x . 'y' . $y;
+                    if ($s->_cijfer1 == 1 && $y == 14) {
+                      $htmlcontrol .= "<td class='se cex se" . $y .  $blue . "'><span id=\"lblName1\" disabled='true' data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\" class=\"editable\">$_cijfer_number</span></td>";
+                    } else if ($s->_cijfer2 == 1 && $y == 15) {
+                      if ($blue != '') {
+                        $htmlcontrol .= "<td class='se hercex se" . $y .  $blue . "'></td>";
+                      } else {
+                        $htmlcontrol .= "<td class='se hercex se" . $y .  $blue . "'><span id=\"lblName1\" disabled='true' data-row=\"$x\" id_cell_cijfer= \"$cell\" id_cijfer_table = \"$cijferid\" data-student-id=\"$studentid\" data-cijfer=\"c$y\" data-klas=\"$klas\" data-vak=\"$vak_row\" data-rapport=\"$rap_in\" class=\"editable\">$_cijfer_number</span></td>";
                       }
+                    } else if ($s->_cijfer3 == 1 && $y == 16) {
+                      $htmlcontrol .= "<td class='se ec se" . $y . $blue . "'></td>";
                     }
+                    // }
                   }
                 }
 
