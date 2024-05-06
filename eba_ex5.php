@@ -123,6 +123,7 @@
                                                     TRUNCATE(AVG(CASE WHEN subquery.volledigenaamvak = 'pa' THEN subquery.avg_c END), 0) AS pa,
                                                     TRUNCATE(AVG(CASE WHEN subquery.volledigenaamvak = 'wi' THEN subquery.avg_c END), 0) AS wi,
                                                     TRUNCATE(AVG(CASE WHEN subquery.volledigenaamvak = 'na' THEN subquery.avg_c END), 0) AS na,
+                                                    TRUNCATE(AVG(CASE WHEN subquery.volledigenaamvak = 'sk' THEN subquery.avg_c END), 0) AS sk,
                                                     TRUNCATE(AVG(CASE WHEN subquery.volledigenaamvak = 'bi' THEN subquery.avg_c END), 0) AS bi,
                                                     TRUNCATE(AVG(CASE WHEN subquery.volledigenaamvak = 'ec' THEN subquery.avg_c END), 0) AS ec,
                                                     TRUNCATE(AVG(CASE WHEN subquery.volledigenaamvak = 'ak' THEN subquery.avg_c END), 0) AS ak,
@@ -138,15 +139,15 @@
                                                       AND c.gemiddelde > 0
                                                     LEFT JOIN le_vakken v ON c.vak = v.ID 
                                                       AND v.schoolid = $schoolid 
-                                                      AND v.volledigenaamvak IN ('ne', 'en', 'sp', 'pa', 'wi', 'na', 'bi', 'ec', 'ak', 'gs', 're')
+                                                      AND v.volledigenaamvak IN ('ne', 'en', 'sp', 'pa', 'wi', 'na','sk', 'bi', 'ec', 'ak', 'gs', 're')
                                                     WHERE s.id = $id
                                                       AND v.volledigenaamvak IS NOT NULL
                                                     GROUP BY v.volledigenaamvak
                                                   ) AS subquery;";
                                                     $result2 = mysqli_query($mysqli, $get_cijfers);
                                                     while ($row2 = mysqli_fetch_assoc($result2)) {
-                                                        if ($row1["e1"] != $row2["ne"] || $row1["e2"] != $row2["en"] || $row1["e3"] != $row2["sp"] || $row1["e4"] != $row2["pa"] || $row1["e5"] != $row2["wi"] || $row1["e6"] != $row2["na"] || $row1["e7"] != $row2["bi"] || $row1["e8"] != $row2["ec"] || $row1["e9"] != $row2["ak"] || $row1["e10"] != $row2["gs"] || $row1["e11"] != $row2["re"]) {
-                                                            $create_ex1 = "UPDATE eba_ex SET e1 = '" . $row2["ne"] . "', e2 = '" . $row2["en"] . "', e3 ='" . $row2["sp"] . "',e4 ='" . $row2["pa"] . "',e5 ='" . $row2["wi"] . "',e6='" . $row2["na"] . "',e7='" . $row2["na"] . "',e8='" . $row2["bi"] . "',e9='" . $row2["ec"] . "',e10='" . $row2["ak"] . "',e11='" . $row2["gs"] . "',e12='" . $row2["re"] . "' WHERE id = $ex;";
+                                                        if ($row1["e1"] != $row2["ne"] || $row1["e2"] != $row2["en"] || $row1["e3"] != $row2["sp"] || $row1["e4"] != $row2["pa"] || $row1["e5"] != $row2["wi"] || $row1["e6"] != $row2["na"] || $row1["e7"] != $row2["sk"]  || $row1["e8"] != $row2["bi"] || $row1["e9"] != $row2["ec"] || $row1["e10"] != $row2["ak"] || $row1["e11"] != $row2["gs"] || $row1["e12"] != $row2["re"]) {
+                                                            $create_ex1 = "UPDATE eba_ex SET e1 = '" . $row2["ne"] . "', e2 = '" . $row2["en"] . "', e3 ='" . $row2["sp"] . "',e4 ='" . $row2["pa"] . "',e5 ='" . $row2["wi"] . "',e6='" . $row2["na"] . "',e7='" . $row2["sk"] . "',e8='" . $row2["bi"] . "',e9='" . $row2["ec"] . "',e10='" . $row2["ak"] . "',e11='" . $row2["gs"] . "',e12='" . $row2["re"] . "' WHERE id = $ex;";
                                                             mysqli_query($mysqli, $create_ex1);
                                                         }
                                                     }
@@ -240,6 +241,7 @@
                                                     ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'pa' THEN subquery.avg_c END), 1) AS pa,
                                                     ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'wi' THEN subquery.avg_c END), 1) AS wi,
                                                     ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'na' THEN subquery.avg_c END), 1) AS na,
+                                                    ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'sk' THEN subquery.avg_c END), 1) AS sk,
                                                     ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'bi' THEN subquery.avg_c END), 1) AS bi,
                                                     ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'ec' THEN subquery.avg_c END), 1) AS ec,
                                                     ROUND(AVG(CASE WHEN subquery.volledigenaamvak = 'ak' THEN subquery.avg_c END), 1) AS ak,
@@ -255,7 +257,7 @@
                                                       AND c.gemiddelde > 0
                                                     LEFT JOIN le_vakken v ON c.vak = v.ID 
                                                       AND v.schoolid = $schoolid 
-                                                      AND v.volledigenaamvak IN ('ne', 'en', 'sp', 'pa', 'wi', 'na', 'bi', 'ec', 'ak', 'gs', 're')
+                                                      AND v.volledigenaamvak IN ('ne', 'en', 'sp', 'pa', 'wi', 'na', 'sk', 'bi', 'ec', 'ak', 'gs', 're')
                                                     WHERE s.id = $id
                                                       AND v.volledigenaamvak IS NOT NULL
                                                     GROUP BY v.volledigenaamvak
@@ -263,7 +265,7 @@
                                                   ";
                                                     $result1 = mysqli_query($mysqli, $get_cijfers);
                                                     while ($row1 = mysqli_fetch_assoc($result1)) {
-                                                        $create_ex1 = "INSERT INTO eba_ex (type,schoolid,schooljaar,id_personalia,e1,e2,e3,e4,e5,e6,e7,e8,e9,e10,e11,e12) VALUES (5,$schoolid,'$schooljaar',$personalia,'" . $row1["ne"] . "','" . $row1["en"] . "','" . $row1["sp"] . "','" . $row1["pa"] . "','" . $row1["wi"] . "','" . $row1["na"] . "','" . $row1["na"] . "','" . $row1["bi"] . "','" . $row1["ec"] . "','" . $row1["ak"] . "','" . $row1["gs"] . "','" . $row1["re"] . "')";
+                                                        $create_ex1 = "INSERT INTO eba_ex (type,schoolid,schooljaar,id_personalia,e1,e2,e3,e4,e5,e6,e7,e8,e9,e10,e11,e12) VALUES (5,$schoolid,'$schooljaar',$personalia,'" . $row1["ne"] . "','" . $row1["en"] . "','" . $row1["sp"] . "','" . $row1["pa"] . "','" . $row1["wi"] . "','" . $row1["na"] . "','" . $row1["sk"] . "','" . $row1["bi"] . "','" . $row1["ec"] . "','" . $row1["ak"] . "','" . $row1["gs"] . "','" . $row1["re"] . "')";
                                                         mysqli_query($mysqli, $create_ex1);
                                                     }
                                                 }
