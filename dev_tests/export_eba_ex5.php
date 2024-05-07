@@ -60,6 +60,7 @@ s.firstname,
 s.dob,
 s.sex,
 s.birthplace,
+p.code,
 s.profiel 
 FROM eba_ex e
 INNER JOIN personalia p ON e.id_personalia = p.id
@@ -82,7 +83,7 @@ if ($result->num_rows > 0) {
             $her = 0;
             $mem = 0;
         }
-        $hojaActiva->setCellValue('A' . $i, $row["id_personalia"]);
+        $hojaActiva->setCellValue('A' . $i, $row["code"]);
         $hojaActiva->setCellValue('B' . $i, $row["lastname"]);
         $hojaActiva->setCellValue('B' . ($i + 1), $row["dob"]);
         $hojaActiva->setCellValue('B' . ($i + 2), $row["birthplace"]);
