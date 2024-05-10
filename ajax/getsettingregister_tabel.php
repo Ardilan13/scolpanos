@@ -58,6 +58,9 @@ print $a->get_setting($_SESSION["SchoolID"]);
 
 			$('#setting_sort').val($(this).find("td").eq(11).text());
 
+			$('#director').val($(this).find("td").eq(11).attr('director'));
+			$('#subdirector').val($(this).find("td").eq(11).attr('subdirector'));
+
 
 			// alert($(this).find("td").eq(0).find("[name='id_setting']").val());
 

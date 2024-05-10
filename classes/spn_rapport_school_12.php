@@ -533,6 +533,60 @@ class spn_rapport_school_12
 			}
 		}
 	}
+
+	function _getmentorsignature($schoolid, $klas_in)
+	{
+		$returnvalue = null;
+		$sql_query = "SELECT a.signature FROM app_useraccounts a INNER JOIN user_hs u ON a.UserGUID = u.user_GUID WHERE u.klas = '$klas_in' AND u.tutor = 'Yes' AND u.SchoolID = $schoolid LIMIT 1;";
+		try {
+			require_once("DBCreds.php");
+			$DBCreds = new DBCreds();
+			$mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
+			if ($select = $mysqli->prepare($sql_query)) {
+				if ($select->execute()) {
+					$select->store_result();
+					if ($select->num_rows > 0) {
+						$select->bind_result($signature);
+						while ($select->fetch()) {
+							$returnvalue = $signature;
+							return $returnvalue;
+						}
+					} else {
+						$returnvalue = '';
+					}
+				} else {
+					/* error executing query */
+					$this->error = true;
+					$this->mysqlierror = $mysqli->error;
+					$result = 0;
+
+					if ($this->debug) {
+						print "error executing query" . "<br />";
+						print "error" . $mysqli->error;
+					}
+				}
+			} else {
+				/* error preparing query */
+				$this->error = true;
+				$this->mysqlierror = $mysqli->error;
+				$result = 0;
+
+				if ($this->debug) {
+					print "error preparing query";
+				}
+			}
+			return $returnvalue;
+		} catch (Exception $e) {
+			$this->error = true;
+			$this->mysqlierror = $e->getMessage();
+			$result = 0;
+
+			if ($this->debug) {
+				error_log("exception: " . $e->getMessage());
+			}
+			return $result;
+		}
+	}
 	function _writeeapportdata_verzuim_absent($schoolid, $schooljaar, $klas_in, $rap_in, $studentid_out)
 	{
 		$returnvalue = 0;

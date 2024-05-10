@@ -27,6 +27,8 @@ print $s->update_setting(
 	$u->converttomysqldate($_POST["setting_end_rap_3"]),
 	$_POST["setting_mj_val"],
 	$_POST["setting_sort"],
+	$_POST["director"],
+	$_POST["subdirector"],
 	$_POST["setting_c1_val"],
 	$_POST["setting_c2_val"],
 	$_POST["setting_c3_val"],

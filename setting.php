@@ -1,5 +1,11 @@
 <?php include 'document_start.php'; ?>
 <?php include 'sub_nav.php'; ?>
+<?php
+require_once("./classes/DBCreds.php");
+$DBCreds = new DBCreds();
+$mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
+$mysqli->set_charset('utf8');
+?>
 <div class="push-content-220">
 	<main id="main" role="main">
 		<?php include 'header.php'; ?>
@@ -199,6 +205,36 @@
 														<select class="form-control" name="setting_sort" id="setting_sort">
 															<option value="DESC">DESC</option>
 															<option value="ASC">ASC</option>
+														</select>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-md-4 control-label">Director</label>
+													<div class="col-md-8">
+														<select class="form-control" name="director" id="director">
+															<option value=""></option>
+															<?php
+															$sql = "SELECT UserGUID,FirstName, LastName FROM app_useraccounts WHERE SchoolID = " . $_SESSION["SchoolID"] . " AND UserRights = 'BEHEER'";
+															$result = mysqli_query($mysqli, $sql);
+															while ($row = mysqli_fetch_array($result)) {
+																echo "<option value='" . $row["UserGUID"] . "'>" . $row["FirstName"] . " " . $row["LastName"] . "</option>";
+															}
+															?>
+														</select>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-md-4 control-label">Subdirector</label>
+													<div class="col-md-8">
+														<select class="form-control" name="subdirector" id="subdirector">
+															<option value=""></option>
+															<?php
+															$sql = "SELECT UserGUID,FirstName, LastName FROM app_useraccounts WHERE SchoolID = " . $_SESSION["SchoolID"] . " AND UserRights = 'BEHEER'";
+															$result = mysqli_query($mysqli, $sql);
+															while ($row = mysqli_fetch_array($result)) {
+																echo "<option value='" . $row["UserGUID"] . "'>" . $row["FirstName"] . " " . $row["LastName"] . "</option>";
+															}
+															?>
 														</select>
 													</div>
 												</div>

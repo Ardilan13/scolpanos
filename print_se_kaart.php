@@ -25,7 +25,7 @@ $user = $_SESSION['UserGUID'];
 $klas = $_GET["klas"];
 $level_klas = substr($klas, 0, 1);
 $studentid = $_GET["studentid"];
-$query = "SELECT FirstName, LastName FROM app_useraccounts WHERE Class = '$klas' AND SchoolID = $schoolId AND UserRights = 'DOCENT' LIMIT 1";
+$query = "SELECT FirstName, LastName, signature FROM app_useraccounts WHERE Class = '$klas' AND SchoolID = $schoolId AND UserRights = 'DOCENT' LIMIT 1";
 $resultado = mysqli_query($mysqli, $query);
 while ($row = mysqli_fetch_assoc($resultado)) {
   $teacher = $row["FirstName"] . " " . $row["LastName"];
@@ -118,6 +118,7 @@ if ($_SESSION["SchoolType"] == 2 && substr($_GET["klas"], 0, 1) == 4) {
   }
 } else if ($_SESSION["SchoolType"] == 2) {
   $tutor = $t->_writetutorName($_GET["klas"], $schoolId);
+  $signature_mentor = $t->_getmentorsignature($schoolId, $_GET["klas"]);
 } else {
   $tutor = $c->_write_tutor_name_ps($_GET["klas"], $schoolId);
 }
@@ -8915,15 +8916,17 @@ if($avg_h == 0.0){$avg_h = null;}
     $page_html .= "<div class='row'>";
     $page_html .= "<div class='col-6' style=''>";
     $page_html .= "<h6 class='card-title'>Handtekening Mentor:</h6>";
-    $page_html .= "<br>";
-    $page_html .= "<br>";
+    if ($signature_mentor != "" && $signature_mentor != NULL) {
+      $page_html .= "<img src='signatures/" . $signature_mentor . "' width='250' height='100'>";
+    }
     $page_html .= "<hr style='border-top: 2px solid rgba(0, 0, 0, 0.34); border-top-style: dotted;'>";
     $page_html .= "</div>";
 
     $page_html .= "<div class='col-6'style=''>";
     $page_html .= "<h6 class='card-title'>Handtekening Directeur:</h6>";
-    $page_html .= "<br>";
-    $page_html .= "<br>";
+    if ($signature_dir != "" && $signature_dir != NULL) {
+      $page_html .= "<img src='signatures/" . $signature_dir . "' width='250' height='100'>";
+    }
     $page_html .= "<hr style='border-top: 2px solid rgba(0, 0, 0, 0.34); border-top-style: dotted;'>";
     $page_html .= "</div>";
   } else if ($_SESSION['SchoolID'] != 18) {

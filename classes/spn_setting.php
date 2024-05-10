@@ -52,6 +52,8 @@ class spn_setting
     $setting_end_rap_3,
     $setting_mj,
     $setting_sort,
+    $director,
+    $subdirector,
     $cijfer1,
     $cijfer2,
     $cijfer3,
@@ -74,10 +76,10 @@ class spn_setting
         $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
 
 
-        if ($stmt = $mysqli->prepare("CALL " . $this->sp_create_setting . " (?,?,?,?,?,?,?,?,?,?,?,?,?,?)")) {
+        if ($stmt = $mysqli->prepare("CALL " . $this->sp_create_setting . " (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")) {
 
           if ($stmt->bind_param(
-            "isiiissssssiss",
+            "isiiissssssissss",
             $setting_school_id,
             $setting_school_jaar,
             $setting_rapnumber_1,
@@ -91,6 +93,8 @@ class spn_setting
             $setting_end_rap_3,
             $setting_mj,
             $setting_sort,
+            $director,
+            $subdirector,
             $UserGUID
 
           )) {
@@ -243,6 +247,8 @@ class spn_setting
                 $setting_end_rap_3,
                 $setting_mj,
                 $setting_sort,
+                $director,
+                $subdirector,
                 $cijfer1,
                 $cijfer2,
                 $cijfer3
@@ -276,7 +282,7 @@ class spn_setting
                   $htmlcontrol .= "<td>" . htmlentities($_setting_begin_rap_3) . "</td>";
                   $htmlcontrol .= "<td>" . htmlentities($_setting_end_rap_3) . "</td>";
                   $htmlcontrol .= "<td>" . (htmlentities($setting_mj) ? "Active" : "Inactive") . "</td>";
-                  $htmlcontrol .= "<td c1='" . $cijfer1 . "' c2='" . $cijfer2 . "' c3='" . $cijfer3 . "''>" . htmlentities($setting_sort) . "</td>";
+                  $htmlcontrol .= "<td director='" . htmlentities($director) . "' subdirector='" . $subdirector . "' c1='" . $cijfer1 . "' c2='" . $cijfer2 . "' c3='" . $cijfer3 . "''>" . htmlentities($setting_sort) . "</td>";
 
 
                   $htmlcontrol .= "</td>";
@@ -336,6 +342,8 @@ class spn_setting
     $setting_end_rap_3,
     $setting_mj,
     $setting_sort,
+    $director,
+    $subdirector,
     $cijfer1,
     $cijfer2,
     $cijfer3,
@@ -357,9 +365,9 @@ class spn_setting
 
       try {
         $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
-        if ($select = $mysqli->prepare("CALL " . $this->sp_update_setting . " (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")) {
+        if ($select = $mysqli->prepare("CALL " . $this->sp_update_setting . " (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")) {
           if ($select->bind_param(
-            "isissississisiiis",
+            "isississississsiiis",
             $setting_id,
             $setting_school_jaar,
             $setting_rapnumber_1,
@@ -373,6 +381,8 @@ class spn_setting
             $setting_end_rap_3,
             $setting_mj,
             $setting_sort,
+            $director,
+            $subdirector,
             $cijfer1,
             $cijfer2,
             $cijfer3,
