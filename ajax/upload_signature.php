@@ -41,4 +41,16 @@ if (isset($_FILES['signature'])) {
                     window.location.href = '../signature.php?e=0'
               </script>";
     }
+} else if (isset($_GET['delete'])) {
+    $user = $_SESSION["UserGUID"];
+    $directorio_destino = './../signatures/';
+    $archivos_usuario = glob($directorio_destino . $user . ".*");
+    foreach ($archivos_usuario as $archivo) {
+        unlink($archivo);
+    }
+    $sql_query = "UPDATE `app_useraccounts` SET signature = NULL WHERE userGUID = '$user'";
+    $result = mysqli_query($mysqli, $sql_query);
+    echo "<script>
+                    window.location.href = '../signature.php?e=2';
+              </script>";
 }

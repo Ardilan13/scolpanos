@@ -8,7 +8,7 @@
     $e = '';
     if (isset($_GET['e'])) {
         $e = $_GET['e'];
-        $e = $e == 1 ? 'File uploaded' : 'An error occurred while updating the signature.';
+        $e = $e == 1 ? 'File uploaded' : ($e == 0 ? 'An error occurred while updating the signature.' : "File deleted");
     }
     $UserGUID = $_SESSION["UserGUID"];
     require_once("classes/spn_setting.php");
@@ -100,6 +100,9 @@
                                 <div class="form-group">
                                     <button class="btn btn-primary btn-m-w btn-m-h" onclick="validarArchivo(event)">Upload</button>
                                 </div>
+                                <div class="form-group">
+                                    <button class="btn btn-danger btn-m-w btn-m-h" id="delete">Delete</button>
+                                </div>
                             </fieldset>
                         </form>
                     </div>
@@ -140,9 +143,13 @@
 
 <?php include 'document_end.php'; ?>
 <script>
-    // document.addEventListener('DOMContentLoaded', function() {
-
-    // });
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('delete').addEventListener('click', function() {
+            if (confirm('Are you sure you want to delete the signature?')) {
+                window.location.href = 'ajax/upload_signature.php?delete';
+            }
+        });
+    });
 
     function previewFile() {
         var fileInput = document.getElementById('file-upload');
@@ -167,7 +174,7 @@
     function validarArchivo(event) {
         event.preventDefault();
 
-        var fileInput = document.getElementById('signature');
+        var fileInput = document.getElementById('file-upload');
         var archivo = fileInput.files[0];
 
         var fileSize = archivo.size;

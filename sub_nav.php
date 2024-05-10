@@ -164,7 +164,7 @@ ob_flush();
 						<li><a id="sub_nav_images" class="nav-item" href="images.php" role="button">Upload Images</a></li>
 						<li><a id="sub_nav_email" class="nav-item" href="email.php" role="button">Send Email</a></li>
 						<li><a id="sub_nav_email" class="nav-item" href="DashBoardRapp.php" role="button">Beta</a></li>
-						<li><a id="sub_nav_signature" class="nav-item" href="signature.php" role="button">Signature</a></li>
+						<li><a id="sub_nav_signature" class="nav-item" href="signature.php" role="button">Handtekening</a></li>
 						<?php break; ?>
 					<?php
 					case "DOCENT" or "ASSISTENT": ?>
@@ -254,7 +254,7 @@ ob_flush();
 								<?php endif; ?>
 							</ul>
 						</li>
-						<li><a id="sub_nav_signature" class="nav-item" href="signature.php" role="button">Signature</a></li>
+						<li><a id="sub_nav_signature" class="nav-item" href="signature.php" role="button">Handtekening</a></li>
 						<?php break; ?>
 					<?php
 					case "TEACHER": ?>
@@ -330,7 +330,7 @@ ob_flush();
 			<?php endif; ?>
 			<li><a id="sub_nav_email" class="nav-item" href="email.php" role="button">Send Email</a></li>
 			<li><a id="sub_nav_email" class="nav-item" href="DashBoardRapp.php" role="button">Beta</a></li>
-			<li><a id="sub_nav_signature" class="nav-item" href="signature.php" role="button">Signature</a></li>
+			<li><a id="sub_nav_signature" class="nav-item" href="signature.php" role="button">Handtekening</a></li>
 			<?php break; ?>
 		<?php
 					case "ADMINISTRATIE": ?>
@@ -407,7 +407,7 @@ ob_flush();
 			<li><a id="sub_nav_images" class="nav-item" href="images.php" role="button">Upload Images</a></li>
 			<li><a id="sub_nav_email" class="nav-item" href="email.php" role="button">Send Email</a></li>
 			<li><a id="sub_nav_email" class="nav-item" href="DashBoardRapp.php" role="button">Beta</a></li>
-			<li><a id="sub_nav_signature" class="nav-item" href="signature.php" role="button">Signature</a></li>
+			<li><a id="sub_nav_signature" class="nav-item" href="signature.php" role="button">Handtekening</a></li>
 
 			<?php break; ?>
 		<?php
@@ -464,7 +464,7 @@ ob_flush();
 			<li><a id="sub_nav_images" class="nav-item" href="images.php" role="button">Upload Images</a></li>
 			<li><a id="sub_nav_email" class="nav-item" href="email.php" role="button">Send Email</a></li>
 			<li><a id="sub_nav_email" class="nav-item" href="DashBoardRapp.php" role="button">Beta</a></li>
-			<li><a id="sub_nav_signature" class="nav-item" href="signature.php" role="button">Signature</a></li>
+			<li><a id="sub_nav_signature" class="nav-item" href="signature.php" role="button">Handtekening</a></li>
 			<?php break; ?>
 	<?php
 					default:
