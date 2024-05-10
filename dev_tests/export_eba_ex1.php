@@ -32,12 +32,13 @@ $i = 13;
 
 $s->getsetting_info($schoolid, false);
 
-$get_personalia = "SELECT e.*,s.lastname,s.firstname,s.profiel FROM eba_ex e INNER JOIN personalia p ON e.id_personalia = p.id INNER JOIN students s ON p.studentid = s.id WHERE e.schoolid = $schoolid AND e.schooljaar = '$schooljaar' AND s.SchoolID = $schoolid AND e.type = 0 ORDER BY s.lastname, s.firstname;";
+$get_personalia = "SELECT e.*,p.code,s.lastname,s.firstname,s.profiel FROM eba_ex e INNER JOIN personalia p ON e.id_personalia = p.id INNER JOIN students s ON p.studentid = s.id WHERE e.schoolid = $schoolid AND e.schooljaar = '$schooljaar' AND s.SchoolID = $schoolid AND e.type = 0 ORDER BY s.lastname, s.firstname;";
 $result = mysqli_query($mysqli, $get_personalia);
 if ($result->num_rows > 0) {
     $hojaActiva->setCellValue('B8', $schoolname);
     $hojaActiva->setCellValue('C7', $schooljaar);
     while ($row = mysqli_fetch_assoc($result)) {
+        $hojaActiva->setCellValue('A' . $i, $row["code"]);
         $hojaActiva->setCellValue('B' . $i, $row["lastname"]);
         $hojaActiva->setCellValue('C' . $i, $row["firstname"]);
         $hojaActiva->setCellValue('E' . $i, $row["e1"]);

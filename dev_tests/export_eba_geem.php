@@ -32,7 +32,7 @@ $i = 13;
 
 $s->getsetting_info($schoolid, false);
 
-$get_personalia = "SELECT p.code,p.ckv,p.lo,s.lastname,s.firstname FROM personalia p INNER JOIN students s ON s.id = p.studentid WHERE p.schoolid = $schoolid AND p.schooljaar = '$schooljaar' AND (p.ckv IS NOT NULL OR p.lo IS NOT NULL) ORDER BY";
+$get_personalia = "SELECT p.code,p.ckv,p.lo,p.her,s.lastname,s.firstname FROM personalia p INNER JOIN students s ON s.id = p.studentid WHERE p.schoolid = $schoolid AND p.schooljaar = '$schooljaar' AND (p.ckv IS NOT NULL OR p.lo IS NOT NULL) ORDER BY";
 $sql_order = " lastname , firstname";
 if ($s->_setting_mj) {
   $get_personalia .= " sex " . $s->_setting_sort . ", " . $sql_order;
@@ -47,8 +47,8 @@ if ($result->num_rows > 0) {
     $i = $i == 52 ? 62 : $i;
     $hojaActiva->setCellValue('B' . $i, $row["lastname"]);
     $hojaActiva->setCellValue('C' . $i, $row["firstname"]);
-    $hojaActiva->setCellValue('D' . $i, $row["ckv"] == 1 ? "Voldoende" : ($row["ckv"] == 0 ? "Onvoldoende" : ""));
-    $hojaActiva->setCellValue('F' . $i, $row["ckv"] == 1 ? "Voldoende" : ($row["ckv"] == 0 ? "Onvoldoende" : ""));
+    $hojaActiva->setCellValue('D' . $i, $row["her"] == 1 ? "Voldoende" : ($row["ckv"] == 1 ? "Voldoende" : "Onvoldoende"));
+    $hojaActiva->setCellValue('F' . $i, $row["lo"] == 1 ? "Voldoende" : ($row["lo"] == 0 ? "Onvoldoende" : ($row["lo"] == 2 ? "Goed" : "")));
     $i++;
   }
 }

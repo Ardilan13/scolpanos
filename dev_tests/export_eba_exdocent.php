@@ -15,9 +15,6 @@ use PhpOffice\PhpSpreadsheet\Reader\Xls;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader("Xlsx");
-$spreadsheet = $reader->load("../templates/eba_exdocent.xlsx");
-$spreadsheet->setActiveSheetIndex(0);
-$hojaActiva = $spreadsheet->getActiveSheet();
 
 $s = new spn_setting();
 $u = new spn_utils();
@@ -30,6 +27,14 @@ $schooljaar = $_SESSION['SchoolJaar'];
 $schoolid = $_SESSION['SchoolID'];
 $schoolname = $_SESSION['schoolname'];
 $i = 13;
+
+if ($type == 2) {
+    $spreadsheet = $reader->load("../templates/eba_ex2.xlsx");
+} else {
+    $spreadsheet = $reader->load("../templates/eba_exdocent.xlsx");
+}
+$spreadsheet->setActiveSheetIndex(0);
+$hojaActiva = $spreadsheet->getActiveSheet();
 
 $s->getsetting_info($schoolid, false);
 
@@ -50,6 +55,10 @@ CASE WHEN e0.e11 IS NOT NULL AND e0.e11 <> '' THEN e.e11 ELSE NULL END AS e11,
 CASE WHEN e0.e12 IS NOT NULL AND e0.e12 <> '' THEN e.e12 ELSE NULL END AS e12,
 s.lastname, 
 s.firstname, 
+p.code,
+p.ckv,
+p.her,
+p.lo,
 s.profiel 
 FROM eba_ex e
 INNER JOIN personalia p ON e.id_personalia = p.id
@@ -80,7 +89,10 @@ if ($result->num_rows > 0) {
     $hojaActiva->setCellValue('B8', $schoolname);
     $hojaActiva->setCellValue('C7', $schooljaar);
     while ($row = mysqli_fetch_assoc($result)) {
+        $ckv = $row["her"] == 1 ? "VOL" : ($row["ckv"] == 1 ? "VOL" : "ONVOL");
+        $lo = $row["lo"] == 1 ? "VOL" : ($row["lo"] == 0 ? "ONVOL" : ($row["lo"] == 2 ? "GOED" : ""));
         $personalia = $row["id_personalia"];
+        $hojaActiva->setCellValue('A' . $i, $row["code"]);
         $hojaActiva->setCellValue('B' . $i, $row["lastname"]);
         $hojaActiva->setCellValue('C' . $i, $row["firstname"]);
         $hojaActiva->setCellValue('E' . $i, $row["e1"]);
@@ -94,8 +106,14 @@ if ($result->num_rows > 0) {
         $hojaActiva->setCellValue('M' . $i, $row["e9"]);
         $hojaActiva->setCellValue('N' . $i, $row["e10"]);
         $hojaActiva->setCellValue('O' . $i, $row["e11"]);
-        $hojaActiva->setCellValue('P' . $i, $row["e12"]);
-        $hojaActiva->setCellValue('Q' . $i, $row["profiel"]);
+        if ($type == 2) {
+            $hojaActiva->setCellValue('P' . $i, $ckv);
+            $hojaActiva->setCellValue('Q' . $i, $lo);
+            $hojaActiva->setCellValue('R' . $i, $row["profiel"]);
+        } else {
+            $hojaActiva->setCellValue('P' . $i, $row["e12"]);
+            $hojaActiva->setCellValue('Q' . $i, $row["profiel"]);
+        }
 
         $get_colors = "SELECT e.* FROM eba_ex e WHERE e.schoolid = $schoolid AND e.schooljaar = '$schooljaar' AND e.type = 0 AND id_personalia = $personalia LIMIT 1;";
         $result2 = mysqli_query($mysqli, $get_colors);
@@ -124,9 +142,15 @@ if ($result->num_rows > 0) {
     if ($result1->num_rows > 0) {
         $i = 12;
         while ($row1 = mysqli_fetch_assoc($result1)) {
-            $hojaActiva->setCellValue('S' . $i, $row1["docent"]);
-            $hojaActiva->setCellValue('U' . $i, $row1["vak"]);
-            $hojaActiva->setCellValue('T' . $i, $row1["code"]);
+            if ($type == 2) {
+                $hojaActiva->setCellValue('T' . $i, $row1["docent"]);
+                $hojaActiva->setCellValue('U' . $i, $row1["code"]);
+                $hojaActiva->setCellValue('V' . $i, $row1["vak"]);
+            } else {
+                $hojaActiva->setCellValue('S' . $i, $row1["docent"]);
+                $hojaActiva->setCellValue('T' . $i, $row1["code"]);
+                $hojaActiva->setCellValue('U' . $i, $row1["vak"]);
+            }
             $i++;
         }
     }

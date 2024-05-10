@@ -54,13 +54,14 @@
                                                 $id = $row["studentid"];
                                                 $get_cijfers = "SELECT
                                                     CASE 
-                                                      WHEN AVG(CASE WHEN v.complete_name like '%CKV%' AND c.schooljaar = '$previousSchooljaar' THEN c.gemiddelde END) < 6 THEN 0
-                                                      WHEN AVG(CASE WHEN v.complete_name like '%CKV%' AND c.schooljaar = '$previousSchooljaar' THEN c.gemiddelde END) >= 6 THEN 1
+                                                      WHEN AVG(CASE WHEN v.complete_name like '%CKV%' AND c.schooljaar = '$previousSchooljaar' THEN c.gemiddelde END) < 5.5 THEN 0
+                                                      WHEN AVG(CASE WHEN v.complete_name like '%CKV%' AND c.schooljaar = '$previousSchooljaar' THEN c.gemiddelde END) >= 5.5 THEN 1
                                                     END AS ckv,
                                                   
                                                     CASE
-                                                      WHEN AVG(CASE WHEN v.volledigenaamvak = 'lo' AND c.schooljaar = '$schooljaar' THEN c.c1 END) < 6 THEN 0 
-                                                      WHEN AVG(CASE WHEN v.volledigenaamvak = 'lo' AND c.schooljaar = '$schooljaar' THEN c.c1 END) >= 6 THEN 1
+                                                      WHEN AVG(CASE WHEN v.volledigenaamvak = 'lo' AND c.schooljaar = '$schooljaar' THEN c.c1 END) < 5.5 THEN 0 
+                                                      WHEN AVG(CASE WHEN v.volledigenaamvak = 'lo' AND c.schooljaar = '$schooljaar' THEN c.c1 END) > 5.5 THEN 1
+                                                      WHEN AVG(CASE WHEN v.volledigenaamvak = 'lo' AND c.schooljaar = '$schooljaar' THEN c.c1 END) = 5.5 THEN 2
                                                     END AS lo
                                                   
                                                   FROM students s
@@ -108,7 +109,7 @@
                                                                 <td><?php echo $row["firstname"]; ?></td>
                                                                 <td class="text-center"><?php echo $row["ckv"] == 1 ? "<b class='text-primary'>Voldoende</b>" : ($row["ckv"] == 0 ? "<b class='text-danger'>Onvoldoende</b>" : ""); ?></td>
                                                                 <td class="text-center"><?php echo $row["ckv"] == 1 ? "" : ($row["ckv"] == 0 ? "<select class='her' id='" . $id . "'><option></option><option " . $her . " value='10'>Voldoende</option></select>" : ""); ?></td>
-                                                                <td class="text-center"><?php echo $row["lo"] == 1 ? "<b class='text-primary'>Voldoende</b>" : ($row["lo"] == 0 ? "<b class='text-danger'>Onvoldoende</b>" : ""); ?></td>
+                                                                <td class="text-center"><?php echo $row["lo"] == 1 ? "<b class='text-primary'>Voldoende</b>" : ($row["lo"] == 0 ? "<b class='text-danger'>Onvoldoende</b>" : ($row["lo"] == 2 ? "<b class='text-primary'>Goed</b>" : "")); ?></td>
                                                             </tr>
                                                         <?php } ?>
                                                     </tbody>
@@ -123,13 +124,14 @@
                                                     $id = $row["studentid"];
                                                     $get_cijfers = "SELECT
                                                     CASE 
-                                                      WHEN AVG(CASE WHEN v.complete_name like '%CKV%' AND c.schooljaar = '$previousSchooljaar' THEN c.gemiddelde END) < 6 THEN 0
-                                                      WHEN AVG(CASE WHEN v.complete_name like '%CKV%' AND c.schooljaar = '$previousSchooljaar' THEN c.gemiddelde END) >= 6 THEN 1
+                                                      WHEN AVG(CASE WHEN v.complete_name like '%CKV%' AND c.schooljaar = '$previousSchooljaar' THEN c.gemiddelde END) < 5.5 THEN 0
+                                                      WHEN AVG(CASE WHEN v.complete_name like '%CKV%' AND c.schooljaar = '$previousSchooljaar' THEN c.gemiddelde END) >= 5.5 THEN 1
                                                     END AS ckv,
                                                   
                                                     CASE
-                                                      WHEN AVG(CASE WHEN v.volledigenaamvak = 'lo' AND c.schooljaar = '$schooljaar' THEN c.c1 END) < 6 THEN 0 
-                                                      WHEN AVG(CASE WHEN v.volledigenaamvak = 'lo' AND c.schooljaar = '$schooljaar' THEN c.c1 END) >= 6 THEN 1
+                                                      WHEN AVG(CASE WHEN v.volledigenaamvak = 'lo' AND c.schooljaar = '$schooljaar' THEN c.c1 END) < 5.5 THEN 0 
+                                                      WHEN AVG(CASE WHEN v.volledigenaamvak = 'lo' AND c.schooljaar = '$schooljaar' THEN c.c1 END) > 5.5 THEN 1
+                                                      WHEN AVG(CASE WHEN v.volledigenaamvak = 'lo' AND c.schooljaar = '$schooljaar' THEN c.c1 END) = 5.5 THEN 2
                                                     END AS lo
                                                   
                                                   FROM students s
