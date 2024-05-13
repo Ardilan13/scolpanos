@@ -471,6 +471,8 @@ class spn_setting
                 $setting_end_rap_3,
                 $setting_mj,
                 $setting_sort,
+                $director,
+                $subdirector,
                 $cijfer1,
                 $cijfer2,
                 $cijfer3
