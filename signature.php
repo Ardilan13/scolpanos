@@ -66,7 +66,7 @@
             <div class="container container-fs">
                 <div class="row">
                     <div class="default-secondary-bg-color col-md-12 full-inset brd-bottom clearfix">
-                        <h1 class="primary-color">SIGNATURE</h1>
+                        <h1 class="primary-color">HANDTEKENING</h1>
                         <?php include 'breadcrumb.php'; ?>
                     </div>
                     <div class="default-secondary-bg-color col-md-12 full-inset filter-bar brd-bottom clearfix">
@@ -98,7 +98,7 @@
                                 </div>
                                 <img id="preview" src="#" alt="Image Preview">
                                 <div class="form-group">
-                                    <button class="btn btn-primary btn-m-w btn-m-h" onclick="validarArchivo(event)">Upload</button>
+                                    <button class="btn btn-primary btn-m-w btn-m-h" onclick="validarArchivo(event)">Save in LVS</button>
                                 </div>
                                 <div class="form-group">
                                     <button class="btn btn-danger btn-m-w btn-m-h" id="delete">Delete</button>
@@ -113,14 +113,17 @@
                                     <div class="box-content full-inset">
                                         <?php if ($e != "") { ?>
                                             <div style="margin-bottom: 20px;" class="full-inset alert alert-info reset-mrg-bottom" id="message_rapport">
-                                                <p><i class="fa fa-info"></i><?php echo $e ?></p>
+                                                <p><i class="fa fa-info" style="margin-right: 5px;"></i><?php echo $e ?></p>
                                             </div>
                                         <?php } ?>
                                         <div class="full-inset alert alert-warning reset-mrg-bottom" id="message_rapport">
-                                            <p><i class="fa fa-info"></i>Upload je handtekening.
+                                            <p><i class="fa fa-info" style="margin-right: 5px;"></i>Upload je handtekening.
                                                 De gebruikte resolutie voor je handtekening is 800 × 400 pixel. De file grootte moet max 1 MB zijn.
                                                 Je handteking wordt gebruikt om op de rapporten te komen.
                                                 Je handteking is veilig bewaard en je kan altijd je handtekening verwijderen uit het systeem.</p>
+                                        </div>
+                                        <div class="full-inset alert alert-warning reset-mrg-bottom" style="margin-top: 20px;" id="message_rapport">
+                                            <p><i class="fa fa-info" style="margin-right: 5px;"></i>Je kan hier een digitale handtekening maken en downloaden. Vervolgens kun je deze uploaden in de LVS. <a style="font-weight: bold;" href="https://signaturely.com/online-signature/draw/">https://signaturely.com/online-signature/draw/</a></p>
                                         </div>
                                     </div>
                                 </div>

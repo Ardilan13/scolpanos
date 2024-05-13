@@ -19,6 +19,39 @@ $l = new spn_leerling();
 $schooljaar = $_GET['schoolJaar'];
 $klas = $_GET['klas'];
 $studentid = $_GET['studentid'];
+$schoolid = $_SESSION["SchoolID"];
+
+$query1 = "SELECT
+CASE
+    WHEN s.director = a.UserGUID THEN 'Director'
+    WHEN s.subdirector = a.UserGUID THEN 'Subdirector'
+    ELSE 'Otro rol'
+END AS role,
+CONCAT(a.FirstName, ' ', a.LastName) AS name,
+a.signature
+FROM
+setting s
+INNER JOIN
+app_useraccounts a ON s.director = a.UserGUID OR s.subdirector = a.UserGUID
+WHERE
+s.schoolid = '$schoolid' AND s.year_period = '$schooljaar'";
+$resultado1 = mysqli_query($mysqli, $query1);
+if (mysqli_num_rows($resultado1) > 0) {
+    while ($row1 = mysqli_fetch_assoc($resultado1)) {
+        switch ($row1["role"]) {
+            case "Director":
+                $director = $row1["signature"];
+                break;
+            case "Subdirector":
+                $subdirector = $row1["signature"];
+                break;
+            default:
+                $director = "";
+                $subdirector = "";
+                break;
+        }
+    }
+}
 
 switch ($_SESSION["SchoolID"]) {
     case 12:
@@ -516,7 +549,19 @@ if ($studentid == 'all') {
             </table>
 
             <p style="text-align: right;">Aruba, 1 juli <?php echo date("Y"); ?></p>
-            <p style="margin-top: 5rem;">De directeur, _____________________ <label style="margin-left: 40px;">Secretaris van het eindexamen, _____________________</label></p>
+            <p style="margin-top: <?php echo ($director == '' && $subdirector == '') ? '5rem' : '1rem'; ?>">
+                De directeur, <?php if ($director != "") {
+                                    echo "<img width='150' height='60' src='signatures/" . $director . "'>";
+                                } else {
+                                    echo "_____________________";
+                                } ?>
+                <label style="margin-left: 10px;">
+                    Secretaris van het eindexamen, <?php if ($subdirector != "") {
+                                                        echo "<img width='150' height='60' src='signatures/" . $subdirector . "'>";
+                                                    } else {
+                                                        echo "_____________________";
+                                                    } ?></label>
+            </p>
             <p style="font-size: 10px;">Doorhalen en/of wijzigingen, maken deze lijst ongeldig.</p>
             <p style="font-size: 10px;">Niet gebruikte regels en vakken in de tabel zijn ongeldig gemaakt</p>
         </main>

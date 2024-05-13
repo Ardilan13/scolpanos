@@ -25,10 +25,12 @@ $user = $_SESSION['UserGUID'];
 $klas = $_GET["klas"];
 $level_klas = substr($klas, 0, 1);
 $studentid = $_GET["studentid"];
+$schoolJaar = $_SESSION["SchoolJaar"];
 $query = "SELECT FirstName, LastName, signature FROM app_useraccounts WHERE Class = '$klas' AND SchoolID = $schoolId AND UserRights = 'DOCENT' LIMIT 1";
 $resultado = mysqli_query($mysqli, $query);
 while ($row = mysqli_fetch_assoc($resultado)) {
   $teacher = $row["FirstName"] . " " . $row["LastName"];
+  $signature_mentor = $row["signature"];
 }
 switch ($schoolId) {
   case 4:
@@ -92,6 +94,14 @@ switch ($schoolId) {
     $img = "logo_spn.png";
     $titleP = "Scol&nbsp&nbsp&nbspPa&nbsp&nbsp&nbspNos";
     $titleD = $s->_setting_school_name;
+}
+$query1 = "SELECT concat(a.FirstName, ' ', a.LastName) as name,a.signature FROM setting s INNER JOIN app_useraccounts a ON s.director = a.UserGUID WHERE s.schoolid = '$schoolId' AND s.year_period = '$schoolJaar'";
+$resultado1 = mysqli_query($mysqli, $query1);
+if (mysqli_num_rows($resultado1) > 0) {
+  while ($row1 = mysqli_fetch_assoc($resultado1)) {
+    $cabesante = $row1["name"];
+    $signature_dir = $row1["signature"];
+  }
 }
 
 $page_html = "";
@@ -603,7 +613,7 @@ foreach ($array_leerling as $item) {
   $page_html .= "</div>";
   $page_html .= "</div>";
   $page_html .= "</div>";
-  $page_html .= "<style>.table{margin-bottom: .7rem !important;}</style>";
+  $page_html .= "<style>.table{margin-bottom: .4rem !important;}</style>";
 
 
   $page_html .= "<div class='page-break'></div>";
@@ -8917,7 +8927,14 @@ if($avg_h == 0.0){$avg_h = null;}
     $page_html .= "<div class='col-6' style=''>";
     $page_html .= "<h6 class='card-title'>Handtekening Mentor:</h6>";
     if ($signature_mentor != "" && $signature_mentor != NULL) {
-      $page_html .= "<img src='signatures/" . $signature_mentor . "' width='250' height='100'>";
+      $page_html .= "<img src='signatures/" . $signature_mentor . "' width='230' height='100'>";
+    } else {
+      $page_html .= "<br>";
+      $page_html .= "<br>";
+      $page_html .= "<br>";
+      $page_html .= "<br>";
+      $page_html .= "<br>";
+      $page_html .= "<br>";
     }
     $page_html .= "<hr style='border-top: 2px solid rgba(0, 0, 0, 0.34); border-top-style: dotted;'>";
     $page_html .= "</div>";
@@ -8925,34 +8942,45 @@ if($avg_h == 0.0){$avg_h = null;}
     $page_html .= "<div class='col-6'style=''>";
     $page_html .= "<h6 class='card-title'>Handtekening Directeur:</h6>";
     if ($signature_dir != "" && $signature_dir != NULL) {
-      $page_html .= "<img src='signatures/" . $signature_dir . "' width='250' height='100'>";
+      $page_html .= "<img src='signatures/" . $signature_dir . "' width='230' height='100'>";
+    } else {
+      $page_html .= "<br>";
+      $page_html .= "<br>";
+      $page_html .= "<br>";
+      $page_html .= "<br>";
+      $page_html .= "<br>";
+      $page_html .= "<br>";
     }
     $page_html .= "<hr style='border-top: 2px solid rgba(0, 0, 0, 0.34); border-top-style: dotted;'>";
     $page_html .= "</div>";
   } else if ($_SESSION['SchoolID'] != 18) {
     $page_html .= "<h6>Betekenis cijfers/letters:</h6>";
-    $page_html .= "<div class='row' style='height: 110px; justify-content: space-around;'>";
-    $page_html .= "<div style='height: fit-content;'>";
-    $page_html .= "<p  style='margin-bottom: 0.1rem; font-size: 0.7rem'>10 = Uitmuntend</p>";
-    $page_html .= "<p  style='margin-bottom: 0.1rem; font-size: 0.7rem'>9 = Zeer goed</li>";
-    $page_html .= "<p  style='margin-bottom: 0.1rem; font-size: 0.7rem'>8 = Goed</p>";
-    $page_html .= "<p  style='margin-bottom: 0.1rem; font-size: 0.7rem'>7 = Ruim voldoende</p>";
-    $page_html .= "<p  style='margin-bottom: 0.1rem; font-size: 0.7rem'>6 = Voldoende</p>";
+    $page_html .= "<div class='row' style=' justify-content: space-around;'>";
+    $page_html .= "<div>";
+    $page_html .= "<p  style='margin-bottom: 0; font-size: 0.4rem'>10 = Uitmuntend</p>";
+    $page_html .= "<p  style='margin-bottom: 0; font-size: 0.4rem'>9 = Zeer goed</li>";
+    $page_html .= "<p  style='margin-bottom: 0; font-size: 0.4rem'>8 = Goed</p>";
     $page_html .= "</div>";
-    $page_html .= "<div style='height: fit-content;'>";
-    $page_html .= "<p style='margin-bottom: 0.1rem; font-size: 0.7rem'>5 = Bijna voldoende</p>";
-    $page_html .= "<p style='margin-bottom: 0.1rem; font-size: 0.7rem'>4 = Onvoldoende</p>";
-    $page_html .= "<p style='margin-bottom: 0.1rem; font-size: 0.7rem'>3 = Zeer onvoldoende</p>";
-    $page_html .= "<p style='margin-bottom: 0.1rem; font-size: 0.7rem'>2 = Slecht</p>";
-    $page_html .= "<p style='margin-bottom: 0.1rem; font-size: 0.7rem'>1 = Zeer slecht</p>";
+    $page_html .= "<div>";
+    $page_html .= "<p  style='margin-bottom: 0; font-size: 0.4rem'>7 = Ruim voldoende</p>";
+    $page_html .= "<p  style='margin-bottom: 0; font-size: 0.4rem'>6 = Voldoende</p>";
+    $page_html .= "<p style='margin-bottom: 0; font-size: 0.4rem'>5 = Bijna voldoende</p>";
+    $page_html .= "<p style='margin-bottom: 0; font-size: 0.4rem'>4 = Onvoldoende</p>";
     $page_html .= "</div>";
-    $page_html .= "<div style='height: fit-content;'>";
-    $page_html .= "<p style='margin-bottom: 0.1rem; font-size: 0.7rem'>A = Zeer goed</p>";
-    $page_html .= "<p style='margin-bottom: 0.1rem; font-size: 0.7rem'>B = Goed</p>";
-    $page_html .= "<p style='margin-bottom: 0.1rem; font-size: 0.7rem'>C = Ruim voldoende</p>";
-    $page_html .= "<p style='margin-bottom: 0.1rem; font-size: 0.7rem'>D = Voldoende</p>";
-    $page_html .= "<p style='margin-bottom: 0.1rem; font-size: 0.7rem'>E = Onvoldoende</p>";
-    $page_html .= "<p style='margin-bottom: 0.1rem; font-size: 0.7rem'>F = Slecht</p>";
+    $page_html .= "<div>";
+    $page_html .= "<p style='margin-bottom: 0; font-size: 0.4rem'>3 = Zeer onvoldoende</p>";
+    $page_html .= "<p style='margin-bottom: 0; font-size: 0.4rem'>2 = Slecht</p>";
+    $page_html .= "<p style='margin-bottom: 0; font-size: 0.4rem'>1 = Zeer slecht</p>";
+    $page_html .= "</div>";
+    $page_html .= "<div>";
+    $page_html .= "<p style='margin-bottom: 0; font-size: 0.4rem'>A = Zeer goed</p>";
+    $page_html .= "<p style='margin-bottom: 0; font-size: 0.4rem'>B = Goed</p>";
+    $page_html .= "<p style='margin-bottom: 0; font-size: 0.4rem'>C = Ruim voldoende</p>";
+    $page_html .= "</div>";
+    $page_html .= "<div>";
+    $page_html .= "<p style='margin-bottom: 0; font-size: 0.4rem'>D = Voldoende</p>";
+    $page_html .= "<p style='margin-bottom: 0; font-size: 0.4rem'>E = Onvoldoende</p>";
+    $page_html .= "<p style='margin-bottom: 0; font-size: 0.4rem'>F = Slecht</p>";
     $page_html .= "</div>";
     $page_html .= "</div>";
     $page_html .= "<div class='row' style='margin: 0 !important;'>";
@@ -8982,27 +9010,56 @@ if($avg_h == 0.0){$avg_h = null;}
     //   $page_html .= "<b><p style='margin: .5rem !important; text-align: center; font-size: 14px;'>Verwezen naar " . utf8_decode($advies) . "</p></b>";
     // }
     if ($_SESSION["SchoolID"] == 8) {
-      $page_html .= "<div style='display:flex; margin-top: 1rem !important; flex-direction: row; justify-content: space-between; width: 100%;'>";
+      $page_html .= "<div style='display:flex; flex-direction: row;align-items: center; justify-content: space-between; width: 100%;'>";
       $page_html .= "<p style='margin-bottom: .6rem !important;display: inline; '>Mayor:</p>";
-      $page_html .= "<p>.................................................................</p>";
+      $page_html .= "<br>";
+      $page_html .= "<p style='margin-bottom: 0 !important;'>.................................................................</p>";
       $page_html .= "</div>";
     }
     if ($_SESSION["SchoolID"] == 8) {
-      $page_html .= "<div style='display:flex;flex-direction: row; justify-content: space-between; width: 100%;'>";
+      $page_html .= "<div style='display:flex;flex-direction: row; align-items: center; justify-content: space-between; width: 100%;'>";
       $page_html .= "<p style='margin-bottom: .6rem !important;display: inline; '>Nomber leerkracht: " . utf8_decode($teacher) . "</p>";
+      if ($signature_mentor != "" && $signature_mentor != NULL) {
+        $page_html .= "<img src='signatures/" . $signature_mentor . "' width='90' height='35'>";
+      } else {
+        $page_html .= "<br>";
+        $page_html .= "<p style='margin-bottom: 0 !important;'>.................................................................</p>";
+      }
     } else {
-      $page_html .= "<div style='display:flex;flex-direction: row; justify-content: space-between; width: 100%; margin-top: 1rem !important;'>";
-      $page_html .= "<p style='margin-bottom: 1.5rem !important;display: inline; '>Naam leerkracht: " . utf8_decode($teacher) . "</p>";
+      $page_html .= "<div style='display:flex;flex-direction: row; align-items: center; justify-content: space-between; width: 100%; margin-top: 0.5rem !important;'>";
+      $page_html .= "<p style='margin-bottom: 0 !important;display: inline; '>Naam leerkracht: " . utf8_decode($teacher) . "</p>";
+      if ($signature_mentor != "" && $signature_mentor != NULL) {
+        $page_html .= "<img src='signatures/" . $signature_mentor . "' width='120' height='50'>";
+      } else {
+        $page_html .= "<br>";
+        $page_html .= "<br>";
+        $page_html .= "<br>";
+        $page_html .= "<p style='margin-bottom: 0 !important;'>.................................................................</p>";
+      }
     }
-    $page_html .= "<p>.................................................................</p>";
     $page_html .= "</div>";
-    $page_html .= "<div style='display:flex; flex-direction: row; justify-content: space-between; width: 100%;'>";
+    $page_html .= "<div style='display:flex; flex-direction: row; align-items: center; justify-content: space-between; width: 100%;'>";
     if ($_SESSION["SchoolID"] == 8) {
       $page_html .= "<p style='margin-bottom: .6rem !important;display: inline;'>Nomber Schoolhoofd: " . utf8_decode($cabesante) . "</p>";
+      if ($signature_dir != "" && $signature_dir != NULL) {
+        $page_html .= "<img src='signatures/" . $signature_dir . "' width='90' height='35'>";
+      } else {
+        echo $signature_dir;
+        $page_html .= "<br>";
+        $page_html .= "<p style='margin-bottom: 0 !important;'>.................................................................</p>";
+      }
     } else {
-      $page_html .= "<p style='margin-bottom: 1.5rem !important;display: inline;'>Naam Schoolhoofd: " . utf8_decode($cabesante) . "</p>";
+      $page_html .= "<p style='margin-bottom: 0 !important;display: inline;'>Naam Schoolhoofd: " . utf8_decode($cabesante) . "</p>";
+      if ($signature_dir != "" && $signature_dir != NULL) {
+        $page_html .= "<img src='signatures/" . $signature_dir . "' width='120' height='50'>";
+      } else {
+        $page_html .= "<br>";
+        $page_html .= "<br>";
+        $page_html .= "<br>";
+        $page_html .= "<p style='margin-bottom: 0 !important;'>.................................................................</p>";
+      }
     }
-    $page_html .= "<p style='margin-bottom: ;'>.................................................................</p>";
+    // $page_html .= "<p style='margin-bottom: ;'>.................................................................</p>";
     $page_html .= "</div>";
     // $page_html .= "<div style='display: flex; align-items: center;'>";
     // $page_html .= "<label style='margin-right: 20px;'>R4</label>";
@@ -9060,9 +9117,20 @@ if($avg_h == 0.0){$avg_h = null;}
     $page_html .= "<td>Mayor</td>";
     $page_html .= "</tr>";
     $page_html .= "<tr>";
-    $page_html .= "<td style='height: 3rem;'></td>";
-    $page_html .= "<td></td>";
-    $page_html .= "<td></td>";
+    $page_html .= "<td style='height: 3rem; width: 33%;'>";
+    if ($signature_dir != "" && $signature_dir != NULL) {
+      $page_html .= "<img src='signatures/" . $signature_dir . "' width='120' height='50'>";
+    }
+    $page_html .= "</td>";
+    $page_html .= "<td style='width: 33%;'>";
+    if ($signature_mentor != "" && $signature_mentor != NULL) {
+      $page_html .= "<img src='signatures/" . $signature_mentor . "' width='120' height='50'>";
+    }
+    $page_html .= "</td>";
+    $page_html .= "<td style='width: 33%;'>";
+
+    $page_html .= "</td>";
+
     $page_html .= "</tr>";
     $page_html .= "</table>";
 
