@@ -364,7 +364,7 @@ class spn_opmerking
     $htmlcontrol = "";
     $schooljaar_array = explode("-", $schooljaar);
     $schooljaar_pasado = $schooljaar_array[0];
-    if ($schooltype == 1 && $schooljaar_pasado > "2021") {
+    if ($schooltype == 1 && $schooljaar_pasado > "2021" && $schoolid != 8) {
       $sql_query = "CALL sp_read_studentbyschooljaar_ps (?,?,?)";
     } else {
       $sql_query = "CALL sp_read_studentbyschooljaar (?,?,?)";
