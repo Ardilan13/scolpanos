@@ -73,7 +73,6 @@ AND (e.type = '2' OR e.type = '3' OR e.type = '4' OR e.type = '5')
 ORDER BY s.lastname, s.firstname,e.type;";
 $result = mysqli_query($mysqli, $get_personalia);
 if ($result->num_rows > 0) {
-    $hojaActiva->setCellValue('BX2', $get_personalia);
     $hojaActiva->setCellValue('D1', $schoolname);
     $hojaActiva->setCellValue('AF1', "Schooljaar: " . $schooljaar);
     while ($row = mysqli_fetch_assoc($result)) {
