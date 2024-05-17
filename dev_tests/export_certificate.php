@@ -91,7 +91,9 @@ if ($result->num_rows > 0) {
         $fecha = $dia . " " . $mes . " " . $ano;
         $hojaActiva->setCellValue('A' . $i, $row["firstname"] . ", " . $row["lastname"]);
         $hojaActiva->setCellValue('B' . $i, $fecha);
-        $hojaActiva->setCellValue('C' . $i, $row["birthplace"]);
+        $birthplace = $row["birthplace"];
+        $formattedBirthplace = mb_convert_case($birthplace, MB_CASE_TITLE, "UTF-8");
+        $hojaActiva->setCellValue('C' . $i, $formattedBirthplace);
         $hojaActiva->setCellValue('D' . $i, date("Y"));
         switch (substr($row["profiel"], 0, 2)) {
             case "MM":

@@ -80,7 +80,7 @@
                         <h1 class="primary-color">EX. 5</h1>
                         <div>
                             <button id="btn_eba_export" class="btn btn-primary btn-m-w btn-s-h">Export</button>
-                            <button id="btn_cer_export" class="btn btn-primary btn-m-w btn-s-h">Certificate</button>
+                            <button id="btn_cer_export" class="btn btn-primary btn-m-w btn-s-h">data voor diploma</button>
                         </div>
                         <?php include 'breadcrumb.php'; ?>
                     </div>
