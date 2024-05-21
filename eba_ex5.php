@@ -73,6 +73,7 @@
     </style>
 
     <main id="main" role="main">
+        <input id="schoolid" type="text" hidden value="<?php echo $_SESSION['SchoolID']; ?>">
         <section>
             <div class="container container-fs">
                 <div class="row">
@@ -81,6 +82,8 @@
                         <div>
                             <button id="btn_eba_export" class="btn btn-primary btn-m-w btn-s-h">Export</button>
                             <button id="btn_cer_export" class="btn btn-primary btn-m-w btn-s-h">data voor diploma</button>
+                            <button id="btn_pub1_export" class="btn btn-primary btn-m-w btn-s-h">diploma v en a</button>
+                            <button id="btn_pub2_export" class="btn btn-primary btn-m-w btn-s-h">diploma 1-vak</button>
                         </div>
                         <?php include 'breadcrumb.php'; ?>
                     </div>
@@ -396,6 +399,16 @@
 
     $("#btn_cer_export").click(function() {
         window.open("dev_tests\\export_certificate.php");
+    });
+
+    $("#btn_pub1_export").click(function() {
+        schoolid = $("#schoolid").val()
+        window.open("templates\\pub1_" + schoolid + ".pub");
+    });
+
+    $("#btn_pub2_export").click(function() {
+        schoolid = $("#schoolid").val()
+        window.open("templates\\pub2_" + schoolid + ".pub");
     });
 
     $(".tv,.opmerking").change(function() {
