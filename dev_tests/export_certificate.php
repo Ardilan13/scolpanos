@@ -42,6 +42,7 @@ if ($s->_setting_mj) {
 } else {
     $get_personalia .=  $sql_order;
 }
+
 $result = mysqli_query($mysqli, $get_personalia);
 if ($result->num_rows > 0) {
     while ($row = mysqli_fetch_array($result)) {
@@ -89,7 +90,7 @@ if ($result->num_rows > 0) {
         }
         $ano = date("Y", $timestamp);
         $fecha = $dia . " " . $mes . " " . $ano;
-        $hojaActiva->setCellValue('A' . $i, $row["firstname"] . ", " . $row["lastname"]);
+        $hojaActiva->setCellValue('A' . $i, $row["lastname"] . ", " . $row["firstname"]);
         $hojaActiva->setCellValue('B' . $i, $fecha);
         $birthplace = $row["birthplace"];
         $formattedBirthplace = mb_convert_case($birthplace, MB_CASE_TITLE, "UTF-8");

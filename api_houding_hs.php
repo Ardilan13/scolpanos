@@ -5,7 +5,7 @@ require_once "classes/DBCreds.php";
 $DBCreds = new DBCreds();
 $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
 
-$json = "./assets/js/ps_houding_config.json";
+$json = "./assets/js/12_houding_config.json";
 $jsonData = file_get_contents($json);
 $dataArray = json_decode($jsonData, true);
 
