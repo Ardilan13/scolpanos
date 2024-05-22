@@ -1675,7 +1675,7 @@ class spn_houding
                       <option value=\"3\">C</option>
                       <option value=\"4\">D</option>
                       <option value=\"5\">E</option>
-                      <option value=\"5\">F</option>
+                      <option value=\"6\">F</option>
                       </select>
                       </td> ";
                     } else {
