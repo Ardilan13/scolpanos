@@ -106,6 +106,9 @@ if ($result->num_rows > 0) {
             case "HU":
                 $profiel = "Humaniora";
                 break;
+            default:
+                $profiel = "";
+                break;
         }
         $hojaActiva->setCellValue('E' . $i, $profiel);
         $get_paket = "SELECT g1,g2,g3,g4,p1,p2,p3,k1,k2 FROM paket WHERE paket = '" . $row['profiel'] . "'";
