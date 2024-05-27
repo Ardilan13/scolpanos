@@ -3331,6 +3331,7 @@ class spn_cijfers_mobile
                     $htmlcontrol .= "<table id=\"tbl_cijfers_by_student\" class=\"table table-bordered table-colored\" data-table=\"yes\">";
                     if ($schooltype == 2 && substr($klas, 0, 1) == "4" && substr($schooljaar, 0, 4) > "2022") {
                       $htmlcontrol .= "<thead><tr><th class='mobile'>Schooljaar</th><th class='mobile'>Klass</th><th>Vak</th><th>se1</th><th>her1</th><th>ese1</th><th></th><th>se2</th><th>her2</th><th>ese2</th><th></th><th>se3</th><th>her3</th><th>ese3</th><th></th><th>gse</th></tr></thead>";
+                      // $htmlcontrol .= "<thead><tr><th class='mobile'>Schooljaar</th><th class='mobile'>Klass</th><th>Vak</th><th>gse</th></tr></thead>";
                     } else {
                       $htmlcontrol .= "<thead><tr><th class='mobile'>Schooljaar</th><th class='mobile'>Klass</th><th>Rapport#</th><th>Vak</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>Gem</th></tr></thead>";
                     }
@@ -3338,6 +3339,55 @@ class spn_cijfers_mobile
                   }
                   $x++;
                   if ($schooltype == 2 && substr($klas, 0, 1) == "4" && substr($schooljaar, 0, 4) > "2022") {
+                    switch ($volledigenaamvak) {
+                      case "ne":
+                        $e = "e.e1";
+                        break;
+                      case "en":
+                        $e = "e.e2";
+                        break;
+                      case "sp":
+                        $e = "e.e3";
+                        break;
+                      case "pa":
+                        $e = "e.e4";
+                        break;
+                      case "wi":
+                        $e = "e.e5";
+                        break;
+                      case "na":
+                        $e = "e.e6";
+                        break;
+                      case "sk":
+                        $e = "e.e7";
+                        break;
+                      case "bi":
+                        $e = "e.e8";
+                        break;
+                      case "ec":
+                        $e = "e.e9";
+                        break;
+                      case "ak":
+                        $e = "e.e10";
+                        break;
+                      case "gs":
+                        $e = "e.e11";
+                        break;
+                      case "re":
+                        $e = "e.e12";
+                        break;
+                      default:
+                        $e = "";
+                        break;
+                    }
+                    $mysqli1 = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort, $dummy);
+                    $select_v = "SELECT $e FROM eba_ex e INNER JOIN personalia p ON e.id_personalia = p.id WHERE e.schooljaar = '$schooljaar' AND e.type = '0' AND $e = 'V' AND p.studentid = '$id_studente'";
+                    $result_v = mysqli_query($mysqli1, $select_v);
+                    if ($result_v->num_rows > 0) {
+                      $row_v = "background-color: dodgerblue !important;";
+                    } else {
+                      $row_v = "";
+                    }
                     $ese1 = $c1 > $c2 ? $c1 : $c2;
                     $ese2 = $c5 > $c6 ? $c5 : $c6;
                     $ese3 = $c9 > $c10 ? $c9 : $c10;
@@ -3346,19 +3396,19 @@ class spn_cijfers_mobile
                     $htmlcontrol .= "<td class='mobile'>" . htmlentities($schooljaar) . "</td>";
                     $htmlcontrol .= "<td class='mobile'>" . htmlentities($klas) . "</td>";
                     $htmlcontrol .= "<td>" . htmlentities($volledigenaamvak) . "</td>";
-                    $htmlcontrol .= "<td title=\" \" name =\"c1\"" . ($c1 >= 1 && $c1 <= 5.5 ?  "class=\"quaternary-bg-color default-secondary-color\"" : "") . ">" . ($c1 == 0.0 ? "" : htmlentities($c1)) . "</td>";
-                    $htmlcontrol .= "<td title=\" \" name =\"c1\"" . ($c2 >= 1 && $c2 <= 5.5 ?  "class=\"quaternary-bg-color default-secondary-color\"" : "") . ">" . ($c2 == 0.0 ? "" : htmlentities($c2)) . "</td>";
-                    $htmlcontrol .= "<td title=\" \" name =\"c1\"" . ($ese1 >= 1 && $ese1 <= 5.5 ?  "class=\"quaternary-bg-color default-secondary-color\"" : "") . ">" . ($ese1 == 0.0 ? "" : htmlentities($ese1)) . "</td>";
+                    $htmlcontrol .= "<td title=\" \" name =\"c1\"" . ($c1 >= 1 && $c1 <= 5.5 && $row_v == "" ?  "class=\"quaternary-bg-color default-secondary-color\"" : "") . ">" . ($c1 == 0.0 || $row_v != "" ? "" : htmlentities($c1)) . "</td>";
+                    $htmlcontrol .= "<td title=\" \" name =\"c1\"" . ($c2 >= 1 && $c2 <= 5.5 && $row_v == "" ?  "class=\"quaternary-bg-color default-secondary-color\"" : "") . ">" . ($c2 == 0.0 || $row_v != "" ? "" : htmlentities($c2)) . "</td>";
+                    $htmlcontrol .= "<td title=\" \" name =\"c1\"" . ($ese1 >= 1 && $ese1 <= 5.5 && $row_v == "" ?  "class=\"quaternary-bg-color default-secondary-color\"" : "") . ">" . ($ese1 == 0.0 || $row_v != "" ? "" : htmlentities($ese1)) . "</td>";
                     $htmlcontrol .= "<td style='background-color: white;'></td>";
-                    $htmlcontrol .= "<td title=\" \" name =\"c1\"" . ($c5 >= 1 && $c5 <= 5.5 ?  "class=\"quaternary-bg-color default-secondary-color\"" : "") . ">" . ($c5 == 0.0 ? "" : htmlentities($c5)) . "</td>";
-                    $htmlcontrol .= "<td title=\" \" name =\"c1\"" . ($c6 >= 1 && $c6 <= 5.5 ?  "class=\"quaternary-bg-color default-secondary-color\"" : "") . ">" . ($c6 == 0.0 ? "" : htmlentities($c6)) . "</td>";
-                    $htmlcontrol .= "<td title=\" \" name =\"c1\"" . ($ese2 >= 1 && $ese2 <= 5.5 ?  "class=\"quaternary-bg-color default-secondary-color\"" : "") . ">" . ($ese2 == 0.0 ? "" : htmlentities($ese2)) . "</td>";
+                    $htmlcontrol .= "<td title=\" \" name =\"c1\"" . ($c5 >= 1 && $c5 <= 5.5 && $row_v == "" ?  "class=\"quaternary-bg-color default-secondary-color\"" : "") . ">" . ($c5 == 0.0 || $row_v != "" ? "" : htmlentities($c5)) . "</td>";
+                    $htmlcontrol .= "<td title=\" \" name =\"c1\"" . ($c6 >= 1 && $c6 <= 5.5 && $row_v == "" ?  "class=\"quaternary-bg-color default-secondary-color\"" : "") . ">" . ($c6 == 0.0 || $row_v != "" ? "" : htmlentities($c6)) . "</td>";
+                    $htmlcontrol .= "<td title=\" \" name =\"c1\"" . ($ese2 >= 1 && $ese2 <= 5.5 && $row_v == "" ?  "class=\"quaternary-bg-color default-secondary-color\"" : "") . ">" . ($ese2 == 0.0 || $row_v != "" ? "" : htmlentities($ese2)) . "</td>";
                     $htmlcontrol .= "<td style='background-color: white;'></td>";
-                    $htmlcontrol .= "<td title=\" \" name =\"c1\"" . ($c9 >= 1 && $c9 <= 5.5 ?  "class=\"quaternary-bg-color default-secondary-color\"" : "") . ">" . ($c9 == 0.0 ? "" : htmlentities($c9)) . "</td>";
-                    $htmlcontrol .= "<td title=\" \" name =\"c1\"" . ($c10 >= 1 && $c10 <= 5.5 ?  "class=\"quaternary-bg-color default-secondary-color\"" : "") . ">" . ($c10 == 0.0 ? "" : htmlentities($c10)) . "</td>";
-                    $htmlcontrol .= "<td title=\" \" name =\"c1\"" . ($ese3 >= 1 && $ese3 <= 5.5 ?  "class=\"quaternary-bg-color default-secondary-color\"" : "") . ">" . ($ese3 == 0.0 ? "" : htmlentities($ese3)) . "</td>";
+                    $htmlcontrol .= "<td title=\" \" name =\"c1\"" . ($c9 >= 1 && $c9 <= 5.5 && $row_v == "" ?  "class=\"quaternary-bg-color default-secondary-color\"" : "") . ">" . ($c9 == 0.0 || $row_v != "" ? "" : htmlentities($c9)) . "</td>";
+                    $htmlcontrol .= "<td title=\" \" name =\"c1\"" . ($c10 >= 1 && $c10 <= 5.5 && $row_v == "" ?  "class=\"quaternary-bg-color default-secondary-color\"" : "") . ">" . ($c10 == 0.0 || $row_v != "" ? "" : htmlentities($c10)) . "</td>";
+                    $htmlcontrol .= "<td title=\" \" name =\"c1\"" . ($ese3 >= 1 && $ese3 <= 5.5 && $row_v == "" ?  "class=\"quaternary-bg-color default-secondary-color\"" : "") . ">" . ($ese3 == 0.0 || $row_v != "" ? "" : htmlentities($ese3)) . "</td>";
                     $htmlcontrol .= "<td style='background-color: white;'></td>";
-                    $htmlcontrol .= "<td title=\" \" name =\"c1\"" . ($gse >= 1 && $gse <= 5.5 ?  "class=\"quaternary-bg-color default-secondary-color\"" : "") . ">" . ($gse == 0.0 ? "" : htmlentities($gse)) . "</td>";
+                    $htmlcontrol .= "<td style='" . $row_v . "' title=\" \" name =\"c1\"" . ($gse >= 1 && $gse <= 5.5 ?  "class=\"quaternary-bg-color default-secondary-color\"" : "") . ">" . ($gse == 0.0 ? "" : htmlentities($gse)) . "</td>";
                   } else {
                     $htmlcontrol .= "<tr  class=" . htmlentities($rapnummer) . " >";
                     $htmlcontrol .= "<td class='mobile'>" . htmlentities($schooljaar) . "</td>";
