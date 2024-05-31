@@ -24,7 +24,7 @@ if (mysqli_num_rows($result) > 0) {
             <?php foreach ($students as $row) {
                 $print_table = $montessori_print->print_montessori($row, $_GET['klas'], $_GET['rapport']);
             ?>
-                <section>
+                <section style="margin-bottom: 400px;">
                     <div class="row">
                         <div class="default-secondary-bg-color col-md-12 inset brd-bottom">
                             <div class="row">
