@@ -38,6 +38,7 @@
                                 <div class="form-group">
                                     <button id="btn_get_form" type="submit" class="btn btn-primary btn-m-w btn-m-h">zoeken</button>
                                 </div>
+                                <button id="btn_export" class="btn btn-primary btn-m-w btn-m-h">export</button>
                             </fieldset>
                         </form>
                     </div>
@@ -87,6 +88,12 @@
             },
         });
     })
+    $("#btn_export").click(function() {
+        var klas = $("#houding_klassen_lijst option:selected").val(),
+            rapport = $("#periode option:selected").val();
+
+        window.open("ajax/export_montessori.php?klas=" + klas + "&rapport=" + rapport);
+    });
     $("#btn_cijfers_print").click(function() {
         var klas = $("#houding_klassen_lijst option:selected").val(),
             student = $("#opmerking_student_name option:selected").val(),

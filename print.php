@@ -1,6 +1,11 @@
 <?php
 include("config/app.config.php");
 include 'document_start.php';
+include 'classes/DBCreds.php';
+
+$DBCreds = new DBCreds();
+$mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
+$mysqli->set_charset('utf8');
 
 $leerling_html = "";
 switch ($_GET['name']) {
@@ -1025,6 +1030,20 @@ switch ($_GET['name']) {
                                             <?php }
                                             ?>
                                             <h5 class="col-md-12 secondary-color"><?php echo $_SESSION["schoolname"] ?></h5>
+                                            <?php if ($_SESSION["SchoolID"] == 11 && $_GET['name'] == 'montessori') {
+                                                $get_student = "SELECT firstname, lastname FROM students WHERE id = " . $_GET["student"];
+                                                $result = mysqli_query($mysqli, $get_student);
+                                                if (mysqli_num_rows($result) > 0) {
+                                                    while ($row = mysqli_fetch_assoc($result)) {
+                                                        $student_name = $row["lastname"] . " " . $row["firstname"];
+                                                    }
+                                                }
+                                            ?>
+                                                <h6>Schooljaar: <?php echo $_SESSION["SchoolJaar"] ?></h6>
+                                                <h6>Klas: <?php echo $_GET["klas"] ?></h6>
+                                                <h6>Rapport: <?php echo $_GET["rapport"] ?></h6>
+                                                <h6>Leerling: <?php echo $student_name ?></h6>
+                                            <?php } ?>
                                         </td>
                                         <td align="CENTER">
                                             <h1 class="col-md-12 primary-color"><?php echo $_GET['title']; ?></h1>
@@ -1053,19 +1072,29 @@ switch ($_GET['name']) {
                     <?php
                     if ($_SESSION["SchoolID"] == 11 && $_GET['name'] == 'montessori') {
                         $klas = $_GET["klas"];
-                        require_once "classes/DBCreds.php";
-                        $DBCreds = new DBCreds();
-                        date_default_timezone_set("America/Aruba");
-                        $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
+                        $schoolJaar = $_SESSION["SchoolJaar"];
                         $query = "SELECT FirstName, LastName FROM app_useraccounts WHERE Class = '$klas' AND SchoolID = 11 AND UserRights = 'DOCENT' LIMIT 1";
                         $resultado = mysqli_query($mysqli, $query);
                         while ($row = mysqli_fetch_assoc($resultado)) {
                             $teacher = $row["FirstName"] . " " . $row["LastName"];
                         }
+
+                        $query1 = "SELECT concat(a.FirstName, ' ', a.LastName) as name,a.signature FROM setting s INNER JOIN app_useraccounts a ON s.director = a.UserGUID WHERE s.schoolid = 11 AND s.year_period = '$schoolJaar'";
+                        $resultado1 = mysqli_query($mysqli, $query1);
+                        if (mysqli_num_rows($resultado1) > 0) {
+                            while ($row1 = mysqli_fetch_assoc($resultado1)) {
+                                $cabesante = $row1["name"];
+                                $signature_dir = $row1["signature"];
+                            }
+                        }
                     ?>
                         <div style='display:flex; flex-direction: row; justify-content: space-between; width: 100%;'>
-                            <h5 style='margin-bottom: .5rem !important;display: inline;'>Naam schoolboofd: Cornelia Aventurin Connor</h5>
-                            <p>.................................................................</p>
+                            <h5 style='margin-bottom: .5rem !important;display: inline;'>Naam schoolboofd: <?php echo $cabesante; ?></h5>
+                            <?php if ($signature_dir != "" && $signature_dir != NULL) { ?>
+                                <img src='signatures/" . $signature_dir . "' width='230' height='100'>
+                            <?php } else { ?>
+                                <p>.................................................................</p>
+                            <?php } ?>
                         </div>
                         <div style='display:flex; flex-direction: row; justify-content: space-between; width: 100%;'>
                             <h5 style='margin-bottom: .5rem !important;display: inline;'>Naam leerkracht: <?php echo $teacher; ?></h5>
