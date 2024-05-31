@@ -15,7 +15,7 @@
 
     <?php $UserRights = $_SESSION['UserRights'];
 
-    if ($UserRights == "ONDERSTEUNING" || $UserRights == "TEACHER" || $_SESSION['SchoolType'] != 2) {
+    if ($UserRights == "ONDERSTEUNING" || $_SESSION['SchoolType'] != 2) {
 
         include 'redirect.php';
     } else { ?>

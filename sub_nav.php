@@ -285,8 +285,11 @@ ob_flush();
 								<?php endif; ?>
 								<li><a href="bespreking.php">Rapport bespreking</a></li>
 								<li><a href="ttr.php">TTR</a></li>
-								<li><a href="verzuim_hs.php">Klassenboek</a></li>
-								<!-- <li><a href="verzuim.php">Verzuim</a></li>-->
+								<?php if ($_SESSION['SchoolType'] == 2) { ?>
+									<li><a href="verzuim_hs.php">Klassenboek</a></li>
+								<? } else { ?>
+									<li><a href="verzuim.php">Verzuim</a></li>
+								<? } ?>
 								<li><a href="woord_rapport.php">Woord Rapport</a></li>
 								<li><a href="#" class="disabled">CITO</a></li>
 								<!-- <li><a href="#" class="disabled">Tempo toets</a></li> -->

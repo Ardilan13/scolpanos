@@ -19,6 +19,18 @@ $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $D
 $schoolid = $_SESSION["SchoolID"];
 $schooljaar = $_SESSION["SchoolJaar"];
 
+// $klas = ["1A", "1B", "1C", "2A", "2B", "2C", "3A", "3B", "3C", "4A", "4B", "4C", "5A", "5B", "5C", "6A", "6B", "6C"];
+
+// $sql_query_text = "select distinct v.vak_naam from le_vakken_ps v where v.type = 'c' order by v.id asc;";
+// $resultado = mysqli_query($mysqli, $sql_query_text);
+// while ($row = mysqli_fetch_assoc($resultado)) {
+//     $vak = $row["vak_naam"];
+//     $query1 = "INSERT INTO teacher (userGUID, schoolID,subject) VALUES ('58AD1DFC-8EDE-AD16-3394-40E338AA6DD3', $schoolid,'$vak')";
+//     // echo $query1 . "<br>";
+//     $resultado1 = mysqli_query($mysqli, $query1);
+//     // echo $row["id"] . " " . $row["vak_naam"] . " " . $schoolid . "<br>";
+// }												
+
 
 // $get = "SELECT DISTINCT volledigenaamvak FROM `le_vakken` where SchoolID IN (4,5,6,7,9,10,11)  
 // ORDER BY `le_vakken`.`volledigenaamvak` ASC";
