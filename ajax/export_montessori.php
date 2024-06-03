@@ -24,7 +24,7 @@ if (mysqli_num_rows($result) > 0) {
             <?php foreach ($students as $row) {
                 $print_table = $montessori_print->print_montessori($row, $_GET['klas'], $_GET['rapport']);
             ?>
-                <section style="margin-bottom: 400px;">
+                <section style="margin-bottom: 700px;">
                     <div class="row">
                         <div class="default-secondary-bg-color col-md-12 inset brd-bottom">
                             <div class="row">
@@ -45,12 +45,6 @@ if (mysqli_num_rows($result) > 0) {
                                                 <h6>Klas: <?php echo $_GET["klas"] ?></h6>
                                                 <h6>Rapport: <?php echo $_GET["rapport"] ?></h6>
                                                 <h6>Leerling: <?php echo $student_name ?></h6>
-                                            </td>
-                                            <td align="CENTER">
-                                                <h1 class="col-md-12 primary-color"><?php echo $_GET['title']; ?></h1>
-                                            </td>
-                                            <td align="CENTER">
-                                                <div class='square' style="float: right; border-width: 1px; height: 100px; width: 100px; border-color: #000000f5; background-color: #fff0; border-style: solid;"></div>
                                             </td>
                                         </tr>
                                     </table>
@@ -84,17 +78,17 @@ if (mysqli_num_rows($result) > 0) {
                             }
                         }
                         ?>
-                        <div style='display:flex; flex-direction: row; justify-content: space-between; width: 100%;'>
+                        <div style='display:flex; flex-direction: row; justify-content: space-between; width: 100%; align-items: end; min-height: 100px;'>
                             <h5 style='margin-bottom: .5rem !important;display: inline;'>Naam schoolboofd: <?php echo $cabesante; ?></h5>
                             <?php if ($signature_dir != "" && $signature_dir != NULL) { ?>
-                                <img src='../signatures/" . $signature_dir . "' width='230' height='100'>
+                                <img src='../signatures/<?php echo $signature_dir; ?> ' width=' 230' height='80'>
                             <?php } else { ?>
-                                <p>.................................................................</p>
+                                <p style="margin-bottom: 0;">.................................................................</p>
                             <?php } ?>
                         </div>
-                        <div style='display:flex; flex-direction: row; justify-content: space-between; width: 100%;'>
+                        <div style='display:flex; flex-direction: row; justify-content: space-between; width: 100%; align-items:end; min-height: 100px;'>
                             <h5 style='margin-bottom: .5rem !important;display: inline;'>Naam leerkracht: <?php echo $teacher; ?></h5>
-                            <p>.................................................................</p>
+                            <p style="margin-bottom: 0;">.................................................................</p>
                         </div>
                     </div>
                 </section>
