@@ -20,3 +20,6 @@ img
 components
 .well-known
 .idea
+.vscode/settings.json
+.idx/ardilan.code-profile
+.idx/dev.nix
