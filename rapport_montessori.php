@@ -63,6 +63,22 @@
 <?php include 'document_end.php'; ?>
 
 <script>
+    $(document).ready(function() {
+        setTimeout(function() {
+            var klas = $("#houding_klassen_lijst option");
+
+            klas.each(function() {
+                var value = $(this).val();
+                if (value.charAt(0) === '4' || value.charAt(0) === '5' || value.charAt(0) === '6') {
+                    $(this).remove();
+                }
+            });
+
+            console.log($("#houding_klassen_lijst option"));
+        }, 2000);
+
+    });
+
     $("#houding_klassen_lijst").change(function() {
         var varCClass = $("#houding_klassen_lijst option:selected").val();
         $.post("ajax/getliststudentbyclass.php", {

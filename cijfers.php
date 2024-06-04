@@ -25,6 +25,7 @@
 		<main id="main" role="main">
 			<section>
 				<input hidden type="text" id="schooltype" value="<?php echo $_SESSION['SchoolType'] ?>">
+				<input hidden type="text" id="schoolid" value="<?php echo $_SESSION['SchoolID'] ?>">
 				<div class="container container-fs">
 					<div class="row">
 						<div class="default-secondary-bg-color col-md-12 inset brd-bottom clearfix">
@@ -140,6 +141,18 @@
 
 	var a = JSON.parse(sessionStorage.getItem("extra_ss_cijfer"));
 	$(document).ready(function() {
+		setTimeout(function() {
+			var schoolid = $("#schoolid").val();
+			var klas = $("#cijfers_klassen_lijst option");
+
+			klas.each(function() {
+				var value = $(this).val();
+				if ((value.charAt(0) === '1' || value.charAt(0) === '2' || value.charAt(0) === '3') && schoolid == 11) {
+					$(this).remove();
+				}
+			});
+		}, 2000);
+
 		setTimeout(function() {
 			if ($("#cijfers_klassen_lijst").val() == '4') {
 				$.getJSON("ajax/get_groups.php", {}, function(result) {
