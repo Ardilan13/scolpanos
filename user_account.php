@@ -6,7 +6,8 @@
 	<main id="main" role="main">
 		<?php include 'header.php'; ?>
 		<?php $UserRights = $_SESSION['UserRights'];
-		if ($UserRights != "BEHEER") {
+		$UserGUID = $_SESSION['UserGUID'];
+		if ($UserRights != "BEHEER" || $UserGUID != "8DEFFDC8-0239-65F3-5416-A512745D5583" || $UserGUID = "391F1722-6015-F210-045D-E89FEA5A0F2A") {
 			include 'redirect.php';
 		} else { ?>
 			<section>
