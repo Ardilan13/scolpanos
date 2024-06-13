@@ -114,9 +114,9 @@
                                                 while ($row1 = mysqli_fetch_assoc($result1)) {
                                                     $ex = $row1["id"];
                                                     $id = $row1["studentid"];
-                                                    $gse = "(IF(c.c2 > 0.9, c.c2, IF(c.c1 > 0.9, c.c1, 0)) +
-                                                    IF(c.c6 > 0.9, c.c6, IF(c.c5 > 0.9, c.c5, 0)) +
-                                                    IF(c.c10 > 0.9, c.c10, IF(c.c9 > 0.9, c.c9, 0))) / 
+                                                    $gse = "(IF(c.c2 > c.c1, c.c2, IF(c.c1 > 0.9, c.c1, 0)) +
+                                                    IF(c.c6 > c.c5, c.c6, IF(c.c5 > 0.9, c.c5, 0)) +
+                                                    IF(c.c10 > c.c9, c.c10, IF(c.c9 > 0.9, c.c9, 0))) / 
                                                     (IF(c.c2 > 0.9, 1, IF(c.c1 > 0.9, 1, 0)) +
                                                     IF(c.c6 > 0.9, 1, IF(c.c5 > 0.9, 1, 0)) +
                                                     IF(c.c10 > 0.9, 1, IF(c.c9 > 0.9, 1, 0)))";
