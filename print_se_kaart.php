@@ -477,26 +477,6 @@ foreach ($array_leerling as $item) {
     }
 
     $page_html .= "</div>";
-    if ($schoolId == 8) {
-      $page_html .= "<div style='display: flex; flex-direction: column; align-items: center;'>";
-
-      $page_html .= "<p style='text-align: center;'>Nificacion di letter</b>";
-      $page_html .= "<div>";
-      $page_html .= "<b style='margin-right: 20px;'>B = Bon</b>";
-      $page_html .= "<label style='margin-right: 20px;'>(8.0 - 10)</label>";
-      $page_html .= "</div>";
-      $page_html .= "<div>";
-      $page_html .= "<b style='margin-right: 20px;'>S = Suficiente</b>";
-      $page_html .= "<label style='margin-right: 20px;'>(5.5 - 7.9)</label>";
-      $page_html .= "</div>";
-      $page_html .= "<div>";
-      $page_html .= "<b style='margin-right: 20px;'>I = Insuficiente</b>";
-      $page_html .= "<label style='margin-right: 20px;'>(5.4 OF MENOS)</label>";
-      $page_html .= "</div>";
-
-
-      $page_html .= "</div>";
-    }
 
     $page_html .= "</div>";
     $page_html .= "</div>";
@@ -8954,35 +8934,55 @@ if($avg_h == 0.0){$avg_h = null;}
     $page_html .= "<hr style='border-top: 2px solid rgba(0, 0, 0, 0.34); border-top-style: dotted;'>";
     $page_html .= "</div>";
   } else if ($_SESSION['SchoolID'] != 18) {
-    $page_html .= "<h6>Betekenis cijfers/letters:</h6>";
-    $page_html .= "<div class='row' style=' justify-content: space-around;'>";
-    $page_html .= "<div>";
-    $page_html .= "<p  style='margin-bottom: 0; font-size: 0.4rem'>10 = Uitmuntend</p>";
-    $page_html .= "<p  style='margin-bottom: 0; font-size: 0.4rem'>9 = Zeer goed</li>";
-    $page_html .= "<p  style='margin-bottom: 0; font-size: 0.4rem'>8 = Goed</p>";
-    $page_html .= "</div>";
-    $page_html .= "<div>";
-    $page_html .= "<p  style='margin-bottom: 0; font-size: 0.4rem'>7 = Ruim voldoende</p>";
-    $page_html .= "<p  style='margin-bottom: 0; font-size: 0.4rem'>6 = Voldoende</p>";
-    $page_html .= "<p style='margin-bottom: 0; font-size: 0.4rem'>5 = Bijna voldoende</p>";
-    $page_html .= "<p style='margin-bottom: 0; font-size: 0.4rem'>4 = Onvoldoende</p>";
-    $page_html .= "</div>";
-    $page_html .= "<div>";
-    $page_html .= "<p style='margin-bottom: 0; font-size: 0.4rem'>3 = Zeer onvoldoende</p>";
-    $page_html .= "<p style='margin-bottom: 0; font-size: 0.4rem'>2 = Slecht</p>";
-    $page_html .= "<p style='margin-bottom: 0; font-size: 0.4rem'>1 = Zeer slecht</p>";
-    $page_html .= "</div>";
-    $page_html .= "<div>";
-    $page_html .= "<p style='margin-bottom: 0; font-size: 0.4rem'>A = Zeer goed</p>";
-    $page_html .= "<p style='margin-bottom: 0; font-size: 0.4rem'>B = Goed</p>";
-    $page_html .= "<p style='margin-bottom: 0; font-size: 0.4rem'>C = Ruim voldoende</p>";
-    $page_html .= "</div>";
-    $page_html .= "<div>";
-    $page_html .= "<p style='margin-bottom: 0; font-size: 0.4rem'>D = Voldoende</p>";
-    $page_html .= "<p style='margin-bottom: 0; font-size: 0.4rem'>E = Onvoldoende</p>";
-    $page_html .= "<p style='margin-bottom: 0; font-size: 0.4rem'>F = Slecht</p>";
-    $page_html .= "</div>";
-    $page_html .= "</div>";
+    if ($_SESSION['SchoolID'] != 8) {
+      $page_html .= "<h6>Betekenis cijfers/letters:</h6>";
+      $page_html .= "<div class='row' style=' justify-content: space-around;'>";
+      $page_html .= "<div>";
+      $page_html .= "<p  style='margin-bottom: 0; font-size: 0.4rem'>10 = Uitmuntend</p>";
+      $page_html .= "<p  style='margin-bottom: 0; font-size: 0.4rem'>9 = Zeer goed</li>";
+      $page_html .= "<p  style='margin-bottom: 0; font-size: 0.4rem'>8 = Goed</p>";
+      $page_html .= "</div>";
+      $page_html .= "<div>";
+      $page_html .= "<p  style='margin-bottom: 0; font-size: 0.4rem'>7 = Ruim voldoende</p>";
+      $page_html .= "<p  style='margin-bottom: 0; font-size: 0.4rem'>6 = Voldoende</p>";
+      $page_html .= "<p style='margin-bottom: 0; font-size: 0.4rem'>5 = Bijna voldoende</p>";
+      $page_html .= "<p style='margin-bottom: 0; font-size: 0.4rem'>4 = Onvoldoende</p>";
+      $page_html .= "</div>";
+      $page_html .= "<div>";
+      $page_html .= "<p style='margin-bottom: 0; font-size: 0.4rem'>3 = Zeer onvoldoende</p>";
+      $page_html .= "<p style='margin-bottom: 0; font-size: 0.4rem'>2 = Slecht</p>";
+      $page_html .= "<p style='margin-bottom: 0; font-size: 0.4rem'>1 = Zeer slecht</p>";
+      $page_html .= "</div>";
+      $page_html .= "<div>";
+      $page_html .= "<p style='margin-bottom: 0; font-size: 0.4rem'>A = Zeer goed</p>";
+      $page_html .= "<p style='margin-bottom: 0; font-size: 0.4rem'>B = Goed</p>";
+      $page_html .= "<p style='margin-bottom: 0; font-size: 0.4rem'>C = Ruim voldoende</p>";
+      $page_html .= "</div>";
+      $page_html .= "<div>";
+      $page_html .= "<p style='margin-bottom: 0; font-size: 0.4rem'>D = Voldoende</p>";
+      $page_html .= "<p style='margin-bottom: 0; font-size: 0.4rem'>E = Onvoldoende</p>";
+      $page_html .= "<p style='margin-bottom: 0; font-size: 0.4rem'>F = Slecht</p>";
+      $page_html .= "</div>";
+      $page_html .= "</div>";
+    } else {
+      $page_html .= "<div style='display: flex; flex-direction: column; align-items: center;'>";
+
+      $page_html .= "<p style='text-align: center; margin-bottom: 0.5rem;'>Nificacion di letter</b>";
+      $page_html .= "<div>";
+      $page_html .= "<b style='margin-right: 20px;'>B = Bon</b>";
+      $page_html .= "<label style='margin-bottom: 0; margin-right: 20px;'>(8.0 - 10)</label>";
+      $page_html .= "</div>";
+      $page_html .= "<div>";
+      $page_html .= "<b style='margin-right: 20px;'>S = Suficiente</b>";
+      $page_html .= "<label style='margin-bottom: 0; margin-right: 20px;'>(5.5 - 7.9)</label>";
+      $page_html .= "</div>";
+      $page_html .= "<div>";
+      $page_html .= "<b style='margin-right: 20px;'>I = Insuficiente</b>";
+      $page_html .= "<label style='margin-bottom: 0; margin-right: 20px;'>(5.4 OF MENOS)</label>";
+      $page_html .= "</div>";
+
+      $page_html .= "</div>";
+    }
     $page_html .= "<div class='row' style='margin: 0 !important;'>";
     $page_html .= "<div style='width: 100%;'>";
     $klas_next = substr($klas, 0, 1);

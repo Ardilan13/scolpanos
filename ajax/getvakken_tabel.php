@@ -212,37 +212,38 @@ function print_vakken_table()
 				total = get_cijfers($(this), clase);
 				if (total == 0) {
 					total = '';
-				} else {
-					total = total.toFixed(1);
 				}
+				// } else {
+				// 	total = total.toFixed(2);
+				// }
 				// total = total == 0 ? '' : total.toString();
 				// total = total.length < 2 ? total + '.0' : total;
 				if (clase < 9 && blue == false) {
 					if (clase % 2 == 0 && clase != 4 && clase != 8) {
-						$(this).next().text(total);
+						$(this).next().text(total.toFixed(1));
 					} else if (clase != 3 && clase != 7 && clase != 4 && clase != 8) {
-						$(this).next().next().text(total);
+						$(this).next().next().text(total.toFixed(1));
 					}
 				} else if (clase < 12 && blue == false) {
 					if (existe) {
 						switch (clase) {
 							case '9':
-								$(this).next().next().next().text(total);
+								$(this).next().next().next().text(total.toFixed(1));
 								break;
 							case '10':
-								$(this).next().next().text(total);
+								$(this).next().next().text(total.toFixed(1));
 								break;
 							case '11':
-								$(this).next().text(total);
+								$(this).next().text(total.toFixed(1));
 								break;
 						}
 					} else {
 						switch (clase) {
 							case '9':
-								$(this).next().next().text(total);
+								$(this).next().next().text(total.toFixed(1));
 								break;
 							case '10':
-								$(this).next().text(total);
+								$(this).next().text(total.toFixed(1));
 								break;
 						}
 					}
@@ -251,16 +252,16 @@ function print_vakken_table()
 						switch (clase) {
 							case '14':
 								if (blue == true) {
-									$(this).next().text(Math.round(total));
+									$(this).next().text(Math.round(total.toFixed(2)));
 								} else {
-									$(this).next().next().text(Math.round(total));
+									$(this).next().next().text(Math.round(total.toFixed(2)));
 								}
 								break;
 							case '15':
 								if (blue == true) {
-									$(this).text(Math.round(total));
+									$(this).text(Math.round(total.toFixed(2)));
 								} else {
-									$(this).next().text(Math.round(total));
+									$(this).next().text(Math.round(total.toFixed(2)));
 								}
 								break;
 						}
