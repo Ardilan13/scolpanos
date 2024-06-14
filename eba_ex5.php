@@ -115,12 +115,15 @@
                                                     $ex = $row1["id"];
                                                     $id = $row1["studentid"];
                                                     $gse = "(IF(c.c2 > c.c1, c.c2, IF(c.c1 > 0.9, c.c1, 0)) +
+                                                    IF(c.c11 > 0.9, c.c11/2, 0) +
                                                     IF(c.c6 > c.c5, c.c6, IF(c.c5 > 0.9, c.c5, 0)) +
                                                     IF(c.c10 > c.c9, c.c10, IF(c.c9 > 0.9, c.c9, 0))) / 
                                                     (IF(c.c2 > 0.9, 1, IF(c.c1 > 0.9, 1, 0)) +
+                                                    IF(c.c11 > 0.9, 1/2, 0) +
                                                     IF(c.c6 > 0.9, 1, IF(c.c5 > 0.9, 1, 0)) +
                                                     IF(c.c10 > 0.9, 1, IF(c.c9 > 0.9, 1, 0)))";
                                                     $ec = "IF(c.c15 > 0.9, c.c15, IF(c.c14 > 0.9, c.c14, 0))";
+                                                    $po = "IF(c.c11 > 0.9, c.c11/2, 0)";
                                                     $div = "IF(c.c15 > 0.9, 1, IF(c.c14 > 0.9, 1, 0))";
                                                     $get_cijfers = "SELECT 
                                                     TRUNCATE(AVG(CASE WHEN subquery.volledigenaamvak = 'ne' THEN subquery.avg_c END), 0) AS ne,
@@ -138,7 +141,7 @@
                                                   FROM (
                                                     SELECT 
                                                         v.volledigenaamvak,
-                                                        ROUND(IF($div > 0 ,($gse + $ec)/ 2, NULL), 0) AS avg_c
+                                                        ROUND(IF($div > 0 ,(ROUND($gse,1) + $ec)/ 2, NULL), 0) AS avg_c
                                                     FROM students s
                                                     LEFT JOIN le_cijfers c ON s.id = c.studentid 
                                                       AND c.schooljaar = '$schooljaar' 

@@ -241,8 +241,8 @@ if ($studentid == 'all') {
                     <h4>MIDDELBAAR ALGEMEEN VOORTGEZET ONDERWIJS</h4>
                 </div>
             </div>
-            <p>De ondergetekenden verklaren dat <b><?php echo $leerling["voornamen"] . ", " . $leerling["achternaam"]; ?></b></p>
-            <p>geboren op <b><?php echo $fecha; ?></b> te <b><?php echo utf8_encode($leerling["birthplace"]); ?></b></p>
+            <p>De ondergetekenden verklaren dat <b><?php echo $leerling["voornamen"] . " " . $leerling["achternaam"]; ?></b></p>
+            <p>geboren op <b><?php echo $fecha; ?></b> te <b><?php echo ucwords(strtolower(utf8_encode($leerling["birthplace"]))); ?></b></p>
             <p>heeft deelgenomen aan het eindexamen middelbaar algemeen voortgezet onderwijs conform</p>
             <p>het profiel <b><?php echo $profiel; ?></b></p>
             <p>aan <b><?php echo $titleD; ?></b></p>
@@ -266,9 +266,18 @@ if ($studentid == 'all') {
             CASE WHEN e0.e11 IS NOT NULL AND e0.e11 <> '' THEN e.e11 ELSE NULL END AS e11,
             CASE WHEN e0.e12 IS NOT NULL AND e0.e12 <> '' THEN e.e12 ELSE NULL END AS e12,
             e.tv1,
-            p.ckv,
-            p.lo,
-            p.her
+            p.her,
+            (   SELECT c.c1
+                    FROM le_cijfers c
+                        INNER JOIN le_vakken v ON c.vak = v.ID
+                    WHERE
+                        c.schooljaar = e0.schooljaar
+                        AND c.studentid = s.id
+                        AND c.c1 IS NOT NULL
+                        AND v.volledigenaamvak IN ('lo')
+                        AND e.type = 2
+                    LIMIT 1
+                ) AS lo
             FROM eba_ex e
             INNER JOIN personalia p ON e.id_personalia = p.id
             INNER JOIN students s ON p.studentid = s.id
@@ -378,11 +387,12 @@ if ($studentid == 'all') {
                         $cijfer = $cijfers[2][$pos];
                         $cijfer2 = $cijfers[3][$pos];
                         $cijfer3 = $cijfers[5][$pos];
+                        $cijfer_number = round(($cijfers[2][$pos] + $cijfers[3][$pos]) / 2);
                         $index = array_search($pos, $eba);
                         if ($index !== false) {
                             unset($eba[$index]);
                         }
-                        switch ($cijfer3) {
+                        switch ($cijfer_number) {
                             case "1":
                                 $cijfer4 = "Eén";
                                 break;
@@ -445,14 +455,14 @@ if ($studentid == 'all') {
                                 echo "<td></td>";
                                 echo "<td></td>";
                                 if ($i == 3) {
-                                    echo "<td class='nota'>" . ($cijfers[2]["her"] == 1 ? "Vold." : ($cijfer3 == 1 ? "Vold." : "Onvd.")) . "</td>";
+                                    echo "<td class='nota'>" . ($cijfers[2]["her"] == 1 ? "Vold." : ($cijfer_number == 1 ? "Vold." : "Onvd.")) . "</td>";
                                 } else {
-                                    echo "<td class='nota'>" . ($cijfer3 == 1 ? "Vold." : "Onvd.") . "</td>";
+                                    echo "<td class='nota'>" . ($cijfers[2]["lo"] > 5.5 ? "Vold." : ($cijfers[2]["lo"] > 1 ? "Goed." : "Onvd.")) . "</td>";
                                 }
                             } else {
                                 echo "<td class='nota'>" . $cijfer . "</td>";
                                 echo "<td class='nota'>" . $cijfer2 . "</td>";
-                                echo "<td class='nota'>" . $cijfer3 . "</td>";
+                                echo "<td class='nota'>" . $cijfer_number . "</td>";
                                 echo "<td class='nota'>" . $cijfer4 . "</td>";
                             }
                             echo "</tr>";

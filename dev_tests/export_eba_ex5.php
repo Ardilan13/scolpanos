@@ -85,7 +85,7 @@ if ($result->num_rows > 0) {
         $hojaActiva->setCellValue('A' . $i, $row["code"]);
         $hojaActiva->setCellValue('B' . $i, $row["lastname"]);
         $hojaActiva->setCellValue('B' . ($i + 1), $row["dob"]);
-        $hojaActiva->setCellValue('B' . ($i + 2), $row["birthplace"]);
+        $hojaActiva->setCellValue('B' . ($i + 2), ucwords(strtolower($row["birthplace"])));
         $hojaActiva->setCellValue('C' . $i, $row["firstname"]);
         $hojaActiva->setCellValue('D' . $i, $row["sex"]);
         $hojaActiva->setCellValue('E' . $i, $row["profiel"]);
