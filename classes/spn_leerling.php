@@ -746,7 +746,7 @@ class spn_leerling
                   $htmlcontrol .= "</tr>";
                   $htmlcontrol .= "<tr>";
                   $htmlcontrol .= "<td class=\"bold\">Nationaliteiten</td>";
-                  $htmlcontrol .= "<td><span id=\"lblName3\" data-student-id=\"" . $studentid . "\" data-column=\"8\" data-row=\"2\" class=\"editable\">" . utf8_encode($nationaliteit) . "</span></td>";
+                  $htmlcontrol .= "<td><span id=\"lblName3\" data-student-id=\"" . $studentid . "\" data-column=\"8\" data-row=\"2\" class=\"editable\">" . $nationaliteit . "</span></td>";
                   $htmlcontrol .= "<td class=\"bold\">-</td>";
                   $htmlcontrol .= "<td></td>";
                   $htmlcontrol .= "</tr>";
@@ -970,7 +970,7 @@ class spn_leerling
                   $htmlcontrol .= "</tr>";
                   $htmlcontrol .= "<tr>";
                   $htmlcontrol .= "<td class=\"bold\">Nationaliteiten</td>";
-                  $htmlcontrol .= "<td><span id=\"lblName3\" data-student-id=\"" . $studentid . "\" data-column=\"8\" data-row=\"2\" class=\"editable\">" . utf8_encode($nationaliteit) . "</span></td>";
+                  $htmlcontrol .= "<td><span id=\"lblName3\" data-student-id=\"" . $studentid . "\" data-column=\"8\" data-row=\"2\" class=\"editable\">" . $nationaliteit . "</span></td>";
                   $htmlcontrol .= "<td class=\"bold\">-</td>";
                   $htmlcontrol .= "<td></td>";
                   $htmlcontrol .= "</tr>";
