@@ -828,7 +828,7 @@ class spn_leerling
                   $htmlcontrol .= "</div>";
                   $htmlcontrol .= "<h2 class=\"primary-color mrg-bottom\">Nota's</h2>";
                   $htmlcontrol .= "<div class=\"row mrg-bottom\">";
-                  $htmlcontrol .= "<div class=\"col-md-12\">";
+                  $htmlcontrol .= "<div class=\"col-md-12\" style='word-break: break-all;'>";
                   #$htmlcontrol .= "<textarea class=\"form-control\" disabled>". $notas ."</textarea>";
                   $htmlcontrol .= "<span id=\"lblNamet3notas\">" . $notas . "</span>";
                   $htmlcontrol .= "<br/>";
@@ -1052,7 +1052,7 @@ class spn_leerling
                   $htmlcontrol .= "</div>";
                   $htmlcontrol .= "<h2 class=\"primary-color mrg-bottom\">Nota's</h2>";
                   $htmlcontrol .= "<div class=\"row mrg-bottom\">";
-                  $htmlcontrol .= "<div class=\"col-md-12\">";
+                  $htmlcontrol .= "<div class=\"col-md-12\" style='word-break: break-all;'>";
                   #$htmlcontrol .= "<textarea class=\"form-control\" disabled>". $notas ."</textarea>";
                   $htmlcontrol .= "<span id=\"lblNamet3notas\">" . $notas . "</span>";
                   $htmlcontrol .= "<br/>";
