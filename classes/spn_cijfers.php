@@ -1829,9 +1829,7 @@ class spn_cijfers
     c.gemiddelde from students s
     left join le_cijfers_ps c on s.id = c.studentid
     left join le_vakken_ps v on c.vak = v.id
-    inner join le_cijferswaarde cw on cw.vak = v.id
-    and cw.schooljaar = c.schooljaar
-    and cw.rapnummer = c.rapnummer
+    inner join le_cijferswaarde cw on cw.vak = v.id and cw.schooljaar = c.schooljaar and cw.rapnummer = c.rapnummer and cw.klas = c.klas
     where c.klas = ? and v.id = ?
     and c.rapnummer = ?
     and c.studentid = ?
@@ -2108,6 +2106,7 @@ class spn_cijfers
         }
       } else {
         if (${'c' . $i} > 0 && ${'c' . $i} <= 10) {
+          // echo "c" . $i . " = " . ${'c' . $i} . " * " . ${'w' . $i} . "<br>"; test
           $samen = $samen + (${'c' . $i} * ${'w' . $i});
           $index = $index + ${'w' . $i};
         }
