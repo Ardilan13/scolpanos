@@ -68,7 +68,8 @@ print $l->edit_leerling(
 	str_replace("'", "", $_POST["notes"]),
 	$_POST["leerling_family"],
 	($_POST["datum_uitschijving"] != "" ? $u->converttomysqldate($_POST["datum_uitschijving"]) : $u->converttomysqldate($_DateTime)),
-	$_POST["profiel"]
+	$_POST["profiel"],
+	$_POST["religion"]
 );
 
 // }

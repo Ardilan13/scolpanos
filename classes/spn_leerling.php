@@ -95,7 +95,7 @@ class spn_leerling
     $sql_query = "SELECT id, studentnumber, firstname, lastname, sex, dob, class";
     $sql_query .= ", uuid, created, updated, schoolid, idnumber, enrollmentdate,  upper(birthplace), address, azvnumber, azvexpiredate, ";
     $sql_query .= "phone1, phone2,profiel, colorcode, status, roepnaam, nationaliteit, vezorger, email, ne, en, sp, pa, voertaalanders, spraak, gehoor, gezicht, motoriek, medicatieanders, ";
-    $sql_query .= "bijzonderemedisch, huisarts, huisartsnr, persoonlijkeeigenschappen, thuissituatie, fysiekebijzonderheden, schoolleereigenschappen, socialeeigenschappen, anders, voorletter, phone3, vorigeschool, bijzondermedischeindicatie, notas, id_family, securepin, outschooldate";
+    $sql_query .= "bijzonderemedisch, huisarts, huisartsnr, persoonlijkeeigenschappen, thuissituatie, fysiekebijzonderheden, schoolleereigenschappen, socialeeigenschappen, anders, voorletter, phone3, vorigeschool, bijzondermedischeindicatie, notas, id_family, securepin, outschooldate, religion";
     if ($klas_in == "ALL")
       $sql_query .= " FROM students WHERE schoolid=? order by";
     else
@@ -119,7 +119,7 @@ class spn_leerling
       $sql_query .= "s.roepnaam, s.nationaliteit, s.vezorger, s.email, s.ne, s.en, s.sp, s.pa, s.voertaalanders, s.spraak, s.gehoor, s.gezicht, s.motoriek, ";
       $sql_query .= "s.medicatieanders, s.bijzonderemedisch, s.huisarts, s.huisartsnr, ";
       $sql_query .= "s.persoonlijkeeigenschappen, s.thuissituatie, s.fysiekebijzonderheden, s.schoolleereigenschappen, s.socialeeigenschappen, ";
-      $sql_query .= "s.anders, s.voorletter, s.phone3, s.vorigeschool, s.bijzondermedischeindicatie, s.notas, s.id_family, s.securepin, s.outschooldate ";
+      $sql_query .= "s.anders, s.voorletter, s.phone3, s.vorigeschool, s.bijzondermedischeindicatie, s.notas, s.id_family, s.securepin, s.outschooldate,religion ";
       $sql_query .= "FROM students s ";
       $sql_query .= "inner join user_hs u on s.class= u.klas and s.schoolid = u.SchoolId ";
       $sql_query .= "WHERE u.user_GUID = ? and s.schoolid= ? and u.SchoolJaar = ? and s.status = 1 order by ";
@@ -152,7 +152,7 @@ class spn_leerling
               if ($select->execute()) {
                 $this->error = false;
                 $result = 1;
-                $select->bind_result($studentid, $studentnumber, $voornamen, $achternaam, $geslacht, $geboortedatum, $klas, $uuid, $created, $updated, $schoolid, $idnumber, $enrollmentdate, $birthplace, $address, $azvnumber, $azvexpiredate, $phone1, $phone2, $profiel, $colorcode, $status, $roepnaam, $nationaliteit, $vezorger, $email, $ne, $en, $sp, $pa, $voertaalanders, $spraak, $gehoor, $gezicht, $motoriek, $medicatieanders, $bijzonderemedisch, $huisarts, $huisartsnr, $persoonlijkeeigenschappen, $thuissituatie, $fysiekebijzonderheden, $schoolleereigenschappen, $socialeeigenschappen, $anders, $voorletter, $phone3,  $vorigeschool, $bijzondermedischeindicatie, $notas, $id_family, $securepin, $outschooldate);
+                $select->bind_result($studentid, $studentnumber, $voornamen, $achternaam, $geslacht, $geboortedatum, $klas, $uuid, $created, $updated, $schoolid, $idnumber, $enrollmentdate, $birthplace, $address, $azvnumber, $azvexpiredate, $phone1, $phone2, $profiel, $colorcode, $status, $roepnaam, $nationaliteit, $vezorger, $email, $ne, $en, $sp, $pa, $voertaalanders, $spraak, $gehoor, $gezicht, $motoriek, $medicatieanders, $bijzonderemedisch, $huisarts, $huisartsnr, $persoonlijkeeigenschappen, $thuissituatie, $fysiekebijzonderheden, $schoolleereigenschappen, $socialeeigenschappen, $anders, $voorletter, $phone3,  $vorigeschool, $bijzondermedischeindicatie, $notas, $id_family, $securepin, $outschooldate, $religion);
                 $select->store_result();
 
                 //Audit by Caribe Developers
@@ -223,6 +223,7 @@ class spn_leerling
                     $htmlcontrol .= "<input type='hidden' name='securepin' value='" . $securepin . "'>";
                     $htmlcontrol .= "<input type='hidden' name='id_family' value='" . $id_family . "'>";
                     $htmlcontrol .= "<input type='hidden' name='outschooldate' value='" . ($utils->convertfrommysqldate($outschooldate) != false && $outschooldate != "" ? htmlentities($utils->convertfrommysqldate($outschooldate)) : "") . "'>";
+                    $htmlcontrol .= "<input type='hidden' name='religion' value='" . $religion . "'>";
                     // End hide controls
                     $htmlcontrol .= "</td>";
                     $htmlcontrol .= "<td>" . "<button id='btn_chat_room' name='btn_chat_room' onclick='ChatRoom(\"" . htmlentities($schoolid) . "\",\"" . htmlentities($studentid) . "\",\"" . htmlentities($uuid) . "\")' type='button' class='btn btn-primary btn-m-w btn-m-h'>Docent Connect</button>" . "</td>";
@@ -257,7 +258,7 @@ class spn_leerling
               if ($select->execute()) {
                 $this->error = false;
                 $result = 1;
-                $select->bind_result($studentid, $studentnumber, $voornamen, $achternaam, $geslacht, $geboortedatum, $klas, $uuid, $created, $updated, $schoolid, $idnumber, $enrollmentdate, $birthplace, $address, $azvnumber, $azvexpiredate, $phone1, $phone2, $profiel, $colorcode, $status, $roepnaam, $nationaliteit, $vezorger, $email, $ne, $en, $sp, $pa, $voertaalanders, $spraak, $gehoor, $gezicht, $motoriek, $medicatieanders, $bijzonderemedisch, $huisarts, $huisartsnr, $persoonlijkeeigenschappen, $thuissituatie, $fysiekebijzonderheden, $schoolleereigenschappen, $socialeeigenschappen, $anders, $voorletter, $phone3,  $vorigeschool, $bijzondermedischeindicatie, $notas, $id_family, $securepin, $outschooldate);
+                $select->bind_result($studentid, $studentnumber, $voornamen, $achternaam, $geslacht, $geboortedatum, $klas, $uuid, $created, $updated, $schoolid, $idnumber, $enrollmentdate, $birthplace, $address, $azvnumber, $azvexpiredate, $phone1, $phone2, $profiel, $colorcode, $status, $roepnaam, $nationaliteit, $vezorger, $email, $ne, $en, $sp, $pa, $voertaalanders, $spraak, $gehoor, $gezicht, $motoriek, $medicatieanders, $bijzonderemedisch, $huisarts, $huisartsnr, $persoonlijkeeigenschappen, $thuissituatie, $fysiekebijzonderheden, $schoolleereigenschappen, $socialeeigenschappen, $anders, $voorletter, $phone3,  $vorigeschool, $bijzondermedischeindicatie, $notas, $id_family, $securepin, $outschooldate, $religion);
                 $select->store_result();
 
                 //Audit by Caribe Developers
@@ -326,6 +327,7 @@ class spn_leerling
                     $htmlcontrol .= "<input type='hidden' name='securepin' value='" . $securepin . "'>";
                     $htmlcontrol .= "<input type='hidden' name='id_family' value='" . $id_family . "'>";
                     $htmlcontrol .= "<input type='hidden' name='outschooldate' value='" . ($utils->convertfrommysqldate($outschooldate) != false && $outschooldate != "" ? htmlentities($utils->convertfrommysqldate($outschooldate)) : "") . "'>";
+                    $htmlcontrol .= "<input type='hidden' name='religion' value='" . $religion . "'>";
                     $htmlcontrol .= "<td>" . "<button id='btn_chat_room' name='btn_chat_room' onclick='ChatRoom(\"" . htmlentities($schoolid) . "\",\"" . htmlentities($studentid) . "\",\"" . htmlentities($uuid) . "\")' type='button' class='btn btn-primary btn-m-w btn-m-h'>Docent Connect</button>" . "</td>";
 
 
@@ -363,7 +365,7 @@ class spn_leerling
               //print($sql_query);
               $this->error = false;
               $result = 1;
-              $select->bind_result($studentid, $studentnumber, $voornamen, $achternaam, $geslacht, $geboortedatum, $klas, $uuid, $created, $updated, $schoolid, $idnumber, $enrollmentdate, $birthplace, $address, $azvnumber, $azvexpiredate, $phone1, $phone2, $colorcode, $status, $roepnaam, $nationaliteit, $vezorger, $email, $ne, $en, $sp, $pa, $voertaalanders, $spraak, $gehoor, $gezicht, $motoriek, $medicatieanders, $bijzonderemedisch, $huisarts, $huisartsnr, $persoonlijkeeigenschappen, $thuissituatie, $fysiekebijzonderheden, $schoolleereigenschappen, $socialeeigenschappen, $anders, $voorletter, $phone3,  $vorigeschool, $bijzondermedischeindicatie, $notas, $id_family, $securepin, $outschooldate);
+              $select->bind_result($studentid, $studentnumber, $voornamen, $achternaam, $geslacht, $geboortedatum, $klas, $uuid, $created, $updated, $schoolid, $idnumber, $enrollmentdate, $birthplace, $address, $azvnumber, $azvexpiredate, $phone1, $phone2, $colorcode, $status, $roepnaam, $nationaliteit, $vezorger, $email, $ne, $en, $sp, $pa, $voertaalanders, $spraak, $gehoor, $gezicht, $motoriek, $medicatieanders, $bijzonderemedisch, $huisarts, $huisartsnr, $persoonlijkeeigenschappen, $thuissituatie, $fysiekebijzonderheden, $schoolleereigenschappen, $socialeeigenschappen, $anders, $voorletter, $phone3,  $vorigeschool, $bijzondermedischeindicatie, $notas, $id_family, $securepin, $outschooldate, $religion);
               $select->store_result();
 
 
@@ -426,6 +428,7 @@ class spn_leerling
                   $htmlcontrol .= "<input type='hidden' name='notasval' value='" . $notas . "'>";
                   $htmlcontrol .= "<input type='hidden' name='securepin' value='" . $securepin . "'>";
                   $htmlcontrol .= "<input type='hidden' name='id_family' value='" . $id_family . "'>";
+                  $htmlcontrol .= "<input type='hidden' name='religion' value='" . $religion . "'>";
                   $htmlcontrol .= "</td>";
                   $htmlcontrol .= "<td>" . "<button id='btn_chat_room' name='btn_chat_room' onclick='ChatRoom(\"" . htmlentities($schoolid) . "\",\"" . htmlentities($studentid) . "\",\"" . htmlentities($uuid) . "\")' type='button' class='btn btn-primary btn-m-w btn-m-h'>Docent Connect</button>" . "</td>";
                   $htmlcontrol .= "</td></tr>";
@@ -742,7 +745,7 @@ class spn_leerling
                   $htmlcontrol .= "<td class=\"bold\">Telefoon noodgeval</td>";
                   $htmlcontrol .= "<td><span id=\"lblName1\" data-student-id=\"" . $studentid . "\" data-column=\"8\" data-row=\"2\" class=\"editable\">" . $phone3 . "</span></td>";
                   $htmlcontrol .= "<td class=\"bold\">Geboorteplaats</td>";
-                  $htmlcontrol .= "<td><span id=\"lblName2\" data-student-id=\"" . $studentid . "\" data-column=\"8\" data-row=\"2\" class=\"editable\">" . $birthplace . "</span></td>";
+                  $htmlcontrol .= "<td><span id=\"lblName2\" data-student-id=\"" . $studentid . "\" data-column=\"8\" data-row=\"2\" class=\"editable\">" . ucwords(strtolower(utf8_encode($birthplace))) . "</span></td>";
                   $htmlcontrol .= "</tr>";
                   $htmlcontrol .= "<tr>";
                   $htmlcontrol .= "<td class=\"bold\">Nationaliteiten</td>";
@@ -966,7 +969,7 @@ class spn_leerling
                   $htmlcontrol .= "<td class=\"bold\">Telefoon noodgeval</td>";
                   $htmlcontrol .= "<td><span id=\"lblName1\" data-student-id=\"" . $studentid . "\" data-column=\"8\" data-row=\"2\" class=\"editable\">" . $phone3 . "</span></td>";
                   $htmlcontrol .= "<td class=\"bold\">Geboorteplaats</td>";
-                  $htmlcontrol .= "<td><span id=\"lblName2\" data-student-id=\"" . $studentid . "\" data-column=\"8\" data-row=\"2\" class=\"editable\">" . $birthplace . "</span></td>";
+                  $htmlcontrol .= "<td><span id=\"lblName2\" data-student-id=\"" . $studentid . "\" data-column=\"8\" data-row=\"2\" class=\"editable\">" . ucwords(strtolower(utf8_encode($birthplace))) . "</span></td>";
                   $htmlcontrol .= "</tr>";
                   $htmlcontrol .= "<tr>";
                   $htmlcontrol .= "<td class=\"bold\">Nationaliteiten</td>";
@@ -1094,7 +1097,7 @@ class spn_leerling
       return $htmlcontrol;
     }
   }
-  function create_leerling($userguid, $_DateTime, $schoolid, $idnumber, $studentnumber, $class, $enrollmentdate, $firstname, $lastname, $sex, $_dob, $birthplace, $address, $azvnumber, $azvexpiredate, $phone1, $phone2, $colorcode, $status, $roepnaam, $nationaliteit, $vezorger, $email, $ne, $en, $sp, $pa, $vo, $spraak, $gehoor, $gezicht, $motoriek, $huisarts, $huisartsnr, $anders, $voorletter, $phone3, $vorigeschool, $bijzondermedischeindicatie, $notas, $id_family, $profiel)
+  function create_leerling($userguid, $_DateTime, $schoolid, $idnumber, $studentnumber, $class, $enrollmentdate, $firstname, $lastname, $sex, $_dob, $birthplace, $address, $azvnumber, $azvexpiredate, $phone1, $phone2, $colorcode, $status, $roepnaam, $nationaliteit, $vezorger, $email, $ne, $en, $sp, $pa, $vo, $spraak, $gehoor, $gezicht, $motoriek, $huisarts, $huisartsnr, $anders, $voorletter, $phone3, $vorigeschool, $bijzondermedischeindicatie, $notas, $id_family, $profiel, $religion)
   {
     $result = 1;
     require_once("DBCreds.php");
@@ -1108,8 +1111,8 @@ class spn_leerling
     try {
       $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
       $mysqli->set_charset('utf8');
-      if ($stmt = $mysqli->prepare("CALL " . $this->sp_create_student . " (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")) {
-        if ($stmt->bind_param("sssssssssssssssssssssssiiiisiiiissssssssis", $userguid, $_DateTime, $schoolid, $idnumber, $studentnumber, $class, $enrollmentdate, $firstname, $lastname, $sex, $_dob, $birthplace, $address, $azvnumber, $azvexpiredate, $phone1, $phone2, $colorcode, $status, $roepnaam, $nationaliteit, $vezorger, $email, $ne, $en, $sp, $pa, $vo, $spraak, $gehoor, $gezicht, $motoriek, $huisarts, $huisartsnr, $anders, $voorletter, $phone3, $vorigeschool, $bijzondermedischeindicatie, $notas, $id_family, $profiel)) {
+      if ($stmt = $mysqli->prepare("CALL " . $this->sp_create_student . " (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")) {
+        if ($stmt->bind_param("sssssssssssssssssssssssiiiisiiiissssssssiss", $userguid, $_DateTime, $schoolid, $idnumber, $studentnumber, $class, $enrollmentdate, $firstname, $lastname, $sex, $_dob, $birthplace, $address, $azvnumber, $azvexpiredate, $phone1, $phone2, $colorcode, $status, $roepnaam, $nationaliteit, $vezorger, $email, $ne, $en, $sp, $pa, $vo, $spraak, $gehoor, $gezicht, $motoriek, $huisarts, $huisartsnr, $anders, $voorletter, $phone3, $vorigeschool, $bijzondermedischeindicatie, $notas, $id_family, $profiel, $religion)) {
           if ($stmt->execute()) {
             $result = 1;
             $this->last_insert_id = $mysqli->insert_id;
@@ -1140,7 +1143,7 @@ class spn_leerling
     }
     return $result;
   }
-  function edit_leerling($studentid, $_DateTime, $schoolid, $idnumber, $studentnumber, $class, $enrollmentdate, $firstname, $lastname, $sex, $_dob, $birthplace, $address, $azvnumber, $azvexpiredate, $phone1, $phone2, $colorcode, $status, $roepnaam, $nationaliteit, $vezorger, $email, $ne, $pa, $en, $sp, $vo, $spraak, $gehoor, $gezicht, $motoriek, $huisarts, $huisartsnr, $anders, $voorletter, $phone3, $vorigeschool, $bijzondermedischeindicatie, $notas, $id_family, $datum_uitschijving, $profiel)
+  function edit_leerling($studentid, $_DateTime, $schoolid, $idnumber, $studentnumber, $class, $enrollmentdate, $firstname, $lastname, $sex, $_dob, $birthplace, $address, $azvnumber, $azvexpiredate, $phone1, $phone2, $colorcode, $status, $roepnaam, $nationaliteit, $vezorger, $email, $ne, $pa, $en, $sp, $vo, $spraak, $gehoor, $gezicht, $motoriek, $huisarts, $huisartsnr, $anders, $voorletter, $phone3, $vorigeschool, $bijzondermedischeindicatie, $notas, $id_family, $datum_uitschijving, $profiel, $religion)
   {
     $result = 0;
     require_once("DBCreds.php");
@@ -1154,11 +1157,11 @@ class spn_leerling
     try {
       $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
       $mysqli->set_charset('utf8');
-      $sql_query_update = "CALL " . $this->sp_update_student . " (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+      $sql_query_update = "CALL " . $this->sp_update_student . " (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
       if ($stmt = $mysqli->prepare($sql_query_update)) {
         //if($stmt->bind_param("si",$_DateTime, $studentid))
         if ($stmt->bind_param(
-          "sisssssssssssssssissssiiiisiiiissssssssiiss",
+          "sisssssssssssssssissssiiiisiiiissssssssiisss",
           $_DateTime,
           $schoolid,
           $idnumber,
@@ -1201,7 +1204,8 @@ class spn_leerling
           $id_family,
           $studentid,
           $datum_uitschijving,
-          $profiel
+          $profiel,
+          $religion
         )) {
           if ($stmt->execute()) {
             if ($mysqli->affected_rows >= 1) {

@@ -272,6 +272,12 @@
 													</div>
 												</div>
 												<?php if ($_SESSION["SchoolType"] == 2) { ?>
+													<div class="col-sm-4">
+														<label class="col-md-4 control-label">Religion</label>
+														<div class="col-md-6">
+															<input id="religion" class="form-control" type="text" name="religion" maxlength="50" />
+														</div>
+													</div>
 													<div class="col-sm-4 profiel" hidden>
 														<label class="col-md-4 control-label" for="profiel">Profiel</label>
 														<div class="col-md-6">

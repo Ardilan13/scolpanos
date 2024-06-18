@@ -99,6 +99,7 @@ if (isset($_SESSION["UserRights"]) && isset($_SESSION["SchoolID"])) {
 				$('#datum_inschrijving').val($(this).find("td").eq(6).find("[name='enrollmentdate']").val().substring(0, 10));
 				$('#vo_val').val($(this).find("td").eq(6).find("[name='vo']").val());
 				$('#datum_uitschijving').val($(this).find("td").eq(6).find("[name='outschooldate']").val().substring(0, 10));
+				$("#religion").val($(this).find("td").eq(6).find("[name='religion']").val());
 
 
 				if ($(this).find("td").eq(6).find("[name='ne']").val() == 1) {
