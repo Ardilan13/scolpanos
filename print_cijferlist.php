@@ -72,7 +72,7 @@ $array = array();
 if ($studentid == 'all') {
     $array_leerling = $l->get_all_students_array_by_klas($_GET["klas"], $_GET["schoolJaar"], 4);
 } else {
-    $select = "SELECT id,firstname,lastname,sex,dob,class,profiel,birthplace FROM students where id = '$studentid' and status = 1";
+    $select = "SELECT id,firstname,lastname,sex,dob,class,profiel,profiel_n,birthplace FROM students where id = '$studentid' and status = 1";
     $resultado1 = mysqli_query($mysqli, $select);
     while ($row = mysqli_fetch_assoc($resultado1)) {
         $returnarr["studentid"] = $studentid;
@@ -81,7 +81,7 @@ if ($studentid == 'all') {
         $returnarr["geslacht"] = $row["sex"];
         $returnarr["geboortedatum"] = $row["dob"];
         $returnarr["klas"] = $row["class"];
-        $returnarr["profiel"] = $row["profiel"];
+        $returnarr["profiel"] = (isset($row['profiel_n']) && $row["profiel_n"] != "") ? $row["profiel_n"] : $row["profiel"];
         $returnarr["birthplace"] = $row["birthplace"];
         array_push($array, $returnarr);
     }
@@ -242,7 +242,7 @@ if ($studentid == 'all') {
                 </div>
             </div>
             <p>De ondergetekenden verklaren dat <b><?php echo $leerling["voornamen"] . " " . $leerling["achternaam"]; ?></b></p>
-            <p>geboren op <b><?php echo $fecha; ?></b> te <b><?php echo ucwords(strtolower(utf8_encode($leerling["birthplace"]))); ?></b></p>
+            <p>geboren op <b><?php echo $fecha; ?></b> te <b><?php echo ucwords(strtolower($leerling["birthplace"])); ?></b></p>
             <p>heeft deelgenomen aan het eindexamen middelbaar algemeen voortgezet onderwijs conform</p>
             <p>het profiel <b><?php echo $profiel; ?></b></p>
             <p>aan <b><?php echo $titleD; ?></b></p>

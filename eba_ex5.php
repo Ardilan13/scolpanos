@@ -175,7 +175,7 @@
                                                     }
                                                 }
 
-                                                $get_personalia = "SELECT e.id,e.*,p.code,s.lastname,s.firstname,s.profiel,s.id as studentid FROM eba_ex e INNER JOIN personalia p ON e.id_personalia = p.id INNER JOIN students s ON p.studentid = s.id WHERE e.schoolid = $schoolid AND e.schooljaar = '$schooljaar' AND s.SchoolID = $schoolid AND e.type = 0 ORDER BY";
+                                                $get_personalia = "SELECT e.id,e.*,p.code,s.lastname,s.firstname,s.profiel,s.profiel_n,s.id as studentid FROM eba_ex e INNER JOIN personalia p ON e.id_personalia = p.id INNER JOIN students s ON p.studentid = s.id WHERE e.schoolid = $schoolid AND e.schooljaar = '$schooljaar' AND s.SchoolID = $schoolid AND e.type = 0 ORDER BY";
                                                 $sql_order = " lastname , firstname";
                                                 if ($s->_setting_mj) {
                                                     $get_personalia .= " sex " . $s->_setting_sort . ", " . $sql_order;
@@ -202,7 +202,8 @@
                                                             <th class="text-center min">ak</th>
                                                             <th class="text-center min">gs</th>
                                                             <th class="text-center min">re</th>
-                                                            <th class="paket">Paket</th>
+                                                            <th class="paket">Pakket VD</th>
+                                                            <th class="paket">Pakket ND</th>
                                                             <th class="text-center min">TV1</th>
                                                             <th class="text-center min">TV2</th>
                                                             <th>Opmerking</th>
@@ -241,6 +242,75 @@
                                                                     <td id="<?php echo $row['studentid']; ?>" class="text-center ex e<?php echo $i; ?> i<?php echo $x; ?>" color="<?php echo $color; ?>" style="background-color: <?php echo $color; ?>;"><span></span><input id="<?php echo $row['id']; ?>" class="duimen" type="checkbox" <?php echo $check ? " checked" : ""; ?> hidden></td>
                                                                 <?php } ?>
                                                                 <td><?php echo $row["profiel"]; ?></td>
+                                                                <td>
+                                                                    <select class="profiel" value="<?php echo $row["profiel_n"]; ?>" name="profiel" class="form-control" id="<?php echo $row['studentid']; ?>">
+                                                                        <option value=""></option>
+                                                                        <option value="MM01">MM01</option>
+                                                                        <option value="MM02">MM02</option>
+                                                                        <option value="MM03">MM03</option>
+                                                                        <option value="MM04">MM04</option>
+                                                                        <option value="MM05">MM05</option>
+                                                                        <option value="MM06">MM06</option>
+                                                                        <option value="MM07">MM07</option>
+                                                                        <option value="MM08">MM08</option>
+                                                                        <option value="MM09">MM09</option>
+                                                                        <option value="MM10">MM10</option>
+                                                                        <option value="MM11">MM11</option>
+                                                                        <option value="MM12">MM12</option>
+                                                                        <option value="MM13">MM13</option>
+                                                                        <option value="MM14">MM14</option>
+                                                                        <option value="MM15">MM15</option>
+                                                                        <option value="MM16">MM16</option>
+                                                                        <option value="MM17">MM17</option>
+                                                                        <option value="MM18">MM18</option>
+                                                                        <option value="MM19">MM19</option>
+                                                                        <option value="MM20">MM20</option>
+                                                                        <option value="MM21">MM21</option>
+                                                                        <option value="MM22">MM22</option>
+                                                                        <option value="MM23">MM23</option>
+                                                                        <option value="MM24">MM24</option>
+                                                                        <option value="MM25">MM25</option>
+                                                                        <option value="MM26">MM26</option>
+                                                                        <option value="NW01">NW01</option>
+                                                                        <option value="NW02">NW02</option>
+                                                                        <option value="NW03">NW03</option>
+                                                                        <option value="NW04">NW04</option>
+                                                                        <option value="NW05">NW05</option>
+                                                                        <option value="NW06">NW06</option>
+                                                                        <option value="NW07">NW07</option>
+                                                                        <option value="NW08">NW08</option>
+                                                                        <option value="NW09">NW09</option>
+                                                                        <option value="NW10">NW10</option>
+                                                                        <option value="NW11">NW11</option>
+                                                                        <option value="NW12">NW12</option>
+                                                                        <option value="NW13">NW13</option>
+                                                                        <option value="NW14">NW14</option>
+                                                                        <option value="NW15">NW15</option>
+                                                                        <option value="NW16">NW16</option>
+                                                                        <option value="HU01">HU01</option>
+                                                                        <option value="HU02">HU02</option>
+                                                                        <option value="HU03">HU03</option>
+                                                                        <option value="HU04">HU04</option>
+                                                                        <option value="HU05">HU05</option>
+                                                                        <option value="HU06">HU06</option>
+                                                                        <option value="HU07">HU07</option>
+                                                                        <option value="HU08">HU08</option>
+                                                                        <option value="HU09">HU09</option>
+                                                                        <option value="HU10">HU10</option>
+                                                                        <option value="HU11">HU11</option>
+                                                                        <option value="HU12">HU12</option>
+                                                                        <option value="HU13">HU13</option>
+                                                                        <option value="HU14">HU14</option>
+                                                                        <option value="HU15">HU15</option>
+                                                                        <option value="HU16">HU16</option>
+                                                                        <option value="HU17">HU17</option>
+                                                                        <option value="HU18">HU18</option>
+                                                                        <option value="HU19">HU19</option>
+                                                                        <option value="HU20">HU20</option>
+                                                                        <option value="HU21">HU21</option>
+                                                                        <option value="HU22">HU22</option>
+                                                                    </select>
+                                                                </td>
                                                                 <td>
                                                                     <select id="<?php echo $row['studentid']; ?>" class="add ex tv1 tv">
                                                                         <option></option>
@@ -478,6 +548,32 @@
         } else {
             $(this).parent().css("background-color", "white");
         }
+    });
+
+    $(document).ready(function() {
+        $(".profiel").each(function() {
+            var value = $(this).attr("value");
+            if (value != null && value != "") {
+                $(this).children("option[value='" + value + "']").attr("selected", true);
+            }
+        });
+    });
+
+    $(".profiel").change(function() {
+        var id = $(this).attr("id");
+        var value = $(this).children("option:selected").val();
+        $.ajax({
+            url: "ajax/save_eba_ex.php",
+            type: "POST",
+            data: {
+                id: id,
+                value: value,
+                ex: "profiel_n",
+            },
+            success: function(data) {
+                console.log(data);
+            }
+        });
     });
 
     $(".tv,.opmerking").change(function() {
