@@ -320,6 +320,7 @@
         value = value.toUpperCase();
         switch (value) {
             case "X":
+            case "D":
                 $color = "white"
                 break;
             case "V":

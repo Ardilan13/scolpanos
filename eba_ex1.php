@@ -154,18 +154,18 @@
                                                                 <td><?php echo $row["lastname"]; ?></td>
                                                                 <td><?php echo $row["firstname"]; ?></td>
                                                                 <td id="vaks_<?php echo $x; ?>"></td>
-                                                                <td><input id="<?php echo $row['id']; ?>" maxlength="2" style="width: 100%;" class="text-center ex e1 i<?php echo $x; ?>" type="text" value="<?php echo $row["e1"]; ?>"></td>
-                                                                <td><input id="<?php echo $row['id']; ?>" maxlength="2" style="width: 100%;" class="text-center ex e2 i<?php echo $x; ?>" type="text" value="<?php echo $row["e2"]; ?>"></td>
-                                                                <td><input id="<?php echo $row['id']; ?>" maxlength="2" style="width: 100%;" class="text-center ex e3 i<?php echo $x; ?>" type="text" value="<?php echo $row["e3"]; ?>"></td>
-                                                                <td><input id="<?php echo $row['id']; ?>" maxlength="2" style="width: 100%;" class="text-center ex e4 i<?php echo $x; ?>" type="text" value="<?php echo $row["e4"]; ?>"></td>
-                                                                <td><input id="<?php echo $row['id']; ?>" maxlength="2" style="width: 100%;" class="text-center ex e5 i<?php echo $x; ?>" type="text" value="<?php echo $row["e5"]; ?>"></td>
-                                                                <td><input id="<?php echo $row['id']; ?>" maxlength="2" style="width: 100%;" class="text-center ex e6 i<?php echo $x; ?>" type="text" value="<?php echo $row["e6"]; ?>"></td>
-                                                                <td><input id="<?php echo $row['id']; ?>" maxlength="2" style="width: 100%;" class="text-center ex e7 i<?php echo $x; ?>" type="text" value="<?php echo $row["e7"]; ?>"></td>
-                                                                <td><input id="<?php echo $row['id']; ?>" maxlength="2" style="width: 100%;" class="text-center ex e8 i<?php echo $x; ?>" type="text" value="<?php echo $row["e8"]; ?>"></td>
-                                                                <td><input id="<?php echo $row['id']; ?>" maxlength="2" style="width: 100%;" class="text-center ex e9 i<?php echo $x; ?>" type="text" value="<?php echo $row["e9"]; ?>"></td>
-                                                                <td><input id="<?php echo $row['id']; ?>" maxlength="2" style="width: 100%;" class="text-center ex e10 i<?php echo $x; ?>" type="text" value="<?php echo $row["e10"]; ?>"></td>
-                                                                <td><input id="<?php echo $row['id']; ?>" maxlength="2" style="width: 100%;" class="text-center ex e11 i<?php echo $x; ?>" type="text" value="<?php echo $row["e11"]; ?>"></td>
-                                                                <td><input id="<?php echo $row['id']; ?>" maxlength="2" style="width: 100%;" class="text-center ex e12 i<?php echo $x; ?>" type="text" value="<?php echo $row["e12"]; ?>"></td>
+                                                                <td><input id="<?php echo $row['id']; ?>" maxlength="2" style="width: 100%;" class="text-center ex e1 i<?php echo $x; ?>" type="text" value="<?php echo $row["e1"] == 'D' ? 'X' : $row['e1']; ?>"></td>
+                                                                <td><input id="<?php echo $row['id']; ?>" maxlength="2" style="width: 100%;" class="text-center ex e2 i<?php echo $x; ?>" type="text" value="<?php echo $row["e2"] == 'D' ? 'X' : $row['e2']; ?>"></td>
+                                                                <td><input id="<?php echo $row['id']; ?>" maxlength="2" style="width: 100%;" class="text-center ex e3 i<?php echo $x; ?>" type="text" value="<?php echo $row["e3"] == 'D' ? 'X' : $row['e3']; ?>"></td>
+                                                                <td><input id="<?php echo $row['id']; ?>" maxlength="2" style="width: 100%;" class="text-center ex e4 i<?php echo $x; ?>" type="text" value="<?php echo $row["e4"] == 'D' ? 'X' : $row['e4']; ?>"></td>
+                                                                <td><input id="<?php echo $row['id']; ?>" maxlength="2" style="width: 100%;" class="text-center ex e5 i<?php echo $x; ?>" type="text" value="<?php echo $row["e5"] == 'D' ? 'X' : $row['e5']; ?>"></td>
+                                                                <td><input id="<?php echo $row['id']; ?>" maxlength="2" style="width: 100%;" class="text-center ex e6 i<?php echo $x; ?>" type="text" value="<?php echo $row["e6"] == 'D' ? 'X' : $row['e6']; ?>"></td>
+                                                                <td><input id="<?php echo $row['id']; ?>" maxlength="2" style="width: 100%;" class="text-center ex e7 i<?php echo $x; ?>" type="text" value="<?php echo $row["e7"] == 'D' ? 'X' : $row['e7']; ?>"></td>
+                                                                <td><input id="<?php echo $row['id']; ?>" maxlength="2" style="width: 100%;" class="text-center ex e8 i<?php echo $x; ?>" type="text" value="<?php echo $row["e8"] == 'D' ? 'X' : $row['e8']; ?>"></td>
+                                                                <td><input id="<?php echo $row['id']; ?>" maxlength="2" style="width: 100%;" class="text-center ex e9 i<?php echo $x; ?>" type="text" value="<?php echo $row["e9"] == 'D' ? 'X' : $row['e9']; ?>"></td>
+                                                                <td><input id="<?php echo $row['id']; ?>" maxlength="2" style="width: 100%;" class="text-center ex e10 i<?php echo $x; ?>" type="text" value="<?php echo $row["e10"] == 'D' ? 'X' : $row['e10'];; ?>"></td>
+                                                                <td><input id="<?php echo $row['id']; ?>" maxlength="2" style="width: 100%;" class="text-center ex e11 i<?php echo $x; ?>" type="text" value="<?php echo $row["e11"] == 'D' ? 'X' : $row['e11'];; ?>"></td>
+                                                                <td><input id="<?php echo $row['id']; ?>" maxlength="2" style="width: 100%;" class="text-center ex e12 i<?php echo $x; ?>" type="text" value="<?php echo $row["e12"] == 'D' ? 'X' : $row['e12'];; ?>"></td>
                                                                 <td><?php echo $row["profiel"] ?></td>
                                                                 <td id="x_<?php echo $x; ?>"></td>
                                                                 <td id="v_<?php echo $x; ?>"></td>
@@ -243,6 +243,7 @@
         value = value.toUpperCase();
         switch (value) {
             case "X":
+            case "D":
                 $color = "white"
                 break;
             case "V":

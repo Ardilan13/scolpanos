@@ -119,18 +119,18 @@ if ($result->num_rows > 0) {
         $result2 = mysqli_query($mysqli, $get_colors);
         if ($result2->num_rows > 0) {
             while ($row = mysqli_fetch_assoc($result2)) {
-                $hojaActiva->setCellValue('BB' . $i, $row["e1"]);
-                $hojaActiva->setCellValue('BC' . $i, $row["e2"]);
-                $hojaActiva->setCellValue('BD' . $i, $row["e3"]);
-                $hojaActiva->setCellValue('BE' . $i, $row["e4"]);
-                $hojaActiva->setCellValue('BF' . $i, $row["e5"]);
-                $hojaActiva->setCellValue('BG' . $i, $row["e6"]);
-                $hojaActiva->setCellValue('BH' . $i, $row["e7"]);
-                $hojaActiva->setCellValue('BI' . $i, $row["e8"]);
-                $hojaActiva->setCellValue('BJ' . $i, $row["e9"]);
-                $hojaActiva->setCellValue('BK' . $i, $row["e10"]);
-                $hojaActiva->setCellValue('BL' . $i, $row["e11"]);
-                $hojaActiva->setCellValue('BM' . $i, $row["e12"]);
+                $hojaActiva->setCellValue('BB' . $i, $row["e1"] == "D" ? "X" : $row["e1"]);
+                $hojaActiva->setCellValue('BC' . $i, $row["e2"] == "D" ? "X" : $row["e2"]);
+                $hojaActiva->setCellValue('BD' . $i, $row["e3"] == "D" ? "X" : $row["e3"]);
+                $hojaActiva->setCellValue('BE' . $i, $row["e4"] == "D" ? "X" : $row["e4"]);
+                $hojaActiva->setCellValue('BF' . $i, $row["e5"] == "D" ? "X" : $row["e5"]);
+                $hojaActiva->setCellValue('BG' . $i, $row["e6"] == "D" ? "X" : $row["e6"]);
+                $hojaActiva->setCellValue('BH' . $i, $row["e7"] == "D" ? "X" : $row["e7"]);
+                $hojaActiva->setCellValue('BI' . $i, $row["e8"] == "D" ? "X" : $row["e8"]);
+                $hojaActiva->setCellValue('BJ' . $i, $row["e9"] == "D" ? "X" : $row["e9"]);
+                $hojaActiva->setCellValue('BK' . $i, $row["e10"] == "D" ? "X" : $row["e10"]);;
+                $hojaActiva->setCellValue('BL' . $i, $row["e11"] == "D" ? "X" : $row["e11"]);;
+                $hojaActiva->setCellValue('BM' . $i, $row["e12"] == "D" ? "X" : $row["e12"]);;
             }
         }
 

@@ -100,18 +100,18 @@ if ($result->num_rows > 0) {
                 while ($row1 = mysqli_fetch_assoc($result2)) {
                     $array = array();
 
-                    $hojaActiva->setCellValue('BA' . ($i + 1), $row1["e1"]);
-                    $hojaActiva->setCellValue('BB' . ($i + 1), $row1["e2"]);
-                    $hojaActiva->setCellValue('BC' . ($i + 1), $row1["e3"]);
-                    $hojaActiva->setCellValue('BD' . ($i + 1), $row1["e4"]);
-                    $hojaActiva->setCellValue('BE' . ($i + 1), $row1["e5"]);
-                    $hojaActiva->setCellValue('BF' . ($i + 1), $row1["e6"]);
-                    $hojaActiva->setCellValue('BG' . ($i + 1), $row1["e7"]);
-                    $hojaActiva->setCellValue('BH' . ($i + 1), $row1["e8"]);
-                    $hojaActiva->setCellValue('BI' . ($i + 1), $row1["e9"]);
-                    $hojaActiva->setCellValue('BJ' . ($i + 1), $row1["e10"]);
-                    $hojaActiva->setCellValue('BK' . ($i + 1), $row1["e11"]);
-                    $hojaActiva->setCellValue('BL' . ($i + 1), $row1["e12"]);
+                    $hojaActiva->setCellValue('BA' . ($i + 1), $row1["e1"] == "D" ? "X" : $row1["e1"]);
+                    $hojaActiva->setCellValue('BB' . ($i + 1), $row1["e2"] == "D" ? "X" : $row1["e2"]);
+                    $hojaActiva->setCellValue('BC' . ($i + 1), $row1["e3"] == "D" ? "X" : $row1["e3"]);
+                    $hojaActiva->setCellValue('BD' . ($i + 1), $row1["e4"] == "D" ? "X" : $row1["e4"]);
+                    $hojaActiva->setCellValue('BE' . ($i + 1), $row1["e5"] == "D" ? "X" : $row1["e5"]);
+                    $hojaActiva->setCellValue('BF' . ($i + 1), $row1["e6"] == "D" ? "X" : $row1["e6"]);
+                    $hojaActiva->setCellValue('BG' . ($i + 1), $row1["e7"] == "D" ? "X" : $row1["e7"]);
+                    $hojaActiva->setCellValue('BH' . ($i + 1), $row1["e8"] == "D" ? "X" : $row1["e8"]);
+                    $hojaActiva->setCellValue('BI' . ($i + 1), $row1["e9"] == "D" ? "X" : $row1["e9"]);
+                    $hojaActiva->setCellValue('BJ' . ($i + 1), $row1["e10"] == "D" ? "X" : $row1["e10"]);
+                    $hojaActiva->setCellValue('BK' . ($i + 1), $row1["e11"] == "D" ? "X" : $row1["e11"]);
+                    $hojaActiva->setCellValue('BL' . ($i + 1), $row1["e12"] == "D" ? "X" : $row1["e12"]);
 
                     for ($j = 1; $j <= 12; $j++) {
                         switch ($j) {
@@ -170,6 +170,7 @@ if ($result->num_rows > 0) {
 
                         switch ($row1["e" . $j]) {
                             case "X":
+                            case "D":
                                 $color = "FFFFFF";
                                 $def = "FFFFFF";
                                 $m = $i + 1;

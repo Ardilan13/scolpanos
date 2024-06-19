@@ -60,6 +60,10 @@
             background-color: dodgerblue;
         }
 
+        .cuadro_d {
+            background-color: #FFFF00;
+        }
+
         .group {
             position: sticky;
             top: 0;
@@ -84,6 +88,7 @@
                             <button id="btn_cer_export" class="btn btn-primary btn-m-w btn-s-h">data voor diploma</button>
                             <button id="btn_pub1_export" class="btn btn-primary btn-m-w btn-s-h">diploma v en a</button>
                             <button id="btn_pub2_export" class="btn btn-primary btn-m-w btn-s-h">diploma 1-vak</button>
+                            <button id="btn_duimen" class="btn btn-primary btn-m-w btn-s-h">Duimen</button>
                         </div>
                         <div class="recuadro">
                             <p><b class="cuadro cuadro_x">X</b><label>Kandidaat heeft dit vak gekozen</label></p>
@@ -91,6 +96,7 @@
                             <p><b class="cuadro cuadro_ns">NS</b><label>Ziek tijdens examen</label></p>
                             <p><b class="cuadro cuadro_v">V</b><label>Vrijstelling</label></p>
                             <p><b class="cuadro cuadro_0"> </b><label>Kandidaat heeft dit vak niet gekozen</label></p>
+                            <p><b class="cuadro cuadro_d"> </b><label>Duimen</label></p>
                         </div>
                         <?php include 'breadcrumb.php'; ?>
                     </div>
@@ -209,18 +215,31 @@
                                                                 <td><?php echo $row["lastname"]; ?></td>
                                                                 <td><?php echo $row["firstname"]; ?></td>
                                                                 <td id="vaks_<?php echo $x; ?>"></td>
-                                                                <td id="<?php echo $row['studentid']; ?>" class="text-center ex e1 i<?php echo $x; ?>" color="<?php echo $row["e1"]; ?>"></td>
-                                                                <td id="<?php echo $row['studentid']; ?>" class="text-center ex e2 i<?php echo $x; ?>" color="<?php echo $row["e2"]; ?>"></td>
-                                                                <td id="<?php echo $row['studentid']; ?>" class="text-center ex e3 i<?php echo $x; ?>" color="<?php echo $row["e3"]; ?>"></td>
-                                                                <td id="<?php echo $row['studentid']; ?>" class="text-center ex e4 i<?php echo $x; ?>" color="<?php echo $row["e4"]; ?>"></td>
-                                                                <td id="<?php echo $row['studentid']; ?>" class="text-center ex e5 i<?php echo $x; ?>" color="<?php echo $row["e5"]; ?>"></td>
-                                                                <td id="<?php echo $row['studentid']; ?>" class="text-center ex e6 i<?php echo $x; ?>" color="<?php echo $row["e6"]; ?>"></td>
-                                                                <td id="<?php echo $row['studentid']; ?>" class="text-center ex e7 i<?php echo $x; ?>" color="<?php echo $row["e7"]; ?>"></td>
-                                                                <td id="<?php echo $row['studentid']; ?>" class="text-center ex e8 i<?php echo $x; ?>" color="<?php echo $row["e8"]; ?>"></td>
-                                                                <td id="<?php echo $row['studentid']; ?>" class="text-center ex e9 i<?php echo $x; ?>" color="<?php echo $row["e9"]; ?>"></td>
-                                                                <td id="<?php echo $row['studentid']; ?>" class="text-center ex e10 i<?php echo $x; ?>" color="<?php echo $row["e10"]; ?>"></td>
-                                                                <td id="<?php echo $row['studentid']; ?>" class="text-center ex e11 i<?php echo $x; ?>" color="<?php echo $row["e11"]; ?>"></td>
-                                                                <td id="<?php echo $row['studentid']; ?>" class="text-center ex e12 i<?php echo $x; ?>" color="<?php echo $row["e12"]; ?>"></td>
+                                                                <?php for ($i = 1; $i <= 12; $i++) {
+                                                                    $check = false;
+                                                                    switch ($row["e$i"]) {
+                                                                        case "X":
+                                                                            $color = "white";
+                                                                            break;
+                                                                        case "V":
+                                                                            $color = "dodgerblue";
+                                                                            break;
+                                                                        case "H":
+                                                                            $color = "#ccffff";
+                                                                            break;
+                                                                        case "NS":
+                                                                            $color = "deeppink";
+                                                                            break;
+                                                                        case "D":
+                                                                            $color = "yellow";
+                                                                            $check = true;
+                                                                            break;
+                                                                        default:
+                                                                            $color = "lightgray";
+                                                                            break;
+                                                                    } ?>
+                                                                    <td id="<?php echo $row['studentid']; ?>" class="text-center ex e<?php echo $i; ?> i<?php echo $x; ?>" color="<?php echo $color; ?>" style="background-color: <?php echo $color; ?>;"><span></span><input id="<?php echo $row['id']; ?>" class="duimen" type="checkbox" <?php echo $check ? " checked" : ""; ?> hidden></td>
+                                                                <?php } ?>
                                                                 <td><?php echo $row["profiel"]; ?></td>
                                                                 <td>
                                                                     <select id="<?php echo $row['studentid']; ?>" class="add ex tv1 tv">
@@ -323,26 +342,26 @@
         });
     }
 
-    function changeColor(value) {
-        value = value.toUpperCase();
-        switch (value) {
-            case "X":
-                $color = "white"
-                break;
-            case "V":
-                $color = "dodgerblue"
-                break;
-            case "H":
-                $color = "#ccffff"
-                break;
-            case "NS":
-                $color = "deeppink"
-                break;
-            default:
-                $color = "lightgray"
-                break;
-        }
-    }
+    // function changeColor(value) {
+    //     value = value.toUpperCase();
+    //     switch (value) {
+    //         case "X":
+    //             $color = "white"
+    //             break;
+    //         case "V":
+    //             $color = "dodgerblue"
+    //             break;
+    //         case "H":
+    //             $color = "#ccffff"
+    //             break;
+    //         case "NS":
+    //             $color = "deeppink"
+    //             break;
+    //         default:
+    //             $color = "lightgray"
+    //             break;
+    //     }
+    // }
 
     $(document).ready(function() {
         active_loader();
@@ -370,9 +389,9 @@
                     }
                 });
             } else {
-                var value = $(this).attr("color");
-                changeColor(value);
-                $(this).css("background-color", $color);
+                var $color = $(this).attr("color");
+                // changeColor(value);
+                // $(this).css("background-color", $color);
                 if ($color == "lightgray") {
                     $(this).attr("disabled", true);
                 } else {
@@ -387,7 +406,7 @@
                         success: function(data) {
                             if (data != null && data != "") {
                                 data = JSON.parse(data);
-                                var input = $("td#" + data.id + ".ex." + data.ex);
+                                var input = $("td#" + data.id + ".ex." + data.ex + " span");
                                 input.text(data.personalia);
                                 countVaks()
                             }
@@ -419,6 +438,46 @@
     $("#btn_pub2_export").click(function() {
         schoolid = $("#schoolid").val()
         window.open("templates\\pub2_" + schoolid + ".pub");
+    });
+
+    $("#btn_duimen").click(function() {
+        $(".ex").each(function() {
+            if ($(this).attr("class").split(" ")[0] != "add") {
+                var $color = $(this).attr("color");
+                if ($color == "white" || $color == "yellow") {
+                    let id = $(this).attr("id");
+                    let ex = $(this).attr("class").split(" ")[2];
+                    let ix = $(this).attr("class").split(" ")[3];
+                    let span = $("td#" + id + ".ex." + ex + "." + ix + " span");
+                    let input = $("td#" + id + ".ex." + ex + "." + ix + " input");
+                    span.toggle();
+                    input.toggle();
+                }
+            }
+        });
+    });
+
+    $(".duimen").change(function() {
+        let id = $(this).attr("id");
+        let ex = $(this).parent().attr("class").split(" ")[2];
+        let value = $(this).prop("checked") ? "D" : "X";
+        $.ajax({
+            url: "ajax/save_eba_ex.php",
+            type: "POST",
+            data: {
+                id: id,
+                value: value,
+                ex: ex,
+            },
+            success: function(data) {
+                console.log(data);
+            }
+        });
+        if ($(this).checked || $(this).prop("checked")) {
+            $(this).parent().css("background-color", "yellow");
+        } else {
+            $(this).parent().css("background-color", "white");
+        }
     });
 
     $(".tv,.opmerking").change(function() {
