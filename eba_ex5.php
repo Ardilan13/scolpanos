@@ -85,6 +85,13 @@
                             <button id="btn_pub1_export" class="btn btn-primary btn-m-w btn-s-h">diploma v en a</button>
                             <button id="btn_pub2_export" class="btn btn-primary btn-m-w btn-s-h">diploma 1-vak</button>
                         </div>
+                        <div class="recuadro">
+                            <p><b class="cuadro cuadro_x">X</b><label>Kandidaat heeft dit vak gekozen</label></p>
+                            <p><b class="cuadro cuadro_h">H</b><label>Kandidaat doet herexamen in dit vak</label></p>
+                            <p><b class="cuadro cuadro_ns">NS</b><label>Ziek tijdens examen</label></p>
+                            <p><b class="cuadro cuadro_v">V</b><label>Vrijstelling</label></p>
+                            <p><b class="cuadro cuadro_0"> </b><label>Kandidaat heeft dit vak niet gekozen</label></p>
+                        </div>
                         <?php include 'breadcrumb.php'; ?>
                     </div>
                     <div class="row">
