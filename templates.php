@@ -109,19 +109,16 @@ $mysqli->set_charset('utf8'); ?>
             modulo.append("<option value='verza_v2-1-2'>Verzamelstaten klas 1-2</option>");
             modulo.append("<option value='verza_v2-3-4'>Verzamelstaten klas 3</option>");
             modulo.append("<option value='verza_4'>Verzamelstaten klas 4</option>");
+            modulo.append("<option value='eba_personalia'>EBA PERSONALIA</option>");
+            modulo.append("<option value='eba_gem'>EBA GEEM</option>");
+            modulo.append("<option value='eba_ex1'>EBA EX1</option>");
+            modulo.append("<option value='eba_ex2'>EBA EX2</option>");
+            modulo.append("<option value='eba_ex2a'>EBA EX2A</option>");
+            modulo.append("<option value='eba_ex3'>EBA EX3</option>");
+            modulo.append("<option value='eba_exdocent'>EBA DOCENTEN-EX3A-EX4</option>");
+            modulo.append("<option value='eba_ex5'>EBA EX5</option>");
         }
     });
-
-    $("#modulo").change(function() {
-        switch ($(this).val()) {
-
-        }
-        // var school = $("#school").val();
-        // var modulo = $("#modulo").val();
-        // var form = $("#form_templates");
-        // form.submit();
-    });
-
 
     $(document).ready(function() {
         $("#school").val(0).change();
