@@ -1,20 +1,20 @@
 <!-- Ardilan: formulario cerrado -->
 
 <head>
-    <title>AANMELDINGSFORMULIER</title>
+	<title>AANMELDINGSFORMULIER</title>
 </head>
 
-<!-- <body style="background-color: #1d407a;">
-    <div style="background-color: white; text-align: center; border-radius: 10px; padding:5% 0; margin:11%">
-        <h1>Aanmeldingsformulier Schooljaar 2022 – 2023</h1>
-        <img class="img-responsive" src="img/monplaisir123.png" alt="Scol Pa Nos" width="15%"><br>
-        <h2 style="color: red;">Aplicacion pa aña escolar 2022-2023 a sera !</h2>
-    </div>
-</body> -->
+<body style="background-color: #1d407a;">
+	<div style="background-color: white; text-align: center; border-radius: 10px; padding:5% 0; margin:11%">
+		<h1>Aanmeldingsformulier Schooljaar 2022 – 2023</h1>
+		<img class="img-responsive" src="img/monplaisir123.png" alt="Scol Pa Nos" width="15%"><br>
+		<h2 style="color: red;">Aplicacion pa aña escolar 2022-2023 a sera !</h2>
+	</div>
+</body>
 
 
 <!-- Ardilan: formulario abierto -->
-<?php require_once "config/app.config.php";
+<!-- <?php require_once "config/app.config.php";
 		ob_start();
 		ob_flush() ?>
 
@@ -1354,4 +1354,4 @@
 <div class="qwihi">
 		<a href="https://qwihi.com"><img id="logo" src="img/QwihiLogo.png" alt="qwihi" width="150px"></a>
 		<label id="qwihi">Your Imagination is our Creation.</label>
-</div>
+</div> -->

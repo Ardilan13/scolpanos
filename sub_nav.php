@@ -162,9 +162,14 @@ ob_flush();
 
 						<li><a id="sub_nav_setting" class="nav-item" href="change_class.php" role="button">Klas samenstellen</a></li>
 						<li><a id="sub_nav_images" class="nav-item" href="images.php" role="button">Upload Images</a></li>
+						<?php $UserGUID = $_SESSION["UserGUID"];
+						if ($UserGUID == "6AA26E3E-CDC8-81C0-56D0-793E9E793D99" || $UserGUID == "AB1EC7D8-3B43-3DDB-04F3-A4D38D18EBBE") { ?>
+							<li><a id="sub_nav_templates" class="nav-item" href="templates.php" role="button">Upload templates</a></li>
+						<?php } ?>
 						<li><a id="sub_nav_email" class="nav-item" href="email.php" role="button">Send Email</a></li>
 						<li><a id="sub_nav_email" class="nav-item" href="DashBoardRapp.php" role="button">Beta</a></li>
 						<li><a id="sub_nav_signature" class="nav-item" href="signature.php" role="button">Handtekening</a></li>
+
 						<?php break; ?>
 					<?php
 					case "DOCENT" or "ASSISTENT": ?>

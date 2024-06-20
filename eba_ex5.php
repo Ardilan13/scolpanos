@@ -316,6 +316,7 @@
                                                                         <option></option>
                                                                         <option value="G">G</option>
                                                                         <option value="A">A</option>
+                                                                        <option value="T">T</option>
                                                                     </select>
                                                                 </td>
                                                                 <td>
@@ -323,6 +324,7 @@
                                                                         <option></option>
                                                                         <option value="G">G</option>
                                                                         <option value="A">A</option>
+                                                                        <option value="T">T</option>
                                                                     </select>
                                                                 </td>
                                                                 <td><input type="text" id="<?php echo $row['studentid']; ?>" class="add ex opmerking"></td>

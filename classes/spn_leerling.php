@@ -670,7 +670,7 @@ class spn_leerling
             if ($select->execute()) {
               $this->error = false;
               $result = 1;
-              $select->bind_result($roepnaam, $voorletter, $address, $phone1, $phone2, $vezorger, $phone3, $birthplace, $nationaliteit, $azvnumber, $azvexpiredate, $idnumber, $Voertaal, $email, $created, $vorigeschool, $Lichamelijkegebrek, $anders, $bijzondermedischeindicatie, $huisarts, $huisartsnr, $notas);
+              $select->bind_result($roepnaam, $voorletter, $address, $phone1, $phone2, $vezorger, $phone3, $birthplace, $nationaliteit, $azvnumber, $azvexpiredate, $idnumber, $Voertaal, $email, $created, $vorigeschool, $Lichamelijkegebrek, $anders, $bijzondermedischeindicatie, $huisarts, $huisartsnr, $notas, $religion);
               $select->store_result();
               //  Audit by Caribe Developers
               $spn_audit = new spn_audit();
@@ -718,7 +718,7 @@ class spn_leerling
                             </table>";
 
                 while ($select->fetch()) {
-                  $htmlcontrol .= "<h2 class=\"primary-color mrg-bottom\">Persoonlijke gegevens</h2>";
+                  $htmlcontrol .= "<h2 class=\"primary-color\">Persoonlijke gegevens</h2>";
                   $htmlcontrol .= $leerling_html;
                   $htmlcontrol .= "<div class=\"table-responsive\">";
                   $htmlcontrol .= "<table id=\"dataRequest\" class=\"table table-bordered table-colored\" data-table=\"yes\">";
@@ -801,7 +801,7 @@ class spn_leerling
                   $htmlcontrol .= "</tbody>";
                   $htmlcontrol .= "</table>";
                   $htmlcontrol .= "</div>";
-                  $htmlcontrol .= "<h2 class=\"primary-color mrg-bottom\">Medische Gegevens</h2>";
+                  $htmlcontrol .= "<h2 class=\"primary-color\">Medische Gegevens</h2>";
                   $htmlcontrol .= "<div class=\"table-responsive\">";
                   $htmlcontrol .= "<table class=\"table table-bordered table-colored\">";
                   $htmlcontrol .= "<tbody>";
@@ -829,8 +829,8 @@ class spn_leerling
                   $htmlcontrol .= "</tbody>";
                   $htmlcontrol .= "</table>";
                   $htmlcontrol .= "</div>";
-                  $htmlcontrol .= "<h2 class=\"primary-color mrg-bottom\">Nota's</h2>";
-                  $htmlcontrol .= "<div class=\"row mrg-bottom\">";
+                  $htmlcontrol .= "<h2 class=\"primary-color\">Nota's</h2>";
+                  $htmlcontrol .= "<div class=\"row\">";
                   $htmlcontrol .= "<div class=\"col-md-12\" style='word-break: break-all;'>";
                   #$htmlcontrol .= "<textarea class=\"form-control\" disabled>". $notas ."</textarea>";
                   $htmlcontrol .= "<span id=\"lblNamet3notas\">" . $notas . "</span>";
@@ -893,7 +893,7 @@ class spn_leerling
             if ($select->execute()) {
               $this->error = false;
               $result = 1;
-              $select->bind_result($roepnaam, $voorletter, $address, $phone1, $phone2, $vezorger, $phone3, $birthplace, $nationaliteit, $azvnumber, $azvexpiredate, $idnumber, $Voertaal, $email, $created, $vorigeschool, $Lichamelijkegebrek, $anders, $bijzondermedischeindicatie, $huisarts, $huisartsnr, $notas);
+              $select->bind_result($roepnaam, $voorletter, $address, $phone1, $phone2, $vezorger, $phone3, $birthplace, $nationaliteit, $azvnumber, $azvexpiredate, $idnumber, $Voertaal, $email, $created, $vorigeschool, $Lichamelijkegebrek, $anders, $bijzondermedischeindicatie, $huisarts, $huisartsnr, $notas, $religion);
               $select->store_result();
               //  Audit by Caribe Developers
               $spn_audit = new spn_audit();
@@ -941,6 +941,7 @@ class spn_leerling
                             </table>";
 
                 while ($select->fetch()) {
+                  $htmlcontrol .= "<style>h2,table{margin-bottom: 5px !important;} #dataRequest-contact{font-size: 10px;}</style>";
                   $htmlcontrol .= "<div>";
                   $htmlcontrol .= "<h2 class=\"primary-color mrg-bottom\" style='float: left;'>Persoonlijke gegevens</h2>";
                   $htmlcontrol .= $leerling_html;
@@ -1022,6 +1023,10 @@ class spn_leerling
                   $htmlcontrol .= "<td class=\"bold\">Vorige school</td>";
                   $htmlcontrol .= "<td><span id=\"lblName3\" data-student-id=\"" . $studentid . "\" data-column=\"8\" data-row=\"2\" class=\"editable\">" . $vorigeschool . "</span></td>";
                   $htmlcontrol .= "</tr>";
+                  $htmlcontrol .= "<tr>";
+                  $htmlcontrol .= "<td class='bold'>Religion</td>";
+                  $htmlcontrol .= "<td><span id=\"lblName3\" data-student-id=\"" . $studentid . "\" data-column=\"8\" data-row=\"2\" class=\"editable\">" . $religion . "</span></td>";
+                  $htmlcontrol .= "</tr>";
                   $htmlcontrol .= "</tbody>";
                   $htmlcontrol .= "</table>";
                   $htmlcontrol .= "</div>";
@@ -1062,7 +1067,7 @@ class spn_leerling
                   $htmlcontrol .= "<br/>";
                   $htmlcontrol .= "<h2 class=\"primary-color mrg-bottom\">Contact's</h2>";
                   $htmlcontrol .= $htmlcontrolContact;
-                  $htmlcontrol .= "<div class=\"col-md-6\">";
+                  $htmlcontrol .= "<div style='display: flex;' class=\"col-md-6\">";
                   $htmlcontrol .= "<div class=\"col-md-4\" style='border-style: solid;border-width: 1px;'><label style='opacity:.50;'>handtekening</label></div>";
                   $htmlcontrol .= "&nbsp;&nbsp;&nbsp;&nbsp;";
                   $htmlcontrol .= "<div class=\"col-md-4\" style='border-style: solid;border-width: 1px;'><label style='opacity:.50;'>handtekening</label></div>";

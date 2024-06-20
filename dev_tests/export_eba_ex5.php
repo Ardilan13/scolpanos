@@ -61,7 +61,8 @@ s.dob,
 s.sex,
 s.birthplace,
 p.code,
-s.profiel 
+s.profiel,
+s.profiel_n
 FROM eba_ex e
 INNER JOIN personalia p ON e.id_personalia = p.id
 INNER JOIN students s ON p.studentid = s.id
@@ -74,7 +75,7 @@ ORDER BY s.lastname, s.firstname,e.type;";
 $result = mysqli_query($mysqli, $get_personalia);
 if ($result->num_rows > 0) {
     $hojaActiva->setCellValue('D1', $schoolname);
-    $hojaActiva->setCellValue('AF1', "Schooljaar: " . $schooljaar);
+    $hojaActiva->setCellValue('AH1', $schooljaar);
     while ($row = mysqli_fetch_assoc($result)) {
         $personalia = $row["id_personalia"];
         if ($last_personalia != $personalia && $last_personalia != "") {
@@ -88,7 +89,7 @@ if ($result->num_rows > 0) {
         $hojaActiva->setCellValue('B' . ($i + 2), ucwords(strtolower($row["birthplace"])));
         $hojaActiva->setCellValue('C' . $i, $row["firstname"]);
         $hojaActiva->setCellValue('D' . $i, $row["sex"]);
-        $hojaActiva->setCellValue('E' . $i, $row["profiel"]);
+        $hojaActiva->setCellValue('E' . $i, $row["profiel"] . " " . $row["profiel_n"]);
         $hojaActiva->setCellValue('H' . $i, substr($row["profiel"], 0, 2));
 
         if ($row["type"] != 5) {
@@ -260,8 +261,8 @@ if ($result->num_rows > 0) {
                 }
             }
         } else {
-            $hojaActiva->setCellValue('X' . ($i + 2), $row["tv1"]);
-            $hojaActiva->setCellValue('AG' . ($i + 2), $row["tv2"]);
+            $hojaActiva->setCellValue('X' . ($i), $row["tv1"]);
+            $hojaActiva->setCellValue('AG' . ($i), ($row['tv1'] == "G" || $row["tv1"] == "T" ? $row["tv1"] : $row["tv2"]));
             $hojaActiva->setCellValue('AH' . ($i + 2), $row["opmerking"]);
         }
         $last_personalia = $personalia;
