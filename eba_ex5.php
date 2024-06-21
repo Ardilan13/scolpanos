@@ -578,10 +578,21 @@
         });
     });
 
+    // Función para actualizar tv2 basado en tv1
+    function updateTv2($tv1) {
+        var value = $tv1.val();
+        if (value == "T" || value == "G") {
+            $tv1.closest('td').next().find('select.tv2').val(value).trigger('change');
+        }
+    }
+
+    // El código existente para el evento change
     $(".tv,.opmerking").change(function() {
-        var student = $(this).attr("id");
-        var value = $(this).val();
-        var ex = $(this).attr("class").split(" ")[2];
+        var $this = $(this);
+        var student = $this.attr("id");
+        var value = $this.val();
+        var ex = $this.attr("class").split(" ")[2];
+
         $.ajax({
             url: "ajax/set_eba_ex5.php",
             type: "POST",
@@ -592,9 +603,21 @@
             },
             success: function(data) {
                 console.log(data);
+                if (ex == "tv1") {
+                    updateTv2($this);
+                }
             }
         });
     });
+
+    // Nuevo código para ejecutar cuando la página termine de cargar
+    // $(document).ready(function() {
+    //     setTimeout(function() {
+    //         $('select.tv1').each(function() {
+    //             updateTv2($(this));
+    //         });
+    //     }, 10000);
+    // });
 
     function active_loader() {
         $("#loader_spn").toggleClass('hidden');

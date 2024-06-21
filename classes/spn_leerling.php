@@ -922,7 +922,7 @@ class spn_leerling
                                         <td><strong>Student nr.</strong></td>
                                         <td>" . $studentnumber . "</td>
                                         <td><strong>Klas</strong></td>
-                                        <td id=\"klas\" name=\"klas\">.
+                                        <td id=\"klas\" name=\"klas\">
                                         " . $klas . "</td>
                                     </tr>
                                     <tr>
@@ -1067,7 +1067,7 @@ class spn_leerling
                   $htmlcontrol .= "<br/>";
                   $htmlcontrol .= "<h2 class=\"primary-color mrg-bottom\">Contact's</h2>";
                   $htmlcontrol .= $htmlcontrolContact;
-                  $htmlcontrol .= "<div style='display: flex;' class=\"col-md-6\">";
+                  $htmlcontrol .= "<div style='display: flex; margin-top: 60px;' class=\"col-md-6\">";
                   $htmlcontrol .= "<div class=\"col-md-4\" style='border-style: solid;border-width: 1px;'><label style='opacity:.50;'>handtekening</label></div>";
                   $htmlcontrol .= "&nbsp;&nbsp;&nbsp;&nbsp;";
                   $htmlcontrol .= "<div class=\"col-md-4\" style='border-style: solid;border-width: 1px;'><label style='opacity:.50;'>handtekening</label></div>";
