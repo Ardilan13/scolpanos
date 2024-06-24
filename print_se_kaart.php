@@ -2771,8 +2771,10 @@ if($avg_h == 0.0){$avg_h = null;}
         //     $page_html .= "<td>" . number_format($avg_h, 1) . " </td>";
         //   }
         // }
-        if ($klas != 1) {
-          $page_html .= "<td> </td>";
+        if ($avg_h > 0.0) {
+          if ($klas != 1) {
+            $page_html .= "<td>" . number_format($avg_h, 1) . " </td>";
+          }
         }
       }
 
@@ -2867,8 +2869,10 @@ if($avg_h == 0.0){$avg_h = null;}
         //     $page_html .= "<td>" . number_format($avg_h, 1) . " </td>";
         //   }
         // }
-        if ($klas != 1) {
-          $page_html .= "<td> </td>";
+        if ($avg_h > 0.0) {
+          if ($klas != 1) {
+            $page_html .= "<td>" . number_format($avg_h, 1) . " </td>";
+          }
         }
       }
 
@@ -3257,7 +3261,11 @@ if($avg_h == 0.0){$avg_h = null;}
         //     $page_html .= "<td>" . number_format($avg_h, 1) . " </td>";
         //   }
         // }
-        $page_html .= "<td></td>";
+        if ($avg_h > 0.0) {
+          if ($klas != 1) {
+            $page_html .= "<td>" . number_format($avg_h, 1) . " </td>";
+          }
+        }
       }
 
       $page_html .= "</tr>";
