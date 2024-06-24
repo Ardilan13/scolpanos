@@ -1772,6 +1772,9 @@ class spn_see_kaart
         if ($type == 3) {
           $avg_r4 = ((float)$_h1_1 + (float)$_h1_2 + (float)$_h1_3);
           $page_html .= "<td style='text-align: center;' ><b>" . ($avg_r4) . " </b></td>";
+        } else if ($key == "Orientacion riba mundo / Wereldoriëntatie") {
+          $avg_r5 = ((float)$_h1_1 + (float)$_h1_2 + (float)$_h1_3) / 3;
+          $page_html .= "<td style='text-align: center;' ><b>" . number_format($avg_r5, 1) . " </b></td>";
         } else {
           $page_html .= "<td></td>";
         }
