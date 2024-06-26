@@ -605,7 +605,11 @@ foreach ($array_leerling as $item) {
   if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8) {
     $page_html .= "<div class='card border-0' style='margin-left: 0; margin-right: 40px;'>";
   } else {
-    $page_html .= "<div class='card border-0' >";
+    if ($_SESSION["SchoolID"] == 8){
+      $page_html .= "<div class='card border-0' style='padding-right: 35px !important;' >";
+    } else {
+      $page_html .= "<div class='card border-0' >";
+    }
   }
   $page_html .= "<div class='row'>";
   if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["SchoolID"] != 18) {

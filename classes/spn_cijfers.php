@@ -1602,6 +1602,7 @@ class spn_cijfers
     inner join le_cijferswaarde cw on cw.vak = v.id
     and cw.schooljaar = c.schooljaar
     and cw.rapnummer = c.rapnummer
+    and cw.klas = c.klas
     where s.class = ? and v.id = ?
     and c.rapnummer = ?
     and c.studentid = ?
@@ -1676,7 +1677,6 @@ class spn_cijfers
 
 
             if ($select->num_rows == 1) {
-
               while ($select->fetch()) {
                 $gemid = $this->_gemiddeldebasis(
                   $c1,
@@ -2116,6 +2116,8 @@ class spn_cijfers
     if ($index > 0 && $samen > 0) {
 
       $Xgemid = ($samen / $index);
+      echo "samen:" . $samen;
+      echo "index:" . $index;
       echo "this is the final Gemiddelde: ";
       echo $Xgemid;
       // echo "    <-";
