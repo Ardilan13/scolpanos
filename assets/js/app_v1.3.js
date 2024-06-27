@@ -4150,6 +4150,7 @@ vak.append($("<option />").val(this.id).text(this.vak));
             )
               .done(function (data) {
                 /* it's done */
+                console.log("done: " + data);
                 if (data == 1) {
                   $parentSelector.css({
                     "background-color": "rgba(145,206,162,0.9)",

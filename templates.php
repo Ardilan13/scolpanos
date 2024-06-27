@@ -31,13 +31,17 @@ $mysqli->set_charset('utf8'); ?>
                                         <label for="school">School</label>
                                         <select class="form-control" name="school" id="school" required>
                                             <option value=""></option>
-                                            <?php
-                                            $get_schools = "SELECT id,schoolname,schooltype FROM schools WHERE id > 3 ORDER BY id";
-                                            $result = $mysqli->query($get_schools);
-                                            while ($row = $result->fetch_assoc()) {
-                                                echo "<option type='" . $row['schooltype'] . "' value='" . $row['id'] . "'>" . $row['schoolname'] . "</option>";
-                                            }
-                                            ?>
+                                            <option type="1" value="6">Primary School</option>
+                                            <option type="2" value="12">High School</option>
+                                            <option type="1" value="8">Conrado Coronel</option>
+                                            <option type="1" value="18">Paso Pa Futuro</option>
+                                            <!-- <?php
+                                                    $get_schools = "SELECT id,schoolname,schooltype FROM schools WHERE id > 3 ORDER BY id";
+                                                    $result = $mysqli->query($get_schools);
+                                                    while ($row = $result->fetch_assoc()) {
+                                                        echo "<option type='" . $row['schooltype'] . "' value='" . $row['id'] . "'>" . $row['schoolname'] . "</option>";
+                                                    }
+                                                    ?> -->
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -103,8 +107,12 @@ $mysqli->set_charset('utf8'); ?>
         var school = $("#school").val();
         var modulo = $("#modulo");
         modulo.empty();
-        if (type == 1) {
-            modulo.append("<option value='1'>1</option>");
+        if (type == 1 && school == 6) {
+            modulo.append("<option value='verza_ps_1'>Verzamelstaten klas 1</option>");
+            modulo.append("<option value='verza_ps_2'>Verzamelstaten klas 2</option>");
+            modulo.append("<option value='verza_ps_3'>Verzamelstaten klas 3</option>");
+            modulo.append("<option value='verza_ps_4-5'>Verzamelstaten klas 4-5</option>");
+            modulo.append("<option value='verza_ps_6'>Verzamelstaten klas 6</option>");
         } else if (type == 2) {
             modulo.append("<option value='verza_v2-1-2'>Verzamelstaten klas 1-2</option>");
             modulo.append("<option value='verza_v2-3-4'>Verzamelstaten klas 3</option>");
@@ -117,6 +125,15 @@ $mysqli->set_charset('utf8'); ?>
             modulo.append("<option value='eba_ex3'>EBA EX3</option>");
             modulo.append("<option value='eba_exdocent'>EBA DOCENTEN-EX3A-EX4</option>");
             modulo.append("<option value='eba_ex5'>EBA EX5</option>");
+        } else if (school == 18) {
+            modulo.append("<option value='verza_scol18_1'>Verzamelstaten klas 1</option>");
+            modulo.append("<option value='verza_scol18_2'>Verzamelstaten default</option>");
+        } else if (school == 8) {
+            modulo.append("<option value='8_conrado_klas_1'>Verzamelstaten klas 1</option>");
+            modulo.append("<option value='8_conrado_klas_2'>Verzamelstaten klas 2</option>");
+            modulo.append("<option value='8_conrado_klas_3'>Verzamelstaten klas 3</option>");
+            modulo.append("<option value='8_conrado_klas_4-5'>Verzamelstaten klas 4-5</option>");
+            modulo.append("<option value='8_conrado_klas_6'>Verzamelstaten klas 6</option>");
         }
     });
 
