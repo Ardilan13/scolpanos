@@ -256,7 +256,7 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 		$_laststudent = 0;
 		$cont_houdin = 1;
 
-		if ($level_klas != 1 || $i != 1) {
+		if ($level_klas != 1 || $i == 2) {
 			$resultado = mysqli_query($mysqli, $sql_query_houding);
 			while ($row = mysqli_fetch_assoc($resultado)) {
 				if ($_while_counter == 0) {
@@ -654,6 +654,405 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 
 				$_while_counter++;
 			}
+		} else if ($i == 3) {
+
+			$resultado = mysqli_query($mysqli, $sql_query_houding);
+			while ($row = mysqli_fetch_assoc($resultado)) {
+				if ($_while_counter == 0) {
+					$_laststudent = $row["studentid"];
+				}
+
+				$_currentstudent = $row["studentid"];
+
+				if ($_currentstudent != $_laststudent) {
+					$_current_student_start_row++;
+				}
+				$h1 = $row["h1"];
+				$h2 = $row["h2"];
+				$h3 = $row["h3"];
+				$h4 = $row["h4"];
+				$h5 = $row["h5"];
+				$h6 = $row["h6"];
+				$h7 = $row["h7"];
+				$h8 = $row["h8"];
+				$h9 = $row["h9"];
+				$h10 = $row["h10"];
+				$h11 = $row["h11"];
+				$h12 = $row["h12"];
+				$h13 = $row["h13"];
+				$h14 = $row["h14"];
+				while ($cont_houdin < 15) {
+					switch ($cont_houdin) {
+						case 1:
+							$_h1 = "";
+							$colhouding = ("AP") . (string)$_current_student_start_row;
+							if ($h1 == 1) {
+								$_h1 = "A";
+							}
+							if ($h1 == 2) {
+								$_h1 = "B";
+							}
+							if ($h1 == 3) {
+								$_h1 = "C";
+							}
+							if ($h1 == 4) {
+								$_h1 = "D";
+							}
+							if ($h1 == 5) {
+								$_h1 = "E";
+							}
+							if ($h1 == 6) {
+								$_h1 = "F";
+							}
+
+							$hojaActiva->setCellValue($colhouding, $_h1);
+							break;
+
+						case 2:
+							$_h2 = "";
+							$colhouding = ("AQ") . (string)$_current_student_start_row;
+							if ($h2 == 1) {
+								$_h2 = "A";
+							}
+							if ($h2 == 2) {
+								$_h2 = "B";
+							}
+							if ($h2 == 3) {
+								$_h2 = "C";
+							}
+							if ($h2 == 4) {
+								$_h2 = "D";
+							}
+							if ($h2 == 5) {
+								$_h2 = "E";
+							}
+							if ($h2 == 6) {
+								$_h2 = "F";
+							}
+
+							$hojaActiva->setCellValue($colhouding, $_h2);
+							break;
+
+						case 3:
+							$_h3 = "";
+							$colhouding = ("AR") . (string)$_current_student_start_row;
+							if ($h3 == 1) {
+								$_h3 = "A";
+							}
+							if ($h3 == 2) {
+								$_h3 = "B";
+							}
+							if ($h3 == 3) {
+								$_h3 = "C";
+							}
+							if ($h3 == 4) {
+								$_h3 = "D";
+							}
+							if ($h3 == 5) {
+								$_h3 = "E";
+							}
+							if ($h3 == 6) {
+								$_h3 = "F";
+							}
+
+							$hojaActiva->setCellValue($colhouding, $_h3);
+							break;
+
+						case 4:
+							$_h4 = "";
+							$colhouding = ("AS") . (string)$_current_student_start_row;
+							if ($h4 == 1) {
+								$_h4 = "A";
+							}
+							if ($h4 == 2) {
+								$_h4 = "B";
+							}
+							if ($h4 == 3) {
+								$_h4 = "C";
+							}
+							if ($h4 == 4) {
+								$_h4 = "D";
+							}
+							if ($h4 == 5) {
+								$_h4 = "E";
+							}
+							if ($h4 == 6) {
+								$_h4 = "F";
+							}
+
+							$hojaActiva->setCellValue($colhouding, $_h4);
+							break;
+
+						case 5:
+							$_h5 = "";
+							$colhouding = ("AT") . (string)$_current_student_start_row;
+							if ($h5 == 1) {
+								$_h5 = "A";
+							}
+							if ($h5 == 2) {
+								$_h5 = "B";
+							}
+							if ($h5 == 3) {
+								$_h5 = "C";
+							}
+							if ($h5 == 4) {
+								$_h5 = "D";
+							}
+							if ($h5 == 5) {
+								$_h5 = "E";
+							}
+							if ($h5 == 6) {
+								$_h5 = "F";
+							}
+
+							$hojaActiva->setCellValue($colhouding, $_h5);
+							break;
+
+						case 6:
+							$_h6 = "";
+							$colhouding = ("AU") . (string)$_current_student_start_row;
+							if ($h6 == 1) {
+								$_h6 = "A";
+							}
+							if ($h6 == 2) {
+								$_h6 = "B";
+							}
+							if ($h6 == 3) {
+								$_h6 = "C";
+							}
+							if ($h6 == 4) {
+								$_h6 = "D";
+							}
+							if ($h6 == 5) {
+								$_h6 = "E";
+							}
+							if ($h6 == 6) {
+								$_h6 = "F";
+							}
+
+							$hojaActiva->setCellValue($colhouding, $_h6);
+							break;
+
+						case 7:
+							$_h7 = "";
+							$colhouding = ("AV") . (string)$_current_student_start_row;
+							if ($h7 == 1) {
+								$_h7 = "A";
+							}
+							if ($h7 == 2) {
+								$_h7 = "B";
+							}
+							if ($h7 == 3) {
+								$_h7 = "C";
+							}
+							if ($h7 == 4) {
+								$_h7 = "D";
+							}
+							if ($h7 == 5) {
+								$_h7 = "E";
+							}
+							if ($h7 == 6) {
+								$_h7 = "F";
+							}
+
+							$hojaActiva->setCellValue($colhouding, $_h7);
+							break;
+
+						case 8:
+							$_h8 = "";
+							$colhouding = ("AW") . (string)$_current_student_start_row;
+							if ($h8 == 1) {
+								$_h8 = "A";
+							}
+							if ($h8 == 2) {
+								$_h8 = "B";
+							}
+							if ($h8 == 3) {
+								$_h8 = "C";
+							}
+							if ($h8 == 4) {
+								$_h8 = "D";
+							}
+							if ($h8 == 5) {
+								$_h8 = "E";
+							}
+							if ($h8 == 6) {
+								$_h8 = "F";
+							}
+
+							$hojaActiva->setCellValue($colhouding, $_h8);
+							break;
+
+						case 9:
+							$_h9 = "";
+							$colhouding = ("AX") . (string)$_current_student_start_row;
+							if ($h9 == 1) {
+								$_h9 = "A";
+							}
+							if ($h9 == 2) {
+								$_h9 = "B";
+							}
+							if ($h9 == 3) {
+								$_h9 = "C";
+							}
+							if ($h9 == 4) {
+								$_h9 = "D";
+							}
+							if ($h9 == 5) {
+								$_h9 = "E";
+							}
+							if ($h9 == 6) {
+								$_h9 = "F";
+							}
+
+							$hojaActiva->setCellValue($colhouding, $_h9);
+							break;
+
+						case 10:
+							$_h10 = "";
+							$colhouding = ("AY") . (string)$_current_student_start_row;
+							if ($h10 == 1) {
+								$_h10 = "A";
+							}
+							if ($h10 == 2) {
+								$_h10 = "B";
+							}
+							if ($h10 == 3) {
+								$_h10 = "C";
+							}
+							if ($h10 == 4) {
+								$_h10 = "D";
+							}
+							if ($h10 == 5) {
+								$_h10 = "E";
+							}
+							if ($h10 == 6) {
+								$_h10 = "F";
+							}
+
+							$hojaActiva->setCellValue($colhouding, $_h10);
+							break;
+
+						case 11:
+							$_h11 = "";
+							$colhouding = ("AZ") . (string)$_current_student_start_row;
+							if ($h11 == 1) {
+								$_h11 = "A";
+							}
+							if ($h11 == 2) {
+								$_h11 = "B";
+							}
+							if ($h11 == 3) {
+								$_h11 = "C";
+							}
+							if ($h11 == 4) {
+								$_h11 = "D";
+							}
+							if ($h11 == 5) {
+								$_h11 = "E";
+							}
+							if ($h11 == 6) {
+								$_h11 = "F";
+							}
+
+							$hojaActiva->setCellValue($colhouding, $_h11);
+							break;
+
+						case 12:
+							$_h12 = "";
+							$colhouding = "J" . (string)$_current_student_start_row;
+							if ($h12 == 1) {
+								$_h12 = "A";
+							}
+							if ($h12 == 2) {
+								$_h12 = "B";
+							}
+							if ($h12 == 3) {
+								$_h12 = "C";
+							}
+							if ($h12 == 4) {
+								$_h12 = "D";
+							}
+							if ($h12 == 5) {
+								$_h12 = "E";
+							}
+							if ($h12 == 6) {
+								$_h12 = "F";
+							}
+							if ($h12 == NULL) {
+								$_h12 = "A";
+							}
+							$hojaActiva->setCellValue($colhouding, $_h12);
+							break;
+
+						case 13:
+							$_h13 = "";
+							$colhouding = "M" . (string)$_current_student_start_row;
+							if ($h13 == 1) {
+								$_h13 = "A";
+							}
+							if ($h13 == 2) {
+								$_h13 = "B";
+							}
+							if ($h13 == 3) {
+								$_h13 = "C";
+							}
+							if ($h13 == 4) {
+								$_h13 = "D";
+							}
+							if ($h13 == 5) {
+								$_h13 = "E";
+							}
+							if ($h13 == 6) {
+								$_h13 = "F";
+							}
+							if ($h13 == NULL) {
+								$_h13 = "A";
+							}
+
+							$hojaActiva->setCellValue($colhouding, $_h13);
+							break;
+
+						case 14:
+							$_h14 = "";
+							$colhouding = "V" . (string)$_current_student_start_row;
+							if ($h14 == 1) {
+								$_h14 = "A";
+							}
+							if ($h14 == 2) {
+								$_h14 = "B";
+							}
+							if ($h14 == 3) {
+								$_h14 = "C";
+							}
+							if ($h14 == 4) {
+								$_h14 = "D";
+							}
+							if ($h14 == 5) {
+								$_h14 = "E";
+							}
+							if ($h14 == 6) {
+								$_h14 = "F";
+							}
+							if ($h14 == 7) {
+								$_h14 = "G";
+							}
+							if ($h14 == 8) {
+								$_h14 = "H";
+							}
+
+							$hojaActiva->setCellValue($colhouding, $_h14);
+							break;
+					}
+
+					$cont_houdin++;
+				}
+
+				$cont_houdin = 1;
+				$_laststudent = $_currentstudent;
+
+				$_while_counter++;
+			}
 		}
 		$sql_query_student = "SELECT id,dob from students s where s.class = '$klas_in' and s.schoolid = $schoolid ORDER BY";
 
@@ -752,7 +1151,7 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 						}
 					}
 				} else {
-					$hojaActiva->setCellValue((($level_klas == 1 || $level_klas == 2) ? "AX" : ($level_klas == 6 ? "BD" : "AY")) . (string)$_current_student_start_row, $opmerking);
+					$hojaActiva->setCellValue((($level_klas == 1 || $level_klas == 2) ? ($level_klas == 1 && $i == 3 ? "BG" : "AX") : ($level_klas == 6 ? "BD" : "AY")) . (string)$_current_student_start_row, $opmerking);
 					if ($i == 1) {
 						$spreadsheet->setActiveSheetIndex(3);
 						$hojaActiva = $spreadsheet->getActiveSheet();

@@ -204,7 +204,7 @@ if ($result->num_rows > 0) {
                     break;
                 case "EC":
                     $pos = "e" . 9;
-                    $vak = "Economie / management en organisatie";
+                    $vak = "Economie";
                     break;
                 case "AK":
                     $pos = "e" . 10;

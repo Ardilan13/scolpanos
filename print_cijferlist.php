@@ -357,7 +357,7 @@ if ($studentid == 'all') {
                                 break;
                             case "EC":
                                 $pos = "e" . 9;
-                                $vak = "Economie / management en organisatie";
+                                $vak = "Economie";
                                 break;
                             case "AK":
                                 $pos = "e" . 10;
@@ -495,7 +495,7 @@ if ($studentid == 'all') {
                                 $vak = "Biologie";
                                 break;
                             case "e9":
-                                $vak = "Economie / management en organisatie";
+                                $vak = "Economie";
                                 break;
                             case "e10":;
                                 $vak = "Aardrijkskunde";
