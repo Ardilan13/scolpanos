@@ -125,6 +125,11 @@ $mysqli->set_charset('utf8'); ?>
             modulo.append("<option value='eba_ex3'>EBA EX3</option>");
             modulo.append("<option value='eba_exdocent'>EBA DOCENTEN-EX3A-EX4</option>");
             modulo.append("<option value='eba_ex5'>EBA EX5</option>");
+            modulo.append("<option value='diploma'>Database Diploma</option>");
+            modulo.append("<option value='pub1_13'>Diploma 1 - vak ADV</option>");
+            modulo.append("<option value='pub1_12'>Diploma 1 - vak CEQUE</option>");
+            modulo.append("<option value='pub2_13'>Diploma v en a ADV</option>");
+            modulo.append("<option value='pub2_12'>Diploma v en a CEQUE</option>");
         } else if (school == 18) {
             modulo.append("<option value='verza_scol18_1'>Verzamelstaten klas 1</option>");
             modulo.append("<option value='verza_scol18_2'>Verzamelstaten default</option>");

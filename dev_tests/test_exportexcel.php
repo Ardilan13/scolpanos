@@ -58,7 +58,7 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 		case "4":
 		case "5":
 			$spreadsheet = $reader->load("../templates/verza_ps_4-5.xlsx");
-			$spreadsheet->setActiveSheetIndex(4);
+			$spreadsheet->setActiveSheetIndex(5);
 			$hojaActiva = $spreadsheet->getActiveSheet();
 			break;
 		case "6":
