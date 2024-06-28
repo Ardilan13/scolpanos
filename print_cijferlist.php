@@ -558,7 +558,7 @@ if ($studentid == 'all') {
                 </tbody>
             </table>
 
-            <p style="text-align: right;">Aruba, 1 juli <?php echo date("Y"); ?></p>
+            <p style="text-align: right;">Aruba, 4 juli <?php echo date("Y"); ?></p>
             <p style="margin-top: <?php echo ($director == '' && $subdirector == '') ? '5rem' : '1rem'; ?>">
                 De directeur, <?php if ($director != "") {
                                     echo "<img width='150' height='60' src='signatures/" . $director . "'>";

@@ -160,7 +160,7 @@
 															<option value="CUBA">Cuba</option>
 															<option value="DOMINICAANSE REPUBLIEK">Dominicaanse Republiek</option>
 															<option value="ECUADOR">Ecuador</option>
-															<option value="HAITI">Haiti</option>
+															<option value="HAÏTI">Haïti</option>
 															<option value="INDIA">India</option>
 															<option value="NEDERLAND">Nederland</option>
 															<option value="PERU">Peru</option>

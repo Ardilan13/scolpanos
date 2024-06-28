@@ -35,7 +35,7 @@ $her = 0;
 $mem = 0;
 $i = 2;
 
-$get_personalia = "SELECT s.id,p.opmerking,s.lastname,s.firstname,s.sex,s.dob,s.birthplace,s.profiel FROM personalia p INNER JOIN students s ON s.id = p.studentid WHERE p.schoolid = $schoolid AND p.schooljaar = '$schooljaar' ORDER BY";
+$get_personalia = "SELECT s.id,p.opmerking,s.lastname,s.firstname,s.sex,s.dob,s.birthplace,s.profiel,s.profiel_n FROM personalia p INNER JOIN students s ON s.id = p.studentid WHERE p.schoolid = $schoolid AND p.schooljaar = '$schooljaar' ORDER BY";
 $sql_order = " lastname , firstname";
 if ($s->_setting_mj) {
     $get_personalia .= " sex " . $s->_setting_sort . ", " . $sql_order;
@@ -46,7 +46,7 @@ if ($s->_setting_mj) {
 $result = mysqli_query($mysqli, $get_personalia);
 if ($result->num_rows > 0) {
     while ($row = mysqli_fetch_array($result)) {
-
+        $profiel = $row["profiel"];
         $timestamp = strtotime($row["dob"]);
         $dia = date("j", $timestamp);
         $mes = date("n", $timestamp);
@@ -96,7 +96,8 @@ if ($result->num_rows > 0) {
         $formattedBirthplace = mb_convert_case($birthplace, MB_CASE_TITLE, "UTF-8");
         $hojaActiva->setCellValue('C' . $i, $formattedBirthplace);
         $hojaActiva->setCellValue('D' . $i, date("Y"));
-        switch (substr($row["profiel"], 0, 2)) {
+        $profiel = (isset($row['profiel_n']) && $row["profiel_n"] != "") ? $row["profiel_n"] : $row["profiel"];
+        switch (substr($profiel, 0, 2)) {
             case "MM":
                 $profiel = "Mens En Maatschappij";
                 break;
@@ -111,7 +112,7 @@ if ($result->num_rows > 0) {
                 break;
         }
         $hojaActiva->setCellValue('E' . $i, $profiel);
-        $get_paket = "SELECT g1,g2,g3,g4,p1,p2,p3,k1,k2 FROM paket WHERE paket = '" . $row['profiel'] . "'";
+        $get_paket = "SELECT g1,g2,g3,g4,p1,p2,p3,k1,k2 FROM paket WHERE paket = '" . $profiel . "'";
         $result_paket = mysqli_query($mysqli, $get_paket);
         while ($row_paket = mysqli_fetch_assoc($result_paket)) {
             $p1 = $row_paket["g1"];
