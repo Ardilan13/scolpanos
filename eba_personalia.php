@@ -74,20 +74,62 @@
                                                     </thead>
                                                     <tbody>
                                                         <?php while ($row = mysqli_fetch_assoc($result)) {
-                                                            if ($row["dob"] != null && $row["dob"] != "0000-00-00") {
-                                                                $dob = new DateTime($row["dob"]);
+                                                            if ($row["dob"] != "0000-00-00" && $row["dob"] != null) {
+                                                                $timestamp = strtotime($row["dob"]);
+                                                                $dia = date("j", $timestamp);
+                                                                $mes = date("n", $timestamp);
+                                                                $ano = date("Y", $timestamp);
+                                                                switch ($mes) {
+                                                                    case 1:
+                                                                        $mes = "januari";
+                                                                        break;
+                                                                    case 2:
+                                                                        $mes = "februari";
+                                                                        break;
+                                                                    case 3:
+                                                                        $mes = "maart";
+                                                                        break;
+                                                                    case 4:
+                                                                        $mes = "april";
+                                                                        break;
+                                                                    case 5:
+                                                                        $mes = "mei";
+                                                                        break;
+                                                                    case 6:
+                                                                        $mes = "juni";
+                                                                        break;
+                                                                    case 7:
+                                                                        $mes = "juli";
+                                                                        break;
+                                                                    case 8:
+                                                                        $mes = "augustus";
+                                                                        break;
+                                                                    case 9:
+                                                                        $mes = "september";
+                                                                        break;
+                                                                    case 10:
+                                                                        $mes = "oktober";
+                                                                        break;
+                                                                    case 11:
+                                                                        $mes = "november";
+                                                                        break;
+                                                                    case 12:
+                                                                        $mes = "december";
+                                                                        break;
+                                                                }
+                                                                $fecha = $dia . " " . $mes . " " . $ano;
                                                             } else {
-                                                                $dob = null;
+                                                                $fecha = "";
                                                             }
                                                         ?>
                                                             <tr>
                                                                 <td><?php echo $row["code"]; ?></td>
                                                                 <td><?php echo $row["lastname"]; ?></td>
                                                                 <td><?php echo $row["firstname"]; ?></td>
-                                                                <td><?php echo $row["sex"]; ?></td>
-                                                                <td><?php echo $dob != null ? $dob->format("d M Y") : ""; ?>
+                                                                <td><?php echo strtolower($row["sex"]); ?></td>
+                                                                <td><?php echo $fecha; ?>
                                                                 </td>
-                                                                <td><?php echo $row["birthplace"]; ?></td>
+                                                                <td><?php echo ucwords(strtolower($row["birthplace"])); ?></td>
                                                                 <td><input type="text" id="<?php echo $row['id']; ?>" style="width: 100%;" class="opmerking" value="<?php echo $row["opmerking"]; ?>"></td>
                                                             </tr>
                                                         <?php } ?>

@@ -44,17 +44,60 @@ if ($result->num_rows > 0) {
     $hojaActiva->setCellValue('A1', "School: " . $schoolname);
     $hojaActiva->setCellValue('D1', "Schooljaar: " . $schooljaar);
     while ($row = mysqli_fetch_assoc($result)) {
-        if ($row["dob"] != null && $row["dob"] != "0000-00-00") {
-            $dob = new DateTime($row["dob"]);
+        if ($row["dob"] != "0000-00-00" && $row["dob"] != null) {
+
+            $timestamp = strtotime($row["dob"]);
+            $dia = date("j", $timestamp);
+            $mes = date("n", $timestamp);
+            $ano = date("Y", $timestamp);
+            switch ($mes) {
+                case 1:
+                    $mes = "januari";
+                    break;
+                case 2:
+                    $mes = "februari";
+                    break;
+                case 3:
+                    $mes = "maart";
+                    break;
+                case 4:
+                    $mes = "april";
+                    break;
+                case 5:
+                    $mes = "mei";
+                    break;
+                case 6:
+                    $mes = "juni";
+                    break;
+                case 7:
+                    $mes = "juli";
+                    break;
+                case 8:
+                    $mes = "augustus";
+                    break;
+                case 9:
+                    $mes = "september";
+                    break;
+                case 10:
+                    $mes = "oktober";
+                    break;
+                case 11:
+                    $mes = "november";
+                    break;
+                case 12:
+                    $mes = "december";
+                    break;
+            }
+            $fecha = $dia . " " . $mes . " " . $ano;
         } else {
-            $dob = null;
+            $fecha = "";
         }
 
         $hojaActiva->setCellValue('B' . $i, $row["lastname"]);
         $hojaActiva->setCellValue('C' . $i, $row["firstname"]);
-        $hojaActiva->setCellValue('D' . $i, $row["sex"]);
-        $hojaActiva->setCellValue('E' . $i, $dob != null ? $dob->format("d M Y") : "");
-        $hojaActiva->setCellValue('F' . $i, $row["birthplace"]);
+        $hojaActiva->setCellValue('D' . $i, strtolower($row["sex"]));
+        $hojaActiva->setCellValue('E' . $i, $fecha);
+        $hojaActiva->setCellValue('F' . $i, ucwords(strtolower($row["birthplace"])));
         $hojaActiva->setCellValue('G' . $i, $row["opmerking"]);
 
         $i++;
