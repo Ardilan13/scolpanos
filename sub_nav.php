@@ -4,7 +4,7 @@ ob_start();
 
 require_once("config/app.config.php");
 ob_flush();
-
+$level_klas = substr($_SESSION['Class'], 0, 1);
 ?>
 
 <nav id="sub-nav" role="navigation" class="primary-bg-color">
@@ -259,6 +259,9 @@ ob_flush();
 								<?php endif; ?>
 							</ul>
 						</li>
+						<?php if ($_SESSION['SchoolID'] == 11 && $level_klas <= 3) : ?>
+							<li><a href="rapport_montessori.php" class="nav-item" role="button">Montessori</a></li>
+						<?php endif; ?>
 						<li><a id="sub_nav_signature" class="nav-item" href="signature.php" role="button">Handtekening</a></li>
 						<?php break; ?>
 					<?php

@@ -63,10 +63,11 @@ if (mysqli_num_rows($result) > 0) {
                         <?php
                         $klas = $_GET["klas"];
                         $schoolJaar = $_SESSION["SchoolJaar"];
-                        $query = "SELECT FirstName, LastName FROM app_useraccounts WHERE Class = '$klas' AND SchoolID = 11 AND UserRights = 'DOCENT' LIMIT 1";
+                        $query = "SELECT FirstName, LastName, signature FROM app_useraccounts WHERE Class = '$klas' AND SchoolID = 11 AND UserRights = 'DOCENT' LIMIT 1";
                         $resultado = mysqli_query($mysqli, $query);
                         while ($row = mysqli_fetch_assoc($resultado)) {
                             $teacher = $row["FirstName"] . " " . $row["LastName"];
+                            $signature = $row["signature"];
                         }
 
                         $query1 = "SELECT concat(a.FirstName, ' ', a.LastName) as name,a.signature FROM setting s INNER JOIN app_useraccounts a ON s.director = a.UserGUID WHERE s.schoolid = 11 AND s.year_period = '$schoolJaar'";
@@ -88,7 +89,11 @@ if (mysqli_num_rows($result) > 0) {
                         </div>
                         <div style='display:flex; flex-direction: row; justify-content: space-between; width: 100%; align-items:end; min-height: 100px;'>
                             <h5 style='margin-bottom: .5rem !important;display: inline;'>Naam leerkracht: <?php echo $teacher; ?></h5>
-                            <p style="margin-bottom: 0;">.................................................................</p>
+                            <?php if ($signature != "" && $signature != NULL) { ?>
+                                <img src='../signatures/<?php echo $signature; ?> ' width=' 230' height='80'>
+                            <?php } else { ?>
+                                <p style="margin-bottom: 0;">.................................................................</p>
+                            <?php } ?>
                         </div>
                     </div>
                 </section>
