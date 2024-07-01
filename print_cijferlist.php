@@ -242,7 +242,7 @@ if ($studentid == 'all') {
                 </div>
             </div>
             <p>De ondergetekenden verklaren dat <b><?php echo $leerling["voornamen"] . " " . $leerling["achternaam"]; ?></b></p>
-            <p>geboren op <b><?php echo $fecha; ?></b> te <b><?php echo ucwords(strtolower($leerling["birthplace"])); ?></b></p>
+            <p>geboren op <b><?php echo $fecha; ?></b> te <b><?php echo ucwords(strtolower(htmlentities($leerling["birthplace"], ENT_QUOTES, 'UTF-8'))); ?></b></p>
             <p>heeft deelgenomen aan het eindexamen middelbaar algemeen voortgezet onderwijs conform</p>
             <p>het profiel <b><?php echo $profiel; ?></b></p>
             <p>aan <b><?php echo $titleD; ?></b></p>
@@ -267,6 +267,7 @@ if ($studentid == 'all') {
             CASE WHEN e0.e12 IS NOT NULL AND e0.e12 <> '' THEN e.e12 ELSE NULL END AS e12,
             e.tv1,
             p.her,
+            p.ckv,
             (   SELECT c.c1
                     FROM le_cijfers c
                         INNER JOIN le_vakken v ON c.vak = v.ID
@@ -455,7 +456,7 @@ if ($studentid == 'all') {
                                 echo "<td></td>";
                                 echo "<td></td>";
                                 if ($i == 3) {
-                                    echo "<td class='nota'>" . ($cijfers[2]["her"] == 1 ? "Vold." : ($cijfer_number == 1 ? "Vold." : "Onvd.")) . "</td>";
+                                    echo "<td class='nota'>" . ($cijfers[2]["her"] == 1 ? "Vold." : ($cijfers[2]["ckv"] == 1 ? "Vold." : "Onvd.")) . "</td>";
                                 } else {
                                     echo "<td class='nota'>" . ($cijfers[2]["lo"] > 5.5 ? "Vold." : ($cijfers[2]["lo"] > 1 ? "Goed." : "Onvd.")) . "</td>";
                                 }

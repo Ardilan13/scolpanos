@@ -2976,7 +2976,7 @@ class spn_leerling
       $schooljaar_array = explode("-", $schooljaar);
       $schooljaar_pasado = $schooljaar_array[0];
       $type = ($_SESSION['SchoolType'] == 2 || $_SESSION["SchoolID"] == 8 || $_SESSION['SchoolID'] == 18 || $schooljaar_pasado <= 2021) ? "le_cijfers" : "le_cijfers_ps";
-      $sql_query = "SELECT DISTINCT s.id,s.studentnumber,s.firstname,s.lastname,s.sex,s.dob,c.klas as class,s.profiel,s.birthplace FROM students s INNER JOIN " . $type . " c ON s.id = c.studentid where c.klas = ? and s.schoolid = ? and s.status = 1 and c.rapnummer <= ? and c.schooljaar = ? ORDER BY";
+      $sql_query = "SELECT DISTINCT s.id,s.studentnumber,s.firstname,s.lastname,s.sex,s.dob,c.klas as class,s.profiel,s.profiel_n,s.birthplace FROM students s INNER JOIN " . $type . " c ON s.id = c.studentid where c.klas = ? and s.schoolid = ? and s.status = 1 and c.rapnummer <= ? and c.schooljaar = ? ORDER BY";
       $sql_order = " lastname " . $s->_setting_sort . ", firstname";
       if ($s->_setting_mj) {
         $sql_query .= " sex " . $s->_setting_sort . ", " . $sql_order;
@@ -2989,24 +2989,25 @@ class spn_leerling
       require_once("DBCreds.php");
       $DBCreds = new DBCreds();
       $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
+      $mysqli->set_charset("utf8");
       if ($select = $mysqli->prepare($sql_query)) {
         if ($select->bind_param("siis", $klas, $schoolId, $rapnumer, $schooljaar)) {
           if ($select->execute()) {
             $this->error = false;
             $result = 1;
-            $select->bind_result($studentid, $studentnumber, $voornamen, $achternaam, $geslacht, $geboortedatum, $klas, $profiel, $birthplace);
+            $select->bind_result($studentid, $studentnumber, $voornamen, $achternaam, $geslacht, $geboortedatum, $klas, $profiel, $profiel_n, $birthplace);
             $select->store_result();
 
             if ($select->num_rows > 0) {
               while ($select->fetch()) {
                 $returnarr["studentid"] = $studentid;
                 $returnarr["studentnumber"] = $studentnumber;
-                $returnarr["voornamen"] = utf8_encode($voornamen);
-                $returnarr["achternaam"] = utf8_encode($achternaam);
+                $returnarr["voornamen"] = $voornamen;
+                $returnarr["achternaam"] = $achternaam;
                 $returnarr["geslacht"] = $geslacht;
                 $returnarr["geboortedatum"] = $geboortedatum;
                 $returnarr["klas"] = $klas;
-                $returnarr["profiel"] = $profiel;
+                $returnarr["profiel"] = (isset($profiel_n) && $profiel_n != "") ? $profiel_n : $profiel;
                 $returnarr["birthplace"] = $birthplace;
 
                 array_push($studentlist, $returnarr);

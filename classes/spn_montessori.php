@@ -10,6 +10,7 @@ class spn_montessori
         $DBCreds = new DBCreds();
         date_default_timezone_set("America/Aruba");
         $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
+        $mysqli->set_charset('utf8');
         $schooljaar = $_SESSION["SchoolJaar"];
         $query = "SELECT * FROM montessori WHERE student_id = $student AND period = $period AND klas = '$klas' AND schooljaar = '$schooljaar'";
         $resultado123 = mysqli_query($mysqli, $query);
