@@ -46,7 +46,7 @@ if ($s->_setting_mj) {
 $result = mysqli_query($mysqli, $get_personalia);
 if ($result->num_rows > 0) {
     while ($row = mysqli_fetch_array($result)) {
-        $profiel = $row["profiel"];
+        $pf = $row["profiel"];
         $timestamp = strtotime($row["dob"]);
         $dia = date("j", $timestamp);
         $mes = date("n", $timestamp);
@@ -96,10 +96,10 @@ if ($result->num_rows > 0) {
         $formattedBirthplace = mb_convert_case($birthplace, MB_CASE_TITLE, "UTF-8");
         $hojaActiva->setCellValue('C' . $i, $formattedBirthplace);
         $hojaActiva->setCellValue('D' . $i, date("Y"));
-        $profiel = (isset($row['profiel_n']) && $row["profiel_n"] != "") ? $row["profiel_n"] : $row["profiel"];
-        switch (substr($profiel, 0, 2)) {
+        $pf = (isset($row['profiel_n']) && $row["profiel_n"] != "") ? $row["profiel_n"] : $row["profiel"];
+        switch (substr($pf, 0, 2)) {
             case "MM":
-                $profiel = "Mens En Maatschappij";
+                $profiel = "Mens en Maatschappij";
                 break;
             case "NW":
                 $profiel = "Natuurwetenschappen";
@@ -112,7 +112,7 @@ if ($result->num_rows > 0) {
                 break;
         }
         $hojaActiva->setCellValue('E' . $i, $profiel);
-        $get_paket = "SELECT g1,g2,g3,g4,p1,p2,p3,k1,k2 FROM paket WHERE paket = '" . $profiel . "'";
+        $get_paket = "SELECT g1,g2,g3,g4,p1,p2,p3,k1,k2 FROM paket WHERE paket = '" . $pf . "'";
         $result_paket = mysqli_query($mysqli, $get_paket);
         while ($row_paket = mysqli_fetch_assoc($result_paket)) {
             $p1 = $row_paket["g1"];

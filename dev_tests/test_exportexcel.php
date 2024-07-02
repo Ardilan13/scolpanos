@@ -1071,7 +1071,7 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 		$schooljaar_array = explode("-", $schooljaar);
 		$schooljaar_pasado = $schooljaar_array[0] - 1 . "-" . $schooljaar_array[0];
 
-		if ($level_klas != 1 || $i != 1) {
+		if ($level_klas != 1) {
 			$resultado1 = mysqli_query($mysqli, $sql_query_student);
 			require_once("../classes/spn_utils.php");
 			$u = new spn_utils();
@@ -1191,6 +1191,47 @@ if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8 && $_SESSION["Sch
 
 
 
+				$_current_student_start_row++;
+			}
+		} else {
+			$resultado1 = mysqli_query($mysqli, $sql_query_student);
+			require_once("../classes/spn_utils.php");
+			$u = new spn_utils();
+			while ($row = mysqli_fetch_assoc($resultado1)) {
+				$id = $row['id'];
+				$sql_query_verzuim = "SELECT s.id as studentid,v.telaat,v.absentie,v.huiswerk, v.datum
+					from students s inner join le_verzuim v
+					where s.class = '$klas_in'  and s.schoolid = $schoolid and v.schooljaar = '$schooljaar' and v.studentid = $id and s.id = $id ORDER BY v.created;";
+				$resultado = mysqli_query($mysqli, $sql_query_verzuim);
+				while ($row1 = mysqli_fetch_assoc($resultado)) {
+					$datum = $u->convertfrommysqldate_new($row1["datum"]);
+					if ($datum >= $fecha1 && $datum <= $fecha2) {
+						if ($row1['telaat'] > 0) {
+							$cont_laat++;
+						}
+						if ($row1['absentie'] > 0) {
+							$cont_verzuim++;
+						}
+					}
+				}
+				switch ($i) {
+					case 1:
+						$la_pos = "AE";
+						$ve_pos = "AF";
+						break;
+					case 2:
+						$la_pos = "AG";
+						$ve_pos = "AH";
+						break;
+					case 3:
+						$la_pos = "AI";
+						$ve_pos = "AM";
+						break;
+				}
+				$hojaActiva->setCellValue($la_pos . (string)$_current_student_start_row, $cont_laat);
+				$hojaActiva->setCellValue($ve_pos . (string)$_current_student_start_row, $cont_verzuim);
+				$cont_laat = 0;
+				$cont_verzuim = 0;
 				$_current_student_start_row++;
 			}
 		}
