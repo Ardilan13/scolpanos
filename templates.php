@@ -52,7 +52,7 @@ $mysqli->set_charset('utf8'); ?>
                                     </div>
                                     <div class="form-group">
                                         <label for="modulo">Excel</label>
-                                        <input type="file" accept=".xlsx" name="file" required>
+                                        <input type="file" accept=".xlsx,.pub" name="file" required>
                                     </div>
                                     <div class="form-group">
                                         <!-- <input type="submit" value="Upload"> -->
