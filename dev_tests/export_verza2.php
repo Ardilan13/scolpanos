@@ -159,7 +159,6 @@ while ($i <= $rap_in) {
                 s.schoolid = $schoolid
                 AND v.SchoolID = $schoolid
                 AND st.year_period = '$schooljaar'
-                and c.gemiddelde >= 0
                 AND c.schooljaar = '$schooljaar'
                 AND s.class = '$klas_in'
                 AND c.klas = '$klas_in'

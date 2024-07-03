@@ -266,6 +266,7 @@ if ($studentid == 'all') {
             CASE WHEN e0.e11 IS NOT NULL AND e0.e11 <> '' THEN e.e11 ELSE NULL END AS e11,
             CASE WHEN e0.e12 IS NOT NULL AND e0.e12 <> '' THEN e.e12 ELSE NULL END AS e12,
             e.tv1,
+            e.tv2,
             p.her,
             p.ckv,
             (   SELECT c.c1
@@ -386,9 +387,9 @@ if ($studentid == 'all') {
                                 break;
                         }
                         $cijfer = $cijfers[2][$pos];
-                        $cijfer2 = $cijfers[3][$pos];
+                        $cijfer2 = $cijfers[3][$pos] > $cijfers[4][$pos] ? $cijfers[3][$pos] : $cijfers[4][$pos];
                         $cijfer3 = $cijfers[5][$pos];
-                        $cijfer_number = round(($cijfers[2][$pos] + $cijfers[3][$pos]) / 2);
+                        $cijfer_number = round(($cijfer2 + $cijfer) / 2);
                         $index = array_search($pos, $eba);
                         if ($index !== false) {
                             unset($eba[$index]);
@@ -555,7 +556,7 @@ if ($studentid == 'all') {
                         echo "</tr>";
                     }
                     ?>
-                    <td colspan="5">Uitslag van het examen: <?php echo $cijfers[5]["tv1"] == "G" ? "Geslaagd" : ($cijfers[5]["tv1"] == "A" ? "Afgewezen" : ""); ?></td>
+                    <td colspan="5">Uitslag van het examen: <?php echo $cijfers[5]["tv2"] == "G" ? "Geslaagd" : ($cijfers[5]["tv2"] == "A" ? "Afgewezen" : ($cijfers[5]["tv1"] == "G" ? "Geslaagd" : ($cijfers[5]["tv1"] == "A" ? "Afgewezen" : ""))); ?></td>
                 </tbody>
             </table>
 

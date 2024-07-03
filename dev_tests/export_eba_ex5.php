@@ -184,11 +184,11 @@ if ($result->num_rows > 0) {
                                 $pos = "N";
                                 break;
                             case 6:
-                                $vaken = "sk1";
+                                $vaken = "nask1";
                                 $pos = "O";
                                 break;
                             case 7:
-                                $vaken = "sk2";
+                                $vaken = "nask2";
                                 $pos = "P";
                                 break;
                             case 8:
@@ -276,7 +276,7 @@ if ($result->num_rows > 0) {
                                     break;
                             }
                             $hojaActiva->setCellValue($columna . $k, $row["e" . $key]);
-                            $hojaActiva->setCellValue($col_vak . ($i + 2), $vak);
+                            $hojaActiva->setCellValue($col_vak . ($i + 1), $vak);
                             $her++;
                         }
                     }
