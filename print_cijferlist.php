@@ -210,7 +210,7 @@ if ($studentid == 'all') {
         $fecha = $dia . " " . $mes . " " . $ano;
         switch (substr($leerling["profiel"], 0, 2)) {
             case "MM":
-                $profiel = "Mens en Maatschappij";
+                $profiel = "Mens en Maatschappijwetenschappen";
                 break;
             case "NW":
                 $profiel = "Natuurwetenschappen";

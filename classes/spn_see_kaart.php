@@ -1799,7 +1799,7 @@ class spn_see_kaart
         if ($type == 1) {
           $num_r4 = ((float)$avg_h1 + (float)$avg_h2 + (float)$avg_h3);
           $den_r4 = (($avg_h1 > 0 ? 1 : 0) + ($avg_h2 > 0 ? 1 : 0) + ($avg_h3 > 0 ? 1 : 0));
-          $avg_r4 = $den_r4 >= 3 ? round((float)$num_r4 / (float)$den_r4, 1) : "";
+          $avg_r4 = $den_r4 >= 2 ? round((float)$num_r4 / (float)$den_r4, 1) : "";
           $page_html .= "<td style='text-align: center;' " . ((float)$avg_r4 <= 5.4 && $avg_r4 && $level_klas != 1 ? " class=\"bg-danger\"" : "") . "><b>" . ($avg_r4) . " </b></td>";
         } else {
           $page_html .= "<td></td>";

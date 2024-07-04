@@ -99,7 +99,7 @@ if ($result->num_rows > 0) {
         $pf = (isset($row['profiel_n']) && $row["profiel_n"] != "") ? $row["profiel_n"] : $row["profiel"];
         switch (substr($pf, 0, 2)) {
             case "MM":
-                $profiel = "Mens en Maatschappij";
+                $profiel = "Mens en Maatschappijwetenschappen";
                 break;
             case "NW":
                 $profiel = "Natuurwetenschappen";
