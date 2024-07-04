@@ -244,6 +244,7 @@
         switch (value) {
             case "X":
             case "D":
+            case "G":
                 $color = "white"
                 break;
             case "V":

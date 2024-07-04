@@ -296,7 +296,7 @@ if ($studentid == 'all') {
                 }
                 for ($i = 1; $i <= 12; $i++) {
                     $pos = "e" . $i;
-                    if (isset($cijfers[0][$pos]) && $cijfers[0][$pos] != null && $cijfers[0][$pos] != "D") {
+                    if (isset($cijfers[0][$pos]) && $cijfers[0][$pos] != null && $cijfers[0][$pos] != "D" && $cijfers[0][$pos] != "G") {
                         $eba[] = $pos;
                     }
                 }

@@ -89,6 +89,7 @@
                             <button id="btn_pub1_export" class="btn btn-primary btn-m-w btn-s-h">diploma v en a</button>
                             <button id="btn_pub2_export" class="btn btn-primary btn-m-w btn-s-h">diploma 1-vak</button>
                             <button id="btn_duimen" class="btn btn-primary btn-m-w btn-s-h">Duimen</button>
+                            <button id="btn_1vd" class="btn btn-primary btn-m-w btn-s-h">1 - VD</button>
                         </div>
                         <div class="recuadro">
                             <p><b class="cuadro cuadro_x">X</b><label>Kandidaat heeft dit vak gekozen</label></p>
@@ -217,7 +218,8 @@
                                                                 <td><?php echo $row["firstname"]; ?></td>
                                                                 <td id="vaks_<?php echo $x; ?>"></td>
                                                                 <?php for ($i = 1; $i <= 12; $i++) {
-                                                                    $check = false;
+                                                                    $check_duimen = false;
+                                                                    $check_1vd = false;
                                                                     switch ($row["e$i"]) {
                                                                         case "X":
                                                                             $color = "white";
@@ -233,13 +235,17 @@
                                                                             break;
                                                                         case "D":
                                                                             $color = "yellow";
-                                                                            $check = true;
+                                                                            $check_duimen = true;
+                                                                            break;
+                                                                        case "G":
+                                                                            $color = "lime";
+                                                                            $check_1vd = true;
                                                                             break;
                                                                         default:
                                                                             $color = "lightgray";
                                                                             break;
                                                                     } ?>
-                                                                    <td id="<?php echo $row['studentid']; ?>" class="text-center ex e<?php echo $i; ?> i<?php echo $x; ?>" color="<?php echo $color; ?>" style="background-color: <?php echo $color; ?>;"><span></span><input id="<?php echo $row['id']; ?>" class="duimen" type="checkbox" <?php echo $check ? " checked" : ""; ?> hidden></td>
+                                                                    <td id="<?php echo $row['studentid']; ?>" class="text-center ex e<?php echo $i; ?> i<?php echo $x; ?>" color="<?php echo $color; ?>" style="background-color: <?php echo $color; ?>;"><span></span><input id="<?php echo $row['id']; ?>" class="duimen" type="checkbox" <?php echo $check_duimen ? " checked" : ""; ?> hidden><input id="<?php echo $row['id']; ?>" class="1vd" type="checkbox" <?php echo $check_1vd ? " checked" : ""; ?> hidden></td>
                                                                 <?php } ?>
                                                                 <td><?php echo $row["profiel"]; ?></td>
                                                                 <td>
@@ -521,9 +527,30 @@
                     let ex = $(this).attr("class").split(" ")[2];
                     let ix = $(this).attr("class").split(" ")[3];
                     let span = $("td#" + id + ".ex." + ex + "." + ix + " span");
-                    let input = $("td#" + id + ".ex." + ex + "." + ix + " input");
+                    let input = $("td#" + id + ".ex." + ex + "." + ix + " input.duimen");
+                    const input1 = $("td#" + id + ".ex." + ex + "." + ix + " input.1vd");
                     span.toggle();
                     input.toggle();
+                    input1.hide();
+                }
+            }
+        });
+    });
+
+    $("#btn_1vd").click(function() {
+        $(".ex").each(function() {
+            if ($(this).attr("class").split(" ")[0] != "add") {
+                var $color = $(this).attr("color");
+                if ($color == "white" || $color == "lime") {
+                    let id = $(this).attr("id");
+                    let ex = $(this).attr("class").split(" ")[2];
+                    let ix = $(this).attr("class").split(" ")[3];
+                    let span = $("td#" + id + ".ex." + ex + "." + ix + " span");
+                    let input = $("td#" + id + ".ex." + ex + "." + ix + " input.1vd");
+                    const input1 = $("td#" + id + ".ex." + ex + "." + ix + " input.duimen");
+                    span.toggle();
+                    input.toggle();
+                    input1.hide();
                 }
             }
         });
@@ -547,6 +574,29 @@
         });
         if ($(this).checked || $(this).prop("checked")) {
             $(this).parent().css("background-color", "yellow");
+        } else {
+            $(this).parent().css("background-color", "white");
+        }
+    });
+
+    $(".1vd").change(function() {
+        let id = $(this).attr("id");
+        let ex = $(this).parent().attr("class").split(" ")[2];
+        let value = $(this).prop("checked") ? "G" : "X";
+        $.ajax({
+            url: "ajax/save_eba_ex.php",
+            type: "POST",
+            data: {
+                id: id,
+                value: value,
+                ex: ex,
+            },
+            success: function(data) {
+                console.log(data);
+            }
+        });
+        if ($(this).checked || $(this).prop("checked")) {
+            $(this).parent().css("background-color", "lime");
         } else {
             $(this).parent().css("background-color", "white");
         }
