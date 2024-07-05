@@ -519,7 +519,7 @@ foreach ($array_leerling as $item) {
   if ($schoolId == 10) {
     $page_html .= "<img  width='200px' style='padding-left: 50px;' height='150px' src='" . appconfig::GetBaseURL() . "/assets/img/" . $img . "' class='mx-auto d-block'>";
   } else if ($schoolId == 13) {
-    $page_html .= "<img style='margin-right: 24% !important' width='200px' height:'200px' marin src='" . appconfig::GetBaseURL() . "/assets/img/" . $img . "' class='mx-auto d-block'>";
+    $page_html .= "<img width='200px' height:'200px' marin src='" . appconfig::GetBaseURL() . "/assets/img/" . $img . "' class='mx-auto d-block'>";
   } else {
     $page_html .= "<img  width='200px' height:'200px' src='" . appconfig::GetBaseURL() . "/assets/img/" . $img . "' class='mx-auto d-block'>";
   }
@@ -534,7 +534,7 @@ foreach ($array_leerling as $item) {
   }
   $page_html .= "<row class='justify-content-end'>";
   $page_html .= "<div class='col-2'></div>";
-  $page_html .= "<div style='width:25rem;' class='col-10 float-right'>";
+  $page_html .= "<div style='width:30rem;' class='col-10 float-right'>";
   $page_html .= "<table style='text-align: center;'>";
   $page_html .= "<tbody>";
   if ($schoolId == 8) {
@@ -605,7 +605,7 @@ foreach ($array_leerling as $item) {
   if ($_SESSION["SchoolType"] == 1 && $_SESSION["SchoolID"] != 8) {
     $page_html .= "<div class='card border-0' style='margin-left: 0; margin-right: 40px;'>";
   } else {
-    if ($_SESSION["SchoolID"] == 8){
+    if ($_SESSION["SchoolID"] == 8) {
       $page_html .= "<div class='card border-0' style='padding-right: 35px !important;' >";
     } else {
       $page_html .= "<div class='card border-0' >";
@@ -5784,9 +5784,9 @@ if($avg_h == 0.0){$avg_h = null;}
         $radio2 = "";
         $radio3 = "";
       }
-      $radio1 = $radio1 == 1 ? "checked" : "";
-      $radio2 = $radio2 == 1 ? "checked" : "";
-      $radio3 = $radio3 == 1 ? "checked" : "";
+      $radio1 = ($radio1 != "false" && $radio1 != "") ? "checked" : "";
+      $radio2 = ($radio2 != "false" && $radio2 != "") ? "checked" : "";
+      $radio3 = ($radio3 != "false" && $radio3 != "") ? "checked" : "";
       $defi[$y] = null;
       if (($opmerking3 == null || $opmerking3 == "") && $level_klas != 4) {
         $cuenta_pri = 0;
