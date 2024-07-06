@@ -608,7 +608,7 @@ foreach ($array_leerling as $item) {
     if ($_SESSION["SchoolID"] == 8) {
       $page_html .= "<div class='card border-0' style='padding-right: 35px !important;' >";
     } else {
-      $page_html .= "<div class='card border-0' >";
+      $page_html .= "<div class='card border-0' style='margin-right: 50px;' >";
     }
   }
   $page_html .= "<div class='row'>";
@@ -6008,6 +6008,7 @@ if($avg_h == 0.0){$avg_h = null;}
     }
 
     if ($klas != 4) {
+      $get_op2 = ($row2["opmerking2"] != "false") ? $row2["opmerking2"] : "";
       $page_html .= "<input " . $radio2 . " type='radio' style='margin-right: 5px;'>" . $klas_var;
       $page_html .= "</div>";
       $page_html .= "<br>";
@@ -6016,7 +6017,7 @@ if($avg_h == 0.0){$avg_h = null;}
       $page_html .= "</div>";
       $page_html .= "<br>";
       $page_html .= "<div>";
-      $page_html .= "<input " . $radio1 . " type='radio' style='margin-right: 5px;'><label>Verwezen naar ander schooltype</label>";
+      $page_html .= "<input " . $radio1 . " type='radio' style='margin-right: 5px;'><label>Verwezen naar ander schooltype " . $get_op2 . "</label>";
       $page_html .= "</div>";
     } else {
       $page_html .= "Pakket: " . $klas_var;
