@@ -746,7 +746,7 @@ class spn_leerling
                   $htmlcontrol .= "<td class=\"bold\">Telefoon noodgeval</td>";
                   $htmlcontrol .= "<td><span id=\"lblName1\" data-student-id=\"" . $studentid . "\" data-column=\"8\" data-row=\"2\" class=\"editable\">" . $phone3 . "</span></td>";
                   $htmlcontrol .= "<td class=\"bold\">Geboorteplaats</td>";
-                  $htmlcontrol .= "<td><span id=\"lblName2\" data-student-id=\"" . $studentid . "\" data-column=\"8\" data-row=\"2\" class=\"editable\">" . ucwords(strtolower(utf8_encode($birthplace))) . "</span></td>";
+                  $htmlcontrol .= "<td><span id=\"lblName2\" data-student-id=\"" . $studentid . "\" data-column=\"8\" data-row=\"2\" class=\"editable\">" . ucwords(strtolower(htmlentities($birthplace, ENT_QUOTES, 'UTF-8'))) . "</span></td>";
                   $htmlcontrol .= "</tr>";
                   $htmlcontrol .= "<tr>";
                   $htmlcontrol .= "<td class=\"bold\">Nationaliteiten</td>";
