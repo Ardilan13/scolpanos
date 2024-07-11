@@ -1545,8 +1545,13 @@ class spn_see_kaart
             $houding[$vak] = $avg;
           }
         }
-        $return[$row["rapnummer"]] = $houding;
+        if ($row["rapnummer"] == 1 && $studentid_out == 9317) {
+          $return[$row["rapnummer"]] = null;
+        } else {
+          $return[$row["rapnummer"]] = $houding;
+        }
       }
+
       return $return;
     } else {
       return null;
@@ -1773,7 +1778,8 @@ class spn_see_kaart
           $avg_r4 = ((float)$_h1_1 + (float)$_h1_2 + (float)$_h1_3);
           $page_html .= "<td style='text-align: center;' ><b>" . ($avg_r4) . " </b></td>";
         } else if ($key == "Orientacion riba mundo / Wereldoriëntatie") {
-          $avg_r5 = ((float)$_h1_1 + (float)$_h1_2 + (float)$_h1_3) / 3;
+          $div = ($_h1_1 > 0 ? 1 : 0) + ($_h1_2 > 0 ? 1 : 0) + ($_h1_3 > 0 ? 1 : 0);
+          $avg_r5 = ((float)$_h1_1 + (float)$_h1_2 + (float)$_h1_3) / ($div > 0 ? $div : 1);
           $page_html .= "<td style='text-align: center;' ><b>" . number_format($avg_r5, 1) . " </b></td>";
         } else {
           $page_html .= "<td></td>";
