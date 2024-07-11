@@ -493,6 +493,7 @@ class spn_leerling
       require_once("DBCreds.php");
       $DBCreds = new DBCreds();
       $mysqli = new mysqli($DBCreds->DBAddress, $DBCreds->DBUser, $DBCreds->DBPass, $DBCreds->DBSchema, $DBCreds->DBPort);
+      $mysqli->set_charset("utf8");
       if ($select = $mysqli->prepare($sql_query)) {
         if ($select->bind_param("i", $studentdbid)) {
           if ($select->execute()) {
@@ -506,8 +507,8 @@ class spn_leerling
                 $returnarr["results"] = 1;
                 $returnarr["studentid"] = $studentid;
                 $returnarr["studentnumber"] = $studentnumber;
-                $returnarr["voornamen"] = utf8_encode($voornamen);
-                $returnarr["achternaam"] = utf8_encode($achternaam);
+                $returnarr["voornamen"] = $voornamen;
+                $returnarr["achternaam"] = $achternaam;
                 $returnarr["geslacht"] = $geslacht;
                 $returnarr["geboortedatum"] = $geboortedatum;
                 $returnarr["klas"] = $klas;

@@ -182,16 +182,16 @@ foreach ($array_leerling as $item) {
       $resultado = mysqli_query($mysqli, $query);
       if ($resultado->num_rows > 0) {
         while ($row = mysqli_fetch_assoc($resultado)) {
-          $$op = $row["opmerking1"];
-          $$advies = $row["opmerking3"];
+          $$op = htmlentities($row["opmerking1"], ENT_QUOTES, 'UTF-8');
+          $$advies = htmlentities($row["opmerking3"], ENT_QUOTES, 'UTF-8');
         }
       }
       $query1 = "SELECT opmerking1,opmerking2,opmerking3,advies,ciclo FROM opmerking WHERE klas = '" . $_GET["klas"] . "' AND SchoolID = $schoolId AND studentid = $student AND schooljaar = '$schooljaar' AND rapport = 4 LIMIT 1";
       $resultado2 = mysqli_query($mysqli, $query1);
       if ($resultado2->num_rows > 0) {
         while ($row1 = mysqli_fetch_assoc($resultado2)) {
-          $opmerking4 = $row1["opmerking1"];
-          $radio1 = $row1["opmerking2"];
+          $opmerking4 = htmlentities($row1["opmerking1"], ENT_QUOTES, 'UTF-8');
+          $radio1 = htmlentities($row1["opmerking2"], ENT_QUOTES, 'UTF-8');
           $radio2 = $row1["advies"];
           $radio3 = $row1["ciclo"];
         }
